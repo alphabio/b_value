@@ -1,6 +1,7 @@
 // b_path:: src/parse/gradient/radial.ts
 import type * as csstree from "css-tree";
 import type * as Keyword from "@/core/keywords";
+import { COLOR_INTERPOLATION_KEYWORDS } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
@@ -297,30 +298,8 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 			const spaceNode = children[idx];
 			if (spaceNode?.type === "Identifier") {
 				const space = spaceNode.name.toLowerCase();
-				// Validate it's a valid color space keyword
-				const validSpaces = [
-					"srgb",
-					"srgb-linear",
-					"display-p3",
-					"display-p3-linear",
-					"a98-rgb",
-					"prophoto-rgb",
-					"rec2020",
-					"lab",
-					"oklab",
-					"xyz",
-					"xyz-d50",
-					"xyz-d65",
-					"hsl",
-					"hwb",
-					"lch",
-					"oklch",
-					"shorter",
-					"longer",
-					"increasing",
-					"decreasing",
-				];
-				if (validSpaces.includes(space)) {
+				// Validate against core color interpolation keywords
+				if (COLOR_INTERPOLATION_KEYWORDS.includes(space as Keyword.ColorInterpolationKeyword)) {
 					colorSpace = space as Keyword.ColorInterpolationKeyword;
 					idx++;
 				}
@@ -475,6 +454,7 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
  * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
+ * @see {@link https://github.com/mdn/data/blob/main/css/functions.json | MDN Data: radial-gradient()}
  */
 export function parse(css: string): Result<Type.RadialGradient, string> {
 	const csstree = require("css-tree");
