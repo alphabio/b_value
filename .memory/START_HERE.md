@@ -3,7 +3,7 @@
 ```yaml
 version: 0.1.0
 date: 2025-01-18
-tests: 77 passing (100%)
+tests: 32 passing (100%)
 coverage: High
 status: Phase 1 complete - Foundation established
 ```
@@ -13,8 +13,9 @@ status: Phase 1 complete - Foundation established
 - 2025-01-18: **Phase 1 Complete** - Foundation with radial-gradient support
   - Core infrastructure extracted from b_gee (71 files, ~5,855 lines)
   - Radial gradient parse/generate fully working
-  - 16 new gradient tests (all passing)
+  - 32 focused tests (10 parse, 12 generate, 10 round-trip)
   - Bidirectional CSS ⇄ IR transformation validated
+  - Documented import strategy and test organization
   - See: `archive/2025-01-18-action-plan/PHASE_1_SUMMARY.md`
 
 ## Context
@@ -87,7 +88,7 @@ Put ALL session artifacts in this directory from the start.
 
 ```bash
 just check   # Format, typecheck, lint (must pass)
-just test    # 77 tests (must all pass)
+just test    # 32 tests (must all pass)
 ```
 
 ## Next Steps
@@ -100,4 +101,3 @@ just test    # 77 tests (must all pass)
 - Update README with examples
 
 **Ready to continue!**
-
