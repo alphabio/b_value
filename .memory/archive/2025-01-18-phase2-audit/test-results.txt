@@ -1,0 +1,468 @@
+pnpm test
+
+> b_value@0.1.0 test /Users/alphab/Dev/LLM/DEV/b_value
+> vitest run
+
+
+ RUN  v3.2.4 /Users/alphab/Dev/LLM/DEV/b_value
+
+ ✓ src/generate/transform/transform.generate.test.ts (35 tests) 3ms
+ ✓ src/generate/gradient/linear.generate.test.ts (14 tests) 3ms
+ ✓ src/core/result.test.ts (20 tests) 4ms
+ ✓ src/generate/gradient/radial.generate.test.ts (16 tests) 3ms
+ ❯ src/parse/position/position.parse.test.ts (15 tests | 2 failed) 39ms
+   ✓ Position Parser > 2D Position parsing > should parse single keyword position 32ms
+   ✓ Position Parser > 2D Position parsing > should parse two keyword positions 0ms
+   ✓ Position Parser > 2D Position parsing > should parse all keyword combinations 1ms
+   ✓ Position Parser > 2D Position parsing > should parse length values 0ms
+   ✓ Position Parser > 2D Position parsing > should parse percentage values 0ms
+   ✓ Position Parser > 2D Position parsing > should parse mixed keyword and length 0ms
+   ✓ Position Parser > 2D Position parsing > should parse mixed keyword and percentage 0ms
+   ✓ Position Parser > 3D Position parsing > should parse 3D position 0ms
+   ✓ Position Parser > 3D Position parsing > should parse 3D position with mixed units 0ms
+   × Position Parser > Position list parsing > should parse position list 4ms
+     → expected false to be true // Object.is equality
+   × Position Parser > Position list parsing > should parse single position in list 0ms
+     → expected false to be true // Object.is equality
+   ✓ Position Parser > Error handling > should return error for invalid position 0ms
+   ✓ Position Parser > Error handling > should return error for invalid 3D position 0ms
+   ✓ Position Parser > Error handling > should return error for invalid position list 0ms
+   ✓ Position Parser > Error handling > should return error for empty string 0ms
+ ❯ src/parse/transform/transform.parse.test.ts (35 tests | 17 failed) 51ms
+   × Transform Parser > Translation transforms > should parse translate with two values 37ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Translation transforms > should parse translate with one value 1ms
+   × Transform Parser > Translation transforms > should parse translate with percentage values 1ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Translation transforms > should parse translateX 0ms
+   ✓ Transform Parser > Translation transforms > should parse translateY 0ms
+   ✓ Transform Parser > Translation transforms > should parse translateZ 0ms
+   × Transform Parser > Translation transforms > should parse translate3d 0ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Rotation transforms > should parse rotate 0ms
+   ✓ Transform Parser > Rotation transforms > should parse rotate with radians 0ms
+   ✓ Transform Parser > Rotation transforms > should parse rotate with turns 0ms
+   × Transform Parser > Rotation transforms > should parse rotateX 1ms
+     → expected { kind: 'rotatex', …(1) } to deeply equal { kind: 'rotateX', …(1) }
+   × Transform Parser > Rotation transforms > should parse rotateY 1ms
+     → expected { kind: 'rotatey', …(1) } to deeply equal { kind: 'rotateY', …(1) }
+   × Transform Parser > Rotation transforms > should parse rotateZ 0ms
+     → expected { kind: 'rotatez', …(1) } to deeply equal { kind: 'rotateZ', …(1) }
+   × Transform Parser > Rotation transforms > should parse rotate3d 0ms
+     → expected false to be true // Object.is equality
+   × Transform Parser > Scale transforms > should parse scale with two values 0ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Scale transforms > should parse scale with one value 0ms
+   ✓ Transform Parser > Scale transforms > should parse scaleX 0ms
+   ✓ Transform Parser > Scale transforms > should parse scaleY 0ms
+   ✓ Transform Parser > Scale transforms > should parse scaleZ 0ms
+   × Transform Parser > Scale transforms > should parse scale3d 0ms
+     → expected false to be true // Object.is equality
+   × Transform Parser > Skew transforms > should parse skew with two values 0ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Skew transforms > should parse skew with one value 0ms
+   ✓ Transform Parser > Skew transforms > should parse skewX 0ms
+   ✓ Transform Parser > Skew transforms > should parse skewY 0ms
+   × Transform Parser > Matrix transforms > should parse matrix 0ms
+     → expected false to be true // Object.is equality
+   × Transform Parser > Matrix transforms > should parse matrix3d 0ms
+     → expected false to be true // Object.is equality
+   ✓ Transform Parser > Perspective transform > should parse perspective 0ms
+   ✓ Transform Parser > Multiple transforms > should parse multiple transforms 0ms
+   × Transform Parser > Multiple transforms > should parse complex transform chain 1ms
+     → expected [ Array(1) ] to have a length of 3 but got 1
+   ✓ Transform Parser > Error handling > should return error for invalid function name 0ms
+   ✓ Transform Parser > Error handling > should return error for invalid CSS syntax 0ms
+   × Transform Parser > Error handling > should return error for translate with wrong number of arguments 1ms
+     → expected 'No valid transform functions found in…' to contain 'expects 1 or 2 arguments'
+   × Transform Parser > Error handling > should return error for rotate3d with wrong number of arguments 0ms
+     → expected 'No valid transform functions found in…' to contain 'expects 4 arguments'
+   × Transform Parser > Error handling > should return error for matrix with wrong number of arguments 3ms
+     → expected 'No valid transform functions found in…' to contain 'expects 6 arguments'
+   × Transform Parser > Error handling > should return error for matrix3d with wrong number of arguments 0ms
+     → expected 'No valid transform functions found in…' to contain 'expects 16 arguments'
+ ✓ src/generate/gradient/conic.generate.test.ts (15 tests) 2ms
+ ✓ src/parse/gradient/color-stop.test.ts (2 tests) 1ms
+ ✓ src/parse/gradient/linear.parse.test.ts (18 tests) 6ms
+ ✓ src/parse/gradient/conic.parse.test.ts (19 tests) 6ms
+ ✓ test/integration/gradient/radial.test.ts (10 tests) 27ms
+ ✓ src/parse/gradient/radial.parse.test.ts (43 tests) 31ms
+ ✓ src/generate/position/position.generate.test.ts (16 tests) 3ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 19 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/parse/position/position.parse.test.ts > Position Parser > Position list parsing > should parse position list
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/position/position.parse.test.ts:142:22
+    140|    const result = PositionParser.parseList(css);
+    141| 
+    142|    expect(result.ok).toBe(true);
+       |                      ^
+    143|    if (result.ok) {
+    144|     expect(result.value).toHaveLength(3);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/19]⎯
+
+ FAIL  src/parse/position/position.parse.test.ts > Position Parser > Position list parsing > should parse single position in list
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/position/position.parse.test.ts:164:22
+    162|    const result = PositionParser.parseList(css);
+    163| 
+    164|    expect(result.ok).toBe(true);
+       |                      ^
+    165|    if (result.ok) {
+    166|     expect(result.value).toHaveLength(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Translation transforms > should parse translate with two values
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:11:22
+      9|    const result = TransformParser.parse(css);
+     10| 
+     11|    expect(result.ok).toBe(true);
+       |                      ^
+     12|    if (result.ok) {
+     13|     expect(result.value).toHaveLength(1);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Translation transforms > should parse translate with percentage values
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:41:22
+     39|    const result = TransformParser.parse(css);
+     40| 
+     41|    expect(result.ok).toBe(true);
+       |                      ^
+     42|    if (result.ok) {
+     43|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Translation transforms > should parse translate3d
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:94:22
+     92|    const result = TransformParser.parse(css);
+     93| 
+     94|    expect(result.ok).toBe(true);
+       |                      ^
+     95|    if (result.ok) {
+     96|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Rotation transforms > should parse rotateX
+AssertionError: expected { kind: 'rotatex', …(1) } to deeply equal { kind: 'rotateX', …(1) }
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "angle": {[22m
+[2m      "unit": "deg",[22m
+[2m      "value": 45,[22m
+[2m    },[22m
+[32m-   "kind": "rotateX",[39m
+[31m+   "kind": "rotatex",[39m
+[2m  }[22m
+
+ ❯ src/parse/transform/transform.parse.test.ts:152:29
+    150|    expect(result.ok).toBe(true);
+    151|    if (result.ok) {
+    152|     expect(result.value[0]).toEqual({
+       |                             ^
+    153|      kind: "rotateX",
+    154|      angle: { value: 45, unit: "deg" },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Rotation transforms > should parse rotateY
+AssertionError: expected { kind: 'rotatey', …(1) } to deeply equal { kind: 'rotateY', …(1) }
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "angle": {[22m
+[2m      "unit": "deg",[22m
+[2m      "value": 45,[22m
+[2m    },[22m
+[32m-   "kind": "rotateY",[39m
+[31m+   "kind": "rotatey",[39m
+[2m  }[22m
+
+ ❯ src/parse/transform/transform.parse.test.ts:165:29
+    163|    expect(result.ok).toBe(true);
+    164|    if (result.ok) {
+    165|     expect(result.value[0]).toEqual({
+       |                             ^
+    166|      kind: "rotateY",
+    167|      angle: { value: 45, unit: "deg" },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Rotation transforms > should parse rotateZ
+AssertionError: expected { kind: 'rotatez', …(1) } to deeply equal { kind: 'rotateZ', …(1) }
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "angle": {[22m
+[2m      "unit": "deg",[22m
+[2m      "value": 45,[22m
+[2m    },[22m
+[32m-   "kind": "rotateZ",[39m
+[31m+   "kind": "rotatez",[39m
+[2m  }[22m
+
+ ❯ src/parse/transform/transform.parse.test.ts:178:29
+    176|    expect(result.ok).toBe(true);
+    177|    if (result.ok) {
+    178|     expect(result.value[0]).toEqual({
+       |                             ^
+    179|      kind: "rotateZ",
+    180|      angle: { value: 45, unit: "deg" },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Rotation transforms > should parse rotate3d
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:189:22
+    187|    const result = TransformParser.parse(css);
+    188| 
+    189|    expect(result.ok).toBe(true);
+       |                      ^
+    190|    if (result.ok) {
+    191|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Scale transforms > should parse scale with two values
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:207:22
+    205|    const result = TransformParser.parse(css);
+    206| 
+    207|    expect(result.ok).toBe(true);
+       |                      ^
+    208|    if (result.ok) {
+    209|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Scale transforms > should parse scale3d
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:274:22
+    272|    const result = TransformParser.parse(css);
+    273| 
+    274|    expect(result.ok).toBe(true);
+       |                      ^
+    275|    if (result.ok) {
+    276|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Skew transforms > should parse skew with two values
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:291:22
+    289|    const result = TransformParser.parse(css);
+    290| 
+    291|    expect(result.ok).toBe(true);
+       |                      ^
+    292|    if (result.ok) {
+    293|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Matrix transforms > should parse matrix
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:347:22
+    345|    const result = TransformParser.parse(css);
+    346| 
+    347|    expect(result.ok).toBe(true);
+       |                      ^
+    348|    if (result.ok) {
+    349|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Matrix transforms > should parse matrix3d
+AssertionError: expected false to be true // Object.is equality
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:365:22
+    363|    const result = TransformParser.parse(css);
+    364| 
+    365|    expect(result.ok).toBe(true);
+       |                      ^
+    366|    if (result.ok) {
+    367|     expect(result.value[0]).toEqual({
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Multiple transforms > should parse complex transform chain
+AssertionError: expected [ Array(1) ] to have a length of 3 but got 1
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 3[39m
+[31m+ 1[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:410:26
+    408|    expect(result.ok).toBe(true);
+    409|    if (result.ok) {
+    410|     expect(result.value).toHaveLength(3);
+       |                          ^
+    411|     expect(result.value[0]?.kind).toBe("translate3d");
+    412|     expect(result.value[1]?.kind).toBe("rotateY");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Error handling > should return error for translate with wrong number of arguments
+AssertionError: expected 'No valid transform functions found in…' to contain 'expects 1 or 2 arguments'
+
+Expected: [32m"expects 1 or 2 arguments"[39m
+Received: [31m"No valid transform functions found in CSS string"[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:442:26
+    440|    expect(result.ok).toBe(false);
+    441|    if (!result.ok) {
+    442|     expect(result.error).toContain("expects 1 or 2 arguments");
+       |                          ^
+    443|    }
+    444|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Error handling > should return error for rotate3d with wrong number of arguments
+AssertionError: expected 'No valid transform functions found in…' to contain 'expects 4 arguments'
+
+Expected: [32m"expects 4 arguments"[39m
+Received: [31m"No valid transform functions found in CSS string"[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:452:26
+    450|    expect(result.ok).toBe(false);
+    451|    if (!result.ok) {
+    452|     expect(result.error).toContain("expects 4 arguments");
+       |                          ^
+    453|    }
+    454|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Error handling > should return error for matrix with wrong number of arguments
+AssertionError: expected 'No valid transform functions found in…' to contain 'expects 6 arguments'
+
+Expected: [32m"expects 6 arguments"[39m
+Received: [31m"No valid transform functions found in CSS string"[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:462:26
+    460|    expect(result.ok).toBe(false);
+    461|    if (!result.ok) {
+    462|     expect(result.error).toContain("expects 6 arguments");
+       |                          ^
+    463|    }
+    464|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/19]⎯
+
+ FAIL  src/parse/transform/transform.parse.test.ts > Transform Parser > Error handling > should return error for matrix3d with wrong number of arguments
+AssertionError: expected 'No valid transform functions found in…' to contain 'expects 16 arguments'
+
+Expected: [32m"expects 16 arguments"[39m
+Received: [31m"No valid transform functions found in CSS string"[39m
+
+ ❯ src/parse/transform/transform.parse.test.ts:472:26
+    470|    expect(result.ok).toBe(false);
+    471|    if (!result.ok) {
+    472|     expect(result.error).toContain("expects 16 arguments");
+       |                          ^
+    473|    }
+    474|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/19]⎯
+
+
+ Test Files  2 failed | 11 passed (13)
+      Tests  19 failed | 239 passed (258)
+   Start at  17:08:01
+   Duration  698ms (transform 640ms, setup 0ms, collect 2.24s, tests 179ms, environment 1ms, prepare 1.24s)
+
+ ELIFECYCLE  Test failed. See above for more details.
+error: Recipe `test` failed on line 12 with exit code 1

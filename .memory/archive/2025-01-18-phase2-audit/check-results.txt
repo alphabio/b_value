@@ -1,0 +1,35 @@
+biome format --write .
+Formatted 118 files in 11ms. No fixes applied.
+biome check --write .
+src/generate/transform/transform.ts:161:77 lint/suspicious/noExplicitAny ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  ! Unexpected any. Specify a different type.
+  
+    159 │ 			// Exhaustive check - TypeScript will ensure all cases are handled
+    160 │ 			const _exhaustiveCheck: never = ir;
+  > 161 │ 			throw new Error(`Unknown transform function kind: ${(_exhaustiveCheck as any).kind}`);
+        │ 			                                                                         ^^^
+    162 │ 		}
+    163 │ 	}
+  
+  i any disables many type checking rules. Its use should be avoided.
+  
+
+Checked 118 files in 36ms. No fixes applied.
+Found 1 warning.
+pnpm run typecheck
+
+> b_value@0.1.0 typecheck /Users/alphab/Dev/LLM/DEV/b_value
+> tsc --noEmit
+
+src/parse/transform/transform.ts(356,5): error TS2322: Type 'Result<{ kind: "matrix"; a: number | undefined; b: number | undefined; c: number | undefined; d: number | undefined; e: { value: number | undefined; unit: "px"; }; f: { value: number | undefined; unit: "px"; }; }, never>' is not assignable to type 'Result<{ kind: "translate"; x: { value: number; unit: "%"; } | { value: number; unit: "px" | "pt" | "cm" | "mm" | "Q" | "in" | "pc" | "em" | "ex" | "cap" | "ch" | "ic" | "rem" | "rex" | "rcap" | "rch" | ... 26 more ... | "dvmax"; }; y?: { ...; } | ... 1 more ... | undefined; } | ... 19 more ... | { ...; }, string>'.
+  Type '{ ok: true; value: { kind: "matrix"; a: number | undefined; b: number | undefined; c: number | undefined; d: number | undefined; e: { value: number | undefined; unit: "px"; }; f: { value: number | undefined; unit: "px"; }; }; error: undefined; }' is not assignable to type 'Result<{ kind: "translate"; x: { value: number; unit: "%"; } | { value: number; unit: "px" | "pt" | "cm" | "mm" | "Q" | "in" | "pc" | "em" | "ex" | "cap" | "ch" | "ic" | "rem" | "rex" | "rcap" | "rch" | ... 26 more ... | "dvmax"; }; y?: { ...; } | ... 1 more ... | undefined; } | ... 19 more ... | { ...; }, string>'.
+    Type '{ ok: true; value: { kind: "matrix"; a: number | undefined; b: number | undefined; c: number | undefined; d: number | undefined; e: { value: number | undefined; unit: "px"; }; f: { value: number | undefined; unit: "px"; }; }; error: undefined; }' is not assignable to type '{ ok: true; value: { kind: "translate"; x: { value: number; unit: "%"; } | { value: number; unit: "px" | "pt" | "cm" | "mm" | "Q" | "in" | "pc" | "em" | "ex" | "cap" | "ch" | "ic" | "rem" | "rex" | ... 28 more ... | "dvmax"; }; y?: { ...; } | ... 1 more ... | undefined; } | ... 19 more ... | { ...; }; error: undefin...'.
+      Types of property 'value' are incompatible.
+        Type '{ kind: "matrix"; a: number | undefined; b: number | undefined; c: number | undefined; d: number | undefined; e: { value: number | undefined; unit: "px"; }; f: { value: number | undefined; unit: "px"; }; }' is not assignable to type '{ kind: "translate"; x: { value: number; unit: "%"; } | { value: number; unit: "px" | "pt" | "cm" | "mm" | "Q" | "in" | "pc" | "em" | "ex" | "cap" | "ch" | "ic" | "rem" | "rex" | "rcap" | "rch" | ... 26 more ... | "dvmax"; }; y?: { ...; } | ... 1 more ... | undefined; } | ... 19 more ... | { ...; }'.
+          Type '{ kind: "matrix"; a: number | undefined; b: number | undefined; c: number | undefined; d: number | undefined; e: { value: number | undefined; unit: "px"; }; f: { value: number | undefined; unit: "px"; }; }' is not assignable to type '{ kind: "matrix"; a: number; b: number; c: number; d: number; e: { value: number; unit: "px" | "pt" | "cm" | "mm" | "Q" | "in" | "pc" | "em" | "ex" | "cap" | "ch" | "ic" | "rem" | "rex" | "rcap" | "rch" | ... 26 more ... | "dvmax"; }; f: { ...; }; }'.
+            Types of property 'a' are incompatible.
+              Type 'number | undefined' is not assignable to type 'number'.
+                Type 'undefined' is not assignable to type 'number'.
+ ELIFECYCLE  Command failed with exit code 2.
+error: Recipe `typecheck` failed on line 22 with exit code 2
