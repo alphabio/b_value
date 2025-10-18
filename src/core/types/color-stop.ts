@@ -16,7 +16,7 @@ import { lengthPercentageSchema } from "./length-percentage";
  *
  * @example
  * ```typescript
- * import { colorStopSchema } from "../types/color-stop";
+ * import { colorStopSchema } from "@/core/types/color-stop";
  *
  * // Color only
  * const stop1: ColorStop = { color: "red" };
@@ -57,7 +57,7 @@ export type ColorStop = z.infer<typeof colorStopSchema>;
  *
  * @example
  * ```typescript
- * import { colorStopListSchema } from "../types/color-stop";
+ * import { colorStopListSchema } from "@/core/types/color-stop";
  *
  * const stops: ColorStopList = [
  *   { color: "red" },

@@ -85,7 +85,7 @@ export const hueInterpolationMethodKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { colorInterpolationKeywordsSchema } from "../keywords/color-interpolation-keywords";
+ * import { colorInterpolationKeywordsSchema } from "@/core/keywords/color-interpolation-keywords";
  *
  * const keyword = colorInterpolationKeywordsSchema.parse("oklch"); // "oklch"
  * ```
@@ -136,7 +136,7 @@ export const colorInterpolationKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { COLOR_INTERPOLATION_KEYWORDS } from "../keywords/color-interpolation-keywords";
+ * import { COLOR_INTERPOLATION_KEYWORDS } from "@/core/keywords/color-interpolation-keywords";
  *
  * console.log(COLOR_INTERPOLATION_KEYWORDS);
  * // ["srgb", "srgb-linear", "display-p3", "hsl", "hwb", "shorter", ...]
@@ -161,7 +161,7 @@ export type ColorInterpolationKeyword = z.infer<typeof colorInterpolationKeyword
  *
  * @example
  * ```typescript
- * import { colorInterpolationKeywordOptions } from "../keywords/color-interpolation-keywords";
+ * import { colorInterpolationKeywordOptions } from "@/core/keywords/color-interpolation-keywords";
  *
  * colorInterpolationKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

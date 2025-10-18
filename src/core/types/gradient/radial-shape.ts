@@ -14,7 +14,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { radialGradientShapeSchema } from "../gradient/radial-shape";
+ * import { radialGradientShapeSchema } from "@/core/types/gradient/radial-shape";
  *
  * const shape1: RadialGradientShape = "circle";
  * const shape2: RadialGradientShape = "ellipse";

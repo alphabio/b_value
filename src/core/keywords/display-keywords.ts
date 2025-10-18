@@ -128,7 +128,7 @@ export const displayListItemKeywordsSchema = z.literal("list-item").describe("el
  *
  * @example
  * ```typescript
- * import { displayKeywordsSchema } from "../keywords/display-keywords";
+ * import { displayKeywordsSchema } from "@/core/keywords/display-keywords";
  *
  * const keyword = displayKeywordsSchema.parse("flex"); // "flex"
  * ```
@@ -198,7 +198,7 @@ export const displayKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { DISPLAY_KEYWORDS } from "../keywords/display-keywords";
+ * import { DISPLAY_KEYWORDS } from "@/core/keywords/display-keywords";
  *
  * console.log(DISPLAY_KEYWORDS);
  * // ["contents", "none", "flow", "flex", "grid", "block", "inline", ...]
@@ -223,7 +223,7 @@ export type DisplayKeyword = z.infer<typeof displayKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { displayKeywordOptions } from "../keywords/display-keywords";
+ * import { displayKeywordOptions } from "@/core/keywords/display-keywords";
  *
  * displayKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

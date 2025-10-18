@@ -23,7 +23,7 @@ export const specialColorKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { SPECIAL_COLOR_KEYWORDS } from "../keywords/color-keywords";
+ * import { SPECIAL_COLOR_KEYWORDS } from "@/core/keywords/color-keywords";
  *
  * console.log(SPECIAL_COLOR_KEYWORDS); // ["transparent", "currentcolor"]
  * ```
@@ -47,7 +47,7 @@ export type SpecialColorKeyword = z.infer<typeof specialColorKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { specialColorKeywordOptions } from "../keywords/color-keywords";
+ * import { specialColorKeywordOptions } from "@/core/keywords/color-keywords";
  *
  * specialColorKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

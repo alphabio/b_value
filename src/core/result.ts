@@ -12,7 +12,7 @@
  *
  * @example
  * ```typescript
- * import { Result, ok, err } from "../result";
+ * import { Result, ok, err } from "@/core/result";
  *
  * function divide(a: number, b: number): Result<number, string> {
  *   if (b === 0) return err("Division by zero");
@@ -71,7 +71,7 @@ export function err<E>(error: E): Result<never, E> {
  * @example
  * ```typescript
  * import { z } from "zod";
- * import { fromZod } from "../result";
+ * import { fromZod } from "@/core/result";
  *
  * const schema = z.number();
  * const zodResult = schema.safeParse("not a number");

@@ -147,7 +147,7 @@ export const extendedNamedColorKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { EXTENDED_NAMED_COLOR_KEYWORDS } from "../keywords/extended-color-keywords";
+ * import { EXTENDED_NAMED_COLOR_KEYWORDS } from "@/core/keywords/extended-color-keywords";
  *
  * console.log(EXTENDED_NAMED_COLOR_KEYWORDS.length); // 125
  * ```
@@ -171,7 +171,7 @@ export type ExtendedNamedColorKeyword = z.infer<typeof extendedNamedColorKeyword
  *
  * @example
  * ```typescript
- * import { extendedNamedColorKeywordOptions } from "../keywords/extended-color-keywords";
+ * import { extendedNamedColorKeywordOptions } from "@/core/keywords/extended-color-keywords";
  *
  * extendedNamedColorKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

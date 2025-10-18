@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { percentageUnitSchema } from "../units/percentage";
+ * import { percentageUnitSchema } from "@/core/units/percentage";
  *
  * const unit = percentageUnitSchema.parse("%"); // "%"
  * ```
@@ -32,7 +32,7 @@ export const percentageUnitSchema = z
  *
  * @example
  * ```typescript
- * import { percentageSchema, type Percentage } from "../units/percentage";
+ * import { percentageSchema, type Percentage } from "@/core/units/percentage";
  *
  * const size: Percentage = { value: 50, unit: "%" };
  * const opacity: Percentage = { value: 75, unit: "%" };
@@ -58,7 +58,7 @@ export const percentageSchema = z
  *
  * @example
  * ```typescript
- * import { PERCENTAGE_UNIT } from "../units/percentage";
+ * import { PERCENTAGE_UNIT } from "@/core/units/percentage";
  *
  * console.log(PERCENTAGE_UNIT); // "%"
  * ```
@@ -88,7 +88,7 @@ export type Percentage = z.infer<typeof percentageSchema>;
  *
  * @example
  * ```typescript
- * import { percentageUnitOptions } from "../units/percentage";
+ * import { percentageUnitOptions } from "@/core/units/percentage";
  *
  * percentageUnitOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

@@ -13,7 +13,7 @@ import { lengthPercentageSchema, lengthSchema } from "./length-percentage";
  *
  * @example
  * ```typescript
- * import { positionValueSchema } from "../types/position";
+ * import { positionValueSchema } from "@/core/types/position";
  *
  * // Keyword
  * const pos1: PositionValue = "center";
@@ -51,7 +51,7 @@ export type PositionValue = z.infer<typeof positionValueSchema>;
  *
  * @example
  * ```typescript
- * import { position2DSchema } from "../types/position";
+ * import { position2DSchema } from "@/core/types/position";
  *
  * // Keywords
  * const pos1: Position2D = { horizontal: "center", vertical: "center" };
@@ -93,7 +93,7 @@ export type Position2D = z.infer<typeof position2DSchema>;
  *
  * @example
  * ```typescript
- * import { position3DSchema } from "../types/position";
+ * import { position3DSchema } from "@/core/types/position";
  *
  * const pos: Position3D = {
  *   x: { value: 100, unit: "px" },
@@ -124,7 +124,7 @@ export type Position3D = z.infer<typeof position3DSchema>;
  *
  * @example
  * ```typescript
- * import { positionListSchema } from "../types/position";
+ * import { positionListSchema } from "@/core/types/position";
  *
  * const positions: PositionList = [
  *   { horizontal: "left", vertical: "top" },
@@ -153,7 +153,7 @@ export type PositionList = z.infer<typeof positionListSchema>;
  *
  * @example
  * ```typescript
- * import { COMMON_POSITIONS } from "../types/position";
+ * import { COMMON_POSITIONS } from "@/core/types/position";
  *
  * const centerPos = COMMON_POSITIONS.center; // { horizontal: "center", vertical: "center" }
  * const topLeftPos = COMMON_POSITIONS.topLeft; // { horizontal: "left", vertical: "top" }

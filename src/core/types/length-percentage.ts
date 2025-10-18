@@ -1,6 +1,6 @@
 // b_path:: src/core/types/length-percentage.ts
 import { z } from "zod";
-import * as Unit from "../units";
+import * as Unit from "@/core/units";
 
 /**
  * All CSS length unit identifiers.
@@ -27,7 +27,7 @@ const allLengthUnitsSchema = z.union([
  *
  * @example
  * ```typescript
- * import { lengthSchema } from "../types/length-percentage";
+ * import { lengthSchema } from "@/core/types/length-percentage";
  *
  * const size: Length = { value: 100, unit: "px" };
  * const fontSize: Length = { value: 1.5, unit: "rem" };
@@ -59,7 +59,7 @@ export type Length = z.infer<typeof lengthSchema>;
  *
  * @example
  * ```typescript
- * import { lengthPercentageSchema } from "../types/length-percentage";
+ * import { lengthPercentageSchema } from "@/core/types/length-percentage";
  *
  * // Percentage
  * const size1: LengthPercentage = { value: 50, unit: "%" };
@@ -92,7 +92,7 @@ export type LengthPercentage = z.infer<typeof lengthPercentageSchema>;
  *
  * @example
  * ```typescript
- * import { lengthPercentageAutoSchema } from "../types/length-percentage";
+ * import { lengthPercentageAutoSchema } from "@/core/types/length-percentage";
  *
  * // Auto keyword
  * const size1: LengthPercentageAuto = "auto";

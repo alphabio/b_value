@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { flexDirectionKeywordsSchema } from "../keywords/flex-direction-keywords";
+ * import { flexDirectionKeywordsSchema } from "@/core/keywords/flex-direction-keywords";
  *
  * const keyword = flexDirectionKeywordsSchema.parse("row");
  * ```

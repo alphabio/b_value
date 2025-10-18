@@ -20,7 +20,7 @@ import { radialGradientSizeSchema } from "./radial-size";
  *
  * @example
  * ```typescript
- * import { radialGradientSchema } from "../gradient/radial";
+ * import { radialGradientSchema } from "@/core/types/gradient/radial";
  *
  * // Simple radial gradient (defaults to ellipse at center)
  * const grad1: RadialGradient = {

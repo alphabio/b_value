@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { wordBreakKeywordsSchema } from "../keywords/word-break-keywords";
+ * import { wordBreakKeywordsSchema } from "@/core/keywords/word-break-keywords";
  *
  * const keyword = wordBreakKeywordsSchema.parse("break-all");
  * ```

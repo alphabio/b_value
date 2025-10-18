@@ -1,7 +1,7 @@
 // b_path:: src/core/types/gradient/linear.ts
 import { z } from "zod";
 import * as Keyword from "../../keywords";
-import * as Type from "..";
+import * as Type from "../../types";
 import { gradientDirectionSchema } from "./direction";
 
 /**
@@ -18,7 +18,7 @@ import { gradientDirectionSchema } from "./direction";
  *
  * @example
  * ```typescript
- * import { linearGradientSchema } from "../gradient/linear";
+ * import { linearGradientSchema } from "@/core/types/gradient/linear";
  *
  * // Simple gradient (defaults to top to bottom)
  * const grad1: LinearGradient = {

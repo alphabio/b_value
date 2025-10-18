@@ -11,7 +11,10 @@ build:
 test:
     pnpm test
 
-test-watch:
+coverage:
+    pnpm run test:coverage
+
+watch:
     pnpm run test:watch
 
 # ------------- Quality Gates -------------

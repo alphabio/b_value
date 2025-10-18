@@ -10,7 +10,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { cursorKeywordsSchema } from "../keywords/cursor-keywords";
+ * import { cursorKeywordsSchema } from "@/core/keywords/cursor-keywords";
  *
  * const keyword = cursorKeywordsSchema.parse("pointer");
  * ```

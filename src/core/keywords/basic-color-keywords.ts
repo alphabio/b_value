@@ -42,7 +42,7 @@ export const basicNamedColorKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BASIC_NAMED_COLOR_KEYWORDS } from "../keywords/basic-color-keywords";
+ * import { BASIC_NAMED_COLOR_KEYWORDS } from "@/core/keywords/basic-color-keywords";
  *
  * console.log(BASIC_NAMED_COLOR_KEYWORDS); // ["black", "white", "red", ...]
  * ```
@@ -66,7 +66,7 @@ export type BasicNamedColorKeyword = z.infer<typeof basicNamedColorKeywordsSchem
  *
  * @example
  * ```typescript
- * import { basicNamedColorKeywordOptions } from "../keywords/basic-color-keywords";
+ * import { basicNamedColorKeywordOptions } from "@/core/keywords/basic-color-keywords";
  *
  * basicNamedColorKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

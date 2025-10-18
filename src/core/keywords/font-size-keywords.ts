@@ -51,7 +51,7 @@ export const fontSizeRelativeKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { fontSizeKeywordsSchema } from "../keywords/font-size-keywords";
+ * import { fontSizeKeywordsSchema } from "@/core/keywords/font-size-keywords";
  *
  * const keyword = fontSizeKeywordsSchema.parse("medium"); // "medium"
  * ```
@@ -85,7 +85,7 @@ export const fontSizeKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { FONT_SIZE_ABSOLUTE_KEYWORDS } from "../keywords/font-size-keywords";
+ * import { FONT_SIZE_ABSOLUTE_KEYWORDS } from "@/core/keywords/font-size-keywords";
  *
  * console.log(FONT_SIZE_ABSOLUTE_KEYWORDS);
  * // ["xx-small", "x-small", "small", "medium", "large", "x-large", "xx-large", "xxx-large"]
@@ -100,7 +100,7 @@ export const FONT_SIZE_ABSOLUTE_KEYWORDS = fontSizeAbsoluteKeywordsSchema.option
  *
  * @example
  * ```typescript
- * import { FONT_SIZE_RELATIVE_KEYWORDS } from "../keywords/font-size-keywords";
+ * import { FONT_SIZE_RELATIVE_KEYWORDS } from "@/core/keywords/font-size-keywords";
  *
  * console.log(FONT_SIZE_RELATIVE_KEYWORDS); // ["smaller", "larger"]
  * ```
@@ -114,7 +114,7 @@ export const FONT_SIZE_RELATIVE_KEYWORDS = fontSizeRelativeKeywordsSchema.option
  *
  * @example
  * ```typescript
- * import { FONT_SIZE_KEYWORDS } from "../keywords/font-size-keywords";
+ * import { FONT_SIZE_KEYWORDS } from "@/core/keywords/font-size-keywords";
  *
  * console.log(FONT_SIZE_KEYWORDS);
  * // ["xx-small", "x-small", ..., "smaller", "larger"]
@@ -153,7 +153,7 @@ export type FontSizeRelativeKeyword = z.infer<typeof fontSizeRelativeKeywordsSch
  *
  * @example
  * ```typescript
- * import { fontSizeKeywordOptions } from "../keywords/font-size-keywords";
+ * import { fontSizeKeywordOptions } from "@/core/keywords/font-size-keywords";
  *
  * fontSizeKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

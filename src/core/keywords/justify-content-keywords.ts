@@ -12,7 +12,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { justifyContentKeywordsSchema } from "../keywords/justify-content-keywords";
+ * import { justifyContentKeywordsSchema } from "@/core/keywords/justify-content-keywords";
  *
  * const keyword = justifyContentKeywordsSchema.parse("space-between");
  * ```

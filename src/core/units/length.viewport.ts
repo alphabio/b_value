@@ -13,7 +13,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { viewportLengthUnitSchema } from "../units/length.viewport";
+ * import { viewportLengthUnitSchema } from "@/core/units/length.viewport";
  *
  * const unit = viewportLengthUnitSchema.parse("vw"); // "vw"
  * ```
@@ -72,7 +72,7 @@ export const viewportLengthUnitSchema = z
  *
  * @example
  * ```typescript
- * import { VIEWPORT_LENGTH_UNITS } from "../units/length.viewport";
+ * import { VIEWPORT_LENGTH_UNITS } from "@/core/units/length.viewport";
  *
  * console.log(VIEWPORT_LENGTH_UNITS); // ["vw", "vh", "vi", ...]
  * ```
@@ -96,7 +96,7 @@ export type ViewportLengthUnit = z.infer<typeof viewportLengthUnitSchema>;
  *
  * @example
  * ```typescript
- * import { viewportLengthUnitOptions } from "../units/length.viewport";
+ * import { viewportLengthUnitOptions } from "@/core/units/length.viewport";
  *
  * viewportLengthUnitOptions.forEach(({ value, description }) => {
  *   <Option value={value} description={description} />

@@ -17,7 +17,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { gridLineSchema } from "../types/grid-line";
+ * import { gridLineSchema } from "@/core/types/grid-line";
  *
  * // Integer line number
  * const line1: GridLine = 1;
@@ -57,7 +57,7 @@ export type GridLine = z.infer<typeof gridLineSchema>;
  *
  * @example
  * ```typescript
- * import { gridLineMetadata } from "../types/grid-line";
+ * import { gridLineMetadata } from "@/core/types/grid-line";
  *
  * console.log(gridLineMetadata.description);
  * ```

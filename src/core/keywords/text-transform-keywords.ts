@@ -15,7 +15,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { textTransformKeywordsSchema } from "../keywords/text-transform-keywords";
+ * import { textTransformKeywordsSchema } from "@/core/keywords/text-transform-keywords";
  *
  * const keyword = textTransformKeywordsSchema.parse("uppercase");
  * ```

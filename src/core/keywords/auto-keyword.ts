@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { autoKeywordSchema } from "../keywords/auto-keyword";
+ * import { autoKeywordSchema } from "@/core/keywords/auto-keyword";
  *
  * // Parse and validate
  * const keyword = autoKeywordSchema.parse("auto"); // "auto"
@@ -36,7 +36,7 @@ export type AutoKeyword = z.infer<typeof autoKeywordSchema>;
  *
  * @example
  * ```typescript
- * import { AUTO_KEYWORD } from "../keywords/auto-keyword";
+ * import { AUTO_KEYWORD } from "@/core/keywords/auto-keyword";
  *
  * if (value === AUTO_KEYWORD) {
  *   // Handle auto value
@@ -54,7 +54,7 @@ export const AUTO_KEYWORD = "auto" as const;
  *
  * @example
  * ```typescript
- * import { autoKeywordMetadata } from "../keywords/auto-keyword";
+ * import { autoKeywordMetadata } from "@/core/keywords/auto-keyword";
  *
  * // Display in UI
  * <Option value="auto" description={autoKeywordMetadata.description} />

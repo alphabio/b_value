@@ -12,7 +12,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { overflowWrapKeywordsSchema } from "../keywords/overflow-wrap-keywords";
+ * import { overflowWrapKeywordsSchema } from "@/core/keywords/overflow-wrap-keywords";
  *
  * const keyword = overflowWrapKeywordsSchema.parse("break-word");
  * ```

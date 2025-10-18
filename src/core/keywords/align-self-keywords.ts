@@ -12,7 +12,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { alignSelfKeywordsSchema } from "../keywords/align-self-keywords";
+ * import { alignSelfKeywordsSchema } from "@/core/keywords/align-self-keywords";
  *
  * const keyword = alignSelfKeywordsSchema.parse("center");
  * ```

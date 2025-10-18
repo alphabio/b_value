@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { fontWeightKeywordsSchema } from "../keywords/font-weight-keywords";
+ * import { fontWeightKeywordsSchema } from "@/core/keywords/font-weight-keywords";
  *
  * const keyword = fontWeightKeywordsSchema.parse("bold");
  * ```

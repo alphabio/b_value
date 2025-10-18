@@ -10,7 +10,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { whiteSpaceKeywordsSchema } from "../keywords/white-space-keywords";
+ * import { whiteSpaceKeywordsSchema } from "@/core/keywords/white-space-keywords";
  *
  * const keyword = whiteSpaceKeywordsSchema.parse("nowrap");
  * ```
