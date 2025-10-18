@@ -1,0 +1,153 @@
+# b_typescript_template
+> Auto-generated llm.txt (exported interfaces, types & signatures only — no bodies)
+
+# File: src/index.ts
+
+
+# File: src/types/index.ts
+
+
+# File: src/types/schemas.ts
+
+## Type: UserStatus
+> All types are derived from schemas using z.infer
+This ensures type safety and consistency with runtime validation
+```ts
+export type UserStatus = z.infer<typeof UserStatusSchema>;
+```
+## Type: UserRole
+
+```ts
+export type UserRole = z.infer<typeof UserRoleSchema>;
+```
+## Type: Email
+
+```ts
+export type Email = z.infer<typeof EmailSchema>;
+```
+## Type: Phone
+
+```ts
+export type Phone = z.infer<typeof PhoneSchema>;
+```
+## Type: UserProfile
+
+```ts
+export type UserProfile = z.infer<typeof UserProfileSchema>;
+```
+## Type: Address
+
+```ts
+export type Address = z.infer<typeof AddressSchema>;
+```
+## Type: User
+
+```ts
+export type User = z.infer<typeof UserSchema>;
+```
+## Type: PaginationParams
+
+```ts
+export type PaginationParams = z.infer<typeof PaginationParamsSchema>;
+```
+## Type: ApiResponse
+
+```ts
+export type ApiResponse<T> = {
+  data: T;
+  message?: string;
+  success: boolean;
+  timestamp: string;
+  errors?: string[];
+};
+```
+## Type: Range
+
+```ts
+export type Range = z.infer<ReturnType<typeof RangeSchema>>;
+```
+## Type: NonEmptyString
+
+```ts
+export type NonEmptyString = z.infer<typeof NonEmptyStringSchema>;
+```
+## Type: UUID
+
+```ts
+export type UUID = z.infer<typeof UUIDSchema>;
+```
+## Type: URL
+
+```ts
+export type URL = z.infer<typeof URLSchema>;
+```
+## Function: validate
+> Type-safe validation helper
+```ts
+function validate<T>(schema: z.ZodSchema<T>, data: unknown): T;
+```
+## Function: safeValidate
+> Safe validation helper (doesn't throw)
+```ts
+function safeValidate<T>(schema: z.ZodSchema<T>, data: unknown): import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/parse").ZodSafeParseResult<T>;
+```
+## Function: createApiResponseSchema
+> Create API response schema for specific data type
+```ts
+function createApiResponseSchema<T extends z.ZodType>(dataSchema: T): import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodObject<{ data: T; message: import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodOptional<import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodString>; success: import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodBoolean; timestamp: import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodString; errors: import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodOptional<import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodArray<import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/classic/schemas").ZodString>>; }, import("/Users/alphab/Dev/LLM/DEV/b_templates/b_typescript_template/node_modules/.pnpm/zod@4.1.12/node_modules/zod/v4/core/schemas").$strip>;
+```
+
+# File: src/utils/index.ts
+
+
+# File: src/utils/math.test.ts
+
+
+# File: src/utils/math.ts
+
+## Function: add
+> Math utility functions Add two numbers
+```ts
+function add(a: number, b: number): number;
+```
+## Function: subtract
+> Subtract two numbers
+```ts
+function subtract(a: number, b: number): number;
+```
+## Function: multiply
+> Multiply two numbers
+```ts
+function multiply(a: number, b: number): number;
+```
+## Function: divide
+> Divide two numbers
+```ts
+function divide(a: number, b: number): number;
+```
+
+# File: src/utils/string.test.ts
+
+
+# File: src/utils/string.ts
+
+## Function: capitalize
+> String utility functions Capitalize the first letter of a string
+```ts
+function capitalize(str: string): string;
+```
+## Function: camelCase
+> Convert string to camelCase
+```ts
+function camelCase(str: string): string;
+```
+## Function: kebabCase
+> Convert string to kebab-case
+```ts
+function kebabCase(str: string): string;
+```
+## Function: truncate
+> Truncate string to specified length
+```ts
+function truncate(str: string, length: number, suffix: string = "..."): string;
+```

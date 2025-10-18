@@ -1,0 +1,26 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"name": "b_value",
+	"out": "docs/api",
+	"entryPoints": ["src/index.ts"],
+	"entryPointStrategy": "expand",
+	"includeVersion": true,
+	"hideGenerator": true,
+	"searchInComments": true,
+	"cleanOutputDir": true,
+	"blockTags": ["@example", "@deprecated", "@throws", "@default", "@param", "@returns"],
+	"categorizeByGroup": true,
+	"categoryOrder": ["Getting Started", "API", "Types", "*"],
+	"defaultCategory": "API",
+	"sort": ["kind", "visibility", "alphabetical"],
+	"visibilityFilters": {
+		"protected": false,
+		"private": false
+	},
+	"readme": "none",
+	"gitRevision": "main",
+	"validation": {
+		"notExported": true,
+		"invalidLink": true
+	}
+}
