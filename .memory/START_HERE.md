@@ -10,6 +10,8 @@ status: Phase 1 COMPLETE ✅ - Coverage 90%+ ✅ - Ready for Phase 2
 
 ## Recent Activity
 
+> **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
+
 - 2025-01-18: **MDN Alignment Verified** ✅
   - Core types 98% aligned with MDN CSS syntax definitions
   - Radial/Linear/Conic gradients: 100% spec-compliant
@@ -39,36 +41,6 @@ status: Phase 1 COMPLETE ✅ - Coverage 90%+ ✅ - Ready for Phase 2
   - Roundtrip: ~127-322K ops/sec (limited by parse step)
   - Ready to expand when Phase 2 adds linear/conic gradients
   - See: `archive/2025-10-18-benchmark-update/`
-
-- 2025-10-18: **JSDoc Standard Established** ✅
-  - Comprehensive JSDoc added to all public APIs
-  - parse() function: 15 → 95 lines JSDoc (6 examples)
-  - toCss() function: 50 → 118 lines JSDoc (7 examples)
-  - Module documentation added to all index files
-  - JSDOC_STANDARD.md created (12KB, 470+ lines)
-  - IDE autocomplete now shows full usage examples
-  - Ready for TypeDoc API documentation generation
-  - Standard applies to Phase 2+ development
-  - See: `archive/2025-10-18-jsdoc-standard/`
-
-- 2025-10-18: **Public API Review Complete** ✅
-  - Comprehensive API analysis (Grade: A, 9/10)
-  - Current design superior to original vision
-  - Parse/Generate/Core namespaces perfectly structured
-  - Type-safe Result type + Zod + TypeScript
-  - Tree-shakeable exports confirmed
-  - No breaking changes needed - proceed with Phase 2
-  - See: `archive/2025-10-18-api-review/`
-
-- 2025-01-18: **Phase 1 Complete + Improvements** ✅
-  - Core infrastructure extracted from b_gee (71 files, ~5,855 lines)
-  - Radial gradient parse/generate fully working
-  - 32 focused tests (10 parse unit, 12 generate unit, 10 integration)
-  - Bidirectional CSS ⇄ IR transformation validated
-  - **Import strategy documented** (IMPORT_STRATEGY.md)
-  - **Test organization improved** (TEST_ORGANIZATION.md)
-  - Integration tests moved to `/test/` directory
-  - See: `archive/2025-01-18-action-plan/`
 
 ## Context
 
