@@ -95,11 +95,46 @@ export const rgbColorSchema = z.object({
 export type RGBColor = z.infer<typeof rgbColorSchema>;
 
 /**
+ * CSS HSL color value.
+ *
+ * Represents a color in HSL (Hue, Saturation, Lightness) color space.
+ * Hue is normalized to 0-360 degrees. Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl}
+ *
+ * @example
+ * ```typescript
+ * import type { HSLColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: HSLColor = { kind: "hsl", h: 120, s: 100, l: 50 };
+ *
+ * // With alpha
+ * const color2: HSLColor = { kind: "hsl", h: 120, s: 100, l: 50, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const hslColorSchema = z.object({
+	kind: z.literal("hsl"),
+	h: z.number(), // degrees 0-360 (wraps around)
+	s: z.number().min(0).max(100), // saturation percentage
+	l: z.number().min(0).max(100), // lightness percentage
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for HSL color.
+ * @public
+ */
+export type HSLColor = z.infer<typeof hslColorSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Currently supports hex, named, and RGB colors. Will be extended in future sessions
- * to include hsl, hwb, lab, lch, oklab, oklch, and color functions.
+ * Currently supports hex, named, RGB, and HSL colors. Will be extended in future sessions
+ * to include hwb, lab, lch, oklab, oklch, and color functions.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -110,11 +145,12 @@ export type RGBColor = z.infer<typeof rgbColorSchema>;
  * const hex: Color = { kind: "hex", value: "#FF5733" };
  * const named: Color = { kind: "named", name: "red" };
  * const rgb: Color = { kind: "rgb", r: 255, g: 87, b: 51 };
+ * const hsl: Color = { kind: "hsl", h: 120, s: 100, l: 50 };
  * ```
  *
  * @public
  */
-export const colorSchema = z.union([hexColorSchema, namedColorSchema, rgbColorSchema]);
+export const colorSchema = z.union([hexColorSchema, namedColorSchema, rgbColorSchema, hslColorSchema]);
 
 /**
  * TypeScript type for color value.
