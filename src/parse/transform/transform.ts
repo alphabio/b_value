@@ -3,7 +3,7 @@ import type * as csstree from "css-tree";
 import { TRANSFORM_FUNCTION_NAMES } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
-import * as Unit from "@/core/units";
+import * as ParseUtils from "@/utils/parse";
 
 /**
  * Parse transform function from CSS function AST node.
@@ -33,10 +33,10 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x value");
-				const x = parseLengthPercentage(xNode);
+				const x = ParseUtils.parseLengthPercentageNode(xNode);
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 
-				const y = children[1] ? parseLengthPercentage(children[1]) : ok(undefined);
+				const y = children[1] ? ParseUtils.parseLengthPercentageNode(children[1]) : ok(undefined);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
 
 				return ok({
@@ -53,7 +53,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x value");
-				const x = parseLengthPercentage(xNode);
+				const x = ParseUtils.parseLengthPercentageNode(xNode);
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 
 				return ok({
@@ -69,7 +69,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const yNode = children[0];
 				if (!yNode) return err("Missing y value");
-				const y = parseLengthPercentage(yNode);
+				const y = ParseUtils.parseLengthPercentageNode(yNode);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
 
 				return ok({
@@ -85,7 +85,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const zNode = children[0];
 				if (!zNode) return err("Missing z value");
-				const z = parseLength(zNode);
+				const z = ParseUtils.parseLengthNode(zNode);
 				if (!z.ok) return err(`Invalid z value: ${z.error}`);
 
 				return ok({
@@ -107,9 +107,9 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				if (!yNode) return err("Missing y value");
 				if (!zNode) return err("Missing z value");
 
-				const x = parseLengthPercentage(xNode);
-				const y = parseLengthPercentage(yNode);
-				const z = parseLength(zNode);
+				const x = ParseUtils.parseLengthPercentageNode(xNode);
+				const y = ParseUtils.parseLengthPercentageNode(yNode);
+				const z = ParseUtils.parseLengthNode(zNode);
 
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
@@ -130,7 +130,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const angleNode = children[0];
 				if (!angleNode) return err("Missing angle value");
-				const angle = parseAngle(angleNode);
+				const angle = ParseUtils.parseAngleNode(angleNode);
 				if (!angle.ok) return err(`Invalid angle: ${angle.error}`);
 
 				return ok({
@@ -148,7 +148,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const angleNode = children[0];
 				if (!angleNode) return err("Missing angle value");
-				const angle = parseAngle(angleNode);
+				const angle = ParseUtils.parseAngleNode(angleNode);
 				if (!angle.ok) return err(`Invalid angle: ${angle.error}`);
 
 				// Map lowercase to camelCase
@@ -179,10 +179,10 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				if (!zNode) return err("Missing z value");
 				if (!angleNode) return err("Missing angle value");
 
-				const x = parseNumber(xNode);
-				const y = parseNumber(yNode);
-				const z = parseNumber(zNode);
-				const angle = parseAngle(angleNode);
+				const x = ParseUtils.parseNumberNode(xNode);
+				const y = ParseUtils.parseNumberNode(yNode);
+				const z = ParseUtils.parseNumberNode(zNode);
+				const angle = ParseUtils.parseAngleNode(angleNode);
 
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
@@ -205,10 +205,10 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x value");
-				const x = parseNumber(xNode);
+				const x = ParseUtils.parseNumberNode(xNode);
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 
-				const y = children[1] ? parseNumber(children[1]) : ok(x.value);
+				const y = children[1] ? ParseUtils.parseNumberNode(children[1]) : ok(x.value);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
 
 				return ok({
@@ -225,7 +225,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x value");
-				const x = parseNumber(xNode);
+				const x = ParseUtils.parseNumberNode(xNode);
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 
 				return ok({
@@ -241,7 +241,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const yNode = children[0];
 				if (!yNode) return err("Missing y value");
-				const y = parseNumber(yNode);
+				const y = ParseUtils.parseNumberNode(yNode);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
 
 				return ok({
@@ -257,7 +257,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const zNode = children[0];
 				if (!zNode) return err("Missing z value");
-				const z = parseNumber(zNode);
+				const z = ParseUtils.parseNumberNode(zNode);
 				if (!z.ok) return err(`Invalid z value: ${z.error}`);
 
 				return ok({
@@ -279,9 +279,9 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				if (!yNode) return err("Missing y value");
 				if (!zNode) return err("Missing z value");
 
-				const x = parseNumber(xNode);
-				const y = parseNumber(yNode);
-				const z = parseNumber(zNode);
+				const x = ParseUtils.parseNumberNode(xNode);
+				const y = ParseUtils.parseNumberNode(yNode);
+				const z = ParseUtils.parseNumberNode(zNode);
 
 				if (!x.ok) return err(`Invalid x value: ${x.error}`);
 				if (!y.ok) return err(`Invalid y value: ${y.error}`);
@@ -302,11 +302,11 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x angle");
-				const x = parseAngle(xNode);
+				const x = ParseUtils.parseAngleNode(xNode);
 				if (!x.ok) return err(`Invalid x angle: ${x.error}`);
 
 				const yNode = children[1];
-				const y = yNode ? parseAngle(yNode) : ok({ value: 0, unit: "deg" as const });
+				const y = yNode ? ParseUtils.parseAngleNode(yNode) : ok({ value: 0, unit: "deg" as const });
 				if (!y.ok) return err(`Invalid y angle: ${y.error}`);
 
 				return ok({
@@ -323,7 +323,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const xNode = children[0];
 				if (!xNode) return err("Missing x angle");
-				const x = parseAngle(xNode);
+				const x = ParseUtils.parseAngleNode(xNode);
 				if (!x.ok) return err(`Invalid x angle: ${x.error}`);
 
 				return ok({
@@ -339,7 +339,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const yNode = children[0];
 				if (!yNode) return err("Missing y angle");
-				const y = parseAngle(yNode);
+				const y = ParseUtils.parseAngleNode(yNode);
 				if (!y.ok) return err(`Invalid y angle: ${y.error}`);
 
 				return ok({
@@ -357,7 +357,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				for (let i = 0; i < 6; i++) {
 					const node = children[i];
 					if (!node) return err(`Missing matrix value at position ${i + 1}`);
-					const num = parseNumber(node);
+					const num = ParseUtils.parseNumberNode(node);
 					if (!num.ok) return err(`Invalid matrix value at position ${i + 1}: ${num.error}`);
 					values.push(num.value);
 				}
@@ -390,7 +390,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				for (let i = 0; i < 16; i++) {
 					const node = children[i];
 					if (!node) return err(`Missing matrix3d value at position ${i + 1}`);
-					const num = parseNumber(node);
+					const num = ParseUtils.parseNumberNode(node);
 					if (!num.ok) return err(`Invalid matrix3d value at position ${i + 1}: ${num.error}`);
 					values.push(num.value);
 				}
@@ -413,7 +413,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 
 				const depthNode = children[0];
 				if (!depthNode) return err("Missing depth value");
-				const depth = parseLength(depthNode);
+				const depth = ParseUtils.parseLengthNode(depthNode);
 				if (!depth.ok) return err(`Invalid depth value: ${depth.error}`);
 
 				return ok({
@@ -537,85 +537,4 @@ export function parse(css: string): Result<Type.Transform, string> {
 	} catch (e) {
 		return err(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
 	}
-}
-
-// Helper functions for parsing different value types
-
-function parseLength(node: csstree.CssNode): Result<Type.Length, string> {
-	if (node.type === "Dimension") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid length value");
-		}
-
-		// Use core unit validation
-		const allLengthUnits = [...Unit.ABSOLUTE_LENGTH_UNITS, ...Unit.FONT_LENGTH_UNITS, ...Unit.VIEWPORT_LENGTH_UNITS];
-
-		if (!allLengthUnits.includes(node.unit as (typeof allLengthUnits)[number])) {
-			return err(`Invalid length unit: ${node.unit}`);
-		}
-
-		return ok({
-			value,
-			unit: node.unit as (typeof allLengthUnits)[number],
-		});
-	}
-	return err("Expected length dimension");
-}
-
-function parseLengthPercentage(node: csstree.CssNode): Result<Type.LengthPercentage, string> {
-	if (node.type === "Dimension") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid length value");
-		}
-
-		// Use core unit validation for length units
-		const allLengthUnits = [...Unit.ABSOLUTE_LENGTH_UNITS, ...Unit.FONT_LENGTH_UNITS, ...Unit.VIEWPORT_LENGTH_UNITS];
-
-		if (!allLengthUnits.includes(node.unit as (typeof allLengthUnits)[number])) {
-			return err(`Invalid length unit: ${node.unit}`);
-		}
-
-		return ok({
-			value,
-			unit: node.unit as (typeof allLengthUnits)[number],
-		});
-	}
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value");
-		}
-		return ok({ value, unit: Unit.PERCENTAGE_UNIT });
-	}
-	return err("Expected length or percentage");
-}
-
-function parseAngle(node: csstree.CssNode): Result<Type.Angle, string> {
-	if (node.type === "Dimension") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid angle value");
-		}
-
-		// Use core unit validation
-		if (!Unit.ANGLE_UNITS.includes(node.unit as (typeof Unit.ANGLE_UNITS)[number])) {
-			return err(`Invalid angle unit: ${node.unit}`);
-		}
-
-		return ok({ value, unit: node.unit as (typeof Unit.ANGLE_UNITS)[number] });
-	}
-	return err("Expected angle dimension");
-}
-
-function parseNumber(node: csstree.CssNode): Result<number, string> {
-	if (node.type === "Number") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid number value");
-		}
-		return ok(value);
-	}
-	return err("Expected number");
 }
