@@ -28,6 +28,12 @@
  */
 
 /**
+ * Color parsers (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
+ *
+ * @see {@link Color.parse}
+ */
+export * as Color from "./color";
+/**
  * Gradient parsers (radial, linear, conic).
  *
  * @see {@link Gradient.Radial.parse}

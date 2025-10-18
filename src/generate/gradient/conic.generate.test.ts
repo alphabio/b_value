@@ -7,7 +7,10 @@ describe("Conic Gradient Generator", () => {
 	it("should generate simple conic gradient", () => {
 		const ir = {
 			kind: "conic" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -19,7 +22,10 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			fromAngle: { value: 45, unit: "deg" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -34,7 +40,10 @@ describe("Conic Gradient Generator", () => {
 				horizontal: "center" as const,
 				vertical: "center" as const,
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -49,7 +58,10 @@ describe("Conic Gradient Generator", () => {
 				horizontal: "left" as const,
 				vertical: "top" as const,
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -64,7 +76,10 @@ describe("Conic Gradient Generator", () => {
 				horizontal: { value: 50, unit: "%" as const },
 				vertical: { value: 75, unit: "%" as const },
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -80,7 +95,10 @@ describe("Conic Gradient Generator", () => {
 				horizontal: { value: 50, unit: "%" as const },
 				vertical: { value: 50, unit: "%" as const },
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -92,7 +110,10 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			fromAngle: { value: 0.25, unit: "turn" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -104,7 +125,10 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			fromAngle: { value: 1.57, unit: "rad" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -116,8 +140,8 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "deg" as const } },
-				{ color: "blue", position: { value: 180, unit: "deg" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "deg" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 180, unit: "deg" as const } },
 			],
 			repeating: false,
 		};
@@ -130,7 +154,10 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			colorSpace: "oklch" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -143,7 +170,10 @@ describe("Conic Gradient Generator", () => {
 			kind: "conic" as const,
 			fromAngle: { value: 45, unit: "deg" as const },
 			colorSpace: "oklch" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -155,8 +185,8 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "deg" as const } },
-				{ color: "blue", position: { value: 45, unit: "deg" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "deg" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 45, unit: "deg" as const } },
 			],
 			repeating: true,
 		};
@@ -174,9 +204,9 @@ describe("Conic Gradient Generator", () => {
 				vertical: { value: 30, unit: "%" as const },
 			},
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "deg" as const } },
-				{ color: "yellow", position: { value: 120, unit: "deg" as const } },
-				{ color: "blue", position: { value: 240, unit: "deg" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "deg" as const } },
+				{ color: { kind: "named", name: "yellow" } as const, position: { value: 120, unit: "deg" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 240, unit: "deg" as const } },
 			],
 			repeating: false,
 		};
@@ -188,7 +218,13 @@ describe("Conic Gradient Generator", () => {
 	it("should generate conic gradient with multiple color stops", () => {
 		const ir = {
 			kind: "conic" as const,
-			colorStops: [{ color: "red" }, { color: "orange" }, { color: "yellow" }, { color: "green" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "orange" } as const },
+				{ color: { kind: "named", name: "yellow" } as const },
+				{ color: { kind: "named", name: "green" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -200,8 +236,8 @@ describe("Conic Gradient Generator", () => {
 		const ir = {
 			kind: "conic" as const,
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "%" as const } },
-				{ color: "blue", position: { value: 100, unit: "%" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 100, unit: "%" as const } },
 			],
 			repeating: false,
 		};

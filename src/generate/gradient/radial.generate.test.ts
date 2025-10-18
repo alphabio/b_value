@@ -7,7 +7,10 @@ describe("Radial Gradient Generator", () => {
 	it("should generate simple radial gradient", () => {
 		const ir = {
 			kind: "radial" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -19,7 +22,10 @@ describe("Radial Gradient Generator", () => {
 		const ir = {
 			kind: "radial" as const,
 			shape: "circle" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -32,7 +38,10 @@ describe("Radial Gradient Generator", () => {
 			kind: "radial" as const,
 			shape: "circle" as const,
 			size: { kind: "keyword" as const, value: "closest-side" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -47,7 +56,10 @@ describe("Radial Gradient Generator", () => {
 				horizontal: "left" as const,
 				vertical: "top" as const,
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -62,7 +74,10 @@ describe("Radial Gradient Generator", () => {
 				horizontal: "center" as const,
 				vertical: "center" as const,
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -77,7 +92,10 @@ describe("Radial Gradient Generator", () => {
 				horizontal: { value: 50, unit: "%" as const },
 				vertical: { value: 75, unit: "%" as const },
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -89,8 +107,8 @@ describe("Radial Gradient Generator", () => {
 		const ir = {
 			kind: "radial" as const,
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "%" as const } },
-				{ color: "blue", position: { value: 100, unit: "%" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 100, unit: "%" as const } },
 			],
 			repeating: false,
 		};
@@ -102,7 +120,10 @@ describe("Radial Gradient Generator", () => {
 	it("should generate repeating radial gradient", () => {
 		const ir = {
 			kind: "radial" as const,
-			colorStops: [{ color: "red" }, { color: "blue", position: { value: 20, unit: "px" as const } }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 20, unit: "px" as const } },
+			],
 			repeating: true,
 		};
 
@@ -120,8 +141,8 @@ describe("Radial Gradient Generator", () => {
 				vertical: { value: 30, unit: "%" as const },
 			},
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "%" as const } },
-				{ color: "blue", position: { value: 100, unit: "%" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 100, unit: "%" as const } },
 			],
 			repeating: false,
 		};
@@ -134,10 +155,10 @@ describe("Radial Gradient Generator", () => {
 		const ir = {
 			kind: "radial" as const,
 			colorStops: [
-				{ color: "red" },
-				{ color: "yellow", position: { value: 30, unit: "%" as const } },
-				{ color: "green", position: { value: 60, unit: "%" as const } },
-				{ color: "blue" },
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "yellow" } as const, position: { value: 30, unit: "%" as const } },
+				{ color: { kind: "named", name: "green" } as const, position: { value: 60, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const },
 			],
 			repeating: false,
 		};
@@ -154,7 +175,10 @@ describe("Radial Gradient Generator", () => {
 				kind: "circle-explicit" as const,
 				radius: { value: 100, unit: "px" as const },
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -171,7 +195,10 @@ describe("Radial Gradient Generator", () => {
 				radiusX: { value: 100, unit: "px" as const },
 				radiusY: { value: 50, unit: "px" as const },
 			},
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -183,7 +210,10 @@ describe("Radial Gradient Generator", () => {
 		const ir = {
 			kind: "radial" as const,
 			colorSpace: "srgb" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -196,7 +226,10 @@ describe("Radial Gradient Generator", () => {
 			kind: "radial" as const,
 			shape: "circle" as const,
 			colorSpace: "oklch" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -212,7 +245,10 @@ describe("Radial Gradient Generator", () => {
 				vertical: "center" as const,
 			},
 			colorSpace: "display-p3" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -226,7 +262,10 @@ describe("Radial Gradient Generator", () => {
 			shape: "ellipse" as const,
 			size: { kind: "keyword" as const, value: "farthest-corner" as const },
 			colorSpace: "lab" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 

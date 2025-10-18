@@ -18,8 +18,8 @@
  *   kind: "radial",
  *   shape: "circle",
  *   colorStops: [
- *     { color: "red" },
- *     { color: "blue" }
+ *     { color: { kind: "named", name: "red" } },
+ *     { color: { kind: "named", name: "blue" } }
  *   ],
  *   repeating: false
  * });
@@ -28,6 +28,12 @@
  * ```
  */
 
+/**
+ * Color generators (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
+ *
+ * @see {@link Color.toCss}
+ */
+export * as Color from "./color";
 /**
  * Gradient generators (radial, linear, conic).
  *
