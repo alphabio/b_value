@@ -54,6 +54,9 @@ export function parse(input: string): Result<ContrastFilter, string> {
 	}
 
 	const valueNode = children[0];
+	if (!valueNode) {
+		return err("contrast() expects 1 argument");
+	}
 
 	// Parse number or percentage
 	let value: number;
