@@ -29,7 +29,30 @@ pnpm add b_value
 
 ## Usage
 
-### Radial Gradients
+### Colors
+
+```typescript
+import { Parse, Generate } from "b_value";
+
+// Parse hex colors
+const hex = Parse.Color.Hex.parse("#ff0080");
+// { kind: "hex", r: 255, g: 0, b: 128 }
+
+// Parse RGB with alpha
+const rgb = Parse.Color.RGB.parse("rgb(255 0 128 / 0.5)");
+// { kind: "rgb", r: 255, g: 0, b: 128, alpha: 0.5 }
+
+// Parse HSL with angle units
+const hsl = Parse.Color.HSL.parse("hsl(330deg 100% 50%)");
+// { kind: "hsl", h: 330, s: 100, l: 50 }
+
+// Generate back to CSS
+Generate.Color.Hex.toCss(hex.value);    // "#ff0080"
+Generate.Color.RGB.toCss(rgb.value);    // "rgb(255 0 128 / 0.5)"
+Generate.Color.HSL.toCss(hsl.value);    // "hsl(330 100% 50%)"
+```
+
+### Gradients
 
 ```typescript
 import { Parse, Generate } from "b_value";
@@ -87,17 +110,29 @@ b_value/
 
 ## Current Support
 
-### Phase 1 (Current) ✅
-- Radial gradients (complete with parse/generate)
-- Core infrastructure (types, units, keywords, Result type)
+### Completed ✅
+- **Phase 1**: Radial gradients + core infrastructure
+- **Phase 2**: Linear & conic gradients
+- **Phase 3**: Positions & transforms
+- **Phase 4 (Sessions 1-3)**: Colors
+  - Hex colors (#RGB, #RRGGBB, #RGBA, #RRGGBBAA)
+  - Named colors (148 CSS color keywords)
+  - RGB/RGBA (all syntax variations)
+  - HSL/HSLA (all angle units, modern & legacy syntax)
+
+### In Progress 🔵
+- **Phase 4 (Session 4+)**: More color formats
+  - HWB (Hue-Whiteness-Blackness)
+  - LAB & LCH
+  - OKLab & OKLCH
+  - System colors
 
 ### Roadmap
-- Phase 2: Linear & conic gradients
-- Phase 3: Positions & transforms
-- Phase 4: Colors & backgrounds
 - Phase 5: Borders & box model
 - Phase 6: Flexbox & Grid
 - Phase 7: Typography
+- Phase 8: Polish & documentation
+- Phase 9: Animations
 
 ## API
 
