@@ -2,6 +2,7 @@
 import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as ParseUtils from "@/utils/parse";
 
 /**
  * Parse position value from CSS node.
@@ -14,50 +15,8 @@ import type * as Type from "@/core/types";
  * @internal
  */
 function parsePositionValue(node: csstree.CssNode): Result<Type.PositionValue, string> {
-	if (node.type === "Identifier") {
-		const keyword = node.name.toLowerCase();
-		// Position keywords
-		if (["center", "left", "right", "top", "bottom"].includes(keyword)) {
-			return ok(keyword as Type.PositionValue);
-		}
-		return err(`Invalid position keyword: ${keyword}`);
-	}
-
-	if (node.type === "Dimension") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid length value");
-		}
-		return ok({
-			value,
-			unit: node.unit as
-				| "px"
-				| "em"
-				| "rem"
-				| "pt"
-				| "pc"
-				| "in"
-				| "cm"
-				| "mm"
-				| "ex"
-				| "ch"
-				| "vw"
-				| "vh"
-				| "vmin"
-				| "vmax"
-				| "%",
-		});
-	}
-
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value");
-		}
-		return ok({ value, unit: "%" });
-	}
-
-	return err("Expected position keyword, length, or percentage");
+	// Use shared utility that handles both keywords and length-percentage values
+	return ParseUtils.parsePositionValueNode(node);
 }
 
 /**
@@ -174,7 +133,7 @@ function parsePosition3DFromNodes(
 
 	const zNode = nodes[idx];
 	if (!zNode) return err("Missing z position value");
-	const z = parseLength(zNode);
+	const z = ParseUtils.parseLengthNode(zNode);
 	if (!z.ok) return err(`Invalid z position: ${z.error}`);
 	idx++;
 
@@ -372,31 +331,4 @@ export function parseList(css: string): Result<Type.PositionList, string> {
 	}
 }
 
-// Helper function for parsing length values
-function parseLength(node: csstree.CssNode): Result<Type.Length, string> {
-	if (node.type === "Dimension") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid length value");
-		}
-		return ok({
-			value,
-			unit: node.unit as
-				| "px"
-				| "em"
-				| "rem"
-				| "pt"
-				| "pc"
-				| "in"
-				| "cm"
-				| "mm"
-				| "ex"
-				| "ch"
-				| "vw"
-				| "vh"
-				| "vmin"
-				| "vmax",
-		});
-	}
-	return err("Expected length dimension");
-}
+// Length parsing now uses shared utility (eliminates code duplication)
