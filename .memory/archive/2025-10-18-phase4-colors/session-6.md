@@ -1,8 +1,8 @@
 # Session 6: OKLab & OKLCH Colors
 
-**Duration**: 90-120 min  
-**Tests**: +80  
-**Complexity**: HIGH  
+**Duration**: 90-120 min
+**Tests**: +80
+**Complexity**: HIGH
 
 ---
 
@@ -38,7 +38,7 @@ export const oklchColorSchema = z.object({
 
 ### 2. Parsers (60 min)
 
-**Create**: `src/parse/color/oklab.ts`  
+**Create**: `src/parse/color/oklab.ts`
 **Create**: `src/parse/color/oklch.ts`
 
 Parse: `oklab(0.5 -0.2 0.3)`, `oklch(0.5 0.2 180deg)`
@@ -47,14 +47,14 @@ Parse: `oklab(0.5 -0.2 0.3)`, `oklch(0.5 0.2 180deg)`
 
 ### 3. Generators (15 min)
 
-**Create**: `src/generate/color/oklab.ts`  
+**Create**: `src/generate/color/oklab.ts`
 **Create**: `src/generate/color/oklch.ts`
 
 ---
 
 ### 4. Tests (30 min)
 
-**Create**: `src/parse/color/oklab.test.ts` (40+ tests)  
+**Create**: `src/parse/color/oklab.test.ts` (40+ tests)
 **Create**: `src/parse/color/oklch.test.ts` (40+ tests)
 
 ---
