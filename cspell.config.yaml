@@ -8,12 +8,16 @@ words:
   - oklab
   - oklch
   - prophoto
+  - rgba
   - rotatex
   - rotatey
   - rotatez
+  - RRGGBB
+  - RRGGBBAA
   - scalex
   - scaley
   - scalez
+  - srgb
   - stringifiers
   - translatex
   - translatey

@@ -95,7 +95,7 @@ src/
 - Create `src/parse/background/background-color.ts` - Background-color parser
 - Create `src/parse/background/background-image.ts` - Background-image parser
 - Implement multiple background layer support
-- Handle background shorthand parsing
+- Handle individual background properties (use b_short for shorthand expansion)
 
 **Step 5: Color Generators** ✨
 - Create `src/generate/color/hex.ts` - Hex color generator
