@@ -27,8 +27,8 @@
 | Session | Status | Tests | Date | Agent | Handover |
 |---------|--------|-------|------|-------|----------|
 | 1. Simple Numeric | ✅ DONE | 102/102 | 2025-10-19 | Claude | [session-1-complete.md](./session-1-complete.md) |
-| 2. Blur & Angle | ⚪ TODO | 0/20 | - | - | - |
-| 3. Drop Shadow | ⚪ TODO | 0/20 | - | - | - |
+| 2. Blur & Angle | ✅ DONE | 40/40 | 2025-10-19 | Claude | [session-2-complete.md](./session-2-complete.md) |
+| 3. Drop Shadow | ⚪ TODO | 0/25 | - | - | - |
 | 4. URL & Master | ⚪ TODO | 0/20 | - | - | - |
 
 **Status Legend**: ⚪ TODO | 🔵 IN PROGRESS | ✅ DONE | ⚠️ BLOCKED
