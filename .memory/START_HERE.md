@@ -4,7 +4,7 @@
 version: 0.1.0
 date: 2025-01-18
 tests: 258 passing (100%)
-coverage: 91% lines, 84% branches, 100% functions
+coverage: 89% lines, 71% branches, 100% functions
 status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
 ```
 
@@ -20,7 +20,7 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
   - Fixed lint warnings (removed `any` type, used proper assertions)
   - Added transform function keywords to core (eliminated duplication)
   - All 258 tests now passing (100%, up from 92.6%)
-  - Coverage: 91% lines, 84% branches, 100% functions
+  - Coverage: 89% lines, 71% branches, 100% functions
   - Transform and position parsers/generators complete and world-class
   - Phase 2 (gradients) confirmed world-class quality
   - Phase 3 (positions & transforms) now complete and validated
