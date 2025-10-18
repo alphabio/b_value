@@ -85,7 +85,7 @@ function parseLABArguments(nodes: csstree.CssNode[]): Result<LABColor, string> {
 			if (alpha !== undefined) {
 				return err("Too many values after '/' in LAB color");
 			}
-			const alphaResult = parseAlpha(node);
+			const alphaResult = ParseUtils.parseAlpha(node, { clamp: true });
 			if (!alphaResult.ok) {
 				return err(alphaResult.error);
 			}
@@ -96,7 +96,7 @@ function parseLABArguments(nodes: csstree.CssNode[]): Result<LABColor, string> {
 		// Parse L, a, b components
 		if (componentIndex === 0) {
 			// Lightness (percentage or number)
-			const lightnessResult = parseLightness(node);
+			const lightnessResult = ParseUtils.parseLightness(node, "0-100");
 			if (!lightnessResult.ok) {
 				return err(lightnessResult.error);
 			}
@@ -135,44 +135,6 @@ function parseLABArguments(nodes: csstree.CssNode[]): Result<LABColor, string> {
 }
 
 /**
- * Parse a lightness value.
- *
- * Accepts:
- * - Percentage: 0%-100%
- * - Number: 0-100
- *
- * Clamped to 0-100 range.
- *
- * @internal
- */
-function parseLightness(node: csstree.CssNode): Result<number, string> {
-	// Try percentage first
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for lightness");
-		}
-		// Clamp to 0-100 range
-		const clamped = Math.max(0, Math.min(100, value));
-		return ok(clamped);
-	}
-
-	// Try number
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		const value = numResult.value;
-		// Clamp to 0-100 range
-		const clamped = Math.max(0, Math.min(100, value));
-		return ok(clamped);
-	}
-
-	return err(`Expected percentage or number for lightness, got ${node.type}`);
-}
-
-/**
  * Parse an axis value (a or b).
  *
  * Accepts: number (typically -125 to 125, but clamped)
@@ -192,43 +154,4 @@ function parseAxisValue(node: csstree.CssNode): Result<number, string> {
 	}
 
 	return err(`Expected number for axis value, got ${node.type}`);
-}
-
-/**
- * Parse an alpha value.
- *
- * Accepts:
- * - Number: 0-1
- * - Percentage: 0%-100% (converted to 0-1)
- *
- * @internal
- */
-function parseAlpha(node: csstree.CssNode): Result<number, string> {
-	// Try parsing as number (0-1)
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		const value = numResult.value;
-		if (value < 0 || value > 1) {
-			return err(`Alpha value must be between 0 and 1, got ${value}`);
-		}
-		return ok(value);
-	}
-
-	// Try parsing as percentage (0%-100%)
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for alpha");
-		}
-		if (value < 0 || value > 100) {
-			return err(`Alpha percentage must be between 0% and 100%, got ${value}%`);
-		}
-		// Convert percentage to 0-1 range
-		return ok(value / 100);
-	}
-
-	return err(`Expected number or percentage for alpha, got ${node.type}`);
 }

@@ -174,7 +174,9 @@ function normalizeHue(hue: number): number {
 	// Wrap to 0-360 range
 	const normalized = hue % 360;
 	// Handle negative values
-	return normalized < 0 ? normalized + 360 : normalized;
+	const positive = normalized < 0 ? normalized + 360 : normalized;
+	// Ensure positive zero (avoid -0)
+	return positive === 0 ? 0 : positive;
 }
 
 /**

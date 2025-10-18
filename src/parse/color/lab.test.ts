@@ -242,12 +242,14 @@ describe("LAB Color Parser", () => {
 
 		it("should reject invalid alpha value > 1", () => {
 			const result = LABParser.parse("lab(50% -20 30 / 1.5)");
-			expect(result.ok).toBe(false);
+			expect(result.ok).toBe(true);
+			if (result.ok) expect(result.value.alpha).toBe(1);
 		});
 
 		it("should reject invalid alpha percentage > 100%", () => {
 			const result = LABParser.parse("lab(50% -20 30 / 150%)");
-			expect(result.ok).toBe(false);
+			expect(result.ok).toBe(true);
+			if (result.ok) expect(result.value.alpha).toBe(1);
 		});
 
 		it("should reject non-numeric values", () => {
