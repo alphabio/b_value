@@ -3,6 +3,7 @@
 export * from "./angle";
 export * from "./border";
 export * from "./color-stop";
+export * from "./filter";
 export * from "./gradient";
 export * from "./grid-line";
 export * from "./length-percentage";
