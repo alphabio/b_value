@@ -12,13 +12,13 @@ Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe
 
 | What | Status | Verify |
 |------|--------|--------|
-| Tests | 668/668 passing | `just test` |
+| Tests | 745/745 passing | `just test` |
 | Quality | Format + typecheck + lint clean | `just check` |
 | Phase 2 | Gradients (radial, linear, conic) | ✅ COMPLETE |
 | Phase 3 | Positions & transforms | ✅ COMPLETE |
-| Phase 4 | Colors (all 8 formats + utilities) | ✅ COMPLETE |
+| Phase 4 | Colors (all 11 formats + master parser) | ✅ COMPLETE |
 
-**Next**: Session 8 - Master Color Parser (see `archive/2025-10-18-phase4-colors/session-8.md`)
+**Next**: Phase 5 - Filter Functions (blur, brightness, contrast, etc.) OR Phase 6 - Shadow Values
 
 ## Navigation
 
@@ -208,8 +208,8 @@ src/
 4. `src/parse/color/rgb.ts` - Reference implementation
 
 **Starting a session?**
-1. Latest handover: `archive/2025-10-18-session-7/HANDOVER.md`
-2. Next session plan: `archive/2025-10-18-phase4-colors/session-8.md`
+1. Latest handover: `archive/2025-10-18-session-8/HANDOVER.md`
+2. Phase 4 complete! Next: Filter Functions or Shadow Values
 3. OR checkpoint review: `archive/2025-01-18-checkpoint/CHECKPOINT_REVIEW.md`
 
 **Need context?**
