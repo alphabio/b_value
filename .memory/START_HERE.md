@@ -12,6 +12,8 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
 
 > **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
 
+> **Documentation Policy**: KISS - Keep It Simple, Stupid. One entry point, focused docs, no fluff. Future agents should read and execute, not wade through verbose planning.
+
 - 2025-10-18: **Phase 4 Color Implementation Plan** ✅
   - **KISS Approach**: Simple master plan + 8 focused session files (no fluff)
   - **Master Plan**: Single entry point with progress tracker and session links
