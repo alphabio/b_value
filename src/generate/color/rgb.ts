@@ -1,0 +1,44 @@
+// b_path:: src/generate/color/rgb.ts
+import type { RGBColor } from "@/core/types/color";
+
+/**
+ * Generate CSS from an RGB color value.
+ *
+ * Converts an RGBColor IR back to its CSS string representation.
+ * Uses modern space-separated syntax with slash for alpha.
+ *
+ * @param color - The RGB color to convert
+ * @returns CSS RGB color string
+ *
+ * @example
+ * ```typescript
+ * import { toCss } from "@/generate/color/rgb";
+ *
+ * // Opaque color
+ * const css1 = toCss({ kind: "rgb", r: 255, g: 0, b: 0 });
+ * // => "rgb(255 0 0)"
+ *
+ * // With alpha
+ * const css2 = toCss({ kind: "rgb", r: 255, g: 0, b: 0, alpha: 0.5 });
+ * // => "rgb(255 0 0 / 0.5)"
+ *
+ * // Full opacity (alpha = 1)
+ * const css3 = toCss({ kind: "rgb", r: 255, g: 0, b: 0, alpha: 1 });
+ * // => "rgb(255 0 0)"
+ * ```
+ *
+ * @public
+ */
+export function toCss(color: RGBColor): string {
+	const { r, g, b, alpha } = color;
+
+	// Format RGB values (integers)
+	const rgbPart = `${Math.round(r)} ${Math.round(g)} ${Math.round(b)}`;
+
+	// Add alpha if present and not fully opaque
+	if (alpha !== undefined && alpha < 1) {
+		return `rgb(${rgbPart} / ${alpha})`;
+	}
+
+	return `rgb(${rgbPart})`;
+}
