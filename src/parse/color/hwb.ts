@@ -85,28 +85,28 @@ function parseHWBArguments(nodes: csstree.CssNode[]): Result<HWBColor, string> {
 		}
 
 		// Parse hue
-		const hueResult = parseHue(hueNode);
+		const hueResult = ParseUtils.parseHue(hueNode);
 		if (!hueResult.ok) {
 			return err(`Invalid hue: ${hueResult.error}`);
 		}
 		const h = hueResult.value;
 
 		// Parse whiteness (percentage)
-		const wResult = parsePercentage(whitenessNode);
+		const wResult = ParseUtils.parsePercentage(whitenessNode, { clamp: true });
 		if (!wResult.ok) {
 			return err(`Invalid whiteness: ${wResult.error}`);
 		}
 		const w = wResult.value;
 
 		// Parse blackness (percentage)
-		const bResult = parsePercentage(blacknessNode);
+		const bResult = ParseUtils.parsePercentage(blacknessNode, { clamp: true });
 		if (!bResult.ok) {
 			return err(`Invalid blackness: ${bResult.error}`);
 		}
 		const b = bResult.value;
 
 		// Parse alpha
-		const alphaResult = parseAlpha(alphaNode);
+		const alphaResult = ParseUtils.parseAlpha(alphaNode, { clamp: true });
 		if (!alphaResult.ok) {
 			return err(`Invalid alpha: ${alphaResult.error}`);
 		}
@@ -128,21 +128,21 @@ function parseHWBArguments(nodes: csstree.CssNode[]): Result<HWBColor, string> {
 		}
 
 		// Parse hue
-		const hueResult = parseHue(hueNode);
+		const hueResult = ParseUtils.parseHue(hueNode);
 		if (!hueResult.ok) {
 			return err(`Invalid hue: ${hueResult.error}`);
 		}
 		const h = hueResult.value;
 
 		// Parse whiteness (percentage)
-		const wResult = parsePercentage(whitenessNode);
+		const wResult = ParseUtils.parsePercentage(whitenessNode, { clamp: true });
 		if (!wResult.ok) {
 			return err(`Invalid whiteness: ${wResult.error}`);
 		}
 		const w = wResult.value;
 
 		// Parse blackness (percentage)
-		const bResult = parsePercentage(blacknessNode);
+		const bResult = ParseUtils.parsePercentage(blacknessNode, { clamp: true });
 		if (!bResult.ok) {
 			return err(`Invalid blackness: ${bResult.error}`);
 		}
@@ -150,117 +150,4 @@ function parseHWBArguments(nodes: csstree.CssNode[]): Result<HWBColor, string> {
 
 		return ok({ kind: "hwb", h, w, b });
 	}
-}
-
-/**
- * Parse a hue value (angle or unitless number).
- * Accepts unitless numbers (as degrees), deg, rad, grad, turn.
- * Normalizes to 0-360 degrees with wrapping.
- *
- * @internal
- */
-function parseHue(node: csstree.CssNode): Result<number, string> {
-	// Unitless number (defaults to degrees)
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		return ok(normalizeHue(numResult.value));
-	}
-
-	// Angle with unit
-	if (node.type === "Dimension") {
-		const angleResult = ParseUtils.parseAngleNode(node);
-		if (!angleResult.ok) {
-			return err(angleResult.error);
-		}
-
-		const angle = angleResult.value;
-		// Convert to degrees
-		let degrees: number;
-		switch (angle.unit) {
-			case "deg":
-				degrees = angle.value;
-				break;
-			case "rad":
-				degrees = (angle.value * 180) / Math.PI;
-				break;
-			case "grad":
-				degrees = (angle.value * 360) / 400;
-				break;
-			case "turn":
-				degrees = angle.value * 360;
-				break;
-			default:
-				return err(`Unsupported angle unit: ${angle.unit}`);
-		}
-
-		return ok(normalizeHue(degrees));
-	}
-
-	return err(`Expected number or angle for hue, got ${node.type}`);
-}
-
-/**
- * Normalize hue to 0-360 degrees range with wrapping.
- *
- * @internal
- */
-function normalizeHue(degrees: number): number {
-	// Wrap hue to 0-360 range
-	let normalized = degrees % 360;
-	if (normalized < 0) {
-		normalized += 360;
-	}
-	// Ensure positive zero (JavaScript quirk with -0)
-	return normalized === 0 ? 0 : normalized;
-}
-
-/**
- * Parse a percentage value.
- * Clamps to 0-100 range.
- *
- * @internal
- */
-function parsePercentage(node: csstree.CssNode): Result<number, string> {
-	if (node.type !== "Percentage") {
-		return err("Expected percentage");
-	}
-	const value = Number.parseFloat(node.value);
-	if (Number.isNaN(value)) {
-		return err("Invalid percentage value");
-	}
-	// Clamp to 0-100 range
-	return ok(Math.max(0, Math.min(100, value)));
-}
-
-/**
- * Parse an alpha value.
- * Accepts numbers (0-1) or percentages (0%-100%).
- * Clamps to 0-1 range.
- *
- * @internal
- */
-function parseAlpha(node: csstree.CssNode): Result<number, string> {
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		// Clamp to 0-1 range
-		return ok(Math.max(0, Math.min(1, numResult.value)));
-	}
-
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for alpha");
-		}
-		// Convert percentage to 0-1 range and clamp
-		const alphaValue = value / 100;
-		return ok(Math.max(0, Math.min(1, alphaValue)));
-	}
-
-	return err("Expected number or percentage for alpha");
 }

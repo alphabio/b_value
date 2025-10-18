@@ -1,57 +1,64 @@
 # b_value - Agent Navigation
 
-**Read this first, always.** This is your map. Everything else is in the archives.
+**Read this first, always.** This is your map. Stateless instructions, not status dumps.
 
 ## What is b_value?
 
 Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe, spec-compliant.
 
-Focus: Individual property values only (not shorthands - that's b_short's job).
+**Scope**: Individual property values ONLY. Not shorthands (that's b_short's job).
 
 ## Current Status
 
-| Metric | Value | Gate |
-|--------|-------|------|
-| Tests | 647/647 | ✅ `just test` |
-| Coverage | 86% lines, 66% branches, 89% functions | ✅ |
-| TypeCheck | Strict mode, no `any` types | ✅ `just check` |
+| What | Status | Verify |
+|------|--------|--------|
+| Tests | 668/668 passing | `just test` |
+| Quality | Format + typecheck + lint clean | `just check` |
 | Phase 2 | Gradients (radial, linear, conic) | ✅ COMPLETE |
 | Phase 3 | Positions & transforms | ✅ COMPLETE |
-| Phase 4 | Colors & backgrounds | 🟡 Sessions 1-7/8 done |
+| Phase 4 | Colors (all 8 formats + utilities) | ✅ COMPLETE |
 
-**Next**: Session 8 - Master Color Parser OR DRY cleanup (see `.memory/archive/2025-01-18-checkpoint/CHECKPOINT_REVIEW.md`)
+**Next**: Session 8 - Master Color Parser (see `archive/2025-10-18-phase4-colors/session-8.md`)
 
 ## Navigation
 
-**Where's the plan?** → `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`  
-**Where's the code?** → `src/` (read it, it's self-documenting)  
-**Where's the latest session?** → `archive/2025-10-18-session-7/HANDOVER.md`  
-**Where's the roadmap?** → `archive/2025-01-18-action-plan/ACTION_PLAN.md`
+| What do you need? | Where is it? |
+|-------------------|--------------|
+| Current work plan | `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` |
+| Latest session context | `archive/2025-10-18-session-7/HANDOVER.md` |
+| Code to read | `src/` (self-documenting) |
+| Roadmap | `archive/2025-01-18-action-plan/ACTION_PLAN.md` |
+| Recent refactoring | `archive/2025-01-18-checkpoint/HANDOVER.md` |
 
-## Core Principles (NEVER VIOLATE)
+## Core Principles (NEVER VIOLATE THESE)
 
-### 1. DRY - Don't Repeat Yourself
+### DRY - Don't Repeat Yourself
 
-**If you copy-paste, you're doing it wrong.**
+**Copy-paste is a code smell. Extract and reuse.**
 
-- ✅ **DO**: Extract shared logic to `src/utils/parse/` or `src/utils/generate/`
-- ✅ **DO**: Import types/units/keywords from `src/core/`
-- ❌ **DON'T**: Duplicate parsing functions across files
-- ❌ **DON'T**: Hardcode unit arrays or keyword lists
+Rules:
+- If you write the same logic twice, extract it to `src/utils/`
+- Import types/units/keywords from `src/core/` - never duplicate
+- Check `src/utils/parse/` and `src/utils/generate/` before implementing
+- Shared > Duplicated, always
 
-**Example**: If 3+ parsers need `parseAlpha()`, it belongs in `src/utils/parse/color-components.ts`.
+**Example violation**: 7 parsers each had their own `parseAlpha()` function (28 lines × 7 = 196 lines wasted). This was fixed by creating `src/utils/parse/color-components.ts`.
 
-### 2. KISS - Keep It Simple, Stupid
+**How to check**: Search for duplicate function names. If you find 2+, extract to utils.
 
-**Simple beats clever. Every time.**
+### KISS - Keep It Simple, Stupid
 
-- ✅ **DO**: Write obvious code that reads like English
-- ✅ **DO**: One function, one job
-- ✅ **DO**: Prefer flat over nested
-- ❌ **DON'T**: Over-abstract or over-engineer
-- ❌ **DON'T**: Add frameworks or complex patterns
+**Simple code that works > Clever code that impresses.**
 
-**Example**: A 20-line function with clear variable names beats a 5-line one-liner that requires a PhD to understand.
+Rules:
+- Write code that reads like English
+- One function, one job - if it does two things, split it
+- Flat > nested - avoid deep nesting
+- Obvious > clever - someone should understand your code in 30 seconds
+
+**Example violation**: Creating an abstract factory pattern for 3 parsers. Just write 3 parsers.
+
+**How to check**: Can you explain your code to a junior developer in under 2 minutes? If not, simplify.
 
 ### 3. Library Scope
 

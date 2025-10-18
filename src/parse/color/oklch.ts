@@ -92,7 +92,7 @@ function parseOKLCHArguments(nodes: csstree.CssNode[]): Result<OKLCHColor, strin
 			if (alpha !== undefined) {
 				return err("Too many values after '/' in OKLCH color");
 			}
-			const alphaResult = parseAlpha(node);
+			const alphaResult = ParseUtils.parseAlpha(node, { clamp: true });
 			if (!alphaResult.ok) {
 				return err(alphaResult.error);
 			}
@@ -103,7 +103,7 @@ function parseOKLCHArguments(nodes: csstree.CssNode[]): Result<OKLCHColor, strin
 		// Parse L, C, H components
 		if (componentIndex === 0) {
 			// Lightness (percentage or number)
-			const lightnessResult = parseLightness(node);
+			const lightnessResult = ParseUtils.parseLightness(node, "0-1");
 			if (!lightnessResult.ok) {
 				return err(lightnessResult.error);
 			}
@@ -117,7 +117,7 @@ function parseOKLCHArguments(nodes: csstree.CssNode[]): Result<OKLCHColor, strin
 			c = chromaResult.value;
 		} else if (componentIndex === 2) {
 			// Hue (angle or unitless number)
-			const hueResult = parseHue(node);
+			const hueResult = ParseUtils.parseHue(node);
 			if (!hueResult.ok) {
 				return err(hueResult.error);
 			}
@@ -142,45 +142,6 @@ function parseOKLCHArguments(nodes: csstree.CssNode[]): Result<OKLCHColor, strin
 }
 
 /**
- * Parse a lightness value.
- *
- * Accepts:
- * - Percentage: 0%-100% (converted to 0-1)
- * - Number: 0-1
- *
- * Clamped to 0-1 range.
- *
- * @internal
- */
-function parseLightness(node: csstree.CssNode): Result<number, string> {
-	// Try percentage first
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for lightness");
-		}
-		// Convert percentage to 0-1 range and clamp
-		const normalized = value / 100;
-		const clamped = Math.max(0, Math.min(1, normalized));
-		return ok(clamped);
-	}
-
-	// Try number
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		const value = numResult.value;
-		// Clamp to 0-1 range
-		const clamped = Math.max(0, Math.min(1, value));
-		return ok(clamped);
-	}
-
-	return err(`Expected percentage or number for lightness, got ${node.type}`);
-}
-
-/**
  * Parse a chroma value.
  *
  * Accepts: number (0-0.4, clamped)
@@ -200,113 +161,4 @@ function parseChroma(node: csstree.CssNode): Result<number, string> {
 	}
 
 	return err(`Expected number for chroma, got ${node.type}`);
-}
-
-/**
- * Parse a hue value (angle or unitless number).
- *
- * Accepts:
- * - Unitless number (interpreted as degrees)
- * - deg, rad, grad, turn units
- *
- * Normalizes to 0-360 degrees with wrapping.
- *
- * @internal
- */
-function parseHue(node: csstree.CssNode): Result<number, string> {
-	// Unitless number (defaults to degrees)
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		return ok(normalizeHue(numResult.value));
-	}
-
-	// Angle with unit
-	if (node.type === "Dimension") {
-		const angleResult = ParseUtils.parseAngleNode(node);
-		if (!angleResult.ok) {
-			return err(angleResult.error);
-		}
-
-		const angle = angleResult.value;
-		// Convert to degrees
-		let degrees: number;
-		switch (angle.unit) {
-			case "deg":
-				degrees = angle.value;
-				break;
-			case "rad":
-				degrees = (angle.value * 180) / Math.PI;
-				break;
-			case "grad":
-				degrees = (angle.value * 360) / 400;
-				break;
-			case "turn":
-				degrees = angle.value * 360;
-				break;
-			default:
-				return err(`Unsupported angle unit: ${angle.unit}`);
-		}
-
-		return ok(normalizeHue(degrees));
-	}
-
-	return err(`Expected number or angle for hue, got ${node.type}`);
-}
-
-/**
- * Normalize hue value to 0-360 degrees range with wrapping.
- * Ensures positive zero (avoids JavaScript's -0 quirk).
- *
- * @internal
- */
-function normalizeHue(degrees: number): number {
-	// Wrap to 0-360 range
-	let normalized = degrees % 360;
-	if (normalized < 0) {
-		normalized += 360;
-	}
-	// Ensure positive zero (JavaScript quirk: -0 === 0 but Object.is(-0, 0) is false)
-	return normalized === 0 ? 0 : normalized;
-}
-
-/**
- * Parse an alpha value.
- *
- * Accepts:
- * - Number: 0-1
- * - Percentage: 0%-100% (converted to 0-1)
- *
- * Clamped to 0-1 range.
- *
- * @internal
- */
-function parseAlpha(node: csstree.CssNode): Result<number, string> {
-	// Try percentage first
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for alpha");
-		}
-		// Convert percentage to 0-1 range and clamp
-		const normalized = value / 100;
-		const clamped = Math.max(0, Math.min(1, normalized));
-		return ok(clamped);
-	}
-
-	// Try number
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		const value = numResult.value;
-		// Clamp to 0-1 range
-		const clamped = Math.max(0, Math.min(1, value));
-		return ok(clamped);
-	}
-
-	return err(`Expected number or percentage for alpha, got ${node.type}`);
 }
