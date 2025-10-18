@@ -26,6 +26,15 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
   - Phase 3 (positions & transforms) now complete and validated
   - See: `archive/2025-01-18-phase2-audit/`
 
+- 2025-10-18: **Core Module Policy Implementation** ✅
+  - Added Core Module Policy to START_HERE.md instructing agents to always use core modules
+  - Fixed code duplication in transform.ts: replaced hardcoded unit definitions with core imports
+  - Updated parseLength, parseLengthPercentage, and parseAngle functions to use core unit constants
+  - Replaced hardcoded unit arrays with Unit.ABSOLUTE_LENGTH_UNITS, Unit.FONT_LENGTH_UNITS, etc.
+  - Eliminated all `any` type usage and lint warnings
+  - All 258 tests still passing (100% success rate maintained)
+  - Established pattern for future development: always import from @/core/* modules
+
 - 2025-10-18: **Phase 2 Complete: Linear & Conic Gradients** ✅
   - Implemented linear-gradient() and repeating-linear-gradient()
   - Implemented conic-gradient() and repeating-conic-gradient()
@@ -125,6 +134,24 @@ mkdir -p ./.memory/archive/$(date +%Y-%m-%d)-[topic]/
 ```
 
 Put ALL session artifacts in this directory from the start.
+
+**Core Module Policy:**
+- **Always** import types, units, and keywords from core modules (`@/core/*`)
+- **Never** duplicate unit definitions, type schemas, or keyword lists
+- If a core module doesn't exist, create it in `src/core/` first, then import from there
+- Check existing core modules before creating new definitions
+
+**TypeScript Strict Mode Requirements:**
+- Adhere to strict TypeScript settings (see `tsconfig.json`):
+  - `strict: true` - All strict type checking enabled
+  - `forceConsistentCasingInFileNames: true` - Consistent file name casing
+  - `verbatimModuleSyntax: true` - Proper module syntax usage
+  - `noUncheckedIndexedAccess: true` - Safe array/object access
+  - `noFallthroughCasesInSwitch: true` - Explicit switch case handling
+  - `exactOptionalPropertyTypes: true` - Precise optional property types
+- **Never** use `any` type - use proper type assertions instead
+- **Always** handle all error cases and edge cases in parsing logic
+- **Use** proper TypeScript utility types and core type definitions
 
 **Working process:**
 - Run `just check` after changes (format + typecheck + lint)
