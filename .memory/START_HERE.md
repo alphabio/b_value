@@ -12,16 +12,22 @@ Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe
 ## Every Session - Same Pattern
 
 ```bash
-# 1. Create archive (ALWAYS FIRST)
+# 1. Archive INDEX.md (ALWAYS FIRST)
+cp .memory/archive/INDEX.md .memory/archive/$(ls -t .memory/archive/ | grep -E '^[0-9]' | head -1)/INDEX_ARCHIVED.md
+
+# 2. Create your session archive
 mkdir -p .memory/archive/$(date +%Y-%m-%d)-[topic]/
 
-# 2. Verify baseline
+# 3. Verify baseline
 just check && just test
 
-# 3. Work, commit frequently
+# 4. Work, commit frequently
 
-# 4. Create HANDOVER.md in archive
-# 5. Commit
+# 5. Create HANDOVER.md in your archive
+
+# 6. Update INDEX.md to point to your session and add Archive Trail entry
+
+# 7. Commit
 ```
 
 **ALL session artifacts go in the dated archive directory.**
@@ -90,9 +96,10 @@ src/
 
 ## Navigation - Where Is Everything?
 
-**Current status**: `ls -t .memory/archive/ | head -1` → Read that `HANDOVER.md`
-
-**Current plan**: Latest archive with `MASTER_PLAN.md` or `PLAN.md`
+**Start here**: `.memory/archive/INDEX.md` - Shows active phase and last session
+- Archive INDEX.md to your session directory at start
+- Create new INDEX.md pointing to your session
+- Add entry to Archive Trail at end
 
 **Code**: `src/` (self-documenting JSDoc)
 
