@@ -200,6 +200,7 @@ just test    # 157 tests (must all pass)
 - **Status**: READY FOR SESSION 1 🚀
 - **Master Plan**: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`
 - **8 Sessions**: Each 45-120 min, clear deliverables, quality gates
+- **KISS**: One entry point, 8 focused sessions, no fluff - just read and execute
 
 **How to Start**:
 1. Read: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` (2 min)
