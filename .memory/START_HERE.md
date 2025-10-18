@@ -3,11 +3,11 @@
 ```yaml
 version: 0.1.0
 date: 2025-10-18
-tests: 600 passing (100%)
+tests: 647 passing (100%)
 coverage: 86% lines, 66% branches, 89% functions
-status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅ | Phase 4 Sessions 1-6 COMPLETE ✅
-last_session: Session 6 - OKLab & OKLCH Colors (77 tests, 35 min)
-next_session: Session 7 - System Colors (30 tests, 30-45 min, LOW complexity)
+status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅ | Phase 4 Sessions 1-7 COMPLETE ✅
+last_session: Session 7 - System & Special Colors (47 tests, 20 min)
+next_session: Session 8 - Master Color Parser (integration, 30-45 min, MEDIUM complexity)
 ```
 
 ## Recent Activity
@@ -15,6 +15,15 @@ next_session: Session 7 - System Colors (30 tests, 30-45 min, LOW complexity)
 > **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
 
 > **Documentation Policy**: KISS - Keep It Simple, Stupid. One entry point, focused docs, no fluff. Future agents should read and execute, not wade through verbose planning.
+
+- 2025-10-18: **Phase 4 Session 7: System & Special Colors** ✅
+  - **Delivered**: 47 tests (157% of target) in 20 minutes
+  - **Files**: 6 new files + 1 extended (system/special parsers, generators, tests, types, keywords)
+  - **Formats**: System colors (19 CSS4 keywords) and special colors (transparent, currentcolor)
+  - **Innovation**: Simple keyword-only parsing, case-insensitive matching, CSS4 theme integration
+  - **Quality**: 647 tests passing, 100% round-trip accuracy, all gates green
+  - See: `.memory/archive/2025-10-18-session-7/HANDOVER.md`
+  - Next: Session 8 - Master Color Parser (unified entry point, integration tests)
 
 - 2025-10-18: **Phase 4 Session 6: OKLab & OKLCH Colors** ✅
   - **Delivered**: 77 tests (96% of target) in 35 minutes
@@ -33,15 +42,6 @@ next_session: Session 7 - System Colors (30 tests, 30-45 min, LOW complexity)
   - **Quality**: 523 tests passing, 100% round-trip accuracy, all gates green
   - See: `.memory/archive/2025-01-18-session-5/HANDOVER.md`
   - Next: Session 6 - OKLab & OKLCH Colors (80 tests, similar structure)
-
-- 2025-10-18: **Phase 4 Session 4: HWB Colors** ✅
-  - **Delivered**: 38 tests (127% of target) in 45 minutes
-  - **Files**: 3 new files + 1 extended (parser, generator, tests, types)
-  - **Formats**: HWB syntax (angle units: deg/rad/grad/turn, hue wrapping, modern only)
-  - **Innovation**: Modern-only syntax (no legacy), whiteness/blackness clamping
-  - **Quality**: 448 tests passing, 100% round-trip accuracy, all gates green
-  - See: `.memory/archive/2025-10-18-session-4/HANDOVER.md`
-  - Next: Session 5 - LAB & LCH Colors (80 tests, perceptual color spaces)
 
 - 2025-10-18: **Phase 4 Session 1: Hex & Named Colors** ✅
   - **Delivered**: 60 tests (50% over target of 40) in 35 minutes
@@ -224,9 +224,9 @@ just test    # 410 tests (must all pass)
 
 ## Next Steps
 
-**Phase 4**: Colors - Session 7 Ready
-- **Status**: Sessions 1-6 Complete ✅ - Ready for Session 7 🚀
-- **Progress**: 600 tests (258 baseline + 342 sessions 1-6) → 648 target
+**Phase 4**: Colors - Session 8 Ready
+- **Status**: Sessions 1-7 Complete ✅ - Ready for Session 8 🚀
+- **Progress**: 647 tests (258 baseline + 389 sessions 1-7) → 648 target
 - **Master Plan**: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`
 - **Session 1**: ✅ Hex & Named colors (60 tests)
 - **Session 2**: ✅ RGB colors (50 tests)
@@ -234,20 +234,21 @@ just test    # 410 tests (must all pass)
 - **Session 4**: ✅ HWB colors (38 tests)
 - **Session 5**: ✅ LAB & LCH colors (75 tests)
 - **Session 6**: ✅ OKLab & OKLCH colors (77 tests)
-- **Session 7**: System colors (simple keyword parsing)
+- **Session 7**: ✅ System & Special colors (47 tests)
+- **Session 8**: Master Color Parser (unified entry point)
 
-**How to Start Session 7**:
-1. Read: `archive/2025-10-18-session-6/HANDOVER.md` (context from session 6)
-2. Read: `archive/2025-10-18-phase4-colors/session-7.md` (session 7 plan)
-3. Run: `just check && just test` (verify baseline: 600 tests)
-4. Create: `mkdir -p .memory/archive/$(date +%Y-%m-%d)-session-7/`
-5. Code: Follow session-7.md tasks
-6. Gate: `just check && just test` must pass (target: 630 tests)
+**How to Start Session 8**:
+1. Read: `archive/2025-10-18-session-7/HANDOVER.md` (context from session 7)
+2. Read: `archive/2025-10-18-phase4-colors/session-8.md` (session 8 plan)
+3. Run: `just check && just test` (verify baseline: 647 tests)
+4. Create: `mkdir -p .memory/archive/$(date +%Y-%m-%d)-session-8/`
+5. Code: Follow session-8.md tasks
+6. Gate: `just check && just test` must pass
 7. Handover: Create HANDOVER.md in session archive
-8. Commit: Mark session ✅ in progress tracker
+8. Commit: Mark Phase 4 ✅ COMPLETE in progress tracker
 
 **Quality Gates**:
 ```bash
 just check   # Format, typecheck, lint (must pass every session)
-just test    # All tests passing (600 current → 630 target for session 7)
+just test    # All tests passing (647 current)
 ```

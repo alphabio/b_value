@@ -310,11 +310,70 @@ export const oklchColorSchema = z.object({
 export type OKLCHColor = z.infer<typeof oklchColorSchema>;
 
 /**
+ * CSS system color value.
+ *
+ * Represents a system color using a CSS system color keyword.
+ * System colors integrate with the user's operating system or browser theme.
+ *
+ * @see {@link https://www.w3.org/TR/css-color-4/#css-system-colors}
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/system-color}
+ *
+ * @example
+ * ```typescript
+ * import type { SystemColor } from "@/core/types/color";
+ *
+ * const color1: SystemColor = { kind: "system", keyword: "ButtonText" };
+ * const color2: SystemColor = { kind: "system", keyword: "Canvas" };
+ * ```
+ *
+ * @public
+ */
+export const systemColorSchema = z.object({
+	kind: z.literal("system"),
+	keyword: z.string(), // validated against system color keyword list at parse time
+});
+
+/**
+ * TypeScript type for system color.
+ * @public
+ */
+export type SystemColor = z.infer<typeof systemColorSchema>;
+
+/**
+ * CSS special color value.
+ *
+ * Represents special CSS color keywords with unique behavior.
+ * - `transparent`: Fully transparent color (rgba(0, 0, 0, 0))
+ * - `currentcolor`: Uses the current value of the color property
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
+ *
+ * @example
+ * ```typescript
+ * import type { SpecialColor } from "@/core/types/color";
+ *
+ * const color1: SpecialColor = { kind: "special", keyword: "transparent" };
+ * const color2: SpecialColor = { kind: "special", keyword: "currentcolor" };
+ * ```
+ *
+ * @public
+ */
+export const specialColorSchema = z.object({
+	kind: z.literal("special"),
+	keyword: z.enum(["transparent", "currentcolor"]),
+});
+
+/**
+ * TypeScript type for special color.
+ * @public
+ */
+export type SpecialColor = z.infer<typeof specialColorSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Currently supports hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, and OKLCH colors.
- * Will be extended in future sessions to include system colors and color functions.
+ * Supports hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, and special colors.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -331,6 +390,8 @@ export type OKLCHColor = z.infer<typeof oklchColorSchema>;
  * const lch: Color = { kind: "lch", l: 50, c: 50, h: 180 };
  * const oklab: Color = { kind: "oklab", l: 0.5, a: -0.2, b: 0.3 };
  * const oklch: Color = { kind: "oklch", l: 0.5, c: 0.2, h: 180 };
+ * const system: Color = { kind: "system", keyword: "ButtonText" };
+ * const special: Color = { kind: "special", keyword: "transparent" };
  * ```
  *
  * @public
@@ -345,6 +406,8 @@ export const colorSchema = z.union([
 	lchColorSchema,
 	oklabColorSchema,
 	oklchColorSchema,
+	systemColorSchema,
+	specialColorSchema,
 ]);
 
 /**
