@@ -10,6 +10,15 @@ status: Phase 1 COMPLETE ✅ - Ready for Phase 2
 
 ## Recent Activity
 
+- 2025-10-18: **Benchmarks Updated** ✅
+  - Replaced copied benchmark scripts with b_value-specific ones
+  - 21 parse benchmarks, 17 generate benchmarks, 21 roundtrip benchmarks
+  - All focused on radial gradient operations (Phase 1 complete)
+  - Parse: ~150-350K ops/sec, Generate: ~2-4M ops/sec
+  - Roundtrip: ~127-322K ops/sec (limited by parse step)
+  - Ready to expand when Phase 2 adds linear/conic gradients
+  - See: `archive/2025-10-18-benchmark-update/`
+
 - 2025-10-18: **JSDoc Standard Established** ✅
   - Comprehensive JSDoc added to all public APIs
   - parse() function: 15 → 95 lines JSDoc (6 examples)
