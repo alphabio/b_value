@@ -1,4 +1,4 @@
-// b_path:: src/generate/position/index.ts
+// b_path:: src/generate/position/position.ts
 import * as Type from "@/core/types";
 
 /**
