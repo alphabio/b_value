@@ -1,96 +1,78 @@
-# b_value
+# b_value - Agent Navigation
 
-```yaml
-version: 0.1.0
-date: 2025-10-18
-tests: 647 passing (100%)
-coverage: 86% lines, 66% branches, 89% functions
-status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅ | Phase 4 Sessions 1-7 COMPLETE ✅
-last_session: Session 7 - System & Special Colors (47 tests, 20 min)
-next_session: Session 8 - Master Color Parser (integration, 30-45 min, MEDIUM complexity)
-```
+**Read this first, always.** This is your map. Everything else is in the archives.
 
-## Recent Activity
+## What is b_value?
 
-> **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
+Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe, spec-compliant.
 
-> **Documentation Policy**: KISS - Keep It Simple, Stupid. One entry point, focused docs, no fluff. Future agents should read and execute, not wade through verbose planning.
+Focus: Individual property values only (not shorthands - that's b_short's job).
 
-- 2025-10-18: **Phase 4 Session 7: System & Special Colors** ✅
-  - **Delivered**: 47 tests (157% of target) in 20 minutes
-  - **Files**: 6 new files + 1 extended (system/special parsers, generators, tests, types, keywords)
-  - **Formats**: System colors (19 CSS4 keywords) and special colors (transparent, currentcolor)
-  - **Innovation**: Simple keyword-only parsing, case-insensitive matching, CSS4 theme integration
-  - **Quality**: 647 tests passing, 100% round-trip accuracy, all gates green
-  - See: `.memory/archive/2025-10-18-session-7/HANDOVER.md`
-  - Next: Session 8 - Master Color Parser (unified entry point, integration tests)
+## Current Status
 
-- 2025-10-18: **Phase 4 Session 6: OKLab & OKLCH Colors** ✅
-  - **Delivered**: 77 tests (96% of target) in 35 minutes
-  - **Files**: 4 new files + 1 extended (oklab/oklch parsers, generators, tests, types)
-  - **Formats**: OKLab (L 0-1, a/b ±0.4) and OKLCH (L 0-1, C 0-0.4, H 0-360)
-  - **Innovation**: Different value ranges from LAB/LCH, flexible lightness (% or number)
-  - **Quality**: 600 tests passing, 100% round-trip accuracy, all gates green
-  - See: `.memory/archive/2025-10-18-session-6/HANDOVER.md`
-  - Next: Session 7 - System Colors (30 tests, simple keyword parsing)
+| Metric | Value | Gate |
+|--------|-------|------|
+| Tests | 647/647 | ✅ `just test` |
+| Coverage | 86% lines, 66% branches, 89% functions | ✅ |
+| TypeCheck | Strict mode, no `any` types | ✅ `just check` |
+| Phase 2 | Gradients (radial, linear, conic) | ✅ COMPLETE |
+| Phase 3 | Positions & transforms | ✅ COMPLETE |
+| Phase 4 | Colors & backgrounds | 🟡 Sessions 1-7/8 done |
 
-- 2025-01-18: **Phase 4 Session 5: LAB & LCH Colors** ✅
-  - **Delivered**: 75 tests (94% of target) in 45 minutes
-  - **Files**: 4 new files + 1 extended (lab/lch parsers, generators, tests, types)
-  - **Formats**: LAB (L, a, b) and LCH (L, C, H) perceptual color spaces
-  - **Innovation**: Flexible lightness (% or number), comprehensive value clamping
-  - **Quality**: 523 tests passing, 100% round-trip accuracy, all gates green
-  - See: `.memory/archive/2025-01-18-session-5/HANDOVER.md`
-  - Next: Session 6 - OKLab & OKLCH Colors (80 tests, similar structure)
+**Next**: Session 8 - Master Color Parser OR DRY cleanup (see `.memory/archive/2025-01-18-checkpoint/CHECKPOINT_REVIEW.md`)
 
-- 2025-10-18: **Phase 4 Session 1: Hex & Named Colors** ✅
-  - **Delivered**: 60 tests (50% over target of 40) in 35 minutes
-  - **Files**: 7 new files (types, parsers, generators, tests)
-  - **Formats**: #RGB, #RRGGBB, #RGBA, #RRGGBBAA + 148 named colors
-  - **Architecture**: Discriminated union with `kind` field, normalized representations
-  - **Quality**: 318 tests passing, 100% round-trip accuracy, all gates green
-  - See: `.memory/archive/2025-01-18-session-1/HANDOVER.md`
-  - Next: Session 2 - RGB Colors (50 tests, comma/space syntax, alpha variations)
+## Navigation
 
-- 2025-10-18: **Phase 4 Color Implementation Plan** ✅
-  - **KISS Approach**: Simple master plan + 8 focused session files (no fluff)
-  - **Master Plan**: Single entry point with progress tracker and session links
-  - **8 Sessions**: Hex/Named → RGB → HSL → HWB → LAB/LCH → OKLab/OKLCH → System → Master Parser
-  - **Test Target**: 648 tests (390 new), 10-14 hours over 4-8 weeks
-  - **Quality Gates**: `just check && just test` must pass every session
-  - See: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` ← **START HERE**
+**Where's the plan?** → `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`  
+**Where's the code?** → `src/` (read it, it's self-documenting)  
+**Where's the latest session?** → `archive/2025-10-18-session-7/HANDOVER.md`  
+**Where's the roadmap?** → `archive/2025-01-18-action-plan/ACTION_PLAN.md`
 
-- 2025-10-18: **Phase 4 Planning Complete** ✅
-  - **Comprehensive Phase 4 planning delivered** - 7 detailed planning documents created
-  - **Color System Design**: Complete support for all CSS color formats (RGB, HSL, LAB, LCH, OKLab, OKLCH, color-mix, etc.)
-  - **Background System Design**: Full background property support with multi-layer capabilities
-  - **Architecture Planning**: Detailed module structure and integration strategy
-  - **Implementation Roadmap**: 6-week phased implementation plan with clear milestones
-  - **Testing Strategy**: Comprehensive testing approach with 100+ test scenarios
-  - **Integration Planning**: Seamless integration with existing gradient/position/transform modules
-  - See: `archive/2025-10-18-phase4-colors-backgrounds/`
+## Core Principles (NEVER VIOLATE)
 
-- 2025-10-18: **Core Module Policy Implementation** ✅
-  - Added Core Module Policy to START_HERE.md instructing agents to always use core modules
-  - Fixed code duplication in transform.ts: replaced hardcoded unit definitions with core imports
-  - Updated parseLength, parseLengthPercentage, and parseAngle functions to use core unit constants
-  - Replaced hardcoded unit arrays with Unit.ABSOLUTE_LENGTH_UNITS, Unit.FONT_LENGTH_UNITS, etc.
-  - Eliminated all `any` type usage and lint warnings
-  - All 258 tests still passing (100% success rate maintained)
-  - Established pattern for future development: always import from @/core/* modules
+### 1. DRY - Don't Repeat Yourself
 
-- 2025-10-18: **Phase 2 Complete: Linear & Conic Gradients** ✅
-  - Implemented linear-gradient() and repeating-linear-gradient()
-  - Implemented conic-gradient() and repeating-conic-gradient()
-  - All three gradient types now fully supported
-  - Extended ColorStop type to support angle positions for conic gradients
-  - All parsers and generators at 100% round-trip accuracy
-  - See: `archive/2025-10-18-phase2-gradients/`
+**If you copy-paste, you're doing it wrong.**
 
-- 2025-01-18: **MDN Alignment Verified** ✅
-  - Core types 98% aligned with MDN CSS syntax definitions
-  - Radial/Linear/Conic gradients: 100% spec-compliant
-  - Position types: 95% (simplified but equivalent)
+- ✅ **DO**: Extract shared logic to `src/utils/parse/` or `src/utils/generate/`
+- ✅ **DO**: Import types/units/keywords from `src/core/`
+- ❌ **DON'T**: Duplicate parsing functions across files
+- ❌ **DON'T**: Hardcode unit arrays or keyword lists
+
+**Example**: If 3+ parsers need `parseAlpha()`, it belongs in `src/utils/parse/color-components.ts`.
+
+### 2. KISS - Keep It Simple, Stupid
+
+**Simple beats clever. Every time.**
+
+- ✅ **DO**: Write obvious code that reads like English
+- ✅ **DO**: One function, one job
+- ✅ **DO**: Prefer flat over nested
+- ❌ **DON'T**: Over-abstract or over-engineer
+- ❌ **DON'T**: Add frameworks or complex patterns
+
+**Example**: A 20-line function with clear variable names beats a 5-line one-liner that requires a PhD to understand.
+
+### 3. Library Scope
+
+**b_value = individual values. b_short = shorthands.**
+
+- ✅ **DO**: Parse `rgb(255, 0, 0)` → `{ kind: "rgb", r: 255, g: 0, b: 0 }`
+- ✅ **DO**: Parse `10px 20px` → `[{ value: 10, unit: "px" }, { value: 20, unit: "px" }]`
+- ❌ **DON'T**: Expand `background: red` → `background-color: red` (that's b_short)
+- ❌ **DON'T**: Handle shorthand property logic
+
+### 4. TypeScript Strict Mode
+
+**No escape hatches. No `any` types.**
+
+- ✅ **DO**: Use proper type assertions `as Type`
+- ✅ **DO**: Handle `undefined` from array access
+- ✅ **DO**: Validate before destructuring
+- ❌ **DON'T**: Use `any` type (lint will fail)
+- ❌ **DON'T**: Use `@ts-ignore` or `@ts-expect-error`
+
+See `tsconfig.json` for all strict settings.
   - Color interpolation: 90% (keywords match, structure simplified)
   - All gradient keywords match MDN exactly
   - Design differences are intentional TypeScript ergonomics
@@ -108,147 +90,131 @@ next_session: Session 8 - Master Color Parser (integration, 30-45 min, MEDIUM co
   - All quality gates passing (format, typecheck, lint, test, coverage)
   - See: `archive/2025-01-18-coverage-90/`
 
-## Context
+## Session Workflow (ALWAYS FOLLOW)
 
-**b_value** - Bidirectional CSS value parser. The "Rosetta Stone" for CSS values.
+Every session follows the same pattern. No exceptions.
 
-Parse CSS values to structured IR and generate CSS from IR. Built on css-tree and Zod for type-safe, spec-compliant CSS value handling.
-
-### What We Have Now (Phase 2 Complete)
-
-```typescript
-import { Parse, Generate } from "b_value";
-
-// Radial gradients
-const radial = Parse.Gradient.Radial.parse(
-  "radial-gradient(circle at center, red 0%, blue 100%)"
-);
-
-// Linear gradients
-const linear = Parse.Gradient.Linear.parse(
-  "linear-gradient(45deg, red, blue)"
-);
-
-// Conic gradients
-const conic = Parse.Gradient.Conic.parse(
-  "conic-gradient(from 90deg, red, yellow, blue)"
-);
-
-// Generate CSS from IR
-const css = Generate.Gradient.Linear.toCss(linear.value);
-```
-
-### Architecture
-
-```
-b_value/
-├── core/           # Types, units, keywords from b_gee
-│   ├── types/      # Zod schemas (gradients, positions, colors, etc.)
-│   ├── units/      # Length, angle, percentage units
-│   ├── keywords/   # 4,300+ lines of CSS keywords
-│   └── result.ts   # Result<T,E> error handling
-├── parse/          # CSS → IR parsers
-│   └── gradient/   # ✅ All gradients (radial, linear, conic)
-└── generate/       # IR → CSS generators
-    └── gradient/   # ✅ All gradients (radial, linear, conic)
-```
-
-## Roadmap
-
-**9-Phase Plan** (see `archive/2025-01-18-action-plan/ACTION_PLAN.md`)
-
-- ✅ **Phase 1**: Foundation + radial-gradient (DONE)
-- ✅ **Phase 2**: Complete gradients (linear, conic, direction) (DONE)
-- ✅ **Phase 3**: Positions & transforms (DONE)
-- 🔜 **Phase 4**: Colors & backgrounds
-- 🔜 **Phase 5**: Borders & box model
-- 🔜 **Phase 6**: Layout (flexbox, grid)
-- 🔜 **Phase 7**: Typography
-- 🔜 **Phase 8**: Polish & documentation
-- 🔜 **Phase 9**: Animations
-- 🔜 **Phase 10**: Evaluate/Determine what other values we need to support
-- 🔜 **Phase 11**: Release v0.1.0
-
-## For New Agents
-
-**Every session starts the same way**:
+### 1. Setup (30 seconds)
 
 ```bash
-mkdir -p ./.memory/archive/$(date +%Y-%m-%d)-[topic]/
+# Create session directory FIRST
+mkdir -p .memory/archive/$(date +%Y-%m-%d)-[topic]/
+
+# Verify baseline
+just check && just test
 ```
 
-Put ALL session artifacts in this directory from the start.
+Put ALL session artifacts in the dated directory from the start.
 
-**Core Module Policy:**
-- **Always** import types, units, and keywords from core modules (`@/core/*`)
-- **Never** duplicate unit definitions, type schemas, or keyword lists
-- If a core module doesn't exist, create it in `src/core/` first, then import from there
-- Check existing core modules before creating new definitions
+### 2. Work (main session)
 
-**DRY (Don't Repeat Yourself) Policy:**
-- **Always** check existing utils (`@/utils/*`) before implementing parsing/generation logic
-- **Never** duplicate parsing functions - use shared utilities from `@/utils/parse/*` and `@/utils/generate/*`
-- **Always** extract common patterns into shared utilities first, then use them across modules
-- Check `@/utils/ast/*` for AST manipulation utilities before writing custom AST code
+- Read the code (it's self-documenting)
+- Make **surgical changes only** (minimize diff)
+- Follow DRY and KISS principles (see above)
+- Run `just check` after every logical change
+- Run `just test` regularly
 
-**Library Scope Policy:**
-- **b_value**: Handles individual CSS property values (e.g., `rgb(255, 0, 0)`, `10px 20px`)
-- **b_short**: Handles CSS shorthand expansion (e.g., `background: red` → `background-color: red`)
-- **Never** implement shorthand expansion in b_value - delegate to b_short for that functionality
-
-**TypeScript Strict Mode Requirements:**
-- Adhere to strict TypeScript settings (see `tsconfig.json`):
-  - `strict: true` - All strict type checking enabled
-  - `forceConsistentCasingInFileNames: true` - Consistent file name casing
-  - `verbatimModuleSyntax: true` - Proper module syntax usage
-  - `noUncheckedIndexedAccess: true` - Safe array/object access
-  - `noFallthroughCasesInSwitch: true` - Explicit switch case handling
-  - `exactOptionalPropertyTypes: true` - Precise optional property types
-- **Never** use `any` type - use proper type assertions instead
-- **Always** handle all error cases and edge cases in parsing logic
-- **Use** proper TypeScript utility types and core type definitions
-
-**Working process:**
-- Run `just check` after changes (format + typecheck + lint)
-- Run `just test` regularly to verify correctness
-- Commit work frequently with clear messages
-- Everything must be green before final commit
-- Update START_HERE.md at session end with outcomes
-
-**Quality gates:**
+### 3. Quality Gates (MUST PASS)
 
 ```bash
-just check   # Format, typecheck, lint (must pass)
-just test    # 410 tests (must all pass)
+just check   # Format, typecheck, lint
+just test    # All tests (currently 647)
 ```
 
-## Next Steps
+**Everything must be green before committing.**
 
-**Phase 4**: Colors - Session 8 Ready
-- **Status**: Sessions 1-7 Complete ✅ - Ready for Session 8 🚀
-- **Progress**: 647 tests (258 baseline + 389 sessions 1-7) → 648 target
-- **Master Plan**: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`
-- **Session 1**: ✅ Hex & Named colors (60 tests)
-- **Session 2**: ✅ RGB colors (50 tests)
-- **Session 3**: ✅ HSL colors (42 tests)
-- **Session 4**: ✅ HWB colors (38 tests)
-- **Session 5**: ✅ LAB & LCH colors (75 tests)
-- **Session 6**: ✅ OKLab & OKLCH colors (77 tests)
-- **Session 7**: ✅ System & Special colors (47 tests)
-- **Session 8**: Master Color Parser (unified entry point)
+### 4. Handover (5-10 minutes)
 
-**How to Start Session 8**:
-1. Read: `archive/2025-10-18-session-7/HANDOVER.md` (context from session 7)
-2. Read: `archive/2025-10-18-phase4-colors/session-8.md` (session 8 plan)
-3. Run: `just check && just test` (verify baseline: 647 tests)
-4. Create: `mkdir -p .memory/archive/$(date +%Y-%m-%d)-session-8/`
-5. Code: Follow session-8.md tasks
-6. Gate: `just check && just test` must pass
-7. Handover: Create HANDOVER.md in session archive
-8. Commit: Mark Phase 4 ✅ COMPLETE in progress tracker
+Create `HANDOVER.md` in session archive:
+- What was delivered
+- What changed (files, tests, features)
+- What's next
+- Any issues or technical debt
 
-**Quality Gates**:
+Update this file's "Current Status" table if major milestone.
+
+### 5. Commit
+
 ```bash
-just check   # Format, typecheck, lint (must pass every session)
-just test    # All tests passing (647 current)
+git add .
+git commit -m "feat(area): clear description"
 ```
+
+## Common Tasks
+
+### Adding a new parser
+
+1. **Check for duplication** - Is similar logic already in `src/utils/parse/`?
+2. **Use shared utilities** - Import from `@/utils/parse/nodes.ts` or `@/utils/ast/`
+3. **Follow existing patterns** - See `src/parse/color/rgb.ts` for reference
+4. **Write tests first** - Add to `src/parse/[area]/[name].test.ts`
+5. **Test round-trip** - Parse → Generate → Parse should produce identical IR
+
+### Refactoring for DRY
+
+1. **Identify duplication** - Look for copy-pasted functions
+2. **Extract to utils** - Move to `src/utils/parse/` or `src/utils/generate/`
+3. **Add tests** - Test the utility function independently
+4. **Refactor incrementally** - One file at a time, verify tests after each
+5. **Commit frequently** - Small commits make rollback easy
+
+### Debugging test failures
+
+1. **Read the error** - Test names are descriptive
+2. **Check the diff** - What's the actual vs expected?
+3. **Trace the code** - Use TypeScript's type errors as hints
+4. **Verify baseline** - Did it work before your change?
+5. **Isolate the issue** - Comment out code to narrow down
+
+## Quick Reference
+
+**Project Structure:**
+```
+src/
+├── core/        # Types, units, keywords (import from here)
+├── parse/       # CSS → IR (add parsers here)
+├── generate/    # IR → CSS (add generators here)
+└── utils/       # Shared utilities (extract duplication here)
+    ├── ast/     # AST manipulation
+    ├── parse/   # Shared parsing logic
+    └── generate/# Shared generation logic
+```
+
+**Import Aliases:**
+- `@/core/*` - Core types, units, keywords
+- `@/utils/*` - Shared utilities
+- `@/parse/*` - Parsers
+- `@/generate/*` - Generators
+
+**Testing:**
+- Unit tests: Co-located with source (e.g., `rgb.test.ts` next to `rgb.ts`)
+- Integration tests: `test/integration/`
+- Run specific test: `pnpm test -- rgb`
+- Watch mode: `pnpm test -- --watch`
+
+## What to Read Next
+
+**New to the codebase?**
+1. This file (you're reading it)
+2. `README.md` - Public API and examples
+3. `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` - Current work
+4. `src/parse/color/rgb.ts` - Reference implementation
+
+**Starting a session?**
+1. Latest handover: `archive/2025-10-18-session-7/HANDOVER.md`
+2. Next session plan: `archive/2025-10-18-phase4-colors/session-8.md`
+3. OR checkpoint review: `archive/2025-01-18-checkpoint/CHECKPOINT_REVIEW.md`
+
+**Need context?**
+1. Roadmap: `archive/2025-01-18-action-plan/ACTION_PLAN.md`
+2. Phase 2 audit: `archive/2025-01-18-phase2-audit/FINAL_REPORT.md`
+3. Architecture: Read `src/` - it's self-documenting
+
+**Something broken?**
+1. Run `just check && just test` to see what failed
+2. Read test output - names are descriptive
+3. Check recent commits: `git log --oneline -10`
+
+---
+
+**Remember**: DRY and KISS aren't suggestions—they're requirements. If you find duplication, fix it. If you add complexity, simplify it. Keep the codebase honest.
