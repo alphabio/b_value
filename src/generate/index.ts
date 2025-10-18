@@ -34,3 +34,15 @@
  * @see {@link Gradient.Radial.toCss}
  */
 export * as Gradient from "./gradient";
+/**
+ * Position generators (background-position, object-position, transform-origin, etc.).
+ *
+ * @see {@link Position.toCss}
+ */
+export * as Position from "./position";
+/**
+ * Transform generators (translate, rotate, scale, skew, matrix, etc.).
+ *
+ * @see {@link Transform.toCss}
+ */
+export * as Transform from "./transform";

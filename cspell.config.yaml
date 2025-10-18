@@ -8,8 +8,19 @@ words:
   - oklab
   - oklch
   - prophoto
+  - rotatex
+  - rotatey
+  - rotatez
+  - scalex
+  - scaley
+  - scalez
   - stringifiers
+  - translatex
+  - translatey
+  - translatez
   - turbopack
   - unittests
+  - vmax
+  - vmin
 ignoreWords: []
 import: []
