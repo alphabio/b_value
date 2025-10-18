@@ -12,28 +12,15 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
 
 > **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
 
-- 2025-01-18: **Phase 2 Audit & Phase 3 Fix Complete** ✅
-  - Comprehensive audit identified 19 test failures in transform/position code
-  - Fixed transform parser: operator filtering, case sensitivity, error aggregation
-  - Fixed position list parser: single-walk AST strategy
-  - Fixed TypeScript compilation errors (matrix value validation)
-  - Fixed lint warnings (removed `any` type, used proper assertions)
-  - Added transform function keywords to core (eliminated duplication)
-  - All 258 tests now passing (100%, up from 92.6%)
-  - Coverage: 89% lines, 71% branches, 100% functions
-  - Transform and position parsers/generators complete and world-class
-  - Phase 2 (gradients) confirmed world-class quality
-  - Phase 3 (positions & transforms) now complete and validated
-  - See: `archive/2025-01-18-phase2-audit/`
-
-- 2025-10-18: **Core Module Policy Implementation** ✅
-  - Added Core Module Policy to START_HERE.md instructing agents to always use core modules
-  - Fixed code duplication in transform.ts: replaced hardcoded unit definitions with core imports
-  - Updated parseLength, parseLengthPercentage, and parseAngle functions to use core unit constants
-  - Replaced hardcoded unit arrays with Unit.ABSOLUTE_LENGTH_UNITS, Unit.FONT_LENGTH_UNITS, etc.
-  - Eliminated all `any` type usage and lint warnings
-  - All 258 tests still passing (100% success rate maintained)
-  - Established pattern for future development: always import from @/core/* modules
+- 2025-10-18: **Phase 4 Planning Complete** ✅
+  - **Comprehensive Phase 4 planning delivered** - 7 detailed planning documents created
+  - **Color System Design**: Complete support for all CSS color formats (RGB, HSL, LAB, LCH, OKLab, OKLCH, color-mix, etc.)
+  - **Background System Design**: Full background property support with multi-layer capabilities
+  - **Architecture Planning**: Detailed module structure and integration strategy
+  - **Implementation Roadmap**: 6-week phased implementation plan with clear milestones
+  - **Testing Strategy**: Comprehensive testing approach with 100+ test scenarios
+  - **Integration Planning**: Seamless integration with existing gradient/position/transform modules
+  - See: `archive/2025-10-18-phase4-colors-backgrounds/`
 
 - 2025-10-18: **Utils Architecture Implementation Complete** ✅
   - **CHECKPOINT COMMIT**: `c6b3c49` - Utils architecture and refactoring complete
@@ -46,6 +33,15 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
   - **All 258 tests passing** - refactoring maintains 100% compatibility
   - **Quality gates passing** - format, typecheck, lint all clean
   - **464 lines added, 73 lines removed** - net positive refactoring
+
+- 2025-10-18: **Core Module Policy Implementation** ✅
+  - Added Core Module Policy to START_HERE.md instructing agents to always use core modules
+  - Fixed code duplication in transform.ts: replaced hardcoded unit definitions with core imports
+  - Updated parseLength, parseLengthPercentage, and parseAngle functions to use core unit constants
+  - Replaced hardcoded unit arrays with Unit.ABSOLUTE_LENGTH_UNITS, Unit.FONT_LENGTH_UNITS, etc.
+  - Eliminated all `any` type usage and lint warnings
+  - All 258 tests still passing (100% success rate maintained)
+  - Established pattern for future development: always import from @/core/* modules
 
 - 2025-10-18: **Phase 2 Complete: Linear & Conic Gradients** ✅
   - Implemented linear-gradient() and repeating-linear-gradient()
@@ -159,6 +155,11 @@ Put ALL session artifacts in this directory from the start.
 - **Always** extract common patterns into shared utilities first, then use them across modules
 - Check `@/utils/ast/*` for AST manipulation utilities before writing custom AST code
 
+**Library Scope Policy:**
+- **b_value**: Handles individual CSS property values (e.g., `rgb(255, 0, 0)`, `10px 20px`)
+- **b_short**: Handles CSS shorthand expansion (e.g., `background: red` → `background-color: red`)
+- **Never** implement shorthand expansion in b_value - delegate to b_short for that functionality
+
 **TypeScript Strict Mode Requirements:**
 - Adhere to strict TypeScript settings (see `tsconfig.json`):
   - `strict: true` - All strict type checking enabled
@@ -187,11 +188,38 @@ just test    # 157 tests (must all pass)
 
 ## Next Steps
 
-**Phase 4**: Colors & backgrounds
-- Color value parsing (rgb, hsl, hex, named colors)
-- Background properties (background-color, background-image, etc.)
-- Multiple backgrounds support
-- Color manipulation utilities
-- Comprehensive color tests
+**Phase 4.1**: Colors & backgrounds - Foundation & Core Types (Week 1)
+- **Status**: PLANNING COMPLETE ✅ | IMPLEMENTATION READY 🚀
+- **Planning Deliverables**: 7 comprehensive documents in `archive/2025-10-18-phase4-colors-backgrounds/`
+- **Implementation Ready**: 6-week phased roadmap with clear milestones
 
-**Ready to continue!**
+**Immediate Actions**:
+1. **Start Implementation**: Begin Phase 4.1 with color core infrastructure
+2. **Create Feature Branch**: `git checkout -b feature/phase4-colors-backgrounds`
+3. **Initialize Session Archive**: `mkdir -p ./.memory/archive/$(date +%Y-%m-%d)-phase4-implementation/`
+4. **Run Quality Gates**: Ensure `just check` and `just test` pass before starting
+
+**Phase 4.1 Focus** (Week 1):
+- Create color keywords module (`src/core/keywords/color-keywords.ts`)
+- Create background keywords module (`src/core/keywords/background-keywords.ts`)
+- Implement core color type definitions (`src/core/types/color.ts`)
+- Implement core background type definitions (`src/core/types/background.ts`)
+- Create Zod schemas for all color and background types
+
+**Quality Gates**:
+
+```bash
+just check   # Format, typecheck, lint (must pass)
+just test    # 258+ tests (must all pass)
+```
+
+**Planning Documentation**:
+- **PHASE4_PLAN.md**: Master implementation plan and architecture overview
+- **TYPE_DEFINITIONS.md**: Detailed type system design with interfaces and schemas
+- **PARSE_UTILITIES.md**: Complete parsing utilities strategy and implementation plan
+- **GENERATE_UTILITIES.md**: Comprehensive generation utilities design
+- **TEST_STRATEGY.md**: Exhaustive testing strategy with 100+ test scenarios
+- **IMPLEMENTATION_ROADMAP.md**: 6-week phased implementation roadmap
+- **INTEGRATION_POINTS.md**: Integration strategy with existing modules
+
+**Ready for implementation!** 🚀
