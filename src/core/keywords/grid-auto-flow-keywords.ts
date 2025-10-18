@@ -12,7 +12,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { gridAutoFlowKeywordsSchema } from "../keywords/grid-auto-flow-keywords";
+ * import { gridAutoFlowKeywordsSchema } from "@/core/keywords/grid-auto-flow-keywords";
  *
  * const keyword = gridAutoFlowKeywordsSchema.parse("row");
  * ```

@@ -20,7 +20,7 @@ import { position2DSchema } from "../position";
  *
  * @example
  * ```typescript
- * import { conicGradientSchema } from "../gradient/conic";
+ * import { conicGradientSchema } from "@/core/types/gradient/conic";
  *
  * // Simple conic gradient (defaults to starting from top, center position)
  * const grad1: ConicGradient = {

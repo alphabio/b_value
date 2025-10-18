@@ -15,7 +15,7 @@ import * as Unit from "../units";
  *
  * @example
  * ```typescript
- * import { angleSchema } from "../types/angle";
+ * import { angleSchema } from "@/core/types/angle";
  *
  * const rotation: Angle = { value: 45, unit: "deg" };
  * const fullCircle: Angle = { value: 360, unit: "deg" };

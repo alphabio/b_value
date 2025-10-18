@@ -35,7 +35,7 @@ export type BackgroundPositionValue = z.infer<typeof backgroundPositionValueSche
  *
  * @example
  * ```typescript
- * import { positionLayerSchema } from "../types/position-layer";
+ * import { positionLayerSchema } from "@/core/types/position-layer";
  *
  * // Center keyword
  * const layer1: PositionLayer = { kind: "center" };
@@ -115,7 +115,7 @@ export type PositionLayer = z.infer<typeof positionLayerSchema>;
  *
  * @example
  * ```typescript
- * import { positionSchema, type Position } from "../types/position-layer";
+ * import { positionSchema, type Position } from "@/core/types/position-layer";
  *
  * // Single layer
  * const pos1: Position = {

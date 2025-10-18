@@ -14,7 +14,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { ratioSchema } from "../types/ratio";
+ * import { ratioSchema } from "@/core/types/ratio";
  *
  * // Simple ratio
  * const ratio1: Ratio = { numerator: 16, denominator: 9 };
@@ -55,7 +55,7 @@ export type Ratio = z.infer<typeof ratioSchema>;
  *
  * @example
  * ```typescript
- * import { ratioListSchema } from "../types/ratio";
+ * import { ratioListSchema } from "@/core/types/ratio";
  *
  * const ratios: RatioList = [
  *   { numerator: 16, denominator: 9 },
@@ -84,7 +84,7 @@ export type RatioList = z.infer<typeof ratioListSchema>;
  *
  * @example
  * ```typescript
- * import { COMMON_ASPECT_RATIOS } from "../types/ratio";
+ * import { COMMON_ASPECT_RATIOS } from "@/core/types/ratio";
  *
  * const videoRatio = COMMON_ASPECT_RATIOS["16:9"]; // { numerator: 16, denominator: 9 }
  * const squareRatio = COMMON_ASPECT_RATIOS["1:1"]; // { numerator: 1, denominator: 1 }
@@ -118,7 +118,7 @@ export type CommonAspectRatio = typeof COMMON_ASPECT_RATIOS;
  *
  * @example
  * ```typescript
- * import { createRatioFromString } from "../types/ratio";
+ * import { createRatioFromString } from "@/core/types/ratio";
  *
  * const ratio1 = createRatioFromString("16:9"); // { numerator: 16, denominator: 9 }
  * const ratio2 = createRatioFromString("4/3"); // { numerator: 4, denominator: 3 }
@@ -157,7 +157,7 @@ export function createRatioFromString(ratioString: string): Ratio | null {
  *
  * @example
  * ```typescript
- * import { formatRatioAsString } from "../types/ratio";
+ * import { formatRatioAsString } from "@/core/types/ratio";
  *
  * const ratioString = formatRatioAsString({ numerator: 16, denominator: 9 }); // "16:9"
  * ```

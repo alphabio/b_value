@@ -11,7 +11,10 @@ build:
 test:
     pnpm test
 
-test-watch:
+coverage:
+    pnpm run test:coverage
+
+watch:
     pnpm run test:watch
 
 # ------------- Quality Gates -------------
@@ -28,6 +31,20 @@ fix:
     biome check --write .
 
 check: format fix typecheck
+
+# ------------- Benchmark -------------
+
+bench:
+    pnpm run bench
+
+bench_parse:
+    pnpm run bench:parse
+
+bench_generate:
+    pnpm run bench:generate
+
+bench_roundtrip:
+    pnpm run bench:roundtrip
 
 # ------------- Development -------------
 dev: build test

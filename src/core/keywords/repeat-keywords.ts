@@ -18,7 +18,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { repeatKeywordsSchema } from "../keywords/repeat-keywords";
+ * import { repeatKeywordsSchema } from "@/core/keywords/repeat-keywords";
  *
  * const keyword = repeatKeywordsSchema.parse("repeat-x"); // "repeat-x"
  * ```
@@ -43,7 +43,7 @@ export const repeatKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { REPEAT_KEYWORDS } from "../keywords/repeat-keywords";
+ * import { REPEAT_KEYWORDS } from "@/core/keywords/repeat-keywords";
  *
  * console.log(REPEAT_KEYWORDS);
  * // ["repeat", "repeat-x", "repeat-y", "no-repeat", "space", "round"]
@@ -68,7 +68,7 @@ export type RepeatKeyword = z.infer<typeof repeatKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { repeatKeywordOptions } from "../keywords/repeat-keywords";
+ * import { repeatKeywordOptions } from "@/core/keywords/repeat-keywords";
  *
  * repeatKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);
@@ -104,7 +104,7 @@ export type RepeatKeywordOptions = typeof repeatKeywordOptions;
  *
  * @example
  * ```typescript
- * import { repeatTwoValueKeywordsSchema } from "../keywords/repeat-keywords";
+ * import { repeatTwoValueKeywordsSchema } from "@/core/keywords/repeat-keywords";
  *
  * // Valid in two-value syntax
  * const horizontal = repeatTwoValueKeywordsSchema.parse("repeat"); // "repeat"

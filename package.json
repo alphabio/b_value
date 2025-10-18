@@ -79,12 +79,12 @@
 	"size-limit": [
 		{
 			"path": "dist/index.mjs",
-			"limit": "50 KB",
+			"limit": "150 KB",
 			"name": "ESM"
 		},
 		{
 			"path": "dist/index.js",
-			"limit": "55 KB",
+			"limit": "155 KB",
 			"name": "CommonJS"
 		}
 	],

@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { backgroundAttachmentKeywordsSchema } from "../keywords/background-attachment-keywords";
+ * import { backgroundAttachmentKeywordsSchema } from "@/core/keywords/background-attachment-keywords";
  *
  * const keyword = backgroundAttachmentKeywordsSchema.parse("fixed"); // "fixed"
  * ```
@@ -36,7 +36,7 @@ export const backgroundAttachmentKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BACKGROUND_ATTACHMENT_KEYWORDS } from "../keywords/background-attachment-keywords";
+ * import { BACKGROUND_ATTACHMENT_KEYWORDS } from "@/core/keywords/background-attachment-keywords";
  *
  * console.log(BACKGROUND_ATTACHMENT_KEYWORDS); // ["scroll", "fixed", "local"]
  * ```
@@ -60,7 +60,7 @@ export type BackgroundAttachmentKeyword = z.infer<typeof backgroundAttachmentKey
  *
  * @example
  * ```typescript
- * import { backgroundAttachmentKeywordOptions } from "../keywords/background-attachment-keywords";
+ * import { backgroundAttachmentKeywordOptions } from "@/core/keywords/background-attachment-keywords";
  *
  * backgroundAttachmentKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

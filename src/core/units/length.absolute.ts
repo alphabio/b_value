@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { absoluteLengthUnitSchema } from "../units/length.absolute";
+ * import { absoluteLengthUnitSchema } from "@/core/units/length.absolute";
  *
  * const unit = absoluteLengthUnitSchema.parse("px"); // "px"
  * ```
@@ -38,7 +38,7 @@ export const absoluteLengthUnitSchema = z
  *
  * @example
  * ```typescript
- * import { ABSOLUTE_LENGTH_UNITS } from "../units/length.absolute";
+ * import { ABSOLUTE_LENGTH_UNITS } from "@/core/units/length.absolute";
  *
  * console.log(ABSOLUTE_LENGTH_UNITS); // ["px", "pt", "cm", "mm", "Q", "in", "pc"]
  * ```
@@ -62,7 +62,7 @@ export type AbsoluteLengthUnit = z.infer<typeof absoluteLengthUnitSchema>;
  *
  * @example
  * ```typescript
- * import { absoluteLengthUnitOptions } from "../units/length.absolute";
+ * import { absoluteLengthUnitOptions } from "@/core/units/length.absolute";
  *
  * absoluteLengthUnitOptions.forEach(({ value, description }) => {
  *   <Option value={value} description={description} />

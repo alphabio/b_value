@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { alignContentKeywordsSchema } from "../keywords/align-content-keywords";
+ * import { alignContentKeywordsSchema } from "@/core/keywords/align-content-keywords";
  *
  * const keyword = alignContentKeywordsSchema.parse("space-between");
  * ```

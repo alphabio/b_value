@@ -13,7 +13,7 @@ import type * as Type from "../types";
  *
  * @example
  * ```typescript
- * import { borderWidthKeywordsSchema } from "../keywords/border-width-keywords";
+ * import { borderWidthKeywordsSchema } from "@/core/keywords/border-width-keywords";
  *
  * const keyword = borderWidthKeywordsSchema.parse("medium"); // "medium"
  * ```
@@ -33,7 +33,7 @@ export const borderWidthKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BORDER_WIDTH_KEYWORDS } from "../keywords/border-width-keywords";
+ * import { BORDER_WIDTH_KEYWORDS } from "@/core/keywords/border-width-keywords";
  *
  * console.log(BORDER_WIDTH_KEYWORDS); // ["thin", "medium", "thick"]
  * ```
@@ -64,7 +64,7 @@ export type BorderWidthValue = z.infer<typeof borderWidthKeywordsSchema> | Type.
  *
  * @example
  * ```typescript
- * import { borderWidthKeywordOptions } from "../keywords/border-width-keywords";
+ * import { borderWidthKeywordOptions } from "@/core/keywords/border-width-keywords";
  *
  * borderWidthKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

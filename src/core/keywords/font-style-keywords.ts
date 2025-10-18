@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { fontStyleKeywordsSchema } from "../keywords/font-style-keywords";
+ * import { fontStyleKeywordsSchema } from "@/core/keywords/font-style-keywords";
  *
  * const keyword = fontStyleKeywordsSchema.parse("italic");
  * ```

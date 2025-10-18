@@ -17,7 +17,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { positionKeywordsSchema } from "../keywords/position-keywords";
+ * import { positionKeywordsSchema } from "@/core/keywords/position-keywords";
  *
  * const keyword = positionKeywordsSchema.parse("center"); // "center"
  * ```
@@ -42,7 +42,7 @@ export const positionKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { POSITION_KEYWORDS } from "../keywords/position-keywords";
+ * import { POSITION_KEYWORDS } from "@/core/keywords/position-keywords";
  *
  * console.log(POSITION_KEYWORDS);
  * // ["center", "left", "right", "top", "bottom"]
@@ -67,7 +67,7 @@ export type PositionKeyword = z.infer<typeof positionKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { positionKeywordOptions } from "../keywords/position-keywords";
+ * import { positionKeywordOptions } from "@/core/keywords/position-keywords";
  *
  * positionKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);
@@ -99,7 +99,7 @@ export type PositionKeywordOptions = typeof positionKeywordOptions;
  *
  * @example
  * ```typescript
- * import { positionHorizontalEdgeKeywordsSchema } from "../keywords/position-keywords";
+ * import { positionHorizontalEdgeKeywordsSchema } from "@/core/keywords/position-keywords";
  *
  * const edge = positionHorizontalEdgeKeywordsSchema.parse("left"); // "left"
  * ```
@@ -137,7 +137,7 @@ export type PositionHorizontalEdgeKeyword = z.infer<typeof positionHorizontalEdg
  *
  * @example
  * ```typescript
- * import { positionVerticalEdgeKeywordsSchema } from "../keywords/position-keywords";
+ * import { positionVerticalEdgeKeywordsSchema } from "@/core/keywords/position-keywords";
  *
  * const edge = positionVerticalEdgeKeywordsSchema.parse("top"); // "top"
  * ```

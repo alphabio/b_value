@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { flexWrapKeywordsSchema } from "../keywords/flex-wrap-keywords";
+ * import { flexWrapKeywordsSchema } from "@/core/keywords/flex-wrap-keywords";
  *
  * const keyword = flexWrapKeywordsSchema.parse("wrap");
  * ```

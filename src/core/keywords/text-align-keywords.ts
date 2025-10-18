@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { textAlignKeywordsSchema } from "../keywords/text-align-keywords";
+ * import { textAlignKeywordsSchema } from "@/core/keywords/text-align-keywords";
  *
  * const keyword = textAlignKeywordsSchema.parse("center");
  * ```

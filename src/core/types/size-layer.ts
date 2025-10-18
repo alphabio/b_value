@@ -18,7 +18,7 @@ import * as Type from "../types";
  *
  * @example
  * ```typescript
- * import { sizeLayerSchema } from "../types/size-layer";
+ * import { sizeLayerSchema } from "@/core/types/size-layer";
  *
  * // Keyword
  * const layer1: SizeLayer = { kind: "keyword", value: "cover" };
@@ -89,7 +89,7 @@ export type SizeLayer = z.infer<typeof sizeLayerSchema>;
  *
  * @example
  * ```typescript
- * import { sizeSchema, type Size } from "../types/size-layer";
+ * import { sizeSchema, type Size } from "@/core/types/size-layer";
  *
  * // Single keyword
  * const size1: Size = {

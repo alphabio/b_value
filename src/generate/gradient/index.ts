@@ -13,7 +13,19 @@
  * @see {@link ColorStop.toCss}
  */
 export * as ColorStop from "./color-stop";
+/**
+ * Generate conic and repeating-conic gradient CSS strings.
+ *
+ * @see {@link Conic.toCss}
+ */
+export * as Conic from "./conic";
 
+/**
+ * Generate linear and repeating-linear gradient CSS strings.
+ *
+ * @see {@link Linear.toCss}
+ */
+export * as Linear from "./linear";
 /**
  * Generate radial and repeating-radial gradient CSS strings.
  *

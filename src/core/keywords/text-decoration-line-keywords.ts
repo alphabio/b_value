@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { textDecorationLineKeywordsSchema } from "../keywords/text-decoration-line-keywords";
+ * import { textDecorationLineKeywordsSchema } from "@/core/keywords/text-decoration-line-keywords";
  *
  * const keyword = textDecorationLineKeywordsSchema.parse("underline");
  * ```

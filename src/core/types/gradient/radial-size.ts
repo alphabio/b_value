@@ -19,7 +19,7 @@ import { lengthPercentageSchema } from "../length-percentage";
  *
  * @example
  * ```typescript
- * import { radialGradientSizeSchema } from "../gradient/radial-size";
+ * import { radialGradientSizeSchema } from "@/core/types/gradient/radial-size";
  *
  * // Keyword size
  * const size1: RadialGradientSize = {

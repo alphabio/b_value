@@ -12,7 +12,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { justifySelfKeywordsSchema } from "../keywords/justify-self-keywords";
+ * import { justifySelfKeywordsSchema } from "@/core/keywords/justify-self-keywords";
  *
  * const keyword = justifySelfKeywordsSchema.parse("center");
  * ```

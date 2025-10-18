@@ -16,7 +16,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { contentDistributionKeywordsSchema } from "../keywords/content-distribution-keywords";
+ * import { contentDistributionKeywordsSchema } from "@/core/keywords/content-distribution-keywords";
  *
  * const keyword = contentDistributionKeywordsSchema.parse("space-between");
  * ```
@@ -40,7 +40,7 @@ export const contentDistributionKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { CONTENT_DISTRIBUTION_KEYWORDS } from "../keywords/content-distribution-keywords";
+ * import { CONTENT_DISTRIBUTION_KEYWORDS } from "@/core/keywords/content-distribution-keywords";
  *
  * console.log(CONTENT_DISTRIBUTION_KEYWORDS);
  * // ["space-between", "space-around", "space-evenly", "stretch"]
@@ -65,7 +65,7 @@ export type ContentDistributionKeyword = z.infer<typeof contentDistributionKeywo
  *
  * @example
  * ```typescript
- * import { contentDistributionKeywordOptions } from "../keywords/content-distribution-keywords";
+ * import { contentDistributionKeywordOptions } from "@/core/keywords/content-distribution-keywords";
  *
  * contentDistributionKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

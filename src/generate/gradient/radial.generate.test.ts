@@ -178,4 +178,59 @@ describe("Radial Gradient Generator", () => {
 		const css = RadialGenerator.toCss(ir);
 		expect(css).toBe("radial-gradient(ellipse 100px 50px, red, blue)");
 	});
+
+	it("should generate radial gradient with color interpolation", () => {
+		const ir = {
+			kind: "radial" as const,
+			colorSpace: "srgb" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(in srgb, red, blue)");
+	});
+
+	it("should generate radial gradient with shape and color space", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "circle" as const,
+			colorSpace: "oklch" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(circle in oklch, red, blue)");
+	});
+
+	it("should generate radial gradient with position and color space", () => {
+		const ir = {
+			kind: "radial" as const,
+			position: {
+				horizontal: "center" as const,
+				vertical: "center" as const,
+			},
+			colorSpace: "display-p3" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(at center center in display-p3, red, blue)");
+	});
+
+	it("should generate radial gradient with shape, size and color space", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "ellipse" as const,
+			size: { kind: "keyword" as const, value: "farthest-corner" as const },
+			colorSpace: "lab" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(ellipse farthest-corner in lab, red, blue)");
+	});
 });

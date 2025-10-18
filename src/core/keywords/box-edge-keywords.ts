@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { boxEdgeKeywordsSchema } from "../keywords/box-edge-keywords";
+ * import { boxEdgeKeywordsSchema } from "@/core/keywords/box-edge-keywords";
  *
  * const keyword = boxEdgeKeywordsSchema.parse("border-box"); // "border-box"
  * ```
@@ -49,7 +49,7 @@ export const boxEdgeKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BOX_EDGE_KEYWORDS } from "../keywords/box-edge-keywords";
+ * import { BOX_EDGE_KEYWORDS } from "@/core/keywords/box-edge-keywords";
  *
  * console.log(BOX_EDGE_KEYWORDS);
  * // ["content-box", "padding-box", "border-box", "margin-box", "fill-box", "stroke-box", "view-box"]
@@ -74,7 +74,7 @@ export type BoxEdgeKeyword = z.infer<typeof boxEdgeKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { boxEdgeKeywordOptions } from "../keywords/box-edge-keywords";
+ * import { boxEdgeKeywordOptions } from "@/core/keywords/box-edge-keywords";
  *
  * boxEdgeKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);
@@ -107,7 +107,7 @@ export type BoxEdgeKeywordOptions = typeof boxEdgeKeywordOptions;
  *
  * @example
  * ```typescript
- * import { visualBoxKeywordsSchema } from "../keywords/box-edge-keywords";
+ * import { visualBoxKeywordsSchema } from "@/core/keywords/box-edge-keywords";
  *
  * const keyword = visualBoxKeywordsSchema.parse("padding-box"); // "padding-box"
  * ```
@@ -146,7 +146,7 @@ export type VisualBoxKeyword = z.infer<typeof visualBoxKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { backgroundClipKeywordsSchema } from "../keywords/box-edge-keywords";
+ * import { backgroundClipKeywordsSchema } from "@/core/keywords/box-edge-keywords";
  *
  * const keyword = backgroundClipKeywordsSchema.parse("text"); // "text"
  * ```

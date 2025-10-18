@@ -13,7 +13,19 @@
  * @see {@link ColorStop.parse}
  */
 export * as ColorStop from "./color-stop";
+/**
+ * Parse conic and repeating-conic gradients.
+ *
+ * @see {@link Conic.parse}
+ */
+export * as Conic from "./conic";
 
+/**
+ * Parse linear and repeating-linear gradients.
+ *
+ * @see {@link Linear.parse}
+ */
+export * as Linear from "./linear";
 /**
  * Parse radial and repeating-radial gradients.
  *

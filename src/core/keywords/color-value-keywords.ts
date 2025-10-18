@@ -245,7 +245,7 @@ export const namedColorKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { colorValueKeywordsSchema } from "../keywords/color-value-keywords";
+ * import { colorValueKeywordsSchema } from "@/core/keywords/color-value-keywords";
  *
  * const color1 = colorValueKeywordsSchema.parse("red");
  * const color2 = colorValueKeywordsSchema.parse("#ff0000");
@@ -279,7 +279,7 @@ export type ColorValueKeyword = z.infer<typeof colorValueKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { ALL_NAMED_COLOR_KEYWORDS } from "../keywords/color-value-keywords";
+ * import { ALL_NAMED_COLOR_KEYWORDS } from "@/core/keywords/color-value-keywords";
  *
  * console.log(ALL_NAMED_COLOR_KEYWORDS.length); // 148
  * ```

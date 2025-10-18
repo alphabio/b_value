@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { fontLengthUnitSchema } from "../units/length.font";
+ * import { fontLengthUnitSchema } from "@/core/units/length.font";
  *
  * const unit = fontLengthUnitSchema.parse("em"); // "em"
  * ```
@@ -43,7 +43,7 @@ export const fontLengthUnitSchema = z
  *
  * @example
  * ```typescript
- * import { FONT_LENGTH_UNITS } from "../units/length.font";
+ * import { FONT_LENGTH_UNITS } from "@/core/units/length.font";
  *
  * console.log(FONT_LENGTH_UNITS); // ["em", "ex", "cap", ...]
  * ```
@@ -67,7 +67,7 @@ export type FontLengthUnit = z.infer<typeof fontLengthUnitSchema>;
  *
  * @example
  * ```typescript
- * import { fontLengthUnitOptions } from "../units/length.font";
+ * import { fontLengthUnitOptions } from "@/core/units/length.font";
  *
  * fontLengthUnitOptions.forEach(({ value, description }) => {
  *   <Option value={value} description={description} />

@@ -15,7 +15,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { blendModeKeywordsSchema } from "../keywords/blend-mode-keywords";
+ * import { blendModeKeywordsSchema } from "@/core/keywords/blend-mode-keywords";
  *
  * const keyword = blendModeKeywordsSchema.parse("multiply"); // "multiply"
  * ```
@@ -51,7 +51,7 @@ export const blendModeKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BLEND_MODE_KEYWORDS } from "../keywords/blend-mode-keywords";
+ * import { BLEND_MODE_KEYWORDS } from "@/core/keywords/blend-mode-keywords";
  *
  * console.log(BLEND_MODE_KEYWORDS);
  * // ["normal", "multiply", "screen", "overlay", "darken", "lighten", ...]
@@ -76,7 +76,7 @@ export type BlendModeKeyword = z.infer<typeof blendModeKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { blendModeKeywordOptions } from "../keywords/blend-mode-keywords";
+ * import { blendModeKeywordOptions } from "@/core/keywords/blend-mode-keywords";
  *
  * blendModeKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

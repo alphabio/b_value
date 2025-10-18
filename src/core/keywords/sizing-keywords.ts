@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { sizingKeywordsSchema } from "../keywords/sizing-keywords";
+ * import { sizingKeywordsSchema } from "@/core/keywords/sizing-keywords";
  *
  * // Parse and validate
  * const size = sizingKeywordsSchema.parse("cover"); // "cover"
@@ -45,7 +45,7 @@ export type SizingKeyword = z.infer<typeof sizingKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { SIZING_KEYWORDS } from "../keywords/sizing-keywords";
+ * import { SIZING_KEYWORDS } from "@/core/keywords/sizing-keywords";
  *
  * // Iterate over keywords
  * SIZING_KEYWORDS.forEach(keyword => {
@@ -70,7 +70,7 @@ export const SIZING_KEYWORDS = sizingKeywordsSchema.options.map((option) => opti
  *
  * @example
  * ```typescript
- * import { sizingKeywordOptions } from "../keywords/sizing-keywords";
+ * import { sizingKeywordOptions } from "@/core/keywords/sizing-keywords";
  *
  * // Generate UI options
  * sizingKeywordOptions.forEach(({ value, description }) => {

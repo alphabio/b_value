@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { cornerShapeKeywordsSchema } from "../keywords/corner-shape-keywords";
+ * import { cornerShapeKeywordsSchema } from "@/core/keywords/corner-shape-keywords";
  *
  * const keyword = cornerShapeKeywordsSchema.parse("round");
  * ```

@@ -1,6 +1,6 @@
 // b_path:: src/core/types/gradient/direction.ts
 import { z } from "zod";
-import * as Type from "..";
+import * as Type from "../../types";
 
 /**
  * CSS gradient direction value.
@@ -16,7 +16,7 @@ import * as Type from "..";
  *
  * @example
  * ```typescript
- * import { gradientDirectionSchema } from "../gradient/direction";
+ * import { gradientDirectionSchema } from "@/core/types/gradient/direction";
  *
  * // Angle direction
  * const dir1: GradientDirection = {

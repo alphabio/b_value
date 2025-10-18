@@ -16,7 +16,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { contentPositionKeywordsSchema } from "../keywords/content-position-keywords";
+ * import { contentPositionKeywordsSchema } from "@/core/keywords/content-position-keywords";
  *
  * const keyword = contentPositionKeywordsSchema.parse("center");
  * ```
@@ -41,7 +41,7 @@ export const contentPositionKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { CONTENT_POSITION_KEYWORDS } from "../keywords/content-position-keywords";
+ * import { CONTENT_POSITION_KEYWORDS } from "@/core/keywords/content-position-keywords";
  *
  * console.log(CONTENT_POSITION_KEYWORDS);
  * // ["center", "start", "end", "flex-start", "flex-end"]
@@ -66,7 +66,7 @@ export type ContentPositionKeyword = z.infer<typeof contentPositionKeywordsSchem
  *
  * @example
  * ```typescript
- * import { contentPositionKeywordOptions } from "../keywords/content-position-keywords";
+ * import { contentPositionKeywordOptions } from "@/core/keywords/content-position-keywords";
  *
  * contentPositionKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);

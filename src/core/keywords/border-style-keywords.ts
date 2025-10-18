@@ -11,7 +11,7 @@ import { z } from "zod";
  *
  * @example
  * ```typescript
- * import { borderStyleKeywordsSchema } from "../keywords/border-style-keywords";
+ * import { borderStyleKeywordsSchema } from "@/core/keywords/border-style-keywords";
  *
  * const keyword = borderStyleKeywordsSchema.parse("solid"); // "solid"
  * ```
@@ -38,7 +38,7 @@ export const borderStyleKeywordsSchema = z
  *
  * @example
  * ```typescript
- * import { BORDER_STYLE_KEYWORDS } from "../keywords/border-style-keywords";
+ * import { BORDER_STYLE_KEYWORDS } from "@/core/keywords/border-style-keywords";
  *
  * console.log(BORDER_STYLE_KEYWORDS); // ["none", "hidden", "dotted", "dashed", "solid", "double", "groove", "ridge", "inset", "outset"]
  * ```
@@ -62,7 +62,7 @@ export type BorderStyleKeyword = z.infer<typeof borderStyleKeywordsSchema>;
  *
  * @example
  * ```typescript
- * import { borderStyleKeywordOptions } from "../keywords/border-style-keywords";
+ * import { borderStyleKeywordOptions } from "@/core/keywords/border-style-keywords";
  *
  * borderStyleKeywordOptions.forEach(({ value, description }) => {
  *   console.log(`${value}: ${description}`);
