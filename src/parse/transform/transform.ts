@@ -3,6 +3,7 @@ import type * as csstree from "css-tree";
 import { TRANSFORM_FUNCTION_NAMES } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as Unit from "@/core/units";
 
 /**
  * Parse transform function from CSS function AST node.
@@ -546,23 +547,17 @@ function parseLength(node: csstree.CssNode): Result<Type.Length, string> {
 		if (Number.isNaN(value)) {
 			return err("Invalid length value");
 		}
+
+		// Use core unit validation
+		const allLengthUnits = [...Unit.ABSOLUTE_LENGTH_UNITS, ...Unit.FONT_LENGTH_UNITS, ...Unit.VIEWPORT_LENGTH_UNITS];
+
+		if (!allLengthUnits.includes(node.unit as (typeof allLengthUnits)[number])) {
+			return err(`Invalid length unit: ${node.unit}`);
+		}
+
 		return ok({
 			value,
-			unit: node.unit as
-				| "px"
-				| "em"
-				| "rem"
-				| "pt"
-				| "pc"
-				| "in"
-				| "cm"
-				| "mm"
-				| "ex"
-				| "ch"
-				| "vw"
-				| "vh"
-				| "vmin"
-				| "vmax",
+			unit: node.unit as (typeof allLengthUnits)[number],
 		});
 	}
 	return err("Expected length dimension");
@@ -574,24 +569,17 @@ function parseLengthPercentage(node: csstree.CssNode): Result<Type.LengthPercent
 		if (Number.isNaN(value)) {
 			return err("Invalid length value");
 		}
+
+		// Use core unit validation for length units
+		const allLengthUnits = [...Unit.ABSOLUTE_LENGTH_UNITS, ...Unit.FONT_LENGTH_UNITS, ...Unit.VIEWPORT_LENGTH_UNITS];
+
+		if (!allLengthUnits.includes(node.unit as (typeof allLengthUnits)[number])) {
+			return err(`Invalid length unit: ${node.unit}`);
+		}
+
 		return ok({
 			value,
-			unit: node.unit as
-				| "px"
-				| "em"
-				| "rem"
-				| "pt"
-				| "pc"
-				| "in"
-				| "cm"
-				| "mm"
-				| "ex"
-				| "ch"
-				| "vw"
-				| "vh"
-				| "vmin"
-				| "vmax"
-				| "%",
+			unit: node.unit as (typeof allLengthUnits)[number],
 		});
 	}
 	if (node.type === "Percentage") {
@@ -599,7 +587,7 @@ function parseLengthPercentage(node: csstree.CssNode): Result<Type.LengthPercent
 		if (Number.isNaN(value)) {
 			return err("Invalid percentage value");
 		}
-		return ok({ value, unit: "%" });
+		return ok({ value, unit: Unit.PERCENTAGE_UNIT });
 	}
 	return err("Expected length or percentage");
 }
@@ -610,7 +598,13 @@ function parseAngle(node: csstree.CssNode): Result<Type.Angle, string> {
 		if (Number.isNaN(value)) {
 			return err("Invalid angle value");
 		}
-		return ok({ value, unit: node.unit as "deg" | "rad" | "grad" | "turn" });
+
+		// Use core unit validation
+		if (!Unit.ANGLE_UNITS.includes(node.unit as (typeof Unit.ANGLE_UNITS)[number])) {
+			return err(`Invalid angle unit: ${node.unit}`);
+		}
+
+		return ok({ value, unit: node.unit as (typeof Unit.ANGLE_UNITS)[number] });
 	}
 	return err("Expected angle dimension");
 }
