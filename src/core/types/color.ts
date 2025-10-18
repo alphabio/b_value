@@ -166,11 +166,83 @@ export const hwbColorSchema = z.object({
 export type HWBColor = z.infer<typeof hwbColorSchema>;
 
 /**
+ * CSS LAB color value.
+ *
+ * Represents a color in CIE LAB (Lightness, a, b) color space.
+ * LAB is a perceptual color space where distances correspond to perceived color differences.
+ * Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/lab}
+ *
+ * @example
+ * ```typescript
+ * import type { LABColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: LABColor = { kind: "lab", l: 50, a: -20, b: 30 };
+ *
+ * // With alpha
+ * const color2: LABColor = { kind: "lab", l: 50, a: -20, b: 30, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const labColorSchema = z.object({
+	kind: z.literal("lab"),
+	l: z.number().min(0).max(100), // lightness percentage
+	a: z.number().min(-125).max(125), // green-red axis
+	b: z.number().min(-125).max(125), // blue-yellow axis
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for LAB color.
+ * @public
+ */
+export type LABColor = z.infer<typeof labColorSchema>;
+
+/**
+ * CSS LCH color value.
+ *
+ * Represents a color in CIE LCH (Lightness, Chroma, Hue) color space.
+ * LCH is the cylindrical representation of LAB color space.
+ * Hue is normalized to 0-360 degrees. Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/lch}
+ *
+ * @example
+ * ```typescript
+ * import type { LCHColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: LCHColor = { kind: "lch", l: 50, c: 50, h: 180 };
+ *
+ * // With alpha
+ * const color2: LCHColor = { kind: "lch", l: 50, c: 50, h: 180, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const lchColorSchema = z.object({
+	kind: z.literal("lch"),
+	l: z.number().min(0).max(100), // lightness percentage
+	c: z.number().min(0).max(150), // chroma
+	h: z.number(), // hue degrees 0-360 (wraps around)
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for LCH color.
+ * @public
+ */
+export type LCHColor = z.infer<typeof lchColorSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Currently supports hex, named, RGB, HSL, and HWB colors. Will be extended in future sessions
- * to include lab, lch, oklab, oklch, and color functions.
+ * Currently supports hex, named, RGB, HSL, HWB, LAB, and LCH colors. Will be extended in future sessions
+ * to include oklab, oklch, and color functions.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -183,11 +255,21 @@ export type HWBColor = z.infer<typeof hwbColorSchema>;
  * const rgb: Color = { kind: "rgb", r: 255, g: 87, b: 51 };
  * const hsl: Color = { kind: "hsl", h: 120, s: 100, l: 50 };
  * const hwb: Color = { kind: "hwb", h: 120, w: 20, b: 30 };
+ * const lab: Color = { kind: "lab", l: 50, a: -20, b: 30 };
+ * const lch: Color = { kind: "lch", l: 50, c: 50, h: 180 };
  * ```
  *
  * @public
  */
-export const colorSchema = z.union([hexColorSchema, namedColorSchema, rgbColorSchema, hslColorSchema, hwbColorSchema]);
+export const colorSchema = z.union([
+	hexColorSchema,
+	namedColorSchema,
+	rgbColorSchema,
+	hslColorSchema,
+	hwbColorSchema,
+	labColorSchema,
+	lchColorSchema,
+]);
 
 /**
  * TypeScript type for color value.
