@@ -106,7 +106,7 @@ function parseSpaceRGB(nodes: csstree.CssNode[]): Result<RGBColor, string> {
 
 		if (foundSlash) {
 			// After slash, parse alpha
-			const alphaResult = parseAlphaValue(node);
+			const alphaResult = ParseUtils.parseAlpha(node);
 			if (!alphaResult.ok) {
 				return err(alphaResult.error);
 			}
@@ -180,7 +180,7 @@ function parseCommaRGB(nodes: csstree.CssNode[]): Result<RGBColor, string> {
 		if (!alphaNode) {
 			return err("Invalid alpha value");
 		}
-		const alphaResult = parseAlphaValue(alphaNode);
+		const alphaResult = ParseUtils.parseAlpha(alphaNode);
 		if (!alphaResult.ok) {
 			return err(alphaResult.error);
 		}
@@ -227,43 +227,4 @@ function parseRGBComponent(node: csstree.CssNode): Result<number, string> {
 	}
 
 	return err(`Expected number or percentage for RGB component, got ${node.type}`);
-}
-
-/**
- * Parse an alpha value.
- *
- * Accepts:
- * - Number: 0-1
- * - Percentage: 0%-100% (converted to 0-1)
- *
- * @internal
- */
-function parseAlphaValue(node: csstree.CssNode): Result<number, string> {
-	// Try parsing as number (0-1)
-	if (node.type === "Number") {
-		const numResult = ParseUtils.parseNumberNode(node);
-		if (!numResult.ok) {
-			return err(numResult.error);
-		}
-		const value = numResult.value;
-		if (value < 0 || value > 1) {
-			return err(`Alpha value must be between 0 and 1, got ${value}`);
-		}
-		return ok(value);
-	}
-
-	// Try parsing as percentage (0%-100%)
-	if (node.type === "Percentage") {
-		const value = Number.parseFloat(node.value);
-		if (Number.isNaN(value)) {
-			return err("Invalid percentage value for alpha");
-		}
-		if (value < 0 || value > 100) {
-			return err(`Alpha percentage must be between 0% and 100%, got ${value}%`);
-		}
-		// Convert percentage to 0-1 range
-		return ok(value / 100);
-	}
-
-	return err(`Expected number or percentage for alpha, got ${node.type}`);
 }
