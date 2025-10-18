@@ -12,6 +12,14 @@ status: Phase 2 COMPLETE ✅ | Phase 3 COMPLETE ✅
 
 > **Policy**: Keep only the 3 most recent entries. Archive older entries to `CHANGELOG.md`.
 
+- 2025-10-18: **Phase 4 Color Implementation Plan** ✅
+  - **KISS Approach**: Simple master plan + 8 focused session files (no fluff)
+  - **Master Plan**: Single entry point with progress tracker and session links
+  - **8 Sessions**: Hex/Named → RGB → HSL → HWB → LAB/LCH → OKLab/OKLCH → System → Master Parser
+  - **Test Target**: 648 tests (390 new), 10-14 hours over 4-8 weeks
+  - **Quality Gates**: `just check && just test` must pass every session
+  - See: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` ← **START HERE**
+
 - 2025-10-18: **Phase 4 Planning Complete** ✅
   - **Comprehensive Phase 4 planning delivered** - 7 detailed planning documents created
   - **Color System Design**: Complete support for all CSS color formats (RGB, HSL, LAB, LCH, OKLab, OKLCH, color-mix, etc.)
@@ -188,38 +196,23 @@ just test    # 157 tests (must all pass)
 
 ## Next Steps
 
-**Phase 4.1**: Colors & backgrounds - Foundation & Core Types (Week 1)
-- **Status**: PLANNING COMPLETE ✅ | IMPLEMENTATION READY 🚀
-- **Planning Deliverables**: 7 comprehensive documents in `archive/2025-10-18-phase4-colors-backgrounds/`
-- **Implementation Ready**: 6-week phased roadmap with clear milestones
+**Phase 4**: Colors - Session-Based Implementation
+- **Status**: READY FOR SESSION 1 🚀
+- **Master Plan**: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md`
+- **8 Sessions**: Each 45-120 min, clear deliverables, quality gates
 
-**Immediate Actions**:
-1. **Start Implementation**: Begin Phase 4.1 with color core infrastructure
-2. **Create Feature Branch**: `git checkout -b feature/phase4-colors-backgrounds`
-3. **Initialize Session Archive**: `mkdir -p ./.memory/archive/$(date +%Y-%m-%d)-phase4-implementation/`
-4. **Run Quality Gates**: Ensure `just check` and `just test` pass before starting
-
-**Phase 4.1 Focus** (Week 1):
-- Create color keywords module (`src/core/keywords/color-keywords.ts`)
-- Create background keywords module (`src/core/keywords/background-keywords.ts`)
-- Implement core color type definitions (`src/core/types/color.ts`)
-- Implement core background type definitions (`src/core/types/background.ts`)
-- Create Zod schemas for all color and background types
+**How to Start**:
+1. Read: `archive/2025-10-18-phase4-colors/MASTER_PLAN.md` (2 min)
+2. Read: `archive/2025-10-18-phase4-colors/session-1.md` (5 min)
+3. Run: `just check && just test` (verify baseline)
+4. Create: `mkdir -p .memory/archive/$(date +%Y-%m-%d)-session-1/`
+5. Code: Follow session-1.md tasks
+6. Gate: `just check && just test` must pass
+7. Handover: Create HANDOVER.md in session archive
+8. Commit: Mark session ✅ in progress tracker
 
 **Quality Gates**:
-
 ```bash
-just check   # Format, typecheck, lint (must pass)
-just test    # 258+ tests (must all pass)
+just check   # Format, typecheck, lint (must pass every session)
+just test    # All tests passing (258 → 648 target)
 ```
-
-**Planning Documentation**:
-- **PHASE4_PLAN.md**: Master implementation plan and architecture overview
-- **TYPE_DEFINITIONS.md**: Detailed type system design with interfaces and schemas
-- **PARSE_UTILITIES.md**: Complete parsing utilities strategy and implementation plan
-- **GENERATE_UTILITIES.md**: Comprehensive generation utilities design
-- **TEST_STRATEGY.md**: Exhaustive testing strategy with 100+ test scenarios
-- **IMPLEMENTATION_ROADMAP.md**: 6-week phased implementation roadmap
-- **INTEGRATION_POINTS.md**: Integration strategy with existing modules
-
-**Ready for implementation!** 🚀
