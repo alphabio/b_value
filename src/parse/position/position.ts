@@ -1,4 +1,4 @@
-// b_path:: src/parse/position/index.ts
+// b_path:: src/parse/position/position.ts
 import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
@@ -331,40 +331,34 @@ export function parseList(css: string): Result<Type.PositionList, string> {
 		// Parse as a value
 		const ast = csstree.parse(css, { context: "value" });
 
-		// Split by commas and parse each position
+		// Split into groups by comma - single walk
 		const positions: Type.Position2D[] = [];
-		let currentNodes: csstree.CssNode[] = [];
+		const groups: csstree.CssNode[][] = [[]];
 
 		csstree.walk(ast, {
-			visit: "Operator",
 			enter(node: csstree.CssNode) {
 				if (node.type === "Operator" && "value" in node && node.value === ",") {
-					// End of current position, parse it
-					if (currentNodes.length > 0) {
-						const result = parsePosition2DFromNodes(currentNodes, 0);
-						if (result.ok) {
-							positions.push(result.value.position);
-						}
-						currentNodes = [];
+					// Start new group
+					groups.push([]);
+				} else if (node.type !== "Value") {
+					// Add to current group (skip Value wrapper node)
+					const currentGroup = groups[groups.length - 1];
+					if (currentGroup) {
+						currentGroup.push(node);
 					}
 				}
 			},
 		});
 
-		// Collect all nodes
-		csstree.walk(ast, {
-			visit: (node: csstree.CssNode) => {
-				if (node.type !== "Operator" || !("value" in node) || node.value !== ",") {
-					currentNodes.push(node);
+		// Parse each group as a position
+		for (const group of groups) {
+			if (group.length > 0) {
+				const result = parsePosition2DFromNodes(group, 0);
+				if (result.ok) {
+					positions.push(result.value.position);
+				} else {
+					return err(`Failed to parse position in list: ${result.error}`);
 				}
-			},
-		});
-
-		// Parse final position
-		if (currentNodes.length > 0) {
-			const result = parsePosition2DFromNodes(currentNodes, 0);
-			if (result.ok) {
-				positions.push(result.value.position);
 			}
 		}
 

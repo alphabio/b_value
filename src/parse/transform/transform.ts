@@ -1,5 +1,6 @@
-// b_path:: src/parse/transform/index.ts
+// b_path:: src/parse/transform/transform.ts
 import type * as csstree from "css-tree";
+import { TRANSFORM_FUNCTION_NAMES } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 
@@ -16,8 +17,8 @@ import type * as Type from "@/core/types";
 export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): Result<Type.TransformFunction, string> {
 	const functionName = canonicalName || fn.name.toLowerCase();
 
-	// Get all children nodes as array
-	const children = fn.children.toArray();
+	// Get all children nodes, filtering out operators (commas)
+	const children = fn.children.toArray().filter((node) => node.type !== "Operator");
 	if (children.length === 0) {
 		return err("Transform function requires arguments");
 	}
@@ -149,8 +150,15 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 				const angle = parseAngle(angleNode);
 				if (!angle.ok) return err(`Invalid angle: ${angle.error}`);
 
+				// Map lowercase to camelCase
+				const kindMap = {
+					rotatex: "rotateX",
+					rotatey: "rotateY",
+					rotatez: "rotateZ",
+				} as const;
+
 				return ok({
-					kind: functionName as "rotateX" | "rotateY" | "rotateZ",
+					kind: kindMap[functionName as keyof typeof kindMap],
 					angle: angle.value,
 				});
 			}
@@ -353,14 +361,22 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 					values.push(num.value);
 				}
 
+				// Validate we have exactly 6 values
+				if (values.length !== 6) {
+					return err("matrix() requires exactly 6 values");
+				}
+
+				// Destructure to satisfy TypeScript - we know length is 6
+				const [a, b, c, d, e, f] = values;
+
 				return ok({
 					kind: "matrix",
-					a: values[0],
-					b: values[1],
-					c: values[2],
-					d: values[3],
-					e: { value: values[4], unit: "px" },
-					f: { value: values[5], unit: "px" },
+					a: a as number,
+					b: b as number,
+					c: c as number,
+					d: d as number,
+					e: { value: e as number, unit: "px" },
+					f: { value: f as number, unit: "px" },
 				});
 			}
 
@@ -376,6 +392,11 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
 					const num = parseNumber(node);
 					if (!num.ok) return err(`Invalid matrix3d value at position ${i + 1}: ${num.error}`);
 					values.push(num.value);
+				}
+
+				// Validate we have exactly 16 values
+				if (values.length !== 16) {
+					return err("matrix3d() requires exactly 16 values");
 				}
 
 				return ok({
@@ -483,47 +504,31 @@ export function parse(css: string): Result<Type.Transform, string> {
 
 		// Find all function nodes
 		const transformFunctions: Type.TransformFunction[] = [];
+		const errors: string[] = [];
+
 		csstree.walk(ast, {
 			visit: "Function",
 			enter(node: csstree.FunctionNode) {
 				// Check if it's a transform function
 				const functionName = node.name.toLowerCase();
-				const transformFunctionNames = [
-					"translate",
-					"translatex",
-					"translatey",
-					"translatez",
-					"translate3d",
-					"rotate",
-					"rotatex",
-					"rotatey",
-					"rotatez",
-					"rotate3d",
-					"scale",
-					"scalex",
-					"scaley",
-					"scalez",
-					"scale3d",
-					"skew",
-					"skewx",
-					"skewy",
-					"matrix",
-					"matrix3d",
-					"perspective",
-				];
 
-				if (transformFunctionNames.includes(functionName)) {
+				if (TRANSFORM_FUNCTION_NAMES.includes(functionName as (typeof TRANSFORM_FUNCTION_NAMES)[number])) {
 					// Use the canonical function name for parsing
-					const canonicalName = transformFunctionNames.find((name) => name === functionName) || functionName;
+					const canonicalName = TRANSFORM_FUNCTION_NAMES.find((name) => name === functionName) || functionName;
 					const funcResult = fromFunction(node, canonicalName);
 					if (funcResult.ok) {
 						transformFunctions.push(funcResult.value);
+					} else {
+						errors.push(`${functionName}(): ${funcResult.error}`);
 					}
 				}
 			},
 		});
 
 		if (transformFunctions.length === 0) {
+			if (errors.length > 0) {
+				return err(errors.join("; "));
+			}
 			return err("No valid transform functions found in CSS string");
 		}
 

@@ -1,4 +1,4 @@
-// b_path:: src/generate/transform/index.ts
+// b_path:: src/generate/transform/transform.ts
 import type * as Type from "@/core/types";
 
 /**
@@ -158,7 +158,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
 		default: {
 			// Exhaustive check - TypeScript will ensure all cases are handled
 			const _exhaustiveCheck: never = ir;
-			throw new Error(`Unknown transform function kind: ${(_exhaustiveCheck as any).kind}`);
+			throw new Error(`Unknown transform function kind: ${(_exhaustiveCheck as { kind: string }).kind}`);
 		}
 	}
 }

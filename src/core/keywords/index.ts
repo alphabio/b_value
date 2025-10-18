@@ -40,6 +40,7 @@ export * from "./text-decoration-line-keywords";
 export * from "./text-decoration-style-keywords";
 export * from "./text-decoration-thickness-keywords";
 export * from "./text-transform-keywords";
+export * from "./transform-keywords";
 export * from "./vertical-align-keywords";
 export * from "./white-space-keywords";
 export * from "./word-break-keywords";

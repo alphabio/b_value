@@ -1,0 +1,26 @@
+
+> b_value@0.1.0 test /Users/alphab/Dev/LLM/DEV/b_value
+> vitest run
+
+
+ RUN  v3.2.4 /Users/alphab/Dev/LLM/DEV/b_value
+
+ ✓ src/core/result.test.ts (20 tests) 4ms
+ ✓ src/generate/transform/transform.generate.test.ts (35 tests) 3ms
+ ✓ src/generate/gradient/radial.generate.test.ts (16 tests) 3ms
+ ✓ src/generate/gradient/linear.generate.test.ts (14 tests) 3ms
+ ✓ src/parse/position/position.parse.test.ts (15 tests) 63ms
+ ✓ src/generate/gradient/conic.generate.test.ts (15 tests) 3ms
+ ✓ src/parse/gradient/color-stop.test.ts (2 tests) 1ms
+ ✓ src/parse/gradient/conic.parse.test.ts (19 tests) 6ms
+ ✓ src/parse/gradient/linear.parse.test.ts (18 tests) 7ms
+ ✓ src/parse/transform/transform.parse.test.ts (35 tests) 44ms
+ ✓ test/integration/gradient/radial.test.ts (10 tests) 29ms
+ ✓ src/parse/gradient/radial.parse.test.ts (43 tests) 40ms
+ ✓ src/generate/position/position.generate.test.ts (16 tests) 3ms
+
+ Test Files  13 passed (13)
+      Tests  258 passed (258)
+   Start at  17:19:38
+   Duration  805ms (transform 772ms, setup 0ms, collect 2.84s, tests 209ms, environment 1ms, prepare 1.51s)
+
