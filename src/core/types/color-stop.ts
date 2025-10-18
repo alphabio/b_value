@@ -1,6 +1,7 @@
 // b_path:: src/core/types/color-stop.ts
 import { z } from "zod";
 import * as Keyword from "../keywords";
+import { angleSchema } from "./angle";
 import { lengthPercentageSchema } from "./length-percentage";
 
 /**
@@ -9,7 +10,11 @@ import { lengthPercentageSchema } from "./length-percentage";
  * A color stop consists of a color value and an optional position.
  * Used in CSS gradients and other color-based properties.
  *
- * Per CSS spec: <color-stop> = <color> [ <length-percentage> ]?
+ * Per CSS spec:
+ * - For linear/radial gradients: <color-stop> = <color> [ <length-percentage> ]?
+ * - For conic gradients: <color-stop> = <color> [ <angle> | <percentage> ]?
+ *
+ * This type supports both length-percentage and angle units to accommodate all gradient types.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient}
@@ -21,16 +26,22 @@ import { lengthPercentageSchema } from "./length-percentage";
  * // Color only
  * const stop1: ColorStop = { color: "red" };
  *
- * // Color with percentage position
+ * // Color with percentage position (all gradient types)
  * const stop2: ColorStop = {
  *   color: "blue",
  *   position: { value: 50, unit: "%" }
  * };
  *
- * // Color with length position
+ * // Color with length position (linear/radial gradients)
  * const stop3: ColorStop = {
  *   color: "rgba(255, 0, 0, 0.5)",
  *   position: { value: 10, unit: "px" }
+ * };
+ *
+ * // Color with angle position (conic gradients)
+ * const stop4: ColorStop = {
+ *   color: "green",
+ *   position: { value: 45, unit: "deg" }
  * };
  * ```
  *
@@ -38,7 +49,12 @@ import { lengthPercentageSchema } from "./length-percentage";
  */
 export const colorStopSchema = z.object({
 	color: Keyword.colorValueKeywordsSchema.describe("color value for the stop"),
-	position: lengthPercentageSchema.optional().describe("optional position of the color stop"),
+	position: z
+		.union([lengthPercentageSchema, angleSchema])
+		.optional()
+		.describe(
+			"optional position of the color stop (length-percentage for linear/radial, angle or percentage for conic)",
+		),
 });
 
 /**
