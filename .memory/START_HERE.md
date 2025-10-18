@@ -153,6 +153,12 @@ Put ALL session artifacts in this directory from the start.
 - If a core module doesn't exist, create it in `src/core/` first, then import from there
 - Check existing core modules before creating new definitions
 
+**DRY (Don't Repeat Yourself) Policy:**
+- **Always** check existing utils (`@/utils/*`) before implementing parsing/generation logic
+- **Never** duplicate parsing functions - use shared utilities from `@/utils/parse/*` and `@/utils/generate/*`
+- **Always** extract common patterns into shared utilities first, then use them across modules
+- Check `@/utils/ast/*` for AST manipulation utilities before writing custom AST code
+
 **TypeScript Strict Mode Requirements:**
 - Adhere to strict TypeScript settings (see `tsconfig.json`):
   - `strict: true` - All strict type checking enabled

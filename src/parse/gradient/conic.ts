@@ -4,6 +4,7 @@ import type * as Keyword from "@/core/keywords";
 import { COLOR_INTERPOLATION_KEYWORDS } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as ParseUtils from "@/utils/parse";
 import * as ColorStop from "./color-stop";
 
 /**
@@ -87,24 +88,23 @@ function parsePosition(
 		}
 
 		if (node.type === "Identifier") {
-			const keyword = node.name.toLowerCase();
-			// Position keywords
-			if (["center", "left", "right", "top", "bottom"].includes(keyword)) {
-				positionValues.push(keyword as Type.PositionValue);
+			// Try parsing as position keyword using shared utility
+			const positionResult = ParseUtils.parsePositionValueNode(node);
+			if (positionResult.ok && typeof positionResult.value === "string") {
+				positionValues.push(positionResult.value);
 				idx++;
 			} else {
 				break;
 			}
-		} else if (node.type === "Dimension" || node.type === "Percentage") {
-			// Length or percentage value
-			const value =
-				node.type === "Dimension"
-					? { value: Number.parseFloat(node.value), unit: node.unit as "px" | "em" | "rem" | "%" }
-					: { value: Number.parseFloat(node.value), unit: "%" as const };
-			positionValues.push(value);
-			idx++;
 		} else {
-			break;
+			// Try parsing as length-percentage using shared utility
+			const lengthResult = ParseUtils.parseLengthPercentageNode(node);
+			if (lengthResult.ok) {
+				positionValues.push(lengthResult.value);
+				idx++;
+			} else {
+				break;
+			}
 		}
 	}
 

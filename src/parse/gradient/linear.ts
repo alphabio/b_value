@@ -4,6 +4,7 @@ import type * as Keyword from "@/core/keywords";
 import { COLOR_INTERPOLATION_KEYWORDS } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as ParseUtils from "@/utils/parse";
 import * as ColorStop from "./color-stop";
 
 /**
@@ -28,12 +29,13 @@ function parseDirection(
 		return err("Expected direction value");
 	}
 
-	// Check for angle
-	if (node.type === "Dimension" && ["deg", "rad", "grad", "turn"].includes(node.unit)) {
+	// Check for angle using shared utility
+	const angleResult = ParseUtils.parseAngleNode(node);
+	if (angleResult.ok) {
 		return ok({
 			direction: {
 				kind: "angle",
-				value: { value: Number.parseFloat(node.value), unit: node.unit as "deg" | "rad" | "grad" | "turn" },
+				value: angleResult.value,
 			},
 			nextIdx: idx + 1,
 		});
@@ -130,8 +132,9 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.LinearGradie
 	// Parse optional direction
 	const firstNode = children[idx];
 	if (firstNode) {
-		// Check for angle
-		if (firstNode.type === "Dimension" && ["deg", "rad", "grad", "turn"].includes(firstNode.unit)) {
+		// Check for angle using shared utility
+		const angleResult = ParseUtils.parseAngleNode(firstNode);
+		if (angleResult.ok) {
 			const dirResult = parseDirection(children, idx);
 			if (dirResult.ok) {
 				direction = dirResult.value.direction;

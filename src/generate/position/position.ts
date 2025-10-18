@@ -1,20 +1,6 @@
 // b_path:: src/generate/position/position.ts
 import * as Type from "@/core/types";
-
-/**
- * Generate CSS position value string from PositionValue IR.
- *
- * @param value - PositionValue IR object
- * @returns CSS position value string
- *
- * @internal
- */
-function positionValueToCss(value: Type.PositionValue): string {
-	if (typeof value === "string") {
-		return value;
-	}
-	return `${value.value}${value.unit}`;
-}
+import { positionValueToCss } from "@/utils/generate/values";
 
 /**
  * Generate CSS 2D position string from Position2D IR.
