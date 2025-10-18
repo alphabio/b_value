@@ -3,6 +3,12 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - csstree
+  - Flexbox
+  - oklab
+  - oklch
+  - prophoto
+  - stringifiers
   - turbopack
   - unittests
 ignoreWords: []

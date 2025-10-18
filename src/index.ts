@@ -6,7 +6,3 @@ export * as Core from "./core";
 export * as Generate from "./generate";
 // Parse CSS → IR
 export * as Parse from "./parse";
-
-// Legacy exports for backward compatibility
-export * from "./types";
-export * from "./utils";

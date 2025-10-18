@@ -1,6 +1,6 @@
 // b_path:: src/generate/gradient/radial.ts
 
-import type * as Type from "../../core/types";
+import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
 /**

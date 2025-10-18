@@ -1,7 +1,7 @@
 // b_path:: src/parse/gradient/radial.test.ts
 
 import { describe, expect, it } from "vitest";
-import * as RadialGenerator from "../../generate/gradient/radial";
+import * as Generator from "@/generate";
 import * as RadialParser from "./radial";
 
 describe("Radial Gradient - Parse & Generate", () => {
@@ -110,7 +110,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 				repeating: false,
 			};
 
-			const css = RadialGenerator.toCss(ir);
+			const css = Generator.Gradient.Radial.toCss(ir);
 			expect(css).toBe("radial-gradient(red, blue)");
 		});
 
@@ -122,7 +122,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 				repeating: false,
 			};
 
-			const css = RadialGenerator.toCss(ir);
+			const css = Generator.Gradient.Radial.toCss(ir);
 			expect(css).toBe("radial-gradient(circle, red, blue)");
 		});
 
@@ -135,7 +135,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 				repeating: false,
 			};
 
-			const css = RadialGenerator.toCss(ir);
+			const css = Generator.Gradient.Radial.toCss(ir);
 			expect(css).toBe("radial-gradient(circle closest-side, red, blue)");
 		});
 
@@ -150,7 +150,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 				repeating: false,
 			};
 
-			const css = RadialGenerator.toCss(ir);
+			const css = Generator.Gradient.Radial.toCss(ir);
 			expect(css).toBe("radial-gradient(at left top, red, blue)");
 		});
 
@@ -161,7 +161,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 				repeating: true,
 			};
 
-			const css = RadialGenerator.toCss(ir);
+			const css = Generator.Gradient.Radial.toCss(ir);
 			expect(css).toBe("repeating-radial-gradient(red, blue 20px)");
 		});
 	});
@@ -173,7 +173,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
+				const generated = Generator.Gradient.Radial.toCss(parsed.value);
 				expect(generated).toBe(original);
 			}
 		});
@@ -184,7 +184,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
+				const generated = Generator.Gradient.Radial.toCss(parsed.value);
 				expect(generated).toBe(original);
 			}
 		});
@@ -195,7 +195,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
+				const generated = Generator.Gradient.Radial.toCss(parsed.value);
 				expect(generated).toBe(original);
 			}
 		});
@@ -206,7 +206,7 @@ describe("Radial Gradient - Parse & Generate", () => {
 
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
+				const generated = Generator.Gradient.Radial.toCss(parsed.value);
 				expect(generated).toBe(original);
 			}
 		});

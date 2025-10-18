@@ -1,8 +1,8 @@
 // b_path:: src/parse/gradient/radial.ts
 import type * as csstree from "css-tree";
-import type { ColorInterpolationKeyword } from "../../core/keywords";
-import { err, ok, type Result } from "../../core/result";
-import type * as Type from "../../core/types";
+import type * as Keyword from "@/core/keywords";
+import { err, ok, type Result } from "@/core/result";
+import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
 /**
@@ -218,7 +218,7 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 	let shape: Type.RadialGradientShape | undefined;
 	let size: Type.RadialGradientSize | undefined;
 	let position: Type.Position2D | undefined;
-	let colorSpace: ColorInterpolationKeyword | undefined;
+	let colorSpace: Keyword.ColorInterpolationKeyword | undefined;
 	const colorStopNodes: csstree.CssNode[][] = [];
 	let currentStopNodes: csstree.CssNode[] = [];
 
@@ -321,7 +321,7 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 					"decreasing",
 				];
 				if (validSpaces.includes(space)) {
-					colorSpace = space as ColorInterpolationKeyword;
+					colorSpace = space as Keyword.ColorInterpolationKeyword;
 					idx++;
 				}
 			}

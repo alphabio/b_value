@@ -1,7 +1,7 @@
 // b_path:: src/parse/gradient/color-stop.ts
 import * as csstree from "css-tree";
-import { err, ok, type Result } from "../../core/result";
-import type * as Type from "../../core/types";
+import { err, ok, type Result } from "@/core/result";
+import type * as Type from "@/core/types";
 
 /**
  * Parse color stop from CSS AST nodes.

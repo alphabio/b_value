@@ -1,6 +1,6 @@
 // b_path:: src/generate/gradient/color-stop.ts
 
-import type * as Type from "../../core/types";
+import type * as Type from "@/core/types";
 
 /**
  * Generate CSS color stop string from IR.

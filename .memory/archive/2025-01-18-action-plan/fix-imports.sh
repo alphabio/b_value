@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/archive/2025-01-18-action-plan/fix-imports.sh
 # Fix @/ imports in core files to use relative paths
 
 cd /Users/alphab/Dev/LLM/DEV/b_value
