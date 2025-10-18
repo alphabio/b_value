@@ -130,11 +130,47 @@ export const hslColorSchema = z.object({
 export type HSLColor = z.infer<typeof hslColorSchema>;
 
 /**
+ * CSS HWB color value.
+ *
+ * Represents a color in HWB (Hue, Whiteness, Blackness) color space.
+ * Hue is normalized to 0-360 degrees. Whiteness and blackness are percentages.
+ * Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hwb}
+ *
+ * @example
+ * ```typescript
+ * import type { HWBColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: HWBColor = { kind: "hwb", h: 120, w: 20, b: 30 };
+ *
+ * // With alpha
+ * const color2: HWBColor = { kind: "hwb", h: 120, w: 20, b: 30, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const hwbColorSchema = z.object({
+	kind: z.literal("hwb"),
+	h: z.number(), // degrees 0-360 (wraps around)
+	w: z.number().min(0).max(100), // whiteness percentage
+	b: z.number().min(0).max(100), // blackness percentage
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for HWB color.
+ * @public
+ */
+export type HWBColor = z.infer<typeof hwbColorSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Currently supports hex, named, RGB, and HSL colors. Will be extended in future sessions
- * to include hwb, lab, lch, oklab, oklch, and color functions.
+ * Currently supports hex, named, RGB, HSL, and HWB colors. Will be extended in future sessions
+ * to include lab, lch, oklab, oklch, and color functions.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -146,11 +182,12 @@ export type HSLColor = z.infer<typeof hslColorSchema>;
  * const named: Color = { kind: "named", name: "red" };
  * const rgb: Color = { kind: "rgb", r: 255, g: 87, b: 51 };
  * const hsl: Color = { kind: "hsl", h: 120, s: 100, l: 50 };
+ * const hwb: Color = { kind: "hwb", h: 120, w: 20, b: 30 };
  * ```
  *
  * @public
  */
-export const colorSchema = z.union([hexColorSchema, namedColorSchema, rgbColorSchema, hslColorSchema]);
+export const colorSchema = z.union([hexColorSchema, namedColorSchema, rgbColorSchema, hslColorSchema, hwbColorSchema]);
 
 /**
  * TypeScript type for color value.
