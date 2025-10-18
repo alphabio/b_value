@@ -156,6 +156,7 @@ Implement URL filter and create master parser/generator.
 ## API Design
 
 ### Parse API
+
 ```typescript
 import { Filter } from "@/parse/filter";
 
@@ -170,6 +171,7 @@ const brightnessResult = Filter.brightness.parse("brightness(150%)");
 ```
 
 ### Generate API
+
 ```typescript
 import { Filter } from "@/generate/filter";
 
