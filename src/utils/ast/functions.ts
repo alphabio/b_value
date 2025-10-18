@@ -6,10 +6,11 @@ import { err, ok, type Result } from "@/core/result";
  * Find a function node by name in a CSS AST.
  *
  * Walks the AST to find the first function node with the specified name.
+ * Function name matching is case-insensitive to match CSS spec behavior.
  * Commonly used pattern across all parsers.
  *
  * @param ast - CSS AST to search
- * @param functionNames - Function name(s) to search for
+ * @param functionNames - Function name(s) to search for (case-insensitive)
  * @returns Result containing FunctionNode or error message
  *
  * @public
@@ -29,13 +30,14 @@ export function findFunctionNode(
 	functionNames: string | string[],
 ): Result<csstree.FunctionNode, string> {
 	const names = Array.isArray(functionNames) ? functionNames : [functionNames];
+	const lowerNames = names.map((name) => name.toLowerCase());
 	let foundNode: csstree.FunctionNode | null = null;
 
 	try {
 		csstree.walk(ast, {
 			visit: "Function",
 			enter(node: csstree.FunctionNode) {
-				if (names.includes(node.name)) {
+				if (lowerNames.includes(node.name.toLowerCase())) {
 					foundNode = node;
 					// Stop traversal once found
 					return false;
