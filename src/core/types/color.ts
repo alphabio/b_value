@@ -238,11 +238,83 @@ export const lchColorSchema = z.object({
 export type LCHColor = z.infer<typeof lchColorSchema>;
 
 /**
+ * CSS OKLab color value.
+ *
+ * Represents a color in OKLab (Oklab Lightness, a, b) color space.
+ * OKLab is a perceptual color space designed for better perceptual uniformity than CIE LAB.
+ * Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklab}
+ *
+ * @example
+ * ```typescript
+ * import type { OKLabColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: OKLabColor = { kind: "oklab", l: 0.5, a: -0.2, b: 0.3 };
+ *
+ * // With alpha
+ * const color2: OKLabColor = { kind: "oklab", l: 0.5, a: -0.2, b: 0.3, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const oklabColorSchema = z.object({
+	kind: z.literal("oklab"),
+	l: z.number().min(0).max(1), // lightness 0-1 (or 0-100% at parse time)
+	a: z.number().min(-0.4).max(0.4), // green-red axis
+	b: z.number().min(-0.4).max(0.4), // blue-yellow axis
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for OKLab color.
+ * @public
+ */
+export type OKLabColor = z.infer<typeof oklabColorSchema>;
+
+/**
+ * CSS OKLCH color value.
+ *
+ * Represents a color in OKLCH (Oklab Lightness, Chroma, Hue) color space.
+ * OKLCH is the cylindrical representation of OKLab color space.
+ * Hue is normalized to 0-360 degrees. Supports optional alpha channel.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/oklch}
+ *
+ * @example
+ * ```typescript
+ * import type { OKLCHColor } from "@/core/types/color";
+ *
+ * // Opaque color
+ * const color1: OKLCHColor = { kind: "oklch", l: 0.5, c: 0.2, h: 180 };
+ *
+ * // With alpha
+ * const color2: OKLCHColor = { kind: "oklch", l: 0.5, c: 0.2, h: 180, alpha: 0.5 };
+ * ```
+ *
+ * @public
+ */
+export const oklchColorSchema = z.object({
+	kind: z.literal("oklch"),
+	l: z.number().min(0).max(1), // lightness 0-1 (or 0-100% at parse time)
+	c: z.number().min(0).max(0.4), // chroma
+	h: z.number(), // hue degrees 0-360 (wraps around)
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for OKLCH color.
+ * @public
+ */
+export type OKLCHColor = z.infer<typeof oklchColorSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Currently supports hex, named, RGB, HSL, HWB, LAB, and LCH colors. Will be extended in future sessions
- * to include oklab, oklch, and color functions.
+ * Currently supports hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, and OKLCH colors.
+ * Will be extended in future sessions to include system colors and color functions.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -257,6 +329,8 @@ export type LCHColor = z.infer<typeof lchColorSchema>;
  * const hwb: Color = { kind: "hwb", h: 120, w: 20, b: 30 };
  * const lab: Color = { kind: "lab", l: 50, a: -20, b: 30 };
  * const lch: Color = { kind: "lch", l: 50, c: 50, h: 180 };
+ * const oklab: Color = { kind: "oklab", l: 0.5, a: -0.2, b: 0.3 };
+ * const oklch: Color = { kind: "oklch", l: 0.5, c: 0.2, h: 180 };
  * ```
  *
  * @public
@@ -269,6 +343,8 @@ export const colorSchema = z.union([
 	hwbColorSchema,
 	labColorSchema,
 	lchColorSchema,
+	oklabColorSchema,
+	oklchColorSchema,
 ]);
 
 /**
