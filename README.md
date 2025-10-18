@@ -114,18 +114,19 @@ b_value/
 - **Phase 1**: Radial gradients + core infrastructure
 - **Phase 2**: Linear & conic gradients
 - **Phase 3**: Positions & transforms
-- **Phase 4 (Sessions 1-3)**: Colors
+- **Phase 4 (Sessions 1-4)**: Colors
   - Hex colors (#RGB, #RRGGBB, #RGBA, #RRGGBBAA)
   - Named colors (148 CSS color keywords)
   - RGB/RGBA (all syntax variations)
   - HSL/HSLA (all angle units, modern & legacy syntax)
+  - HWB (Hue-Whiteness-Blackness, modern syntax only)
 
 ### In Progress 🔵
-- **Phase 4 (Session 4+)**: More color formats
-  - HWB (Hue-Whiteness-Blackness)
-  - LAB & LCH
-  - OKLab & OKLCH
+- **Phase 4 (Session 5+)**: Advanced color formats
+  - LAB & LCH (perceptual color spaces)
+  - OKLab & OKLCH (improved perceptual spaces)
   - System colors
+  - Master color parser
 
 ### Roadmap
 - Phase 5: Borders & box model
