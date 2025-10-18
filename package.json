@@ -1,7 +1,7 @@
 {
 	"name": "b_value",
 	"version": "0.1.0",
-	"description": "A modern, type-safe TypeScript utility library with tree-shakeable modules and comprehensive testing",
+	"description": "Bidirectional CSS value parser - parse CSS values to structured IR and generate CSS from IR",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
@@ -16,13 +16,20 @@
 	},
 	"homepage": "https://github.com/alphabio/b_value#readme",
 	"keywords": [
+		"css",
+		"parser",
+		"css-parser",
+		"css-values",
+		"gradient",
+		"radial-gradient",
+		"css-tree",
+		"bidirectional",
+		"ir",
+		"intermediate-representation",
 		"typescript",
-		"utilities",
-		"library",
 		"type-safe",
-		"tree-shakeable",
-		"modern",
-		"es2022"
+		"zod",
+		"tree-shakeable"
 	],
 	"sideEffects": false,
 	"exports": {
@@ -63,7 +70,7 @@
 	},
 	"lint-staged": {
 		"*.{ts,tsx,js,jsx,json,md}": [
-			"biome check --write --unsafe --files"
+			"biome check --write --unsafe"
 		]
 	},
 	"engines": {
@@ -101,6 +108,8 @@
 		"vitest": "^3.2.4"
 	},
 	"dependencies": {
+		"@types/css-tree": "^2.3.11",
+		"css-tree": "^3.1.0",
 		"zod": "^4.1.12"
 	}
 }
