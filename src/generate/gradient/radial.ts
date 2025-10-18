@@ -43,54 +43,80 @@ function sizeToCss(size: Type.RadialGradientSize): string {
 }
 
 /**
- * Generate CSS radial gradient function string from IR.
+ * Generate a CSS radial gradient string from intermediate representation (IR).
  *
- * Converts radial gradient IR into a valid CSS radial-gradient() or
- * repeating-radial-gradient() function string.
+ * Converts a RadialGradient IR object into a valid CSS `radial-gradient()` or
+ * `repeating-radial-gradient()` function string. Handles all gradient components:
+ * shape, size, position, color interpolation, and color stops.
  *
- * @param ir - RadialGradient IR object
- * @returns CSS gradient function string
+ * The generated CSS string is spec-compliant and can be used directly in CSS
+ * properties like `background-image`, `background`, or `mask-image`.
+ *
+ * This function performs the inverse operation of `Parse.Gradient.Radial.parse()`,
+ * enabling bidirectional transformation between CSS and IR.
+ *
+ * @param ir - RadialGradient IR object to convert to CSS
+ * @returns CSS radial gradient function string
  *
  * @public
  *
  * @example
+ * Simple gradient:
  * ```typescript
- * import * as Gradient from "@/ast/generate/gradient";
+ * import { Generate } from "b_value";
  *
- * // Simple gradient
- * const css1 = Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(red, blue)"
+ * console.log(css); // "radial-gradient(red, blue)"
+ * ```
  *
- * // With shape and size
- * const css2 = Gradient.Radial.toCss({
+ * @example
+ * Circle with keyword size:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "keyword", value: "closest-side" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(circle closest-side, red, blue)"
+ * console.log(css); // "radial-gradient(circle closest-side, red, blue)"
+ * ```
  *
- * // With position
- * const css3 = Gradient.Radial.toCss({
+ * @example
+ * Positioned gradient:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "ellipse",
  *   position: { horizontal: "left", vertical: "top" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(ellipse at left top, red, blue)"
+ * console.log(css); // "radial-gradient(ellipse at left top, red, blue)"
+ * ```
  *
- * // With explicit size and color interpolation
- * const css4 = Gradient.Radial.toCss({
+ * @example
+ * With explicit size:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "circle-explicit", radius: { value: 100, unit: "px" } },
- *   position: { horizontal: "center", vertical: "center" },
+ *   colorStops: [{ color: "red" }, { color: "blue" }],
+ *   repeating: false
+ * });
+ * console.log(css); // "radial-gradient(circle 100px, red, blue)"
+ * ```
+ *
+ * @example
+ * With color interpolation:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
  *   colorSpace: "oklch",
  *   colorStops: [
  *     { color: "red", position: { value: 0, unit: "%" } },
@@ -98,8 +124,40 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  *   ],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(circle 100px at center center in oklch, red 0%, blue 100%)"
+ * console.log(css); // "radial-gradient(in oklch, red 0%, blue 100%)"
  * ```
+ *
+ * @example
+ * Repeating gradient:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
+ *   shape: "circle",
+ *   colorStops: [
+ *     { color: "red", position: { value: 0, unit: "px" } },
+ *     { color: "blue", position: { value: 20, unit: "px" } }
+ *   ],
+ *   repeating: true
+ * });
+ * console.log(css); // "repeating-radial-gradient(circle, red 0px, blue 20px)"
+ * ```
+ *
+ * @example
+ * Round-trip transformation (parse → generate):
+ * ```typescript
+ * import { Parse, Generate } from "b_value";
+ *
+ * const original = "radial-gradient(circle closest-side, red, blue)";
+ * const parsed = Parse.Gradient.Radial.parse(original);
+ *
+ * if (parsed.ok) {
+ *   const generated = Generate.Gradient.Radial.toCss(parsed.value);
+ *   console.log(generated === original); // true - perfect round-trip!
+ * }
+ * ```
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
+ * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
  */
 export function toCss(ir: Type.RadialGradient): string {
 	const parts: string[] = [];

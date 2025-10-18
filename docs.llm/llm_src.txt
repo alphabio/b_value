@@ -6712,7 +6712,7 @@ export type TimeUnitOptions = typeof timeUnitOptions;
 === File: src/generate/gradient/color-stop.ts ===
 // b_path:: src/generate/gradient/color-stop.ts
 
-import type * as Type from "../../core/types";
+import type * as Type from "@/core/types";
 
 /**
  * Generate CSS color stop string from IR.
@@ -6757,14 +6757,216 @@ export function toCss(ir: Type.ColorStop): string {
 === File: src/generate/gradient/index.ts ===
 // b_path:: src/generate/gradient/index.ts
 
+/**
+ * CSS gradient generators - convert gradient IR to CSS strings.
+ *
+ * @module Generate.Gradient
+ * @public
+ */
+
+/**
+ * Generate color stop CSS strings.
+ *
+ * @see {@link ColorStop.toCss}
+ */
 export * as ColorStop from "./color-stop";
+
+/**
+ * Generate radial and repeating-radial gradient CSS strings.
+ *
+ * @see {@link Radial.toCss}
+ */
 export * as Radial from "./radial";
+
+
+=== File: src/generate/gradient/radial.generate.test.ts ===
+// b_path:: src/generate/gradient/radial.generate.test.ts
+
+import { describe, expect, it } from "vitest";
+import * as RadialGenerator from "./radial";
+
+describe("Radial Gradient Generator", () => {
+	it("should generate simple radial gradient", () => {
+		const ir = {
+			kind: "radial" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(red, blue)");
+	});
+
+	it("should generate radial gradient with shape", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "circle" as const,
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(circle, red, blue)");
+	});
+
+	it("should generate radial gradient with size keyword", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "circle" as const,
+			size: { kind: "keyword" as const, value: "closest-side" as const },
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(circle closest-side, red, blue)");
+	});
+
+	it("should generate radial gradient with position", () => {
+		const ir = {
+			kind: "radial" as const,
+			position: {
+				horizontal: "left" as const,
+				vertical: "top" as const,
+			},
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(at left top, red, blue)");
+	});
+
+	it("should generate radial gradient with center position", () => {
+		const ir = {
+			kind: "radial" as const,
+			position: {
+				horizontal: "center" as const,
+				vertical: "center" as const,
+			},
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(at center center, red, blue)");
+	});
+
+	it("should generate radial gradient with percentage positions", () => {
+		const ir = {
+			kind: "radial" as const,
+			position: {
+				horizontal: { value: 50, unit: "%" as const },
+				vertical: { value: 75, unit: "%" as const },
+			},
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(at 50% 75%, red, blue)");
+	});
+
+	it("should generate radial gradient with color stop positions", () => {
+		const ir = {
+			kind: "radial" as const,
+			colorStops: [
+				{ color: "red", position: { value: 0, unit: "%" as const } },
+				{ color: "blue", position: { value: 100, unit: "%" as const } },
+			],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(red 0%, blue 100%)");
+	});
+
+	it("should generate repeating radial gradient", () => {
+		const ir = {
+			kind: "radial" as const,
+			colorStops: [{ color: "red" }, { color: "blue", position: { value: 20, unit: "px" as const } }],
+			repeating: true,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("repeating-radial-gradient(red, blue 20px)");
+	});
+
+	it("should generate complex radial gradient", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "ellipse" as const,
+			size: { kind: "keyword" as const, value: "farthest-corner" as const },
+			position: {
+				horizontal: { value: 30, unit: "%" as const },
+				vertical: { value: 30, unit: "%" as const },
+			},
+			colorStops: [
+				{ color: "red", position: { value: 0, unit: "%" as const } },
+				{ color: "blue", position: { value: 100, unit: "%" as const } },
+			],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(ellipse farthest-corner at 30% 30%, red 0%, blue 100%)");
+	});
+
+	it("should generate radial gradient with multiple color stops", () => {
+		const ir = {
+			kind: "radial" as const,
+			colorStops: [
+				{ color: "red" },
+				{ color: "yellow", position: { value: 30, unit: "%" as const } },
+				{ color: "green", position: { value: 60, unit: "%" as const } },
+				{ color: "blue" },
+			],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(red, yellow 30%, green 60%, blue)");
+	});
+
+	it("should generate radial gradient with explicit circle radius", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "circle" as const,
+			size: {
+				kind: "circle-explicit" as const,
+				radius: { value: 100, unit: "px" as const },
+			},
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(circle 100px, red, blue)");
+	});
+
+	it("should generate radial gradient with explicit ellipse radii", () => {
+		const ir = {
+			kind: "radial" as const,
+			shape: "ellipse" as const,
+			size: {
+				kind: "ellipse-explicit" as const,
+				radiusX: { value: 100, unit: "px" as const },
+				radiusY: { value: 50, unit: "px" as const },
+			},
+			colorStops: [{ color: "red" }, { color: "blue" }],
+			repeating: false,
+		};
+
+		const css = RadialGenerator.toCss(ir);
+		expect(css).toBe("radial-gradient(ellipse 100px 50px, red, blue)");
+	});
+});
 
 
 === File: src/generate/gradient/radial.ts ===
 // b_path:: src/generate/gradient/radial.ts
 
-import type * as Type from "../../core/types";
+import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
 /**
@@ -6807,54 +7009,80 @@ function sizeToCss(size: Type.RadialGradientSize): string {
 }
 
 /**
- * Generate CSS radial gradient function string from IR.
+ * Generate a CSS radial gradient string from intermediate representation (IR).
  *
- * Converts radial gradient IR into a valid CSS radial-gradient() or
- * repeating-radial-gradient() function string.
+ * Converts a RadialGradient IR object into a valid CSS `radial-gradient()` or
+ * `repeating-radial-gradient()` function string. Handles all gradient components:
+ * shape, size, position, color interpolation, and color stops.
  *
- * @param ir - RadialGradient IR object
- * @returns CSS gradient function string
+ * The generated CSS string is spec-compliant and can be used directly in CSS
+ * properties like `background-image`, `background`, or `mask-image`.
+ *
+ * This function performs the inverse operation of `Parse.Gradient.Radial.parse()`,
+ * enabling bidirectional transformation between CSS and IR.
+ *
+ * @param ir - RadialGradient IR object to convert to CSS
+ * @returns CSS radial gradient function string
  *
  * @public
  *
  * @example
+ * Simple gradient:
  * ```typescript
- * import * as Gradient from "@/ast/generate/gradient";
+ * import { Generate } from "b_value";
  *
- * // Simple gradient
- * const css1 = Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(red, blue)"
+ * console.log(css); // "radial-gradient(red, blue)"
+ * ```
  *
- * // With shape and size
- * const css2 = Gradient.Radial.toCss({
+ * @example
+ * Circle with keyword size:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "keyword", value: "closest-side" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(circle closest-side, red, blue)"
+ * console.log(css); // "radial-gradient(circle closest-side, red, blue)"
+ * ```
  *
- * // With position
- * const css3 = Gradient.Radial.toCss({
+ * @example
+ * Positioned gradient:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "ellipse",
  *   position: { horizontal: "left", vertical: "top" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(ellipse at left top, red, blue)"
+ * console.log(css); // "radial-gradient(ellipse at left top, red, blue)"
+ * ```
  *
- * // With explicit size and color interpolation
- * const css4 = Gradient.Radial.toCss({
+ * @example
+ * With explicit size:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "circle-explicit", radius: { value: 100, unit: "px" } },
- *   position: { horizontal: "center", vertical: "center" },
+ *   colorStops: [{ color: "red" }, { color: "blue" }],
+ *   repeating: false
+ * });
+ * console.log(css); // "radial-gradient(circle 100px, red, blue)"
+ * ```
+ *
+ * @example
+ * With color interpolation:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
  *   colorSpace: "oklch",
  *   colorStops: [
  *     { color: "red", position: { value: 0, unit: "%" } },
@@ -6862,8 +7090,40 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  *   ],
  *   repeating: false
  * });
- * // Returns: "radial-gradient(circle 100px at center center in oklch, red 0%, blue 100%)"
+ * console.log(css); // "radial-gradient(in oklch, red 0%, blue 100%)"
  * ```
+ *
+ * @example
+ * Repeating gradient:
+ * ```typescript
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
+ *   shape: "circle",
+ *   colorStops: [
+ *     { color: "red", position: { value: 0, unit: "px" } },
+ *     { color: "blue", position: { value: 20, unit: "px" } }
+ *   ],
+ *   repeating: true
+ * });
+ * console.log(css); // "repeating-radial-gradient(circle, red 0px, blue 20px)"
+ * ```
+ *
+ * @example
+ * Round-trip transformation (parse → generate):
+ * ```typescript
+ * import { Parse, Generate } from "b_value";
+ *
+ * const original = "radial-gradient(circle closest-side, red, blue)";
+ * const parsed = Parse.Gradient.Radial.parse(original);
+ *
+ * if (parsed.ok) {
+ *   const generated = Generate.Gradient.Radial.toCss(parsed.value);
+ *   console.log(generated === original); // true - perfect round-trip!
+ * }
+ * ```
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
+ * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
  */
 export function toCss(ir: Type.RadialGradient): string {
 	const parts: string[] = [];
@@ -6914,25 +7174,175 @@ export function toCss(ir: Type.RadialGradient): string {
 === File: src/generate/index.ts ===
 // b_path:: src/generate/index.ts
 
+/**
+ * CSS value generators - convert structured IR to CSS strings.
+ *
+ * All generators return CSS strings directly (no Result type needed since
+ * generation cannot fail). Convert intermediate representation (IR) objects
+ * into spec-compliant CSS that can be used in stylesheets.
+ *
+ * @module Generate
+ * @public
+ *
+ * @example
+ * ```typescript
+ * import { Generate } from "b_value";
+ *
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
+ *   shape: "circle",
+ *   colorStops: [
+ *     { color: "red" },
+ *     { color: "blue" }
+ *   ],
+ *   repeating: false
+ * });
+ *
+ * console.log(css); // "radial-gradient(circle, red, blue)"
+ * ```
+ */
+
+/**
+ * Gradient generators (radial, linear, conic).
+ *
+ * @see {@link Gradient.Radial.toCss}
+ */
 export * as Gradient from "./gradient";
 
 
 === File: src/index.ts ===
 // b_path:: src/index.ts
 
-// Core types, units, keywords
+/**
+ * b_value - Bidirectional CSS value parser
+ *
+ * Parse CSS values to structured IR and generate CSS from IR.
+ * Built on css-tree and Zod for type-safe, spec-compliant CSS value handling.
+ *
+ * @packageDocumentation
+ *
+ * @example
+ * Parse CSS to IR:
+ * ```typescript
+ * import { Parse } from "b_value";
+ *
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(circle at center, red 0%, blue 100%)"
+ * );
+ *
+ * if (result.ok) {
+ *   console.log(result.value);
+ * }
+ * ```
+ *
+ * @example
+ * Generate IR to CSS:
+ * ```typescript
+ * import { Generate } from "b_value";
+ *
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
+ *   shape: "circle",
+ *   position: { horizontal: "center", vertical: "center" },
+ *   colorStops: [
+ *     { color: "red", position: { value: 0, unit: "%" } },
+ *     { color: "blue", position: { value: 100, unit: "%" } }
+ *   ],
+ *   repeating: false
+ * });
+ *
+ * console.log(css);
+ * // "radial-gradient(circle at center center, red 0%, blue 100%)"
+ * ```
+ *
+ * @example
+ * Round-trip transformation:
+ * ```typescript
+ * import { Parse, Generate } from "b_value";
+ *
+ * const original = "radial-gradient(circle, red, blue)";
+ * const parsed = Parse.Gradient.Radial.parse(original);
+ *
+ * if (parsed.ok) {
+ *   const generated = Generate.Gradient.Radial.toCss(parsed.value);
+ *   console.log(generated === original); // true
+ * }
+ * ```
+ */
+
+/**
+ * Core types, schemas, units, and keywords.
+ *
+ * Provides access to all Zod schemas and TypeScript types used for CSS value
+ * intermediate representation (IR). Most users won't need to use Core directly,
+ * but it's available for advanced use cases like custom validation or schema
+ * composition.
+ *
+ * @example
+ * ```typescript
+ * import { Core } from "b_value";
+ *
+ * // Access TypeScript types
+ * type RadialGradient = Core.Type.RadialGradient;
+ * type ColorStop = Core.Type.ColorStop;
+ *
+ * // Access Zod schemas for validation
+ * const result = Core.Schema.radialGradientSchema.safeParse(data);
+ * ```
+ */
 export * as Core from "./core";
-// Generate IR → CSS
+
+/**
+ * CSS → IR generators (convert IR to CSS strings).
+ *
+ * Generators take intermediate representation (IR) objects and produce
+ * spec-compliant CSS strings. All generators return strings directly
+ * (no Result type needed since generation cannot fail).
+ *
+ * @example
+ * ```typescript
+ * import { Generate } from "b_value";
+ *
+ * const css = Generate.Gradient.Radial.toCss({
+ *   kind: "radial",
+ *   colorStops: [{ color: "red" }, { color: "blue" }],
+ *   repeating: false
+ * });
+ * // "radial-gradient(red, blue)"
+ * ```
+ */
 export * as Generate from "./generate";
-// Parse CSS → IR
+
+/**
+ * CSS → IR parsers (convert CSS strings to structured IR).
+ *
+ * Parsers take CSS strings and produce type-safe intermediate representation
+ * (IR) objects. All parsers return Result<T, string> for type-safe error
+ * handling without exceptions.
+ *
+ * @example
+ * ```typescript
+ * import { Parse } from "b_value";
+ *
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(red, blue)"
+ * );
+ *
+ * if (result.ok) {
+ *   console.log(result.value); // RadialGradient IR
+ * } else {
+ *   console.error(result.error); // Error message
+ * }
+ * ```
+ */
 export * as Parse from "./parse";
 
 
 === File: src/parse/gradient/color-stop.ts ===
 // b_path:: src/parse/gradient/color-stop.ts
 import * as csstree from "css-tree";
-import { err, ok, type Result } from "../../core/result";
-import type * as Type from "../../core/types";
+import { err, ok, type Result } from "@/core/result";
+import type * as Type from "@/core/types";
 
 /**
  * Parse color stop from CSS AST nodes.
@@ -7012,223 +7422,160 @@ export function fromNodes(nodes: csstree.CssNode[]): Result<Type.ColorStop, stri
 === File: src/parse/gradient/index.ts ===
 // b_path:: src/parse/gradient/index.ts
 
+/**
+ * CSS gradient parsers - convert gradient strings to structured IR.
+ *
+ * @module Parse.Gradient
+ * @public
+ */
+
+/**
+ * Parse color stops within gradients.
+ *
+ * @see {@link ColorStop.parse}
+ */
 export * as ColorStop from "./color-stop";
+
+/**
+ * Parse radial and repeating-radial gradients.
+ *
+ * @see {@link Radial.parse}
+ */
 export * as Radial from "./radial";
 
 
-=== File: src/parse/gradient/radial.test.ts ===
-// b_path:: src/parse/gradient/radial.test.ts
+=== File: src/parse/gradient/radial.parse.test.ts ===
+// b_path:: src/parse/gradient/radial.parse.test.ts
 
 import { describe, expect, it } from "vitest";
-import * as RadialGenerator from "../../generate/gradient/radial";
 import * as RadialParser from "./radial";
 
-describe("Radial Gradient - Parse & Generate", () => {
-	describe("parsing", () => {
-		it("should parse simple radial gradient", () => {
-			const css = "radial-gradient(red, blue)";
-			const result = RadialParser.parse(css);
+describe("Radial Gradient Parser", () => {
+	it("should parse simple radial gradient", () => {
+		const css = "radial-gradient(red, blue)";
+		const result = RadialParser.parse(css);
 
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.kind).toBe("radial");
-				expect(result.value.repeating).toBe(false);
-				expect(result.value.colorStops).toHaveLength(2);
-				expect(result.value.colorStops[0]?.color).toBe("red");
-				expect(result.value.colorStops[1]?.color).toBe("blue");
-			}
-		});
-
-		it("should parse radial gradient with shape", () => {
-			const css = "radial-gradient(circle, red, blue)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.shape).toBe("circle");
-			}
-		});
-
-		it("should parse radial gradient with size keyword", () => {
-			const css = "radial-gradient(circle closest-side, red, blue)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.size).toEqual({
-					kind: "keyword",
-					value: "closest-side",
-				});
-			}
-		});
-
-		it("should parse radial gradient with position", () => {
-			const css = "radial-gradient(at center, red, blue)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.position).toEqual({
-					horizontal: "center",
-					vertical: "center",
-				});
-			}
-		});
-
-		it("should parse radial gradient with color stops having positions", () => {
-			const css = "radial-gradient(red 0%, blue 100%)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.colorStops[0]?.position).toEqual({
-					value: 0,
-					unit: "%",
-				});
-				expect(result.value.colorStops[1]?.position).toEqual({
-					value: 100,
-					unit: "%",
-				});
-			}
-		});
-
-		it("should parse repeating radial gradient", () => {
-			const css = "repeating-radial-gradient(red, blue 20px)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.repeating).toBe(true);
-			}
-		});
-
-		it("should parse complex radial gradient", () => {
-			const css = "radial-gradient(ellipse farthest-corner at 30% 30%, red 0%, blue 100%)";
-			const result = RadialParser.parse(css);
-
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.shape).toBe("ellipse");
-				expect(result.value.size).toEqual({
-					kind: "keyword",
-					value: "farthest-corner",
-				});
-				expect(result.value.position).toEqual({
-					horizontal: { value: 30, unit: "%" },
-					vertical: { value: 30, unit: "%" },
-				});
-			}
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.kind).toBe("radial");
+			expect(result.value.repeating).toBe(false);
+			expect(result.value.colorStops).toHaveLength(2);
+			expect(result.value.colorStops[0]?.color).toBe("red");
+			expect(result.value.colorStops[1]?.color).toBe("blue");
+		}
 	});
 
-	describe("generation", () => {
-		it("should generate simple radial gradient", () => {
-			const ir = {
-				kind: "radial" as const,
-				colorStops: [{ color: "red" }, { color: "blue" }],
-				repeating: false,
-			};
+	it("should parse radial gradient with shape", () => {
+		const css = "radial-gradient(circle, red, blue)";
+		const result = RadialParser.parse(css);
 
-			const css = RadialGenerator.toCss(ir);
-			expect(css).toBe("radial-gradient(red, blue)");
-		});
-
-		it("should generate radial gradient with shape", () => {
-			const ir = {
-				kind: "radial" as const,
-				shape: "circle" as const,
-				colorStops: [{ color: "red" }, { color: "blue" }],
-				repeating: false,
-			};
-
-			const css = RadialGenerator.toCss(ir);
-			expect(css).toBe("radial-gradient(circle, red, blue)");
-		});
-
-		it("should generate radial gradient with size", () => {
-			const ir = {
-				kind: "radial" as const,
-				shape: "circle" as const,
-				size: { kind: "keyword" as const, value: "closest-side" as const },
-				colorStops: [{ color: "red" }, { color: "blue" }],
-				repeating: false,
-			};
-
-			const css = RadialGenerator.toCss(ir);
-			expect(css).toBe("radial-gradient(circle closest-side, red, blue)");
-		});
-
-		it("should generate radial gradient with position", () => {
-			const ir = {
-				kind: "radial" as const,
-				position: {
-					horizontal: "left" as const,
-					vertical: "top" as const,
-				},
-				colorStops: [{ color: "red" }, { color: "blue" }],
-				repeating: false,
-			};
-
-			const css = RadialGenerator.toCss(ir);
-			expect(css).toBe("radial-gradient(at left top, red, blue)");
-		});
-
-		it("should generate repeating radial gradient", () => {
-			const ir = {
-				kind: "radial" as const,
-				colorStops: [{ color: "red" }, { color: "blue", position: { value: 20, unit: "px" as const } }],
-				repeating: true,
-			};
-
-			const css = RadialGenerator.toCss(ir);
-			expect(css).toBe("repeating-radial-gradient(red, blue 20px)");
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.shape).toBe("circle");
+		}
 	});
 
-	describe("round-trip", () => {
-		it("should round-trip simple gradient", () => {
-			const original = "radial-gradient(red, blue)";
-			const parsed = RadialParser.parse(original);
+	it("should parse radial gradient with size keyword", () => {
+		const css = "radial-gradient(circle closest-side, red, blue)";
+		const result = RadialParser.parse(css);
 
-			expect(parsed.ok).toBe(true);
-			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
-				expect(generated).toBe(original);
-			}
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.size).toEqual({
+				kind: "keyword",
+				value: "closest-side",
+			});
+		}
+	});
 
-		it("should round-trip gradient with shape and size", () => {
-			const original = "radial-gradient(circle closest-side, red, blue)";
-			const parsed = RadialParser.parse(original);
+	it("should parse radial gradient with position", () => {
+		const css = "radial-gradient(at center, red, blue)";
+		const result = RadialParser.parse(css);
 
-			expect(parsed.ok).toBe(true);
-			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
-				expect(generated).toBe(original);
-			}
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.position).toEqual({
+				horizontal: "center",
+				vertical: "center",
+			});
+		}
+	});
 
-		it("should round-trip gradient with position", () => {
-			const original = "radial-gradient(at center center, red, blue)";
-			const parsed = RadialParser.parse(original);
+	it("should parse radial gradient with color stops having positions", () => {
+		const css = "radial-gradient(red 0%, blue 100%)";
+		const result = RadialParser.parse(css);
 
-			expect(parsed.ok).toBe(true);
-			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
-				expect(generated).toBe(original);
-			}
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.colorStops[0]?.position).toEqual({
+				value: 0,
+				unit: "%",
+			});
+			expect(result.value.colorStops[1]?.position).toEqual({
+				value: 100,
+				unit: "%",
+			});
+		}
+	});
 
-		it("should round-trip repeating gradient", () => {
-			const original = "repeating-radial-gradient(red, blue 20px)";
-			const parsed = RadialParser.parse(original);
+	it("should parse repeating radial gradient", () => {
+		const css = "repeating-radial-gradient(red, blue 20px)";
+		const result = RadialParser.parse(css);
 
-			expect(parsed.ok).toBe(true);
-			if (parsed.ok) {
-				const generated = RadialGenerator.toCss(parsed.value);
-				expect(generated).toBe(original);
-			}
-		});
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.repeating).toBe(true);
+		}
+	});
+
+	it("should parse complex radial gradient", () => {
+		const css = "radial-gradient(ellipse farthest-corner at 30% 30%, red 0%, blue 100%)";
+		const result = RadialParser.parse(css);
+
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.shape).toBe("ellipse");
+			expect(result.value.size).toEqual({
+				kind: "keyword",
+				value: "farthest-corner",
+			});
+			expect(result.value.position).toEqual({
+				horizontal: { value: 30, unit: "%" },
+				vertical: { value: 30, unit: "%" },
+			});
+		}
+	});
+
+	it("should parse radial gradient with multiple color stops", () => {
+		const css = "radial-gradient(red, yellow 30%, green 60%, blue)";
+		const result = RadialParser.parse(css);
+
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value.colorStops).toHaveLength(4);
+			expect(result.value.colorStops[1]?.color).toBe("yellow");
+			expect(result.value.colorStops[1]?.position).toEqual({
+				value: 30,
+				unit: "%",
+			});
+		}
+	});
+
+	it("should return error for invalid gradient syntax", () => {
+		const css = "not-a-gradient";
+		const result = RadialParser.parse(css);
+
+		expect(result.ok).toBe(false);
+	});
+
+	it("should return error for gradient with insufficient color stops", () => {
+		const css = "radial-gradient(red)";
+		const result = RadialParser.parse(css);
+
+		expect(result.ok).toBe(false);
+		if (!result.ok) {
+			expect(result.error).toContain("at least 2 color stops");
+		}
 	});
 });
 
@@ -7236,9 +7583,9 @@ describe("Radial Gradient - Parse & Generate", () => {
 === File: src/parse/gradient/radial.ts ===
 // b_path:: src/parse/gradient/radial.ts
 import type * as csstree from "css-tree";
-import type * as Type from "@//core/types";
 import type * as Keyword from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
+import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
 /**
@@ -7623,24 +7970,94 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 }
 
 /**
- * Parse CSS radial gradient string to IR.
+ * Parse a CSS radial gradient value into structured intermediate representation (IR).
  *
- * Convenience wrapper that parses a CSS string containing a radial gradient.
+ * Parses both `radial-gradient()` and `repeating-radial-gradient()` functions,
+ * extracting shape, size, position, color interpolation, and color stops into a
+ * type-safe IR object.
  *
- * @param css - CSS string containing radial-gradient() function
- * @returns Result with RadialGradient IR or error message
+ * Supports all CSS radial gradient syntax per CSS Images Module Level 3:
+ * - Shape keywords: `circle`, `ellipse` (default: `ellipse`)
+ * - Size keywords: `closest-side`, `farthest-side`, `closest-corner`, `farthest-corner`
+ * - Explicit sizes: lengths (px, em, etc.)
+ * - Position: keywords (`center`, `top`, `left`, etc.) or length values
+ * - Color interpolation: `in <color-space>` syntax
+ * - Color stops: with optional positions
+ *
+ * @param css - CSS string containing a radial gradient function
+ * @returns Result containing RadialGradient IR on success, or error message on failure
  *
  * @public
  *
  * @example
+ * Simple gradient (defaults to ellipse at center):
  * ```typescript
- * import * as Radial from "./parse/gradient/radial";
+ * import { Parse } from "b_value";
  *
- * const result = Radial.parse("radial-gradient(red, blue)");
+ * const result = Parse.Gradient.Radial.parse("radial-gradient(red, blue)");
  * if (result.ok) {
- *   console.log(result.value.colorStops);
+ *   console.log(result.value);
+ *   // { kind: "radial", colorStops: [...], repeating: false }
  * }
  * ```
+ *
+ * @example
+ * Circle with keyword size:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(circle closest-side, red, blue)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.shape); // "circle"
+ *   console.log(result.value.size);  // { kind: "keyword", value: "closest-side" }
+ * }
+ * ```
+ *
+ * @example
+ * Positioned gradient:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(at center top, red 0%, blue 100%)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.position);
+ *   // { horizontal: "center", vertical: "top" }
+ * }
+ * ```
+ *
+ * @example
+ * With color interpolation:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(in oklch, red, blue)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.colorSpace); // "oklch"
+ * }
+ * ```
+ *
+ * @example
+ * Repeating gradient:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "repeating-radial-gradient(circle, red 0px, blue 20px)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.repeating); // true
+ * }
+ * ```
+ *
+ * @example
+ * Error handling:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse("invalid syntax");
+ * if (!result.ok) {
+ *   console.error(result.error); // Error message string
+ * }
+ * ```
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
+ * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
  */
 export function parse(css: string): Result<Type.RadialGradient, string> {
 	const csstree = require("css-tree");
@@ -7674,6 +8091,38 @@ export function parse(css: string): Result<Type.RadialGradient, string> {
 === File: src/parse/index.ts ===
 // b_path:: src/parse/index.ts
 
+/**
+ * CSS value parsers - convert CSS strings to structured IR.
+ *
+ * All parsers return Result<T, string> for type-safe error handling.
+ * Parse any CSS value into a structured intermediate representation (IR)
+ * that can be inspected, transformed, or converted back to CSS.
+ *
+ * @module Parse
+ * @public
+ *
+ * @example
+ * ```typescript
+ * import { Parse } from "b_value";
+ *
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(circle, red, blue)"
+ * );
+ *
+ * if (result.ok) {
+ *   console.log(result.value.shape); // "circle"
+ *   console.log(result.value.colorStops); // [...]
+ * } else {
+ *   console.error(result.error);
+ * }
+ * ```
+ */
+
+/**
+ * Gradient parsers (radial, linear, conic).
+ *
+ * @see {@link Gradient.Radial.parse}
+ */
 export * as Gradient from "./gradient";
 
 

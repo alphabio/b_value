@@ -387,24 +387,94 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 }
 
 /**
- * Parse CSS radial gradient string to IR.
+ * Parse a CSS radial gradient value into structured intermediate representation (IR).
  *
- * Convenience wrapper that parses a CSS string containing a radial gradient.
+ * Parses both `radial-gradient()` and `repeating-radial-gradient()` functions,
+ * extracting shape, size, position, color interpolation, and color stops into a
+ * type-safe IR object.
  *
- * @param css - CSS string containing radial-gradient() function
- * @returns Result with RadialGradient IR or error message
+ * Supports all CSS radial gradient syntax per CSS Images Module Level 3:
+ * - Shape keywords: `circle`, `ellipse` (default: `ellipse`)
+ * - Size keywords: `closest-side`, `farthest-side`, `closest-corner`, `farthest-corner`
+ * - Explicit sizes: lengths (px, em, etc.)
+ * - Position: keywords (`center`, `top`, `left`, etc.) or length values
+ * - Color interpolation: `in <color-space>` syntax
+ * - Color stops: with optional positions
+ *
+ * @param css - CSS string containing a radial gradient function
+ * @returns Result containing RadialGradient IR on success, or error message on failure
  *
  * @public
  *
  * @example
+ * Simple gradient (defaults to ellipse at center):
  * ```typescript
- * import * as Radial from "./parse/gradient/radial";
+ * import { Parse } from "b_value";
  *
- * const result = Radial.parse("radial-gradient(red, blue)");
+ * const result = Parse.Gradient.Radial.parse("radial-gradient(red, blue)");
  * if (result.ok) {
- *   console.log(result.value.colorStops);
+ *   console.log(result.value);
+ *   // { kind: "radial", colorStops: [...], repeating: false }
  * }
  * ```
+ *
+ * @example
+ * Circle with keyword size:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(circle closest-side, red, blue)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.shape); // "circle"
+ *   console.log(result.value.size);  // { kind: "keyword", value: "closest-side" }
+ * }
+ * ```
+ *
+ * @example
+ * Positioned gradient:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(at center top, red 0%, blue 100%)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.position);
+ *   // { horizontal: "center", vertical: "top" }
+ * }
+ * ```
+ *
+ * @example
+ * With color interpolation:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "radial-gradient(in oklch, red, blue)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.colorSpace); // "oklch"
+ * }
+ * ```
+ *
+ * @example
+ * Repeating gradient:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse(
+ *   "repeating-radial-gradient(circle, red 0px, blue 20px)"
+ * );
+ * if (result.ok) {
+ *   console.log(result.value.repeating); // true
+ * }
+ * ```
+ *
+ * @example
+ * Error handling:
+ * ```typescript
+ * const result = Parse.Gradient.Radial.parse("invalid syntax");
+ * if (!result.ok) {
+ *   console.error(result.error); // Error message string
+ * }
+ * ```
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
+ * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
  */
 export function parse(css: string): Result<Type.RadialGradient, string> {
 	const csstree = require("css-tree");
