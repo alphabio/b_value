@@ -32,6 +32,20 @@ fix:
 
 check: format fix typecheck
 
+# ------------- Benchmark -------------
+
+bench:
+    pnpm run bench
+
+bench_parse:
+    pnpm run bench:parse
+
+bench_generate:
+    pnpm run bench:generate
+
+bench_roundtrip:
+    pnpm run bench:roundtrip
+
 # ------------- Development -------------
 dev: build test
 
