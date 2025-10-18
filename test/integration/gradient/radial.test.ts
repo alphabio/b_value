@@ -1,10 +1,10 @@
-// b_path:: src/parse/gradient/radial.roundtrip.test.ts
+// b_path:: test/integration/gradient/radial.test.ts
 
 import { describe, expect, it } from "vitest";
-import * as RadialGenerator from "../../generate/gradient/radial";
-import * as RadialParser from "./radial";
+import * as RadialGenerator from "../../../src/generate/gradient/radial";
+import * as RadialParser from "../../../src/parse/gradient/radial";
 
-describe("Radial Gradient Round-Trip", () => {
+describe("Radial Gradient - Round-Trip Integration", () => {
 	it("should round-trip simple gradient", () => {
 		const original = "radial-gradient(red, blue)";
 		const parsed = RadialParser.parse(original);

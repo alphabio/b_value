@@ -6,6 +6,26 @@
 
 ## Structure
 
+```
+src/
+├── parse/
+│   └── gradient/
+│       ├── radial.ts              # Parser implementation
+│       ├── radial.parse.test.ts   # Unit tests for parsing
+│       └── color-stop.ts
+├── generate/
+│   └── gradient/
+│       ├── radial.ts                  # Generator implementation
+│       ├── radial.generate.test.ts    # Unit tests for generation
+│       └── color-stop.ts
+└── core/                              # Type definitions
+
+test/
+└── integration/
+    └── gradient/
+        └── radial.test.ts             # Integration tests (round-trip)
+```
+
 ### 1. Parse Tests (`*.parse.test.ts`)
 
 Located next to the parser implementation, these tests focus on **CSS → IR** transformation:
@@ -62,23 +82,20 @@ it("should generate simple radial gradient", () => {
 });
 ```
 
-### 3. Round-Trip Tests (`*.roundtrip.test.ts`)
+### 3. Integration Tests (`*.test.ts` in `/test/integration/`)
 
-Located with parse tests (since they start with parsing), these are **integration tests** that validate **CSS → IR → CSS**:
+Located in dedicated integration test directory, these tests validate **CSS → IR → CSS** round-trip behavior:
 
 ```
-src/parse/gradient/
-├── radial.ts                    # Parser implementation
-├── radial.parse.test.ts         # Parser tests
-├── radial.roundtrip.test.ts     # Integration tests ← Full cycle
-└── color-stop.ts                # Helper parser
+test/integration/gradient/
+└── radial.test.ts              # Round-trip integration tests
 ```
 
 **Purpose**: Ensure bidirectional transformation preserves semantics and produces valid CSS.
 
 **Example**:
 ```typescript
-// radial.roundtrip.test.ts
+// test/integration/gradient/radial.test.ts
 it("should round-trip simple gradient", () => {
   const original = "radial-gradient(red, blue)";
   const parsed = RadialParser.parse(original);
@@ -93,11 +110,12 @@ it("should round-trip simple gradient", () => {
 
 ## Benefits of This Structure
 
-1. **Focused Tests**: Each file tests one concern (parse, generate, or round-trip)
-2. **Clear Intent**: File name indicates what's being tested
-3. **Easy Navigation**: Find parser tests next to parser, generator tests next to generator
-4. **Maintainability**: Changes to parser only require updating parse tests
+1. **Focused Tests**: Unit tests next to implementation, integration tests separated
+2. **Clear Intent**: File name and location indicate test type
+3. **Easy Navigation**: Unit tests are colocated, integration tests are centralized
+4. **Maintainability**: Changes to parser only require updating parse unit tests
 5. **Parallel Development**: Different developers can work on parse/generate independently
+6. **Test Isolation**: Integration tests don't clutter src/ directory
 
 ## Test Count Distribution
 
@@ -113,7 +131,7 @@ For radial gradients (example):
 |-----------|-------------|----------|---------|
 | Parse | `<feature>.parse.test.ts` | `src/parse/<category>/` | `radial.parse.test.ts` |
 | Generate | `<feature>.generate.test.ts` | `src/generate/<category>/` | `radial.generate.test.ts` |
-| Round-trip | `<feature>.roundtrip.test.ts` | `src/parse/<category>/` | `radial.roundtrip.test.ts` |
+| Integration | `<feature>.test.ts` | `test/integration/<category>/` | `radial.test.ts` |
 
 ## Guidelines
 
@@ -132,7 +150,7 @@ For radial gradients (example):
 - ✅ Edge cases (empty arrays, zero values, etc.)
 - ✅ All shape/size/position combinations
 
-### Round-Trip Tests Should Cover:
+### Integration Tests Should Cover:
 - ✅ Simple cases (baseline functionality)
 - ✅ Complex cases (all features combined)
 - ✅ Edge cases that might lose information
@@ -152,7 +170,7 @@ it("should parse and generate", () => {
 
 ✅ **Do separate concerns**:
 ```typescript
-// GOOD: Dedicated round-trip test
+// GOOD: Dedicated integration test in test/integration/
 it("should round-trip complex gradient", () => {
   const original = "radial-gradient(...)";
   const parsed = parse(original);
@@ -162,14 +180,14 @@ it("should round-trip complex gradient", () => {
 ```
 
 ❌ **Don't duplicate tests**:
-- Parse tests shouldn't test generation
-- Generate tests shouldn't test parsing
-- Round-trip tests are the only place both are tested together
+- Parse unit tests shouldn't test generation
+- Generate unit tests shouldn't test parsing
+- Integration tests are the only place both are tested together
 
 ✅ **Do focus each test**:
-- Parse tests: CSS input → IR validation
-- Generate tests: IR input → CSS validation
-- Round-trip tests: CSS → IR → CSS validation
+- Parse unit tests: CSS input → IR validation
+- Generate unit tests: IR input → CSS validation
+- Integration tests: CSS → IR → CSS validation
 
 ## Running Tests
 
@@ -183,8 +201,8 @@ pnpm test parse.test
 # Run only generate tests
 pnpm test generate.test
 
-# Run only round-trip tests
-pnpm test roundtrip.test
+# Run only integration tests
+pnpm test integration
 
 # Run tests for specific feature
 pnpm test radial
@@ -201,6 +219,6 @@ When adding new features (e.g., linear gradients):
 2. Add parse tests: `src/parse/gradient/linear.parse.test.ts` (10+ tests)
 3. Create generator: `src/generate/gradient/linear.ts`
 4. Add generate tests: `src/generate/gradient/linear.generate.test.ts` (10+ tests)
-5. Add round-trip tests: `src/parse/gradient/linear.roundtrip.test.ts` (8+ tests)
+5. Add integration tests: `test/integration/gradient/linear.test.ts` (8+ tests)
 
 Follow the same pattern for consistency across the codebase.
