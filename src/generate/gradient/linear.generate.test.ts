@@ -7,7 +7,10 @@ describe("Linear Gradient Generator", () => {
 	it("should generate simple linear gradient", () => {
 		const ir = {
 			kind: "linear" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -19,7 +22,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			direction: { kind: "angle" as const, value: { value: 45, unit: "deg" as const } },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -31,7 +37,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			direction: { kind: "to-side" as const, value: "right" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -43,7 +52,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			direction: { kind: "to-corner" as const, value: "top right" as const },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -55,7 +67,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			direction: { kind: "angle" as const, value: { value: 0.25, unit: "turn" as const } },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -67,7 +82,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			direction: { kind: "angle" as const, value: { value: 1.57, unit: "rad" as const } },
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -79,8 +97,8 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "%" as const } },
-				{ color: "blue", position: { value: 100, unit: "%" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 100, unit: "%" as const } },
 			],
 			repeating: false,
 		};
@@ -93,7 +111,10 @@ describe("Linear Gradient Generator", () => {
 		const ir = {
 			kind: "linear" as const,
 			colorSpace: "oklch" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -106,7 +127,10 @@ describe("Linear Gradient Generator", () => {
 			kind: "linear" as const,
 			direction: { kind: "angle" as const, value: { value: 45, unit: "deg" as const } },
 			colorSpace: "oklch" as const,
-			colorStops: [{ color: "red" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 
@@ -119,8 +143,8 @@ describe("Linear Gradient Generator", () => {
 			kind: "linear" as const,
 			direction: { kind: "angle" as const, value: { value: 45, unit: "deg" as const } },
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "px" as const } },
-				{ color: "blue", position: { value: 20, unit: "px" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "px" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 20, unit: "px" as const } },
 			],
 			repeating: true,
 		};
@@ -134,9 +158,9 @@ describe("Linear Gradient Generator", () => {
 			kind: "linear" as const,
 			direction: { kind: "to-corner" as const, value: "bottom right" as const },
 			colorStops: [
-				{ color: "red", position: { value: 0, unit: "%" as const } },
-				{ color: "yellow", position: { value: 50, unit: "%" as const } },
-				{ color: "blue", position: { value: 100, unit: "%" as const } },
+				{ color: { kind: "named", name: "red" } as const, position: { value: 0, unit: "%" as const } },
+				{ color: { kind: "named", name: "yellow" } as const, position: { value: 50, unit: "%" as const } },
+				{ color: { kind: "named", name: "blue" } as const, position: { value: 100, unit: "%" as const } },
 			],
 			repeating: false,
 		};
@@ -152,7 +176,10 @@ describe("Linear Gradient Generator", () => {
 			const ir = {
 				kind: "linear" as const,
 				direction: { kind: "to-side" as const, value: side },
-				colorStops: [{ color: "red" }, { color: "blue" }],
+				colorStops: [
+					{ color: { kind: "named", name: "red" } as const },
+					{ color: { kind: "named", name: "blue" } as const },
+				],
 				repeating: false,
 			};
 
@@ -173,7 +200,10 @@ describe("Linear Gradient Generator", () => {
 			const ir = {
 				kind: "linear" as const,
 				direction: { kind: "to-corner" as const, value: corner },
-				colorStops: [{ color: "red" }, { color: "blue" }],
+				colorStops: [
+					{ color: { kind: "named", name: "red" } as const },
+					{ color: { kind: "named", name: "blue" } as const },
+				],
 				repeating: false,
 			};
 
@@ -185,7 +215,13 @@ describe("Linear Gradient Generator", () => {
 	it("should generate linear gradient with multiple color stops", () => {
 		const ir = {
 			kind: "linear" as const,
-			colorStops: [{ color: "red" }, { color: "orange" }, { color: "yellow" }, { color: "green" }, { color: "blue" }],
+			colorStops: [
+				{ color: { kind: "named", name: "red" } as const },
+				{ color: { kind: "named", name: "orange" } as const },
+				{ color: { kind: "named", name: "yellow" } as const },
+				{ color: { kind: "named", name: "green" } as const },
+				{ color: { kind: "named", name: "blue" } as const },
+			],
 			repeating: false,
 		};
 

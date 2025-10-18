@@ -2,6 +2,7 @@
 import * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as ColorParse from "@/parse/color";
 
 /**
  * Parse color stop from CSS AST nodes.
@@ -36,13 +37,20 @@ export function fromNodes(nodes: csstree.CssNode[]): Result<Type.ColorStop, stri
 		return err("Color stop requires at least a color value");
 	}
 
-	// Extract color value
-	let color: string;
+	// Extract and parse color value
+	let colorString: string;
 	try {
-		color = csstree.generate(firstNode).toLowerCase();
+		colorString = csstree.generate(firstNode);
 	} catch (error) {
 		return err(`Failed to generate color value: ${error instanceof Error ? error.message : String(error)}`);
 	}
+
+	// Parse color using master color parser
+	const colorResult = ColorParse.parse(colorString);
+	if (!colorResult.ok) {
+		return err(`Invalid color value: ${colorResult.error}`);
+	}
+	const color = colorResult.value;
 
 	// Check for optional position (second node)
 	if (nodes.length >= 2) {

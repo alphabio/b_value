@@ -13,8 +13,8 @@ describe("Radial Gradient Parser", () => {
 			expect(result.value.kind).toBe("radial");
 			expect(result.value.repeating).toBe(false);
 			expect(result.value.colorStops).toHaveLength(2);
-			expect(result.value.colorStops[0]?.color).toBe("red");
-			expect(result.value.colorStops[1]?.color).toBe("blue");
+			expect(result.value.colorStops[0]?.color).toEqual({ kind: "named", name: "red" });
+			expect(result.value.colorStops[1]?.color).toEqual({ kind: "named", name: "blue" });
 		}
 	});
 
@@ -106,7 +106,7 @@ describe("Radial Gradient Parser", () => {
 		expect(result.ok).toBe(true);
 		if (result.ok) {
 			expect(result.value.colorStops).toHaveLength(4);
-			expect(result.value.colorStops[1]?.color).toBe("yellow");
+			expect(result.value.colorStops[1]?.color).toEqual({ kind: "named", name: "yellow" });
 			expect(result.value.colorStops[1]?.position).toEqual({
 				value: 30,
 				unit: "%",
@@ -513,8 +513,8 @@ describe("Radial Gradient Parser", () => {
 
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.colorStops[0]?.color).toBe("#ff0000");
-			expect(result.value.colorStops[1]?.color).toBe("#0000ff");
+			expect(result.value.colorStops[0]?.color).toEqual({ kind: "hex", value: "#FF0000" });
+			expect(result.value.colorStops[1]?.color).toEqual({ kind: "hex", value: "#0000FF" });
 		}
 	});
 

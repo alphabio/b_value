@@ -13,8 +13,8 @@ describe("Conic Gradient Parser", () => {
 			expect(result.value.kind).toBe("conic");
 			expect(result.value.repeating).toBe(false);
 			expect(result.value.colorStops).toHaveLength(2);
-			expect(result.value.colorStops[0]?.color).toBe("red");
-			expect(result.value.colorStops[1]?.color).toBe("blue");
+			expect(result.value.colorStops[0]?.color).toEqual({ kind: "named", name: "red" });
+			expect(result.value.colorStops[1]?.color).toEqual({ kind: "named", name: "blue" });
 		}
 	});
 
@@ -179,7 +179,7 @@ describe("Conic Gradient Parser", () => {
 				vertical: { value: 30, unit: "%" },
 			});
 			expect(result.value.colorStops).toHaveLength(3);
-			expect(result.value.colorStops[1]?.color).toBe("yellow");
+			expect(result.value.colorStops[1]?.color).toEqual({ kind: "named", name: "yellow" });
 		}
 	});
 
