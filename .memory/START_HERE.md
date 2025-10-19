@@ -12,22 +12,22 @@ Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe
 ## Every Session - Same Pattern
 
 ```bash
-# 1. Archive INDEX.md (ALWAYS FIRST)
-cp .memory/archive/INDEX.md .memory/archive/$(ls -t .memory/archive/ | grep -E '^[0-9]' | head -1)/INDEX_ARCHIVED.md
-
-# 2. Create your session archive
+# 1. Create your session archive FIRST
 mkdir -p .memory/archive/$(date +%Y-%m-%d)-[topic]/
+
+# 2. Archive INDEX.md to your new session directory
+cp .memory/archive/INDEX.md .memory/archive/$(date +%Y-%m-%d)-[topic]/INDEX_ARCHIVED.md
 
 # 3. Verify baseline
 just check && just test
 
 # 4. Work, commit frequently
 
-# 5. Create HANDOVER.md in your archive
+# 5. Create HANDOVER.md in your archive at session end
 
 # 6. Update INDEX.md to point to your session and add Archive Trail entry
 
-# 7. Commit
+# 7. Final commit
 ```
 
 **ALL session artifacts go in the dated archive directory.**
@@ -35,7 +35,7 @@ just check && just test
 ## Quality Gates (MUST PASS)
 
 ```bash
-just check   # Format, typecheck, lint
+just check   # Format, auto-fix, typecheck
 just test    # All tests
 ```
 
@@ -47,7 +47,7 @@ Everything green before commit. No exceptions.
 
 **Rule**: If you write the same logic twice, extract it to `src/utils/`.
 
-**Check**: `grep -r "function functionName" src/`. If count > 1, extract it.
+**Check**: Search for duplicate function implementations. If count > 1, extract it.
 
 **Example**: 7 parsers had `parseAlpha()`. Fixed: `src/utils/parse/color-components.ts`.
 
@@ -103,11 +103,10 @@ src/
 
 **Code**: `src/` (self-documenting JSDoc)
 
-**Roadmap**: `archive/2025-01-18-action-plan/ACTION_PLAN.md`
-
-**Example refactor**: `archive/2025-01-18-checkpoint/FINAL_HANDOVER.md`
-
-**Example DRY analysis**: `archive/2025-01-18-checkpoint/CHECKPOINT_REVIEW.md`
+**Archives**: `.memory/archive/YYYY-MM-DD-[topic]/` - Find examples:
+- HANDOVER.md files for session outcomes
+- ACTION_PLAN.md files for roadmaps
+- CHECKPOINT_REVIEW.md files for DRY analyses
 
 ## Common Patterns
 
@@ -115,7 +114,8 @@ src/
 1. Check `src/utils/parse/` for reusable logic
 2. Follow `src/parse/color/rgb.ts` pattern
 3. Co-locate test: `[name].test.ts`
-4. Verify round-trip: Parse → Generate → Parse
+4. Verify round-trip: Parse → Generate → Parse (result equals input)
+5. Add integration test in `test/integration/`
 
 **Refactor duplication**:
 1. `grep -r "function name"` to find copies
@@ -151,6 +151,7 @@ src/
 
 ## Import Aliases
 
+Defined in `tsconfig.json`:
 - `@/core/*` - Types, units, keywords
 - `@/utils/*` - Shared utilities
 - `@/parse/*` - Parsers
@@ -160,11 +161,13 @@ src/
 
 ```bash
 pnpm test              # All tests
-pnpm test -- rgb       # Specific test
+pnpm test -- rgb       # Filter by pattern (matches file names and test descriptions)
 pnpm test -- --watch   # Watch mode
 ```
 
 Tests co-located with source. Integration tests in `test/integration/`.
+
+Round-trip pattern: Parse → Generate → Parse, verify result equals input.
 
 ---
 
