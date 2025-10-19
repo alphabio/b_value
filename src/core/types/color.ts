@@ -370,10 +370,65 @@ export const specialColorSchema = z.object({
 export type SpecialColor = z.infer<typeof specialColorSchema>;
 
 /**
+ * CSS color() function with explicit color space.
+ *
+ * Represents a color in a specific color space with explicit channel values.
+ * Supports wide-gamut color spaces like display-p3 and professional spaces.
+ *
+ * Syntax: color(colorspace c1 c2 c3 [ / alpha ]?)
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/color}
+ *
+ * @example
+ * ```typescript
+ * import type { ColorFunction } from "@/core/types/color";
+ *
+ * // Display P3 color
+ * const color1: ColorFunction = {
+ *   kind: "color",
+ *   colorSpace: "display-p3",
+ *   channels: [0.928, 0.322, 0.203],
+ *   alpha: 0.8
+ * };
+ *
+ * // sRGB linear
+ * const color2: ColorFunction = {
+ *   kind: "color",
+ *   colorSpace: "srgb-linear",
+ *   channels: [0.5, 0.2, 0.8]
+ * };
+ * ```
+ *
+ * @public
+ */
+export const colorFunctionSchema = z.object({
+	kind: z.literal("color"),
+	colorSpace: z.enum([
+		"srgb",
+		"srgb-linear",
+		"display-p3",
+		"a98-rgb",
+		"prophoto-rgb",
+		"rec2020",
+		"xyz",
+		"xyz-d50",
+		"xyz-d65",
+	]),
+	channels: z.tuple([z.number(), z.number(), z.number()]),
+	alpha: z.number().min(0).max(1).optional(),
+});
+
+/**
+ * TypeScript type for color() function.
+ * @public
+ */
+export type ColorFunction = z.infer<typeof colorFunctionSchema>;
+
+/**
  * CSS color value.
  *
  * Discriminated union of all supported CSS color formats.
- * Supports hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, and special colors.
+ * Supports hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special, and color() function.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/color_value}
  *
@@ -392,6 +447,7 @@ export type SpecialColor = z.infer<typeof specialColorSchema>;
  * const oklch: Color = { kind: "oklch", l: 0.5, c: 0.2, h: 180 };
  * const system: Color = { kind: "system", keyword: "ButtonText" };
  * const special: Color = { kind: "special", keyword: "transparent" };
+ * const colorFn: Color = { kind: "color", colorSpace: "display-p3", channels: [0.928, 0.322, 0.203] };
  * ```
  *
  * @public
@@ -408,6 +464,7 @@ export const colorSchema = z.union([
 	oklchColorSchema,
 	systemColorSchema,
 	specialColorSchema,
+	colorFunctionSchema,
 ]);
 
 /**
