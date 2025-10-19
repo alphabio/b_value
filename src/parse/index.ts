@@ -28,6 +28,12 @@
  */
 
 /**
+ * Animation parsers (delay, duration, iteration-count, direction, fill-mode, play-state, name, timing-function).
+ *
+ * @see {@link Animation.Delay.parse}
+ */
+export * as Animation from "./animation";
+/**
  * Color parsers (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.parse}
