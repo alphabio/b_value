@@ -3,6 +3,7 @@
 import { z } from "zod";
 import type { GeometryBoxKeyword } from "@/core/keywords/geometry-box";
 import { lengthPercentageSchema } from "./length-percentage";
+import { position2DSchema } from "./position";
 import type { Url } from "./url";
 
 /**
@@ -15,7 +16,7 @@ import type { Url } from "./url";
  *
  * @public
  */
-export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset;
+export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset | ClipPathCircle;
 
 /**
  * 'none' keyword for clip-path.
@@ -92,3 +93,24 @@ export const clipPathInsetSchema = z.object({
 });
 
 export type ClipPathInset = z.infer<typeof clipPathInsetSchema>;
+
+/**
+ * circle() basic shape function.
+ *
+ * Defines a circular clipping region with an optional radius and center position.
+ *
+ * Syntax: circle( <length-percentage>? [ at <position> ]? )
+ *
+ * Defaults: radius = "closest-side", position = center
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/circle}
+ *
+ * @public
+ */
+export const clipPathCircleSchema = z.object({
+	kind: z.literal("clip-path-circle"),
+	radius: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
+	position: position2DSchema.optional(),
+});
+
+export type ClipPathCircle = z.infer<typeof clipPathCircleSchema>;

@@ -58,6 +58,15 @@ export function parseLengthNode(node: csstree.CssNode): Result<Type.Length, stri
  * @public
  */
 export function parseLengthPercentageNode(node: csstree.CssNode): Result<Type.LengthPercentage, string> {
+	// Handle unitless zero
+	if (node.type === "Number") {
+		const val = Number.parseFloat(node.value);
+		if (val !== 0) {
+			return err("Unitless values must be zero");
+		}
+		return ok({ value: 0, unit: "px" });
+	}
+
 	if (node.type === "Dimension") {
 		const value = Number.parseFloat(node.value);
 		if (Number.isNaN(value)) {
@@ -177,6 +186,84 @@ export function parsePositionValueNode(node: csstree.CssNode): Result<Type.Posit
 	}
 
 	return err("Expected position keyword, length, or percentage");
+}
+
+/**
+ * Parse 2D position from CSS nodes.
+ *
+ * Handles CSS position syntax with 1-2 values.
+ *
+ * @param nodes - Array of CSS nodes
+ * @param startIdx - Index to start parsing from
+ * @returns Result containing Position2D IR and next index, or error message
+ *
+ * @example
+ * ```typescript
+ * // Parse "center top"
+ * const result = parsePosition2D([centerNode, topNode], 0);
+ * // { position: { horizontal: "center", vertical: "top" }, nextIdx: 2 }
+ * ```
+ *
+ * @public
+ */
+export function parsePosition2D(
+	nodes: csstree.CssNode[],
+	startIdx: number,
+): Result<{ position: Type.Position2D; nextIdx: number }, string> {
+	let idx = startIdx;
+
+	const positionValues: Type.PositionValue[] = [];
+
+	if (idx >= nodes.length) {
+		return err("Expected position value");
+	}
+
+	const firstNode = nodes[idx];
+	if (!firstNode) return err("Missing first position value");
+	const firstValue = parsePositionValueNode(firstNode);
+	if (!firstValue.ok) {
+		return err(`Invalid first position value: ${firstValue.error}`);
+	}
+	positionValues.push(firstValue.value);
+	idx++;
+
+	if (idx < nodes.length) {
+		const secondNode = nodes[idx];
+		if (secondNode) {
+			const secondValue = parsePositionValueNode(secondNode);
+			if (secondValue.ok) {
+				positionValues.push(secondValue.value);
+				idx++;
+			}
+		}
+	}
+
+	let position: Type.Position2D;
+
+	if (positionValues.length === 1) {
+		const val = positionValues[0];
+		if (!val) {
+			return err("Missing position value");
+		}
+		if (typeof val === "string") {
+			if (val === "top" || val === "bottom") {
+				position = { horizontal: "center", vertical: val };
+			} else {
+				position = { horizontal: val, vertical: "center" };
+			}
+		} else {
+			position = { horizontal: val, vertical: "center" };
+		}
+	} else {
+		const h = positionValues[0];
+		const v = positionValues[1];
+		if (!h || !v) {
+			return err("Missing position values");
+		}
+		position = { horizontal: h, vertical: v };
+	}
+
+	return ok({ position, nextIdx: idx });
 }
 
 /**
