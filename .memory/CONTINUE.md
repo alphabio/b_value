@@ -2,11 +2,11 @@
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-clip-path-shapes/session-1 (URL & none - ~15 min)  
-**Status**: ✅ Session 1 complete - URL & none keyword implemented  
+**Last Session**: 2025-10-19-clip-path-shapes/session-1 (URL & none + refactoring - ~25 min)  
+**Status**: ✅ Session 1 complete - URL refactored as reusable core type  
 **Tests**: 1910 passing (+19 tests from baseline 1891)  
 **Coverage**: Not yet measured (new feature branch)  
-**Next**: ⭐ Session 2 - Geometry Box Keywords (7 keywords, ~30-45 min)
+**Next**: ⭐ Session 2 - **Validate URL**, then implement Geometry Box Keywords (7 keywords, ~30-45 min)
 
 ---
 
@@ -14,12 +14,20 @@
 
 ```bash
 # 1. Verify baseline (MUST PASS before any work)
-just check && just test
+just check && just test  # Should show 1910 tests passing
 
-# 2. Read context from last session (if continuing work)
-cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
+# 2. Read context and validation plan
+cat .memory/archive/2025-10-19-clip-path-shapes/session-1/HANDOVER.md
+cat .memory/archive/2025-10-19-clip-path-shapes/session-2/PLAN.md
 
-# 3. Start working OR create new session for new feature
+# 3. ⚠️ IMPORTANT: Validate URL implementation first (10 min)
+# - Review src/core/types/url.ts
+# - Review src/utils/parse/url.ts and src/utils/generate/url.ts
+# - Check if filter should use shared URL utilities
+# - Run: pnpm test -- url
+# - Document findings in handover
+
+# 4. After validation: Start Session 2 geometry-box keywords
 ```
 
 ---
@@ -28,22 +36,27 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 **Working on**: 🎯 Clip-Path Implementation (Session 1/9 complete)  
 **Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + ClipPath (1/9 sessions)  
-**Recent work**: clip-path URL & none - infrastructure + 19 tests in ~15 minutes  
+**Recent work**: Session 1 - URL & none + URL refactoring (core type + shared utilities)  
 **Master Plan**: `.memory/archive/2025-10-19-clip-path-shapes/MASTER_PLAN.md`  
 **Coverage**: Not yet measured (new feature in progress)  
-**Next steps**: Session 2 - Geometry Box Keywords (see MASTER_PLAN.md)  
+**Next steps**: ⚠️ **Validate URL implementation** (session-2/PLAN.md), then implement geometry-box keywords  
 
 ---
 
 ## Next Agent Recommendations
 
-### ⭐ CURRENT: Clip-Path Session 2 - Geometry Box Keywords (RECOMMENDED)
-**Why**: Continue clip-path implementation sequence - simple keyword parsing  
-**Time**: 30-45 minutes  
-**Complexity**: LOW - Simple keyword matching like background-clip  
-**Keywords**: 7 total (content-box, padding-box, border-box, margin-box, fill-box, stroke-box, view-box)  
-**Pattern**: Follow existing keyword patterns in `src/core/keywords/`  
-**Details**: `.memory/archive/2025-10-19-clip-path-shapes/MASTER_PLAN.md` Session 2
+### ⭐ CURRENT: Clip-Path Session 2 - Validate URL + Geometry Box Keywords (RECOMMENDED)
+**Why**: Must validate URL refactoring before proceeding with clip-path feature  
+**Time**: 30-45 minutes (10 min validation + 20-35 min implementation)  
+**Phase 1**: URL Validation (CRITICAL)
+  - Review core URL type and shared utilities
+  - Check if filter should be refactored to use shared URL
+  - Verify test coverage
+  - Document findings
+**Phase 2**: Geometry Box Keywords (after validation)
+  - 7 keywords: content-box, padding-box, border-box, margin-box, fill-box, stroke-box, view-box
+  - Simple keyword matching like background-clip
+**Details**: `.memory/archive/2025-10-19-clip-path-shapes/session-2/PLAN.md` ⚠️ **READ THIS FIRST**
 
 ### Alternative: Min/Max Width/Height Properties (If pausing clip-path)
 **Why**: Sizing constraints, natural extension of width/height  
@@ -129,13 +142,14 @@ grep -r "keyword" src/
 
 ## Recent Sessions (Archive Trail)
 
-### 2025-10-19 clip-path-shapes/session-1: URL & none ✅ COMPLETE
-- **Outcome**: clip-path url() and none keyword fully implemented
+### 2025-10-19 clip-path-shapes/session-1: URL & none + Refactoring ✅ COMPLETE
+- **Outcome**: clip-path url() and none keyword + URL extracted as reusable core type
 - **Tests**: 1891 → 1910 (+19 tests - url parsing + none keyword)
 - **Features**: URL references to SVG clip paths, none keyword
-- **Highlight**: Established infrastructure for complex clip-path feature in ~15 minutes
-- **Pattern**: Reused filter/url.ts pattern for URL parsing
-- **Next**: Session 2 - Geometry box keywords (7 keywords)
+- **Refactoring**: Created `src/core/types/url.ts` + shared parse/generate utilities
+- **Impact**: URL now reusable across all properties (filter, background-image, cursor, etc.)
+- **Pattern**: DRY - Single source of truth for URL handling
+- **Next**: ⚠️ Next agent must validate URL implementation before Session 2
 - **Details**: `.memory/archive/2025-10-19-clip-path-shapes/session-1/HANDOVER.md`
 
 ### 2025-10-19 width-height-properties: Width/Height Box Model Sizing ✅ COMPLETE
