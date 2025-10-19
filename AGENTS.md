@@ -1,21 +1,19 @@
-
-## FIRST - Execute Protocol (60 seconds)
+## 🚧 WIP: Testing new continuation workflow
 
 ⚠️ **BEFORE READING ANYTHING ELSE** ⚠️
 
-Execute: `.memory/PROTOCOL_FIRST.md`
+**Read**: `.memory/CONTINUE.md` (takes 2 min)
 
-This is MANDATORY. No exceptions. No "I'll do it later". NOW.
+Then execute the 3 commands at the top.
 
-## SECOND - Understand Project (20 seconds)
-
-Read: `.memory/START_HERE.md`
-
-Then read the code - it's self-documenting.
+That's it. Everything you need is in CONTINUE.md.
 
 ---
 
-## For New Agents
+## For New Agents (Old Protocol - Backup)
+
+<details>
+<summary>Click if CONTINUE.md doesn't work</summary>
 
 If you did not execute `.memory/PROTOCOL_FIRST.md` yet, STOP and do it now.
 
@@ -52,3 +50,5 @@ Put ALL session artifacts in this directory from the start. This includes:
 just check   # Format, typecheck, lint (must pass)
 just test    # All tests (must pass)
 ```
+
+</details>
