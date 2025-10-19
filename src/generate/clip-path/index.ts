@@ -1,5 +1,6 @@
 // b_path:: src/generate/clip-path/index.ts
 
 export * as GeometryBox from "./geometry-box";
+export * as Inset from "./inset";
 export * as None from "./none";
 export * as Url from "./url";

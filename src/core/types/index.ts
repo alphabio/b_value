@@ -3,6 +3,7 @@
 export * from "./angle";
 export * from "./animation";
 export * from "./border";
+export * from "./clip-path";
 export * from "./color-stop";
 export * from "./filter";
 export * from "./gradient";
