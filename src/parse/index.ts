@@ -46,6 +46,12 @@ export * as Background from "./background";
  */
 export * as Border from "./border";
 /**
+ * Clip-path parsers (url, none).
+ *
+ * @see {@link ClipPath.Url.parse}
+ */
+export * as ClipPath from "./clip-path";
+/**
  * Color parsers (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.parse}
