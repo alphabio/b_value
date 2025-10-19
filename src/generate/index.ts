@@ -47,6 +47,12 @@ export * as Background from "./background";
  */
 export * as Border from "./border";
 /**
+ * Clip-path generators (url, none).
+ *
+ * @see {@link ClipPath.Url.toCss}
+ */
+export * as ClipPath from "./clip-path";
+/**
  * Color generators (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.toCss}

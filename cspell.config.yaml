@@ -27,6 +27,7 @@ words:
   - translatey
   - translatez
   - turbopack
+  - unitless
   - unittests
   - vmax
   - vmin
