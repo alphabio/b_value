@@ -35,6 +35,12 @@
  */
 export * as Animation from "./animation";
 /**
+ * Border generators (width, style, color, radius).
+ *
+ * @see {@link Border.Width.toCss}
+ */
+export * as Border from "./border";
+/**
  * Color generators (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.toCss}
