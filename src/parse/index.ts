@@ -34,6 +34,12 @@
  */
 export * as Animation from "./animation";
 /**
+ * Border parsers (width, style, color, radius).
+ *
+ * @see {@link Border.Width.parse}
+ */
+export * as Border from "./border";
+/**
  * Color parsers (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.parse}
@@ -57,6 +63,12 @@ export * as Gradient from "./gradient";
  * @see {@link Position.parse}
  */
 export * as Position from "./position/position";
+/**
+ * Shadow parsers (box-shadow, text-shadow).
+ *
+ * @see {@link Shadow.BoxShadow.parse}
+ */
+export * as Shadow from "./shadow";
 /**
  * Transform parsers (translate, rotate, scale, skew, matrix, etc.).
  *
