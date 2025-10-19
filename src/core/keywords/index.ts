@@ -34,6 +34,7 @@ export * from "./outline-style-keywords";
 export * from "./overflow-keywords";
 export * from "./overflow-wrap-keywords";
 export * from "./position-keywords";
+export * from "./position-property-keywords";
 export * from "./repeat-keywords";
 export * from "./shape-keywords";
 export * from "./sizing-keywords";

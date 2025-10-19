@@ -166,4 +166,25 @@ describe("Integration: Layout Properties Round-Trip", () => {
 			});
 		}
 	});
+
+	describe("Position", () => {
+		const testCases = ["static", "relative", "absolute", "fixed", "sticky"];
+
+		for (const css of testCases) {
+			it(`should round-trip position: ${css}`, () => {
+				const parsed = Parse.Layout.Position.parse(css);
+				expect(parsed.ok).toBe(true);
+				if (!parsed.ok) return;
+
+				const generated = Generate.Layout.Position.toCss(parsed.value);
+				expect(generated).toBe(css);
+
+				const reparsed = Parse.Layout.Position.parse(generated);
+				expect(reparsed.ok).toBe(true);
+				if (!reparsed.ok) return;
+
+				expect(reparsed.value).toEqual(parsed.value);
+			});
+		}
+	});
 });
