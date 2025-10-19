@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { cursorKeywordsSchema } from "../keywords/cursor-keywords";
 import { displayKeywordsSchema } from "../keywords/display-keywords";
+import { overflowKeywordsSchema } from "../keywords/overflow-keywords";
 import { visibilityKeywordsSchema } from "../keywords/visibility-keywords";
 
 /**
@@ -126,3 +127,65 @@ export const cursorSchema = z.object({
  * @public
  */
 export type Cursor = z.infer<typeof cursorSchema>;
+
+/**
+ * CSS overflow-x property IR.
+ *
+ * The overflow-x property controls what happens when content overflows
+ * an element's box horizontally (left and right edges).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x}
+ *
+ * @example
+ * ```typescript
+ * const overflowX: OverflowX = {
+ *   kind: "overflow-x",
+ *   value: "hidden"
+ * };
+ * // CSS: overflow-x: hidden;
+ * ```
+ *
+ * @public
+ */
+export const overflowXSchema = z.object({
+	kind: z.literal("overflow-x"),
+	value: overflowKeywordsSchema,
+});
+
+/**
+ * TypeScript type for overflow-x property.
+ *
+ * @public
+ */
+export type OverflowX = z.infer<typeof overflowXSchema>;
+
+/**
+ * CSS overflow-y property IR.
+ *
+ * The overflow-y property controls what happens when content overflows
+ * an element's box vertically (top and bottom edges).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-y}
+ *
+ * @example
+ * ```typescript
+ * const overflowY: OverflowY = {
+ *   kind: "overflow-y",
+ *   value: "scroll"
+ * };
+ * // CSS: overflow-y: scroll;
+ * ```
+ *
+ * @public
+ */
+export const overflowYSchema = z.object({
+	kind: z.literal("overflow-y"),
+	value: overflowKeywordsSchema,
+});
+
+/**
+ * TypeScript type for overflow-y property.
+ *
+ * @public
+ */
+export type OverflowY = z.infer<typeof overflowYSchema>;

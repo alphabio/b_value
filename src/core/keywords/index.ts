@@ -31,6 +31,7 @@ export * from "./justify-items-keywords";
 export * from "./justify-items-keywords";
 export * from "./justify-self-keywords";
 export * from "./outline-style-keywords";
+export * from "./overflow-keywords";
 export * from "./overflow-wrap-keywords";
 export * from "./position-keywords";
 export * from "./repeat-keywords";

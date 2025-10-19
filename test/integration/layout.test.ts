@@ -124,4 +124,46 @@ describe("Integration: Layout Properties Round-Trip", () => {
 			});
 		}
 	});
+
+	describe("OverflowX", () => {
+		const testCases = ["visible", "hidden", "clip", "scroll", "auto"];
+
+		for (const css of testCases) {
+			it(`should round-trip overflow-x: ${css}`, () => {
+				const parsed = Parse.Layout.OverflowX.parse(css);
+				expect(parsed.ok).toBe(true);
+				if (!parsed.ok) return;
+
+				const generated = Generate.Layout.OverflowX.toCss(parsed.value);
+				expect(generated).toBe(css);
+
+				const reparsed = Parse.Layout.OverflowX.parse(generated);
+				expect(reparsed.ok).toBe(true);
+				if (!reparsed.ok) return;
+
+				expect(reparsed.value).toEqual(parsed.value);
+			});
+		}
+	});
+
+	describe("OverflowY", () => {
+		const testCases = ["visible", "hidden", "clip", "scroll", "auto"];
+
+		for (const css of testCases) {
+			it(`should round-trip overflow-y: ${css}`, () => {
+				const parsed = Parse.Layout.OverflowY.parse(css);
+				expect(parsed.ok).toBe(true);
+				if (!parsed.ok) return;
+
+				const generated = Generate.Layout.OverflowY.toCss(parsed.value);
+				expect(generated).toBe(css);
+
+				const reparsed = Parse.Layout.OverflowY.parse(generated);
+				expect(reparsed.ok).toBe(true);
+				if (!reparsed.ok) return;
+
+				expect(reparsed.value).toEqual(parsed.value);
+			});
+		}
+	});
 });
