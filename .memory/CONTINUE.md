@@ -2,11 +2,11 @@
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-width-height-properties (2 properties! ~6 min)  
-**Status**: ✅ Width & Height complete with intrinsic sizing support  
-**Tests**: 1891 passing (+58 tests from baseline 1833)  
-**Coverage**: 85.73% (stable, below 89% threshold - expected for new code)  
-**Next**: ⭐ Min/Max Width/Height OR Margin properties OR Padding properties
+**Last Session**: 2025-10-19-clip-path-shapes/session-1 (URL & none - ~15 min)  
+**Status**: ✅ Session 1 complete - URL & none keyword implemented  
+**Tests**: 1910 passing (+19 tests from baseline 1891)  
+**Coverage**: Not yet measured (new feature branch)  
+**Next**: ⭐ Session 2 - Geometry Box Keywords (7 keywords, ~30-45 min)
 
 ---
 
@@ -26,35 +26,37 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Min/Max Width/Height OR Margin OR Padding recommended  
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14 complete!)  
-**Recent work**: Width/Height with intrinsic sizing - 2 properties with +58 tests in ~6 minutes  
-**Velocity**: 3 consecutive 6-minute sessions (TRBL 4 props, Width/Height 2 props)  
-**Coverage**: 85.73% (stable, new code not yet used in workflows)  
-**Next steps**: See "Next Agent Recommendations" below  
+**Working on**: 🎯 Clip-Path Implementation (Session 1/9 complete)  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + ClipPath (1/9 sessions)  
+**Recent work**: clip-path URL & none - infrastructure + 19 tests in ~15 minutes  
+**Master Plan**: `.memory/archive/2025-10-19-clip-path-shapes/MASTER_PLAN.md`  
+**Coverage**: Not yet measured (new feature in progress)  
+**Next steps**: Session 2 - Geometry Box Keywords (see MASTER_PLAN.md)  
 
 ---
 
 ## Next Agent Recommendations
 
-### Option 1: Min/Max Width/Height Properties ⭐ COMPLETE BOX CONSTRAINTS
-**Why**: Sizing constraints, natural extension of width/height just implemented  
+### ⭐ CURRENT: Clip-Path Session 2 - Geometry Box Keywords (RECOMMENDED)
+**Why**: Continue clip-path implementation sequence - simple keyword parsing  
+**Time**: 30-45 minutes  
+**Complexity**: LOW - Simple keyword matching like background-clip  
+**Keywords**: 7 total (content-box, padding-box, border-box, margin-box, fill-box, stroke-box, view-box)  
+**Pattern**: Follow existing keyword patterns in `src/core/keywords/`  
+**Details**: `.memory/archive/2025-10-19-clip-path-shapes/MASTER_PLAN.md` Session 2
+
+### Alternative: Min/Max Width/Height Properties (If pausing clip-path)
+**Why**: Sizing constraints, natural extension of width/height  
 **Time**: 20-30 minutes (4 properties)  
 **Type**: Length-percentage | none | min-content | max-content | fit-content  
 **Pattern**: Nearly identical to width/height, 'none' instead of 'auto'  
 **Note**: Can reuse width-height-keywords.ts intrinsic sizing keywords
 
-### Option 2: Margin Properties (Complete Box Model Spacing)
+### Alternative: Margin Properties (Box Model Spacing)
 **Why**: External spacing, completes box model with padding  
 **Time**: 20-25 minutes (4 properties: margin-top/right/bottom/left)  
 **Type**: Length-percentage | auto  
 **Pattern**: Exactly like TRBL insets (already implemented)
-
-### Option 3: Padding Properties
-**Why**: Internal spacing, pairs with margin  
-**Time**: 15-20 minutes (4 properties: padding-top/right/bottom/left)  
-**Type**: Length-percentage (simpler - no auto keyword)  
-**Pattern**: Simpler than TRBL/margin (no keyword handling needed)
 
 ---
 
@@ -126,6 +128,15 @@ grep -r "keyword" src/
 ---
 
 ## Recent Sessions (Archive Trail)
+
+### 2025-10-19 clip-path-shapes/session-1: URL & none ✅ COMPLETE
+- **Outcome**: clip-path url() and none keyword fully implemented
+- **Tests**: 1891 → 1910 (+19 tests - url parsing + none keyword)
+- **Features**: URL references to SVG clip paths, none keyword
+- **Highlight**: Established infrastructure for complex clip-path feature in ~15 minutes
+- **Pattern**: Reused filter/url.ts pattern for URL parsing
+- **Next**: Session 2 - Geometry box keywords (7 keywords)
+- **Details**: `.memory/archive/2025-10-19-clip-path-shapes/session-1/HANDOVER.md`
 
 ### 2025-10-19 width-height-properties: Width/Height Box Model Sizing ✅ COMPLETE
 - **Outcome**: width, height properties with intrinsic sizing fully implemented
