@@ -424,3 +424,101 @@ export const leftSchema = z.object({
  * @public
  */
 export type Left = z.infer<typeof leftSchema>;
+
+/**
+ * CSS width property IR.
+ *
+ * The width property sets the width of an element.
+ * Accepts length-percentage, auto, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/width}
+ *
+ * @example
+ * ```typescript
+ * const width: Width = {
+ *   kind: "width",
+ *   value: { value: 200, unit: "px" }
+ * };
+ * // CSS: width: 200px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const width: Width = {
+ *   kind: "width",
+ *   value: "auto"
+ * };
+ * // CSS: width: auto;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const width: Width = {
+ *   kind: "width",
+ *   value: "min-content"
+ * };
+ * // CSS: width: min-content;
+ * ```
+ *
+ * @public
+ */
+export const widthSchema = z.object({
+	kind: z.literal("width"),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+/**
+ * TypeScript type for width property.
+ *
+ * @public
+ */
+export type Width = z.infer<typeof widthSchema>;
+
+/**
+ * CSS height property IR.
+ *
+ * The height property sets the height of an element.
+ * Accepts length-percentage, auto, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/height}
+ *
+ * @example
+ * ```typescript
+ * const height: Height = {
+ *   kind: "height",
+ *   value: { value: 100, unit: "px" }
+ * };
+ * // CSS: height: 100px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const height: Height = {
+ *   kind: "height",
+ *   value: "auto"
+ * };
+ * // CSS: height: auto;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const height: Height = {
+ *   kind: "height",
+ *   value: "max-content"
+ * };
+ * // CSS: height: max-content;
+ * ```
+ *
+ * @public
+ */
+export const heightSchema = z.object({
+	kind: z.literal("height"),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+/**
+ * TypeScript type for height property.
+ *
+ * @public
+ */
+export type Height = z.infer<typeof heightSchema>;
