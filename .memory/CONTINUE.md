@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T15:59 -->
+<!-- LAST UPDATED: 2025-10-19T16:48 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-animation-world-class  
-**Status**: ✅ Animation API complete  
-**Tests**: 1075 passing (+146 new animation tests)  
-**Next**: ⭐ Transition properties (see TRANSITION_NEXT.md)
+**Last Session**: 2025-10-19-transition-api  
+**Status**: ✅ Transition API complete  
+**Tests**: 1202 passing (+127 new transition tests)  
+**Next**: ⭐ Extract shared easing utilities OR new domain
 
 ---
 
@@ -25,10 +25,36 @@ cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Recommended → Transition properties (2-3 hours, high ROI)  
-**Project state**: All 8 animation properties complete, timing functions ready to reuse  
-**Recent work**: Animation API completed (146 tests, full timing function support)  
-**Next steps**: See `.memory/archive/2025-10-19-animation-world-class/TRANSITION_NEXT.md`  
+**Working on**: Open → Extract easing utilities OR new domain  
+**Project state**: Animation (8 props) + Transition (4 props) complete, easing duplicated  
+**Recent work**: Transition API completed (127 tests, all 4 properties)  
+**Next steps**: See "Next Agent Recommendations" below  
+
+---
+
+## Next Agent Recommendations
+
+### Option 1: Extract Shared Easing Utilities (DRY Refactor) ⭐ RECOMMENDED
+**Why**: Animation and transition both duplicate easing function code  
+**Time**: 1-2 hours  
+**ROI**: High (single source of truth, easier maintenance)  
+**Approach**:
+1. Create `src/utils/parse/easing/` directory
+2. Extract cubic-bezier, steps, linear parsing
+3. Update animation and transition to use shared utilities
+4. Run tests to ensure zero regressions
+
+### Option 2: Border Properties
+**Why**: Common CSS properties, moderate complexity  
+**Time**: 2-3 hours  
+**Properties**: border-width, border-style, border-color, border-radius  
+**Pattern**: Similar to existing parsers
+
+### Option 3: Background Properties  
+**Why**: Build on gradient work already done  
+**Time**: 3-4 hours  
+**Properties**: background-size, background-repeat, background-attachment  
+**Pattern**: Comma-separated lists, keywords
 
 ---
 
@@ -38,7 +64,7 @@ cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
 ```bash
 # Quality gates (run after changes)
 just check                 # Format + typecheck + lint
-just test                  # All tests (903 tests)
+just test                  # All tests (1202 tests)
 pnpm test -- [pattern]     # Filter tests by name/file
 
 # Context discovery
@@ -100,6 +126,13 @@ grep -r "keyword" src/
 
 ## Recent Sessions (Archive Trail)
 
+### 2025-10-19 transition-api: Transition API ✅ COMPLETE
+- **Outcome**: Complete transition API with all 4 properties
+- **Tests**: 1075 → 1202 (+127 transition tests)
+- **Properties**: delay, duration, timing-function, property
+- **Highlight**: 90-100% code reuse from animation, new property parser
+- **Details**: `.memory/archive/2025-10-19-transition-api/HANDOVER.md`
+
 ### 2025-10-19 animation-world-class: Animation API ✅ COMPLETE
 - **Outcome**: World-class animation API with all 8 properties
 - **Tests**: 929 → 1075 (+146 animation tests)
@@ -148,7 +181,7 @@ Bidirectional CSS value parser. Parse CSS → IR, generate IR → CSS. Type-safe
 **Quality Gates** (MUST PASS before commit):
 ```bash
 just check  # Format + typecheck + lint
-just test   # All 903 tests
+just test   # All 1202 tests
 ```
 
 ---
