@@ -7,15 +7,14 @@
 
 ---
 
-## Quick Start for Next Agent
+## For Next Agent - START HERE
 
-1. **MANDATORY**: Execute `.memory/PROTOCOL_FIRST.md` BEFORE doing anything
-2. Archive this INDEX.md to your session directory as `INDEX_ARCHIVED.md`
-3. Read Last Session HANDOVER: `.memory/archive/2025-10-19-import-export-audit/HANDOVER.md`
-4. Create your session directory: `mkdir -p .memory/archive/$(date +%Y-%m-%d)-[topic]/`
-5. Create new INDEX.md pointing to your session
-6. Work, commit frequently, create HANDOVER.md at end
-7. Update INDEX.md before ending session
+⚠️ **STOP! EXECUTE `.memory/PROTOCOL_FIRST.md` FIRST** ⚠️
+
+Then:
+1. Read `.memory/START_HERE.md` for project overview
+2. Read last session: `.memory/archive/2025-10-19-import-export-audit/HANDOVER.md`
+3. Follow your session protocol (create directory, archive INDEX, baseline check)
 
 ---
 
