@@ -64,3 +64,9 @@ export * as Position from "./position";
  * @see {@link Transform.toCss}
  */
 export * as Transform from "./transform";
+/**
+ * Transition generators (delay, duration, timing-function, property).
+ *
+ * @see {@link Transition.Delay.toCss}
+ */
+export * as Transition from "./transition";

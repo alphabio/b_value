@@ -63,3 +63,9 @@ export * as Position from "./position/position";
  * @see {@link Transform.parse}
  */
 export * as Transform from "./transform/transform";
+/**
+ * Transition parsers (delay, duration, timing-function, property).
+ *
+ * @see {@link Transition.Delay.parse}
+ */
+export * as Transition from "./transition";
