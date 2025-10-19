@@ -2,19 +2,20 @@
 
 import { z } from "zod";
 import type { GeometryBoxKeyword } from "@/core/keywords/geometry-box";
+import { lengthPercentageSchema } from "./length-percentage";
 import type { Url } from "./url";
 
 /**
  * CSS clip-path value.
  *
  * Defines the visible region of an element by clipping.
- * Can be a URL reference to SVG clipPath, geometry-box keyword, or 'none'.
+ * Can be a URL reference to SVG clipPath, geometry-box keyword, basic shape, or 'none'.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path}
  *
  * @public
  */
-export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox;
+export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset;
 
 /**
  * 'none' keyword for clip-path.
@@ -46,3 +47,48 @@ export const clipPathGeometryBoxSchema = z.object({
 });
 
 export type ClipPathGeometryBox = z.infer<typeof clipPathGeometryBoxSchema>;
+
+/**
+ * Border-radius shorthand for inset() shapes.
+ *
+ * Simplified version without elliptical corners.
+ * All corners use same radius for horizontal and vertical.
+ *
+ * @public
+ */
+export type InsetBorderRadius = {
+	topLeft: z.infer<typeof lengthPercentageSchema>;
+	topRight: z.infer<typeof lengthPercentageSchema>;
+	bottomRight: z.infer<typeof lengthPercentageSchema>;
+	bottomLeft: z.infer<typeof lengthPercentageSchema>;
+};
+
+/**
+ * inset() basic shape function.
+ *
+ * Defines an inset rectangle by specifying offsets from each edge.
+ * Optionally accepts rounded corners via border-radius syntax.
+ *
+ * Syntax: inset( <length-percentage>{1,4} [ round <border-radius> ]? )
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/inset}
+ *
+ * @public
+ */
+export const clipPathInsetSchema = z.object({
+	kind: z.literal("clip-path-inset"),
+	top: lengthPercentageSchema,
+	right: lengthPercentageSchema,
+	bottom: lengthPercentageSchema,
+	left: lengthPercentageSchema,
+	borderRadius: z
+		.object({
+			topLeft: lengthPercentageSchema,
+			topRight: lengthPercentageSchema,
+			bottomRight: lengthPercentageSchema,
+			bottomLeft: lengthPercentageSchema,
+		})
+		.optional(),
+});
+
+export type ClipPathInset = z.infer<typeof clipPathInsetSchema>;
