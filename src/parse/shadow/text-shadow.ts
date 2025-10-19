@@ -37,8 +37,6 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<TextShadowLayer, str
 		return err(`text-shadow layer expects at least 2 arguments (offset-x, offset-y), got ${nodes.length}`);
 	}
 
-	let offsetX: Length | undefined;
-	let offsetY: Length | undefined;
 	let blurRadius: Length | undefined;
 	let color: Color | undefined;
 
@@ -85,16 +83,16 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<TextShadowLayer, str
 		return err(`text-shadow: expects at most 3 length values, got ${lengthValues.length}`);
 	}
 
-	offsetX = lengthValues[0];
-	offsetY = lengthValues[1];
+	const offsetX = lengthValues[0] as Length;
+	const offsetY = lengthValues[1] as Length;
 
 	if (lengthValues.length >= 3) {
 		blurRadius = lengthValues[2];
 	}
 
 	return ok({
-		offsetX: offsetX as Length,
-		offsetY: offsetY as Length,
+		offsetX,
+		offsetY,
 		blurRadius,
 		color,
 	});

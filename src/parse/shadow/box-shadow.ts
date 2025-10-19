@@ -38,8 +38,6 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<BoxShadowLayer, stri
 	}
 
 	let inset = false;
-	let offsetX: Length | undefined;
-	let offsetY: Length | undefined;
 	let blurRadius: Length | undefined;
 	let spreadRadius: Length | undefined;
 	let color: Color | undefined;
@@ -96,8 +94,8 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<BoxShadowLayer, stri
 		return err(`box-shadow: expects at most 4 length values, got ${lengthValues.length}`);
 	}
 
-	offsetX = lengthValues[0];
-	offsetY = lengthValues[1];
+	const offsetX = lengthValues[0] as Length;
+	const offsetY = lengthValues[1] as Length;
 
 	if (lengthValues.length >= 3) {
 		blurRadius = lengthValues[2];
@@ -109,8 +107,8 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<BoxShadowLayer, stri
 
 	return ok({
 		inset: inset || undefined,
-		offsetX: offsetX as Length,
-		offsetY: offsetY as Length,
+		offsetX,
+		offsetY,
 		blurRadius,
 		spreadRadius,
 		color,
