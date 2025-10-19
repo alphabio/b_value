@@ -1,12 +1,30 @@
-## 🚧 WIP: Testing new continuation workflow
+## Auto-Execute Protocol (DO THIS IMMEDIATELY)
 
-⚠️ **BEFORE READING ANYTHING ELSE** ⚠️
+⚠️ **BEFORE responding to the user's first message**, you MUST execute this protocol:
 
-**Read**: `.memory/CONTINUE.md` (takes 2 min)
+```bash
+# 1. Verify baseline (MUST PASS before any work)
+just check && just test
 
-Then execute the 3 commands at the top.
+# 2. Read continuation context
+cat .memory/CONTINUE.md
+cat .memory/archive/2025-10-19-intro-session/HANDOVER.md
 
-That's it. Everything you need is in CONTINUE.md.
+# 3. Report status to user
+# - Baseline status (pass/fail)
+# - Current project state from CONTINUE.md
+# - Ready to proceed
+```
+
+**Only AFTER completing these steps** should you greet the user or respond to their request.
+
+---
+
+## 🚧 WIP: Testing auto-execution workflow
+
+**Goal**: Agent auto-loads context on session start without user prompt.
+
+**Read**: `.memory/CONTINUE.md` (reference for all continuation details)
 
 ---
 
