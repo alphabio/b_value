@@ -34,6 +34,12 @@
  */
 export * as Animation from "./animation";
 /**
+ * Background parsers (attachment, clip, origin, repeat, size).
+ *
+ * @see {@link Background.Attachment.parse}
+ */
+export * as Background from "./background";
+/**
  * Border parsers (width, style, color, radius).
  *
  * @see {@link Border.Width.parse}

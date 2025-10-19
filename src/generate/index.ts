@@ -35,6 +35,12 @@
  */
 export * as Animation from "./animation";
 /**
+ * Background generators (attachment, clip, origin, repeat, size).
+ *
+ * @see {@link Background.Attachment.toCss}
+ */
+export * as Background from "./background";
+/**
  * Border generators (width, style, color, radius).
  *
  * @see {@link Border.Width.toCss}
