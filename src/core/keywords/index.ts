@@ -3,6 +3,7 @@
 export * from "./align-content-keywords";
 export * from "./align-items-keywords";
 export * from "./align-self-keywords";
+export * from "./animation";
 export * from "./auto-keyword";
 export * from "./background-attachment-keywords";
 export * from "./basic-color-keywords";
