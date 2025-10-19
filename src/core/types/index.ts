@@ -1,6 +1,7 @@
 // b_path:: src/core/types/index.ts
 
 export * from "./angle";
+export * from "./animation";
 export * from "./border";
 export * from "./color-stop";
 export * from "./filter";
@@ -11,4 +12,5 @@ export * from "./position";
 export * from "./position-layer";
 export * from "./ratio";
 export * from "./size-layer";
+export * from "./time";
 export * from "./transform";
