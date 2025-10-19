@@ -41,8 +41,8 @@ clip-path: <clip-source> | [ <basic-shape> || <geometry-box> ] | none
 
 | Session | Status | Tests | Time Est. | Date | Handover |
 |---------|--------|-------|-----------|------|----------|
-| 1. URL & none | 🔵 NOW | 0/15 | 30-45 min | 2025-10-19 | - |
-| 2. Geometry Box Keywords | ⚪ TODO | 0/20 | 30-45 min | - | - |
+| 1. URL & none | ✅ DONE | 19/15 | ~15 min | 2025-10-19 | [session-1/HANDOVER.md](session-1/HANDOVER.md) |
+| 2. Geometry Box Keywords | 🔵 NEXT | 0/20 | 30-45 min | - | - |
 | 3. Inset Shape | ⚪ TODO | 0/30 | 60-90 min | - | - |
 | 4. Circle & Ellipse | ⚪ TODO | 0/40 | 90-120 min | - | - |
 | 5. Polygon Shape | ⚪ TODO | 0/30 | 60-90 min | - | - |
