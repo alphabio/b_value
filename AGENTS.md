@@ -23,7 +23,7 @@ Put ALL session artifacts in this directory from the start. This includes:
 - Run `just test` regularly to verify correctness
 - Commit work frequently with clear messages
 - Everything must be green before final commit
-- Update START_HERE.md at session end with outcomes and next steps
+- Create HANDOVER.md at session end with outcomes
 
 **Quality gates:**
 
