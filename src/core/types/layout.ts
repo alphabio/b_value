@@ -1,5 +1,6 @@
 // b_path:: src/core/types/layout.ts
 import { z } from "zod";
+import { cursorKeywordsSchema } from "../keywords/cursor-keywords";
 import { displayKeywordsSchema } from "../keywords/display-keywords";
 import { visibilityKeywordsSchema } from "../keywords/visibility-keywords";
 
@@ -95,3 +96,33 @@ export const opacitySchema = z.object({
  * @public
  */
 export type Opacity = z.infer<typeof opacitySchema>;
+
+/**
+ * CSS cursor property IR.
+ *
+ * The cursor property sets the mouse cursor to display when the mouse pointer is over an element.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/cursor}
+ *
+ * @example
+ * ```typescript
+ * const cursor: Cursor = {
+ *   kind: "cursor",
+ *   value: "pointer"
+ * };
+ * // CSS: cursor: pointer;
+ * ```
+ *
+ * @public
+ */
+export const cursorSchema = z.object({
+	kind: z.literal("cursor"),
+	value: cursorKeywordsSchema,
+});
+
+/**
+ * TypeScript type for cursor property.
+ *
+ * @public
+ */
+export type Cursor = z.infer<typeof cursorSchema>;

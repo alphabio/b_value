@@ -1,8 +1,112 @@
 // b_path:: src/parse/layout/layout.test.ts
 import { describe, expect, it } from "vitest";
+import * as Cursor from "./cursor";
 import * as Display from "./display";
 import * as Opacity from "./opacity";
 import * as Visibility from "./visibility";
+
+describe("Parse Layout - Cursor", () => {
+	it("should parse pointer cursor", () => {
+		const result = Cursor.parse("pointer");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "pointer" });
+		}
+	});
+
+	it("should parse default cursor", () => {
+		const result = Cursor.parse("default");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "default" });
+		}
+	});
+
+	it("should parse text cursor", () => {
+		const result = Cursor.parse("text");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "text" });
+		}
+	});
+
+	it("should parse move cursor", () => {
+		const result = Cursor.parse("move");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "move" });
+		}
+	});
+
+	it("should parse grab cursor", () => {
+		const result = Cursor.parse("grab");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "grab" });
+		}
+	});
+
+	it("should parse grabbing cursor", () => {
+		const result = Cursor.parse("grabbing");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "grabbing" });
+		}
+	});
+
+	it("should parse not-allowed cursor", () => {
+		const result = Cursor.parse("not-allowed");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "not-allowed" });
+		}
+	});
+
+	it("should parse help cursor", () => {
+		const result = Cursor.parse("help");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "help" });
+		}
+	});
+
+	it("should parse wait cursor", () => {
+		const result = Cursor.parse("wait");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "wait" });
+		}
+	});
+
+	it("should parse crosshair cursor", () => {
+		const result = Cursor.parse("crosshair");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "crosshair" });
+		}
+	});
+
+	it("should parse zoom-in cursor", () => {
+		const result = Cursor.parse("zoom-in");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "zoom-in" });
+		}
+	});
+
+	it("should parse zoom-out cursor", () => {
+		const result = Cursor.parse("zoom-out");
+		expect(result.ok).toBe(true);
+		if (result.ok) {
+			expect(result.value).toEqual({ kind: "cursor", value: "zoom-out" });
+		}
+	});
+
+	it("should reject invalid cursor value", () => {
+		const result = Cursor.parse("invalid");
+		expect(result.ok).toBe(false);
+	});
+});
 
 describe("Parse Layout - Display", () => {
 	it("should parse flex display", () => {
