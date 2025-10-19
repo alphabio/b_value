@@ -64,6 +64,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Layout parsers (display, visibility, opacity).
+ *
+ * @see {@link Layout.Display.parse}
+ */
+export * as Layout from "./layout";
+/**
  * Outline parsers (width, style, color, offset).
  *
  * @see {@link Outline.Width.parse}

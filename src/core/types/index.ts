@@ -7,6 +7,7 @@ export * from "./color-stop";
 export * from "./filter";
 export * from "./gradient";
 export * from "./grid-line";
+export * from "./layout";
 export * from "./length-percentage";
 export * from "./outline";
 export * from "./position";

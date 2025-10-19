@@ -43,5 +43,6 @@ export * from "./text-decoration-thickness-keywords";
 export * from "./text-transform-keywords";
 export * from "./transform-keywords";
 export * from "./vertical-align-keywords";
+export * from "./visibility-keywords";
 export * from "./white-space-keywords";
 export * from "./word-break-keywords";

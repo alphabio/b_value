@@ -65,6 +65,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Layout generators (display, visibility, opacity).
+ *
+ * @see {@link Layout.Display.toCss}
+ */
+export * as Layout from "./layout";
+/**
  * Outline generators (width, style, color, offset).
  *
  * @see {@link Outline.Width.toCss}
