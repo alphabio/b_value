@@ -2,7 +2,7 @@
 import * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
-import * as ColorParse from "@/parse/color";
+import { parseColor } from "@/utils/parse/color";
 
 /**
  * Parse color stop from CSS AST nodes.
@@ -46,7 +46,7 @@ export function fromNodes(nodes: csstree.CssNode[]): Result<Type.ColorStop, stri
 	}
 
 	// Parse color using master color parser
-	const colorResult = ColorParse.parse(colorString);
+	const colorResult = parseColor(colorString);
 	if (!colorResult.ok) {
 		return err(`Invalid color value: ${colorResult.error}`);
 	}

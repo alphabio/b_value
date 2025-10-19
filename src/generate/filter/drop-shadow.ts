@@ -1,6 +1,6 @@
 // b_path:: src/generate/filter/drop-shadow.ts
 import type { DropShadowFilter } from "@/core/types/filter";
-import { Color } from "@/generate/color";
+import { generateColor } from "@/utils/generate/color";
 
 /**
  * Generate CSS drop-shadow() filter function from IR.
@@ -61,7 +61,7 @@ export function toCss(filter: DropShadowFilter): string {
 
 	// Add optional color
 	if (color !== undefined) {
-		css += ` ${Color.toCss(color)}`;
+		css += ` ${generateColor(color)}`;
 	}
 
 	// Close function

@@ -31,9 +31,15 @@
 /**
  * Color generators (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
- * @see {@link Color.toCss}
+ * @see {@link Color.Hex.toCss}
  */
 export * as Color from "./color";
+/**
+ * Filter generators (blur, brightness, contrast, drop-shadow, grayscale, hue-rotate, invert, opacity, saturate, sepia, url).
+ *
+ * @see {@link Filter.Blur.toCss}
+ */
+export * as Filter from "./filter";
 /**
  * Gradient generators (radial, linear, conic).
  *
