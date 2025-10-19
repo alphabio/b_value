@@ -1,9 +1,12 @@
 # Session 1 Handover: URL & none
 
-**Status**: ✅ DONE
+**Status**: ✅ DONE (+ URL Refactoring)
 **Tests**: 1910 passing (+19 new, baseline was 1891)
-**Duration**: ~15 minutes
-**Commit**: cca4a95
+**Duration**: ~25 minutes (15 min impl + 10 min URL refactoring)
+**Commits**: 
+- `cca4a95` - Initial implementation
+- `681f6c8` - Extract URL as reusable core type
+- `b3e5fb9` - Extract shared URL parse/generate utilities
 
 ---
 
@@ -108,13 +111,19 @@ Similar to background-clip keywords but with more options. Check:
 
 1. **Reused filter/url.ts pattern**: URL parsing is identical to filter urls, so we followed the exact same pattern with csstree Url node walking.
 
-2. **Simple IR types**: Started with minimal types (just URL and none). Will expand ClipPathValue union as we add shapes in later sessions.
+2. **Created reusable URL type**: After initial implementation, refactored to create `src/core/types/url.ts` as a shared type that can be used across clip-path, filter, background-image, and other properties that accept URLs.
 
-3. **Case-sensitive none**: Following CSS spec, "none" must be lowercase. Rejected "None" or other cases.
+3. **Extracted shared utilities**: Created `src/utils/parse/url.ts` (parseUrl) and `src/utils/generate/url.ts` (urlToCss) for DRY principle. All URL parsing/generation now in one place.
 
-4. **URL generation**: Generated unquoted URLs (e.g., `url(#clip)` not `url('#clip')`). Both parse correctly, unquoted is more common in CSS.
+4. **URL IR structure**: Used `{ kind: "url", value: string }` instead of property-specific types. The `value` field contains the URL string (fragment ID, file path, data URL, etc.).
 
-5. **Test structure**: Co-located tests with source files following project pattern. Split parse tests and round-trip tests into separate describe blocks.
+5. **Simple IR types**: Started with minimal types (just URL and none). Will expand ClipPathValue union as we add shapes in later sessions.
+
+6. **Case-sensitive none**: Following CSS spec, "none" must be lowercase. Rejected "None" or other cases.
+
+7. **URL generation**: Generated unquoted URLs (e.g., `url(#clip)` not `url('#clip')`). Both parse correctly, unquoted is more common in CSS.
+
+8. **Test structure**: Co-located tests with source files following project pattern. Split parse tests and round-trip tests into separate describe blocks.
 
 ---
 
@@ -122,13 +131,16 @@ Similar to background-clip keywords but with more options. Check:
 
 ```
 src/core/types/clip-path.ts
+src/core/types/url.ts (reusable URL type)
+src/utils/parse/url.ts (shared parseUrl utility)
+src/utils/generate/url.ts (shared urlToCss utility)
 src/parse/clip-path/index.ts
-src/parse/clip-path/url.ts
+src/parse/clip-path/url.ts (thin wrapper around parseUrl)
 src/parse/clip-path/url.test.ts
 src/parse/clip-path/none.ts
 src/parse/clip-path/none.test.ts
 src/generate/clip-path/index.ts
-src/generate/clip-path/url.ts
+src/generate/clip-path/url.ts (thin wrapper around urlToCss)
 src/generate/clip-path/none.ts
 ```
 
