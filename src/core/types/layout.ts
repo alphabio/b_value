@@ -3,6 +3,7 @@ import { z } from "zod";
 import { cursorKeywordsSchema } from "../keywords/cursor-keywords";
 import { displayKeywordsSchema } from "../keywords/display-keywords";
 import { overflowKeywordsSchema } from "../keywords/overflow-keywords";
+import { positionPropertyKeywordsSchema } from "../keywords/position-property-keywords";
 import { visibilityKeywordsSchema } from "../keywords/visibility-keywords";
 
 /**
@@ -189,3 +190,35 @@ export const overflowYSchema = z.object({
  * @public
  */
 export type OverflowY = z.infer<typeof overflowYSchema>;
+
+/**
+ * CSS position property IR.
+ *
+ * The position property sets how an element is positioned in a document.
+ * The top, right, bottom, and left properties determine the final location
+ * of positioned elements.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position}
+ *
+ * @example
+ * ```typescript
+ * const position: PositionProperty = {
+ *   kind: "position-property",
+ *   value: "absolute"
+ * };
+ * // CSS: position: absolute;
+ * ```
+ *
+ * @public
+ */
+export const positionPropertySchema = z.object({
+	kind: z.literal("position-property"),
+	value: positionPropertyKeywordsSchema,
+});
+
+/**
+ * TypeScript type for position property.
+ *
+ * @public
+ */
+export type PositionProperty = z.infer<typeof positionPropertySchema>;
