@@ -11,6 +11,7 @@ export * from "./length-percentage";
 export * from "./position";
 export * from "./position-layer";
 export * from "./ratio";
+export * from "./shadow";
 export * from "./size-layer";
 export * from "./time";
 export * from "./transform";
