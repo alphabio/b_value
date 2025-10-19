@@ -5,7 +5,7 @@
 **Last Session**: 2025-10-19-animation-world-class  
 **Status**: ✅ Animation API complete  
 **Tests**: 1075 passing (+146 new animation tests)  
-**Next**: Ready for new work
+**Next**: ⭐ Transition properties (see TRANSITION_NEXT.md)
 
 ---
 
@@ -25,10 +25,10 @@ cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Ready for new features  
-**Project state**: All 8 animation properties complete with world-class implementation  
+**Working on**: Recommended → Transition properties (2-3 hours, high ROI)  
+**Project state**: All 8 animation properties complete, timing functions ready to reuse  
 **Recent work**: Animation API completed (146 tests, full timing function support)  
-**Phase 5**: All 11 filters complete, master APIs done  
+**Next steps**: See `.memory/archive/2025-10-19-animation-world-class/TRANSITION_NEXT.md`  
 
 ---
 
