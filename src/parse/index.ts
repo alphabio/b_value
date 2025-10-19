@@ -58,6 +58,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Outline parsers (width, style, color, offset).
+ *
+ * @see {@link Outline.Width.parse}
+ */
+export * as Outline from "./outline";
+/**
  * Position parsers (background-position, object-position, transform-origin, etc.).
  *
  * @see {@link Position.parse}

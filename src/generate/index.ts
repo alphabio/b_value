@@ -59,6 +59,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Outline generators (width, style, color, offset).
+ *
+ * @see {@link Outline.Width.toCss}
+ */
+export * as Outline from "./outline";
+/**
  * Position generators (background-position, object-position, transform-origin, etc.).
  *
  * @see {@link Position.toCss}
