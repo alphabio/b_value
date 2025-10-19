@@ -62,6 +62,11 @@ function parseTime(node: csstree.CssNode): Result<Type.Time, string> {
 export function parse(css: string): Result<Type.AnimationDelay, string> {
 	try {
 		const ast = csstree.parse(css, { context: "value" });
+
+		if (ast.type !== "Value") {
+			return err("Expected Value node");
+		}
+
 		const children = ast.children.toArray();
 
 		const delays: Type.Time[] = [];
@@ -69,7 +74,7 @@ export function parse(css: string): Result<Type.AnimationDelay, string> {
 
 		for (const node of children) {
 			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1) {
+				if (currentNodes.length === 1 && currentNodes[0]) {
 					const timeResult = parseTime(currentNodes[0]);
 					if (!timeResult.ok) {
 						return err(timeResult.error);
@@ -87,7 +92,7 @@ export function parse(css: string): Result<Type.AnimationDelay, string> {
 		}
 
 		// Handle last value
-		if (currentNodes.length === 1) {
+		if (currentNodes.length === 1 && currentNodes[0]) {
 			const timeResult = parseTime(currentNodes[0]);
 			if (!timeResult.ok) {
 				return err(timeResult.error);
