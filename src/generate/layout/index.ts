@@ -3,6 +3,7 @@
 export * as Bottom from "./bottom";
 export * as Cursor from "./cursor";
 export * as Display from "./display";
+export * as Height from "./height";
 export * as Left from "./left";
 export * as Opacity from "./opacity";
 export * as OverflowX from "./overflow-x";
@@ -11,4 +12,5 @@ export * as Position from "./position";
 export * as Right from "./right";
 export * as Top from "./top";
 export * as Visibility from "./visibility";
+export * as Width from "./width";
 export * as ZIndex from "./z-index";
