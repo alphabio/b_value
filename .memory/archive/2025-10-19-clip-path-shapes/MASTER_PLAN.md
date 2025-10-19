@@ -1,22 +1,27 @@
 # Clip-Path Implementation - Master Plan
 
-**Status**: Session 1 Starting (URL + none)
-**Current Session**: Session 1 (URL & Keywords)
-**Tests**: 1891 baseline → ~2100 target (+200 tests estimated)
+## Status
+
+Session 1 Complete ✅ - Session 2 Ready
+
+**Current baseline**: 1910 tests passing  
+**URL refactoring**: Complete - Shared utilities ready for reuse  
+**Next agent task**: Validate URL implementation, then implement geometry-box keywords
 
 ---
 
 ## Quick Start
 
 **First time here?**
-1. Run: `just check && just test` (verify baseline: 1891 tests)
-2. Read: Session 1 plan below
-3. Start: Follow Session 1 tasks
+1. Run: `just check && just test` (verify baseline: 1910 tests)
+2. **IMPORTANT**: Read session-2/PLAN.md - You must validate URL implementation first!
+3. Read: Session 2 plan below
+4. Start: Validate URL, then implement keywords
 
 **Returning agent?**
 1. Check progress table below
-2. Read previous session's HANDOVER.md
-3. Read your session plan
+2. Read previous session's HANDOVER.md  
+3. Read session-2/PLAN.md for validation tasks
 4. Continue from there
 
 ---
@@ -41,8 +46,8 @@ clip-path: <clip-source> | [ <basic-shape> || <geometry-box> ] | none
 
 | Session | Status | Tests | Time Est. | Date | Handover |
 |---------|--------|-------|-----------|------|----------|
-| 1. URL & none | ✅ DONE | 19/15 | ~15 min | 2025-10-19 | [session-1/HANDOVER.md](session-1/HANDOVER.md) |
-| 2. Geometry Box Keywords | 🔵 NEXT | 0/20 | 30-45 min | - | - |
+| 1. URL & none | ✅ DONE | 19/15 | ~25 min | 2025-10-19 | [session-1/HANDOVER.md](session-1/HANDOVER.md) |
+| 2. Geometry Box Keywords | 🔵 NEXT | 0/20 | 30-45 min | - | [session-2/PLAN.md](session-2/PLAN.md) |
 | 3. Inset Shape | ⚪ TODO | 0/30 | 60-90 min | - | - |
 | 4. Circle & Ellipse | ⚪ TODO | 0/40 | 90-120 min | - | - |
 | 5. Polygon Shape | ⚪ TODO | 0/30 | 60-90 min | - | - |
@@ -124,11 +129,28 @@ just test   # 1891 → 1906 tests (+15)
 
 ---
 
-## Session 2: Geometry Box Keywords
+## Session 2: Geometry Box Keywords ⭐ NEXT SESSION
 
 **Time**: 30-45 min | **Tests**: +20 | **Complexity**: LOW-MEDIUM
 
-**Goal**: Implement all geometry-box keywords for standalone use.
+**⚠️ IMPORTANT**: Read `session-2/PLAN.md` - You must validate URL implementation first!
+
+**Goal**: Validate URL refactoring, then implement geometry-box keywords.
+
+### Validation Phase (10 minutes)
+
+Before implementing new features, validate the URL refactoring from Session 1:
+
+1. **Understand URL architecture**: Review core types and utilities
+2. **Check filter duplication**: Should filter also use shared URL utilities?
+3. **Verify tests**: Run `pnpm test -- url` to check coverage
+4. **Document findings**: Note in handover if changes needed
+
+See `session-2/PLAN.md` for detailed validation steps.
+
+### Implementation Phase (20-35 minutes)
+
+After validation, implement geometry-box keywords.
 
 ### Syntax
 ```
