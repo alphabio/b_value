@@ -1,14 +1,35 @@
 
-Start here: ./.memory/START_HERE.md (20 secs read)
+## FIRST - Execute Protocol (60 seconds)
+
+⚠️ **BEFORE READING ANYTHING ELSE** ⚠️
+
+Execute: `.memory/PROTOCOL_FIRST.md`
+
+This is MANDATORY. No exceptions. No "I'll do it later". NOW.
+
+## SECOND - Understand Project (20 seconds)
+
+Read: `.memory/START_HERE.md`
 
 Then read the code - it's self-documenting.
 
+---
+
 ## For New Agents
 
-**Every session starts the same way** (even for proposals/planning):
+If you did not execute `.memory/PROTOCOL_FIRST.md` yet, STOP and do it now.
+
+**Session Protocol (from PROTOCOL_FIRST.md):**
 
 ```bash
+# 1. Create session directory FIRST
 mkdir -p .memory/archive/$(date +%Y-%m-%d)-[topic]/
+
+# 2. Archive INDEX.md
+cp .memory/archive/INDEX.md .memory/archive/$(date +%Y-%m-%d)-[topic]/INDEX_ARCHIVED.md
+
+# 3. Verify baseline
+just check && just test
 ```
 
 Put ALL session artifacts in this directory from the start. This includes:
