@@ -83,6 +83,12 @@ export * as Position from "./position";
  */
 export * as Shadow from "./shadow";
 /**
+ * Text decoration generators (color, line, style, thickness).
+ *
+ * @see {@link Text.Color.toCss}
+ */
+export * as Text from "./text";
+/**
  * Transform generators (translate, rotate, scale, skew, matrix, etc.).
  *
  * @see {@link Transform.toCss}

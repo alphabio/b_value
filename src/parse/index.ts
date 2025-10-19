@@ -82,6 +82,12 @@ export * as Position from "./position/position";
  */
 export * as Shadow from "./shadow";
 /**
+ * Text decoration parsers (color, line, style, thickness).
+ *
+ * @see {@link Text.Color.parse}
+ */
+export * as Text from "./text";
+/**
  * Transform parsers (translate, rotate, scale, skew, matrix, etc.).
  *
  * @see {@link Transform.parse}
