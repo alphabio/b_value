@@ -8,6 +8,7 @@ export * from "./filter";
 export * from "./gradient";
 export * from "./grid-line";
 export * from "./length-percentage";
+export * from "./outline";
 export * from "./position";
 export * from "./position-layer";
 export * from "./ratio";
