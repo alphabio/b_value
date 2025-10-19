@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T19:07 -->
+<!-- LAST UPDATED: 2025-10-19T19:28 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-border-properties  
-**Status**: ✅ Border properties complete (parsers + generators)  
-**Tests**: 1375 passing (+78 border tests)  
-**Next**: ⭐ Background properties OR Outline properties OR Transform-origin
+**Last Session**: 2025-10-19-outline-properties  
+**Status**: ✅ Outline properties complete (parsers + generators)  
+**Tests**: 1456 passing (+81 outline tests)  
+**Next**: ⭐ Background properties OR Transform-origin OR Text decoration properties
 
 ---
 
@@ -25,9 +25,9 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Background properties OR Outline properties OR Transform-origin recommended  
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4 complete: parsers + generators)  
-**Recent work**: Implemented border properties (width, style, color, radius) with +78 tests  
+**Working on**: Open → Background properties OR Transform-origin OR Text decoration recommended  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4 complete)  
+**Recent work**: Implemented outline properties (width, style, color, offset) with +81 tests in ~40 min  
 **Next steps**: See "Next Agent Recommendations" below  
 
 ---
@@ -40,17 +40,17 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 **Properties**: background-size, background-repeat, background-attachment, background-clip  
 **Pattern**: Comma-separated lists, keywords, some position handling
 
-### Option 2: Outline Properties ⭐ QUICK WIN
-**Why**: Very similar to border properties just completed  
-**Time**: 1-2 hours  
-**Properties**: outline-width, outline-style, outline-color, outline-offset  
-**Pattern**: Almost identical to border (reuse patterns)
-
-### Option 3: Transform-Origin or Perspective-Origin
-**Why**: Extends transform support  
+### Option 2: Transform-Origin or Perspective-Origin ⭐ QUICK WIN
+**Why**: Extends transform support, uses existing position parsing  
 **Time**: 1-2 hours  
 **Properties**: transform-origin, perspective-origin  
 **Pattern**: Uses existing position parsing logic
+
+### Option 3: Text Decoration Properties
+**Why**: Similar to border/outline (reuse patterns)  
+**Time**: 2-3 hours  
+**Properties**: text-decoration-color, text-decoration-style, text-decoration-thickness  
+**Pattern**: Keywords and length values like border/outline
 
 ---
 
@@ -60,7 +60,7 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 ```bash
 # Quality gates (run after changes)
 just check                 # Format + typecheck + lint
-just test                  # All tests (1375 tests)
+just test                  # All tests (1456 tests)
 pnpm test -- [pattern]     # Filter tests by name/file
 
 # Context discovery
@@ -122,6 +122,13 @@ grep -r "keyword" src/
 
 ## Recent Sessions (Archive Trail)
 
+### 2025-10-19 outline-properties: Outline Properties ✅ COMPLETE
+- **Outcome**: outline-width, outline-style, outline-color, outline-offset fully implemented
+- **Tests**: 1375 → 1456 (+81 outline tests - parsers + generators)
+- **Features**: All 4 outline properties with outline-specific keywords (auto, invert)
+- **Highlight**: Quick win! Completed in ~40 minutes by reusing border patterns
+- **Details**: `.memory/archive/2025-10-19-outline-properties/HANDOVER.md`
+
 ### 2025-10-19 border-properties: Border Properties ✅ COMPLETE
 - **Outcome**: border-width, border-style, border-color, border-radius fully implemented
 - **Tests**: 1297 → 1375 (+78 border tests - parsers + generators)
@@ -135,12 +142,6 @@ grep -r "keyword" src/
 - **Features**: Complete shadow feature with parsers + generators
 - **Highlight**: Round-trip validation confirms bidirectional conversion works
 - **Details**: `.memory/archive/2025-10-19-shadow-generators/HANDOVER.md`
-
-### 2025-10-19 shadow-properties: Shadow Parsers ✅ COMPLETE
-- **Outcome**: box-shadow and text-shadow parsers fully implemented
-- **Tests**: 1218 → 1269 (+51 shadow tests)
-- **Features**: Inset, offsets, blur, spread, color support
-- **Details**: `.memory/archive/2025-10-19-shadow-properties/HANDOVER.md`
 
 ### 2025-10-19 easing-utilities: DRY Refactor ✅ COMPLETE
 - **Outcome**: Extracted shared easing utilities to eliminate duplication
