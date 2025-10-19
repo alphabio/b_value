@@ -2,7 +2,7 @@
 
 import * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
-import type { ClipPathUrl } from "@/core/types/clip-path";
+import type { Url } from "@/core/types/url";
 import * as ASTUtils from "@/utils/ast";
 
 /**
@@ -13,7 +13,7 @@ import * as ASTUtils from "@/utils/ast";
  * Supports quoted and unquoted URLs.
  *
  * @param input - CSS string like "url(#clip)" or "url('shapes.svg#clip')"
- * @returns Result with ClipPathUrl IR or error message
+ * @returns Result with Url IR or error message
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/clip-path}
  *
@@ -22,15 +22,15 @@ import * as ASTUtils from "@/utils/ast";
  * import { Parse } from "b_value";
  *
  * const result = Parse.ClipPath.Url.parse("url(#clip-shape)");
- * // { ok: true, value: { kind: "clip-path-url", url: "#clip-shape" } }
+ * // { ok: true, value: { kind: "url", value: "#clip-shape" } }
  *
  * const result2 = Parse.ClipPath.Url.parse("url('shapes.svg#clip')");
- * // { ok: true, value: { kind: "clip-path-url", url: "shapes.svg#clip" } }
+ * // { ok: true, value: { kind: "url", value: "shapes.svg#clip" } }
  * ```
  *
  * @public
  */
-export function parse(input: string): Result<ClipPathUrl, string> {
+export function parse(input: string): Result<Url, string> {
 	const astResult = ASTUtils.parseCssString(input, "value");
 	if (!astResult.ok) {
 		return err(astResult.error);
@@ -51,5 +51,5 @@ export function parse(input: string): Result<ClipPathUrl, string> {
 		return err("Expected url() function");
 	}
 
-	return ok({ kind: "clip-path-url", url: foundUrl });
+	return ok({ kind: "url", value: foundUrl });
 }
