@@ -5,6 +5,7 @@ import { displayKeywordsSchema } from "../keywords/display-keywords";
 import { overflowKeywordsSchema } from "../keywords/overflow-keywords";
 import { positionPropertyKeywordsSchema } from "../keywords/position-property-keywords";
 import { visibilityKeywordsSchema } from "../keywords/visibility-keywords";
+import { lengthPercentageAutoSchema } from "./length-percentage";
 
 /**
  * CSS display property IR.
@@ -263,3 +264,163 @@ export const zIndexSchema = z.object({
  * @public
  */
 export type ZIndex = z.infer<typeof zIndexSchema>;
+
+/**
+ * CSS top property IR.
+ *
+ * The top property affects the vertical position of a positioned element.
+ * Accepts length-percentage values or the keyword "auto".
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/top}
+ *
+ * @example
+ * ```typescript
+ * const top: Top = {
+ *   kind: "top",
+ *   value: { value: 10, unit: "px" }
+ * };
+ * // CSS: top: 10px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const top: Top = {
+ *   kind: "top",
+ *   value: "auto"
+ * };
+ * // CSS: top: auto;
+ * ```
+ *
+ * @public
+ */
+export const topSchema = z.object({
+	kind: z.literal("top"),
+	value: lengthPercentageAutoSchema,
+});
+
+/**
+ * TypeScript type for top property.
+ *
+ * @public
+ */
+export type Top = z.infer<typeof topSchema>;
+
+/**
+ * CSS right property IR.
+ *
+ * The right property affects the horizontal position of a positioned element.
+ * Accepts length-percentage values or the keyword "auto".
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/right}
+ *
+ * @example
+ * ```typescript
+ * const right: Right = {
+ *   kind: "right",
+ *   value: { value: 10, unit: "px" }
+ * };
+ * // CSS: right: 10px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const right: Right = {
+ *   kind: "right",
+ *   value: "auto"
+ * };
+ * // CSS: right: auto;
+ * ```
+ *
+ * @public
+ */
+export const rightSchema = z.object({
+	kind: z.literal("right"),
+	value: lengthPercentageAutoSchema,
+});
+
+/**
+ * TypeScript type for right property.
+ *
+ * @public
+ */
+export type Right = z.infer<typeof rightSchema>;
+
+/**
+ * CSS bottom property IR.
+ *
+ * The bottom property affects the vertical position of a positioned element.
+ * Accepts length-percentage values or the keyword "auto".
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/bottom}
+ *
+ * @example
+ * ```typescript
+ * const bottom: Bottom = {
+ *   kind: "bottom",
+ *   value: { value: 10, unit: "px" }
+ * };
+ * // CSS: bottom: 10px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const bottom: Bottom = {
+ *   kind: "bottom",
+ *   value: "auto"
+ * };
+ * // CSS: bottom: auto;
+ * ```
+ *
+ * @public
+ */
+export const bottomSchema = z.object({
+	kind: z.literal("bottom"),
+	value: lengthPercentageAutoSchema,
+});
+
+/**
+ * TypeScript type for bottom property.
+ *
+ * @public
+ */
+export type Bottom = z.infer<typeof bottomSchema>;
+
+/**
+ * CSS left property IR.
+ *
+ * The left property affects the horizontal position of a positioned element.
+ * Accepts length-percentage values or the keyword "auto".
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/left}
+ *
+ * @example
+ * ```typescript
+ * const left: Left = {
+ *   kind: "left",
+ *   value: { value: 10, unit: "px" }
+ * };
+ * // CSS: left: 10px;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const left: Left = {
+ *   kind: "left",
+ *   value: "auto"
+ * };
+ * // CSS: left: auto;
+ * ```
+ *
+ * @public
+ */
+export const leftSchema = z.object({
+	kind: z.literal("left"),
+	value: lengthPercentageAutoSchema,
+});
+
+/**
+ * TypeScript type for left property.
+ *
+ * @public
+ */
+export type Left = z.infer<typeof leftSchema>;
