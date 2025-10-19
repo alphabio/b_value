@@ -59,6 +59,12 @@ export * as Gradient from "./gradient";
  */
 export * as Position from "./position";
 /**
+ * Shadow generators (box-shadow, text-shadow).
+ *
+ * @see {@link Shadow.BoxShadow.toCss}
+ */
+export * as Shadow from "./shadow";
+/**
  * Transform generators (translate, rotate, scale, skew, matrix, etc.).
  *
  * @see {@link Transform.toCss}

@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T17:10 -->
+<!-- LAST UPDATED: 2025-10-19T18:45 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-shadow-properties  
-**Status**: ✅ Shadow parsers complete  
-**Tests**: 1269 passing (+51 shadow parser tests)  
-**Next**: ⭐ Complete shadow generators OR new domain
+**Last Session**: 2025-10-19-shadow-generators  
+**Status**: ✅ Shadow feature complete (parsers + generators)  
+**Tests**: 1297 passing (+28 shadow generator tests)  
+**Next**: ⭐ Border properties OR Background properties
 
 ---
 
@@ -16,7 +16,7 @@
 just check && just test
 
 # 2. Read context from last session (if continuing work)
-cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
+cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 # 3. Start working OR create new session for new feature
 ```
@@ -25,32 +25,32 @@ cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Complete shadow generators OR new domain  
-**Project state**: Animation (8) + Transition (4) + Shadow parsers (2) complete  
-**Recent work**: Implemented box-shadow & text-shadow parsers (+51 tests)  
+**Working on**: Open → Border properties OR Background properties recommended  
+**Project state**: Animation (8) + Transition (4) + Shadow (2 complete: parsers + generators)  
+**Recent work**: Implemented shadow generators (+28 tests), shadow feature fully complete  
 **Next steps**: See "Next Agent Recommendations" below  
 
 ---
 
 ## Next Agent Recommendations
 
-### Option 1: Complete Shadow Generators ⭐ RECOMMENDED
-**Why**: Finish shadow feature, achieve full property support  
-**Time**: 1-2 hours  
-**Task**: Implement box-shadow and text-shadow generators + tests
-**Pattern**: Follow drop-shadow generator, straightforward
-
-### Option 2: Border Properties
+### Option 1: Border Properties ⭐ RECOMMENDED
 **Why**: Common CSS properties, moderate complexity  
 **Time**: 2-3 hours  
 **Properties**: border-width, border-style, border-color, border-radius  
-**Pattern**: Similar to existing parsers
+**Pattern**: Similar to existing parsers, mostly keywords and lengths
 
-### Option 3: Background Properties  
+### Option 2: Background Properties
 **Why**: Build on gradient work already done  
 **Time**: 3-4 hours  
-**Properties**: background-size, background-repeat, background-attachment  
-**Pattern**: Comma-separated lists, keywords
+**Properties**: background-size, background-repeat, background-attachment, background-clip  
+**Pattern**: Comma-separated lists, keywords, some position handling
+
+### Option 3: Transform-Origin or Perspective-Origin
+**Why**: Extends transform support  
+**Time**: 1-2 hours  
+**Properties**: transform-origin, perspective-origin  
+**Pattern**: Uses existing position parsing logic
 
 ---
 
@@ -122,11 +122,17 @@ grep -r "keyword" src/
 
 ## Recent Sessions (Archive Trail)
 
+### 2025-10-19 shadow-generators: Shadow Generators ✅ COMPLETE
+- **Outcome**: box-shadow and text-shadow generators fully implemented
+- **Tests**: 1269 → 1297 (+28 generator tests)
+- **Features**: Complete shadow feature with parsers + generators
+- **Highlight**: Round-trip validation confirms bidirectional conversion works
+- **Details**: `.memory/archive/2025-10-19-shadow-generators/HANDOVER.md`
+
 ### 2025-10-19 shadow-properties: Shadow Parsers ✅ COMPLETE
 - **Outcome**: box-shadow and text-shadow parsers fully implemented
 - **Tests**: 1218 → 1269 (+51 shadow tests)
 - **Features**: Inset, offsets, blur, spread, color support
-- **TODO**: Generators still needed (1-2 hour task)
 - **Details**: `.memory/archive/2025-10-19-shadow-properties/HANDOVER.md`
 
 ### 2025-10-19 easing-utilities: DRY Refactor ✅ COMPLETE
