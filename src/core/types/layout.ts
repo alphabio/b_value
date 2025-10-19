@@ -222,3 +222,44 @@ export const positionPropertySchema = z.object({
  * @public
  */
 export type PositionProperty = z.infer<typeof positionPropertySchema>;
+
+/**
+ * CSS z-index property IR.
+ *
+ * The z-index property sets the z-order (stack level) of a positioned element.
+ * Only works on positioned elements (position other than static).
+ * Accepts integer values (positive, negative, or zero) or the keyword "auto".
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/z-index}
+ *
+ * @example
+ * ```typescript
+ * const zIndex: ZIndex = {
+ *   kind: "z-index",
+ *   value: 10
+ * };
+ * // CSS: z-index: 10;
+ * ```
+ *
+ * @example
+ * ```typescript
+ * const zIndex: ZIndex = {
+ *   kind: "z-index",
+ *   value: "auto"
+ * };
+ * // CSS: z-index: auto;
+ * ```
+ *
+ * @public
+ */
+export const zIndexSchema = z.object({
+	kind: z.literal("z-index"),
+	value: z.union([z.number().int(), z.literal("auto")]),
+});
+
+/**
+ * TypeScript type for z-index property.
+ *
+ * @public
+ */
+export type ZIndex = z.infer<typeof zIndexSchema>;

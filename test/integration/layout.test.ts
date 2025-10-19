@@ -187,4 +187,32 @@ describe("Integration: Layout Properties Round-Trip", () => {
 			});
 		}
 	});
+
+	describe("ZIndex", () => {
+		const testCases = [
+			{ css: "10", expected: "10" },
+			{ css: "-5", expected: "-5" },
+			{ css: "0", expected: "0" },
+			{ css: "999", expected: "999" },
+			{ css: "-999", expected: "-999" },
+			{ css: "auto", expected: "auto" },
+		];
+
+		for (const { css, expected } of testCases) {
+			it(`should round-trip z-index: ${css}`, () => {
+				const parsed = Parse.Layout.ZIndex.parse(css);
+				expect(parsed.ok).toBe(true);
+				if (!parsed.ok) return;
+
+				const generated = Generate.Layout.ZIndex.toCss(parsed.value);
+				expect(generated).toBe(expected);
+
+				const reparsed = Parse.Layout.ZIndex.parse(generated);
+				expect(reparsed.ok).toBe(true);
+				if (!reparsed.ok) return;
+
+				expect(reparsed.value).toEqual(parsed.value);
+			});
+		}
+	});
 });
