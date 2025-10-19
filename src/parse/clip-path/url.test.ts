@@ -10,8 +10,8 @@ describe("parse clip-path url()", () => {
 		expect(result.ok).toBe(true);
 		if (result.ok) {
 			expect(result.value).toEqual({
-				kind: "clip-path-url",
-				url: "#clip-shape",
+				kind: "url",
+				value: "#clip-shape",
 			});
 		}
 	});
@@ -20,7 +20,7 @@ describe("parse clip-path url()", () => {
 		const result = parse("url('#clip-shape')");
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("#clip-shape");
+			expect(result.value.value).toBe("#clip-shape");
 		}
 	});
 
@@ -28,7 +28,7 @@ describe("parse clip-path url()", () => {
 		const result = parse('url("#clip-shape")');
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("#clip-shape");
+			expect(result.value.value).toBe("#clip-shape");
 		}
 	});
 
@@ -36,7 +36,7 @@ describe("parse clip-path url()", () => {
 		const result = parse("url(shapes.svg#clip-id)");
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("shapes.svg#clip-id");
+			expect(result.value.value).toBe("shapes.svg#clip-id");
 		}
 	});
 
@@ -44,7 +44,7 @@ describe("parse clip-path url()", () => {
 		const result = parse("url('shapes.svg#clip-id')");
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("shapes.svg#clip-id");
+			expect(result.value.value).toBe("shapes.svg#clip-id");
 		}
 	});
 
@@ -52,7 +52,7 @@ describe("parse clip-path url()", () => {
 		const result = parse("url('../assets/shapes.svg#clip')");
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("../assets/shapes.svg#clip");
+			expect(result.value.value).toBe("../assets/shapes.svg#clip");
 		}
 	});
 
@@ -60,7 +60,7 @@ describe("parse clip-path url()", () => {
 		const result = parse("  url(#clip)  ");
 		expect(result.ok).toBe(true);
 		if (result.ok) {
-			expect(result.value.url).toBe("#clip");
+			expect(result.value.value).toBe("#clip");
 		}
 	});
 
