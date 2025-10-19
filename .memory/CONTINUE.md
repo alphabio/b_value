@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T19:28 -->
+<!-- LAST UPDATED: 2025-10-19T20:20 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-outline-properties  
-**Status**: ✅ Outline properties complete (parsers + generators)  
-**Tests**: 1456 passing (+81 outline tests)  
-**Next**: ⭐ Background properties OR Transform-origin OR Text decoration properties
+**Last Session**: 2025-10-19-display-visibility-opacity  
+**Status**: ✅ Layout properties complete (display, visibility, opacity)  
+**Tests**: 1627 passing (+63 layout tests)  
+**Next**: ⭐ Cursor property OR Overflow properties OR Flexbox properties
 
 ---
 
@@ -25,32 +25,32 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Background properties OR Transform-origin OR Text decoration recommended  
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4 complete)  
-**Recent work**: Implemented outline properties (width, style, color, offset) with +81 tests in ~40 min  
+**Working on**: Open → Cursor property OR Overflow properties OR Flexbox properties recommended  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (3 complete)  
+**Recent work**: Implemented layout properties (display, visibility, opacity) with +63 tests in ~45 min  
 **Next steps**: See "Next Agent Recommendations" below  
 
 ---
 
 ## Next Agent Recommendations
 
-### Option 1: Background Properties
-**Why**: Build on gradient work already done  
-**Time**: 3-4 hours  
-**Properties**: background-size, background-repeat, background-attachment, background-clip  
-**Pattern**: Comma-separated lists, keywords, some position handling
+### Option 1: Cursor Property ⭐ QUICK WIN
+**Why**: Cursor keywords already exist, simplest implementation  
+**Time**: 15-20 minutes  
+**Properties**: cursor (pointer, default, text, move, etc.)  
+**Pattern**: Simple keyword-based parsing only
 
-### Option 2: Transform-Origin or Perspective-Origin ⭐ QUICK WIN
-**Why**: Extends transform support, uses existing position parsing  
+### Option 2: Overflow Properties
+**Why**: Common properties, keywords exist  
+**Time**: 30-45 minutes  
+**Properties**: overflow-x, overflow-y, overflow-wrap  
+**Pattern**: Simple keyword-based properties (visible, hidden, scroll, auto, clip)
+
+### Option 3: Flexbox Properties
+**Why**: High practical value, all keywords exist  
 **Time**: 1-2 hours  
-**Properties**: transform-origin, perspective-origin  
-**Pattern**: Uses existing position parsing logic
-
-### Option 3: Text Decoration Properties
-**Why**: Similar to border/outline (reuse patterns)  
-**Time**: 2-3 hours  
-**Properties**: text-decoration-color, text-decoration-style, text-decoration-thickness  
-**Pattern**: Keywords and length values like border/outline
+**Properties**: flex-direction, flex-wrap, justify-content, align-items, align-content  
+**Pattern**: Multiple keyword properties, reuse existing schemas
 
 ---
 
@@ -122,6 +122,20 @@ grep -r "keyword" src/
 
 ## Recent Sessions (Archive Trail)
 
+### 2025-10-19 display-visibility-opacity: Layout Properties ✅ COMPLETE
+- **Outcome**: display, visibility, opacity fully implemented
+- **Tests**: 1564 → 1627 (+63 layout tests - parsers + generators + integration)
+- **Features**: Display (31 keywords), visibility (3 keywords), opacity (number + percentage)
+- **Highlight**: Quick win! Completed in ~45 minutes, reused display-keywords schema
+- **Details**: `.memory/archive/2025-10-19-display-visibility-opacity/HANDOVER.md`
+
+### 2025-10-19 transform-background-text: Multi-Feature Session ✅ COMPLETE
+- **Outcome**: transform-origin, background (5 props), text-decoration (4 props) implemented
+- **Tests**: 1456 → 1564 (+108 tests - all 3 feature sets)
+- **Features**: 11 new properties across 3 domains
+- **Highlight**: Efficient 2.5 hour session with 100% code reuse
+- **Details**: `.memory/archive/2025-10-19-transform-background-text/HANDOVER.md`
+
 ### 2025-10-19 outline-properties: Outline Properties ✅ COMPLETE
 - **Outcome**: outline-width, outline-style, outline-color, outline-offset fully implemented
 - **Tests**: 1375 → 1456 (+81 outline tests - parsers + generators)
@@ -142,20 +156,6 @@ grep -r "keyword" src/
 - **Features**: Complete shadow feature with parsers + generators
 - **Highlight**: Round-trip validation confirms bidirectional conversion works
 - **Details**: `.memory/archive/2025-10-19-shadow-generators/HANDOVER.md`
-
-### 2025-10-19 easing-utilities: DRY Refactor ✅ COMPLETE
-- **Outcome**: Extracted shared easing utilities to eliminate duplication
-- **Tests**: 1202 → 1218 (+16 utility tests)
-- **Impact**: Removed 356 lines of duplicate code
-- **Location**: `src/utils/parse/easing/` with cubic-bezier, steps, linear
-- **Details**: `.memory/archive/2025-10-19-easing-utilities/HANDOVER.md`
-
-### 2025-10-19 transition-api: Transition API ✅ COMPLETE
-- **Outcome**: Complete transition API with all 4 properties
-- **Tests**: 1075 → 1202 (+127 transition tests)
-- **Properties**: delay, duration, timing-function, property
-- **Highlight**: 90-100% code reuse from animation, new property parser
-- **Details**: `.memory/archive/2025-10-19-transition-api/HANDOVER.md`
 
 ### 2025-10-19 animation-world-class: Animation API ✅ COMPLETE
 - **Outcome**: World-class animation API with all 8 properties
