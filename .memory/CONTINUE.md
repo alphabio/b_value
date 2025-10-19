@@ -1,12 +1,12 @@
-<!-- LAST UPDATED: 2025-10-19T20:35 -->
+<!-- LAST UPDATED: 2025-10-19T20:40 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-mega-layout-session (4 properties!)  
-**Status**: ✅ 4 properties complete (~47 min: overflow-x, overflow-y, position, z-index)  
-**Tests**: 1751 passing (+88 tests from baseline 1663)  
+**Last Session**: 2025-10-19-trbl-properties (4 properties! ~6 min)  
+**Status**: ✅ 4 properties complete (top, right, bottom, left)  
+**Tests**: 1833 passing (+82 tests from baseline 1751)  
 **Coverage**: 85.73% (stable, below 89% threshold - expected for new code)  
-**Next**: ⭐ Top/Right/Bottom/Left properties OR Width/Height OR Flexbox
+**Next**: ⭐ Width/Height properties OR Min/Max sizing OR Flexbox
 
 ---
 
@@ -26,9 +26,9 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Top/Right/Bottom/Left properties OR Width/Height OR Flexbox recommended  
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (8 complete!)  
-**Recent work**: Mega session - 4 layout properties with +88 tests in ~47 min  
+**Working on**: Open → Width/Height properties OR Min/Max sizing OR Flexbox recommended  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (12 complete!)  
+**Recent work**: TRBL insets - 4 properties with +82 tests in ~6 minutes (7.8x faster than mega session!)  
 **Coverage**: 85.73% (stable, new code not yet used in workflows)  
 **Next steps**: See "Next Agent Recommendations" below  
 
@@ -36,20 +36,20 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Next Agent Recommendations
 
-### Option 1: Top/Right/Bottom/Left Properties ⭐ CONTINUE LAYOUT THEME
-**Why**: Complete the positioning system, similar to z-index pattern  
-**Time**: 30-40 minutes (4 properties, similar pattern)  
-**Type**: Length-percentage | auto keyword  
-**Pattern**: Reuse length-percentage parser + auto
-
-### Option 2: Width/Height Properties
-**Why**: Core layout sizing, high practical value  
-**Time**: 30-40 minutes  
+### Option 1: Width/Height Properties ⭐ CONTINUE SIZING THEME
+**Why**: Core layout sizing, completes box model with TRBL insets  
+**Time**: 20-30 minutes  
 **Type**: Length-percentage | auto | min-content | max-content | fit-content  
-**Pattern**: Length-percentage + multiple keywords
+**Pattern**: Length-percentage + multiple keywords (similar to overflow)
+
+### Option 2: Min/Max Width/Height Properties
+**Why**: Sizing constraints, pairs with width/height  
+**Time**: 30-40 minutes (4 properties)  
+**Type**: Length-percentage | none | min-content | max-content | fit-content  
+**Pattern**: Same as width/height with 'none' instead of 'auto'
 
 ### Option 3: Flexbox Properties
-**Why**: High practical value, all keywords exist  
+**Why**: High practical value, all keywords exist in core  
 **Time**: 1-2 hours  
 **Properties**: flex-direction, flex-wrap, justify-content, align-items, align-content  
 **Pattern**: Multiple keyword properties, reuse existing schemas
@@ -124,6 +124,15 @@ grep -r "keyword" src/
 ---
 
 ## Recent Sessions (Archive Trail)
+
+### 2025-10-19 trbl-properties: Top/Right/Bottom/Left Properties ✅ COMPLETE
+- **Outcome**: top, right, bottom, left inset properties fully implemented
+- **Tests**: 1751 → 1833 (+82 tests - all four properties with full coverage)
+- **Features**: All accept <length-percentage> | auto + unitless 0 handling
+- **Highlight**: SPEED! 4 properties in ~6 minutes (7.8x faster than mega session)
+- **Velocity**: 13.7 tests/minute with established patterns
+- **Pattern**: Reused parseLengthPercentageNode and lengthPercentageToCss utilities
+- **Details**: `.memory/archive/2025-10-19-trbl-properties/HANDOVER.md`
 
 ### 2025-10-19 mega-layout: 4 Layout Properties MEGA SESSION ✅ COMPLETE
 - **Outcome**: overflow-x, overflow-y, position, and z-index properties fully implemented
