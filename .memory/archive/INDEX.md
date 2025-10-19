@@ -1,8 +1,8 @@
-<!-- LAST UPDATED: 2025-10-19T06:46 by Session 10 Agent -->
+<!-- LAST UPDATED: 2025-10-19T07:00 by Session 11 Agent -->
 <!-- ARCHIVE THIS FILE at session start, create new one pointing to your session -->
 
 **Active Phase**: 2025-10-19-phase5-filters
-**Last Session**: 2025-10-19-session-10
+**Last Session**: 2025-10-19-session-11
 
 ---
 
@@ -21,6 +21,12 @@
 ## Archive Trail
 
 (Most recent first - each agent adds their entry at the top)
+
+### 2025-10-19 Session 11: Session 3 Complete - Drop-Shadow Filter (10/11 filters)
+- **Outcome**: ✅ COMPLETE - Session 3 done, drop-shadow filter implemented
+- **Tests**: 926 passing (+39 new from Session 3)
+- **Archived**: `.memory/archive/2025-10-19-session-11/INDEX_ARCHIVED.md`
+- **Next**: Session 4 - url filter + master Filter API (final session)
 
 ### 2025-10-19 Session 10: Session 2 Complete - Blur & Hue-Rotate (9/11 filters)
 - **Outcome**: ✅ COMPLETE - Session 2 done, blur and hue-rotate filters implemented
