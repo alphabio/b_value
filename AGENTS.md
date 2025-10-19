@@ -20,11 +20,7 @@ cat .memory/archive/2025-10-19-intro-session/HANDOVER.md
 
 ---
 
-## 🚧 WIP: Testing auto-execution workflow
-
-**Goal**: Agent auto-loads context on session start without user prompt.
-
-**Read**: `.memory/CONTINUE.md` (reference for all continuation details)
+**Read**: `.memory/CONTINUE.md` for all continuation details and project context.
 
 ---
 
