@@ -1,21 +1,13 @@
 // b_path:: src/core/types/clip-path.ts
 
+import type { Url } from "./url";
+
 /**
  * Clip-path value types for CSS clip-path property.
  *
  * @public
  */
-export type ClipPathValue = ClipPathUrl | ClipPathNone;
-
-/**
- * URL reference to SVG clip path.
- *
- * @public
- */
-export type ClipPathUrl = {
-	kind: "clip-path-url";
-	url: string;
-};
+export type ClipPathValue = Url | ClipPathNone;
 
 /**
  * No clipping (default).
