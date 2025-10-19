@@ -1,6 +1,7 @@
 // b_path:: src/generate/clip-path/url.ts
 
 import type { Url } from "@/core/types/url";
+import { urlToCss } from "@/utils/generate/url";
 
 /**
  * Generate CSS url() for clip-path property.
@@ -26,5 +27,5 @@ import type { Url } from "@/core/types/url";
  * @public
  */
 export function toCss(value: Url): string {
-	return `url(${value.value})`;
+	return urlToCss(value);
 }
