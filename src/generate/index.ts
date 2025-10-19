@@ -29,6 +29,12 @@
  */
 
 /**
+ * Animation generators (delay, duration, iteration-count, direction, fill-mode, play-state, name, timing-function).
+ *
+ * @see {@link Animation.Delay.toCss}
+ */
+export * as Animation from "./animation";
+/**
  * Color generators (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
  * @see {@link Color.Hex.toCss}
