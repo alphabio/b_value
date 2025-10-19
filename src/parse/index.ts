@@ -30,9 +30,15 @@
 /**
  * Color parsers (hex, named, RGB, HSL, HWB, LAB, LCH, OKLab, OKLCH, system, special).
  *
- * @see {@link Color.parse}
+ * @see {@link Color.Hex.parse}
  */
 export * as Color from "./color";
+/**
+ * Filter parsers (blur, brightness, contrast, drop-shadow, grayscale, hue-rotate, invert, opacity, saturate, sepia, url).
+ *
+ * @see {@link Filter.Blur.parse}
+ */
+export * as Filter from "./filter";
 /**
  * Gradient parsers (radial, linear, conic).
  *

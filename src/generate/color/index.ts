@@ -1,104 +1,77 @@
 // b_path:: src/generate/color/index.ts
-import type { Color as ColorType } from "@/core/types/color";
-import * as Hex from "./hex";
-import * as Hsl from "./hsl";
-import * as Hwb from "./hwb";
-import * as Lab from "./lab";
-import * as Lch from "./lch";
-import * as Named from "./named";
-import * as Oklab from "./oklab";
-import * as Oklch from "./oklch";
-import * as Rgb from "./rgb";
-import * as Special from "./special";
-import * as System from "./system";
 
 /**
- * Generate CSS from a Color IR value.
+ * CSS color generators - convert color IR to CSS strings.
  *
- * Converts any color format back to its CSS string representation.
- * Uses modern syntax where applicable.
+ * All color generators return CSS strings directly.
  *
- * @param color - The color IR to convert
- * @returns CSS color string
- *
- * @example
- * ```typescript
- * import { toCss } from "@/generate/color";
- *
- * // Hex color
- * const hex = toCss({ kind: "hex", value: "#FF5733" });
- * // => "#FF5733"
- *
- * // RGB color
- * const rgb = toCss({ kind: "rgb", r: 255, g: 87, b: 51 });
- * // => "rgb(255 87 51)"
- *
- * // Named color
- * const named = toCss({ kind: "named", name: "red" });
- * // => "red"
- *
- * // With alpha
- * const rgba = toCss({ kind: "rgb", r: 255, g: 0, b: 0, alpha: 0.5 });
- * // => "rgb(255 0 0 / 0.5)"
- * ```
- *
+ * @module Generate.Color
  * @public
  */
-export function toCss(color: ColorType): string {
-	switch (color.kind) {
-		case "hex":
-			return Hex.toCss(color);
-		case "named":
-			return Named.toCss(color);
-		case "rgb":
-			return Rgb.toCss(color);
-		case "hsl":
-			return Hsl.toCss(color);
-		case "hwb":
-			return Hwb.toCss(color);
-		case "lab":
-			return Lab.toCss(color);
-		case "lch":
-			return Lch.toCss(color);
-		case "oklab":
-			return Oklab.toCss(color);
-		case "oklch":
-			return Oklch.toCss(color);
-		case "system":
-			return System.toCss(color);
-		case "special":
-			return Special.toCss(color);
-	}
-}
 
 /**
- * Color generation utilities and individual generators.
+ * Generate hex color CSS strings.
  *
- * @example
- * ```typescript
- * import { Color } from "@/generate/color";
- *
- * // Use master generator
- * const css = Color.toCss({ kind: "hex", value: "#FF5733" });
- *
- * // Use specific generator
- * const rgb = Color.rgb.toCss({ kind: "rgb", r: 255, g: 87, b: 51 });
- * const hex = Color.hex.toCss({ kind: "hex", value: "#FF5733" });
- * ```
- *
- * @public
+ * @see {@link Hex.toCss}
  */
-export const Color = {
-	toCss,
-	hex: Hex,
-	named: Named,
-	rgb: Rgb,
-	hsl: Hsl,
-	hwb: Hwb,
-	lab: Lab,
-	lch: Lch,
-	oklab: Oklab,
-	oklch: Oklch,
-	system: System,
-	special: Special,
-};
+export * as Hex from "./hex";
+/**
+ * Generate HSL color CSS strings.
+ *
+ * @see {@link Hsl.toCss}
+ */
+export * as Hsl from "./hsl";
+/**
+ * Generate HWB color CSS strings.
+ *
+ * @see {@link Hwb.toCss}
+ */
+export * as Hwb from "./hwb";
+/**
+ * Generate LAB color CSS strings.
+ *
+ * @see {@link Lab.toCss}
+ */
+export * as Lab from "./lab";
+/**
+ * Generate LCH color CSS strings.
+ *
+ * @see {@link Lch.toCss}
+ */
+export * as Lch from "./lch";
+/**
+ * Generate named color CSS strings.
+ *
+ * @see {@link Named.toCss}
+ */
+export * as Named from "./named";
+/**
+ * Generate OKLab color CSS strings.
+ *
+ * @see {@link Oklab.toCss}
+ */
+export * as Oklab from "./oklab";
+/**
+ * Generate OKLCH color CSS strings.
+ *
+ * @see {@link Oklch.toCss}
+ */
+export * as Oklch from "./oklch";
+/**
+ * Generate RGB color CSS strings.
+ *
+ * @see {@link Rgb.toCss}
+ */
+export * as Rgb from "./rgb";
+/**
+ * Generate special color CSS strings (transparent, currentcolor).
+ *
+ * @see {@link Special.toCss}
+ */
+export * as Special from "./special";
+/**
+ * Generate system color CSS strings.
+ *
+ * @see {@link System.toCss}
+ */
+export * as System from "./system";

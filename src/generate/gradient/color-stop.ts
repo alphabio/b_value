@@ -1,7 +1,7 @@
 // b_path:: src/generate/gradient/color-stop.ts
 
 import type * as Type from "@/core/types";
-import * as ColorGenerate from "@/generate/color";
+import { generateColor } from "@/utils/generate/color";
 
 /**
  * Generate CSS color stop string from IR.
@@ -36,7 +36,7 @@ import * as ColorGenerate from "@/generate/color";
  * ```
  */
 export function toCss(ir: Type.ColorStop): string {
-	const colorStr = ColorGenerate.toCss(ir.color);
+	const colorStr = generateColor(ir.color);
 
 	if (ir.position) {
 		const { value, unit } = ir.position;

@@ -1,113 +1,77 @@
 // b_path:: src/generate/filter/index.ts
-import type { FilterFunction } from "@/core/types/filter";
-import * as Blur from "./blur";
-import * as Brightness from "./brightness";
-import * as Contrast from "./contrast";
-import * as DropShadow from "./drop-shadow";
-import * as Grayscale from "./grayscale";
-import * as HueRotate from "./hue-rotate";
-import * as Invert from "./invert";
-import * as Opacity from "./opacity";
-import * as Saturate from "./saturate";
-import * as Sepia from "./sepia";
-import * as Url from "./url";
 
 /**
- * Generate CSS from a FilterFunction IR value.
+ * CSS filter generators - convert filter IR to CSS strings.
  *
- * Converts any filter function format back to its CSS string representation.
- * Uses the discriminated union `kind` field to dispatch to the appropriate generator.
+ * All filter generators return CSS strings directly.
  *
- * @param filter - The filter IR to convert
- * @returns CSS filter function string
- *
- * @example
- * ```typescript
- * import { Filter } from "@/generate/filter";
- *
- * // Blur filter
- * const blur = Filter.toCss({ kind: "blur", radius: { value: 5, unit: "px" } });
- * // => "blur(5px)"
- *
- * // Brightness filter
- * const brightness = Filter.toCss({ kind: "brightness", value: 1.5 });
- * // => "brightness(1.5)"
- *
- * // Drop shadow filter
- * const shadow = Filter.toCss({
- *   kind: "drop-shadow",
- *   offsetX: { value: 2, unit: "px" },
- *   offsetY: { value: 2, unit: "px" },
- *   blurRadius: { value: 4, unit: "px" },
- *   color: { kind: "named", name: "black" }
- * });
- * // => "drop-shadow(2px 2px 4px black)"
- *
- * // URL filter
- * const url = Filter.toCss({ kind: "url", url: "#filter-id" });
- * // => "url(#filter-id)"
- * ```
- *
+ * @module Generate.Filter
  * @public
  */
-export function toCss(filter: FilterFunction): string {
-	switch (filter.kind) {
-		case "blur":
-			return Blur.toCss(filter);
-		case "brightness":
-			return Brightness.toCss(filter);
-		case "contrast":
-			return Contrast.toCss(filter);
-		case "drop-shadow":
-			return DropShadow.toCss(filter);
-		case "grayscale":
-			return Grayscale.toCss(filter);
-		case "hue-rotate":
-			return HueRotate.toCss(filter);
-		case "invert":
-			return Invert.toCss(filter);
-		case "opacity":
-			return Opacity.toCss(filter);
-		case "saturate":
-			return Saturate.toCss(filter);
-		case "sepia":
-			return Sepia.toCss(filter);
-		case "url":
-			return Url.toCss(filter);
-	}
-}
 
 /**
- * Filter generation utilities and individual generators.
+ * Generate blur filter CSS strings.
  *
- * Provides both a master generator that handles all filter types
- * and individual generators for specific filter functions.
- *
- * @example
- * ```typescript
- * import { Filter } from "@/generate/filter";
- *
- * // Use master generator (handles any filter type)
- * const css = Filter.toCss({ kind: "blur", radius: { value: 5, unit: "px" } });
- *
- * // Use specific generator
- * const blur = Filter.blur.toCss({ kind: "blur", radius: { value: 5, unit: "px" } });
- * const brightness = Filter.brightness.toCss({ kind: "brightness", value: 1.5 });
- * ```
- *
- * @public
+ * @see {@link Blur.toCss}
  */
-export const Filter = {
-	toCss,
-	blur: Blur,
-	brightness: Brightness,
-	contrast: Contrast,
-	dropShadow: DropShadow,
-	grayscale: Grayscale,
-	hueRotate: HueRotate,
-	invert: Invert,
-	opacity: Opacity,
-	saturate: Saturate,
-	sepia: Sepia,
-	url: Url,
-};
+export * as Blur from "./blur";
+/**
+ * Generate brightness filter CSS strings.
+ *
+ * @see {@link Brightness.toCss}
+ */
+export * as Brightness from "./brightness";
+/**
+ * Generate contrast filter CSS strings.
+ *
+ * @see {@link Contrast.toCss}
+ */
+export * as Contrast from "./contrast";
+/**
+ * Generate drop-shadow filter CSS strings.
+ *
+ * @see {@link DropShadow.toCss}
+ */
+export * as DropShadow from "./drop-shadow";
+/**
+ * Generate grayscale filter CSS strings.
+ *
+ * @see {@link Grayscale.toCss}
+ */
+export * as Grayscale from "./grayscale";
+/**
+ * Generate hue-rotate filter CSS strings.
+ *
+ * @see {@link HueRotate.toCss}
+ */
+export * as HueRotate from "./hue-rotate";
+/**
+ * Generate invert filter CSS strings.
+ *
+ * @see {@link Invert.toCss}
+ */
+export * as Invert from "./invert";
+/**
+ * Generate opacity filter CSS strings.
+ *
+ * @see {@link Opacity.toCss}
+ */
+export * as Opacity from "./opacity";
+/**
+ * Generate saturate filter CSS strings.
+ *
+ * @see {@link Saturate.toCss}
+ */
+export * as Saturate from "./saturate";
+/**
+ * Generate sepia filter CSS strings.
+ *
+ * @see {@link Sepia.toCss}
+ */
+export * as Sepia from "./sepia";
+/**
+ * Generate URL filter CSS strings.
+ *
+ * @see {@link Url.toCss}
+ */
+export * as Url from "./url";
