@@ -7,3 +7,4 @@ export * as OverflowX from "./overflow-x";
 export * as OverflowY from "./overflow-y";
 export * as Position from "./position";
 export * as Visibility from "./visibility";
+export * as ZIndex from "./z-index";
