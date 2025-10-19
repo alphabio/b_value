@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T17:01 -->
+<!-- LAST UPDATED: 2025-10-19T17:10 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-easing-utilities  
-**Status**: ✅ Easing utilities extracted  
-**Tests**: 1218 passing (+16 utility tests)  
-**Next**: ⭐ Border/Background/Shadow properties OR new domain
+**Last Session**: 2025-10-19-shadow-properties  
+**Status**: ✅ Shadow parsers complete  
+**Tests**: 1269 passing (+51 shadow parser tests)  
+**Next**: ⭐ Complete shadow generators OR new domain
 
 ---
 
@@ -25,32 +25,32 @@ cat .memory/archive/2025-10-19-animation-world-class/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Border/Background/Shadow properties OR new domain  
-**Project state**: Animation (8) + Transition (4) complete, easing DRY refactor done  
-**Recent work**: Extracted shared easing utilities (-356 duplicate lines)  
+**Working on**: Open → Complete shadow generators OR new domain  
+**Project state**: Animation (8) + Transition (4) + Shadow parsers (2) complete  
+**Recent work**: Implemented box-shadow & text-shadow parsers (+51 tests)  
 **Next steps**: See "Next Agent Recommendations" below  
 
 ---
 
 ## Next Agent Recommendations
 
-### Option 1: Border Properties
+### Option 1: Complete Shadow Generators ⭐ RECOMMENDED
+**Why**: Finish shadow feature, achieve full property support  
+**Time**: 1-2 hours  
+**Task**: Implement box-shadow and text-shadow generators + tests
+**Pattern**: Follow drop-shadow generator, straightforward
+
+### Option 2: Border Properties
 **Why**: Common CSS properties, moderate complexity  
 **Time**: 2-3 hours  
 **Properties**: border-width, border-style, border-color, border-radius  
 **Pattern**: Similar to existing parsers
 
-### Option 2: Background Properties  
+### Option 3: Background Properties  
 **Why**: Build on gradient work already done  
 **Time**: 3-4 hours  
 **Properties**: background-size, background-repeat, background-attachment  
 **Pattern**: Comma-separated lists, keywords
-
-### Option 3: Shadow Properties
-**Why**: Related to existing drop-shadow filter work  
-**Time**: 2-3 hours  
-**Properties**: box-shadow, text-shadow  
-**Pattern**: Similar to drop-shadow parsing
 
 ---
 
@@ -121,6 +121,13 @@ grep -r "keyword" src/
 ---
 
 ## Recent Sessions (Archive Trail)
+
+### 2025-10-19 shadow-properties: Shadow Parsers ✅ COMPLETE
+- **Outcome**: box-shadow and text-shadow parsers fully implemented
+- **Tests**: 1218 → 1269 (+51 shadow tests)
+- **Features**: Inset, offsets, blur, spread, color support
+- **TODO**: Generators still needed (1-2 hour task)
+- **Details**: `.memory/archive/2025-10-19-shadow-properties/HANDOVER.md`
 
 ### 2025-10-19 easing-utilities: DRY Refactor ✅ COMPLETE
 - **Outcome**: Extracted shared easing utilities to eliminate duplication
