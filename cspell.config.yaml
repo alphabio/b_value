@@ -3,11 +3,14 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - cornflowerblue
   - csstree
+  - currentcolor
   - Flexbox
   - oklab
   - oklch
   - prophoto
+  - rebeccapurple
   - reparsed
   - rgba
   - rotatex
