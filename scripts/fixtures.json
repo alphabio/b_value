@@ -1,0 +1,3956 @@
+[
+	{
+		"css": "1s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 7
+	},
+	{
+		"css": "500ms",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 18
+	},
+	{
+		"css": "-2s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 28
+	},
+	{
+		"css": "0s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 37
+	},
+	{
+		"css": "0.5s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 46
+	},
+	{
+		"css": "1s, 500ms, 2s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 55
+	},
+	{
+		"css": "1s , 500ms , 2s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 67
+	},
+	{
+		"css": "1s, -500ms, 2s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 76
+	},
+	{
+		"css": "1px",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 86
+	},
+	{
+		"css": "1",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 92
+	},
+	{
+		"css": "invalid",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 104
+	},
+	{
+		"css": "1s,",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 110
+	},
+	{
+		"css": ",1s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 116
+	},
+	{
+		"css": "1s,,2s",
+		"category": "delay",
+		"file": "src/parse/animation/delay.test.ts",
+		"line": 122
+	},
+	{
+		"css": "normal",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 7
+	},
+	{
+		"css": "reverse",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 16
+	},
+	{
+		"css": "alternate",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 24
+	},
+	{
+		"css": "alternate-reverse",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 32
+	},
+	{
+		"css": "normal, reverse, alternate",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 40
+	},
+	{
+		"css": "normal , reverse",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 48
+	},
+	{
+		"css": "NORMAL",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 56
+	},
+	{
+		"css": "invalid",
+		"category": "direction",
+		"file": "src/parse/animation/direction.test.ts",
+		"line": 64
+	},
+	{
+		"css": "1s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 7
+	},
+	{
+		"css": "500ms",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 18
+	},
+	{
+		"css": "auto",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 28
+	},
+	{
+		"css": "0s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 38
+	},
+	{
+		"css": "0.5s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 47
+	},
+	{
+		"css": "1s, auto, 500ms",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 56
+	},
+	{
+		"css": "1s , auto , 2s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 68
+	},
+	{
+		"css": "3600s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 77
+	},
+	{
+		"css": "-1s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 86
+	},
+	{
+		"css": "1px",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 95
+	},
+	{
+		"css": "1s,",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 110
+	},
+	{
+		"css": ",1s",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 116
+	},
+	{
+		"css": "AUTO",
+		"category": "duration",
+		"file": "src/parse/animation/duration.test.ts",
+		"line": 122
+	},
+	{
+		"css": "none",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 7
+	},
+	{
+		"css": "forwards",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 16
+	},
+	{
+		"css": "backwards",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 24
+	},
+	{
+		"css": "both",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 32
+	},
+	{
+		"css": "none, forwards, both",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 40
+	},
+	{
+		"css": "none , forwards",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 48
+	},
+	{
+		"css": "BOTH",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 56
+	},
+	{
+		"css": "invalid",
+		"category": "fill-mode",
+		"file": "src/parse/animation/fill-mode.test.ts",
+		"line": 64
+	},
+	{
+		"css": "3",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 7
+	},
+	{
+		"css": "infinite",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 18
+	},
+	{
+		"css": "0",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 28
+	},
+	{
+		"css": "2.5",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 37
+	},
+	{
+		"css": "1, infinite, 2.5",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 46
+	},
+	{
+		"css": "1 , 2 , 3",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 58
+	},
+	{
+		"css": "-1",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 67
+	},
+	{
+		"css": "1,",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 82
+	},
+	{
+		"css": "INFINITE",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 88
+	},
+	{
+		"css": "1000",
+		"category": "iteration-count",
+		"file": "src/parse/animation/iteration-count.test.ts",
+		"line": 97
+	},
+	{
+		"css": "none",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 7
+	},
+	{
+		"css": "slideIn",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 16
+	},
+	{
+		"css": "slideIn, fadeOut, none",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 24
+	},
+	{
+		"css": "slideIn , fadeOut",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 36
+	},
+	{
+		"css": "SlideIn",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 44
+	},
+	{
+		"css": "NONE",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 52
+	},
+	{
+		"css": "slide-in-from-left",
+		"category": "name",
+		"file": "src/parse/animation/name.test.ts",
+		"line": 60
+	},
+	{
+		"css": "running",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 7
+	},
+	{
+		"css": "paused",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 16
+	},
+	{
+		"css": "running, paused",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 24
+	},
+	{
+		"css": "running , paused",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 32
+	},
+	{
+		"css": "PAUSED",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 40
+	},
+	{
+		"css": "stopped",
+		"category": "play-state",
+		"file": "src/parse/animation/play-state.test.ts",
+		"line": 48
+	},
+	{
+		"css": "ease",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 8
+	},
+	{
+		"css": "ease-in",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 17
+	},
+	{
+		"css": "linear",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 25
+	},
+	{
+		"css": "step-start",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 33
+	},
+	{
+		"css": "cubic-bezier(0.1, 0.7, 1.0, 0.1)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 42
+	},
+	{
+		"css": "cubic-bezier(0,0,1,1)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 56
+	},
+	{
+		"css": "cubic-bezier(0.5, -0.5, 0.5, 1.5)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 70
+	},
+	{
+		"css": "cubic-bezier(0.1, 0.7)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 84
+	},
+	{
+		"css": "steps(4)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 90
+	},
+	{
+		"css": "steps(4, jump-start)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 102
+	},
+	{
+		"css": "steps(3, jump-end)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 114
+	},
+	{
+		"css": "steps(5, start)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 126
+	},
+	{
+		"css": "steps(0)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 138
+	},
+	{
+		"css": "steps(-1)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 143
+	},
+	{
+		"css": "steps(2.5)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 148
+	},
+	{
+		"css": "linear(0)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 154
+	},
+	{
+		"css": "linear(0, 0.5, 1)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 165
+	},
+	{
+		"css": "linear(0 0%, 1 100%)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 176
+	},
+	{
+		"css": "linear(0, 0.5 50%, 1)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 190
+	},
+	{
+		"css": "ease, cubic-bezier(0, 0, 1, 1), steps(2)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 202
+	},
+	{
+		"css": "invalid",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 224
+	},
+	{
+		"css": "unknown(0.5)",
+		"category": "timing-function",
+		"file": "src/parse/animation/timing-function.test.ts",
+		"line": 234
+	},
+	{
+		"css": "scroll",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 8
+	},
+	{
+		"css": "fixed",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 14
+	},
+	{
+		"css": "local",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 20
+	},
+	{
+		"css": "invalid",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 26
+	},
+	{
+		"css": "repeat",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 43
+	},
+	{
+		"css": "repeat-x",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 49
+	},
+	{
+		"css": "repeat-y",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 55
+	},
+	{
+		"css": "no-repeat",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 61
+	},
+	{
+		"css": "space",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 67
+	},
+	{
+		"css": "round",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 73
+	},
+	{
+		"css": "invalid",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 79
+	},
+	{
+		"css": "border-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 96
+	},
+	{
+		"css": "padding-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 102
+	},
+	{
+		"css": "content-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 108
+	},
+	{
+		"css": "text",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 114
+	},
+	{
+		"css": "invalid",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 120
+	},
+	{
+		"css": "border-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 137
+	},
+	{
+		"css": "padding-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 143
+	},
+	{
+		"css": "content-box",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 149
+	},
+	{
+		"css": "invalid",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 155
+	},
+	{
+		"css": "cover",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 173
+	},
+	{
+		"css": "contain",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 179
+	},
+	{
+		"css": "auto",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 185
+	},
+	{
+		"css": "100px",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 193
+	},
+	{
+		"css": "50%",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 201
+	},
+	{
+		"css": "2em",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 209
+	},
+	{
+		"css": "invalid",
+		"category": "background",
+		"file": "src/parse/background/background.test.ts",
+		"line": 218
+	},
+	{
+		"css": "transparent",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 8
+	},
+	{
+		"css": "currentcolor",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 19
+	},
+	{
+		"css": "red",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 30
+	},
+	{
+		"css": "blue",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 41
+	},
+	{
+		"css": "green",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 52
+	},
+	{
+		"css": "black",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 63
+	},
+	{
+		"css": "white",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 74
+	},
+	{
+		"css": "notacolor",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 87
+	},
+	{
+		"css": "1px",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 95
+	},
+	{
+		"css": "red blue",
+		"category": "color",
+		"file": "src/parse/border/color.test.ts",
+		"line": 105
+	},
+	{
+		"css": "0",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 8
+	},
+	{
+		"css": "5px",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 19
+	},
+	{
+		"css": "10.5px",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 30
+	},
+	{
+		"css": "1em",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 41
+	},
+	{
+		"css": "2rem",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 52
+	},
+	{
+		"css": "50%",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 65
+	},
+	{
+		"css": "100%",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 76
+	},
+	{
+		"css": "25.5%",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 87
+	},
+	{
+		"css": "-5px",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 100
+	},
+	{
+		"css": "medium",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 108
+	},
+	{
+		"css": "5",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 113
+	},
+	{
+		"css": "5px 10px",
+		"category": "radius",
+		"file": "src/parse/border/radius.test.ts",
+		"line": 126
+	},
+	{
+		"css": "none",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 8
+	},
+	{
+		"css": "hidden",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 19
+	},
+	{
+		"css": "dotted",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 30
+	},
+	{
+		"css": "dashed",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 41
+	},
+	{
+		"css": "solid",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 52
+	},
+	{
+		"css": "double",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 63
+	},
+	{
+		"css": "groove",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 74
+	},
+	{
+		"css": "ridge",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 85
+	},
+	{
+		"css": "inset",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 96
+	},
+	{
+		"css": "outset",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 107
+	},
+	{
+		"css": "wavy",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 120
+	},
+	{
+		"css": "1px",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 128
+	},
+	{
+		"css": "solid dashed",
+		"category": "style",
+		"file": "src/parse/border/style.test.ts",
+		"line": 138
+	},
+	{
+		"css": "thin",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 8
+	},
+	{
+		"css": "medium",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 19
+	},
+	{
+		"css": "thick",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 30
+	},
+	{
+		"css": "0",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 43
+	},
+	{
+		"css": "1px",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 54
+	},
+	{
+		"css": "2.5em",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 65
+	},
+	{
+		"css": "0.5rem",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 76
+	},
+	{
+		"css": "10pt",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 87
+	},
+	{
+		"css": "-1px",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 100
+	},
+	{
+		"css": "large",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 108
+	},
+	{
+		"css": "5",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 116
+	},
+	{
+		"css": "50%",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 124
+	},
+	{
+		"css": "1px 2px",
+		"category": "width",
+		"file": "src/parse/border/width.test.ts",
+		"line": 134
+	},
+	{
+		"css": "#abc",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 9
+	},
+	{
+		"css": "#000",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 18
+	},
+	{
+		"css": "#fff",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 26
+	},
+	{
+		"css": "#123",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 34
+	},
+	{
+		"css": "#abcd",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 44
+	},
+	{
+		"css": "#0008",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 53
+	},
+	{
+		"css": "#fff0",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 61
+	},
+	{
+		"css": "#ff5733",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 71
+	},
+	{
+		"css": "#000000",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 80
+	},
+	{
+		"css": "#FFFFFF",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 88
+	},
+	{
+		"css": "#aAbBcC",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 96
+	},
+	{
+		"css": "#ff573380",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 106
+	},
+	{
+		"css": "#00000000",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 115
+	},
+	{
+		"css": "#FFFFFFFF",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 123
+	},
+	{
+		"css": "#ff5733ff",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 131
+	},
+	{
+		"css": "ff5733",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 141
+	},
+	{
+		"css": "#f",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 149
+	},
+	{
+		"css": "#ff",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 157
+	},
+	{
+		"css": "#ff573",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 165
+	},
+	{
+		"css": "#ff57338",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 173
+	},
+	{
+		"css": "#ggf",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 181
+	},
+	{
+		"css": "#ggff",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 189
+	},
+	{
+		"css": "#gg5733",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 197
+	},
+	{
+		"css": "#gg573380",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 205
+	},
+	{
+		"css": "#ff@733",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 213
+	},
+	{
+		"css": "#abc",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 223
+	},
+	{
+		"css": "#abcd",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 232
+	},
+	{
+		"css": "#ff5733",
+		"category": "hex",
+		"file": "src/parse/color/hex.test.ts",
+		"line": 261
+	},
+	{
+		"css": "hsl(120 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 9
+	},
+	{
+		"css": "hsl(0 0% 0%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 21
+	},
+	{
+		"css": "hsl(0 0% 100%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 31
+	},
+	{
+		"css": "hsl(240 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 41
+	},
+	{
+		"css": "hsl(120deg 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 53
+	},
+	{
+		"css": "hsl(1turn 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 61
+	},
+	{
+		"css": "hsl(0.5turn 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 69
+	},
+	{
+		"css": "hsl(200grad 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 77
+	},
+	{
+		"css": "hsl(3.14159rad 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 85
+	},
+	{
+		"css": "hsl(1.57rad 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 93
+	},
+	{
+		"css": "hsl(360 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 103
+	},
+	{
+		"css": "hsl(720 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 111
+	},
+	{
+		"css": "hsl(450 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 119
+	},
+	{
+		"css": "hsl(-90 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 127
+	},
+	{
+		"css": "hsl(-360 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 135
+	},
+	{
+		"css": "hsl(-450 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 143
+	},
+	{
+		"css": "hsl(120 100% 50% / 0.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 153
+	},
+	{
+		"css": "hsl(120 100% 50% / 0)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 164
+	},
+	{
+		"css": "hsl(120 100% 50% / 1)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 172
+	},
+	{
+		"css": "hsl(120 100% 50% / 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 180
+	},
+	{
+		"css": "hsl(120, 100%, 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 190
+	},
+	{
+		"css": "hsl(240, 50%, 75%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 200
+	},
+	{
+		"css": "hsla(120, 100%, 50%, 0.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 210
+	},
+	{
+		"css": "hsla(240, 50%, 75%, 0.25)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 221
+	},
+	{
+		"css": "hsl(120 150% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 234
+	},
+	{
+		"css": "hsl(120 -10% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 242
+	},
+	{
+		"css": "hsl(120 100% 150%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 250
+	},
+	{
+		"css": "hsl(120 100% -10%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 258
+	},
+	{
+		"css": "120 100% 50%",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 268
+	},
+	{
+		"css": "hsl(120 100%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 276
+	},
+	{
+		"css": "hsl(120 100% 50% / 1.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 284
+	},
+	{
+		"css": "hsl(120 100% 50% / -0.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 292
+	},
+	{
+		"css": "hsl(",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 300
+	},
+	{
+		"css": "hsl(120 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 307
+	},
+	{
+		"css": "hsl(240 50% 75%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 316
+	},
+	{
+		"css": "hsl(120 100% 50% / 0.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 325
+	},
+	{
+		"css": "hsl(120, 100%, 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 334
+	},
+	{
+		"css": "hsla(120, 100%, 50%, 0.5)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 343
+	},
+	{
+		"css": "hsl(0.5turn 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 352
+	},
+	{
+		"css": "hsl(450 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 361
+	},
+	{
+		"css": "hsl(-90 100% 50%)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 370
+	},
+	{
+		"css": "hsl(120 100% 50% / 1)",
+		"category": "hsl",
+		"file": "src/parse/color/hsl.test.ts",
+		"line": 379
+	},
+	{
+		"css": "hwb(120 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 9
+	},
+	{
+		"css": "hwb(0 0% 0%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 22
+	},
+	{
+		"css": "hwb(0 100% 0%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 35
+	},
+	{
+		"css": "hwb(0 0% 100%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 48
+	},
+	{
+		"css": "hwb(120deg 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 63
+	},
+	{
+		"css": "hwb(1turn 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 71
+	},
+	{
+		"css": "hwb(0.5turn 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 79
+	},
+	{
+		"css": "hwb(100grad 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 87
+	},
+	{
+		"css": "hwb(1.5708rad 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 95
+	},
+	{
+		"css": "hwb(240 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 103
+	},
+	{
+		"css": "hwb(360 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 113
+	},
+	{
+		"css": "hwb(450 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 121
+	},
+	{
+		"css": "hwb(-90 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 129
+	},
+	{
+		"css": "hwb(-180 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 137
+	},
+	{
+		"css": "hwb(720 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 145
+	},
+	{
+		"css": "hwb(120 20% 30% / 0.5)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 155
+	},
+	{
+		"css": "hwb(120 20% 30% / 0)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 169
+	},
+	{
+		"css": "hwb(120 20% 30% / 1)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 177
+	},
+	{
+		"css": "hwb(120 20% 30% / 1.5)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 185
+	},
+	{
+		"css": "hwb(120 20% 30% / -0.5)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 193
+	},
+	{
+		"css": "hwb(120 150% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 203
+	},
+	{
+		"css": "hwb(120 -20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 211
+	},
+	{
+		"css": "hwb(120 20% 150%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 219
+	},
+	{
+		"css": "hwb(120 20% -30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 227
+	},
+	{
+		"css": "rgb(120 20% 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 237
+	},
+	{
+		"css": "hwb(120 20%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 242
+	},
+	{
+		"css": "hwb(120 20% 30% 40%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 247
+	},
+	{
+		"css": "hwb(120 20% 30% /)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 252
+	},
+	{
+		"css": "hwb(120 20 30%)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 257
+	},
+	{
+		"css": "hwb(120 20% 30)",
+		"category": "hwb",
+		"file": "src/parse/color/hwb.test.ts",
+		"line": 262
+	},
+	{
+		"css": "lab(50% -20 30)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 10
+	},
+	{
+		"css": "lab(50 -20 30)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 23
+	},
+	{
+		"css": "lab(75% 40 60)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 36
+	},
+	{
+		"css": "lab(0% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 49
+	},
+	{
+		"css": "lab(150% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 64
+	},
+	{
+		"css": "lab(120 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 72
+	},
+	{
+		"css": "lab(-10% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 80
+	},
+	{
+		"css": "lab(50% 150 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 90
+	},
+	{
+		"css": "lab(50% -200 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 98
+	},
+	{
+		"css": "lab(50% 0 200)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 106
+	},
+	{
+		"css": "lab(50% 0 -150)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 114
+	},
+	{
+		"css": "lab(50% -20 30 / 0.5)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 124
+	},
+	{
+		"css": "lab(50% -20 30 / 50%)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 138
+	},
+	{
+		"css": "lab(50% -20 30 / 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 152
+	},
+	{
+		"css": "lab(50% -20 30 / 1)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 160
+	},
+	{
+		"css": "lab(50% -20 30 / 100%)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 168
+	},
+	{
+		"css": "lab(100% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 178
+	},
+	{
+		"css": "lab(0% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 191
+	},
+	{
+		"css": "lab(53.5% -12.3 45.7)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 204
+	},
+	{
+		"css": "lab(  50%   -20   30  )",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 214
+	},
+	{
+		"css": "rgb(50% 0 0)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 229
+	},
+	{
+		"css": "lab(50% -20)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 234
+	},
+	{
+		"css": "lab(50% -20 30 40)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 239
+	},
+	{
+		"css": "lab(50% -20 30 / 1.5)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 244
+	},
+	{
+		"css": "lab(50% -20 30 / 150%)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 250
+	},
+	{
+		"css": "lab(50% abc 30)",
+		"category": "lab",
+		"file": "src/parse/color/lab.test.ts",
+		"line": 256
+	},
+	{
+		"css": "lch(50% 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 10
+	},
+	{
+		"css": "lch(50 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 23
+	},
+	{
+		"css": "lch(75% 60 270)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 36
+	},
+	{
+		"css": "lch(0% 0 0)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 49
+	},
+	{
+		"css": "lch(50% 50 180deg)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 64
+	},
+	{
+		"css": "lch(50% 50 0.5turn)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 72
+	},
+	{
+		"css": "lch(50% 50 3.14159rad)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 80
+	},
+	{
+		"css": "lch(50% 50 200grad)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 88
+	},
+	{
+		"css": "lch(50% 50 1turn)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 96
+	},
+	{
+		"css": "lch(50% 50 360)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 106
+	},
+	{
+		"css": "lch(50% 50 450)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 114
+	},
+	{
+		"css": "lch(50% 50 -90)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 122
+	},
+	{
+		"css": "lch(50% 50 -180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 130
+	},
+	{
+		"css": "lch(50% 50 720)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 138
+	},
+	{
+		"css": "lch(150% 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 148
+	},
+	{
+		"css": "lch(120 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 156
+	},
+	{
+		"css": "lch(-10% 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 164
+	},
+	{
+		"css": "lch(50% 200 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 174
+	},
+	{
+		"css": "lch(50% -10 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 182
+	},
+	{
+		"css": "lch(50% 150 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 190
+	},
+	{
+		"css": "lch(50% 50 180 / 0.5)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 200
+	},
+	{
+		"css": "lch(50% 50 180 / 50%)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 214
+	},
+	{
+		"css": "lch(50% 50 180 / 0)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 228
+	},
+	{
+		"css": "lch(50% 50 180 / 1)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 236
+	},
+	{
+		"css": "lch(50% 50 180 / 100%)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 244
+	},
+	{
+		"css": "lch(100% 0 0)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 254
+	},
+	{
+		"css": "lch(0% 0 0)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 267
+	},
+	{
+		"css": "lch(53.5% 62.3 135.7)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 280
+	},
+	{
+		"css": "lch(  50%   50   180  )",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 290
+	},
+	{
+		"css": "rgb(50% 50 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 305
+	},
+	{
+		"css": "lch(50% 50)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 310
+	},
+	{
+		"css": "lch(50% 50 180 90)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 315
+	},
+	{
+		"css": "lch(50% 50 180 / 1.5)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 320
+	},
+	{
+		"css": "lch(50% 50 180 / 150%)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 326
+	},
+	{
+		"css": "lch(50% abc 180)",
+		"category": "lch",
+		"file": "src/parse/color/lch.test.ts",
+		"line": 332
+	},
+	{
+		"css": "red",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 9
+	},
+	{
+		"css": "blue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 18
+	},
+	{
+		"css": "green",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 26
+	},
+	{
+		"css": "yellow",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 34
+	},
+	{
+		"css": "black",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 42
+	},
+	{
+		"css": "white",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 50
+	},
+	{
+		"css": "gray",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 58
+	},
+	{
+		"css": "grey",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 66
+	},
+	{
+		"css": "cornflowerblue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 76
+	},
+	{
+		"css": "aliceblue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 85
+	},
+	{
+		"css": "antiquewhite",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 93
+	},
+	{
+		"css": "aquamarine",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 101
+	},
+	{
+		"css": "blanchedalmond",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 109
+	},
+	{
+		"css": "darkorchid",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 117
+	},
+	{
+		"css": "mediumspringgreen",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 125
+	},
+	{
+		"css": "RED",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 135
+	},
+	{
+		"css": "Blue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 143
+	},
+	{
+		"css": "CORNFLOWERBLUE",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 151
+	},
+	{
+		"css": "AliceBlue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 159
+	},
+	{
+		"css": "MediumSpringGreen",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 167
+	},
+	{
+		"css": "notacolor",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 177
+	},
+	{
+		"css": "123",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 193
+	},
+	{
+		"css": "red@blue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 201
+	},
+	{
+		"css": "#ff5733",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 209
+	},
+	{
+		"css": "red",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 219
+	},
+	{
+		"css": "BLUE",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 228
+	},
+	{
+		"css": "cornflowerblue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 237
+	},
+	{
+		"css": "AliceBlue",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 246
+	},
+	{
+		"css": "mediumspringgreen",
+		"category": "named",
+		"file": "src/parse/color/named.test.ts",
+		"line": 255
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 9
+	},
+	{
+		"css": "oklab(50% -0.2 0.3)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 22
+	},
+	{
+		"css": "oklab(0.75 0.1 0.2)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 35
+	},
+	{
+		"css": "oklab(0 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 48
+	},
+	{
+		"css": "oklab(100% 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 63
+	},
+	{
+		"css": "oklab(150% 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 71
+	},
+	{
+		"css": "oklab(1.5 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 79
+	},
+	{
+		"css": "oklab(-0.1 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 87
+	},
+	{
+		"css": "oklab(0.5 0.5 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 97
+	},
+	{
+		"css": "oklab(0.5 -0.6 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 105
+	},
+	{
+		"css": "oklab(0.5 0 0.8)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 113
+	},
+	{
+		"css": "oklab(0.5 0 -0.5)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 121
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3 / 0.5)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 131
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3 / 50%)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 145
+	},
+	{
+		"css": "oklab(0.5 0 0 / 1.5)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 153
+	},
+	{
+		"css": "oklab(0.5 0 0 / -0.1)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 161
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3 / 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 169
+	},
+	{
+		"css": "oklab(1 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 179
+	},
+	{
+		"css": "oklab(0 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 192
+	},
+	{
+		"css": "oklab(0.123 -0.234 0.345)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 205
+	},
+	{
+		"css": "oklab(  0.5   -0.2   0.3  )",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 215
+	},
+	{
+		"css": "oklab(0.5 -0.2)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 230
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3 0.4)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 235
+	},
+	{
+		"css": "oklab(0.5 -0.2 0.3 / 0.5 0.6)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 240
+	},
+	{
+		"css": "oklabs(0.5 -0.2 0.3)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 245
+	},
+	{
+		"css": "oklab(red 0 0)",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 250
+	},
+	{
+		"css": "oklab()",
+		"category": "oklab",
+		"file": "src/parse/color/oklab.test.ts",
+		"line": 255
+	},
+	{
+		"css": "oklch(0.5 0.2 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 9
+	},
+	{
+		"css": "oklch(50% 0.2 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 22
+	},
+	{
+		"css": "oklch(0.75 0.15 270)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 35
+	},
+	{
+		"css": "oklch(0 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 48
+	},
+	{
+		"css": "oklch(0.5 0.2 180deg)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 63
+	},
+	{
+		"css": "oklch(0.5 0.2 0.5turn)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 71
+	},
+	{
+		"css": "oklch(0.5 0.2 3.14159rad)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 79
+	},
+	{
+		"css": "oklch(0.5 0.2 200grad)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 87
+	},
+	{
+		"css": "oklch(0.5 0.2 1turn)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 95
+	},
+	{
+		"css": "oklch(0.5 0.2 360)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 105
+	},
+	{
+		"css": "oklch(0.5 0.2 450)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 113
+	},
+	{
+		"css": "oklch(0.5 0.2 720)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 121
+	},
+	{
+		"css": "oklch(0.5 0.2 -90)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 129
+	},
+	{
+		"css": "oklch(0.5 0.2 -360)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 137
+	},
+	{
+		"css": "oklch(100% 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 147
+	},
+	{
+		"css": "oklch(150% 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 155
+	},
+	{
+		"css": "oklch(1.5 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 163
+	},
+	{
+		"css": "oklch(-0.1 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 171
+	},
+	{
+		"css": "oklch(0.5 0.8 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 181
+	},
+	{
+		"css": "oklch(0.5 -0.1 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 189
+	},
+	{
+		"css": "oklch(0.5 0 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 197
+	},
+	{
+		"css": "oklch(0.5 0.2 180 / 0.5)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 207
+	},
+	{
+		"css": "oklch(0.5 0.2 180 / 50%)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 221
+	},
+	{
+		"css": "oklch(0.5 0 0 / 1.5)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 229
+	},
+	{
+		"css": "oklch(0.5 0 0 / -0.1)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 237
+	},
+	{
+		"css": "oklch(0.5 0.2 180 / 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 245
+	},
+	{
+		"css": "oklch(1 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 255
+	},
+	{
+		"css": "oklch(0 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 268
+	},
+	{
+		"css": "oklch(0.123 0.234 123.45)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 281
+	},
+	{
+		"css": "oklch(  0.5   0.2   180  )",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 291
+	},
+	{
+		"css": "oklch(0.5 0.2)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 306
+	},
+	{
+		"css": "oklch(0.5 0.2 180 90)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 311
+	},
+	{
+		"css": "oklch(0.5 0.2 180 / 0.5 0.6)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 316
+	},
+	{
+		"css": "oklchs(0.5 0.2 180)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 321
+	},
+	{
+		"css": "oklch(red 0 0)",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 326
+	},
+	{
+		"css": "oklch()",
+		"category": "oklch",
+		"file": "src/parse/color/oklch.test.ts",
+		"line": 331
+	},
+	{
+		"css": "rgb(255 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 9
+	},
+	{
+		"css": "rgb(0 128 255)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 21
+	},
+	{
+		"css": "rgb(100 200 50)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 31
+	},
+	{
+		"css": "rgb(0 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 41
+	},
+	{
+		"css": "rgb(255 255 255)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 51
+	},
+	{
+		"css": "rgb(255 0 0 / 0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 63
+	},
+	{
+		"css": "rgb(100 200 50 / 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 74
+	},
+	{
+		"css": "rgb(100 200 50 / 1)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 82
+	},
+	{
+		"css": "rgb(255 0 0 / 0.25)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 90
+	},
+	{
+		"css": "rgb(255 0 0 / 0.75)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 98
+	},
+	{
+		"css": "rgb(255 0 0 / 50%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 108
+	},
+	{
+		"css": "rgb(255 0 0 / 0%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 116
+	},
+	{
+		"css": "rgb(255 0 0 / 100%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 124
+	},
+	{
+		"css": "rgb(255, 0, 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 134
+	},
+	{
+		"css": "rgb(100, 200, 50)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 145
+	},
+	{
+		"css": "rgba(255, 0, 0, 0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 155
+	},
+	{
+		"css": "rgba(100, 200, 50, 0.25)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 166
+	},
+	{
+		"css": "rgba(0, 0, 0, 1)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 177
+	},
+	{
+		"css": "rgb(100% 0% 0%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 187
+	},
+	{
+		"css": "rgb(50% 50% 50%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 197
+	},
+	{
+		"css": "rgb(0% 100% 50%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 207
+	},
+	{
+		"css": "rgb(100%, 0%, 0%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 217
+	},
+	{
+		"css": "rgb(100% 0% 0% / 50%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 227
+	},
+	{
+		"css": "rgb(255.5 128.7 64.2)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 240
+	},
+	{
+		"css": "rgb(100.1 200.9 50.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 251
+	},
+	{
+		"css": "rgb(300 128 50)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 261
+	},
+	{
+		"css": "rgb(-10 128 50)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 269
+	},
+	{
+		"css": "rgb(255 0 0 / 1.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 279
+	},
+	{
+		"css": "rgb(255 0 0 / -0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 287
+	},
+	{
+		"css": "rgb(255 0 0 / 150%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 295
+	},
+	{
+		"css": "rgb(255 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 303
+	},
+	{
+		"css": "rgb(255 0 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 311
+	},
+	{
+		"css": "255 0 0",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 316
+	},
+	{
+		"css": "rgb(",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 324
+	},
+	{
+		"css": "rgb(255 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 331
+	},
+	{
+		"css": "rgb(100 200 50)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 340
+	},
+	{
+		"css": "rgb(255 0 0 / 0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 349
+	},
+	{
+		"css": "rgb(255, 0, 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 358
+	},
+	{
+		"css": "rgba(255, 0, 0, 0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 367
+	},
+	{
+		"css": "rgb(100% 0% 0%)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 376
+	},
+	{
+		"css": "rgb(255 0 0 / 1)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 385
+	},
+	{
+		"css": "rgb(100.4 200.6 50.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 394
+	},
+	{
+		"css": "rgb(128 128 128)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 405
+	},
+	{
+		"css": "rgb(0 0 0 / 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 415
+	},
+	{
+		"css": "rgb(  255   0   0  )",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 426
+	},
+	{
+		"css": "RGB(255 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 434
+	},
+	{
+		"css": "RGBA(255, 0, 0, 0.5)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 442
+	},
+	{
+		"css": "rgb(0 0 0)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 450
+	},
+	{
+		"css": "rgb(255 255 255)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 460
+	},
+	{
+		"css": "rgb(127 127 127)",
+		"category": "rgb",
+		"file": "src/parse/color/rgb.test.ts",
+		"line": 470
+	},
+	{
+		"css": "transparent",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 9
+	},
+	{
+		"css": "currentcolor",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 20
+	},
+	{
+		"css": "TRANSPARENT",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 33
+	},
+	{
+		"css": "CurrentColor",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 41
+	},
+	{
+		"css": "CURRENTCOLOR",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 49
+	},
+	{
+		"css": "Transparent",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 57
+	},
+	{
+		"css": "  transparent",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 67
+	},
+	{
+		"css": "currentcolor  ",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 75
+	},
+	{
+		"css": "  transparent  ",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 83
+	},
+	{
+		"css": "invalid",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 93
+	},
+	{
+		"css": "red",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 98
+	},
+	{
+		"css": "ButtonText",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 103
+	},
+	{
+		"css": "   ",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 113
+	},
+	{
+		"css": "trans",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 118
+	},
+	{
+		"css": "current",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 123
+	},
+	{
+		"css": "transparent",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 192
+	},
+	{
+		"css": "currentcolor",
+		"category": "special",
+		"file": "src/parse/color/special.test.ts",
+		"line": 201
+	},
+	{
+		"css": "AccentColor",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 9
+	},
+	{
+		"css": "AccentColorText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 20
+	},
+	{
+		"css": "ButtonText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 31
+	},
+	{
+		"css": "Canvas",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 42
+	},
+	{
+		"css": "CanvasText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 53
+	},
+	{
+		"css": "LinkText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 64
+	},
+	{
+		"css": "VisitedText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 75
+	},
+	{
+		"css": "Highlight",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 86
+	},
+	{
+		"css": "HighlightText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 97
+	},
+	{
+		"css": "GrayText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 108
+	},
+	{
+		"css": "buttontext",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 121
+	},
+	{
+		"css": "CANVAS",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 129
+	},
+	{
+		"css": "lInKtExT",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 137
+	},
+	{
+		"css": "  ButtonText",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 147
+	},
+	{
+		"css": "Canvas  ",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 155
+	},
+	{
+		"css": "  LinkText  ",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 163
+	},
+	{
+		"css": "InvalidColor",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 173
+	},
+	{
+		"css": "red",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 178
+	},
+	{
+		"css": "transparent",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 183
+	},
+	{
+		"css": "   ",
+		"category": "system",
+		"file": "src/parse/color/system.test.ts",
+		"line": 193
+	},
+	{
+		"css": "invert",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 8
+	},
+	{
+		"css": "transparent",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 19
+	},
+	{
+		"css": "currentcolor",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 30
+	},
+	{
+		"css": "red",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 41
+	},
+	{
+		"css": "blue",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 52
+	},
+	{
+		"css": "green",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 63
+	},
+	{
+		"css": "black",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 74
+	},
+	{
+		"css": "white",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 85
+	},
+	{
+		"css": "notacolor",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 98
+	},
+	{
+		"css": "1px",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 106
+	},
+	{
+		"css": "red blue",
+		"category": "color",
+		"file": "src/parse/outline/color.test.ts",
+		"line": 116
+	},
+	{
+		"css": "0",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 8
+	},
+	{
+		"css": "5px",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 19
+	},
+	{
+		"css": "2.5em",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 30
+	},
+	{
+		"css": "0.5rem",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 41
+	},
+	{
+		"css": "10pt",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 52
+	},
+	{
+		"css": "-1px",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 65
+	},
+	{
+		"css": "-2.5em",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 76
+	},
+	{
+		"css": "auto",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 89
+	},
+	{
+		"css": "5",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 94
+	},
+	{
+		"css": "50%",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 102
+	},
+	{
+		"css": "1px 2px",
+		"category": "offset",
+		"file": "src/parse/outline/offset.test.ts",
+		"line": 112
+	},
+	{
+		"css": "auto",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 8
+	},
+	{
+		"css": "none",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 19
+	},
+	{
+		"css": "hidden",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 30
+	},
+	{
+		"css": "dotted",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 41
+	},
+	{
+		"css": "dashed",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 52
+	},
+	{
+		"css": "solid",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 63
+	},
+	{
+		"css": "double",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 74
+	},
+	{
+		"css": "groove",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 85
+	},
+	{
+		"css": "ridge",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 96
+	},
+	{
+		"css": "inset",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 107
+	},
+	{
+		"css": "outset",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 118
+	},
+	{
+		"css": "wavy",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 131
+	},
+	{
+		"css": "1px",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 139
+	},
+	{
+		"css": "solid dashed",
+		"category": "style",
+		"file": "src/parse/outline/style.test.ts",
+		"line": 149
+	},
+	{
+		"css": "thin",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 8
+	},
+	{
+		"css": "medium",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 19
+	},
+	{
+		"css": "thick",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 30
+	},
+	{
+		"css": "0",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 43
+	},
+	{
+		"css": "1px",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 54
+	},
+	{
+		"css": "2.5em",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 65
+	},
+	{
+		"css": "0.5rem",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 76
+	},
+	{
+		"css": "10pt",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 87
+	},
+	{
+		"css": "-1px",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 100
+	},
+	{
+		"css": "large",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 108
+	},
+	{
+		"css": "5",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 116
+	},
+	{
+		"css": "50%",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 124
+	},
+	{
+		"css": "1px 2px",
+		"category": "width",
+		"file": "src/parse/outline/width.test.ts",
+		"line": 134
+	},
+	{
+		"css": "red",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 8
+	},
+	{
+		"css": "#ff0000",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 16
+	},
+	{
+		"css": "rgb(255 0 0)",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 24
+	},
+	{
+		"css": "hsl(0 100% 50%)",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 32
+	},
+	{
+		"css": "not-a-color",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 40
+	},
+	{
+		"css": "solid",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 61
+	},
+	{
+		"css": "double",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 67
+	},
+	{
+		"css": "dotted",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 73
+	},
+	{
+		"css": "dashed",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 79
+	},
+	{
+		"css": "wavy",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 85
+	},
+	{
+		"css": "invalid",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 91
+	},
+	{
+		"css": "none",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 108
+	},
+	{
+		"css": "underline",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 114
+	},
+	{
+		"css": "overline",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 120
+	},
+	{
+		"css": "line-through",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 126
+	},
+	{
+		"css": "invalid",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 132
+	},
+	{
+		"css": "auto",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 150
+	},
+	{
+		"css": "from-font",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 156
+	},
+	{
+		"css": "2px",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 164
+	},
+	{
+		"css": "10%",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 172
+	},
+	{
+		"css": "0.5em",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 180
+	},
+	{
+		"css": "invalid",
+		"category": "text",
+		"file": "src/parse/text/text.test.ts",
+		"line": 189
+	},
+	{
+		"css": "center",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 8
+	},
+	{
+		"css": "left top",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 19
+	},
+	{
+		"css": "right bottom",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 30
+	},
+	{
+		"css": "center top",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 41
+	},
+	{
+		"css": "50% 50%",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 54
+	},
+	{
+		"css": "100px 200px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 65
+	},
+	{
+		"css": "left 25%",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 76
+	},
+	{
+		"css": "0px 0px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 87
+	},
+	{
+		"css": "50px 100px 10px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 100
+	},
+	{
+		"css": "left top 20px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 112
+	},
+	{
+		"css": "center center 5px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 124
+	},
+	{
+		"css": "50% 50% 0px",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 136
+	},
+	{
+		"css": "left",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 150
+	},
+	{
+		"css": "25%",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 161
+	},
+	{
+		"css": "top",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 172
+	},
+	{
+		"css": "invalid",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 190
+	},
+	{
+		"css": "abc def",
+		"category": "origin",
+		"file": "src/parse/transform/origin.test.ts",
+		"line": 195
+	},
+	{
+		"css": "1s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 7
+	},
+	{
+		"css": "500ms",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 18
+	},
+	{
+		"css": "-2s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 28
+	},
+	{
+		"css": "0s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 37
+	},
+	{
+		"css": "0.5s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 46
+	},
+	{
+		"css": "1s, 500ms, 2s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 55
+	},
+	{
+		"css": "1s , 500ms , 2s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 67
+	},
+	{
+		"css": "1s, -500ms, 2s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 76
+	},
+	{
+		"css": "1px",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 86
+	},
+	{
+		"css": "1",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 98
+	},
+	{
+		"css": "1s,",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 104
+	},
+	{
+		"css": ",1s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 110
+	},
+	{
+		"css": "1s,,2s",
+		"category": "delay",
+		"file": "src/parse/transition/delay.test.ts",
+		"line": 116
+	},
+	{
+		"css": "1s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 7
+	},
+	{
+		"css": "500ms",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 18
+	},
+	{
+		"css": "0s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 28
+	},
+	{
+		"css": "0.5s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 37
+	},
+	{
+		"css": "1s, 500ms, 2s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 46
+	},
+	{
+		"css": "1s , 500ms , 2s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 58
+	},
+	{
+		"css": "-1s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 67
+	},
+	{
+		"css": "auto",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 76
+	},
+	{
+		"css": "1px",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 82
+	},
+	{
+		"css": "1",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 94
+	},
+	{
+		"css": "1s,",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 100
+	},
+	{
+		"css": ",1s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 106
+	},
+	{
+		"css": "1s,,2s",
+		"category": "duration",
+		"file": "src/parse/transition/duration.test.ts",
+		"line": 112
+	},
+	{
+		"css": "none",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 8
+	},
+	{
+		"css": "all",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 17
+	},
+	{
+		"css": "NONE",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 25
+	},
+	{
+		"css": "ALL",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 33
+	},
+	{
+		"css": "opacity",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 42
+	},
+	{
+		"css": "background-color",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 50
+	},
+	{
+		"css": "transform",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 58
+	},
+	{
+		"css": "WebkitTransform",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 66
+	},
+	{
+		"css": "--custom-prop",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 75
+	},
+	{
+		"css": "--color-1",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 83
+	},
+	{
+		"css": "opacity, transform",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 92
+	},
+	{
+		"css": "opacity, transform, background-color",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 102
+	},
+	{
+		"css": "opacity , transform , background-color",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 113
+	},
+	{
+		"css": "opacity, --custom-color, transform",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 121
+	},
+	{
+		"css": "opacity,",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 136
+	},
+	{
+		"css": ",opacity",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 141
+	},
+	{
+		"css": "opacity,,transform",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 146
+	},
+	{
+		"css": "123",
+		"category": "property",
+		"file": "src/parse/transition/property.test.ts",
+		"line": 151
+	},
+	{
+		"css": "ease",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 8
+	},
+	{
+		"css": "ease-in",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 17
+	},
+	{
+		"css": "ease-out",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 25
+	},
+	{
+		"css": "ease-in-out",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 33
+	},
+	{
+		"css": "linear",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 41
+	},
+	{
+		"css": "step-start",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 49
+	},
+	{
+		"css": "step-end",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 57
+	},
+	{
+		"css": "cubic-bezier(0.1, 0.7, 1.0, 0.1)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 66
+	},
+	{
+		"css": "cubic-bezier(0,0,1,1)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 80
+	},
+	{
+		"css": "cubic-bezier(0.5, -0.5, 0.5, 1.5)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 94
+	},
+	{
+		"css": "cubic-bezier(0.1, 0.7)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 108
+	},
+	{
+		"css": "steps(4)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 114
+	},
+	{
+		"css": "steps(4, start)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 126
+	},
+	{
+		"css": "steps(4, end)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 138
+	},
+	{
+		"css": "steps(0)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 150
+	},
+	{
+		"css": "steps(4.5)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 155
+	},
+	{
+		"css": "linear(0)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 161
+	},
+	{
+		"css": "linear(0, 0.5, 1)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 172
+	},
+	{
+		"css": "linear(0 0%, 0.5 50%, 1 100%)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 183
+	},
+	{
+		"css": "ease, ease-in, linear",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 199
+	},
+	{
+		"css": "ease-in, cubic-bezier(0.1, 0.7, 1.0, 0.1), steps(4)",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 207
+	},
+	{
+		"css": "invalid",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 229
+	},
+	{
+		"css": "ease,",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 239
+	},
+	{
+		"css": ",ease",
+		"category": "timing-function",
+		"file": "src/parse/transition/timing-function.test.ts",
+		"line": 244
+	}
+]
