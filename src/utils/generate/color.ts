@@ -37,5 +37,7 @@ export function generateColor(color: Color): string {
 			return ColorGenerate.System.toCss(color);
 		case "special":
 			return ColorGenerate.Special.toCss(color);
+		case "color":
+			return ColorGenerate.ColorFunction.toCss(color);
 	}
 }
