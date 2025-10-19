@@ -47,4 +47,5 @@ export * from "./transform-keywords";
 export * from "./vertical-align-keywords";
 export * from "./visibility-keywords";
 export * from "./white-space-keywords";
+export * from "./width-height-keywords";
 export * from "./word-break-keywords";
