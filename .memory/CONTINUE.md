@@ -1,4 +1,4 @@
-<!-- LAST UPDATED: 2025-10-19T22:53 -->
+<!-- LAST UPDATED: 2025-10-19T23:04 -->
 
 # Continue From Here
 
@@ -6,9 +6,13 @@
 **Status**: ✅ Session 4 complete - circle() with radius + position implemented  
 **Tests**: 2029 passing (+42 tests from session 3: 1987)  
 **Coverage**: Not yet measured (new feature branch)  
-**Next**: ⭐ Session 5 - **ellipse() shape function** (two radii + position, ~20-25 min)
+**Next**: 🔄 **DEVIATION** - Complete color module (color() function), then return to clip-path
 
 ---
+
+## ⚠️ PRIORITY DEVIATION: Complete Color Module
+
+**IMPORTANT**: The next agent should **DEVIATE** from the clip-path master plan to complete unfinished color work, then immediately return to clip-path.
 
 ## Immediate Actions
 
@@ -16,41 +20,61 @@
 # 1. Verify baseline (MUST PASS before any work)
 just check && just test  # Should show 2029 tests passing
 
-# 2. Read session context
-cat .memory/archive/2025-10-19-clip-path-shapes/session-4/HANDOVER.md
+# 2. Read color completion context
+cat .memory/archive/2025-10-19-color-completion/PLAN.md
 
-# 3. Start Session 5: ellipse() shape function
-# - Two radii (horizontal, vertical) as length-percentage
-# - Optional position (x, y) with position values
-# - Very similar to circle(), just two radii instead of one
-# - ~20-25 minutes
+# 3. Implement color() function (SIDE QUEST)
+# - Time: 2-3 hours
+# - Tests: +30-40 tests
+# - Implement color(display-p3 r g b / alpha) syntax
+# - Support 9+ color spaces (srgb, display-p3, etc.)
+# - After completion: RETURN TO CLIP-PATH SESSION 5
+
+# 4. After color() complete: Resume clip-path
+cat .memory/archive/2025-10-19-clip-path-shapes/session-4/HANDOVER.md
+# Then implement ellipse() as originally planned
 ```
 
 ---
 
 ## Quick Status
 
-**Working on**: 🎯 Clip-Path Implementation (Session 4/9 complete)  
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + ClipPath (4/9 sessions)  
+**Working on**: 🔄 **PRIORITY DEVIATION** - Color Module Completion (then back to Clip-Path)  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + ClipPath (4/9 sessions) + **Colors (missing color() function)**  
 **Recent work**: Session 4 - circle() shape function (radius + position in ~25 min, +42 tests)  
-**Master Plan**: `.memory/archive/2025-10-19-clip-path-shapes/MASTER_PLAN.md`  
+**Side Quest**: Complete color() function implementation (~2-3 hours)  
+**Then Resume**: Clip-Path Session 5 - ellipse() shape function  
 **Coverage**: Not yet measured (new feature in progress)  
-**Next steps**: Implement **ellipse() shape function** with two radii + position
-  - Reuse existing position parsing utilities
-**Pattern**: Similar to inset() but simpler
+**Next steps**: 
+  1. **FIRST**: Implement color() function to complete color module (~2-3 hours)
+  2. **THEN**: Return to ellipse() shape function for clip-path (~20-25 min)
 
-### Alternative: Min/Max Width/Height Properties (If pausing clip-path)
-**Why**: Sizing constraints, natural extension of width/height  
-**Time**: 20-30 minutes (4 properties)  
-**Type**: Length-percentage | none | min-content | max-content | fit-content  
-**Pattern**: Nearly identical to width/height, 'none' instead of 'auto'  
-**Note**: Can reuse width-height-keywords.ts intrinsic sizing keywords
+---
 
-### Alternative: Margin Properties (Box Model Spacing)
-**Why**: External spacing, completes box model with padding  
-**Time**: 20-25 minutes (4 properties: margin-top/right/bottom/left)  
-**Type**: Length-percentage | auto  
-**Pattern**: Can now use the new parseTRBLLengthPercentage utility from session 3!
+## Next Agent Recommendations
+
+### ⭐ PRIORITY: Complete Color Module (MUST DO FIRST)
+**Why**: Finish incomplete color work before continuing clip-path  
+**Time**: 2-3 hours  
+**Task**: Implement color() function with explicit color space support  
+**Syntax**: `color(display-p3 0.928 0.322 0.203 / 0.8)`  
+**Plan**: `.memory/archive/2025-10-19-color-completion/PLAN.md`  
+**Details**:
+  - 9 color spaces: srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65
+  - Parser + generator + ~35 tests
+  - Complete color module (currently 11/12 formats done)
+  - After completion: **IMMEDIATELY** return to clip-path
+
+### 🔄 THEN: Resume Clip-Path Session 5 - ellipse() Shape Function
+**Why**: Continue main quest after color side quest complete  
+**Time**: 20-25 minutes  
+**Phase**: Basic shape implementation (two radii + position)  
+**Syntax**: `ellipse( <radial-size>{2}? [ at <position> ]? )`  
+**Details**:
+  - Two radii (horizontal and vertical) instead of one
+  - Reuse existing parsePosition2D utility
+  - Very similar structure to circle()
+**Pattern**: Almost identical to circle(), just handle two radii
 
 ---
 
