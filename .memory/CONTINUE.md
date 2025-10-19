@@ -1,11 +1,11 @@
-<!-- LAST UPDATED: 2025-10-19T18:45 -->
+<!-- LAST UPDATED: 2025-10-19T19:07 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-19-shadow-generators  
-**Status**: ✅ Shadow feature complete (parsers + generators)  
-**Tests**: 1297 passing (+28 shadow generator tests)  
-**Next**: ⭐ Border properties OR Background properties
+**Last Session**: 2025-10-19-border-properties  
+**Status**: ✅ Border properties complete (parsers + generators)  
+**Tests**: 1375 passing (+78 border tests)  
+**Next**: ⭐ Background properties OR Outline properties OR Transform-origin
 
 ---
 
@@ -25,26 +25,26 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 
 ## Quick Status
 
-**Working on**: Open → Border properties OR Background properties recommended  
-**Project state**: Animation (8) + Transition (4) + Shadow (2 complete: parsers + generators)  
-**Recent work**: Implemented shadow generators (+28 tests), shadow feature fully complete  
+**Working on**: Open → Background properties OR Outline properties OR Transform-origin recommended  
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4 complete: parsers + generators)  
+**Recent work**: Implemented border properties (width, style, color, radius) with +78 tests  
 **Next steps**: See "Next Agent Recommendations" below  
 
 ---
 
 ## Next Agent Recommendations
 
-### Option 1: Border Properties ⭐ RECOMMENDED
-**Why**: Common CSS properties, moderate complexity  
-**Time**: 2-3 hours  
-**Properties**: border-width, border-style, border-color, border-radius  
-**Pattern**: Similar to existing parsers, mostly keywords and lengths
-
-### Option 2: Background Properties
+### Option 1: Background Properties
 **Why**: Build on gradient work already done  
 **Time**: 3-4 hours  
 **Properties**: background-size, background-repeat, background-attachment, background-clip  
 **Pattern**: Comma-separated lists, keywords, some position handling
+
+### Option 2: Outline Properties ⭐ QUICK WIN
+**Why**: Very similar to border properties just completed  
+**Time**: 1-2 hours  
+**Properties**: outline-width, outline-style, outline-color, outline-offset  
+**Pattern**: Almost identical to border (reuse patterns)
 
 ### Option 3: Transform-Origin or Perspective-Origin
 **Why**: Extends transform support  
@@ -60,7 +60,7 @@ cat .memory/archive/2025-10-19-shadow-generators/HANDOVER.md
 ```bash
 # Quality gates (run after changes)
 just check                 # Format + typecheck + lint
-just test                  # All tests (1202 tests)
+just test                  # All tests (1375 tests)
 pnpm test -- [pattern]     # Filter tests by name/file
 
 # Context discovery
@@ -121,6 +121,13 @@ grep -r "keyword" src/
 ---
 
 ## Recent Sessions (Archive Trail)
+
+### 2025-10-19 border-properties: Border Properties ✅ COMPLETE
+- **Outcome**: border-width, border-style, border-color, border-radius fully implemented
+- **Tests**: 1297 → 1375 (+78 border tests - parsers + generators)
+- **Features**: All 4 border properties with keyword and value support
+- **Highlight**: Round-trip validation confirms bidirectional conversion
+- **Details**: `.memory/archive/2025-10-19-border-properties/HANDOVER.md`
 
 ### 2025-10-19 shadow-generators: Shadow Generators ✅ COMPLETE
 - **Outcome**: box-shadow and text-shadow generators fully implemented
