@@ -46,6 +46,24 @@ bench_generate:
 bench_roundtrip:
     pnpm run bench:roundtrip
 
+# ------------- Validation -------------
+
+# Extract all CSS fixtures from test files
+validate_extract:
+    pnpm tsx scripts/extract-fixtures.ts
+
+# Validate round-trip integrity on all fixtures
+validate_fixtures:
+    pnpm tsx scripts/validate-fixtures.ts
+
+# Run full validation suite (extract + validate)
+validate: validate_extract validate_fixtures
+    @echo "✅ All fixtures validated successfully!"
+
+# Complete quality gate with validation
+validate_all: check test validate
+    @echo "✅ All quality checks and validation passed!"
+
 # ------------- Development -------------
 dev: build test
 
