@@ -42,5 +42,7 @@ export function toCss(color: Color): string {
 			return ColorGenerators.System.toCss(color);
 		case "special":
 			return ColorGenerators.Special.toCss(color);
+		case "color":
+			return ColorGenerators.ColorFunction.toCss(color);
 	}
 }

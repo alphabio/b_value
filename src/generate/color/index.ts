@@ -10,6 +10,12 @@
  */
 
 /**
+ * Generate color() function CSS strings.
+ *
+ * @see {@link ColorFunction.toCss}
+ */
+export * as ColorFunction from "./color-function";
+/**
  * Generate hex color CSS strings.
  *
  * @see {@link Hex.toCss}

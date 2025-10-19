@@ -10,6 +10,12 @@
  */
 
 /**
+ * Parse color() function values.
+ *
+ * @see {@link ColorFunction.parse}
+ */
+export * as ColorFunction from "./color-function";
+/**
  * Parse hex color values.
  *
  * @see {@link Hex.parse}
