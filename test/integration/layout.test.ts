@@ -3,6 +3,44 @@ import { describe, expect, it } from "vitest";
 import { Generate, Parse } from "@/index";
 
 describe("Integration: Layout Properties Round-Trip", () => {
+	describe("Cursor", () => {
+		const testCases = [
+			"pointer",
+			"default",
+			"text",
+			"move",
+			"grab",
+			"grabbing",
+			"not-allowed",
+			"help",
+			"wait",
+			"crosshair",
+			"zoom-in",
+			"zoom-out",
+			"n-resize",
+			"e-resize",
+			"s-resize",
+			"w-resize",
+		];
+
+		for (const css of testCases) {
+			it(`should round-trip cursor: ${css}`, () => {
+				const parsed = Parse.Layout.Cursor.parse(css);
+				expect(parsed.ok).toBe(true);
+				if (!parsed.ok) return;
+
+				const generated = Generate.Layout.Cursor.toCss(parsed.value);
+				expect(generated).toBe(css);
+
+				const reparsed = Parse.Layout.Cursor.parse(generated);
+				expect(reparsed.ok).toBe(true);
+				if (!reparsed.ok) return;
+
+				expect(reparsed.value).toEqual(parsed.value);
+			});
+		}
+	});
+
 	describe("Display", () => {
 		const testCases = [
 			"flex",

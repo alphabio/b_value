@@ -1,9 +1,47 @@
 // b_path:: src/generate/layout/layout.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
+import * as Cursor from "./cursor";
 import * as Display from "./display";
 import * as Opacity from "./opacity";
 import * as Visibility from "./visibility";
+
+describe("Generate Layout - Cursor", () => {
+	it("should generate pointer cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "pointer" };
+		expect(Cursor.toCss(ir)).toBe("pointer");
+	});
+
+	it("should generate default cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "default" };
+		expect(Cursor.toCss(ir)).toBe("default");
+	});
+
+	it("should generate text cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "text" };
+		expect(Cursor.toCss(ir)).toBe("text");
+	});
+
+	it("should generate move cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "move" };
+		expect(Cursor.toCss(ir)).toBe("move");
+	});
+
+	it("should generate grab cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "grab" };
+		expect(Cursor.toCss(ir)).toBe("grab");
+	});
+
+	it("should generate not-allowed cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "not-allowed" };
+		expect(Cursor.toCss(ir)).toBe("not-allowed");
+	});
+
+	it("should generate zoom-in cursor", () => {
+		const ir: Type.Cursor = { kind: "cursor", value: "zoom-in" };
+		expect(Cursor.toCss(ir)).toBe("zoom-in");
+	});
+});
 
 describe("Generate Layout - Display", () => {
 	it("should generate flex display", () => {
