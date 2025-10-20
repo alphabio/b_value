@@ -5,7 +5,7 @@
 **Last Session**: 2025-10-20-comma-utilities-implementation (✅ COMPLETE)
 **Status**: ✅ Comma infrastructure complete - utilities implemented & tested
 **Tests**: 2234 passing (+18 new)
-**Next**: Choose next feature domain OR clip-path Level 2
+**Next**: 🎯 **PRIORITY: Clip-Path Level 2** - Complete advanced shapes!
 
 ---
 
@@ -46,16 +46,151 @@
 - ✅ Session 3: inset() - rectangles with rounded corners (~45 min, +55 tests)
 - ✅ Session 4: circle() - circular shapes (~25 min, +42 tests)
 - ✅ Session 5: ellipse() - elliptical shapes (~23 min, +48 tests)
-- ✅ Session 6: polygon() - arbitrary polygons (✨ refined via comma utility)
+- ✅ Session 6: polygon() - arbitrary polygons (~30 min, +37 tests)
 
-**Total**: 186+ tests, all core clip-path features working!
+**Total**: 223 tests, all core clip-path features working!
 
-**Remaining** (Level 2 - optional):
-- ⏳ path() - SVG path data (complex, ~45-60 min)
-- ⏳ rect() - newer rect syntax (~25-30 min)
-- ⏳ xywh() - position-based rect (~25-30 min)
+---
 
-See: `.memory/archive/2025-10-19-clip-path-shapes/` for full history
+## 🎯 NEXT PRIORITY: Clip-Path Level 2 (Advanced Shapes)
+
+**Goal**: Complete the clip-path implementation with Level 2 shapes  
+**Impact**: Production-ready clip-path with all modern CSS shapes  
+**Estimated Time**: 1.5-2.5 hours total
+
+### Three Remaining Shapes
+
+#### 1. path() - SVG Path Data 🔥 MOST COMPLEX
+**Syntax**: `path( <fill-rule>? <string> )`  
+**Time**: 45-60 minutes  
+**Complexity**: HIGH - Full SVG path data string  
+**Tests**: ~30-40 expected
+
+**What to implement**:
+- Optional fill-rule (nonzero | evenodd)
+- SVG path data string validation
+- String parsing and IR storage
+- Path commands: M, L, H, V, C, S, Q, T, A, Z (uppercase + lowercase)
+
+**Example values**:
+```css
+path("M 10,10 L 90,10 L 50,90 Z")
+path(evenodd, "M 10,10 L 90,10 L 50,90 Z")
+path("M10 10 L90 10 L50 90z")  /* compact syntax */
+```
+
+**Key challenges**:
+- SVG path syntax validation (complex regex or parser)
+- Multiple command types with different argument counts
+- Relative vs absolute commands (lowercase vs uppercase)
+- Coordinate pair parsing within the string
+- Error messages for invalid path data
+
+**Resources**:
+- MDN: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+- W3C SVG Path Spec: https://www.w3.org/TR/SVG/paths.html
+- Simple approach: Store as validated string, don't parse internals deeply
+
+#### 2. rect() - Rectangle Syntax
+**Syntax**: `rect( [<length-percentage> | auto]{2,4} [round <border-radius>]? )`  
+**Time**: 25-30 minutes  
+**Complexity**: MEDIUM - Similar to inset() but different syntax  
+**Tests**: ~25-30 expected
+
+**What to implement**:
+- Top, right, bottom, left (TRBL) values
+- Each can be length-percentage or `auto`
+- 2-4 value syntax (like margin)
+- Optional border-radius (reuse from inset)
+
+**Example values**:
+```css
+rect(10px auto 20px auto)           /* top right bottom left */
+rect(10px 20px)                      /* vertical horizontal */
+rect(0 0 100% 100% round 10px)      /* with border-radius */
+```
+
+**Key challenges**:
+- TRBL expansion logic (2, 3, or 4 values)
+- Auto keyword handling
+- Reuse border-radius parsing from inset()
+
+#### 3. xywh() - Position-Based Rectangle
+**Syntax**: `xywh( <length-percentage>{2} <length-percentage [0,∞]>{2} [round <border-radius>]? )`  
+**Time**: 25-30 minutes  
+**Complexity**: MEDIUM - Position + size, similar to rect()  
+**Tests**: ~25-30 expected
+
+**What to implement**:
+- X position (horizontal offset)
+- Y position (vertical offset)
+- Width (non-negative)
+- Height (non-negative)
+- Optional border-radius
+
+**Example values**:
+```css
+xywh(10px 20px 100px 50px)              /* x y width height */
+xywh(0 0 100% 100%)                      /* full element */
+xywh(10% 20% 50px 80px round 5px)       /* with border-radius */
+```
+
+**Key challenges**:
+- Position vs size distinction
+- Non-negative width/height validation
+- Reuse border-radius parsing
+
+---
+
+## 📋 Implementation Strategy
+
+### Recommended Order
+1. **Start with rect()** or **xywh()** (easier, builds confidence)
+2. **Then do the other one** (similar patterns)
+3. **Finish with path()** (most complex, save for last)
+
+### Each Shape Session (~30-60 min)
+```bash
+# 1. Create session directory
+mkdir -p .memory/archive/$(date +%Y-%m-%d)-clip-path-[shape]/
+
+# 2. Phase 1: IR Types (5-10 min)
+# - Add type to src/core/types/clip-path.ts
+# - Update ClipPathValue union
+
+# 3. Phase 2: Parser (15-25 min)
+# - Create src/parse/clip-path/[shape].ts
+# - Create src/parse/clip-path/[shape].test.ts
+# - Export from src/parse/clip-path/index.ts
+# - Test: parse valid syntax, edge cases, errors
+
+# 4. Phase 3: Generator (10-15 min)
+# - Create src/generate/clip-path/[shape].ts
+# - Create src/generate/clip-path/[shape].test.ts
+# - Export from src/generate/clip-path/index.ts
+# - Test: generate CSS, round-trip validation
+
+# 5. Quality gates
+just check && just test
+
+# 6. Create HANDOVER.md in session directory
+```
+
+### Utilities You Can Reuse
+
+✅ **Already available**:
+- `parseLengthPercentageNode()` - Parse length/percentage values
+- `parseBorderRadiusShorthand()` - Parse border-radius (from inset)
+- `parsePosition2D()` - Parse position values
+- `lengthPercentageToCss()` - Generate length/percentage CSS
+- `splitNodesByComma()` - Split function arguments
+
+✅ **Patterns to follow**:
+- Look at `inset.ts` for TRBL + border-radius pattern
+- Look at `circle.ts` and `ellipse.ts` for simple function parsing
+- Look at `polygon.ts` for fill-rule + list parsing
+
+See: `.memory/archive/2025-10-19-clip-path-shapes/` for all examples
 
 ---
 
@@ -65,25 +200,36 @@ See: `.memory/archive/2025-10-19-clip-path-shapes/` for full history
 # 1. Verify baseline
 just check && just test  # Should show 2234 tests passing
 
-# 2. Choose next work:
+# 2. Choose your shape (RECOMMENDED: Start with rect or xywh)
 
-# Option A: New feature domain
-# - Pick any CSS property to implement
-# - Use new comma utilities as needed
+# Option A: rect() - Rectangle with TRBL values (~25-30 min)
+# - Similar to inset() but different syntax
+# - Can reuse border-radius utilities
+# - Good confidence builder
 
-# Option B: Clip-path Level 2 (advanced shapes)
-cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
+# Option B: xywh() - Position-based rectangle (~25-30 min)
+# - X/Y position + width/height
+# - Can reuse border-radius utilities
+# - Clean API design
 
-# Option C: Migrate existing code to new utilities
-# - Update animation/transition parsers to use splitValue()
-# - ~12 properties affected
+# Option C: path() - SVG path data (~45-60 min)
+# - Most complex shape
+# - Save for last after easier ones
+# - Highest impact when done
+
+# 3. Create session directory
+mkdir -p .memory/archive/$(date +%Y-%m-%d)-clip-path-[shape-name]/
+
+# 4. Follow 5-phase implementation (see strategy above)
+
+# 5. When all 3 done: Update CONTINUE.md to mark clip-path 100% COMPLETE! 🎉
 ```
 
 ---
 
 ## Quick Status
 
-**Working on**: 🎯 **READY FOR NEXT FEATURE**
+**Working on**: 🎯 **CLIP-PATH LEVEL 2** - 3 shapes remaining!
 **Recent**: ✅ Comma utilities complete (splitValue + splitLayer)
 **Project state**: 
   - Animation (8✅) + Transition (4✅) 
@@ -91,13 +237,16 @@ cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
   - Border (4✅) + Outline (4✅) 
   - Layout (14✅) 
   - **Color (12✅)** 
-  - **ClipPath Level 1 (6 shapes✅)**
+  - **ClipPath Level 1 (6 shapes✅, 223 tests)**
   - **Comma Utils (3✅)**
+**Clip-Path Progress**: 
+  - Level 1: ✅ 100% (6/6 shapes)
+  - Level 2: ⏳ 0% (0/3 shapes) - rect(), xywh(), path()
 **Coverage**: ~85%
 **Next steps**:
-  1. ⭐ New feature domain
-  2. 🔧 Clip-path Level 2 (optional advanced shapes)
-  3. 🔄 Migrate existing to new utilities (optional cleanup)
+  1. 🔥 **rect()** or **xywh()** (~25-30 min each)
+  2. 🔥 **path()** (~45-60 min, most complex)
+  3. 🎉 **Celebrate complete clip-path!**
 
 ---
 
@@ -150,32 +299,59 @@ All return arrays - always predictable!
 
 ## Next Agent Recommendations
 
-### 🎯 OPTION 1: New Feature Domain (~1-3 hours)
+### 🔥 PRIORITY: Complete Clip-Path Level 2 (~1.5-2.5 hours)
 
-Pick a CSS property domain and implement parse + generate + tests.
+**Why this matters**:
+- Finishes a major feature domain (clip-path)
+- Production-ready implementation
+- All modern CSS clipping shapes supported
+- Clean milestone achievement
 
-**Good candidates**:
-- Grid properties (grid-template-rows, grid-template-columns)
-- Flex properties (flex-grow, flex-shrink, flex-basis)
-- Font properties (font-size, font-weight, line-height)
-- More transform functions
-- More filter functions
+**The 3 remaining shapes**:
 
-### 🔧 OPTION 2: Clip-Path Level 2 (~1.5-2.5 hours)
+#### Shape 1: rect() (~25-30 min) - EASIEST
+**Start here!** Similar to inset(), good confidence builder.
+- TRBL values with 2-4 value syntax
+- Auto keyword support
+- Border-radius reuse
 
-Complete advanced clip-path shapes:
-- path() - SVG path data
-- rect() - Rectangle syntax
-- xywh() - Position-based rect
+#### Shape 2: xywh() (~25-30 min) - EASY
+**Second!** Clean position + size syntax.
+- X, Y position values
+- Width, height values (non-negative)
+- Border-radius reuse
 
-**Handover**: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
+#### Shape 3: path() (~45-60 min) - COMPLEX
+**Final boss!** Save for last after building confidence.
+- SVG path data string
+- Path command validation
+- Fill-rule support
 
-### 🔄 OPTION 3: Migration & Cleanup (Optional, ~30 min)
+**Session structure** (each shape):
+1. Phase 1: IR types (5-10 min)
+2. Phase 2: Parser (15-25 min)
+3. Phase 3: Generator (10-15 min)
+4. Quality gates + handover (5 min)
 
-Migrate animation/transition properties to use new `splitValue()`:
+**Total after completion**: ~300+ tests, fully spec-compliant clip-path! 🎉
+
+---
+
+### 🔄 Alternative: Migration & Cleanup (Optional, ~30 min)
+
+If you want a break from clip-path, migrate animation/transition to use `splitValue()`:
 - Simple 1:1 replacement
 - ~12 properties affected
 - Removes dependency on old `parseCommaSeparatedSingle`
+
+---
+
+### ⭐ Alternative: New Feature Domain (~1-3 hours)
+
+If you prefer fresh features:
+- Grid properties (grid-template-rows, grid-template-columns)
+- Flex properties (flex-grow, flex-shrink, flex-basis)
+- Font properties (font-size, font-weight, line-height)
 
 ---
 
