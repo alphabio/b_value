@@ -11,6 +11,9 @@ importers:
       '@types/css-tree':
         specifier: ^2.3.11
         version: 2.3.11
+      b_short:
+        specifier: ^2.2.0
+        version: 2.2.0
       css-tree:
         specifier: ^3.1.0
         version: 3.1.0
@@ -568,6 +571,10 @@ packages:
 
   ast-v8-to-istanbul@0.3.7:
     resolution: {integrity: sha512-kr1Hy6YRZBkGQSb6puP+D6FQ59Cx4m0siYhAxygMCAgadiWQ6oxAxQXHOMvJx67SJ63jRoVIIg5eXzUbbct1ww==}
+
+  b_short@2.2.0:
+    resolution: {integrity: sha512-/RtReHA8TaM8A2hTRMu5ubHVdq1rxsSr57pn43K1r+Z9DGqoxROGJymv4cYZ/X/zo+mnKBYBoC2guGSsi9UBXw==}
+    engines: {node: '>=16.0.0'}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -1691,6 +1698,11 @@ snapshots:
       '@jridgewell/trace-mapping': 0.3.31
       estree-walker: 3.0.3
       js-tokens: 9.0.1
+
+  b_short@2.2.0:
+    dependencies:
+      css-tree: 3.1.0
+      zod: 4.1.12
 
   balanced-match@1.0.2: {}
 
