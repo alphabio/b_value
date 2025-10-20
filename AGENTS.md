@@ -6,17 +6,35 @@
 # 1. Verify baseline (MUST PASS before any work)
 just check && just test
 
-# 2. Read continuation context
-cat .memory/CONTINUE.md
-cat .memory/archive/2025-10-19-intro-session/HANDOVER.md
+# 2. Check recent git activity (staleness detection)
+echo "=== Recent commits (last 24h) ==="
+git log --oneline --since="24 hours ago"
+echo ""
+echo "=== Uncommitted changes ==="
+git status --short
 
-# 3. Report status to user
-# - Baseline status (pass/fail)
-# - Current project state from CONTINUE.md
-# - Ready to proceed
+# 3. Find recent session work (if any)
+echo ""
+echo "=== Recent session archives (<24h) ==="
+find .memory/archive -type f \( -name "HANDOVER.md" -o -name "START_HERE.md" -o -name "MASTER_PLAN.md" \) -mtime -1 2>/dev/null | head -5
+
+# 4. Read continuation context
+cat .memory/CONTINUE.md
+
+# 5. Cross-check staleness
+# Compare CONTINUE.md "LAST UPDATED" timestamp with git log
+# If git shows recent commits NOT in CONTINUE.md → Read recent archives FIRST
+
+# 6. Report status to user:
+# ✅ Baseline: [pass/fail - test count]
+# ⚠️ Staleness: [CONTINUE.md timestamp vs latest commit]
+# 📁 Recent work: [list archives found in step 3]
+# 🎯 Next task: [from CONTINUE.md OR from recent archive if stale]
 ```
 
 **Only AFTER completing these steps** should you greet the user or respond to their request.
+
+**If staleness detected**: Read recent archive documents (MASTER_PLAN, HANDOVER, START_HERE) before trusting CONTINUE.md.
 
 ---
 

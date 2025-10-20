@@ -1,9 +1,9 @@
 # Clip-Path DRY Refactoring - Master Plan
 
-**Goal**: Gold Standard - Eliminate duplication, achieve elegant DRY code  
-**Status**: Planning Phase  
-**Current**: 33% duplication (200 lines) → Target: <10% duplication  
-**Tests**: 307 passing (must remain 307 passing)  
+**Goal**: Gold Standard - Eliminate duplication, achieve elegant DRY code
+**Status**: Planning Phase
+**Current**: 33% duplication (200 lines) → Target: <10% duplication
+**Tests**: 307 passing (must remain 307 passing)
 **Timeline**: 3-4 hours total (3 sessions)
 
 ---
@@ -108,6 +108,7 @@ TOTAL: ~280-330 lines of 965 = 33% duplication
 - [ ] Code reads cleaner and more focused
 
 **Deliverables**:
+
 ```typescript
 // src/parse/clip-path/utils.ts
 export function parseShapeFunction<T>(...)
@@ -151,6 +152,7 @@ export function parse(css: string) {
 - [ ] Position 'at' code DRY in 2 files
 
 **Deliverables**:
+
 ```typescript
 // src/utils/parse/nodes.ts
 export function parseRoundBorderRadius(args): Result<...>
@@ -195,6 +197,7 @@ const { position, nextIdx } = parseAtPosition(children, idx);
 - [ ] Documentation updated with examples
 
 **Deliverables**:
+
 ```typescript
 // src/utils/parse/nodes.ts
 export function parseRadialSize(node, name): Result<...>
@@ -411,28 +414,28 @@ EOF
 ## 🚨 Common Pitfalls & Solutions
 
 ### Pitfall 1: Breaking Tests
-**Problem**: Refactoring changes behavior  
-**Solution**: Run tests after EVERY file change  
+**Problem**: Refactoring changes behavior
+**Solution**: Run tests after EVERY file change
 **Prevention**: Keep refactorings small and focused
 
 ### Pitfall 2: Over-Abstraction
-**Problem**: Helper too complex or generic  
-**Solution**: Only extract patterns used 2+ times  
+**Problem**: Helper too complex or generic
+**Solution**: Only extract patterns used 2+ times
 **Prevention**: Start simple, enhance if needed
 
 ### Pitfall 3: Error Message Changes
-**Problem**: Tests fail due to different error text  
-**Solution**: Preserve exact error messages  
+**Problem**: Tests fail due to different error text
+**Solution**: Preserve exact error messages
 **Prevention**: Copy error strings, don't rewrite
 
 ### Pitfall 4: Lost Context
-**Problem**: Don't understand why code is structured a way  
-**Solution**: Read original implementation first  
+**Problem**: Don't understand why code is structured a way
+**Solution**: Read original implementation first
 **Prevention**: Add comments explaining "why"
 
 ### Pitfall 5: Scope Creep
-**Problem**: Want to fix unrelated issues  
-**Solution**: Stay focused on DRY refactoring only  
+**Problem**: Want to fix unrelated issues
+**Solution**: Stay focused on DRY refactoring only
 **Prevention**: Note improvements for later
 
 ---
@@ -444,8 +447,8 @@ After each session, create `HANDOVER.md` in your session archive:
 ```markdown
 # Session N Handover - Clip-Path DRY Refactoring
 
-**Date**: YYYY-MM-DD  
-**Duration**: X minutes  
+**Date**: YYYY-MM-DD
+**Duration**: X minutes
 **Status**: ✅ DONE / 🔵 IN PROGRESS / ⚠️ PARTIAL / ❌ BLOCKED
 
 ---
@@ -511,6 +514,7 @@ After each session, create `HANDOVER.md` in your session archive:
 **What does "Gold Standard" look like?**
 
 ### Beautiful Parser Example (After Refactoring)
+
 ```typescript
 // src/parse/clip-path/rect.ts (AFTER)
 import { parseShapeFunction } from "./utils";
@@ -551,7 +555,7 @@ function parseRectArgs(args: CssNode[]): Result<ClipPathRect, string> {
 
 ---
 
-## 🚀 Let's Ship Gold Standard Code!
+## 🚀 Let's Ship Gold Standard Code
 
 **Ready?** Start with → [SESSION_1.md](./SESSION_1.md)
 
@@ -561,7 +565,7 @@ function parseRectArgs(args: CssNode[]): Result<ClipPathRect, string> {
 
 ---
 
-**Remember**: 
+**Remember**:
 - 🎯 One session at a time
 - ✅ Tests must always pass
 - 🧹 Leave code cleaner than you found it

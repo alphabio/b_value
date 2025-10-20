@@ -1,7 +1,7 @@
 # B_Value Verification Plan - "Eating Our Own Dog Food"
 
-**Created**: 2025-10-19  
-**Purpose**: Comprehensive validation of b_value library by using it in real-world scenarios  
+**Created**: 2025-10-19
+**Purpose**: Comprehensive validation of b_value library by using it in real-world scenarios
 **Status**: 🚧 Draft - Ready for review and execution
 
 ---
@@ -44,6 +44,7 @@ Validate that all test fixtures can be parsed and regenerated correctly.
 ### Tasks
 
 #### 1.1 Extract All CSS Test Fixtures
+
 ```bash
 # Find all CSS strings in test files
 grep -r "parse\(.*['\"]" test/ src/ --include="*.test.ts" > fixtures.txt
@@ -54,6 +55,7 @@ node scripts/extract-fixtures.js
 
 #### 1.2 Build Fixture Validator
 Create `scripts/validate-fixtures.ts`:
+
 ```typescript
 import { Parse, Generate } from "../src";
 
@@ -66,6 +68,7 @@ import { Parse, Generate } from "../src";
 ```
 
 #### 1.3 Run Validation
+
 ```bash
 pnpm tsx scripts/validate-fixtures.ts
 # Expected: 100% round-trip success on all known-good fixtures
@@ -86,6 +89,7 @@ Validate against CSS from production websites.
 ### Tasks
 
 #### 2.1 Collect CSS Samples
+
 ```bash
 # Popular sites to test
 sites=(
@@ -102,6 +106,7 @@ node scripts/mine-css.js
 
 #### 2.2 Build CSS Miner
 Create `scripts/mine-css.ts`:
+
 ```typescript
 // Use Puppeteer/Playwright to:
 // 1. Visit each site
@@ -112,6 +117,7 @@ Create `scripts/mine-css.ts`:
 
 #### 2.3 Build Real-World Validator
 Create `scripts/validate-real-world.ts`:
+
 ```typescript
 import { Parse, Generate } from "../src";
 
@@ -123,6 +129,7 @@ import { Parse, Generate } from "../src";
 ```
 
 #### 2.4 Run Real-World Validation
+
 ```bash
 pnpm tsx scripts/validate-real-world.ts
 # Expected: >95% success rate on supported properties
@@ -145,6 +152,7 @@ Build a CLI tool for manual exploration and testing.
 
 #### 3.1 Build REPL Tool
 Create `scripts/repl.ts`:
+
 ```typescript
 #!/usr/bin/env node
 import { Parse, Generate } from "../src";
@@ -159,6 +167,7 @@ import readline from "readline";
 ```
 
 #### 3.2 Add to package.json
+
 ```json
 {
   "scripts": {
@@ -171,6 +180,7 @@ import readline from "readline";
 ```
 
 #### 3.3 Test REPL Manually
+
 ```bash
 pnpm repl
 > parse gradient radial-gradient(circle at center, red 0%, blue 100%)
@@ -196,6 +206,7 @@ Validate performance and correctness at scale.
 
 #### 4.1 Build Stress Test Generator
 Create `scripts/stress-test.ts`:
+
 ```typescript
 // Generate massive datasets:
 // 1. 10,000 random gradients
@@ -206,6 +217,7 @@ Create `scripts/stress-test.ts`:
 ```
 
 #### 4.2 Build Stress Test Validator
+
 ```typescript
 // For each generated value:
 // 1. Parse → Generate → Parse
@@ -215,6 +227,7 @@ Create `scripts/stress-test.ts`:
 ```
 
 #### 4.3 Run Stress Tests
+
 ```bash
 pnpm tsx scripts/stress-test.ts
 # Expected: 100% round-trip success, <10ms avg per value
@@ -237,6 +250,7 @@ Ensure all code examples in documentation actually work.
 ### Tasks
 
 #### 5.1 Extract Code Examples
+
 ```bash
 # Extract all TypeScript code blocks from README
 node scripts/extract-examples.js README.md > examples.ts
@@ -247,6 +261,7 @@ node scripts/extract-jsdoc-examples.js src/ > jsdoc-examples.ts
 
 #### 5.2 Build Example Validator
 Create `scripts/validate-examples.ts`:
+
 ```typescript
 // For each code example:
 // 1. Execute in isolated environment
@@ -255,6 +270,7 @@ Create `scripts/validate-examples.ts`:
 ```
 
 #### 5.3 Run Example Validation
+
 ```bash
 pnpm tsx scripts/validate-examples.ts
 # Expected: 100% of examples execute without errors
@@ -271,24 +287,28 @@ pnpm tsx scripts/validate-examples.ts
 ## Metrics to Track
 
 ### Parse Success Rate
+
 ```
 Parse Success Rate = (Successful Parses / Total Attempts) * 100
 Target: >98% for known-good input, >95% for real-world input
 ```
 
 ### Round-Trip Integrity
+
 ```
 Round-Trip Success = (Identical IR / Successful Parses) * 100
 Target: 100% (any failure is a bug)
 ```
 
 ### Generate Validity
+
 ```
 Generate Validity = (Valid CSS / Total Generations) * 100
 Target: 100% (generated CSS must be parseable)
 ```
 
 ### Performance
+
 ```
 Parse Time = avg(parse_duration) across all inputs
 Generate Time = avg(generate_duration) across all inputs
@@ -296,6 +316,7 @@ Target: <10ms parse, <1ms generate (95th percentile)
 ```
 
 ### Coverage
+
 ```
 Property Coverage = (Properties Supported / Properties Tested) * 100
 Target: 100% of implemented properties work correctly
@@ -341,6 +362,7 @@ scripts/
 ## Integration with CI/CD
 
 Add to `.github/workflows/ci.yml`:
+
 ```yaml
 - name: Validate Fixtures
   run: pnpm tsx scripts/validate-fixtures.ts
