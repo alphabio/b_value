@@ -50,49 +50,35 @@ export function parse(css: string): Result<Type.ClipPathPolygon, string> {
 					fillRule = keyword;
 					idx++;
 
-					// After fill-rule, expect a comma
-					const commaNode = children[idx];
-					if (!commaNode || commaNode.type !== "Operator") {
+					// After fill-rule, require a comma
+					if (!AstUtils.isCommaAt(children, idx)) {
 						return err("Expected comma after fill-rule");
 					}
-					if ("value" in commaNode && commaNode.value === ",") {
-						idx++; // Skip comma
-					} else {
-						return err("Expected comma after fill-rule");
-					}
+					idx = AstUtils.skipComma(children, idx);
 				}
 			}
 		}
 
-		// Parse points (comma-separated x,y pairs)
-		while (idx < children.length) {
-			// Parse x coordinate
-			const xNode = children[idx];
-			if (!xNode) break;
+		// Split remaining nodes into point pairs (x y, x y, ...)
+		const pointGroups = AstUtils.splitNodesByComma(children, {
+			startIndex: idx,
+		});
 
-			// Skip commas between points
-			if (xNode.type === "Operator" && xNode.value === ",") {
-				idx++;
-				continue;
+		// Parse each point pair
+		for (const group of pointGroups) {
+			if (group.length !== 2) {
+				return err("Each point must have exactly 2 coordinates (x y), separated by spaces");
 			}
+
+			const [xNode, yNode] = group;
 
 			const xResult = ParseUtils.parseLengthPercentageNode(xNode);
 			if (!xResult.ok) return xResult;
-			const x = xResult.value;
-			idx++;
-
-			// Parse y coordinate
-			const yNode = children[idx];
-			if (!yNode) {
-				return err("Expected y coordinate after x coordinate");
-			}
 
 			const yResult = ParseUtils.parseLengthPercentageNode(yNode);
 			if (!yResult.ok) return yResult;
-			const y = yResult.value;
-			idx++;
 
-			points.push({ x, y });
+			points.push({ x: xResult.value, y: yResult.value });
 		}
 
 		// Validate minimum 3 points
