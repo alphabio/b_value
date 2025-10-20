@@ -43,6 +43,8 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<TextShadowLayer, str
 	const lengthValues: Length[] = [];
 
 	for (const node of nodes) {
+		if (node.type === "WhiteSpace") continue;
+
 		// Handle unitless zero (number node with value 0)
 		if (node.type === "Number") {
 			const value = Number.parseFloat(node.value);
@@ -135,54 +137,11 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<TextShadowLayer, str
  * @see {@link https://www.w3.org/TR/css-text-decor-3/#text-shadow-property | W3C Spec}
  */
 export function parse(css: string): Result<TextShadow, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const result = ParseUtils.splitLayer(css, parseShadowLayer, "text-shadow");
+	if (!result.ok) return result;
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const shadows: TextShadowLayer[] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				// Parse current shadow layer
-				if (currentNodes.length > 0) {
-					const layerResult = parseShadowLayer(currentNodes);
-					if (!layerResult.ok) {
-						return err(layerResult.error);
-					}
-					shadows.push(layerResult.value);
-					currentNodes = [];
-				} else {
-					return err("text-shadow: empty shadow layer before comma");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Parse last shadow layer
-		if (currentNodes.length > 0) {
-			const layerResult = parseShadowLayer(currentNodes);
-			if (!layerResult.ok) {
-				return err(layerResult.error);
-			}
-			shadows.push(layerResult.value);
-		}
-
-		if (shadows.length === 0) {
-			return err("text-shadow: requires at least one shadow");
-		}
-
-		return ok({
-			kind: "text-shadow",
-			shadows,
-		});
-	} catch (e) {
-		return err(`Failed to parse text-shadow: ${e instanceof Error ? e.message : String(e)}`);
-	}
+	return ok({
+		kind: "text-shadow",
+		shadows: result.value,
+	});
 }

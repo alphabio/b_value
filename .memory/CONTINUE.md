@@ -1,37 +1,40 @@
-<!-- LAST UPDATED: 2025-10-20T09:38 -->
+<!-- LAST UPDATED: 2025-10-20T10:57 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-20-pattern-1-completion (discovery - architecture planned)
-**Status**: 🏗️ Architecture complete - ready to implement `parseCommaSeparatedLayers()`
-**Tests**: 2216 passing
-**Next**: 🔨 **IMPLEMENT** - Complete comma-parsing then clip-path
+**Last Session**: 2025-10-20-comma-utilities-implementation (✅ COMPLETE)
+**Status**: ✅ Comma infrastructure complete - utilities implemented & tested
+**Tests**: 2234 passing (+18 new)
+**Next**: Choose next feature domain OR clip-path Level 2
 
 ---
 
-## 🏗️ PRIORITY: Complete Comma-Parsing Infrastructure
+## ✅ Comma-Parsing Infrastructure: COMPLETE!
 
-### Current State
+### All Three Patterns Implemented
 
-**Pattern 1a** (Single-node items):
-- ✅ 12/12 properties use `parseCommaSeparatedSingle()`
-- ✅ animation (8) + transition (4) properties
+**Pattern 1a - Independent Values** (`splitValue`):
+- ✅ Use for: animation-name, transition-property, font-family
+- ✅ Example: `animation-name: fade, slide, bounce` → 3 independent values
+- ✅ Import: `import { splitValue } from "@/utils/parse/comma"`
 
-**Pattern 1b** (Multi-node layers):
-- ❌ **MISSING UTILITY** - box-shadow & text-shadow have manual loops
-- 🔨 **READY TO BUILD** - Architecture complete!
+**Pattern 1b - Visual Layers** (`splitLayer`):
+- ✅ Use for: box-shadow, text-shadow, background, filter
+- ✅ Example: `box-shadow: 2px 2px red, 3px 3px blue` → 2 shadow layers
+- ✅ Import: `import { splitLayer } from "@/utils/parse/comma"`
+- ✅ Refactored: box-shadow, text-shadow now using this utility
 
-**Pattern 2** (Function arguments):
-- ✅ 4/4 functions use `splitNodesByComma()`
-- ✅ polygon, gradients
+**Pattern 2 - Function Arguments** (`splitNodesByComma`):
+- ✅ Use for: polygon, gradients, other function args
+- ✅ Example: `polygon(0% 0%, 100% 0%)` → 2 coordinate pairs
+- ✅ Import: `import { splitNodesByComma } from "@/utils/ast"`
 
-### 🔥 Next Task: Implement `parseCommaSeparatedLayers()`
-
-**Time**: ~60 minutes  
-**Plan**: `.memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md`  
-**Impact**: Complete infrastructure, remove ~60 lines duplication
-
-**After this**: Proceed to clip-path Level 2 with full confidence!
+### Key Features
+- ✅ Always returns arrays (predictable & educational)
+- ✅ Handles nested commas in functions correctly
+- ✅ Semantic naming (Values, Layers - not Single/Multi)
+- ✅ Allows trailing commas (matches CSS behavior)
+- ✅ 18 comprehensive tests including edge cases
 
 ---
 
@@ -59,25 +62,125 @@ See: `.memory/archive/2025-10-19-clip-path-shapes/` for full history
 ## Immediate Actions
 
 ```bash
-# 1. Verify baseline (MUST PASS before any work)
-just check && just test  # Should show 2216 tests passing
+# 1. Verify baseline
+just check && just test  # Should show 2234 tests passing
 
-# 2. Read the architecture plan
-cat .memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md
+# 2. Choose next work:
 
-# 3. Implement parseCommaSeparatedLayers() (~60 min)
-# Follow the step-by-step plan in ARCHITECTURE.md
+# Option A: New feature domain
+# - Pick any CSS property to implement
+# - Use new comma utilities as needed
 
-# 4. CRITICAL: Test nested comma handling
-# Ensure "drop-shadow(1px, 2px), 3px 3px" splits into 2 layers, not 3!
-
-# 5. Refactor box-shadow and text-shadow
-
-# 6. Then proceed to clip-path Level 2
+# Option B: Clip-path Level 2 (advanced shapes)
 cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
+
+# Option C: Migrate existing code to new utilities
+# - Update animation/transition parsers to use splitValue()
+# - ~12 properties affected
 ```
 
 ---
+
+## Quick Status
+
+**Working on**: 🎯 **READY FOR NEXT FEATURE**
+**Recent**: ✅ Comma utilities complete (splitValue + splitLayer)
+**Project state**: 
+  - Animation (8✅) + Transition (4✅) 
+  - Shadow (2✅ using splitLayer) 
+  - Border (4✅) + Outline (4✅) 
+  - Layout (14✅) 
+  - **Color (12✅)** 
+  - **ClipPath Level 1 (6 shapes✅)**
+  - **Comma Utils (3✅)**
+**Coverage**: ~85%
+**Next steps**:
+  1. ⭐ New feature domain
+  2. 🔧 Clip-path Level 2 (optional advanced shapes)
+  3. 🔄 Migrate existing to new utilities (optional cleanup)
+
+---
+
+## Quick Reference
+
+### Commands
+
+```bash
+# Quality gates (run after changes)
+just check                 # Format + typecheck + lint
+just test                  # All tests (2234 tests)
+just coverage              # Test coverage
+pnpm test -- [pattern]     # Filter tests by name/file
+
+# Context discovery
+git log --oneline -10      # Recent commits
+git status                 # What's changed
+git diff                   # View changes
+
+# Project structure
+ls src/parse/              # See all parser domains
+ls src/generate/           # See all generator domains
+```
+
+### Comma-Separated Parsing
+
+**Three utilities, three use cases**:
+
+1. **Independent values** (`animation-name: a, b, c`):
+   ```typescript
+   import { splitValue } from "@/utils/parse/comma";
+   const result = splitValue(css, itemParser, "property-name");
+   ```
+
+2. **Visual layers** (`box-shadow: 2px 2px red, 3px 3px blue`):
+   ```typescript
+   import { splitLayer } from "@/utils/parse/comma";
+   const result = splitLayer(css, layerParser, "property-name");
+   ```
+
+3. **Function arguments** (`polygon(x y, x y, x y)`):
+   ```typescript
+   import { splitNodesByComma } from "@/utils/ast";
+   const groups = splitNodesByComma(nodes, { startIndex: 0 });
+   ```
+
+All return arrays - always predictable!
+
+---
+
+## Next Agent Recommendations
+
+### 🎯 OPTION 1: New Feature Domain (~1-3 hours)
+
+Pick a CSS property domain and implement parse + generate + tests.
+
+**Good candidates**:
+- Grid properties (grid-template-rows, grid-template-columns)
+- Flex properties (flex-grow, flex-shrink, flex-basis)
+- Font properties (font-size, font-weight, line-height)
+- More transform functions
+- More filter functions
+
+### 🔧 OPTION 2: Clip-Path Level 2 (~1.5-2.5 hours)
+
+Complete advanced clip-path shapes:
+- path() - SVG path data
+- rect() - Rectangle syntax
+- xywh() - Position-based rect
+
+**Handover**: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
+
+### 🔄 OPTION 3: Migration & Cleanup (Optional, ~30 min)
+
+Migrate animation/transition properties to use new `splitValue()`:
+- Simple 1:1 replacement
+- ~12 properties affected
+- Removes dependency on old `parseCommaSeparatedSingle`
+
+---
+
+**All infrastructure solid. Ready for features!** 🚀
+
 
 ## Quick Status
 

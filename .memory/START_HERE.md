@@ -58,7 +58,8 @@ Everything green before commit. No exceptions.
 **Example**: 7 parsers had `parseAlpha()`. Fixed: `src/utils/parse/color-components.ts`.
 
 **Comma-separated values**: Use utilities, don't manually parse commas:
-- **Property layer** (e.g., `animation-name: a, b, c`) → Use `parseCommaSeparatedSingle()` from `@/utils/parse`
+- **Independent values** (e.g., `animation-name: a, b, c`) → Use `splitValue()` from `@/utils/parse/comma`
+- **Visual layers** (e.g., `box-shadow: 2px 2px red, 3px 3px blue`) → Use `splitLayer()` from `@/utils/parse/comma`
 - **Function args** (e.g., `polygon(x y, x y)`) → Use `splitNodesByComma()` from `@/utils/ast`
 
 ### KISS - Keep It Simple
