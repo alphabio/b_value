@@ -6,13 +6,18 @@ words:
   - cornflowerblue
   - csstree
   - currentcolor
+  - evenodd
   - Flexbox
+  - grayscale
+  - mynew
   - oklab
   - oklch
+  - oneline
   - prophoto
   - rebeccapurple
   - reparsed
   - rgba
+  - roadmaps
   - rotatex
   - rotatey
   - rotatez
@@ -26,10 +31,13 @@ words:
   - translatex
   - translatey
   - translatez
+  - trbl
+  - TRBL
   - turbopack
   - unitless
   - unittests
   - vmax
   - vmin
+  - zindex
 ignoreWords: []
 import: []

@@ -16,7 +16,14 @@ import type { Url } from "./url";
  *
  * @public
  */
-export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset | ClipPathCircle | ClipPathEllipse;
+export type ClipPathValue =
+	| Url
+	| ClipPathNone
+	| ClipPathGeometryBox
+	| ClipPathInset
+	| ClipPathCircle
+	| ClipPathEllipse
+	| ClipPathPolygon;
 
 /**
  * 'none' keyword for clip-path.
@@ -136,3 +143,30 @@ export const clipPathEllipseSchema = z.object({
 });
 
 export type ClipPathEllipse = z.infer<typeof clipPathEllipseSchema>;
+
+/**
+ * polygon() basic shape function.
+ *
+ * Defines a polygonal clipping region from a list of coordinate pairs.
+ * Optionally accepts a fill-rule to determine interior points.
+ *
+ * Syntax: polygon( <fill-rule>? , <shape-arg># )
+ *
+ * Default: fillRule = "nonzero" (per CSS spec)
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/polygon}
+ *
+ * @public
+ */
+export const clipPathPolygonSchema = z.object({
+	kind: z.literal("clip-path-polygon"),
+	fillRule: z.enum(["nonzero", "evenodd"]).optional(),
+	points: z.array(
+		z.object({
+			x: lengthPercentageSchema,
+			y: lengthPercentageSchema,
+		}),
+	),
+});
+
+export type ClipPathPolygon = z.infer<typeof clipPathPolygonSchema>;
