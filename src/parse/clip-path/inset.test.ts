@@ -195,7 +195,7 @@ describe("parse inset()", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Expected 1-4");
+				expect(result.error).toContain("accepts 1-4");
 			}
 		});
 

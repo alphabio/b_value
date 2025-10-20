@@ -2,7 +2,7 @@
 import type csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
-import * as AstUtils from "@/utils/ast";
+import { parseShapeFunction } from "./utils";
 
 /**
  * Parse CSS path() function for clip-path.
@@ -33,82 +33,67 @@ import * as AstUtils from "@/utils/ast";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/path | MDN: path()}
  */
 export function parse(css: string): Result<Type.ClipPathPath, string> {
-	try {
-		// Parse CSS
-		const astResult = AstUtils.parseCssString(css);
-		if (!astResult.ok) {
-			return err(astResult.error);
-		}
+	return parseShapeFunction(css, "path", parsePathArgs);
+}
 
-		// Find path() function
-		const fnResult = AstUtils.findFunctionNode(astResult.value, "path");
-		if (!fnResult.ok) {
-			return err(fnResult.error);
-		}
+function parsePathArgs(args: csstree.CssNode[]): Result<Type.ClipPathPath, string> {
+	if (args.length === 0) {
+		return err("path() requires a path data string");
+	}
 
-		// Get function arguments
-		const args = AstUtils.parseFunctionArguments(fnResult.value);
+	// Check if first argument is fill-rule keyword
+	let fillRule: "nonzero" | "evenodd" | undefined;
+	let pathDataNode: csstree.CssNode;
 
-		if (args.length === 0) {
+	if (args.length === 1) {
+		// Only path data
+		const arg0 = args[0];
+		if (!arg0) {
 			return err("path() requires a path data string");
 		}
+		pathDataNode = arg0;
+	} else if (args.length >= 2) {
+		// Check if first argument is fill-rule
+		const firstArg = args[0];
+		const secondArg = args[1];
 
-		// Check if first argument is fill-rule keyword
-		let fillRule: "nonzero" | "evenodd" | undefined;
-		let pathDataNode: csstree.CssNode;
+		if (!firstArg || !secondArg) {
+			return err("path() requires valid arguments");
+		}
 
-		if (args.length === 1) {
-			// Only path data
-			const arg0 = args[0];
-			if (!arg0) {
-				return err("path() requires a path data string");
-			}
-			pathDataNode = arg0;
-		} else if (args.length >= 2) {
-			// Check if first argument is fill-rule
-			const firstArg = args[0];
-			const secondArg = args[1];
-
-			if (!firstArg || !secondArg) {
-				return err("path() requires valid arguments");
-			}
-
-			if (firstArg.type === "Identifier") {
-				const keyword = firstArg.name.toLowerCase();
-				if (keyword === "nonzero" || keyword === "evenodd") {
-					fillRule = keyword;
-					pathDataNode = secondArg;
-				} else {
-					return err(`Invalid fill-rule: ${firstArg.name}. Expected 'nonzero' or 'evenodd'`);
-				}
+		if (firstArg.type === "Identifier") {
+			const keyword = firstArg.name.toLowerCase();
+			if (keyword === "nonzero" || keyword === "evenodd") {
+				fillRule = keyword;
+				pathDataNode = secondArg;
 			} else {
-				return err("First argument must be fill-rule keyword or path data string");
+				return err(`Invalid fill-rule: ${firstArg.name}. Expected 'nonzero' or 'evenodd'`);
 			}
 		} else {
-			return err("path() requires a path data string");
+			return err("First argument must be fill-rule keyword or path data string");
 		}
-
-		// Extract string value
-		if (pathDataNode.type !== "String") {
-			return err("Path data must be a string");
-		}
-
-		const pathData = pathDataNode.value;
-
-		// Validate path data contains valid SVG commands
-		const validationResult = validatePathData(pathData);
-		if (!validationResult.ok) {
-			return err(validationResult.error);
-		}
-
-		return ok({
-			kind: "clip-path-path",
-			fillRule,
-			pathData,
-		});
-	} catch (error) {
-		return err(`Error parsing path(): ${error instanceof Error ? error.message : String(error)}`);
+	} else {
+		return err("path() requires a path data string");
 	}
+
+	// Extract string value
+	if (pathDataNode.type !== "String") {
+		return err("Path data must be a string");
+	}
+
+	const pathData = pathDataNode.value;
+
+	// Validate path data contains valid SVG commands
+	const validationResult = validatePathData(pathData);
+	if (!validationResult.ok) {
+		return err(validationResult.error);
+	}
+
+	return ok({
+		kind: "clip-path-path",
+		fillRule,
+		pathData,
+	});
 }
 
 /**
