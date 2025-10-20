@@ -70,7 +70,11 @@ export function parse(css: string): Result<Type.ClipPathPolygon, string> {
 				return err("Each point must have exactly 2 coordinates (x y), separated by spaces");
 			}
 
-			const [xNode, yNode] = group;
+			const xNode = group[0];
+			const yNode = group[1];
+			if (!xNode || !yNode) {
+				return err("Invalid point coordinates");
+			}
 
 			const xResult = ParseUtils.parseLengthPercentageNode(xNode);
 			if (!xResult.ok) return xResult;
