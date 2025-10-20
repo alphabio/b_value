@@ -1,110 +1,266 @@
-<!-- LAST UPDATED: 2025-10-20T10:57 by Comma Utilities Implementation Session -->
-<!-- ARCHIVE THIS FILE at session start, create new one pointing to your session -->
+# Archive Index - Feature Map
 
-**Active Phase**: Infrastructure complete - ready for new features
-**Last Session**: 2025-10-20-comma-utilities-implementation
-**Recommendation**: Comma-parsing utilities complete - use splitValue/splitLayer for all new code
-
----
-
-## For Next Agent - START HERE
-
-⚠️ **STOP! EXECUTE `.memory/PROTOCOL_FIRST.md` FIRST** ⚠️
-
-Then:
-1. Read `.memory/START_HERE.md` for project overview
-2. Read `.memory/CONTINUE.md` for current status
-3. Read last session: `.memory/archive/2025-10-20-comma-utilities-implementation/HANDOVER.md`
-4. Follow your session protocol (create directory, archive INDEX, baseline check)
+**Purpose**: Quick lookup for "Where was X implemented?"  
+**Updated**: 2025-10-20T11:53  
+**Total Archives**: 60 session directories
 
 ---
 
-## Archive Trail
+## 🎯 Active Work
 
-(Most recent first - each agent adds their entry at the top)
-
-### 2025-10-20 Comma Utilities Implementation: splitValue & splitLayer ✅
-- **Outcome**: ✅ COMPLETE - Implemented spec-aligned comma-splitting utilities
-- **Tests**: 2216 → 2234 (+18 new tests)
-- **Created**: `splitValue()` for independent values, `splitLayer()` for visual layers
-- **Refactored**: box-shadow (-35 lines), text-shadow (-37 lines) to use new utilities
-- **Pattern**: Semantic naming matching CSS spec (Values, Layers, not Single/Multi)
-- **Architecture**: Always returns arrays - predictable and educational
-- **Archived**: `.memory/archive/2025-10-20-comma-utilities-implementation/`
-- **Next**: Use new utilities for all comma-separated parsing
-
-### 2025-10-19 Session 13: Pure KISS Export Pattern - Complete Refactor ✅
-- **Outcome**: ✅ COMPLETE - Adopted pure KISS pattern across all domains
-- **Tests**: 1020 → 903 (-117 master function tests removed)
-- **Breaking Changes**: Removed Color.parse() and Filter.parse() master functions
-- **Pattern**: All domains now use `export * as X` - consistent everywhere
-- **Bug Fixed**: Filter now exported from parent indices
-- **Protocol**: Added PROTOCOL_FIRST.md to stop agents before reading
-- **Archived**: `.memory/archive/2025-10-19-import-export-audit/INDEX_ARCHIVED.md`
-- **Next**: New features - patterns now standardized
-
-### 2025-10-19 Session 12: Phase 5 COMPLETE - All 11 Filters + Master APIs ✅
-- **Outcome**: ✅ COMPLETE - Phase 5 finished! URL filter + master Filter.parse() + Filter.toCss()
-- **Tests**: 994 → 1020 (+26 more with edge cases)
-- **Filters**: 11/11 complete (100%)
-- **Features**: Master parse/generate APIs, comprehensive integration tests, 31 URL edge case tests
-- **Edge Cases**: Data URIs, blob URLs, fragments, special characters, emoji, all URL schemes
-- **Archived**: `.memory/archive/2025-10-19-session-12/INDEX_ARCHIVED.md`
-- **Next**: Master Index/Export Polish (see NEXT_STEPS.md)
-
-### 2025-10-19 Session 11: Session 3 Complete - Drop-Shadow Filter (10/11 filters)
-- **Outcome**: ✅ COMPLETE - Session 3 done, drop-shadow filter implemented
-- **Tests**: 926 passing (+39 new from Session 3)
-- **Archived**: `.memory/archive/2025-10-19-session-11/INDEX_ARCHIVED.md`
-- **Next**: Session 4 - url filter + master Filter API (final session)
-
-(See previous sessions in archive directories...)
+**Current Task**: Clip-Path DRY Refactoring (Gold Standard)
+- **Plan**: `2025-10-20-clip-path-evaluation/MASTER_PLAN.md`
+- **Status**: Planning complete, ready for Session 1 execution
+- **Goal**: 33% duplication → 8% (Gold Standard code)
 
 ---
 
-## Current State
+## ✅ Completed Features
 
-**Utilities**: splitValue, splitLayer, splitNodesByComma (complete)
-**Tests**: 2234 passing
-**Coverage**: High
-**Code Quality**: All gates passing
-**Consistency**: ✅ Achieved
+### 🎨 Clip-Path (10 shapes, 307 tests) - COMPLETE
+
+**Implementation Sessions**:
+- `2025-10-19-clip-path-shapes/` - Level 1 shapes (inset, circle, ellipse, polygon)
+- `2025-10-20-clip-path-level-2/` - Level 2 shapes (rect, xywh, path)
+- `2025-10-20-clip-path-session-6/` - Additional work
+- `2025-10-20-geometry-box-cleanup/` - Geometry-box keyword refactor
+
+**Evaluation & Planning**:
+- `2025-10-20-clip-path-evaluation/` - DRY analysis + MASTER_PLAN ⭐
+- `2025-10-20-clip-path-true-status/` - Status verification
+- `2025-01-20-clippath-level2-evaluation/` - Early Level 2 evaluation
+
+**Shapes Implemented**:
+- Level 1: none, url(), geometry-box, inset(), circle(), ellipse(), polygon()
+- Level 2: rect(), xywh(), path()
 
 ---
 
-## Important Notes
+### 🔗 Comma Parsing (3 utilities) - COMPLETE
 
-**Comma-Separated Parsing** (2025-10-20 Session):
-- Use `splitValue()` for independent values (animation-name, transition-property)
-- Use `splitLayer()` for visual layers (box-shadow, text-shadow, background)
-- Use `splitNodesByComma()` for function arguments (polygon, gradients)
-- Always returns arrays - predictable and educational API
+**Research & Planning**:
+- `2025-10-20-comma-separated-deep-research/` - Deep dive analysis
+- `2025-10-20-comma-separated-research/` - Initial research
+- `2025-10-20-comma-parsing-completion/` - Completion plan
 
-**Example**:
-```typescript
-import { splitValue, splitLayer } from "@/utils/parse/comma";
+**Implementation**:
+- `2025-10-20-comma-utilities-implementation/` - splitValue, splitLayer ⭐
+- `2025-10-20-function-comma-utility/` - Function argument splitting
+- `2025-10-20-pattern-1-completion/` - Pattern 1 finalization
 
-// For independent values
-const names = splitValue(css, parseAnimationName, "animation-name");
+**Utilities Created**:
+- `splitValue()` - Independent values (animation-name, font-family)
+- `splitLayer()` - Visual layers (box-shadow, text-shadow)
+- `splitNodesByComma()` - Function arguments (polygon, gradients)
 
-// For visual layers  
-const shadows = splitLayer(css, parseShadowLayer, "box-shadow");
+---
+
+### 🌈 Colors (12 formats) - COMPLETE
+
+**Implementation**:
+- `2025-10-18-phase4-colors/` - RGB, HSL, HWB, LAB, LCH, OKLAB, OKLCH
+- `2025-10-18-phase4-colors-backgrounds/` - Additional color work
+- `2025-10-19-color-function/` - color() function (9 color spaces) ⭐
+- `2025-10-19-color-completion/` - Final color module completion
+
+**Formats**: hex, named, rgb, rgba, hsl, hsla, hwb, lab, lch, oklab, oklch, color()
+
+---
+
+### ✨ Animation & Transition - COMPLETE
+
+**Animation (8 properties)**:
+- `2025-10-19-animation-api/` - API design
+- `2025-10-19-animation-world-class/` - Full implementation ⭐
+- Properties: name, duration, delay, timing-function, iteration-count, direction, fill-mode, play-state
+
+**Transition (4 properties)**:
+- `2025-10-19-transition-api/` - Full implementation
+- Properties: property, duration, delay, timing-function
+
+**Utilities**:
+- `2025-10-19-easing-utilities/` - Timing function parsers (cubic-bezier, steps, linear)
+
+---
+
+### 🎨 Shadows (2 properties) - COMPLETE
+
+**Implementation**:
+- `2025-10-19-shadow-properties/` - Parser implementation
+- `2025-10-19-shadow-generators/` - Generator implementation
+- Properties: box-shadow, text-shadow
+
+---
+
+### 📐 Border & Outline (8 properties) - COMPLETE
+
+**Border (4 properties)**:
+- `2025-10-19-border-properties/` - Full implementation
+- Properties: border-width, border-style, border-color, border-radius
+
+**Outline (4 properties)**:
+- `2025-10-19-outline-properties/` - Full implementation
+- Properties: outline-width, outline-style, outline-color, outline-offset
+
+---
+
+### 📏 Layout (14 properties) - COMPLETE
+
+**Position & Box Model**:
+- `2025-10-19-trbl-properties/` - top, right, bottom, left
+- `2025-10-19-width-height-properties/` - width, height
+- `2025-10-19-position-property/` - position
+- `2025-10-19-zindex-property/` - z-index
+
+**Overflow**:
+- `2025-10-19-overflow-properties/` - overflow-x, overflow-y
+
+**Display & Visibility**:
+- `2025-10-19-display-visibility-opacity/` - display, visibility, opacity
+
+**Combined Sessions**:
+- `2025-10-19-layout-properties-combined/` - Multi-property work
+
+**Cursor**:
+- `2025-10-19-cursor-property/` - cursor (35 keywords)
+
+---
+
+### 📝 Text & Transform - COMPLETE
+
+**Implementation**:
+- `2025-10-19-transform-background-text/` - Multi-feature session
+- Properties: transform-origin, text-decoration-line, text-decoration-style, text-decoration-color, text-decoration-thickness
+
+---
+
+### 🔍 Filters (11 functions) - COMPLETE
+
+**Implementation**:
+- `2025-10-19-phase5-filters/` - Planning
+- `2025-10-19-session-10/` - Early work
+- `2025-10-19-session-11/` - drop-shadow
+- `2025-10-19-session-12/` - Final implementation ⭐
+
+**Functions**: blur, brightness, contrast, drop-shadow, grayscale, hue-rotate, invert, opacity, saturate, sepia, url
+
+---
+
+## 🔧 Infrastructure & Refactoring
+
+### Code Quality
+- `2025-10-19-import-export-audit/` - Pure KISS export pattern
+- `2025-10-19-session-9/` - Code organization
+- `2025-10-20-memory-audit/` - Memory system cleanup ⭐
+
+### Documentation
+- `2025-10-19-intro-session/` - Continuation workflow
+- `2025-10-19-improve-start-here/` - START_HERE.md enhancement
+- `2025-10-18-jsdoc-standard/` - JSDoc standards
+
+### Testing & Coverage
+- `2025-01-18-coverage-90/` - 90% coverage milestone
+- `2025-01-18-checkpoint/` - Checkpoint documentation
+
+### Planning & Reviews
+- `2025-01-18-action-plan/` - Project action plan
+- `2025-01-18-phase2-audit/` - Phase 2 audit
+- `2025-10-18-api-review/` - API design review
+- `2025-10-18-audit/` - Code audit
+
+---
+
+## 🧪 Early Experiments & Integration
+
+### Gradients
+- `2025-10-18-phase2-gradients/` - Gradient implementation
+
+### MDM Integration
+- `2025-01-18-mdm-integration/` - MDM data integration
+
+### Benchmarking
+- `2025-10-18-benchmark-update/` - Performance benchmarks
+
+### Numbered Sessions (Early Work)
+- `2025-01-18-session-1/` through `2025-01-18-session-5/`
+- `2025-10-18-session-4/` through `2025-10-18-session-8/`
+
+---
+
+## 📅 Quick Find by Date
+
+### 2025-10-20 (11 sessions) - Clip-Path Level 2 + Comma Utilities + Memory Cleanup
+- clip-path-evaluation ⭐ (DRY plan)
+- clip-path-level-2 (rect, xywh, path)
+- comma-utilities-implementation ⭐
+- memory-audit ⭐ (this cleanup)
+- [7 other related sessions]
+
+### 2025-10-19 (32 sessions) - Feature Implementation Sprint
+- animation-world-class ⭐
+- clip-path-shapes ⭐
+- color-function ⭐
+- All major properties (border, outline, layout, shadows, etc.)
+
+### 2025-10-18 (7 sessions) - Phase 4 Colors & Early Work
+- phase4-colors ⭐
+- API reviews and audits
+
+### 2025-01-18 (5 sessions) - Early Foundation
+- coverage-90 ⭐
+- phase2-audit
+- mdm-integration
+
+---
+
+## 🔍 How to Use This Index
+
+**Looking for a feature?**
+```bash
+# Search this file
+grep -i "animation" .memory/archive/INDEX.md
+
+# Or search all handovers
+grep -r "animation" .memory/archive/*/HANDOVER.md
 ```
 
-**Export Pattern** (Session 13 Decision):
-- Use `export * as X from "./x"` ONLY
-- No master auto-detection functions
-- No derived namespace objects
-- Users specify type explicitly
+**Want to trace feature evolution?**
+- Find feature section above
+- Read sessions in chronological order
+- Check HANDOVER.md in each directory
 
-**Example**:
-```typescript
-// Domain index
-export * as Hex from "./hex";
-export * as Rgb from "./rgb";
+**Starting new work?**
+- Check if similar feature exists (patterns to reuse)
+- Read related sessions for context
+- Follow PROTOCOL_FIRST.md for session setup
 
-// Usage
-Parse.Color.Hex.parse("#ff0000");
-```
+---
 
-Follow these patterns for all new code. No exceptions.
+## 📊 Archive Statistics
+
+- **Total Sessions**: 60 directories
+- **Features Complete**: 10+ major domains
+- **Tests Added**: ~2000+ tests
+- **Time Span**: January 2025 - October 2025
+- **Key Milestones**: Animation API, Clip-Path, Colors, DRY refactoring
+
+---
+
+## 🎓 Learning Resources
+
+**Best Sessions to Study**:
+- `2025-10-19-animation-world-class/` - Complex feature, world-class API
+- `2025-10-19-clip-path-shapes/` - Multi-session feature planning
+- `2025-10-20-clip-path-evaluation/` - DRY analysis methodology
+- `2025-10-19-color-function/` - Speed (45 min full implementation)
+- `2025-10-20-comma-utilities-implementation/` - Infrastructure patterns
+
+**Handover Examples**:
+- Look for ⭐ marked sessions above
+- Read HANDOVER.md for decisions and learnings
+- Check SESSION_N.md files for detailed plans
+
+---
+
+**Last Updated**: 2025-10-20T11:53  
+**Maintainer**: Update after major milestones or session completion
