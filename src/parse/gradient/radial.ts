@@ -4,6 +4,7 @@ import type * as Keyword from "@/core/keywords";
 import { COLOR_INTERPOLATION_KEYWORDS } from "@/core/keywords";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import * as AstUtils from "@/utils/ast";
 import * as ParseUtils from "@/utils/parse";
 import * as ColorStop from "./color-stop";
 
@@ -220,8 +221,6 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 	let size: Type.RadialGradientSize | undefined;
 	let position: Type.Position2D | undefined;
 	let colorSpace: Keyword.ColorInterpolationKeyword | undefined;
-	const colorStopNodes: csstree.CssNode[][] = [];
-	let currentStopNodes: csstree.CssNode[] = [];
 
 	let idx = 0;
 
@@ -318,30 +317,12 @@ export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradie
 		}
 	}
 
-	// Parse color stops (remaining arguments, comma-separated)
-	for (; idx < children.length; idx++) {
-		const node = children[idx];
-		if (!node) continue;
-
-		if (node.type === "Operator" && "value" in node && node.value === ",") {
-			// End of current color stop, start new one
-			if (currentStopNodes.length > 0) {
-				colorStopNodes.push(currentStopNodes);
-				currentStopNodes = [];
-			}
-		} else {
-			currentStopNodes.push(node);
-		}
-	}
-
-	// Push last color stop
-	if (currentStopNodes.length > 0) {
-		colorStopNodes.push(currentStopNodes);
-	}
+	// Split remaining nodes into color stop groups
+	const stopGroups = AstUtils.splitNodesByComma(children, { startIndex: idx });
 
 	// Parse each color stop
 	const colorStops: Type.ColorStop[] = [];
-	for (const stopNodes of colorStopNodes) {
+	for (const stopNodes of stopGroups) {
 		const stopResult = ColorStop.fromNodes(stopNodes);
 		if (stopResult.ok) {
 			colorStops.push(stopResult.value);
