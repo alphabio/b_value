@@ -374,22 +374,40 @@ export function parseTRBLLengthPercentage(nodes: csstree.CssNode[]): Result<
 }
 
 /**
- * Parse border-radius shorthand syntax (simplified).
+ * Parse CSS corner values using TRBL expansion rules.
  *
- * Accepts 1-4 non-negative length-percentage values.
- * Uses same TRBL expansion as margins/padding:
+ * This function parses 1-4 length-percentage values and expands them to
+ * all 4 corners using the same expansion logic as CSS box model properties.
+ * It is used by clip-path shapes (inset, rect, xywh) for border-radius values
+ * after the 'round' keyword.
+ *
+ * **IMPORTANT**: This is NOT a CSS property parser. It parses multi-value
+ * syntax used WITHIN other values. The actual border-radius property parser
+ * is in `src/parse/border/radius.ts` and only accepts single values (longhand).
+ *
+ * Expansion rules (same as margin/padding):
  * - 1 value: all corners
- * - 2 values: top-left/bottom-right | top-right/bottom-left
- * - 3 values: top-left | top-right/bottom-left | bottom-right
- * - 4 values: top-left | top-right | bottom-right | bottom-left (clockwise from top-left)
+ * - 2 values: (top-left/bottom-right) (top-right/bottom-left)
+ * - 3 values: top-left (top-right/bottom-left) bottom-right
+ * - 4 values: top-left top-right bottom-right bottom-left (clockwise from top-left)
  *
- * Note: This simplified version doesn't support elliptical corners (/ syntax).
- * That can be added later if needed.
+ * @param nodes - Array of 1-4 CSS nodes (length-percentage values, non-negative)
+ * @returns Result with 4 corner values or error
  *
- * @param nodes - Array of 1-4 CSS nodes
- * @returns Result with border-radius corners or error
+ * @example
+ * Used in clip-path shapes:
+ * ```typescript
+ * // inset(10px round 5px 10px)
+ * //                  ^^^^^^^^ these nodes
+ * const result = parseCornerValues(radiusNodes);
+ * // { topLeft: 5px, topRight: 10px, bottomRight: 5px, bottomLeft: 10px }
+ * ```
+ *
+ * @public
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/inset | MDN: inset()}
  */
-export function parseBorderRadiusShorthand(nodes: csstree.CssNode[]): Result<
+export function parseCornerValues(nodes: csstree.CssNode[]): Result<
 	{
 		topLeft: Type.LengthPercentage;
 		topRight: Type.LengthPercentage;

@@ -98,7 +98,7 @@ function parseInsetArgs(args: CssNode[]): Result<Type.ClipPathInset, string> {
 			return err("Expected border-radius values after 'round' keyword");
 		}
 
-		const radiusResult = ParseUtils.parseBorderRadiusShorthand(radiusNodes);
+		const radiusResult = ParseUtils.parseCornerValues(radiusNodes);
 		if (!radiusResult.ok) {
 			return err(`Invalid border-radius: ${radiusResult.error}`);
 		}
