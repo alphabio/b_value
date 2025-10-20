@@ -29,7 +29,7 @@ import * as GenerateUtils from "@/utils/generate";
  */
 export function toCss(value: Type.ClipPathInset): string {
 	// Generate TRBL CSS (optimized to shortest form)
-	const trblCss = generateOptimizedTRBL({
+	const trblCss = generateTRBL({
 		top: value.top,
 		right: value.right,
 		bottom: value.bottom,
@@ -39,19 +39,18 @@ export function toCss(value: Type.ClipPathInset): string {
 	// Generate optional border-radius
 	let radiusCss = "";
 	if (value.borderRadius) {
-		const radiusOptimized = GenerateUtils.optimizeBorderRadius(value.borderRadius);
-		radiusCss = ` round ${radiusOptimized}`;
+		radiusCss = ` round ${GenerateUtils.borderRadiusToCss(value.borderRadius)}`;
 	}
 
 	return `inset(${trblCss}${radiusCss})`;
 }
 
 /**
- * Generate optimized TRBL CSS (shortest form).
+ * Generate TRBL CSS in shortest form.
  *
  * @internal
  */
-function generateOptimizedTRBL(trbl: {
+function generateTRBL(trbl: {
 	top: Type.LengthPercentage;
 	right: Type.LengthPercentage;
 	bottom: Type.LengthPercentage;

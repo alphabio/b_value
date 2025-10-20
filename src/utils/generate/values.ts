@@ -113,9 +113,9 @@ export function joinCssValuesWithSpaces(values: string[]): string {
 }
 
 /**
- * Generate optimized border-radius CSS (shortest form).
+ * Generate border-radius CSS in shortest form.
  *
- * Optimizes 4-corner border-radius values to shortest form:
+ * Converts 4-corner border-radius values to shortest CSS representation:
  * - All equal → 1 value
  * - Diagonals same → 2 values
  * - Top-right/bottom-left same → 3 values
@@ -124,7 +124,7 @@ export function joinCssValuesWithSpaces(values: string[]): string {
  * Used by clip-path shapes (inset, rect, xywh) for 'round' clause.
  *
  * @param radius - Border radius with 4 corner values
- * @returns Optimized CSS border-radius string
+ * @returns CSS border-radius string in shortest form
  *
  * @public
  *
@@ -137,7 +137,7 @@ export function joinCssValuesWithSpaces(values: string[]): string {
  *   bottomRight: { value: 5, unit: "px" },
  *   bottomLeft: { value: 5, unit: "px" }
  * };
- * optimizeBorderRadius(radius); // "5px"
+ * borderRadiusToCss(radius); // "5px"
  * ```
  *
  * @example
@@ -149,10 +149,10 @@ export function joinCssValuesWithSpaces(values: string[]): string {
  *   bottomRight: { value: 5, unit: "px" },
  *   bottomLeft: { value: 10, unit: "px" }
  * };
- * optimizeBorderRadius(radius); // "5px 10px"
+ * borderRadiusToCss(radius); // "5px 10px"
  * ```
  */
-export function optimizeBorderRadius(radius: {
+export function borderRadiusToCss(radius: {
 	topLeft: Type.LengthPercentage;
 	topRight: Type.LengthPercentage;
 	bottomRight: Type.LengthPercentage;

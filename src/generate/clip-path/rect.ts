@@ -37,8 +37,7 @@ export function toCss(value: Type.ClipPathRect): string {
 	// Generate optional border-radius
 	let radiusCss = "";
 	if (value.borderRadius) {
-		const radiusOptimized = GenerateUtils.optimizeBorderRadius(value.borderRadius);
-		radiusCss = ` round ${radiusOptimized}`;
+		radiusCss = ` round ${GenerateUtils.borderRadiusToCss(value.borderRadius)}`;
 	}
 
 	return `rect(${trblCss}${radiusCss})`;
