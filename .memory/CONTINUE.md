@@ -9,7 +9,7 @@
 
 ---
 
-## ✅ Comma-Parsing Infrastructure: COMPLETE!
+## ✅ Comma-Parsing Infrastructure: COMPLETE
 
 ### All Three Patterns Implemented
 
@@ -38,7 +38,7 @@
 
 ---
 
-## ✅ Clip-Path Level 1: 100% COMPLETE!
+## ✅ Clip-Path Level 1: 100% COMPLETE
 
 **All basic shapes (CSS Shapes Level 1) implemented:**
 - ✅ Session 1: URL + none (~25 min, +19 tests)
@@ -54,16 +54,16 @@
 
 ## 🎯 NEXT PRIORITY: Clip-Path Level 2 (Advanced Shapes)
 
-**Goal**: Complete the clip-path implementation with Level 2 shapes  
-**Impact**: Production-ready clip-path with all modern CSS shapes  
+**Goal**: Complete the clip-path implementation with Level 2 shapes
+**Impact**: Production-ready clip-path with all modern CSS shapes
 **Estimated Time**: 1.5-2.5 hours total
 
 ### Three Remaining Shapes
 
 #### 1. path() - SVG Path Data 🔥 MOST COMPLEX
-**Syntax**: `path( <fill-rule>? <string> )`  
-**Time**: 45-60 minutes  
-**Complexity**: HIGH - Full SVG path data string  
+**Syntax**: `path( <fill-rule>? <string> )`
+**Time**: 45-60 minutes
+**Complexity**: HIGH - Full SVG path data string
 **Tests**: ~30-40 expected
 
 **What to implement**:
@@ -73,6 +73,7 @@
 - Path commands: M, L, H, V, C, S, Q, T, A, Z (uppercase + lowercase)
 
 **Example values**:
+
 ```css
 path("M 10,10 L 90,10 L 50,90 Z")
 path(evenodd, "M 10,10 L 90,10 L 50,90 Z")
@@ -87,14 +88,14 @@ path("M10 10 L90 10 L50 90z")  /* compact syntax */
 - Error messages for invalid path data
 
 **Resources**:
-- MDN: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
-- W3C SVG Path Spec: https://www.w3.org/TR/SVG/paths.html
+- MDN: <https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths>
+- W3C SVG Path Spec: <https://www.w3.org/TR/SVG/paths.html>
 - Simple approach: Store as validated string, don't parse internals deeply
 
 #### 2. rect() - Rectangle Syntax
-**Syntax**: `rect( [<length-percentage> | auto]{2,4} [round <border-radius>]? )`  
-**Time**: 25-30 minutes  
-**Complexity**: MEDIUM - Similar to inset() but different syntax  
+**Syntax**: `rect( [<length-percentage> | auto]{2,4} [round <border-radius>]? )`
+**Time**: 25-30 minutes
+**Complexity**: MEDIUM - Similar to inset() but different syntax
 **Tests**: ~25-30 expected
 
 **What to implement**:
@@ -104,6 +105,7 @@ path("M10 10 L90 10 L50 90z")  /* compact syntax */
 - Optional border-radius (reuse from inset)
 
 **Example values**:
+
 ```css
 rect(10px auto 20px auto)           /* top right bottom left */
 rect(10px 20px)                      /* vertical horizontal */
@@ -116,9 +118,9 @@ rect(0 0 100% 100% round 10px)      /* with border-radius */
 - Reuse border-radius parsing from inset()
 
 #### 3. xywh() - Position-Based Rectangle
-**Syntax**: `xywh( <length-percentage>{2} <length-percentage [0,∞]>{2} [round <border-radius>]? )`  
-**Time**: 25-30 minutes  
-**Complexity**: MEDIUM - Position + size, similar to rect()  
+**Syntax**: `xywh( <length-percentage>{2} <length-percentage [0,∞]>{2} [round <border-radius>]? )`
+**Time**: 25-30 minutes
+**Complexity**: MEDIUM - Position + size, similar to rect()
 **Tests**: ~25-30 expected
 
 **What to implement**:
@@ -129,6 +131,7 @@ rect(0 0 100% 100% round 10px)      /* with border-radius */
 - Optional border-radius
 
 **Example values**:
+
 ```css
 xywh(10px 20px 100px 50px)              /* x y width height */
 xywh(0 0 100% 100%)                      /* full element */
@@ -150,6 +153,7 @@ xywh(10% 20% 50px 80px round 5px)       /* with border-radius */
 3. **Finish with path()** (most complex, save for last)
 
 ### Each Shape Session (~30-60 min)
+
 ```bash
 # 1. Create session directory
 mkdir -p .memory/archive/$(date +%Y-%m-%d)-clip-path-[shape]/
@@ -231,17 +235,17 @@ mkdir -p .memory/archive/$(date +%Y-%m-%d)-clip-path-[shape-name]/
 
 **Working on**: 🎯 **CLIP-PATH LEVEL 2** - 3 shapes remaining!
 **Recent**: ✅ Comma utilities complete (splitValue + splitLayer)
-**Project state**: 
-  - Animation (8✅) + Transition (4✅) 
-  - Shadow (2✅ using splitLayer) 
-  - Border (4✅) + Outline (4✅) 
-  - Layout (14✅) 
-  - **Color (12✅)** 
-  - **ClipPath Level 1 (6 shapes✅, 223 tests)**
-  - **Comma Utils (3✅)**
-**Clip-Path Progress**: 
-  - Level 1: ✅ 100% (6/6 shapes)
-  - Level 2: ⏳ 0% (0/3 shapes) - rect(), xywh(), path()
+**Project state**:
+- Animation (8✅) + Transition (4✅)
+- Shadow (2✅ using splitLayer)
+- Border (4✅) + Outline (4✅)
+- Layout (14✅)
+- **Color (12✅)**
+- **ClipPath Level 1 (6 shapes✅, 223 tests)**
+- **Comma Utils (3✅)**
+**Clip-Path Progress**:
+- Level 1: ✅ 100% (6/6 shapes)
+- Level 2: ⏳ 0% (0/3 shapes) - rect(), xywh(), path()
 **Coverage**: ~85%
 **Next steps**:
   1. 🔥 **rect()** or **xywh()** (~25-30 min each)
@@ -276,18 +280,21 @@ ls src/generate/           # See all generator domains
 **Three utilities, three use cases**:
 
 1. **Independent values** (`animation-name: a, b, c`):
+
    ```typescript
    import { splitValue } from "@/utils/parse/comma";
    const result = splitValue(css, itemParser, "property-name");
    ```
 
 2. **Visual layers** (`box-shadow: 2px 2px red, 3px 3px blue`):
+
    ```typescript
    import { splitLayer } from "@/utils/parse/comma";
    const result = splitLayer(css, layerParser, "property-name");
    ```
 
 3. **Function arguments** (`polygon(x y, x y, x y)`):
+
    ```typescript
    import { splitNodesByComma } from "@/utils/ast";
    const groups = splitNodesByComma(nodes, { startIndex: 0 });
@@ -357,7 +364,6 @@ If you prefer fresh features:
 
 **All infrastructure solid. Ready for features!** 🚀
 
-
 ## Quick Status
 
 **Working on**: 🎯 **DECISION POINT** - Choose next quest
@@ -378,11 +384,11 @@ If you prefer fresh features:
 
 **Why**: Critical infrastructure gap discovered
 **What**: Implement `parseCommaSeparatedLayers()` for multi-node items
-**Impact**: 
-  - Enables DRY parsing for box-shadow, text-shadow
-  - Removes ~60 lines of duplicate code
-  - Completes comma-parsing architecture
-  - Future-proofs for background layers, transforms
+**Impact**:
+- Enables DRY parsing for box-shadow, text-shadow
+- Removes ~60 lines of duplicate code
+- Completes comma-parsing architecture
+- Future-proofs for background layers, transforms
 
 **Plan**: `.memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md`
 
@@ -398,9 +404,9 @@ If you prefer fresh features:
 
 **Why**: Complete the clip-path quest after infrastructure is solid
 **Shapes**:
-  - path() - SVG path data (~45-60 min)
-  - rect() - Rectangle syntax (~25-30 min)  
-  - xywh() - Position-based rect (~25-30 min)
+- path() - SVG path data (~45-60 min)
+- rect() - Rectangle syntax (~25-30 min)
+- xywh() - Position-based rect (~25-30 min)
 
 **Handover**: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
 
@@ -436,12 +442,14 @@ ls src/generate/           # See all generator domains
 **Two patterns, two utilities**:
 
 1. **Property layer** (`animation-name: a, b, c`):
+
    ```typescript
    import { parseCommaSeparatedSingle } from "@/utils/parse";
    const result = parseCommaSeparatedSingle(css, itemParser, "property-name");
    ```
 
 2. **Function args** (`polygon(x y, x y, x y)`):
+
    ```typescript
    import { splitNodesByComma, skipComma, isCommaAt } from "@/utils/ast";
    const groups = splitNodesByComma(children, { startIndex: idx });

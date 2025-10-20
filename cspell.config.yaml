@@ -38,6 +38,7 @@ words:
   - unittests
   - vmax
   - vmin
+  - xywh
   - zindex
 ignoreWords: []
 import: []
