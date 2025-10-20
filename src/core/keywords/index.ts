@@ -25,6 +25,7 @@ export * from "./flex-wrap-keywords";
 export * from "./font-size-keywords";
 export * from "./font-style-keywords";
 export * from "./font-weight-keywords";
+export * from "./geometry-box";
 export * from "./grid-auto-flow-keywords";
 export * from "./justify-content-keywords";
 export * from "./justify-items-keywords";

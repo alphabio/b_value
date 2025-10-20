@@ -1,11 +1,15 @@
 // b_path:: src/core/keywords/box-edge-keywords.ts
 import { z } from "zod";
+import { visualBoxKeywords } from "./geometry-box";
 
 /**
  * CSS box edge keywords.
  *
  * Box edge keywords define reference boxes for positioning, clipping, and layout.
  * Used in properties like clip-path, shape-outside, background-clip, and background-origin.
+ *
+ * Note: For spec-compliant visual-box, shape-box, and geometry-box hierarchies,
+ * see geometry-box.ts which follows the CSS specification exactly.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/box-edge}
  *
@@ -96,51 +100,12 @@ export const boxEdgeKeywordOptions = boxEdgeKeywordsSchema.options.map((option) 
 export type BoxEdgeKeywordOptions = typeof boxEdgeKeywordOptions;
 
 /**
- * CSS visual box edge keywords (subset).
- *
- * Visual box keywords are the most common subset used for layout and positioning.
- * Includes content-box, padding-box, and border-box only (excludes margin-box and SVG boxes).
- *
- * Used in properties like background-origin which only accept visual box keywords.
- *
- * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/background-origin}
- *
- * @example
- * ```typescript
- * import { visualBoxKeywordsSchema } from "@/core/keywords/box-edge-keywords";
- *
- * const keyword = visualBoxKeywordsSchema.parse("padding-box"); // "padding-box"
- * ```
- *
- * @public
- */
-export const visualBoxKeywordsSchema = z
-	.union([
-		z.literal("content-box").describe("outer edge of the box's content area"),
-		z.literal("padding-box").describe("outer edge of the padding of the box"),
-		z.literal("border-box").describe("outer edge of the border of the box"),
-	])
-	.describe("Visual box edge keywords (content-box, padding-box, border-box). Common subset for layout properties.");
-
-/**
- * Array of visual box keyword values.
- *
- * @public
- */
-export const VISUAL_BOX_KEYWORDS = visualBoxKeywordsSchema.options.map((option) => option.value);
-
-/**
- * TypeScript type for visual box keywords.
- *
- * @public
- */
-export type VisualBoxKeyword = z.infer<typeof visualBoxKeywordsSchema>;
-
-/**
  * CSS background-clip keywords.
  *
  * Extends visual box keywords with the 'text' keyword which is specific to background-clip.
  * The 'text' keyword clips the background to the foreground text (WebKit prefixed in practice).
+ *
+ * Uses visual box keywords from geometry-box.ts for spec compliance.
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/background-clip}
  *
@@ -154,12 +119,7 @@ export type VisualBoxKeyword = z.infer<typeof visualBoxKeywordsSchema>;
  * @public
  */
 export const backgroundClipKeywordsSchema = z
-	.union([
-		z.literal("content-box").describe("outer edge of the box's content area"),
-		z.literal("padding-box").describe("outer edge of the padding of the box"),
-		z.literal("border-box").describe("outer edge of the border of the box"),
-		z.literal("text").describe("clip background to foreground text (WebKit)"),
-	])
+	.enum([...visualBoxKeywords, "text"] as const)
 	.describe("Background-clip keywords: visual box keywords plus 'text' for clipping to foreground text.");
 
 /**
@@ -167,7 +127,7 @@ export const backgroundClipKeywordsSchema = z
  *
  * @public
  */
-export const BACKGROUND_CLIP_KEYWORDS = backgroundClipKeywordsSchema.options.map((option) => option.value);
+export const BACKGROUND_CLIP_KEYWORDS = ["content-box", "padding-box", "border-box", "text"] as const;
 
 /**
  * TypeScript type for background-clip keywords.
