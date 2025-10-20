@@ -45,6 +45,8 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<BoxShadowLayer, stri
 	const lengthValues: Length[] = [];
 
 	for (const node of nodes) {
+		if (node.type === "WhiteSpace") continue;
+
 		// Check for inset keyword
 		if (node.type === "Identifier" && node.name.toLowerCase() === "inset") {
 			if (inset) {
@@ -159,54 +161,11 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<BoxShadowLayer, stri
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#box-shadow | W3C Spec}
  */
 export function parse(css: string): Result<BoxShadow, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const result = ParseUtils.splitLayer(css, parseShadowLayer, "box-shadow");
+	if (!result.ok) return result;
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const shadows: BoxShadowLayer[] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				// Parse current shadow layer
-				if (currentNodes.length > 0) {
-					const layerResult = parseShadowLayer(currentNodes);
-					if (!layerResult.ok) {
-						return err(layerResult.error);
-					}
-					shadows.push(layerResult.value);
-					currentNodes = [];
-				} else {
-					return err("box-shadow: empty shadow layer before comma");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Parse last shadow layer
-		if (currentNodes.length > 0) {
-			const layerResult = parseShadowLayer(currentNodes);
-			if (!layerResult.ok) {
-				return err(layerResult.error);
-			}
-			shadows.push(layerResult.value);
-		}
-
-		if (shadows.length === 0) {
-			return err("box-shadow: requires at least one shadow");
-		}
-
-		return ok({
-			kind: "box-shadow",
-			shadows,
-		});
-	} catch (e) {
-		return err(`Failed to parse box-shadow: ${e instanceof Error ? e.message : String(e)}`);
-	}
+	return ok({
+		kind: "box-shadow",
+		shadows: result.value,
+	});
 }
