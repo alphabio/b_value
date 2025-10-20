@@ -3,21 +3,7 @@ import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import { parseLengthPercentageNode } from "./nodes/length";
-
-/**
- * Parse a CSS identifier node into a string.
- *
- * @param node - CSS AST identifier node
- * @returns Result containing string or error message
- *
- * @public
- */
-export function parseIdentifierNode(node: csstree.CssNode): Result<string, string> {
-	if (node.type === "Identifier") {
-		return ok(node.name.toLowerCase());
-	}
-	return err("Expected identifier");
-}
+import { parseIdentifierNode } from "./nodes/number";
 
 /**
  * Parse a CSS value node into a PositionValue IR.
@@ -610,3 +596,6 @@ export function parseRadialSize(
 
 	return ok(lpResult.value);
 }
+
+// Re-export from subdirectory modules
+export { parseIdentifierNode };
