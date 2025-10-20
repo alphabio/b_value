@@ -2,7 +2,7 @@
 
 import * as csstree from "css-tree";
 import { describe, expect, it } from "vitest";
-import { parseBorderRadiusShorthand, parseTRBLLengthPercentage } from "./nodes";
+import { parseCornerValues, parseTRBLLengthPercentage } from "./nodes";
 
 /**
  * Helper to create CSS nodes from a string
@@ -136,11 +136,11 @@ describe("parseTRBLLengthPercentage", () => {
 	});
 });
 
-describe("parseBorderRadiusShorthand", () => {
+describe("parseCornerValues", () => {
 	describe("valid inputs", () => {
 		it("should parse single value (all corners)", () => {
 			const nodes = parseNodes("5px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -153,7 +153,7 @@ describe("parseBorderRadiusShorthand", () => {
 
 		it("should parse two values (diagonal corners)", () => {
 			const nodes = parseNodes("5px 10px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -166,7 +166,7 @@ describe("parseBorderRadiusShorthand", () => {
 
 		it("should parse three values", () => {
 			const nodes = parseNodes("5px 10px 15px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -179,7 +179,7 @@ describe("parseBorderRadiusShorthand", () => {
 
 		it("should parse four values (all corners)", () => {
 			const nodes = parseNodes("5px 10px 15px 20px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -192,7 +192,7 @@ describe("parseBorderRadiusShorthand", () => {
 
 		it("should handle unitless zero", () => {
 			const nodes = parseNodes("0");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
@@ -204,7 +204,7 @@ describe("parseBorderRadiusShorthand", () => {
 	describe("invalid inputs", () => {
 		it("should reject negative values", () => {
 			const nodes = parseNodes("-5px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -213,7 +213,7 @@ describe("parseBorderRadiusShorthand", () => {
 		});
 
 		it("should reject empty array", () => {
-			const result = parseBorderRadiusShorthand([]);
+			const result = parseCornerValues([]);
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -223,7 +223,7 @@ describe("parseBorderRadiusShorthand", () => {
 
 		it("should reject more than 4 values", () => {
 			const nodes = parseNodes("1px 2px 3px 4px 5px");
-			const result = parseBorderRadiusShorthand(nodes);
+			const result = parseCornerValues(nodes);
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
