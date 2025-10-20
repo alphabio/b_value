@@ -43,8 +43,10 @@ function parseXywhArgs(args: CssNode[]): Result<Type.ClipPathXywh, string> {
 		return err("xywh() requires exactly 4 values");
 	}
 
-	// Find 'round' keyword (if present)
-	const roundIndex = args.findIndex((node) => node.type === "Identifier" && node.name.toLowerCase() === "round");
+	// Parse optional border-radius (using utility)
+	const roundResult = ParseUtils.parseRoundBorderRadius(args);
+	if (!roundResult.ok) return roundResult;
+	const { roundIndex, borderRadius } = roundResult.value;
 
 	// Parse position/size values (before 'round' or all args if no 'round')
 	const xywhNodes = roundIndex !== -1 ? args.slice(0, roundIndex) : args;
@@ -87,23 +89,6 @@ function parseXywhArgs(args: CssNode[]): Result<Type.ClipPathXywh, string> {
 
 	if (heightResult.value.value < 0) {
 		return err("Height must be non-negative");
-	}
-
-	// Parse optional border-radius (after 'round')
-	let borderRadius: Type.InsetBorderRadius | undefined;
-	if (roundIndex !== -1) {
-		const radiusNodes = args.slice(roundIndex + 1);
-
-		if (radiusNodes.length === 0) {
-			return err("Expected border-radius values after 'round' keyword");
-		}
-
-		const radiusResult = ParseUtils.parseCornerValues(radiusNodes);
-		if (!radiusResult.ok) {
-			return err(`Invalid border-radius: ${radiusResult.error}`);
-		}
-
-		borderRadius = radiusResult.value;
 	}
 
 	return ok({

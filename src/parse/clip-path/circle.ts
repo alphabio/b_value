@@ -36,7 +36,6 @@ function parseCircleChildren(children: CssNode[]): Result<Type.ClipPathCircle, s
 
 	let idx = 0;
 	let radius: Type.ClipPathCircle["radius"];
-	let position: Type.Position2D | undefined;
 
 	// Parse optional radius
 	const firstNode = children[idx];
@@ -57,24 +56,19 @@ function parseCircleChildren(children: CssNode[]): Result<Type.ClipPathCircle, s
 		}
 	}
 
-	// Parse optional position after 'at'
+	// Parse optional position after 'at' (using utility)
+	let position: Type.Position2D | undefined;
 	if (idx < children.length) {
-		const atNode = children[idx];
-		if (atNode?.type !== "Identifier" || atNode.name.toLowerCase() !== "at") {
+		const atResult = ParseUtils.parseAtPosition(children, idx);
+		if (!atResult.ok) return atResult;
+
+		// If position is undefined, there was content but no 'at' keyword
+		if (atResult.value.position === undefined) {
 			return err("Expected 'at' keyword before position");
 		}
-		idx++;
 
-		const positionNodes = children.slice(idx);
-		if (positionNodes.length === 0) {
-			return err("Expected position after 'at'");
-		}
-
-		const posResult = ParseUtils.parsePosition2D(positionNodes, 0);
-		if (!posResult.ok) return posResult;
-
-		position = posResult.value.position;
-		idx += posResult.value.nextIdx;
+		position = atResult.value.position;
+		idx = atResult.value.nextIdx;
 	}
 
 	// Check for extra content
