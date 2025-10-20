@@ -498,3 +498,150 @@ export function parseCornerValues(nodes: csstree.CssNode[]): Result<
 			return err("Invalid number of values");
 	}
 }
+
+/**
+ * Parse optional 'round <border-radius>' clause from function arguments.
+ *
+ * Finds 'round' keyword and parses subsequent border-radius values.
+ * Used by inset(), rect(), and xywh() shape functions.
+ *
+ * @param args - Function arguments (may contain 'round' keyword)
+ * @returns Result with roundIndex and optional borderRadius
+ *
+ * @example
+ * Basic usage:
+ * ```typescript
+ * // args = [10px, 20px, 'round', 5px, 10px]
+ * const result = parseRoundBorderRadius(args);
+ * // { roundIndex: 2, borderRadius: { topLeft: {...}, ... } }
+ * ```
+ *
+ * @example
+ * No 'round' keyword:
+ * ```typescript
+ * // args = [10px, 20px, 30px, 40px]
+ * const result = parseRoundBorderRadius(args);
+ * // { roundIndex: -1, borderRadius: undefined }
+ * ```
+ *
+ * @example
+ * Error case:
+ * ```typescript
+ * // args = [10px, 'round'] // no radius values!
+ * const result = parseRoundBorderRadius(args);
+ * // err("Expected border-radius values after 'round' keyword")
+ * ```
+ *
+ * @public
+ */
+export function parseRoundBorderRadius(args: csstree.CssNode[]): Result<
+	{
+		roundIndex: number;
+		borderRadius?: {
+			topLeft: Type.LengthPercentage;
+			topRight: Type.LengthPercentage;
+			bottomRight: Type.LengthPercentage;
+			bottomLeft: Type.LengthPercentage;
+		};
+	},
+	string
+> {
+	// Find 'round' keyword position
+	const roundIndex = args.findIndex((node) => node.type === "Identifier" && node.name.toLowerCase() === "round");
+
+	// No 'round' keyword found - valid case
+	if (roundIndex === -1) {
+		return ok({ roundIndex: -1 });
+	}
+
+	// Get border-radius values (everything after 'round')
+	const radiusNodes = args.slice(roundIndex + 1);
+
+	// Must have at least one radius value
+	if (radiusNodes.length === 0) {
+		return err("Expected border-radius values after 'round' keyword");
+	}
+
+	// Parse border-radius using existing utility
+	const radiusResult = parseCornerValues(radiusNodes);
+	if (!radiusResult.ok) {
+		return err(`Invalid border-radius: ${radiusResult.error}`);
+	}
+
+	return ok({
+		roundIndex,
+		borderRadius: radiusResult.value,
+	});
+}
+
+/**
+ * Parse optional 'at <position>' clause from AST children.
+ *
+ * Finds 'at' keyword and parses subsequent position values.
+ * Used by circle() and ellipse() shape functions for center position.
+ *
+ * @param children - AST nodes (may contain 'at' keyword)
+ * @param startIdx - Index to start parsing from
+ * @returns Result with optional position and nextIdx
+ *
+ * @example
+ * Basic usage:
+ * ```typescript
+ * // children = [50px, 'at', 'center', 'top']
+ * const result = parseAtPosition(children, 1);
+ * // { position: { horizontal: 'center', vertical: 'top' }, nextIdx: 4 }
+ * ```
+ *
+ * @example
+ * No 'at' keyword:
+ * ```typescript
+ * // children = [50px, 100px]
+ * const result = parseAtPosition(children, 2);
+ * // { position: undefined, nextIdx: 2 }
+ * ```
+ *
+ * @example
+ * Error case:
+ * ```typescript
+ * // children = [50px, 'at'] // no position values!
+ * const result = parseAtPosition(children, 1);
+ * // err("Expected position after 'at'")
+ * ```
+ *
+ * @public
+ */
+export function parseAtPosition(
+	children: csstree.CssNode[],
+	startIdx: number,
+): Result<{ position?: Type.Position2D; nextIdx: number }, string> {
+	let idx = startIdx;
+
+	// Check if we have an 'at' keyword at current position
+	if (idx >= children.length) {
+		return ok({ nextIdx: idx });
+	}
+
+	const atNode = children[idx];
+	if (atNode?.type !== "Identifier" || atNode.name.toLowerCase() !== "at") {
+		// No 'at' keyword - valid case (position is optional)
+		return ok({ nextIdx: idx });
+	}
+
+	// Found 'at' keyword - advance past it
+	idx++;
+
+	// Must have position values after 'at'
+	const positionNodes = children.slice(idx);
+	if (positionNodes.length === 0) {
+		return err("Expected position after 'at'");
+	}
+
+	// Parse position using existing utility
+	const posResult = parsePosition2D(positionNodes, 0);
+	if (!posResult.ok) return posResult;
+
+	return ok({
+		position: posResult.value.position,
+		nextIdx: idx + posResult.value.nextIdx,
+	});
+}

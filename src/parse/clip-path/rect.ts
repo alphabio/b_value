@@ -43,8 +43,10 @@ function parseRectArgs(args: CssNode[]): Result<Type.ClipPathRect, string> {
 		return err("rect() requires at least one value");
 	}
 
-	// Find 'round' keyword (if present)
-	const roundIndex = args.findIndex((node) => node.type === "Identifier" && node.name.toLowerCase() === "round");
+	// Parse optional border-radius (using utility)
+	const roundResult = ParseUtils.parseRoundBorderRadius(args);
+	if (!roundResult.ok) return roundResult;
+	const { roundIndex, borderRadius } = roundResult.value;
 
 	// Parse TRBL values (before 'round' or all args if no 'round')
 	const trblNodes = roundIndex !== -1 ? args.slice(0, roundIndex) : args;
@@ -99,23 +101,6 @@ function parseRectArgs(args: CssNode[]): Result<Type.ClipPathRect, string> {
 		left = val3;
 	} else {
 		return err("rect() requires valid edge values");
-	}
-
-	// Parse optional border-radius (after 'round')
-	let borderRadius: Type.InsetBorderRadius | undefined;
-	if (roundIndex !== -1) {
-		const radiusNodes = args.slice(roundIndex + 1);
-
-		if (radiusNodes.length === 0) {
-			return err("Expected border-radius values after 'round' keyword");
-		}
-
-		const radiusResult = ParseUtils.parseCornerValues(radiusNodes);
-		if (!radiusResult.ok) {
-			return err(`Invalid border-radius: ${radiusResult.error}`);
-		}
-
-		borderRadius = radiusResult.value;
 	}
 
 	return ok({
