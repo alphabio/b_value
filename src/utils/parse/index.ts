@@ -2,4 +2,9 @@
 
 export * from "./color-components";
 export * from "./comma";
+export * from "./easing";
 export * from "./nodes";
+export * from "./nodes/angle";
+// Explicitly re-export from nodes subdirectory
+export * from "./nodes/length";
+export * from "./url";
