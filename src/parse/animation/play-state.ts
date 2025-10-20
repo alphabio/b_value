@@ -1,8 +1,9 @@
 // b_path:: src/parse/animation/play-state.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { ANIMATION_PLAY_STATE_KEYWORDS } from "@/core/keywords/animation";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse play state keyword from AST node.
@@ -57,59 +58,14 @@ function parsePlayState(node: csstree.CssNode): Result<Type.AnimationPlayState["
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-play-state | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationPlayState, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const statesResult = parseCommaSeparatedSingle(css, parsePlayState, "animation-play-state");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const states: Type.AnimationPlayState["states"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const stateResult = parsePlayState(currentNodes[0]);
-					if (!stateResult.ok) {
-						return err(stateResult.error);
-					}
-					states.push(stateResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single play state keyword between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const stateResult = parsePlayState(currentNodes[0]);
-			if (!stateResult.ok) {
-				return err(stateResult.error);
-			}
-			states.push(stateResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-play-state value");
-		} else {
-			return err("Expected single play state keyword");
-		}
-
-		if (states.length === 0) {
-			return err("animation-play-state requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-play-state",
-			states,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-play-state: ${e instanceof Error ? e.message : String(e)}`);
+	if (!statesResult.ok) {
+		return err(statesResult.error);
 	}
+
+	return ok({
+		kind: "animation-play-state",
+		states: statesResult.value,
+	});
 }

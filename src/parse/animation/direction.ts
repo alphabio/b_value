@@ -1,8 +1,9 @@
 // b_path:: src/parse/animation/direction.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { ANIMATION_DIRECTION_KEYWORDS } from "@/core/keywords/animation";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse direction keyword from AST node.
@@ -57,59 +58,14 @@ function parseDirection(node: csstree.CssNode): Result<Type.AnimationDirection["
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-direction | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationDirection, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const directionsResult = parseCommaSeparatedSingle(css, parseDirection, "animation-direction");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const directions: Type.AnimationDirection["directions"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const directionResult = parseDirection(currentNodes[0]);
-					if (!directionResult.ok) {
-						return err(directionResult.error);
-					}
-					directions.push(directionResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single direction keyword between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const directionResult = parseDirection(currentNodes[0]);
-			if (!directionResult.ok) {
-				return err(directionResult.error);
-			}
-			directions.push(directionResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-direction value");
-		} else {
-			return err("Expected single direction keyword");
-		}
-
-		if (directions.length === 0) {
-			return err("animation-direction requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-direction",
-			directions,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-direction: ${e instanceof Error ? e.message : String(e)}`);
+	if (!directionsResult.ok) {
+		return err(directionsResult.error);
 	}
+
+	return ok({
+		kind: "animation-direction",
+		directions: directionsResult.value,
+	});
 }

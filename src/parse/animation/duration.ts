@@ -1,7 +1,8 @@
 // b_path:: src/parse/animation/duration.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse duration value from AST node.
@@ -69,59 +70,14 @@ function parseDuration(node: csstree.CssNode): Result<{ type: "auto" } | (Type.T
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-duration | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationDuration, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const durationsResult = parseCommaSeparatedSingle(css, parseDuration, "animation-duration");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const durations: Type.AnimationDuration["durations"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const durationResult = parseDuration(currentNodes[0]);
-					if (!durationResult.ok) {
-						return err(durationResult.error);
-					}
-					durations.push(durationResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single duration value between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const durationResult = parseDuration(currentNodes[0]);
-			if (!durationResult.ok) {
-				return err(durationResult.error);
-			}
-			durations.push(durationResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-duration value");
-		} else {
-			return err("Expected single duration value");
-		}
-
-		if (durations.length === 0) {
-			return err("animation-duration requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-duration",
-			durations,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-duration: ${e instanceof Error ? e.message : String(e)}`);
+	if (!durationsResult.ok) {
+		return err(durationsResult.error);
 	}
+
+	return ok({
+		kind: "animation-duration",
+		durations: durationsResult.value,
+	});
 }

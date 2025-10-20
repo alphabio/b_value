@@ -1,41 +1,58 @@
-<!-- LAST UPDATED: 2025-10-20T09:19 -->
+<!-- LAST UPDATED: 2025-10-20T09:38 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-20-function-comma-utility (infrastructure - SIDE QUEST COMPLETE)
-**Status**: ✅ Side Quest Complete - splitNodesByComma utility implemented
-**Tests**: 2216 passing (+21 utility tests)
-**Next**: 🔄 **RETURN TO MAIN QUEST** - Clip-Path (sessions 7-9 remaining)
+**Last Session**: 2025-10-20-pattern-1-completion (discovery - architecture planned)
+**Status**: 🏗️ Architecture complete - ready to implement `parseCommaSeparatedLayers()`
+**Tests**: 2216 passing
+**Next**: 🔨 **IMPLEMENT** - Complete comma-parsing then clip-path
 
 ---
 
-## ✅ SIDE QUEST COMPLETE: Comma-Separated Parsing
+## 🏗️ PRIORITY: Complete Comma-Parsing Infrastructure
 
-**What was done**: Pattern 2 (function arguments) fully implemented
-- ✅ Created `splitNodesByComma()` utility + helpers (21 tests)
-- ✅ Refactored polygon, linear-gradient, radial-gradient, conic-gradient
-- ✅ Removed ~140 lines of duplicated comma handling
-- ✅ All quality gates passing (2216 tests)
+### Current State
 
-**See**: `.memory/archive/2025-10-20-function-comma-utility/HANDOVER.md`
+**Pattern 1a** (Single-node items):
+- ✅ 12/12 properties use `parseCommaSeparatedSingle()`
+- ✅ animation (8) + transition (4) properties
+
+**Pattern 1b** (Multi-node layers):
+- ❌ **MISSING UTILITY** - box-shadow & text-shadow have manual loops
+- 🔨 **READY TO BUILD** - Architecture complete!
+
+**Pattern 2** (Function arguments):
+- ✅ 4/4 functions use `splitNodesByComma()`
+- ✅ polygon, gradients
+
+### 🔥 Next Task: Implement `parseCommaSeparatedLayers()`
+
+**Time**: ~60 minutes  
+**Plan**: `.memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md`  
+**Impact**: Complete infrastructure, remove ~60 lines duplication
+
+**After this**: Proceed to clip-path Level 2 with full confidence!
 
 ---
 
-## ✅ PROGRESS UPDATE: Clip-Path Shapes
+## ✅ Clip-Path Level 1: 100% COMPLETE!
 
-**6 of 9 sessions complete (~67% done)**
-
-Recent completions:
-- ✅ Session 6: polygon() with point list + fill-rule (✨ BONUS from side quest)
-- ✅ Session 5: ellipse() with two radii + position (~23 min, +48 tests)
-- ✅ Session 4: circle() with radius + position (~25 min, +42 tests)
-- ✅ Session 3: inset() with TRBL + border-radius (~45 min, +55 tests)
-- ✅ Session 2: Geometry box keywords (~15 min, +22 tests)
+**All basic shapes (CSS Shapes Level 1) implemented:**
 - ✅ Session 1: URL + none (~25 min, +19 tests)
+- ✅ Session 2: Geometry box keywords (~15 min, +22 tests)
+- ✅ Session 3: inset() - rectangles with rounded corners (~45 min, +55 tests)
+- ✅ Session 4: circle() - circular shapes (~25 min, +42 tests)
+- ✅ Session 5: ellipse() - elliptical shapes (~23 min, +48 tests)
+- ✅ Session 6: polygon() - arbitrary polygons (✨ refined via comma utility)
 
-**Total**: 186+ tests, 6 shapes implemented (polygon got cleaner via side quest!)
+**Total**: 186+ tests, all core clip-path features working!
 
-See: `.memory/archive/2025-10-19-clip-path-shapes/` for details
+**Remaining** (Level 2 - optional):
+- ⏳ path() - SVG path data (complex, ~45-60 min)
+- ⏳ rect() - newer rect syntax (~25-30 min)
+- ⏳ xywh() - position-based rect (~25-30 min)
+
+See: `.memory/archive/2025-10-19-clip-path-shapes/` for full history
 
 ---
 
@@ -45,47 +62,72 @@ See: `.memory/archive/2025-10-19-clip-path-shapes/` for details
 # 1. Verify baseline (MUST PASS before any work)
 just check && just test  # Should show 2216 tests passing
 
-# 2. Read clip-path continuation context
+# 2. Read the architecture plan
+cat .memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md
+
+# 3. Implement parseCommaSeparatedLayers() (~60 min)
+# Follow the step-by-step plan in ARCHITECTURE.md
+
+# 4. CRITICAL: Test nested comma handling
+# Ensure "drop-shadow(1px, 2px), 3px 3px" splits into 2 layers, not 3!
+
+# 5. Refactor box-shadow and text-shadow
+
+# 6. Then proceed to clip-path Level 2
 cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
-
-# 3. OPTIONAL: Review side quest results
-cat .memory/archive/2025-10-20-function-comma-utility/HANDOVER.md
-
-# 4. Continue with remaining clip-path shapes (MAIN QUEST)
-# Sessions 7-9: path(), rect(), xywh() or other shapes
 ```
 
 ---
 
 ## Quick Status
 
-**Working on**: 🎯 **MAIN QUEST** - Clip-Path (sessions 7-9 remaining)
-**Recent**: ✅ Side quest complete - infrastructure improved
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + **Color (12 formats ✅)** + ClipPath (6/9 sessions)
-**Recent work**: Comma-separated parsing utilities + polygon() refactor
+**Working on**: 🎯 **DECISION POINT** - Choose next quest
+**Recent**: ✅ TWO major quests complete (comma-parsing + clip-path Level 1)
+**Project state**: Animation (8✅) + Transition (4✅) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + **Color (12 ✅)** + **ClipPath Level 1 (6 shapes ✅)**
+**Recent work**: Discovered all comma-parsing work already done!
 **Coverage**: 85.73% (stable)
 **Next steps**:
-  1. Continue clip-path shapes (3 more sessions)
-  2. OR: Complete Pattern 1 (8 animation properties - 1-2h side quest)
+  1. ⭐ Choose next domain (new features)
+  2. 🔧 Complete clip-path Level 2 (optional advanced shapes)
+  3. 📚 Documentation improvements
 
 ---
 
 ## Next Agent Recommendations
 
-### ⭐ PRIORITY: Clip-Path Sessions 7-9 - Remaining Shapes
-**Why**: Continue main clip-path implementation quest
-**Time**: 1-2 hours total for remaining sessions
-**Options**:
-  - path() - Most complex, SVG path data (~45-60 min)
-  - rect() / xywh() - Rectangular shapes (~25-30 min each)
-  - Or: Other CSS shapes as needed
+### 🔥 PRIORITY #1: Complete Comma-Parsing Infrastructure (~60 min)
+
+**Why**: Critical infrastructure gap discovered
+**What**: Implement `parseCommaSeparatedLayers()` for multi-node items
+**Impact**: 
+  - Enables DRY parsing for box-shadow, text-shadow
+  - Removes ~60 lines of duplicate code
+  - Completes comma-parsing architecture
+  - Future-proofs for background layers, transforms
+
+**Plan**: `.memory/archive/2025-10-20-comma-parsing-completion/ARCHITECTURE.md`
+
+**Checklist**:
+1. Implement `parseCommaSeparatedLayers()` utility (20 min)
+2. Write tests - especially nested comma test! (15 min)
+3. Refactor box-shadow (10 min)
+4. Refactor text-shadow (5 min)
+5. Verify quality gates (5 min)
+6. Document results (10 min)
+
+### 🎯 PRIORITY #2: Clip-Path Level 2 - Advanced Shapes (~1.5-2.5 hours)
+
+**Why**: Complete the clip-path quest after infrastructure is solid
+**Shapes**:
+  - path() - SVG path data (~45-60 min)
+  - rect() - Rectangle syntax (~25-30 min)  
+  - xywh() - Position-based rect (~25-30 min)
+
 **Handover**: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
 
-### 💡 OPTIONAL: Complete Pattern 1 (Animation Properties)
-**Why**: Finish comma-separated side quest
-**Time**: 1-2 hours
-**Task**: Refactor 8 animation properties with `parseCommaSeparatedSingle()`
-**Guide**: `.memory/archive/2025-10-20-comma-separated-research/ACTION_PLAN.md`
+### 💡 OPTION 3: New Domain (After infrastructure complete)
+
+Fresh features - filters, transforms, masks, grid, etc.
 
 ---
 
