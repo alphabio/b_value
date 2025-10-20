@@ -17,7 +17,9 @@
  */
 
 export * from "./angle";
+export * from "./border-radius";
 // Clean barrel exports using export *
 export * from "./length";
 export * from "./number";
 export * from "./position";
+export * from "./radial";
