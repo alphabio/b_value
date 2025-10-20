@@ -35,35 +35,9 @@ export function toCss(value: Type.ClipPathXywh): string {
 	// Generate optional border-radius
 	let radiusCss = "";
 	if (value.borderRadius) {
-		const radiusOptimized = generateOptimizedBorderRadius(value.borderRadius);
+		const radiusOptimized = GenerateUtils.optimizeBorderRadius(value.borderRadius);
 		radiusCss = ` round ${radiusOptimized}`;
 	}
 
 	return `xywh(${xywhCss}${radiusCss})`;
-}
-
-/**
- * Generate optimized border-radius CSS (shortest form).
- *
- * @internal
- */
-function generateOptimizedBorderRadius(radius: Type.InsetBorderRadius): string {
-	const tl = GenerateUtils.lengthPercentageToCss(radius.topLeft);
-	const tr = GenerateUtils.lengthPercentageToCss(radius.topRight);
-	const br = GenerateUtils.lengthPercentageToCss(radius.bottomRight);
-	const bl = GenerateUtils.lengthPercentageToCss(radius.bottomLeft);
-
-	if (tl === tr && tr === br && br === bl) {
-		return tl;
-	}
-
-	if (tl === br && tr === bl) {
-		return `${tl} ${tr}`;
-	}
-
-	if (tr === bl) {
-		return `${tl} ${tr} ${br}`;
-	}
-
-	return `${tl} ${tr} ${br} ${bl}`;
 }

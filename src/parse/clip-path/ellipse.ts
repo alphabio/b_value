@@ -38,47 +38,21 @@ function parseEllipseChildren(children: CssNode[]): Result<Type.ClipPathEllipse,
 	let radiusX: Type.ClipPathEllipse["radiusX"];
 	let radiusY: Type.ClipPathEllipse["radiusY"];
 
-	// Parse optional radiusX
-	const firstNode = children[idx];
-	if (firstNode && firstNode.type === "Identifier") {
-		const keyword = firstNode.name.toLowerCase();
-		if (keyword === "closest-side" || keyword === "farthest-side") {
-			radiusX = keyword;
-			idx++;
-		} else if (keyword !== "at") {
-			return err(`Invalid keyword for ellipse radiusX: ${keyword}`);
-		}
-	} else if (firstNode) {
-		const lpResult = ParseUtils.parseLengthPercentageNode(firstNode);
-		if (lpResult.ok) {
-			if (lpResult.value.value < 0) {
-				return err("ellipse() radiusX must be non-negative");
-			}
-			radiusX = lpResult.value;
-			idx++;
-		}
+	// Parse optional radiusX (using utility, allow 'at' keyword)
+	const radiusXResult = ParseUtils.parseRadialSize(children[idx], "ellipse() radiusX", true);
+	if (!radiusXResult.ok) return radiusXResult;
+	if (radiusXResult.value !== undefined) {
+		radiusX = radiusXResult.value;
+		idx++;
 	}
 
-	// Parse optional radiusY (if radiusX was parsed)
+	// Parse optional radiusY (if radiusX was parsed, also allow 'at' keyword)
 	if (radiusX !== undefined && idx < children.length) {
-		const secondNode = children[idx];
-		if (secondNode && secondNode.type === "Identifier") {
-			const keyword = secondNode.name.toLowerCase();
-			if (keyword === "closest-side" || keyword === "farthest-side") {
-				radiusY = keyword;
-				idx++;
-			} else if (keyword !== "at") {
-				return err(`Invalid keyword for ellipse radiusY: ${keyword}`);
-			}
-		} else if (secondNode) {
-			const lpResult = ParseUtils.parseLengthPercentageNode(secondNode);
-			if (lpResult.ok) {
-				if (lpResult.value.value < 0) {
-					return err("ellipse() radiusY must be non-negative");
-				}
-				radiusY = lpResult.value;
-				idx++;
-			}
+		const radiusYResult = ParseUtils.parseRadialSize(children[idx], "ellipse() radiusY", true);
+		if (!radiusYResult.ok) return radiusYResult;
+		if (radiusYResult.value !== undefined) {
+			radiusY = radiusYResult.value;
+			idx++;
 		}
 	}
 

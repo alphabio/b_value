@@ -37,23 +37,12 @@ function parseCircleChildren(children: CssNode[]): Result<Type.ClipPathCircle, s
 	let idx = 0;
 	let radius: Type.ClipPathCircle["radius"];
 
-	// Parse optional radius
-	const firstNode = children[idx];
-	if (firstNode && firstNode.type === "Identifier") {
-		const keyword = firstNode.name.toLowerCase();
-		if (keyword === "closest-side" || keyword === "farthest-side") {
-			radius = keyword;
-			idx++;
-		}
-	} else if (firstNode) {
-		const lpResult = ParseUtils.parseLengthPercentageNode(firstNode);
-		if (lpResult.ok) {
-			if (lpResult.value.value < 0) {
-				return err("circle() radius must be non-negative");
-			}
-			radius = lpResult.value;
-			idx++;
-		}
+	// Parse optional radius (using utility, allow 'at' keyword)
+	const radiusResult = ParseUtils.parseRadialSize(children[idx], "circle() radius", true);
+	if (!radiusResult.ok) return radiusResult;
+	if (radiusResult.value !== undefined) {
+		radius = radiusResult.value;
+		idx++;
 	}
 
 	// Parse optional position after 'at' (using utility)

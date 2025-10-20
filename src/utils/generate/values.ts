@@ -111,3 +111,74 @@ export function joinCssValues(values: string[]): string {
 export function joinCssValuesWithSpaces(values: string[]): string {
 	return values.join(" ");
 }
+
+/**
+ * Generate optimized border-radius CSS (shortest form).
+ *
+ * Optimizes 4-corner border-radius values to shortest form:
+ * - All equal → 1 value
+ * - Diagonals same → 2 values
+ * - Top-right/bottom-left same → 3 values
+ * - All different → 4 values
+ *
+ * Used by clip-path shapes (inset, rect, xywh) for 'round' clause.
+ *
+ * @param radius - Border radius with 4 corner values
+ * @returns Optimized CSS border-radius string
+ *
+ * @public
+ *
+ * @example
+ * All corners equal:
+ * ```typescript
+ * const radius = {
+ *   topLeft: { value: 5, unit: "px" },
+ *   topRight: { value: 5, unit: "px" },
+ *   bottomRight: { value: 5, unit: "px" },
+ *   bottomLeft: { value: 5, unit: "px" }
+ * };
+ * optimizeBorderRadius(radius); // "5px"
+ * ```
+ *
+ * @example
+ * Diagonals same:
+ * ```typescript
+ * const radius = {
+ *   topLeft: { value: 5, unit: "px" },
+ *   topRight: { value: 10, unit: "px" },
+ *   bottomRight: { value: 5, unit: "px" },
+ *   bottomLeft: { value: 10, unit: "px" }
+ * };
+ * optimizeBorderRadius(radius); // "5px 10px"
+ * ```
+ */
+export function optimizeBorderRadius(radius: {
+	topLeft: Type.LengthPercentage;
+	topRight: Type.LengthPercentage;
+	bottomRight: Type.LengthPercentage;
+	bottomLeft: Type.LengthPercentage;
+}): string {
+	const tl = lengthPercentageToCss(radius.topLeft);
+	const tr = lengthPercentageToCss(radius.topRight);
+	const br = lengthPercentageToCss(radius.bottomRight);
+	const bl = lengthPercentageToCss(radius.bottomLeft);
+
+	// Check for optimization opportunities
+	if (tl === tr && tr === br && br === bl) {
+		// All equal: 1 value
+		return tl;
+	}
+
+	if (tl === br && tr === bl) {
+		// Diagonals same: 2 values
+		return `${tl} ${tr}`;
+	}
+
+	if (tr === bl) {
+		// Top-right/bottom-left same: 3 values
+		return `${tl} ${tr} ${br}`;
+	}
+
+	// All different: 4 values
+	return `${tl} ${tr} ${br} ${bl}`;
+}
