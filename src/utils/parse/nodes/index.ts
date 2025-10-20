@@ -4,21 +4,23 @@
  * Node parsing utilities organized by domain.
  *
  * This module exports parsing utilities for CSS AST nodes,
- * organized into focused sub-modules:
+ * organized into focused sub-modules by value type:
  *
- * - **length**: Length, percentage, and number parsing
- * - **angle**: Angle value parsing
- * - **number**: Identifier and keyword parsing
- * - **position**: Position value parsing (2D coordinates)
- * - **border-radius**: Border-radius and TRBL parsing
- * - **radial**: Radial size parsing for shapes
+ * - **angle**: Angle value parsing (deg, rad, grad, turn)
+ * - **border-radius**: TRBL, corner values, and round keyword parsing
+ * - **length**: Length, percentage, and length-percentage parsing
+ * - **number**: Number and identifier keyword parsing
+ * - **position**: 2D position value parsing (x/y coordinates)
+ * - **radial**: Radial size parsing for circle/ellipse shapes
+ *
+ * Each module provides focused utilities for its domain, keeping
+ * files small (<320 lines) and maintainable.
  *
  * @module utils/parse/nodes
  */
 
 export * from "./angle";
 export * from "./border-radius";
-// Clean barrel exports using export *
 export * from "./length";
 export * from "./number";
 export * from "./position";
