@@ -19,3 +19,4 @@
 export * from "./angle";
 // Clean barrel exports using export *
 export * from "./length";
+export * from "./number";
