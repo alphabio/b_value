@@ -8,4 +8,5 @@ export * from "./nodes/angle";
 // Explicitly re-export from nodes subdirectory
 export * from "./nodes/length";
 export * from "./nodes/number";
+export * from "./nodes/position";
 export * from "./url";
