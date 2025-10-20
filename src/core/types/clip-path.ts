@@ -16,7 +16,7 @@ import type { Url } from "./url";
  *
  * @public
  */
-export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset | ClipPathCircle;
+export type ClipPathValue = Url | ClipPathNone | ClipPathGeometryBox | ClipPathInset | ClipPathCircle | ClipPathEllipse;
 
 /**
  * 'none' keyword for clip-path.
@@ -114,3 +114,25 @@ export const clipPathCircleSchema = z.object({
 });
 
 export type ClipPathCircle = z.infer<typeof clipPathCircleSchema>;
+
+/**
+ * ellipse() basic shape function.
+ *
+ * Defines an elliptical clipping region with optional horizontal/vertical radii and center position.
+ *
+ * Syntax: ellipse( <radial-size>{2}? [ at <position> ]? )
+ *
+ * Defaults: radiusX = "closest-side", radiusY = "closest-side", position = center
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/ellipse}
+ *
+ * @public
+ */
+export const clipPathEllipseSchema = z.object({
+	kind: z.literal("clip-path-ellipse"),
+	radiusX: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
+	radiusY: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
+	position: position2DSchema.optional(),
+});
+
+export type ClipPathEllipse = z.infer<typeof clipPathEllipseSchema>;
