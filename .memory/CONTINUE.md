@@ -1,29 +1,41 @@
-<!-- LAST UPDATED: 2025-10-20T00:11 -->
+<!-- LAST UPDATED: 2025-10-20T09:19 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-20-clip-path-session-5 (ellipse() shape function - ~23 min)
-**Status**: ✅ Clip-Path Session 5 COMPLETE - ellipse() implemented
-**Tests**: 2139 passing (+48 tests from ellipse: 2091)
-**Coverage**: Not yet measured (new feature branch)
-**Next**: 🔄 **CONTINUE MAIN QUEST** - Clip-Path Session 6 (polygon() shape function)
+**Last Session**: 2025-10-20-function-comma-utility (infrastructure - SIDE QUEST COMPLETE)
+**Status**: ✅ Side Quest Complete - splitNodesByComma utility implemented
+**Tests**: 2216 passing (+21 utility tests)
+**Next**: 🔄 **RETURN TO MAIN QUEST** - Clip-Path (sessions 7-9 remaining)
+
+---
+
+## ✅ SIDE QUEST COMPLETE: Comma-Separated Parsing
+
+**What was done**: Pattern 2 (function arguments) fully implemented
+- ✅ Created `splitNodesByComma()` utility + helpers (21 tests)
+- ✅ Refactored polygon, linear-gradient, radial-gradient, conic-gradient
+- ✅ Removed ~140 lines of duplicated comma handling
+- ✅ All quality gates passing (2216 tests)
+
+**See**: `.memory/archive/2025-10-20-function-comma-utility/HANDOVER.md`
 
 ---
 
 ## ✅ PROGRESS UPDATE: Clip-Path Shapes
 
-**5 of 9 sessions complete (~56% done)**
+**6 of 9 sessions complete (~67% done)**
 
 Recent completions:
+- ✅ Session 6: polygon() with point list + fill-rule (✨ BONUS from side quest)
 - ✅ Session 5: ellipse() with two radii + position (~23 min, +48 tests)
 - ✅ Session 4: circle() with radius + position (~25 min, +42 tests)
 - ✅ Session 3: inset() with TRBL + border-radius (~45 min, +55 tests)
 - ✅ Session 2: Geometry box keywords (~15 min, +22 tests)
 - ✅ Session 1: URL + none (~25 min, +19 tests)
 
-**Total**: 186 tests, 5 shapes implemented
+**Total**: 186+ tests, 6 shapes implemented (polygon got cleaner via side quest!)
 
-See: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md` for details
+See: `.memory/archive/2025-10-19-clip-path-shapes/` for details
 
 ---
 
@@ -31,46 +43,49 @@ See: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md` for det
 
 ```bash
 # 1. Verify baseline (MUST PASS before any work)
-just check && just test  # Should show 2139 tests passing
+just check && just test  # Should show 2216 tests passing
 
 # 2. Read clip-path continuation context
 cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
 
-# 3. Implement polygon() shape function (CONTINUE MAIN QUEST)
-# - Time: ~30-40 minutes
-# - Tests: +40-50 tests expected
-# - Syntax: polygon( <fill-rule>? , <shape-arg># )
-# - More complex: point list with fill-rule + comma-separated syntax
+# 3. OPTIONAL: Review side quest results
+cat .memory/archive/2025-10-20-function-comma-utility/HANDOVER.md
+
+# 4. Continue with remaining clip-path shapes (MAIN QUEST)
+# Sessions 7-9: path(), rect(), xywh() or other shapes
 ```
 
 ---
 
 ## Quick Status
 
-**Working on**: 🔄 **MAIN QUEST** - Clip-Path Session 6 (polygon() shape function)
-**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + **Color (12 formats ✅ COMPLETE)** + ClipPath (5/9 sessions)
-**Recent work**: Clip-path shapes - ellipse() with two radii (~23 min, +48 tests)
-**Coverage**: 85.73% (stable, new features in progress)
+**Working on**: 🎯 **MAIN QUEST** - Clip-Path (sessions 7-9 remaining)
+**Recent**: ✅ Side quest complete - infrastructure improved
+**Project state**: Animation (8) + Transition (4) + Shadow (2) + Border (4) + Outline (4) + Layout (14) + **Color (12 formats ✅)** + ClipPath (6/9 sessions)
+**Recent work**: Comma-separated parsing utilities + polygon() refactor
+**Coverage**: 85.73% (stable)
 **Next steps**:
-  1. Implement polygon() shape function for clip-path (~30-40 min)
-  2. Continue clip-path sessions (4 more sessions remaining)
+  1. Continue clip-path shapes (3 more sessions)
+  2. OR: Complete Pattern 1 (8 animation properties - 1-2h side quest)
 
 ---
 
 ## Next Agent Recommendations
 
-### ⭐ PRIORITY: Clip-Path Session 6 - polygon() Shape Function
+### ⭐ PRIORITY: Clip-Path Sessions 7-9 - Remaining Shapes
 **Why**: Continue main clip-path implementation quest
-**Time**: 30-40 minutes
-**Task**: Implement polygon() basic shape with point list + fill-rule
-**Syntax**: `polygon( <fill-rule>? , <shape-arg># )`
+**Time**: 1-2 hours total for remaining sessions
+**Options**:
+  - path() - Most complex, SVG path data (~45-60 min)
+  - rect() / xywh() - Rectangular shapes (~25-30 min each)
+  - Or: Other CSS shapes as needed
 **Handover**: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
-**Details**:
-- Fill-rule enum: nonzero | evenodd
-- Comma-separated list of points (x y pairs)
-- More complex than circle/ellipse
-- New parsing pattern for lists
-**Pattern**: Point list parsing + fill-rule handling
+
+### 💡 OPTIONAL: Complete Pattern 1 (Animation Properties)
+**Why**: Finish comma-separated side quest
+**Time**: 1-2 hours
+**Task**: Refactor 8 animation properties with `parseCommaSeparatedSingle()`
+**Guide**: `.memory/archive/2025-10-20-comma-separated-research/ACTION_PLAN.md`
 
 ---
 
@@ -81,7 +96,7 @@ cat .memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md
 ```bash
 # Quality gates (run after changes)
 just check                 # Format + typecheck + lint
-just test                  # All tests (2091 tests)
+just test                  # All tests (2216 tests)
 just coverage              # Test coverage (currently 85.73%)
 pnpm test -- [pattern]     # Filter tests by name/file
 
@@ -94,6 +109,28 @@ git diff                   # View changes
 ls src/parse/              # See all parser domains
 ls src/generate/           # See all generator domains
 ```
+
+### Comma-Separated Parsing
+
+**Two patterns, two utilities**:
+
+1. **Property layer** (`animation-name: a, b, c`):
+   ```typescript
+   import { parseCommaSeparatedSingle } from "@/utils/parse";
+   const result = parseCommaSeparatedSingle(css, itemParser, "property-name");
+   ```
+
+2. **Function args** (`polygon(x y, x y, x y)`):
+   ```typescript
+   import { splitNodesByComma, skipComma, isCommaAt } from "@/utils/ast";
+   const groups = splitNodesByComma(children, { startIndex: idx });
+   idx = skipComma(children, idx); // Skip optional comma
+   if (!isCommaAt(children, idx)) return err("Expected comma");
+   ```
+
+**Status**:
+- Pattern 2 (function args): ✅ Complete - used by polygon, gradients
+- Pattern 1 (property layer): 🟡 Partial - 4/12 properties done
 
 ### File Structure
 
