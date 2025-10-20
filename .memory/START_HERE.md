@@ -57,6 +57,10 @@ Everything green before commit. No exceptions.
 
 **Example**: 7 parsers had `parseAlpha()`. Fixed: `src/utils/parse/color-components.ts`.
 
+**Comma-separated values**: Use utilities, don't manually parse commas:
+- **Property layer** (e.g., `animation-name: a, b, c`) → Use `parseCommaSeparatedSingle()` from `@/utils/parse`
+- **Function args** (e.g., `polygon(x y, x y)`) → Use `splitNodesByComma()` from `@/utils/ast`
+
 ### KISS - Keep It Simple
 
 **Rule**: Code readable in 30 seconds. One function = one job.

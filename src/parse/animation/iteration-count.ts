@@ -1,7 +1,8 @@
 // b_path:: src/parse/animation/iteration-count.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse iteration count value from AST node.
@@ -65,59 +66,14 @@ function parseIterationCount(
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-iteration-count | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationIterationCount, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const countsResult = parseCommaSeparatedSingle(css, parseIterationCount, "animation-iteration-count");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const counts: Type.AnimationIterationCount["counts"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const countResult = parseIterationCount(currentNodes[0]);
-					if (!countResult.ok) {
-						return err(countResult.error);
-					}
-					counts.push(countResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single iteration count between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const countResult = parseIterationCount(currentNodes[0]);
-			if (!countResult.ok) {
-				return err(countResult.error);
-			}
-			counts.push(countResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-iteration-count value");
-		} else {
-			return err("Expected single iteration count");
-		}
-
-		if (counts.length === 0) {
-			return err("animation-iteration-count requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-iteration-count",
-			counts,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-iteration-count: ${e instanceof Error ? e.message : String(e)}`);
+	if (!countsResult.ok) {
+		return err(countsResult.error);
 	}
+
+	return ok({
+		kind: "animation-iteration-count",
+		counts: countsResult.value,
+	});
 }

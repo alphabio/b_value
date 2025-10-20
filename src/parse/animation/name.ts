@@ -1,7 +1,8 @@
 // b_path:: src/parse/animation/name.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse animation name from AST node.
@@ -60,59 +61,14 @@ function parseAnimationName(
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-name | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationName, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const namesResult = parseCommaSeparatedSingle(css, parseAnimationName, "animation-name");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const names: Type.AnimationName["names"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const nameResult = parseAnimationName(currentNodes[0]);
-					if (!nameResult.ok) {
-						return err(nameResult.error);
-					}
-					names.push(nameResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single animation name between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const nameResult = parseAnimationName(currentNodes[0]);
-			if (!nameResult.ok) {
-				return err(nameResult.error);
-			}
-			names.push(nameResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-name value");
-		} else {
-			return err("Expected single animation name");
-		}
-
-		if (names.length === 0) {
-			return err("animation-name requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-name",
-			names,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-name: ${e instanceof Error ? e.message : String(e)}`);
+	if (!namesResult.ok) {
+		return err(namesResult.error);
 	}
+
+	return ok({
+		kind: "animation-name",
+		names: namesResult.value,
+	});
 }

@@ -1,8 +1,9 @@
 // b_path:: src/parse/animation/fill-mode.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { ANIMATION_FILL_MODE_KEYWORDS } from "@/core/keywords/animation";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse fill mode keyword from AST node.
@@ -57,59 +58,14 @@ function parseFillMode(node: csstree.CssNode): Result<Type.AnimationFillMode["mo
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-fill-mode | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationFillMode, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const modesResult = parseCommaSeparatedSingle(css, parseFillMode, "animation-fill-mode");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const modes: Type.AnimationFillMode["modes"] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const modeResult = parseFillMode(currentNodes[0]);
-					if (!modeResult.ok) {
-						return err(modeResult.error);
-					}
-					modes.push(modeResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single fill mode keyword between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const modeResult = parseFillMode(currentNodes[0]);
-			if (!modeResult.ok) {
-				return err(modeResult.error);
-			}
-			modes.push(modeResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty animation-fill-mode value");
-		} else {
-			return err("Expected single fill mode keyword");
-		}
-
-		if (modes.length === 0) {
-			return err("animation-fill-mode requires at least one value");
-		}
-
-		return ok({
-			kind: "animation-fill-mode",
-			modes,
-		});
-	} catch (e) {
-		return err(`Failed to parse animation-fill-mode: ${e instanceof Error ? e.message : String(e)}`);
+	if (!modesResult.ok) {
+		return err(modesResult.error);
 	}
+
+	return ok({
+		kind: "animation-fill-mode",
+		modes: modesResult.value,
+	});
 }
