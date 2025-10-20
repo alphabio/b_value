@@ -23,7 +23,10 @@ export type ClipPathValue =
 	| ClipPathInset
 	| ClipPathCircle
 	| ClipPathEllipse
-	| ClipPathPolygon;
+	| ClipPathPolygon
+	| ClipPathRect
+	| ClipPathXywh
+	| ClipPathPath;
 
 /**
  * 'none' keyword for clip-path.
@@ -170,3 +173,85 @@ export const clipPathPolygonSchema = z.object({
 });
 
 export type ClipPathPolygon = z.infer<typeof clipPathPolygonSchema>;
+
+/**
+ * rect() basic shape function.
+ *
+ * Defines a rectangle using edge offsets (TRBL).
+ * Each edge can be a length-percentage or 'auto'.
+ * Optionally accepts rounded corners via border-radius syntax.
+ *
+ * Syntax: rect( [<length-percentage> | auto]{1,4} [ round <border-radius> ]? )
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/rect}
+ *
+ * @public
+ */
+export const clipPathRectSchema = z.object({
+	kind: z.literal("clip-path-rect"),
+	top: z.union([lengthPercentageSchema, z.literal("auto")]),
+	right: z.union([lengthPercentageSchema, z.literal("auto")]),
+	bottom: z.union([lengthPercentageSchema, z.literal("auto")]),
+	left: z.union([lengthPercentageSchema, z.literal("auto")]),
+	borderRadius: z
+		.object({
+			topLeft: lengthPercentageSchema,
+			topRight: lengthPercentageSchema,
+			bottomRight: lengthPercentageSchema,
+			bottomLeft: lengthPercentageSchema,
+		})
+		.optional(),
+});
+
+export type ClipPathRect = z.infer<typeof clipPathRectSchema>;
+
+/**
+ * xywh() basic shape function.
+ *
+ * Defines a rectangle using position (x, y) and dimensions (width, height).
+ * All values are length-percentages. Width and height must be non-negative.
+ * Optionally accepts rounded corners via border-radius syntax.
+ *
+ * Syntax: xywh( <length-percentage>{4} [ round <border-radius> ]? )
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/xywh}
+ *
+ * @public
+ */
+export const clipPathXywhSchema = z.object({
+	kind: z.literal("clip-path-xywh"),
+	x: lengthPercentageSchema,
+	y: lengthPercentageSchema,
+	width: lengthPercentageSchema,
+	height: lengthPercentageSchema,
+	borderRadius: z
+		.object({
+			topLeft: lengthPercentageSchema,
+			topRight: lengthPercentageSchema,
+			bottomRight: lengthPercentageSchema,
+			bottomLeft: lengthPercentageSchema,
+		})
+		.optional(),
+});
+
+export type ClipPathXywh = z.infer<typeof clipPathXywhSchema>;
+
+/**
+ * path() basic shape function.
+ *
+ * Defines a clipping region using SVG path data.
+ * Optionally accepts a fill-rule to determine interior points.
+ *
+ * Syntax: path( [<fill-rule>,]? <string> )
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/basic-shape/path}
+ *
+ * @public
+ */
+export const clipPathPathSchema = z.object({
+	kind: z.literal("clip-path-path"),
+	fillRule: z.enum(["nonzero", "evenodd"]).optional(),
+	pathData: z.string(),
+});
+
+export type ClipPathPath = z.infer<typeof clipPathPathSchema>;
