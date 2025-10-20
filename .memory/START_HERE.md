@@ -57,6 +57,31 @@ Everything green before commit. No exceptions.
 
 **Example**: 7 parsers had `parseAlpha()`. Fixed: `src/utils/parse/color-components.ts`.
 
+### World-Class Naming - CRITICAL
+
+**❌ NEVER name functions based on iteration/improvement**:
+- `optimizeBorderRadius` ← BAD (we'll always optimize)
+- `generateOptimizedTRBL` ← BAD (are we going to create `optimizeOptimizedTRBL`?)
+- `improvedParser` ← BAD
+- `betterValidation` ← BAD
+- `enhancedTransform` ← BAD
+- `newCalculation` ← BAD
+- `v2Function` ← BAD
+
+**✅ ALWAYS name based on WHAT it does**:
+- `borderRadiusToCss` ← GOOD (describes the transformation)
+- `generateTRBL` ← GOOD (describes what it generates)
+- `parseLength` ← GOOD (describes what it parses)
+- `validateColor` ← GOOD (describes what it validates)
+
+**Why this matters**: This is continuous development. We ALWAYS improve code. The name should describe the PURPOSE, not the iteration stage.
+
+**Pattern in this codebase**:
+- Parse: `parseXxx()` - converts CSS to IR
+- Generate: `xxxToCss()` - converts IR to CSS  
+- Validate: `validateXxx()` - checks validity
+- Transform: `transformXxx()` - modifies data
+
 **Comma-separated values**: Use utilities, don't manually parse commas:
 - **Independent values** (e.g., `animation-name: a, b, c`) → Use `splitValue()` from `@/utils/parse/comma`
 - **Visual layers** (e.g., `box-shadow: 2px 2px red, 3px 3px blue`) → Use `splitLayer()` from `@/utils/parse/comma`
