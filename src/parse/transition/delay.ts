@@ -1,7 +1,8 @@
 // b_path:: src/parse/transition/delay.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
  * Parse time value from AST node.
@@ -60,59 +61,14 @@ function parseTime(node: csstree.CssNode): Result<Type.Time, string> {
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-delay-property | W3C Spec}
  */
 export function parse(css: string): Result<Type.TransitionDelay, string> {
-	try {
-		const ast = csstree.parse(css, { context: "value" });
+	const delaysResult = parseCommaSeparatedSingle(css, parseTime, "transition-delay");
 
-		if (ast.type !== "Value") {
-			return err("Expected Value node");
-		}
-
-		const children = ast.children.toArray();
-
-		const delays: Type.Time[] = [];
-		let currentNodes: csstree.CssNode[] = [];
-
-		for (const node of children) {
-			if (node.type === "Operator" && "value" in node && node.value === ",") {
-				if (currentNodes.length === 1 && currentNodes[0]) {
-					const timeResult = parseTime(currentNodes[0]);
-					if (!timeResult.ok) {
-						return err(timeResult.error);
-					}
-					delays.push(timeResult.value);
-					currentNodes = [];
-				} else if (currentNodes.length === 0) {
-					return err("Empty value before comma");
-				} else {
-					return err("Expected single time value between commas");
-				}
-			} else {
-				currentNodes.push(node);
-			}
-		}
-
-		// Handle last value
-		if (currentNodes.length === 1 && currentNodes[0]) {
-			const timeResult = parseTime(currentNodes[0]);
-			if (!timeResult.ok) {
-				return err(timeResult.error);
-			}
-			delays.push(timeResult.value);
-		} else if (currentNodes.length === 0) {
-			return err("Empty transition-delay value");
-		} else {
-			return err("Expected single time value");
-		}
-
-		if (delays.length === 0) {
-			return err("transition-delay requires at least one time value");
-		}
-
-		return ok({
-			kind: "transition-delay",
-			delays,
-		});
-	} catch (e) {
-		return err(`Failed to parse transition-delay: ${e instanceof Error ? e.message : String(e)}`);
+	if (!delaysResult.ok) {
+		return err(delaysResult.error);
 	}
+
+	return ok({
+		kind: "transition-delay",
+		delays: delaysResult.value,
+	});
 }
