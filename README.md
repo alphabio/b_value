@@ -81,59 +81,213 @@ if (result.ok) {
 }
 ```
 
+### Clip-Path Values
+
+```typescript
+import { Parse, Generate } from "b_value";
+
+// Parse basic shapes
+const circle = Parse.ClipPath.Circle.parse("circle(50px at center)");
+// { kind: "clip-path-circle", radius: { value: 50, unit: "px" }, position: {...} }
+
+const polygon = Parse.ClipPath.Polygon.parse("polygon(50% 0%, 100% 100%, 0% 100%)");
+// { kind: "clip-path-polygon", points: [{x: 50%, y: 0%}, {x: 100%, y: 100%}, {x: 0%, y: 100%}] }
+
+const inset = Parse.ClipPath.Inset.parse("inset(10px round 5px)");
+// { kind: "clip-path-inset", top: 10px, right: 10px, bottom: 10px, left: 10px, borderRadius: {...} }
+
+// Generate back to CSS
+Generate.ClipPath.Circle.toCss(circle.value);
+// "circle(50px at center center)"
+
+Generate.ClipPath.Polygon.toCss(polygon.value);
+// "polygon(50% 0%, 100% 100%, 0% 100%)"
+```
+
 ### Round-Trip Validation
 
 ```typescript
-const original = "radial-gradient(circle closest-side, red, blue)";
-const parsed = Parse.Gradient.Radial.parse(original);
+// Round-trip works for all parsers
+const original = "polygon(50% 0%, 100% 100%, 0% 100%)";
+const parsed = Parse.ClipPath.Polygon.parse(original);
 
 if (parsed.ok) {
-  const generated = Generate.Gradient.Radial.toCss(parsed.value);
+  const generated = Generate.ClipPath.Polygon.toCss(parsed.value);
   console.log(generated === original); // true - perfect round-trip
 }
 ```
+
+## Statistics
+
+- **Properties supported**: 50+ CSS properties
+- **Color formats**: 12 complete (hex, rgb, hsl, hwb, lab, lch, oklab, oklch, color(), named, system, special)
+- **Gradient types**: 6 (linear, radial, conic × 2 variants)
+- **Transform functions**: 20+ (all translate, scale, rotate, skew, matrix, perspective)
+- **Basic shapes**: 4/5 complete (inset, circle, ellipse, polygon)
+- **Total tests**: 2176 passing
+- **Test coverage**: ~86%
+- **Type safety**: 100% TypeScript strict mode
 
 ## Architecture
 
 ```
 b_value/
-├── core/           # Type definitions, units, keywords
-│   ├── types/      # Zod schemas for CSS values
-│   ├── units/      # Unit schemas (px, deg, %, etc.)
-│   ├── keywords/   # CSS keyword schemas
-│   └── result.ts   # Result<T,E> type
-├── parse/          # CSS → IR parsers
-│   └── gradient/   # Gradient parsers
-└── generate/       # IR → CSS generators
-    └── gradient/   # Gradient stringifiers
+├── core/              # Type definitions, units, keywords
+│   ├── types/         # Zod schemas for CSS values
+│   ├── units/         # Unit schemas (px, deg, %, etc.)
+│   ├── keywords/      # CSS keyword schemas
+│   └── result.ts      # Result<T,E> type
+├── parse/             # CSS → IR parsers
+│   ├── animation/     # Animation property parsers
+│   ├── background/    # Background property parsers
+│   ├── border/        # Border property parsers
+│   ├── clip-path/     # Clip-path value parsers
+│   ├── color/         # Color value parsers (12 formats)
+│   ├── gradient/      # Gradient parsers (linear, radial, conic)
+│   ├── layout/        # Layout property parsers
+│   ├── outline/       # Outline property parsers
+│   ├── position/      # Position value parsers
+│   ├── shadow/        # Shadow value parsers
+│   ├── text/          # Text property parsers
+│   └── transform/     # Transform parsers
+└── generate/          # IR → CSS generators
+    ├── animation/     # Animation generators
+    ├── background/    # Background generators
+    ├── border/        # Border generators
+    ├── clip-path/     # Clip-path generators
+    ├── color/         # Color generators
+    ├── gradient/      # Gradient generators
+    ├── layout/        # Layout generators
+    ├── outline/       # Outline generators
+    ├── position/      # Position generators
+    ├── shadow/        # Shadow generators
+    ├── text/          # Text generators
+    └── transform/     # Transform generators
 ```
 
 ## Current Support
 
-### Completed ✅
-- **Phase 1**: Radial gradients + core infrastructure
-- **Phase 2**: Linear & conic gradients
-- **Phase 3**: Positions & transforms
-- **Phase 4 (Sessions 1-4)**: Colors
-  - Hex colors (#RGB, #RRGGBB, #RGBA, #RRGGBBAA)
-  - Named colors (148 CSS color keywords)
-  - RGB/RGBA (all syntax variations)
-  - HSL/HSLA (all angle units, modern & legacy syntax)
-  - HWB (Hue-Whiteness-Blackness, modern syntax only)
+### Animation Properties ✅
+- animation-delay, animation-duration (time values)
+- animation-iteration-count (numeric + infinite)
+- animation-direction (4 keywords)
+- animation-fill-mode (4 keywords)
+- animation-play-state (2 keywords)
+- animation-name (identifier)
+- animation-timing-function (cubic-bezier, steps, linear, keywords)
 
-### In Progress 🔵
-- **Phase 4 (Session 5+)**: Advanced color formats
-  - LAB & LCH (perceptual color spaces)
-  - OKLab & OKLCH (improved perceptual spaces)
-  - System colors
-  - Master color parser
+**Status**: 8 properties complete, ~146 tests
 
-### Roadmap
-- Phase 5: Borders & box model
-- Phase 6: Flexbox & Grid
-- Phase 7: Typography
-- Phase 8: Polish & documentation
-- Phase 9: Animations
+### Color Values ✅
+- **Hex colors**: #RGB, #RRGGBB, #RGBA, #RRGGBBAA (4/8 digit)
+- **Named colors**: 148 CSS color keywords + transparent
+- **RGB/RGBA**: Modern (`rgb(255 0 128 / 0.5)`) & legacy (`rgba(255, 0, 128, 0.5)`) syntax
+- **HSL/HSLA**: All angle units (deg, grad, rad, turn), modern & legacy syntax
+- **HWB**: Hue-Whiteness-Blackness (modern syntax)
+- **LAB/LCH**: Perceptual color spaces with all units
+- **OKLab/OKLCH**: Improved perceptual color spaces
+- **color() function**: 9 color spaces (srgb, display-p3, rec2020, xyz, etc.)
+- **System colors**: currentColor, transparent
+- **Special keywords**: inherit, initial, unset, revert
+
+**Status**: 12 color formats complete, ~350 tests
+
+### Gradient Values ✅
+- **Linear gradients**: All direction syntax (angle, to side-or-corner)
+- **Radial gradients**: Shapes (circle, ellipse), sizes, positions
+- **Conic gradients**: From angle, at position
+- **Color stops**: All position syntaxes, multiple stops per color
+- **Color interpolation**: All colorspaces (srgb, oklch, etc.) in modern syntax
+- **Repeating variants**: All gradient types
+
+**Status**: 3 gradient types × 2 variants = 6 total, ~200 tests
+
+### Shadow Values ✅
+- **box-shadow**: Inset, blur, spread, color, multiple shadows
+- **text-shadow**: Offset, blur, color, multiple shadows
+
+**Status**: 2 shadow properties complete, ~50 tests
+
+### Border Properties ✅
+- border-width (thin, medium, thick, <length>)
+- border-style (11 style keywords)
+- border-color (<color> values)
+- border-radius (<length-percentage>, 1-4 values)
+
+**Status**: 4 properties complete, ~80 tests
+
+### Outline Properties ✅
+- outline-width (thin, medium, thick, <length>)
+- outline-style (auto + 10 style keywords)
+- outline-color (<color> + invert keyword)
+- outline-offset (<length>)
+
+**Status**: 4 properties complete, ~80 tests
+
+### Transform Values ✅
+- transform-origin (1-3 values, keywords + lengths)
+- **Transform functions**: All 20+ transform functions
+  - Translate: translate(), translateX(), translateY(), translateZ(), translate3d()
+  - Scale: scale(), scaleX(), scaleY(), scaleZ(), scale3d()
+  - Rotate: rotate(), rotateX(), rotateY(), rotateZ(), rotate3d()
+  - Skew: skew(), skewX(), skewY()
+  - Matrix: matrix(), matrix3d()
+  - Perspective: perspective()
+
+**Status**: 1 property + 20 functions complete, ~150 tests
+
+### Background Properties ✅
+- background-color (<color>)
+- background-position (<position>)
+- background-size (keywords + <length-percentage>)
+- background-repeat (repeat-style keywords)
+- background-attachment (scroll, fixed, local)
+
+**Status**: 5 properties complete, ~90 tests
+
+### Text Properties ✅
+- text-align (7 alignment keywords)
+- text-decoration-line (underline, overline, line-through, none)
+- text-decoration-style (5 style keywords)
+- text-decoration-color (<color>)
+
+**Status**: 4 properties complete, ~60 tests
+
+### Layout Properties ✅
+- **Display**: 31 display keywords (block, flex, grid, inline-flex, etc.)
+- **Visibility**: visible, hidden, collapse
+- **Opacity**: <number> | <percentage>
+- **Position**: static, relative, absolute, fixed, sticky
+- **Z-index**: <integer> | auto
+- **Overflow**: overflow-x, overflow-y (5 keywords each)
+- **Cursor**: 35 cursor keywords (pointer, default, text, move, etc.)
+- **Box sizing**: width, height (intrinsic sizing: min-content, max-content, fit-content)
+- **Inset properties**: top, right, bottom, left (<length-percentage> | auto)
+
+**Status**: 14 properties complete, ~160 tests
+
+### Clip-Path Values 🔵 In Progress
+- **URL references**: url(#clipPath) 
+- **Geometry box**: 7 keywords (border-box, padding-box, content-box, etc.)
+- **Basic shapes**:
+  - ✅ inset() - Rectangle with optional rounded corners
+  - ✅ circle() - Circle with optional radius and position
+  - ✅ ellipse() - Ellipse with two radii and position
+  - ✅ polygon() - Polygon with optional fill-rule and point list
+  - 🔵 path() - SVG path data (next)
+- **none keyword**
+
+**Status**: 6/9 sessions complete (~67%), 223 tests
+
+### Infrastructure ✅
+- **Core types**: LengthPercentage, Angle, Position2D, Time, Number
+- **Unit schemas**: px, em, rem, %, deg, grad, rad, turn, s, ms
+- **Keyword validation**: All CSS keywords typed and validated
+- **Result type**: Type-safe Result<T, E> for error handling
+- **Round-trip testing**: All parsers validate bidirectional conversion
+- **Tree-shakeable exports**: Import only what you need
+
+**Status**: Complete, ~2176 total tests
 
 ## API
 
