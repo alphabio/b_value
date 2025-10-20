@@ -1,9 +1,11 @@
 # Comma-Separated Values Implementation - HANDOVER
 
+**Quest Type**: 🔀 SIDE QUEST (Infrastructure Refactoring)  
+**Main Quest**: Clip-Path Implementation (Session 6: polygon() - PAUSED)  
 **Date**: 2025-10-20  
 **Duration**: ~1.5 hours (Phase 1 & partial Phase 2)  
 **Status**: 🟡 PARTIAL - Helper implemented, 4/12 properties refactored  
-**Next**: Complete remaining 8 animation properties
+**Next**: Complete remaining 8 animation properties, THEN return to clip-path polygon()
 
 ---
 
@@ -333,6 +335,26 @@ cat .memory/archive/2025-10-20-comma-separated-research/HANDOVER.md
 **Quality gates**: All passing ✅  
 
 **Ready for next agent**: Yes, with clear master plan above.
+
+---
+
+## 🎯 After Completion: Return to Main Quest
+
+**⚠️ IMPORTANT**: This is a SIDE QUEST. After completing the 8 animation properties:
+
+1. **Verify completion**:
+   ```bash
+   just check && just test  # Should be 2195 tests passing
+   ```
+
+2. **Update CONTINUE.md** to reflect side quest completion
+
+3. **RETURN TO MAIN QUEST**: Clip-Path Session 6 - polygon() shape function
+   - Read: `.memory/archive/2025-10-19-clip-path-shapes/session-5/HANDOVER.md`
+   - Continue: Implement `polygon()` basic shape (estimated 30-40 min)
+   - Main quest is ~56% complete (5 of 9 sessions)
+
+**Do NOT start new side quests** - Complete this refactoring, then return to clip-path.
 
 ---
 
