@@ -146,3 +146,35 @@ export * as Generate from "./generate";
  * ```
  */
 export * as Parse from "./parse";
+/**
+ * Universal API for parsing and generating ANY CSS longhand property.
+ *
+ * Parse declarations like "color: red" and generate CSS from IR with property names.
+ *
+ * @example
+ * Parse any longhand property:
+ * ```typescript
+ * import { parse } from "b_value";
+ *
+ * const result = parse("color: red");
+ * if (result.ok) {
+ *   console.log(result.property); // "color"
+ *   console.log(result.value);    // { kind: "named", name: "red" }
+ * }
+ * ```
+ *
+ * @example
+ * Generate CSS from IR:
+ * ```typescript
+ * import { generate } from "b_value";
+ *
+ * const result = generate({
+ *   property: "color",
+ *   value: { kind: "hex", r: 255, g: 0, b: 0 }
+ * });
+ * if (result.ok) {
+ *   console.log(result.value); // "#ff0000"
+ * }
+ * ```
+ */
+export { generate, parse } from "./universal";
