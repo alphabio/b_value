@@ -1,9 +1,9 @@
 # ADR-001: Convenience API Layer for Progressive Disclosure
 
-**Status**: ✅ Approved  
-**Date**: 2025-10-19  
-**Deciders**: Development Team  
-**Category**: API Design  
+**Status**: ✅ Approved
+**Date**: 2025-10-19
+**Deciders**: Development Team
+**Category**: API Design
 **Priority**: High
 
 ---
@@ -197,10 +197,11 @@ export function generateColor(color: Color): string {
 ### Positive
 
 1. **Easy b_gee Migration**
+
    ```typescript
    // b_gee can use simple delegation
    import { parseColor } from 'b_value';
-   
+
    class BackgroundNode {
      getColor() {
        return parseColor(this.getProperty("background-color"));
@@ -301,6 +302,7 @@ Add for compound types:
 - **Camera**: Auto mode (80%) + Manual mode (20%)
 
 ### Ecosystem Context
+
 ```
 b_short (shorthand expansion)
     ↓
@@ -320,6 +322,7 @@ Studio (visual editor)
 b_value was extracted FROM b_gee with the plan to eventually gut b_gee's internal parsing. The convenience API makes this migration smooth:
 
 **Without convenience API:**
+
 ```typescript
 // b_gee would need this complexity
 class BackgroundNode {
@@ -336,6 +339,7 @@ class BackgroundNode {
 ```
 
 **With convenience API:**
+
 ```typescript
 // b_gee gets clean, simple code
 class BackgroundNode {
@@ -358,9 +362,9 @@ This isn't just "nice to have" - it's **essential for making b_gee's migration s
 
 ## Decision Outcome
 
-**Status**: ✅ Approved  
-**Implemented**: Partially (color convenience functions exist via dispatchers)  
-**Next Steps**: 
+**Status**: ✅ Approved
+**Implemented**: Partially (color convenience functions exist via dispatchers)
+**Next Steps**:
 1. Create dedicated convenience layer directory structure
 2. Implement `parseColor()` and `generateColor()` as proof of concept
 3. Extend to other value types
