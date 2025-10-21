@@ -112,6 +112,10 @@ export {
 	parseOk,
 	withWarning,
 } from "./core/result";
+
+// Export CSSValue union type and helpers
+export type { CSSValue } from "./core/types/css-value";
+export { isCSSValue, isUnparsedString } from "./core/types/css-value";
 /**
  * CSS → IR generators (convert IR to CSS strings).
  *

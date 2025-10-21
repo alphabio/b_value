@@ -6,6 +6,7 @@ export * from "./border";
 export * from "./clip-path";
 export * from "./color";
 export * from "./color-stop";
+export * from "./css-value";
 export * from "./filter";
 export * from "./gradient";
 export * from "./grid-line";
