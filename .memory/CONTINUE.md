@@ -83,7 +83,26 @@ const css = generate({
 
 ## 🎯 Next Steps - Phase 0.7: Batch API
 
-### NEW: parseAll() & generateAll() Master Plan Ready! 📋
+### ⚠️ BREAKING CHANGE: Type System Migration Needed!
+
+**Status**: Types are ready but need codebase migration before Phase 0.7 implementation
+
+**What Changed**:
+- ✅ Added strict type schemas (CSSPropertyName, IssueCode)
+- ✅ Updated Issue type with `code` field
+- ✅ Added Issues helper for type-safe issue creation
+- ⚠️ **BREAKING**: `parseErr()` and `generateErr()` signatures changed
+
+**Before Phase 0.7 can start**:
+1. **Migrate codebase** - Update all parseErr/generateErr calls (see MIGRATION.md)
+2. Run `just check && just test` - Must pass before continuing
+3. Then implement parseAll/generateAll
+
+**Migration Document**: `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MIGRATION.md`
+
+---
+
+### Phase 0.7: parseAll() & generateAll() (After Migration)
 
 **Goal**: Implement batch CSS parsing/generation for CSS Editor use case
 
