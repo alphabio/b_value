@@ -13,8 +13,10 @@ import {
 	type CSSPropertyName,
 	type GenerateResult,
 	generateErr,
+	Issues,
 	type ParseResult,
 	parseErr,
+	parseOk,
 	toParseResult,
 } from "./core/result";
 // Import module generators
@@ -440,5 +442,165 @@ export function generate(options: { property: string; value: unknown }): Generat
 	return {
 		...result,
 		property,
+	};
+}
+
+//
+// ===== BATCH API: parseAll() and generateAll() =====
+//
+
+import type { CSSValue } from "./core/types/css-value";
+
+/**
+ * Parse multiple CSS declarations from a style block.
+ *
+ * Returns a single ParseResult with all properties as a flat object.
+ * Perfect for CSS editors - one ok flag, one issues array, easy property access.
+ *
+ * **Edge Cases**:
+ * - Duplicate properties: Last value wins (CSS standard), warning emitted
+ * - Invalid values: Returned as unparsed string, error emitted
+ * - Shorthand properties: Returned as unparsed string, error emitted (use b_short)
+ * - Unknown properties: Returned as unparsed string, error emitted
+ * - Empty declarations: Silently ignored
+ *
+ * @param css - CSS declarations (e.g., "color: red; width: 10px")
+ * @returns ParseResult with flat object of parsed values
+ *
+ * @example
+ * ```typescript
+ * const result = parseAll("color: red; width: 10px");
+ * if (result.ok) {
+ *   console.log(result.value.color);  // { kind: "named", name: "red" }
+ *   console.log(result.value.width);  // { kind: "length", value: 10, unit: "px" }
+ * }
+ * ```
+ *
+ * @example
+ * Handle invalid values:
+ * ```typescript
+ * const result = parseAll("color: invalid; width: 10px");
+ * // result.ok === false
+ * // result.value.color === "invalid" (unparsed string)
+ * // result.issues contains error details
+ * ```
+ *
+ * @public
+ */
+export function parseAll(css: string): ParseResult<Record<string, CSSValue | string>> {
+	// Handle empty input
+	if (!css || css.trim().length === 0) {
+		return parseOk({});
+	}
+
+	// Step 1: Split declarations by semicolon
+	const declarations = splitDeclarations(css);
+
+	// Step 2: Detect duplicates
+	const duplicates = detectDuplicates(declarations);
+
+	// Step 3: Parse each declaration
+	const results: Array<{
+		property: string;
+		value: string;
+		result: ParseResult<unknown>;
+	}> = [];
+
+	for (const decl of declarations) {
+		const parseResult = parse(`${decl.property}: ${decl.value}`);
+		results.push({
+			property: decl.property,
+			value: decl.value,
+			result: parseResult,
+		});
+	}
+
+	// Step 4: Merge results into single ParseResult
+	return mergeResults(results, duplicates);
+}
+
+/**
+ * Split CSS string into individual declarations.
+ * Handles empty declarations gracefully.
+ *
+ * @internal
+ */
+function splitDeclarations(css: string): Array<{ property: string; value: string }> {
+	return css
+		.split(";")
+		.map((decl) => decl.trim())
+		.filter((decl) => decl.length > 0 && decl.includes(":")) // Skip empty and invalid
+		.map((decl) => {
+			const colonIdx = decl.indexOf(":");
+			return {
+				property: decl.slice(0, colonIdx).trim(),
+				value: decl.slice(colonIdx + 1).trim(),
+			};
+		})
+		.filter((decl) => decl.property.length > 0 && decl.value.length > 0);
+}
+
+/**
+ * Detect duplicate property declarations.
+ *
+ * @internal
+ */
+function detectDuplicates(declarations: Array<{ property: string; value: string }>): Map<string, number> {
+	const counts = new Map<string, number>();
+	for (const decl of declarations) {
+		counts.set(decl.property, (counts.get(decl.property) || 0) + 1);
+	}
+	return counts;
+}
+
+/**
+ * Merge individual parse results into single ParseResult.
+ *
+ * @internal
+ */
+function mergeResults(
+	results: Array<{
+		property: string;
+		value: string;
+		result: ParseResult<unknown>;
+	}>,
+	duplicates: Map<string, number>,
+): ParseResult<Record<string, CSSValue | string>> {
+	const value: Record<string, CSSValue | string> = {};
+	const issues: Array<import("./core/result").Issue> = [];
+	let allOk = true;
+
+	// Track which properties we've seen to handle duplicates
+	const seen = new Map<string, number>();
+
+	for (const { property, value: inputValue, result } of results) {
+		// Track this property
+		const count = (seen.get(property) || 0) + 1;
+		seen.set(property, count);
+
+		// Add duplicate warning on last occurrence
+		const duplicateCount = duplicates.get(property);
+		if (duplicateCount && duplicateCount > 1 && count === duplicateCount) {
+			issues.push(Issues.duplicateProperty(property as import("./core/result").CSSLonghandProperty, duplicateCount));
+		}
+
+		// Handle parse result
+		if (result.ok) {
+			// Successfully parsed - use IR value
+			value[property] = result.value as CSSValue;
+		} else {
+			// Failed to parse - use unparsed string
+			value[property] = inputValue;
+			allOk = false;
+		}
+
+		// Collect issues
+		issues.push(...result.issues);
+	}
+
+	return {
+		ok: allOk,
+		value,
+		issues,
 	};
 }
