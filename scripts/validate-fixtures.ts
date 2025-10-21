@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+// b_path:: scripts/validate-fixtures.ts
 /**
  * Validate all test fixtures for round-trip integrity
  *

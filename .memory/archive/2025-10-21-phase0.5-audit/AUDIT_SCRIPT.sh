@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/archive/2025-10-21-phase0.5-audit/AUDIT_SCRIPT.sh
 
 echo "=== PHASE 0.5 AUDIT SCRIPT ==="
 echo ""

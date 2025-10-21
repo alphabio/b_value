@@ -1,4 +1,4 @@
-// b_path:: src/parse/border/color.test.ts
+// b_path:: src/parse/outline/color.test.ts
 import { describe, expect, it } from "vitest";
 import * as OutlineColor from "./color";
 

@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+// b_path:: scripts/extract-fixtures.ts
 /**
  * Extract all CSS test fixtures from test files
  *

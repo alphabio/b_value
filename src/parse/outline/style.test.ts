@@ -1,4 +1,4 @@
-// b_path:: src/parse/border/style.test.ts
+// b_path:: src/parse/outline/style.test.ts
 import { describe, expect, it } from "vitest";
 import * as OutlineStyle from "./style";
 

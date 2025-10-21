@@ -1,3 +1,4 @@
+// b_path:: test/integration/color-function.test.ts
 // Integration tests for color() function
 import { describe, expect, test } from "vitest";
 import * as Generate from "../../src/generate/color/color-function";
