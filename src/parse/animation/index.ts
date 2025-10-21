@@ -1,5 +1,7 @@
 // b_path:: src/parse/animation/index.ts
 
+export { parse } from "./animation";
+
 export * as Delay from "./delay";
 export * as Direction from "./direction";
 export * as Duration from "./duration";

@@ -1,5 +1,7 @@
 // b_path:: src/parse/background/index.ts
+
 export * as Attachment from "./attachment";
+export { parse } from "./background";
 export * as Clip from "./clip";
 export * as Origin from "./origin";
 export * as Repeat from "./repeat";
