@@ -24,7 +24,7 @@ import * as Url from "./url";
  */
 export function generate(filter: Type.FilterFunction): GenerateResult {
 	if (!filter || typeof filter !== "object" || !("kind" in filter)) {
-		return generateErr("Invalid filter IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid filter IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -53,7 +53,7 @@ export function generate(filter: Type.FilterFunction): GenerateResult {
 		case "url":
 			return generateOk(Url.toCss(filter));
 		default:
-			return generateErr(`Unknown filter kind: ${(filter as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown filter kind: ${(filter as { kind?: string }).kind}`, {
 				suggestion: "Check that filter IR is valid",
 			});
 	}

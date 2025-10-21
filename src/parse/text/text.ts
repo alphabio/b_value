@@ -20,7 +20,7 @@ export function parse(value: string): ParseResult<unknown> {
 	const colorResult = Color.parse(value);
 	if (colorResult.ok) return toParseResult(colorResult);
 
-	return parseErr("Invalid text decoration property value", {
+	return parseErr("invalid-value", "Invalid text decoration property value", {
 		suggestion: "Expected line, style, thickness, or color",
 	});
 }

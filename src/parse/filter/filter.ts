@@ -39,9 +39,9 @@ import * as Url from "./url";
  */
 export function parse(value: string): ParseResult<Type.FilterFunction> {
 	const ast = cssTree.parse(value, { context: "value" }) as cssTree.Value;
-	if (!ast.children) return parseErr("Empty value");
+	if (!ast.children) return parseErr("invalid-syntax", "Empty value");
 	const first = ast.children.first;
-	if (!first) return parseErr("Empty value");
+	if (!first) return parseErr("invalid-syntax", "Empty value");
 	const result = parseNode(first);
 	return toParseResult(result);
 }

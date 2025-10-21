@@ -24,7 +24,7 @@ export function parse(value: string): ParseResult<unknown> {
 	const originResult = Origin.parse(value);
 	if (originResult.ok) return toParseResult(originResult);
 
-	return parseErr("Invalid background property value", {
+	return parseErr("invalid-value", "Invalid background property value", {
 		suggestion: "Expected size, repeat, attachment, clip, or origin",
 	});
 }

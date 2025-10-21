@@ -74,7 +74,7 @@ export function generate(
 ): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!transition || typeof transition !== "object" || !("kind" in transition)) {
-		return generateErr("Invalid transition IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid transition IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -94,7 +94,7 @@ export function generate(
 			return generateOk(Property.toCss(transition));
 
 		default:
-			return generateErr(`Unknown transition kind: ${(transition as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown transition kind: ${(transition as { kind?: string }).kind}`, {
 				suggestion:
 					"Expected 'transition-duration', 'transition-delay', 'transition-timing-function', or 'transition-property'",
 			});

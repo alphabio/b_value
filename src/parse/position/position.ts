@@ -233,17 +233,17 @@ export function parse(css: string): ParseResult<Type.Position2D> {
 		// Find the position nodes (should be the main content)
 		const children = ast.children.toArray();
 		if (children.length === 0) {
-			return parseErr("No position values found in CSS string");
+			return parseErr("invalid-syntax", "No position values found in CSS string");
 		}
 
 		const result = parsePosition2DFromNodes(children, 0);
 		if (!result.ok) {
-			return parseErr(result.error);
+			return parseErr("invalid-value", result.error);
 		}
 
 		return parseOk(result.value.position);
 	} catch (e) {
-		return parseErr(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
+		return parseErr("invalid-syntax", `Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }
 

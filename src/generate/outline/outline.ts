@@ -75,7 +75,7 @@ export function generate(
 ): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!outline || typeof outline !== "object" || !("kind" in outline)) {
-		return generateErr("Invalid outline IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid outline IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -95,7 +95,7 @@ export function generate(
 			return generateOk(Offset.toCss(outline));
 
 		default:
-			return generateErr(`Unknown outline kind: ${(outline as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown outline kind: ${(outline as { kind?: string }).kind}`, {
 				suggestion:
 					"Expected 'outline-width', 'outline-style', 'outline-color', or 'outline-offset'. Check that outline IR is valid.",
 			});

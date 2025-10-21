@@ -84,7 +84,7 @@ import * as TextShadow from "./text-shadow";
 export function generate(shadow: Type.BoxShadow | Type.TextShadow): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!shadow || typeof shadow !== "object" || !("kind" in shadow)) {
-		return generateErr("Invalid shadow IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid shadow IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -98,7 +98,7 @@ export function generate(shadow: Type.BoxShadow | Type.TextShadow): GenerateResu
 			return generateOk(TextShadow.toCss(shadow));
 
 		default:
-			return generateErr(`Unknown shadow kind: ${(shadow as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown shadow kind: ${(shadow as { kind?: string }).kind}`, {
 				suggestion: "Expected 'box-shadow' or 'text-shadow'. Check that shadow IR is valid.",
 			});
 	}

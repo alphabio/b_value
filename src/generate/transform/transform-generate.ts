@@ -25,13 +25,13 @@ import * as Transform from "./transform";
  */
 export function generate(transform: Type.Transform): GenerateResult {
 	if (!transform || !Array.isArray(transform)) {
-		return generateErr("Invalid transform IR: must be an array", {
+		return generateErr("invalid-ir", "Invalid transform IR: must be an array", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
 
 	if (transform.length === 0) {
-		return generateErr("Transform array cannot be empty", {
+		return generateErr("invalid-ir", "Transform array cannot be empty", {
 			suggestion: "Provide at least one transform function",
 		});
 	}
@@ -40,7 +40,7 @@ export function generate(transform: Type.Transform): GenerateResult {
 		const css = Transform.toCss(transform);
 		return generateOk(css);
 	} catch (error) {
-		return generateErr(`Failed to generate transform: ${error}`, {
+		return generateErr("invalid-ir", `Failed to generate transform: ${error}`, {
 			suggestion: "Check that transform IR is valid",
 		});
 	}
