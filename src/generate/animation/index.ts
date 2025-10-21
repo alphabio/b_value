@@ -1,5 +1,6 @@
 // b_path:: src/generate/animation/index.ts
 
+export { generate } from "./animation";
 export * as Delay from "./delay";
 export * as Direction from "./direction";
 export * as Duration from "./duration";
