@@ -1,49 +1,79 @@
-<!-- LAST UPDATED: 2025-10-21T08:43 -->
+<!-- LAST UPDATED: 2025-10-21T02:12:51 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-21 Unified Dispatcher + Simple API Discovery  
-**Status**: 🎉 **DISPATCHER COMPLETE** + 💡 **BETTER API DISCOVERED**  
-**Tests**: 2406 passing (88 new total)  
-**Next**: 🚀 **Declaration Parser API** (1.5-2 days)
+**Last Session**: 2025-10-21 Universal API Design & Planning  
+**Status**: 📋 **PLANNING COMPLETE** - Ready to implement  
+**Tests**: 2390 passing (baseline green ✅)  
+**Next**: 🚀 **Phase 1: Property Mapping** (3-4 hours)
+
+**👉 START HERE**: `.memory/archive/2025-10-21-universal-parse-api/START_HERE.md`
 
 ---
 
-## 🎯 Next Project: Declaration Parser API
+## 🎯 Active Project: Universal Parse & Generate API
 
-**Goal**: `parse("clip-path: circle(50%)")` - Natural CSS syntax!
+**Plan**: `.memory/archive/2025-10-21-universal-parse-api/MASTER_PLAN.md`
 
-**Why Better**: Parse CSS declarations, not separate value+property
-
-### Current API (Namespaced)
+### Parse API (CSS → IR)
 ```typescript
-Parse.ClipPath.parse("circle(50%)")
-Parse.Color.parse("#ff0000")
-Parse.Gradient.parse("radial-gradient(red, blue)")
-Parse.Filter.parse("blur(5px)")
+parse("color: #ff0000")              // Parse declaration
+parseCSS("color: red; width: 10px")  // Batch parse
+// Returns: {ok, value?, property?, issues}
 ```
 
-### Desired API (Universal)
+### Generate API (IR → CSS)
 ```typescript
-parse("clip-path: circle(50%)")
-parse("color: #ff0000")
-parse("background-image: radial-gradient(red, blue)")
-parse("filter: blur(5px)")
-
-// Also works value-only (heuristic fallback):
-parse("circle(50%)")  // Detects clip-path
-parse("#ff0000")      // Detects color
+generate(ir)                         // Value only: "#ff0000"
+generate(ir, {property: "color"})    // Declaration: "color: #ff0000"
+generateCSS([{property, value}])     // Batch: "color: red; width: 10px"
 ```
 
-**Benefits**:
-- ✅ Natural CSS syntax - copy/paste from stylesheets
-- ✅ No duplication - property in the string
-- ✅ Self-documenting
-- ✅ Perfect for b_short integration
+### Key Design Decisions
+- ✅ **Declaration-based** - natural CSS syntax
+- ✅ **Reject shorthands** - point to b_short
+- ❌ **No heuristics** - too ambiguous, explicit only
+- ✅ **Round-trip** - parse → modify → generate → parse
 
-**Estimate**: 1.5-2 days (~12-18 hours)
+**Estimate**: 16-20 hours (~2 days)
 
-**Details**: `.memory/archive/2025-10-21-transform-unified-api/BETTER_API_PROPOSAL.md`
+---
+
+## 📋 Implementation Phases
+
+### Phase 1: Property Mapping (3-4h) ⬅️ START HERE
+- Create `PROPERTY_TO_PARSER` map (~100+ properties)
+- Create `SHORTHAND_PROPERTIES` set
+- Create `SHORTHAND_TO_LONGHAND` map
+- Create `IR_KIND_TO_GENERATOR` map
+- Tests for all mappings
+
+### Phase 2: Parse API (6-7h)
+- Implement `parse()` function
+- Declaration parsing (split on colon)
+- Route to parser modules
+- Shorthand rejection with helpful errors
+- Unknown property detection
+- Implement `parseCSS()` batch parser
+- Comprehensive tests (50+)
+
+### Phase 3: Generate API (4-5h)
+- Implement `generate()` function
+- Auto-detect IR kind → generator
+- Support value-only and declaration generation
+- Implement `generateCSS()` batch generator
+- Comprehensive tests (30+)
+
+### Phase 4: Round-Trip Tests (1-2h)
+- Test parse → generate → parse
+- Test parse → modify → generate → parse
+- 20+ test cases across all types
+
+### Phase 5: Documentation (2h)
+- Update README
+- API reference docs
+- Migration guide
+- b_short integration examples
 
 ---
 
