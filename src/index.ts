@@ -201,5 +201,33 @@ export * as Parse from "./parse";
  *   console.log(result.value.width);  // { kind: "length", value: 10, unit: "px" }
  * }
  * ```
+ *
+ * @example
+ * Batch generate CSS from properties:
+ * ```typescript
+ * import { generateAll } from "b_value";
+ *
+ * const css = generateAll({
+ *   color: { kind: "hex", r: 255, g: 0, b: 0 },
+ *   width: { kind: "length", value: 10, unit: "px" }
+ * });
+ * console.log(css); // "color: #ff0000; width: 10px"
+ * ```
+ *
+ * @example
+ * Round-trip: parse, modify, generate:
+ * ```typescript
+ * import { parseAll, generateAll } from "b_value";
+ *
+ * const parsed = parseAll("color: red; width: 10px");
+ * if (parsed.ok) {
+ *   // Modify the color
+ *   parsed.value.color = { kind: "hex", r: 0, g: 255, b: 0 };
+ *
+ *   // Generate back to CSS
+ *   const css = generateAll(parsed.value);
+ *   console.log(css); // "color: #00ff00; width: 10px"
+ * }
+ * ```
  */
-export { generate, parse, parseAll } from "./universal";
+export { generate, generateAll, parse, parseAll } from "./universal";
