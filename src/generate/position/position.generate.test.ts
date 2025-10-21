@@ -1,7 +1,7 @@
 // b_path:: src/generate/position/position.generate.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as PositionGenerator from "./position";
+import * as PositionGenerator from "./utils";
 
 describe("Position Generator", () => {
 	describe("2D Position generation", () => {

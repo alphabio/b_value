@@ -60,7 +60,7 @@ export function toCss(value: Type.ClipPathEllipse): string {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Position.toCss(value.position));
+		parts.push(Generate.Position.Utils.toCss(value.position));
 	}
 
 	parts.push(")");

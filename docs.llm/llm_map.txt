@@ -225,9 +225,9 @@ src/generate/outline/style.ts
 src/generate/outline/width.generate.test.ts
 src/generate/outline/width.ts
 src/generate/position/index.ts
-src/generate/position/position-generate.ts
 src/generate/position/position.generate.test.ts
 src/generate/position/position.ts
+src/generate/position/utils.ts
 src/generate/shadow/box-shadow.generate.test.ts
 src/generate/shadow/box-shadow.ts
 src/generate/shadow/index.ts
@@ -243,9 +243,9 @@ src/generate/text/thickness.ts
 src/generate/transform/index.ts
 src/generate/transform/origin.test.ts
 src/generate/transform/origin.ts
-src/generate/transform/transform-generate.ts
 src/generate/transform/transform.generate.test.ts
 src/generate/transform/transform.ts
+src/generate/transform/utils.ts
 src/generate/transition/delay.generate.test.ts
 src/generate/transition/delay.ts
 src/generate/transition/duration.generate.test.ts

@@ -1,6 +1,6 @@
 // b_path:: src/generate/transform/origin.ts
 import type * as Type from "@/core/types";
-import * as Position from "../position/position";
+import * as Position from "../position/utils";
 
 /**
  * Generate CSS transform-origin string from Position2D or Position3D IR.

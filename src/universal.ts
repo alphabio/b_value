@@ -28,9 +28,9 @@ import * as FilterGenerate from "./generate/filter/filter";
 import * as GradientGenerate from "./generate/gradient/gradient";
 import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
-import * as PositionGenerate from "./generate/position/position-generate";
+import * as PositionGenerate from "./generate/position/position";
 import * as ShadowGenerate from "./generate/shadow/shadow";
-import * as TransformGenerate from "./generate/transform/transform-generate";
+import * as TransformGenerate from "./generate/transform/transform";
 import * as TransitionGenerate from "./generate/transition/transition";
 // Import module parsers
 import * as AnimationParse from "./parse/animation/animation";

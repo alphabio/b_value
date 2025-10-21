@@ -13872,7 +13872,7 @@ export function toCss(value: Type.ClipPathCircle): string {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Position.toCss(value.position));
+		parts.push(Generate.Position.Utils.toCss(value.position));
 	}
 
 	parts.push(")");
@@ -14477,7 +14477,7 @@ export function toCss(value: Type.ClipPathEllipse): string {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Position.toCss(value.position));
+		parts.push(Generate.Position.Utils.toCss(value.position));
 	}
 
 	parts.push(")");
@@ -19173,7 +19173,7 @@ export * as Text from "./text";
 /**
  * Transform generators (translate, rotate, scale, skew, matrix, etc.).
  *
- * @see {@link Transform.toCss}
+ * @see {@link Transform.Utils.toCss}
  */
 export * as Transform from "./transform";
 /**
@@ -21311,56 +21311,16 @@ export function toCss(ir: Type.OutlineWidthValue): string {
 
 === File: src/generate/position/index.ts ===
 // b_path:: src/generate/position/index.ts
-export * as Position from "./position";
-export { generate } from "./position-generate";
 
-
-=== File: src/generate/position/position-generate.ts ===
-// b_path:: src/generate/position/position-generate.ts
-
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
-import type * as Type from "@/core/types";
-import * as Position from "./position";
-
-/**
- * Generate CSS from Position2D IR.
- *
- * Wraps the existing position generator with GenerateResult for consistent API.
- *
- * @param position - Position2D IR
- * @returns GenerateResult with CSS string or error
- *
- * @example
- * ```typescript
- * generate({ horizontal: "center", vertical: "center" })
- * // → { ok: true, value: "center center", issues: [] }
- * ```
- *
- * @public
- */
-export function generate(position: Type.Position2D): GenerateResult {
-	if (!position || typeof position !== "object") {
-		return generateErr("invalid-ir", "Invalid position IR", {
-			suggestion: "Ensure IR was parsed correctly",
-		});
-	}
-
-	try {
-		const css = Position.toCss(position);
-		return generateOk(css);
-	} catch (error) {
-		return generateErr("invalid-ir", `Failed to generate position: ${error}`, {
-			suggestion: "Check that position IR is valid",
-		});
-	}
-}
+export { generate } from "./position";
+export * as Utils from "./utils";
 
 
 === File: src/generate/position/position.generate.test.ts ===
 // b_path:: src/generate/position/position.generate.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as PositionGenerator from "./position";
+import * as PositionGenerator from "./utils";
 
 describe("Position Generator", () => {
 	describe("2D Position generation", () => {
@@ -21552,6 +21512,47 @@ describe("Position Generator", () => {
 
 === File: src/generate/position/position.ts ===
 // b_path:: src/generate/position/position.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import type * as Type from "@/core/types";
+import * as Utils from "./utils";
+
+/**
+ * Generate CSS from Position2D IR.
+ *
+ * Wraps the existing position generator with GenerateResult for consistent API.
+ *
+ * @param position - Position2D IR
+ * @returns GenerateResult with CSS string or error
+ *
+ * @example
+ * ```typescript
+ * generate({ horizontal: "center", vertical: "center" })
+ * // → { ok: true, value: "center center", issues: [] }
+ * ```
+ *
+ * @public
+ */
+export function generate(position: Type.Position2D): GenerateResult {
+	if (!position || typeof position !== "object") {
+		return generateErr("invalid-ir", "Invalid position IR", {
+			suggestion: "Ensure IR was parsed correctly",
+		});
+	}
+
+	try {
+		const css = Utils.toCss(position);
+		return generateOk(css);
+	} catch (error) {
+		return generateErr("invalid-ir", `Failed to generate position: ${error}`, {
+			suggestion: "Check that position IR is valid",
+		});
+	}
+}
+
+
+=== File: src/generate/position/utils.ts ===
+// b_path:: src/generate/position/utils.ts
 import * as Type from "@/core/types";
 import { positionValueToCss } from "@/utils/generate/values";
 
@@ -22910,8 +22911,8 @@ export function toCss(value: TextDecorationThicknessValue): string {
 // b_path:: src/generate/transform/index.ts
 
 export * as Origin from "./origin";
-export * as Transform from "./transform";
-export { generate } from "./transform-generate";
+export { generate } from "./transform";
+export * as Utils from "./utils";
 
 
 === File: src/generate/transform/origin.test.ts ===
@@ -23131,7 +23132,7 @@ describe("Transform.PerspectiveOrigin.toCssPerspectiveOrigin", () => {
 === File: src/generate/transform/origin.ts ===
 // b_path:: src/generate/transform/origin.ts
 import type * as Type from "@/core/types";
-import * as Position from "../position/position";
+import * as Position from "../position/utils";
 
 /**
  * Generate CSS transform-origin string from Position2D or Position3D IR.
@@ -23218,61 +23219,11 @@ export function toCssPerspectiveOrigin(ir: Type.Position2D): string {
 }
 
 
-=== File: src/generate/transform/transform-generate.ts ===
-// b_path:: src/generate/transform/transform-generate.ts
-
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
-import type * as Type from "@/core/types";
-import * as Transform from "./transform";
-
-/**
- * Generate CSS from Transform IR.
- *
- * Wraps the existing transform generator with GenerateResult for consistent API.
- *
- * @param transform - Transform IR (array of transform functions)
- * @returns GenerateResult with CSS string or error
- *
- * @example
- * ```typescript
- * generate([
- *   { kind: "translateX", x: { value: 100, unit: "px" } },
- *   { kind: "rotate", angle: { value: 45, unit: "deg" } }
- * ])
- * // → { ok: true, value: "translateX(100px) rotate(45deg)", issues: [] }
- * ```
- *
- * @public
- */
-export function generate(transform: Type.Transform): GenerateResult {
-	if (!transform || !Array.isArray(transform)) {
-		return generateErr("invalid-ir", "Invalid transform IR: must be an array", {
-			suggestion: "Ensure IR was parsed correctly",
-		});
-	}
-
-	if (transform.length === 0) {
-		return generateErr("invalid-ir", "Transform array cannot be empty", {
-			suggestion: "Provide at least one transform function",
-		});
-	}
-
-	try {
-		const css = Transform.toCss(transform);
-		return generateOk(css);
-	} catch (error) {
-		return generateErr("invalid-ir", `Failed to generate transform: ${error}`, {
-			suggestion: "Check that transform IR is valid",
-		});
-	}
-}
-
-
 === File: src/generate/transform/transform.generate.test.ts ===
 // b_path:: src/generate/transform/transform.generate.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as TransformGenerator from "./transform";
+import * as TransformGenerator from "./utils";
 
 describe("Transform Generator", () => {
 	describe("Translation transform generation", () => {
@@ -23695,6 +23646,56 @@ describe("Transform Generator", () => {
 
 === File: src/generate/transform/transform.ts ===
 // b_path:: src/generate/transform/transform.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import type * as Type from "@/core/types";
+import * as Utils from "./utils";
+
+/**
+ * Generate CSS from Transform IR.
+ *
+ * Wraps the existing transform generator with GenerateResult for consistent API.
+ *
+ * @param transform - Transform IR (array of transform functions)
+ * @returns GenerateResult with CSS string or error
+ *
+ * @example
+ * ```typescript
+ * generate([
+ *   { kind: "translateX", x: { value: 100, unit: "px" } },
+ *   { kind: "rotate", angle: { value: 45, unit: "deg" } }
+ * ])
+ * // → { ok: true, value: "translateX(100px) rotate(45deg)", issues: [] }
+ * ```
+ *
+ * @public
+ */
+export function generate(transform: Type.Transform): GenerateResult {
+	if (!transform || !Array.isArray(transform)) {
+		return generateErr("invalid-ir", "Invalid transform IR: must be an array", {
+			suggestion: "Ensure IR was parsed correctly",
+		});
+	}
+
+	if (transform.length === 0) {
+		return generateErr("invalid-ir", "Transform array cannot be empty", {
+			suggestion: "Provide at least one transform function",
+		});
+	}
+
+	try {
+		const css = Utils.toCss(transform);
+		return generateOk(css);
+	} catch (error) {
+		return generateErr("invalid-ir", `Failed to generate transform: ${error}`, {
+			suggestion: "Check that transform IR is valid",
+		});
+	}
+}
+
+
+=== File: src/generate/transform/utils.ts ===
+// b_path:: src/generate/transform/utils.ts
 import type * as Type from "@/core/types";
 
 /**
@@ -53127,9 +53128,9 @@ import * as FilterGenerate from "./generate/filter/filter";
 import * as GradientGenerate from "./generate/gradient/gradient";
 import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
-import * as PositionGenerate from "./generate/position/position-generate";
+import * as PositionGenerate from "./generate/position/position";
 import * as ShadowGenerate from "./generate/shadow/shadow";
-import * as TransformGenerate from "./generate/transform/transform-generate";
+import * as TransformGenerate from "./generate/transform/transform";
 import * as TransitionGenerate from "./generate/transition/transition";
 // Import module parsers
 import * as AnimationParse from "./parse/animation/animation";
