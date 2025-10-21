@@ -1,9 +1,9 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-10-21T08:10:00Z  
+**LAST UPDATED**: 2025-10-21T08:38:00Z  
 **PROJECT**: b_value - CSS **LONGHAND** property parser/generator  
-**CURRENT PHASE**: 0.6 COMPLETE ✅ - Universal API Shipped!  
-**STATUS**: Phase 0.6 ✅ | Ready for generator completion or v1.0
+**CURRENT PHASE**: 0.7 PLANNED 📋 - Batch API (parseAll/generateAll)  
+**STATUS**: Phase 0.6 ✅ | Phase 0.7 Master Plan Ready
 
 ---
 
@@ -81,30 +81,44 @@ const css = generate({
 
 ---
 
-## 🎯 Next Steps
+## 🎯 Next Steps - Phase 0.7: Batch API
 
-### Phase 0.5d COMPLETE! 🎉
+### NEW: parseAll() & generateAll() Master Plan Ready! 📋
 
-All major modules now have unified `generate()` API returning `GenerateResult`.
+**Goal**: Implement batch CSS parsing/generation for CSS Editor use case
 
-**Modules with generate()**:
-- color, clip-path, gradient, filter, position, transform
-- shadow, transition, outline, border, animation
+**Key Innovation**:
+- `parseAll(css)` → Single ParseResult with flat object (not array!)
+- `generateAll(values)` → Plain CSS string (not Result wrapper!)
 
-**Deferred (no unified IR types)**:
-- text, background, layout - These modules have individual property generators but lack a unified IR type with 'kind' discriminator suitable for a generate() dispatcher
+**Perfect for CSS Editors**:
+- One `ok` flag for entire block
+- One `issues` array with all problems
+- Flat object structure matches CSS mental model
+- Easy round-trip: parse → modify → generate
 
-**Phase 0.5 Status**: COMPLETE
-- ✅ Phase 0.5a: ParseResult + GenerateResult types
-- ✅ Phase 0.5b: 7 new parse() functions
-- ✅ Phase 0.5c: 6 modules updated + tests fixed
-- ✅ Phase 0.5d: 11 modules with generate() returning GenerateResult
+**Implementation Path**:
+- Session 1 (3-4h): parseAll() core + tests
+- Session 2 (2-3h): generateAll() core + tests  
+- Session 3 (1-2h): Documentation + polish
 
-**Suggested Next Phase - 0.6 or 1.0**:
-- Consider public API design / exports
-- Documentation updates
-- Release preparation
-- Or continue with additional features
+**Documents Created**:
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← **COMPLETE GUIDE**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/START_HERE.md` ← Quick reference
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/API_REFERENCE.md` ← API docs
+
+**Critical Edge Cases Designed**:
+1. ✅ Duplicates → Last wins + warning
+2. ✅ Invalid value → Return string + error
+3. ✅ Shorthand → Return string + error + **promote b_short**
+4. ✅ Unknown property → Return string + error
+5. ✅ Empty declarations → Ignore silently
+
+---
+
+### Alternative: Complete Generator Registry (Previous Plan)
+**Missing**: ~30 generators for layout, outline, border, text properties
+**Estimate**: 2-3 hours
 
 ---
 
@@ -212,15 +226,17 @@ pnpm run typecheck 2>&1 | grep "error TS"
 
 ## 📚 Key Documents
 
+**Phase 0.7 Master Plan** (READY FOR IMPLEMENTATION):
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← **IMPLEMENTATION GUIDE**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/START_HERE.md` ← Quick start
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/API_REFERENCE.md` ← Complete API
+
 **Phase 0.6 Complete**:
-- `.memory/archive/2025-10-21-phase0.6-universal-api/HANDOVER.md` ← **READ THIS**
+- `.memory/archive/2025-10-21-phase0.6-universal-api/HANDOVER.md` ← Universal API
 
 **Design Context**:
 - `.memory/archive/2025-10-21-deferred-modules-design/CLARITY.md` ← Core insight
 - `.memory/archive/2025-10-21-deferred-modules-design/UNIVERSAL_API_DESIGN.md` ← Design spec
-
-**Phase 0.5 Context**:
-- `.memory/archive/2025-10-21-phase0.5-audit/` ← Audit results
 
 ---
 
