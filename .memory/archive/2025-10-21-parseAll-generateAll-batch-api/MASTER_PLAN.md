@@ -226,6 +226,71 @@ parseAll("color: red;  ;  ; width: 10px")
 
 ## 🔨 Implementation Strategy
 
+### Phase 0: Type Setup (30min - 1h)
+
+**PREREQUISITE**: Must be done before Phase 1!
+
+**Files to create/modify**:
+
+1. **Create `src/core/types/css-value.ts`** (30min)
+   ```typescript
+   // Re-export all IR types from modules
+   export type * from "../types/color";
+   export type * from "../types/clip-path";
+   export type * from "../types/gradient";
+   export type * from "../types/filter";
+   export type * from "../types/shadow";
+   export type * from "../types/transform";
+   export type * from "../types/border";
+   export type * from "../types/outline";
+   export type * from "../types/animation";
+   export type * from "../types/transition";
+   export type * from "../types/position";
+   export type * from "../types/layout";
+   export type * from "../types/text";
+   export type * from "../types/background";
+   
+   // Create union of all CSS value types
+   export type CSSValue = 
+     | HexColor | RGBColor | HSLColor | NamedColor | CurrentColor
+     | ClipPathCircle | ClipPathEllipse | ClipPathPolygon | ClipPathInset
+     | LinearGradient | RadialGradient | ConicGradient
+     | FilterBlur | FilterBrightness | FilterContrast
+     | BoxShadow | TextShadow
+     | TransformMatrix | TransformTranslate | TransformRotate
+     | PositionKeyword | PositionTwoValue
+     // ... all other IR types
+     ;
+   
+   // Type guards
+   export function isCSSValue(value: unknown): value is CSSValue {
+     return typeof value === "object" && value !== null && "kind" in value;
+   }
+   
+   export function isUnparsedString(value: CSSValue | string): value is string {
+     return typeof value === "string";
+   }
+   ```
+
+2. **Update `src/core/result.ts`** (5min)
+   ```typescript
+   export type Issue = {
+     property?: string;  // ← ADD THIS
+     severity: "error" | "warning" | "info";
+     message: string;
+     suggestion?: string;
+     action?: string;
+     location?: { offset: number; length: number };
+   };
+   ```
+
+3. **Update `src/index.ts`** (5min)
+   ```typescript
+   export type { CSSValue, isCSSValue, isUnparsedString } from "./core/types/css-value";
+   ```
+
+---
+
 ### Phase 1: parseAll() Implementation (3-4 hours)
 
 **File**: `src/universal.ts` (extend existing)
@@ -505,6 +570,17 @@ describe('generateAll()', () => {
 
 ## 🚀 Implementation Order
 
+### Session 0: Type Setup (30min - 1h)
+- Create CSSValue union type
+- Add type guards
+- Update Issue type
+- Update exports
+- Verify baseline: `just check && just test`
+
+**Deliverable**: CSSValue type available, all tests still passing
+
+---
+
 ### Session 1: parseAll() Core (3-4h)
 - Implement declaration splitting
 - Implement parseAll() function
@@ -596,7 +672,16 @@ editor.updatePreview(updatedCSS);
 - `ParseResult` type - for return type
 - Issue system - for error reporting
 
-**No new dependencies needed!**
+**New types needed** (see SCHEMA.md):
+- ✅ `CSSValue` union type - Union of all IR types (needs creation)
+- ✅ Type guards (`isCSSValue`, `isUnparsedString`)
+- ✅ Update `Issue` type to include `property?: string` field
+
+**Action items**:
+1. Create `src/core/types/css-value.ts` with CSSValue union
+2. Export CSSValue from `src/index.ts`
+3. Add type guards in `src/universal.ts`
+4. Update Issue type in `src/core/result.ts` (add `property?` field)
 
 ---
 
