@@ -1,254 +1,158 @@
-<!-- LAST UPDATED: 2025-10-21T02:40:00 -->
+<!-- LAST UPDATED: 2025-10-21T03:08:00 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-21 Universal API Design (Complete Session)  
-**Status**: 🎯 **MAJOR BREAKTHROUGH** - Dual API Design  
-**Tests**: 2390 passing (baseline green ✅)  
-**Next**: 🔄 **Decide: Phase 0.5 or Phase 1**
+**Last Session**: 2025-10-21 Phase 0.5 Attempt 1 (FAILED - Reverted)  
+**Status**: 🔴 **RECOVERED** - Clean baseline restored  
+**Tests**: 2406 passing (baseline green ✅)  
+**Next**: 🚀 **Phase 0.5 v2 - Start Fresh with Correct Pattern**
 
-**👉 READ FIRST**: `.memory/archive/2025-10-21-universal-parse-api/SESSION_UPDATE.md`
+**👉 READ FIRST**: `.memory/archive/2025-10-21-phase0.5-v2/POST_MORTEM.md`  
+**👉 THEN READ**: `.memory/archive/2025-10-21-phase0.5-v2/MASTER_PLAN.md`
 
 ---
 
-## 🎯 Major Breakthrough This Session
+## 💥 Previous Session Failed
 
-### The Insight: Support BOTH APIs
+**What happened**: Implemented wrong pattern with type errors (19 errors)  
+**Recovery**: Reverted 3 commits, cleaned up 16 files  
+**Lesson**: Study existing code BEFORE implementing!
 
-Don't just add universal API - **fix module API first!**
+**Key mistakes**:
+1. Used `Result<any, string>` instead of proper types
+2. Added `issues` field not in Result<T, E> type
+3. Used property-name routing (wrong abstraction level)
+4. Didn't follow Color/ClipPath pattern
 
-**Module API** (make consistent):
+**All fixed**: Back to commit 632c661, baseline green ✅
+
+---
+
+## 🎯 Phase 0.5: Module API Unification (v2)
+
+**Goal**: Add unified `parse()` to 7 modules  
+**Pattern**: Copy Color/ClipPath (try-all, no property routing)  
+**Timeline**: 3-5 hours (testing after each module)
+
+### The Correct Pattern
+
 ```typescript
-Parse.Animation.parse()    // Add unified dispatcher
-Parse.Border.parse()       // Add unified dispatcher  
-Parse.Layout.parse()       // Add unified dispatcher
-// ALL 14 modules get .parse() and .generate()
+// ✅ Module API (what we're building)
+export function parse(value: string): Result<Type.Animation.Kinds, string> {
+  const delay = Delay.parse(value);
+  if (delay.ok) return delay;
+  
+  const duration = Duration.parse(value);
+  if (duration.ok) return duration;
+  // ... try all parsers
+  
+  return err("No animation value matched");
+}
 ```
 
-**Universal API** (thin routing layer):
+**NOT this** (that's Phase 1 - Universal API):
 ```typescript
-parse("property: value")   // Routes to modules
-generate(ir, {property})   // Routes to modules
+// ❌ Wrong - property routing is for Universal API
+export function parse(property: string, value: string) {
+  switch (property) {
+    case 'animation-delay': return Delay.parse(value);
+  }
+}
 ```
 
-**Why**: Fixes root inconsistency, makes both APIs clean
+---
+
+## 📋 Implementation Plan
+
+### Phase 1: Simple Modules (2-3 hours)
+
+1. ✅ **Shadow** (2 parsers) - 15 min ← START HERE
+2. **Outline** (3 parsers) - 15 min
+3. **Transition** (4 parsers) - 20 min
+4. **Animation** (8 parsers) - 30 min
+
+### Phase 2: Delegating Modules (1-2 hours)
+
+5. **Text** (7 parsers, delegates to Color)
+6. **Background** (5 parsers, delegates to Color/Gradient)
+7. **Border** (4 parsers, delegates to Color)
+
+### Phase 3: Complex Module (skip for now)
+
+8. **Layout** - SKIP (17+ parsers, handle separately)
 
 ---
 
-## 📋 Updated Implementation Path
+## ✅ Critical Rules
 
-### Option A: Phase 0.5 First (RECOMMENDED)
-**Make module API consistent**:
-1. Add unified dispatchers to 10 modules
-2. Each module handles its own routing
-3. Then universal API is trivial
+### Type System
+- ✅ Use `Result<Type.Module.Kinds, string>`
+- ❌ Never use `Result<any, string>`
+- ❌ Don't add fields to Result type
+- ✅ Simple error strings: `err("message")`
 
-**Pros**: Clean foundation, benefits everyone  
-**Cons**: More upfront work
+### Architecture
+- ✅ Module API: `parse(value: string)`
+- ❌ NOT: `parse(property: string, value: string)`
+- ✅ Try-all pattern (like Color/ClipPath)
+- ❌ NOT: property-name routing
 
-### Option B: Skip to Phase 1
-**Go straight to universal API**:
-1. Work around module inconsistencies
-2. Two-tier routing complexity
-3. Module API stays broken
-
-**Pros**: Faster  
-**Cons**: Technical debt
-
----
-
-## 📚 Session Artifacts
-
-**Complete Documentation**:
-- SESSION_UPDATE.md ← **Read this first**
-- MASTER_PLAN.md (updated with 2-tier routing)
-- PHASE_0_AUDIT.md (complete codebase audit)
-- READINESS_ASSESSMENT.md (gaps filled)
-- START_HERE.md (API spec)
-
-**Key Stats**:
-- 14 parser modules (4 unified, 10 need work)
-- 14 generator modules (81 generators total)
-- 120+ IR kinds documented
-- 100-120 properties to support
-- 35-40 shorthand properties to reject
+### Workflow
+1. Create file with parse() function
+2. Add tests
+3. Export from index.ts
+4. Run `just check` ← Must pass!
+5. Run `just test` ← Must pass!
+6. Commit when green
+7. **One module at a time!**
 
 ---
 
-## 🎯 For Next Agent
+## 🚀 Next Steps
 
-**Read in order**:
-1. SESSION_UPDATE.md (this session's breakthrough)
-2. PHASE_0_AUDIT.md (what exists in codebase)
-3. MASTER_PLAN.md (full implementation plan)
+```bash
+# 1. Check Shadow module structure
+ls -la src/parse/shadow/
 
-**Then decide**:
-- Start Phase 0.5 (fix modules)?
-- Or skip to Phase 1 (universal API)?
+# 2. Study existing pattern
+cat src/parse/color/color.ts
 
-**Recommendation**: Phase 0.5 first (clean foundation)
+# 3. Create shadow.ts with parse()
+# (See MASTER_PLAN.md for exact code pattern)
 
----
+# 4. Test incrementally
+just check && just test
 
-## ✅ Session Stats
-
-**Duration**: ~2.5 hours  
-**Commits**: 2 (need 1 more)  
-**Documents Created**: 6  
-**Major Decisions**: 5  
-**Breakthroughs**: 1 (dual API design)
-
-**Plan Readiness**: 85% (was 70%)
-
----
-
-**Status**: Excellent planning session. Major architectural insight achieved. Ready to implement once approach is chosen. 🚀
-
----
-
-## 🎯 Active Project: Universal Parse & Generate API
-
-**Plan**: `.memory/archive/2025-10-21-universal-parse-api/MASTER_PLAN.md`
-
-### Parse API (CSS → IR)
-```typescript
-parse("color: #ff0000")              // Parse declaration
-parseCSS("color: red; width: 10px")  // Batch parse
-// Returns: {ok, value?, property?, issues}
+# 5. Commit when green
+git add -A && git commit -m "feat(shadow): add unified parse() dispatcher"
 ```
 
-### Generate API (IR → CSS)
-```typescript
-generate(ir)                         // Value only: "#ff0000"
-generate(ir, {property: "color"})    // Declaration: "color: #ff0000"
-generateCSS([{property, value}])     // Batch: "color: red; width: 10px"
-```
+---
 
-### Key Design Decisions
-- ✅ **Declaration-based** - natural CSS syntax
-- ✅ **Reject shorthands** - point to b_short
-- ❌ **No heuristics** - too ambiguous, explicit only
-- ✅ **Round-trip** - parse → modify → generate → parse
+## 📚 Session Documents
 
-**Estimate**: 16-20 hours (~2 days)
+**Location**: `.memory/archive/2025-10-21-phase0.5-v2/`
+- **POST_MORTEM.md** - What went wrong & lessons
+- **MASTER_PLAN.md** - Complete implementation guide
 
 ---
 
-## 📋 Implementation Phases
+## ⚠️ CRITICAL: LONGHAND PROPERTIES ONLY
 
-### Phase 1: Property Mapping (3-4h) ⬅️ START HERE
-- Create `PROPERTY_TO_PARSER` map (~100+ properties)
-- Create `SHORTHAND_PROPERTIES` set
-- Create `SHORTHAND_TO_LONGHAND` map
-- Create `IR_KIND_TO_GENERATOR` map
-- Tests for all mappings
+**b_value ONLY handles LONGHAND property values.**
 
-### Phase 2: Parse API (6-7h)
-- Implement `parse()` function
-- Declaration parsing (split on colon)
-- Route to parser modules
-- Shorthand rejection with helpful errors
-- Unknown property detection
-- Implement `parseCSS()` batch parser
-- Comprehensive tests (50+)
+❌ **NOT SUPPORTED** (shorthands):
+- `border: 1px solid red` ← NO! Use `border-width`, `border-style`, `border-color`
+- `margin: 10px 20px` ← NO! Use `margin-top`, `margin-right`, etc.
+- `background: red url(...)` ← NO! Use `background-color`, `background-image`, etc.
 
-### Phase 3: Generate API (4-5h)
-- Implement `generate()` function
-- Auto-detect IR kind → generator
-- Support value-only and declaration generation
-- Implement `generateCSS()` batch generator
-- Comprehensive tests (30+)
+✅ **SUPPORTED** (longhands):
+- `border-width: 1px` ← YES!
+- `border-color: red` ← YES!
+- `margin-top: 10px` ← YES!
+- `background-color: red` ← YES!
 
-### Phase 4: Round-Trip Tests (1-2h)
-- Test parse → generate → parse
-- Test parse → modify → generate → parse
-- 20+ test cases across all types
-
-### Phase 5: Documentation (2h)
-- Update README
-- API reference docs
-- Migration guide
-- b_short integration examples
-
----
-
-## 🏆 Unified Dispatcher Project: COMPLETE
-
-**Achievement**: 4 major CSS parser modules unified  
-**Time**: ~2.5 hours total  
-**Impact**: 39 format types, 88 tests, 100% passing
-
-### Modules Completed
-
-1. ✅ **clip-path** (10 shapes) - 20 tests - commit 9bdae21
-2. ✅ **color** (12 formats) - 36 tests - commit aa3d3b8
-3. ✅ **filter** (11 functions) - 16 tests - commit b2200f8
-4. ✅ **gradient** (6 variants) - 16 tests - commit 0b83b4c
-
-**Pattern**: Auto-detection dispatcher for properties that accept one value from multiple types
-
-**Docs**: `.memory/archive/2025-10-21-transform-unified-api/FINAL_ANALYSIS.md`
-
----
-
-## 🔍 Research Findings
-
-### Why We Stopped
-
-**Transform analysis revealed**: Not all CSS properties need the same pattern!
-
-**Property Types**:
-1. **Single-value, multi-type** (our pattern ✅) - clip-path, color, filter, gradient
-2. **List properties** (different pattern) - transform (space-separated functions)
-3. **Simple longhand** (no complex parsing) - animation-*, transition-*, border-*, layout
-4. **Shorthand properties** (handled by b_short lib) - margin, background, animation, etc.
-
-**Note**: We work with LONGHAND property values only. Shorthand expansion (margin → 4 properties) is handled by the separate **b_short** library.
-
-**Coverage**: 4/4 high-value complex-value properties complete (~80% user impact)
-
-**Details**: `.memory/archive/2025-10-21-transform-unified-api/SCOPE_CLARIFICATION.md`
-
----
-
-## 🔮 Future Project Ideas
-
-### Different Patterns for Different Needs
-
-**List Value Parsing** (if needed):
-- box-shadow: parse comma-separated shadow lists
-- text-shadow: parse comma-separated shadow lists
-- Multiple backgrounds: parse comma-separated bg-image lists
-- Estimate: 1-2 weeks
-
-**Generator Expansion** (check if needed):
-- Reverse of parse (IR → CSS strings)
-- May already be comprehensive
-- Could benefit from same auto-detection pattern
-- Estimate: varies
-
-**Or Something Completely Different!**
-- Performance optimization
-- Documentation improvements  
-- New CSS property support
-- Bug fixes / tech debt
-- Integration with b_short library
-
-**Note**: Shorthand property parsing (margin → 4 properties) is handled by our separate **b_short** library, not b_value.
-
----
-
-## 📚 Recent Sessions
-
-**2025-10-21 unified-dispatcher** ✅ COMPLETE (4 modules)
-- Morning: clip-path, color, filter (3 phases)
-- Afternoon: gradient (record time!)
-- Research: transform analysis (project complete)
-- Total: 88 tests, 2.5 hours, 100% passing
-
-**2025-10-20 split-nodes-refactor** ✅ COMPLETE
-- Split 751-line nodes.ts into 7 focused modules
-- 98.5% size reduction
+**Shorthand expansion** = Different library (**b_short**)
 
 ---
 
@@ -257,39 +161,16 @@ generateCSS([{property, value}])     // Batch: "color: red; width: 10px"
 ### Essential Commands
 ```bash
 just check                 # Format + typecheck + lint
-just test                  # All tests (2390 passing)
-pnpm test -- filter        # Filter tests by name
+just test                  # All tests (2406 passing)
+pnpm test -- shadow        # Test specific module
 ```
 
-### Project Status
-
-**Recent Achievements**:
-- ✅ Unified API: 3 modules complete (clip-path, color, filter)
-- ✅ 72 new tests, 2390 total
-- ✅ nodes.ts refactoring: 7 focused modules
-
----
-
-## 📊 Session Documents
-
-**Location**: `.memory/archive/2025-10-21-unified-api/`
-- **FINAL_HANDOVER.md** - Complete session results
-- **MASTER_PLAN.md** - Complete 3-phase plan
-- **PHASE_1_HANDOVER.md** - clip-path completion
-- **PHASE_2_COMPLETE.md** - color completion
-- **PHASE_3_COMPLETE.md** - filter completion
-- **AUDIT.md** - Analysis of all 14 modules
+### Baseline Status
+- ✅ Tests: 2406 passing
+- ✅ TypeScript: 0 errors
+- ✅ Lint: Clean
+- ✅ Format: Clean
 
 ---
 
-## 🎓 Core Principles
-
-- **DRY**: Extract duplication immediately
-- **KISS**: One function = one job
-- **Import from core**: Never hardcode units/keywords
-- **TypeScript strict**: No `any`, handle all cases
-- **Quality gates**: `just check && just test` must pass
-
----
-
-**Next Agent**: Implement Phase 3 (filter dispatcher) - See MASTER_PLAN.md lines 254-320! 🚀
+**Next Agent**: Start with Shadow module - follow MASTER_PLAN.md exactly! 🎯
