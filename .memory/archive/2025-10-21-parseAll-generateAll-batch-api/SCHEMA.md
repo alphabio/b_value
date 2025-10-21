@@ -230,14 +230,167 @@ ParseResult<Record<string, CSSValue | string>>
 
 ---
 
-### Issue
+### Issue (With Schema Enforcement)
 
 ```typescript
+/**
+ * Longhand CSS property names - properties supported by b_value
+ */
+type CSSLonghandProperty = 
+  // Color
+  | "color"
+  | "background-color"
+  | "border-color" | "border-top-color" | "border-right-color" | "border-bottom-color" | "border-left-color"
+  | "outline-color"
+  | "text-decoration-color"
+  
+  // Clip-path
+  | "clip-path"
+  
+  // Background
+  | "background-image"
+  | "background-position"
+  | "background-size"
+  | "background-repeat"
+  | "background-attachment"
+  | "background-clip"
+  | "background-origin"
+  
+  // Gradient (used in background-image)
+  // Handled by background-image property
+  
+  // Filter
+  | "filter"
+  | "backdrop-filter"
+  
+  // Transform
+  | "transform"
+  | "transform-origin"
+  
+  // Shadow
+  | "box-shadow"
+  | "text-shadow"
+  
+  // Border
+  | "border-width" | "border-top-width" | "border-right-width" | "border-bottom-width" | "border-left-width"
+  | "border-style" | "border-top-style" | "border-right-style" | "border-bottom-style" | "border-left-style"
+  | "border-radius" | "border-top-left-radius" | "border-top-right-radius" | "border-bottom-right-radius" | "border-bottom-left-radius"
+  
+  // Outline
+  | "outline-width"
+  | "outline-style"
+  | "outline-offset"
+  
+  // Animation
+  | "animation-name"
+  | "animation-duration"
+  | "animation-timing-function"
+  | "animation-delay"
+  | "animation-iteration-count"
+  | "animation-direction"
+  | "animation-fill-mode"
+  | "animation-play-state"
+  
+  // Transition
+  | "transition-property"
+  | "transition-duration"
+  | "transition-timing-function"
+  | "transition-delay"
+  
+  // Layout
+  | "width" | "height"
+  | "min-width" | "min-height"
+  | "max-width" | "max-height"
+  | "top" | "right" | "bottom" | "left"
+  | "position"
+  | "display"
+  | "overflow" | "overflow-x" | "overflow-y"
+  | "visibility"
+  | "z-index"
+  | "opacity"
+  | "cursor"
+  
+  // Text decoration
+  | "text-decoration-line"
+  | "text-decoration-style"
+  | "text-decoration-thickness";
+
+/**
+ * Shorthand CSS property names - NOT supported, but need to detect
+ */
+type CSSShorthandProperty =
+  | "border" | "border-top" | "border-right" | "border-bottom" | "border-left"
+  | "margin" | "padding"
+  | "background"
+  | "font"
+  | "text-decoration"
+  | "animation"
+  | "transition"
+  | "outline"
+  | "flex"
+  | "grid"
+  | "place-items" | "place-content" | "place-self"
+  | "gap" | "row-gap" | "column-gap"
+  | "inset" | "inset-block" | "inset-inline"
+  | "border-block" | "border-inline"
+  | "border-radius"  // Can be shorthand
+  | "overflow";      // Can be shorthand
+
+/**
+ * All CSS property names (longhand + shorthand for detection)
+ */
+type CSSPropertyName = CSSLonghandProperty | CSSShorthandProperty;
+
+/**
+ * Issue severity levels
+ */
+type IssueSeverity = "error" | "warning" | "info";
+
+/**
+ * Known error/warning codes for categorization
+ */
+type IssueCode =
+  // Parse errors
+  | "invalid-value"
+  | "unknown-property"
+  | "shorthand-not-supported"
+  | "invalid-syntax"
+  | "missing-value"
+  
+  // Parse warnings
+  | "duplicate-property"
+  | "deprecated-syntax"
+  | "legacy-syntax"
+  
+  // Generate errors
+  | "invalid-ir"
+  | "missing-required-field"
+  | "unsupported-kind";
+
+/**
+ * Issue reported during parsing or generation.
+ * All fields are strongly typed - no arbitrary strings.
+ */
 type Issue = {
-  severity: "error" | "warning" | "info";
+  /** Property name that caused the issue */
+  property?: CSSPropertyName;
+  
+  /** Issue severity */
+  severity: IssueSeverity;
+  
+  /** Categorized error/warning code */
+  code: IssueCode;
+  
+  /** Human-readable message */
   message: string;
+  
+  /** Optional suggestion for fixing */
   suggestion?: string;
+  
+  /** Optional action to take */
   action?: string;
+  
+  /** Optional location in input string */
   location?: {
     offset: number;
     length: number;
@@ -245,19 +398,22 @@ type Issue = {
 };
 ```
 
-**For parseAll()**, we should add:
+**Benefits**:
+- ✅ `property` is strongly typed to known CSS properties (longhand + shorthand)
+- ✅ `code` provides machine-readable categorization
+- ✅ Type safety prevents typos
+- ✅ Autocomplete in IDEs
+- ✅ Easy to filter issues by code
+
+**Type Guards**:
 ```typescript
-type Issue = {
-  property?: string;  // ← ADD THIS for batch API
-  severity: "error" | "warning" | "info";
-  message: string;
-  suggestion?: string;
-  action?: string;
-  location?: {
-    offset: number;
-    length: number;
-  };
-};
+function isLonghandProperty(prop: string): prop is CSSLonghandProperty {
+  // Check against longhand list
+}
+
+function isShorthandProperty(prop: string): prop is CSSShorthandProperty {
+  // Check against shorthand list
+}
 ```
 
 ---
@@ -410,6 +566,108 @@ type ColorStop = {
   color: Color;
   position?: LengthPercentage;
 };
+```
+
+---
+
+## Issue Creation Helpers
+
+```typescript
+/**
+ * Create a strongly-typed issue
+ */
+function createIssue(
+  code: IssueCode,
+  message: string,
+  options?: {
+    property?: CSSPropertyName;
+    severity?: IssueSeverity;
+    suggestion?: string;
+    action?: string;
+    location?: { offset: number; length: number };
+  }
+): Issue {
+  return {
+    code,
+    message,
+    severity: options?.severity ?? (code.includes("warning") ? "warning" : "error"),
+    property: options?.property,
+    suggestion: options?.suggestion,
+    action: options?.action,
+    location: options?.location,
+  };
+}
+
+/**
+ * Predefined issue creators for common cases
+ */
+const Issues = {
+  duplicateProperty(property: CSSLonghandProperty, count: number): Issue {
+    return createIssue(
+      "duplicate-property",
+      `Duplicate property '${property}' declared ${count} times - using last value`,
+      { property, severity: "warning" }
+    );
+  },
+  
+  invalidValue(property: CSSLonghandProperty, value: string): Issue {
+    return createIssue(
+      "invalid-value",
+      `Invalid value '${value}' for property '${property}'`,
+      { property, severity: "error" }
+    );
+  },
+  
+  shorthandNotSupported(property: CSSShorthandProperty, longhands: string[]): Issue {
+    return createIssue(
+      "shorthand-not-supported",
+      `Shorthand property '${property}' is not supported in b_value. Use longhand properties: ${longhands.join(", ")}. For shorthand support, use the 'b_short' library.`,
+      { 
+        property,
+        severity: "error",
+        suggestion: "Use b_short to expand shorthands first"
+      }
+    );
+  },
+  
+  unknownProperty(property: string): Issue {
+    return createIssue(
+      "unknown-property",
+      `Unknown CSS property '${property}'`,
+      { severity: "error" }
+    );
+  },
+  
+  invalidSyntax(message: string, location?: { offset: number; length: number }): Issue {
+    return createIssue(
+      "invalid-syntax",
+      message,
+      { severity: "error", location }
+    );
+  }
+};
+```
+
+**Usage in parseAll()**:
+```typescript
+// Detect duplicate
+if (duplicateCount > 1) {
+  issues.push(Issues.duplicateProperty("color", duplicateCount));
+}
+
+// Invalid value
+if (!result.ok) {
+  issues.push(Issues.invalidValue("width", "not-a-number"));
+}
+
+// Shorthand detected
+if (isShorthandProperty(property)) {
+  issues.push(Issues.shorthandNotSupported("border", [
+    "border-width",
+    "border-style", 
+    "border-color"
+  ]));
+}
 ```
 
 ---

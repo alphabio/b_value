@@ -101,7 +101,8 @@ parseAll("color: red; color: blue; width: 10px")
   issues: [
     {
       property: "color",
-      severity: "warning",  // ← Warning, not error
+      severity: "warning",
+      code: "duplicate-property",
       message: "Duplicate property 'color' declared 2 times - using last value"
     }
   ]
@@ -128,6 +129,7 @@ parseAll("color: red; width: not-a-number; filter: blur(5px)")
     {
       property: "width",
       severity: "error",
+      code: "invalid-value",
       message: "Invalid value 'not-a-number' for property 'width'"
     }
   ]
@@ -156,8 +158,9 @@ parseAll("color: red; border: 1px solid black; width: 10px")
   },
   issues: [
     {
-      property: "border",
+      property: "border",  // Note: This will be a string, not CSSPropertyName (border is shorthand)
       severity: "error",
+      code: "shorthand-not-supported",
       message: "Shorthand property 'border' is not supported in b_value. Use longhand properties: border-width, border-style, border-color. For shorthand support, use the 'b_short' library.",
       suggestion: "Use b_short to expand shorthands first"
     }
@@ -193,8 +196,9 @@ parseAll("color: red; made-up-property: value; width: 10px")
   },
   issues: [
     {
-      property: "made-up-property",
+      // Note: made-up-property is not in CSSPropertyName, so property field omitted
       severity: "error",
+      code: "unknown-property",
       message: "Unknown CSS property 'made-up-property'"
     }
   ]
@@ -272,11 +276,54 @@ parseAll("color: red;  ;  ; width: 10px")
    }
    ```
 
-2. **Update `src/core/result.ts`** (5min)
+2. **Update `src/core/result.ts`** (15min)
+   
+   Add property name registry and issue code types:
    ```typescript
+   /**
+    * CSS property names - exhaustive list of longhand properties
+    */
+   export type CSSPropertyName = 
+     | "color" | "background-color" | "border-color"
+     | "clip-path"
+     | "filter" | "backdrop-filter"
+     | "transform" | "transform-origin"
+     | "box-shadow" | "text-shadow"
+     | "width" | "height" | "top" | "right" | "bottom" | "left"
+     | "position" | "display" | "overflow" | "overflow-x" | "overflow-y"
+     | "animation-name" | "animation-duration" | "animation-timing-function"
+     | "transition-property" | "transition-duration" | "transition-timing-function"
+     // ... all 60+ longhand properties
+     ;
+   
+   /**
+    * Issue codes for categorization
+    */
+   export type IssueCode =
+     // Parse errors
+     | "invalid-value"
+     | "unknown-property"
+     | "shorthand-not-supported"
+     | "invalid-syntax"
+     | "missing-value"
+     
+     // Parse warnings
+     | "duplicate-property"
+     | "deprecated-syntax"
+     | "legacy-syntax"
+     
+     // Generate errors
+     | "invalid-ir"
+     | "missing-required-field"
+     | "unsupported-kind";
+   
+   /**
+    * Issue reported during parsing or generation.
+    */
    export type Issue = {
-     property?: string;  // ← ADD THIS
+     property?: CSSPropertyName;  // ← Strongly typed!
      severity: "error" | "warning" | "info";
+     code: IssueCode;  // ← Machine-readable code
      message: string;
      suggestion?: string;
      action?: string;
@@ -286,7 +333,29 @@ parseAll("color: red;  ;  ; width: 10px")
 
 3. **Update `src/index.ts`** (5min)
    ```typescript
-   export type { CSSValue, isCSSValue, isUnparsedString } from "./core/types/css-value";
+   export type { 
+     CSSValue, 
+     isCSSValue, 
+     isUnparsedString 
+   } from "./core/types/css-value";
+   
+   export type {
+     CSSPropertyName,
+     CSSLonghandProperty,
+     CSSShorthandProperty,
+     IssueCode
+   } from "./core/result";
+   ```
+
+4. **Add Issue creation helpers to `src/core/result.ts`** (15min)
+   ```typescript
+   export const Issues = {
+     duplicateProperty(property: CSSLonghandProperty, count: number): Issue,
+     invalidValue(property: CSSLonghandProperty, value: string): Issue,
+     shorthandNotSupported(property: CSSShorthandProperty, longhands: string[]): Issue,
+     unknownProperty(property: string): Issue,
+     invalidSyntax(message: string, location?: {...}): Issue
+   };
    ```
 
 ---
@@ -570,14 +639,17 @@ describe('generateAll()', () => {
 
 ## 🚀 Implementation Order
 
-### Session 0: Type Setup (30min - 1h)
+### Session 0: Type Setup (1-1.5h)
 - Create CSSValue union type
-- Add type guards
-- Update Issue type
+- Add type guards (isCSSValue, isUnparsedString)
+- Create property name types (CSSLonghandProperty, CSSShorthandProperty)
+- Create IssueCode type
+- Update Issue type with strong typing
+- Add Issue creation helpers
 - Update exports
 - Verify baseline: `just check && just test`
 
-**Deliverable**: CSSValue type available, all tests still passing
+**Deliverable**: Complete type system, all tests still passing
 
 ---
 
