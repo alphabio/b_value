@@ -10,6 +10,13 @@
  */
 
 /**
+ * Generate CSS from color IR with auto-detection.
+ *
+ * @see {@link generate}
+ */
+export { generate } from "./color";
+
+/**
  * Generate color() function CSS strings.
  *
  * @see {@link ColorFunction.toCss}
