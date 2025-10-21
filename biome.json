@@ -58,7 +58,7 @@
 	},
 	"overrides": [
 		{
-			"includes": ["benchmark/**/*.ts", "test/**/*.ts", "scripts/**/*.ts"],
+			"includes": ["benchmark/**/*.ts", "test/**/*.ts", "scripts/**/*.ts", "examples/**/*.ts"],
 			"linter": {
 				"rules": {
 					"suspicious": {

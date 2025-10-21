@@ -29,6 +29,114 @@ pnpm add b_value
 
 ## Usage
 
+### Universal API (Single Properties)
+
+Parse and generate **any** CSS longhand property with automatic routing:
+
+```typescript
+import { parse, generate } from "b_value";
+
+// Parse ANY longhand property
+const colorResult = parse("color: red");
+const widthResult = parse("width: 100px");
+const transformResult = parse("transform: rotate(45deg)");
+
+if (colorResult.ok) {
+  console.log(colorResult.property); // "color"
+  console.log(colorResult.value);    // { kind: "named", name: "red" }
+}
+
+// Generate CSS from IR for ANY property
+const css1 = generate({ 
+  property: "color", 
+  value: { kind: "hex", value: "#FF0000" } 
+});
+// Returns: { ok: true, value: "color: #FF0000", issues: [] }
+
+const css2 = generate({
+  property: "transform",
+  value: [{ kind: "rotate", angle: { value: 45, unit: "deg" } }]
+});
+// Returns: { ok: true, value: "transform: rotate(45deg)", issues: [] }
+```
+
+**Features**:
+- ✅ Auto-routes to correct parser/generator (60+ properties)
+- ✅ Helpful errors for shorthand properties → use `b_short` library
+- ✅ Type-safe with full TypeScript support
+- ✅ Returns structured `ParseResult` / `GenerateResult`
+
+---
+
+### Batch API (Multiple Properties)
+
+**NEW!** Parse and generate multiple properties at once - perfect for CSS editors:
+
+```typescript
+import { parseAll, generateAll } from "b_value";
+
+// Parse entire style blocks
+const result = parseAll("color: red; width: 100px; opacity: 0.5");
+
+if (result.ok) {
+  console.log(result.value);
+  // {
+  //   color: { kind: "named", name: "red" },
+  //   width: { kind: "width", value: { value: 100, unit: "px" } },
+  //   opacity: { kind: "opacity", value: 0.5 }
+  // }
+}
+
+// Modify properties
+result.value.color = { kind: "hex", value: "#0000FF" };
+
+// Generate CSS back
+const css = generateAll(result.value);
+// "color: #0000FF; width: 100px; opacity: 0.5"
+```
+
+**Features**:
+- ✅ **Single ParseResult** for entire block (one `ok` flag, one `issues` array)
+- ✅ **Flat object structure** matches CSS mental model
+- ✅ **Perfect round-trip**: `parseAll()` → modify → `generateAll()` → `parseAll()`
+- ✅ **Error handling**: Invalid values returned as strings with error details
+- ✅ **Duplicate detection**: Warnings for duplicate properties (last wins per CSS spec)
+- ✅ **String passthrough**: Unknown values preserved as strings
+
+**CSS Editor Use Case**:
+```typescript
+// User editing styles in UI
+const styles = parseAll(userInput);
+
+// Show validation errors
+if (!styles.ok) {
+  styles.issues.forEach(issue => {
+    if (issue.severity === "error") {
+      showError(issue.property, issue.message);
+    }
+  });
+}
+
+// User modifies a property
+styles.value.width = { kind: "width", value: { value: 200, unit: "px" } };
+
+// Regenerate CSS
+const updatedCSS = generateAll(styles.value, { minify: false });
+```
+
+**Minification**:
+```typescript
+// Normal spacing (default)
+generateAll({ color: "red", width: "100px" });
+// "color: red; width: 100px"
+
+// Minified
+generateAll({ color: "red", width: "100px" }, { minify: true });
+// "color:red;width:100px"
+```
+
+---
+
 ### Colors
 
 ```typescript
@@ -119,12 +227,14 @@ if (parsed.ok) {
 
 ## Statistics
 
-- **Properties supported**: 50+ CSS properties
+- **Properties supported**: 60+ CSS longhand properties
+- **Universal API**: `parse()` and `generate()` for any property
+- **Batch API**: `parseAll()` and `generateAll()` for multiple properties
 - **Color formats**: 12 complete (hex, rgb, hsl, hwb, lab, lch, oklab, oklch, color(), named, system, special)
 - **Gradient types**: 6 (linear, radial, conic × 2 variants)
 - **Transform functions**: 20+ (all translate, scale, rotate, skew, matrix, perspective)
 - **Basic shapes**: 4/5 complete (inset, circle, ellipse, polygon)
-- **Total tests**: 2176 passing
+- **Total tests**: 2640 passing
 - **Test coverage**: ~86%
 - **Type safety**: 100% TypeScript strict mode
 
