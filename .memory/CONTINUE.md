@@ -1,15 +1,15 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-10-21T05:32:00Z  
+**LAST UPDATED**: 2025-10-21T06:40:00Z  
 **PROJECT**: b_value - CSS value parser/generator  
 **CURRENT PHASE**: 0.5 - Universal ParseResult/GenerateResult API  
-**STATUS**: Phase 0.5d IN PROGRESS (6/14 modules complete, 7 remaining) 🚧
+**STATUS**: Phase 0.5d IN PROGRESS (8/14 modules complete, 5 remaining) 🚧
 
 ---
 
 ## ✅ What Just Happened
 
-**Phase 0.5d - Audit & Planning Complete** - 6 modules complete with unified `generate()`:
+**Phase 0.5d - Progress Update** - 8 modules complete with unified `generate()`:
 
 1. ✅ **color** - generate() returns GenerateResult (15 tests)
 2. ✅ **clip-path** - generate() returns GenerateResult (12 tests)  
@@ -17,32 +17,33 @@
 4. ✅ **filter** - generate() returns GenerateResult (11 tests)
 5. ✅ **position** - generate() wrapper in separate file (16 tests)
 6. ✅ **transform** - generate() wrapper in separate file (17 tests)
+7. ✅ **shadow** - generate() returns GenerateResult (14 tests)
+8. ✅ **transition** - generate() returns GenerateResult (25 tests)
 
-**Total**: 76 new tests added, 2469 tests passing
+**Total**: ~115 new tests added, 2505 tests passing
 
 **Latest Actions**:
-- `1d02b58` - feat(position,transform): add unified generate()
-- Created comprehensive MASTER_PLAN.md for remaining 7 modules
-- Created START_HERE.md quick reference
-- Created AUDIT_REPORT.md documenting current state
+- `0830432` - feat(transition): add unified generate() returning GenerateResult
+- `2ac7694` - feat(shadow): add unified generate() returning GenerateResult
+- 5 modules remaining: outline, border, text, background, animation
 
 ---
 
 ## ✅ Current Status
 
 **All systems green**:
-- ✅ Format: Clean (495 files)
+- ✅ Format: Clean (499 files)
 - ✅ Lint: No issues
 - ✅ TypeScript: No errors
-- ✅ Tests: **2469 passing** 🎉
+- ✅ Tests: **2505 passing** 🎉
 
 ---
 
 ## 🎯 Next Steps
 
-### Continue Phase 0.5d - Generate API (7 modules remaining)
+### Continue Phase 0.5d - Generate API (5 modules remaining)
 
-**Comprehensive master plan created**: `.memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md`
+**Comprehensive master plan**: `.memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md`
 
 **Pattern A** (preferred - single file):
 ```typescript
@@ -57,16 +58,14 @@ export function generate(ir: ModuleIR): GenerateResult {
 ```
 
 **Remaining modules** (priority order):
-1. 🎯 **shadow** (2 types) - START HERE (simplest, 20-30 min)
-2. **transition** (4 props) - Similar to animation
-3. **outline** (4 props) - Similar to border
-4. **border** (4 props) - Similar to outline
-5. **text** (4 props) - Text decoration
-6. **background** (5 props) - Background properties
-7. **animation** (8 props) - Most complex
-8. ⚪ **layout** - DEFERRED (no unified IR type)
+1. 🎯 **outline** (4 props) - NEXT (similar to border)
+2. **border** (4 props) - Similar to outline
+3. **text** (4 props) - Text decoration
+4. **background** (5 props) - Background properties
+5. **animation** (8 props) - Most complex
+6. ⚪ **layout** - DEFERRED (no unified IR type)
 
-**Next action**: Execute Session 1 - shadow module (see MASTER_PLAN.md)
+**Next action**: Execute outline module (~20 min)
 
 ---
 
@@ -85,14 +84,14 @@ export function generate(ir: ModuleIR): GenerateResult {
 
 ## 📊 Current Stats
 
-- ✅ Baseline: **2469 tests passing** 🎉
+- ✅ Baseline: **2505 tests passing** 🎉
 - ✅ TypeScript: Clean (no errors)
 - ✅ Lint: Clean (no warnings)
-- ✅ Format: Clean (493 files)
+- ✅ Format: Clean (499 files)
 - ✅ Phase 0.5a: Complete (ParseResult + GenerateResult types)
 - ✅ Phase 0.5b: Complete (7 new parse() functions)  
 - ✅ Phase 0.5c: Complete (6 modules updated + tests fixed)
-- 🚧 Phase 0.5d: **IN PROGRESS** (6/14 generate() functions added, 76 tests, 7 remaining)
+- 🚧 Phase 0.5d: **IN PROGRESS** (8/14 generate() functions added, ~115 tests, 5 remaining)
 
 **Phase 0.5d Progress**:
 - ✅ color (15 tests) - Pattern A
@@ -101,8 +100,10 @@ export function generate(ir: ModuleIR): GenerateResult {
 - ✅ filter (11 tests) - Pattern A
 - ✅ position (16 tests) - Pattern B
 - ✅ transform (17 tests) - Pattern B
-- 🎯 shadow - NEXT (est. 10 tests)
-- 🔜 transition, outline, border, text, background, animation
+- ✅ shadow (14 tests) - Pattern A
+- ✅ transition (25 tests) - Pattern A
+- 🎯 outline - NEXT (est. 12-16 tests)
+- 🔜 border, text, background, animation
 - ⚪ layout - DEFERRED (no unified IR)
 
 ---
@@ -139,25 +140,26 @@ pnpm run typecheck 2>&1 | grep "error TS"
 
 **For next agent**:
 
-1. **Read the master plan**:
+1. **Check updated progress**:
    ```bash
-   cat .memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md
+   cat .memory/CONTINUE.md  # 8/14 complete, 5 remaining
    ```
 
-2. **Execute Session 1 - shadow module**:
-   - Simplest module (2 types: box-shadow, text-shadow)
+2. **Execute outline module** (next in queue):
+   - Similar to border module (4 properties)
    - Estimated time: 20-30 minutes
-   - Follow detailed guide in MASTER_PLAN.md
+   - Follow Pattern A from MASTER_PLAN.md
 
 3. **Verify baseline before starting**:
    ```bash
-   just check && just test  # Should show 2469 tests passing
+   just check && just test  # Should show 2505 tests passing
    ```
 
 4. **After completion**:
-   - Update this CONTINUE.md with progress (7/14 complete)
-   - Create handover doc if ending session
+   - Update CONTINUE.md with progress (9/14 complete)
+   - Continue to border, text, background, animation
 
 ---
 
-**Next Agent**: Execute Session 1 (shadow) from MASTER_PLAN.md! 🚀
+**Next Agent**: Execute outline module! 🚀
+
