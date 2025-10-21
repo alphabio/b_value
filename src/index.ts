@@ -78,7 +78,31 @@
  * ```
  */
 export * as Core from "./core";
-
+/**
+ * Public API types for parsing and generation.
+ *
+ * @example
+ * ```typescript
+ * import type { ParseResult, GenerateResult, Issue } from "b_value";
+ *
+ * const result: ParseResult<Color> = Parse.Color.parse("#ff0000");
+ * if (result.ok) {
+ *   console.log(result.value);
+ * } else {
+ *   console.error(result.issues);
+ * }
+ * ```
+ */
+export type { GenerateResult, Issue, ParseResult } from "./core/result";
+export {
+	addIssue,
+	combineResults,
+	generateErr,
+	generateOk,
+	parseErr,
+	parseOk,
+	withWarning,
+} from "./core/result";
 /**
  * CSS → IR generators (convert IR to CSS strings).
  *
@@ -99,7 +123,6 @@ export * as Core from "./core";
  * ```
  */
 export * as Generate from "./generate";
-
 /**
  * CSS → IR parsers (convert CSS strings to structured IR).
  *
