@@ -1,37 +1,44 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-10-21T06:48:00Z  
-**PROJECT**: b_value - CSS value parser/generator  
-**CURRENT PHASE**: 0.5 - Universal ParseResult/GenerateResult API  
-**STATUS**: Phase 0.5d COMPLETE ✅ (11/14 modules complete, text/background/layout deferred)
+**LAST UPDATED**: 2025-10-21T07:54:52Z  
+**PROJECT**: b_value - CSS **LONGHAND** property parser/generator  
+**CURRENT PHASE**: 0.5 COMPLETE → Ready for 0.6 Universal API  
+**STATUS**: Phase 0.5 ✅ | Phase 0.6 Design ✅
 
 ---
 
-## ✅ What Just Happened
+## 🎯 CRITICAL CLARITY (2025-10-21)
 
-**Phase 0.5d - COMPLETE** ✅ - 11 modules with unified `generate()`:
+**b_value = CSS LONGHAND property parser/generator**
 
-1. ✅ **color** - generate() returns GenerateResult (15 tests)
-2. ✅ **clip-path** - generate() returns GenerateResult (12 tests)  
-3. ✅ **gradient** - generate() returns GenerateResult (5 tests)
-4. ✅ **filter** - generate() returns GenerateResult (11 tests)
-5. ✅ **position** - generate() wrapper in separate file (16 tests)
-6. ✅ **transform** - generate() wrapper in separate file (17 tests)
-7. ✅ **shadow** - generate() returns GenerateResult (14 tests)
-8. ✅ **transition** - generate() returns GenerateResult (25 tests)
-9. ✅ **outline** - generate() returns GenerateResult (19 tests)
-10. ✅ **border** - generate() returns GenerateResult (18 tests)
-11. ✅ **animation** - generate() returns GenerateResult (26 tests)
+### What b_value Does
+- ✅ Parse longhand property declarations: `parse("color: red")`
+- ✅ Generate CSS from IR: `generate({ property: "color", value: IR })`
 
-**Deferred**: text, background, layout (no unified IR types with 'kind' discriminators)
+### What b_value Does NOT Do
+- ❌ Shorthand properties (border, margin, background, text-decoration) → **USE b_short**
+- ❌ Property routing/guessing
+- ❌ Shorthand expansion
 
-**Total**: ~178 new tests added, 2568 tests passing
+### The Ultimate API (Phase 0.6 Goal)
+```typescript
+parse("background-position: center top")  // ANY longhand property
+generate({ property: "background-position", value: IR })
+```
 
-**Latest Actions**:
-- `365c790` - feat(animation): add unified generate() returning GenerateResult
-- `0087f5a` - feat(border): add unified generate() returning GenerateResult
-- `900bc08` - feat(outline): add unified generate() returning GenerateResult
-- Phase 0.5d COMPLETE! All feasible modules now have unified generate() API
+---
+
+## ✅ Phase 0.5 Complete
+
+**Module-level APIs** (internal implementation):
+- 11 modules with parse()/generate() returning ParseResult/GenerateResult
+- ~178 new tests, 2568 total passing
+- Modules: color, clip-path, gradient, filter, position, transform, shadow, transition, outline, border, animation
+
+**NOT deferred**: text, background, layout
+- Individual property parsers exist (text-decoration-line, background-size, width, etc.)
+- No module dispatchers needed (that was the mistake)
+- Will work with universal API
 
 ---
 
@@ -142,41 +149,46 @@ pnpm run typecheck 2>&1 | grep "error TS"
 
 ---
 
-## 🚀 IMMEDIATE NEXT STEPS
+## 🚀 NEXT PHASE: 0.6 - Universal API
 
-**For next agent**:
+**Goal**: Build the ACTUAL public API users want
 
-Phase 0.5d is COMPLETE! ✅
+### What to Build
 
-**What was accomplished**:
-- Added unified `generate()` API to 11 modules
-- 178 new tests added (2568 total tests passing)
-- All modules with suitable IR types now have generate() dispatchers
-- Consistent error handling across all modules
+```typescript
+// Parse ANY CSS longhand property declaration
+parse("background-position: center top")
+// → { ok: true, property: "background-position", value: IR, issues: [] }
 
-**Next phase suggestions**:
+// Generate CSS from IR for ANY property
+generate({ property: "background-position", value: IR })
+// → { ok: true, value: "center top", issues: [] }
+```
 
-1. **Phase 0.6 - Public API Design**:
-   - Consolidate exports for clean public API
-   - Decide on top-level exports structure
-   - Update documentation
+### Implementation Steps
 
-2. **Phase 1.0 - Release Preparation**:
-   - Update README with new API examples
-   - Create migration guide if needed
-   - Prepare for version 1.0 release
+1. **Property Registry** - Map property names to parsers/generators
+2. **Shorthand Detection** - Reject shorthands with helpful errors
+3. **Declaration Parser** - Parse "property: value" syntax
+4. **Universal parse()** - Route to appropriate property parser
+5. **Universal generate()** - Route to appropriate generator
+6. **Tests** - Cover all longhand properties
+7. **Documentation** - Show ONLY universal API
 
-3. **Other improvements**:
-   - Add more integration tests
-   - Performance benchmarking
-   - Additional CSS property support
+**Estimate**: ~6-7 hours
 
-**Verify baseline**:
+### Key Documents
+
+**READ FIRST**:
+- `.memory/archive/2025-10-21-deferred-modules-design/CLARITY.md` ← START HERE
+- `.memory/archive/2025-10-21-deferred-modules-design/UNIVERSAL_API_DESIGN.md` ← Full spec
+
+### Verify Baseline
 ```bash
 just check && just test  # Should show 2568 tests passing
 ```
 
 ---
 
-**Next Agent**: Choose next phase or discuss priorities! 🚀
+**Stop overthinking modules. Build the universal API.** 🎯
 
