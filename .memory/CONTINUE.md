@@ -1,9 +1,9 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-10-21T08:38:00Z  
+**LAST UPDATED**: 2025-10-21T09:17:00Z  
 **PROJECT**: b_value - CSS **LONGHAND** property parser/generator  
-**CURRENT PHASE**: 0.7 PLANNED 📋 - Batch API (parseAll/generateAll)  
-**STATUS**: Phase 0.6 ✅ | Phase 0.7 Master Plan Ready
+**CURRENT PHASE**: 0.7 DESIGN COMPLETE 📋 | MIGRATION REQUIRED ⚠️  
+**STATUS**: Phase 0.6 ✅ | Phase 0.7 Design ✅ | Migration Pending ⏳
 
 ---
 
@@ -83,30 +83,66 @@ const css = generate({
 
 ## 🎯 Next Steps - Phase 0.7: Batch API
 
-### ⚠️ BREAKING CHANGE: Type System Migration Needed!
+### 🚨 CRITICAL: Migration Required FIRST!
 
-**Status**: Types are ready but need codebase migration before Phase 0.7 implementation
+**HANDOVER**: `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/HANDOVER.md`
 
-**What Changed**:
-- ✅ Added strict type schemas (CSSPropertyName, IssueCode)
-- ✅ Updated Issue type with `code` field
-- ✅ Added Issues helper for type-safe issue creation
-- ⚠️ **BREAKING**: `parseErr()` and `generateErr()` signatures changed
+**Current Status**:
+- ✅ Phase 0.7 design complete (70KB documentation)
+- ✅ Strict type system implemented (breaking change)
+- ⚠️ **~45 TypeScript errors** - migration required
+- 🚧 Phase 0.7 implementation blocked until migration complete
 
-**Before Phase 0.7 can start**:
-1. **Migrate codebase** - Update all parseErr/generateErr calls (see MIGRATION.md)
-2. Run `just check && just test` - Must pass before continuing
-3. Then implement parseAll/generateAll
+**Immediate Action Required** (2-3h):
+1. Read **READ_ME_FIRST.md** in archive folder
+2. Follow **MIGRATION.md** to fix all parseErr/generateErr calls
+3. Verify: `just check && just test` must pass (2610 tests)
+4. Commit: "chore: migrate to strict Issue type system"
 
-**Migration Document**: `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MIGRATION.md`
+**Then Phase 0.7 Implementation** (8-12h):
+- Phase 0: Type setup (CSSValue union) - 1-1.5h
+- Phase 1: parseAll() implementation - 3-4h
+- Phase 2: generateAll() implementation - 2-3h
+- Phase 3: Polish & documentation - 1-2h
 
 ---
 
-### Phase 0.7: parseAll() & generateAll() (After Migration)
+### Breaking Change Summary
+
+**Types Added**:
+- `CSSLonghandProperty` - 60+ supported properties
+- `CSSShorthandProperty` - Shorthand detection  
+- `CSSPropertyName` - Union of both
+- `IssueCode` - Machine-readable error codes
+
+**Function Signatures Changed**:
+```typescript
+// Old
+parseErr(message: string, options?: {...})
+generateErr(message: string, options?: {...})
+
+// New (BREAKING)
+parseErr(code: IssueCode, message: string, options?: {...})
+generateErr(code: IssueCode, message: string, options?: {...})
+```
+
+**New Helper**:
+```typescript
+Issues.duplicateProperty(property, count)
+Issues.invalidValue(property, value)
+Issues.shorthandNotSupported(property, longhands)
+// ... more helpers
+```
+
+---
+
+### Phase 0.7 Design (Complete ✅)
+
+### Phase 0.7 Design (Complete ✅)
 
 **Goal**: Implement batch CSS parsing/generation for CSS Editor use case
 
-**Key Innovation**:
+**API Designed**:
 - `parseAll(css)` → Single ParseResult with flat object (not array!)
 - `generateAll(values)` → Plain CSS string (not Result wrapper!)
 
@@ -121,10 +157,14 @@ const css = generate({
 - Session 2 (2-3h): generateAll() core + tests  
 - Session 3 (1-2h): Documentation + polish
 
-**Documents Created**:
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← **COMPLETE GUIDE**
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/START_HERE.md` ← Quick reference
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/API_REFERENCE.md` ← API docs
+**Documents Created** (70KB total):
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/READ_ME_FIRST.md` ← **START HERE**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/HANDOVER.md` ← **Complete handover**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← Implementation (22KB)
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MIGRATION.md` ← How to fix code (6KB)
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/SCHEMA.md` ← Type system (18KB)
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/API_REFERENCE.md` ← API docs (7KB)
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/SESSION_SUMMARY.md` ← Context (5KB)
 
 **Critical Edge Cases Designed**:
 1. ✅ Duplicates → Last wins + warning
@@ -245,10 +285,10 @@ pnpm run typecheck 2>&1 | grep "error TS"
 
 ## 📚 Key Documents
 
-**Phase 0.7 Master Plan** (READY FOR IMPLEMENTATION):
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← **IMPLEMENTATION GUIDE**
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/START_HERE.md` ← Quick start
-- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/API_REFERENCE.md` ← Complete API
+**Phase 0.7 Master Plan** (READY FOR IMPLEMENTATION - After Migration):
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/READ_ME_FIRST.md` ← **START HERE**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/HANDOVER.md` ← **Complete handover**
+- `.memory/archive/2025-10-21-parseAll-generateAll-batch-api/MASTER_PLAN.md` ← Implementation guide
 
 **Phase 0.6 Complete**:
 - `.memory/archive/2025-10-21-phase0.6-universal-api/HANDOVER.md` ← Universal API
