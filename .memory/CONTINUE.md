@@ -1,191 +1,134 @@
-<!-- LAST UPDATED: 2025-10-20T20:05 -->
+<!-- LAST UPDATED: 2025-10-21T07:51 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-20-clip-path-dry-session-3 (✅ COMPLETE - Gold Standard Achieved!)  
-**Status**: 🏆 **DRY Refactoring Complete** - All 3 sessions done, <10% duplication achieved  
-**Tests**: 2318 passing (307 clip-path tests)  
-**Next**: 🚀 **New Feature Domain** - Filters, transforms, or new CSS properties
+**Last Session**: 2025-10-21-unified-api (Design & Planning)  
+**Status**: 🎯 **READY FOR IMPLEMENTATION** - Phase 1 (clip-path dispatcher)  
+**Tests**: 2318 passing  
+**Next**: 🚀 **Implement unified parse() API** - Starting with clip-path
 
 ---
 
-## 🏆 Achievement Unlocked: Gold Standard Code!
+## 🎯 Current Priority: Unified API Implementation
 
-**Clip-Path DRY Refactoring: COMPLETE**
+**Session**: 2025-10-21-unified-api  
+**Phase**: 1 of 3 (clip-path dispatcher)  
+**Status**: Ready to implement  
+**Estimate**: 45 minutes
 
-### Final Results
-- ✅ **240 lines of duplication removed** (75% reduction)
-- ✅ **Duplication: 8%** (below 10% Gold Standard threshold!)
-- ✅ **8 elegant utilities** created
-- ✅ **100% test retention** (307/307 clip-path tests)
-- ✅ **All 2318 tests passing**
-- ✅ **Production-ready code**
+### Quick Context
 
-### What Was Accomplished (3 Sessions)
-1. **Session 1**: Parse boilerplate wrappers (-63 lines)
-2. **Session 2**: Border-radius & position utilities (-57 lines)
-3. **Session 3**: Radial size & generator optimization (-120 lines)
+**Goal**: Add unified `parse()` API to modules with multiple parsers
 
-**Total Impact**: 240 lines removed, 20% code reduction, 75% less duplication
+**Before**:
+```typescript
+import * as ClipPath from "@/parse/clip-path";
+ClipPath.Circle.parse("circle(50%)");  // Must know it's a circle
+```
+
+**After**:
+```typescript
+import { parse } from "@/parse/clip-path";
+parse("circle(50%)");  // Auto-detects it's a circle
+```
+
+### Documents Created
+
+📁 `.memory/archive/2025-10-21-unified-api/`:
+1. **SESSION_HANDOVER.md** - Start here! Complete handover
+2. **MASTER_PLAN.md** - 3-phase implementation plan with templates
+3. **AUDIT.md** - Full analysis of all 14 parse modules
+4. **START_HERE.md** - Quick reference
+
+### Phase 1 Tasks (45 min)
+
+1. Create `src/parse/clip-path/clip-path.ts` dispatcher
+2. Implement `parse()` and `parseNode()` functions
+3. Add dispatcher tests (10+ tests)
+4. Update `src/parse/clip-path/index.ts` exports
+5. Verify all 2318 tests passing
+6. Commit
+
+**Template**: See MASTER_PLAN.md lines 107-157
+
+### Success Criteria
+
+- [ ] Dispatcher handles all 10 shapes (circle, ellipse, inset, polygon, rect, xywh, path, url, none, geometry-box)
+- [ ] Backward compatible namespace exports preserved
+- [ ] All 2318 tests passing
+- [ ] Clean git commit
+
+### After Phase 1
+
+Continue with:
+- Phase 2: color dispatcher (60 min)
+- Phase 3: filter dispatcher (45 min)
+
+**Ultimate Vision**:
+```typescript
+import { parse, generate } from "b_value";
+parse("circle(50%)");        // Auto-detects clip-path
+parse("rgb(255, 0, 0)");     // Auto-detects color  
+parse("blur(5px)");          // Auto-detects filter
+// ... any CSS value!
+```
 
 ---
 
-## 🎯 Next Steps: Choose Your Path
+## 📊 Recent Work (Last Session)
 
-### Option A: New Feature Domain (Recommended)
-Move to next CSS property category:
-- **Filters**: blur, brightness, contrast, grayscale, etc. (11 filter functions)
-- **Transforms**: matrix, rotate, scale, translate, skew, etc. (12 functions)
-- **Sizing**: min-width, max-width, min-height, max-height
-- **Spacing**: margin, padding properties
-- **Other**: box-shadow, text-shadow, custom properties
+**2025-10-20 split-nodes-refactor** ✅ COMPLETE
+- Split 751-line nodes.ts into 7 focused modules
+- 98.5% size reduction (751 → 11 lines)
+- All files <320 lines
+- Zero breaking changes
+- All 2318 tests passing
 
-### Option B: Infrastructure & Quality
-- **Error messages**: Improve clarity across parsers
-- **Integration tests**: Complex property combinations
-- **Performance**: Benchmarking and optimization
-- **Documentation**: User guides, architecture docs
-
-### Option C: Advanced Features
-- **CSS Variables**: var() function support
-- **Calc expressions**: calc() function parsing
-- **Color mixing**: color-mix() function
-- **Container queries**: Related properties
+**2025-10-20 clip-path-dry-session-3** ✅ COMPLETE
+- DRY refactoring complete
+- 240 lines duplication removed
+- Gold Standard achieved (<10% duplication)
 
 ---
-
-## 📊 Project Status
-
-**Recent Achievements**:
-- 🏆 Clip-Path DRY Complete: 240 lines removed, Gold Standard achieved
-- ✅ Clip-Path: All 10 shapes implemented (Level 1 & 2)
-- ✅ Colors: 12 formats (100% complete)
-- ✅ Animation & Transition: Full API
-- ✅ Layout: Position, display, overflow, sizing
-
-**Current State**:
-- Tests: 2318 passing (307 clip-path)
-- Coverage: ~85%
-- Code Quality: Gold Standard (clip-path <10% duplication)
-- Infrastructure: 8 reusable utilities, solid patterns
-
-
-
 
 ## 🔧 Quick Reference
 
 ### Essential Commands
 ```bash
-# Quality gates (run after changes)
 just check                 # Format + typecheck + lint
 just test                  # All tests (2318 passing)
-just coverage              # Test coverage report
-pnpm test -- [pattern]     # Filter tests by name/file
-
-# Context discovery
-git log --oneline -10      # Recent commits
-git status                 # What's changed
-git diff                   # View uncommitted changes
-
-# Project structure
-ls src/parse/              # All parser domains
-ls src/generate/           # All generator domains
-ls src/core/types/         # Type definitions
+pnpm test -- clip-path     # Filter tests by name
 ```
 
-### Code Patterns
-```typescript
-// ALWAYS import from core (NEVER hardcode)
-import { ABSOLUTE_LENGTH_UNITS } from "@/core/units";
-import { DISPLAY_KEYWORDS } from "@/core/keywords";
+### Project Status
 
-// Export pattern (pure KISS)
-export * as ShapeName from "./shape-name";
+**Recent Achievements**:
+- ✅ nodes.ts refactoring: 7 focused modules
+- ✅ Clip-Path DRY: Gold Standard achieved
+- ✅ All 2318 tests passing
 
-// Comma-separated parsing
-import { splitValue } from "@/utils/parse/comma";      // Independent values
-import { splitLayer } from "@/utils/parse/comma";      // Visual layers
-import { splitNodesByComma } from "@/utils/ast";       // Function args
-
-// Error handling
-return ok(value);           // Success
-return err("message");      // Failure
-
-// Tests co-located with source
-src/parse/clip-path/circle.ts
-src/parse/clip-path/circle.test.ts
-```
-
-### File Structure
-```
-src/
-├── core/           # Types, units, keywords (import from here!)
-├── parse/          # CSS → IR parsers
-├── generate/       # IR → CSS generators
-└── utils/          # Shared utilities (extract duplication here)
-```
+**Current Work**:
+- 🎯 Unified API: Phase 1 (clip-path) ready to implement
 
 ---
 
-## 📚 Recent Work (Last 5 Sessions)
+## 📚 Deep Dive Resources
 
-1. **2025-10-20 clip-path-dry-session-1** ✅ - Parse wrapper utilities (-63 lines duplication)
-2. **2025-10-20 clip-path-evaluation** ✅ - DRY analysis + MASTER_PLAN (33%→8% target)
-3. **2025-10-20 clip-path-level-2** ✅ - rect, xywh, path shapes (+84 tests)
-4. **2025-10-20 comma-utilities** ✅ - splitValue, splitLayer implementations
-5. **2025-10-19 clip-path-shapes** ✅ - Level 1 shapes (inset, circle, ellipse, polygon)
-
-**Velocity**: ~1.5-2 tests/minute sustained, 85% coverage maintained  
-**Refactoring**: Session 1/3 complete, on track for Gold Standard
-
----
-
-## 🗂️ Deep Dive Resources
-
-- **Full project guide**: `.memory/START_HERE.md`
-- **Session protocol**: `.memory/PROTOCOL_FIRST.md`
-- **Archive index**: `.memory/archive/INDEX.md` (feature map)
-- **Clip-Path DRY plan**: `.memory/archive/2025-10-20-clip-path-evaluation/MASTER_PLAN.md`
+- **Unified API Session**: `.memory/archive/2025-10-21-unified-api/SESSION_HANDOVER.md`
+- **Implementation Plan**: `.memory/archive/2025-10-21-unified-api/MASTER_PLAN.md`
+- **Module Audit**: `.memory/archive/2025-10-21-unified-api/AUDIT.md`
 - **All archives**: `.memory/archive/` (60+ session directories)
 
 ---
 
-## 🎓 Core Principles (NEVER Violate)
+## 🎓 Core Principles
 
-**Code Quality**:
-- **DRY**: Extract duplication to `src/utils/` immediately
-- **KISS**: One function = one job, readable in 30 seconds
-- **Import from core**: NEVER hardcode units/keywords/types
-- **TypeScript strict**: No `any`, no `@ts-ignore`, handle all cases
-
-**Quality Gates** (MUST PASS before commit):
-```bash
-just check  # Format + typecheck + lint
-just test   # All 2318 tests
-```
-
-**Session Workflow**:
-1. Create session directory: `.memory/archive/YYYY-MM-DD-topic/`
-2. Make changes incrementally, test frequently
-3. Commit with clear messages
-4. Create HANDOVER.md at session end
-5. Update CONTINUE.md (or let next agent do it)
+- **DRY**: Extract duplication immediately
+- **KISS**: One function = one job
+- **Import from core**: Never hardcode units/keywords
+- **TypeScript strict**: No `any`, handle all cases
+- **Quality gates**: `just check && just test` must pass
 
 ---
 
-## 📝 Meta: About This File
-
-**Purpose**: Single entry point for agent continuation (updated 2025-10-20T11:51)
-**Target**: 150-200 lines (currently: ~180 lines ✅)
-**Update frequency**: After major milestones or when next task changes
-**Staleness check**: Compare git log timestamp with "LAST UPDATED" above
-
-**If CONTINUE.md seems stale**:
-```bash
-# Check for recent session work
-git log --oneline --since="24 hours ago"
-find .memory/archive -name "MASTER_PLAN.md" -mtime -1
-find .memory/archive -name "HANDOVER.md" -mtime -1
-
-# Read recent archives before trusting CONTINUE.md
-```
+**Next Agent**: Read SESSION_HANDOVER.md and implement Phase 1! 🚀
