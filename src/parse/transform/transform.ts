@@ -528,9 +528,9 @@ export function parse(css: string): ParseResult<Type.Transform> {
 
 		if (transformFunctions.length === 0) {
 			if (errors.length > 0) {
-				return parseErr(errors.join("; "));
+				return parseErr("invalid-value", errors.join("; "));
 			}
-			return parseErr("No valid transform functions found in CSS string", {
+			return parseErr("invalid-syntax", "No valid transform functions found in CSS string", {
 				suggestion:
 					"Expected transform functions like translate(), rotate(), scale(), skew(), matrix(), or perspective()",
 			});
@@ -538,6 +538,6 @@ export function parse(css: string): ParseResult<Type.Transform> {
 
 		return parseOk(transformFunctions);
 	} catch (e) {
-		return parseErr(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
+		return parseErr("invalid-syntax", `Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }

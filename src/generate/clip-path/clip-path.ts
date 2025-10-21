@@ -39,7 +39,7 @@ import * as Xywh from "./xywh";
 export function generate(clipPath: Type.ClipPathValue): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!clipPath || typeof clipPath !== "object" || !("kind" in clipPath)) {
-		return generateErr("Invalid clip-path IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid clip-path IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -77,7 +77,7 @@ export function generate(clipPath: Type.ClipPathValue): GenerateResult {
 			return generateOk(Url.toCss(clipPath));
 
 		default:
-			return generateErr(`Unknown clip-path kind: ${(clipPath as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown clip-path kind: ${(clipPath as { kind?: string }).kind}`, {
 				suggestion: "Check that clip-path IR is valid",
 			});
 	}

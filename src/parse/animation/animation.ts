@@ -82,7 +82,7 @@ export function parse(value: string): ParseResult<Animation> {
 	const nameResult = Name.parse(value);
 	if (nameResult.ok) return toParseResult(nameResult);
 
-	return parseErr("Invalid animation property value", {
+	return parseErr("invalid-value", "Invalid animation property value", {
 		suggestion:
 			"Expected duration (1s, 500ms, auto), delay, timing-function, iteration-count, direction, fill-mode, play-state, or name",
 	});

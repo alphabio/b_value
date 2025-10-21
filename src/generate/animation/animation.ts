@@ -89,7 +89,7 @@ export type Animation =
 export function generate(animation: Animation): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!animation || typeof animation !== "object" || !("kind" in animation)) {
-		return generateErr("Invalid animation IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid animation IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -121,7 +121,7 @@ export function generate(animation: Animation): GenerateResult {
 			return generateOk(TimingFunction.toCss(animation));
 
 		default:
-			return generateErr(`Unknown animation kind: ${(animation as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown animation kind: ${(animation as { kind?: string }).kind}`, {
 				suggestion:
 					"Expected one of: animation-delay, animation-direction, animation-duration, animation-fill-mode, animation-iteration-count, animation-name, animation-play-state, or animation-timing-function. Check that animation IR is valid.",
 			});

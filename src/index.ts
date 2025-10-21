@@ -102,7 +102,16 @@ export type {
 	IssueCode,
 	ParseResult,
 } from "./core/result";
-export { Issues, addIssue, combineResults, generateErr, generateOk, parseErr, parseOk, withWarning } from "./core/result";
+export {
+	addIssue,
+	combineResults,
+	generateErr,
+	generateOk,
+	Issues,
+	parseErr,
+	parseOk,
+	withWarning,
+} from "./core/result";
 /**
  * CSS → IR generators (convert IR to CSS strings).
  *

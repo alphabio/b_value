@@ -41,7 +41,7 @@ import * as System from "./system";
 export function generate(color: Type.Color): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!color || typeof color !== "object" || !("kind" in color)) {
-		return generateErr("Invalid color IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid color IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -85,7 +85,7 @@ export function generate(color: Type.Color): GenerateResult {
 			return generateOk(ColorFunction.toCss(color));
 
 		default:
-			return generateErr(`Unknown color kind: ${(color as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown color kind: ${(color as { kind?: string }).kind}`, {
 				suggestion: "Check that color IR is valid",
 			});
 	}

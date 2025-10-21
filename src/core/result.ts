@@ -423,9 +423,9 @@ export function parseOk<T>(value: T, property?: string): ParseResult<T> {
  * @example
  * ```typescript
  * return parseErr("invalid-value", "Invalid color format");
- * return parseErr("invalid-value", "Invalid hex color", { 
+ * return parseErr("invalid-value", "Invalid hex color", {
  *   suggestion: "Use #RRGGBB format",
- *   property: "color" 
+ *   property: "color"
  * });
  * ```
  *
@@ -490,7 +490,7 @@ export function generateOk(value: string, property?: string): GenerateResult {
  * @example
  * ```typescript
  * return generateErr("invalid-ir", "Invalid IR structure");
- * return generateErr("missing-required-field", "Missing 'kind' field", { 
+ * return generateErr("missing-required-field", "Missing 'kind' field", {
  *   suggestion: "Add 'kind' field",
  *   property: "color"
  * });
@@ -558,7 +558,12 @@ export function addIssue<T>(result: ParseResult<T>, issue: Issue): ParseResult<T
  *
  * @public
  */
-export function withWarning<T>(result: ParseResult<T>, code: IssueCode, message: string, suggestion?: string): ParseResult<T> {
+export function withWarning<T>(
+	result: ParseResult<T>,
+	code: IssueCode,
+	message: string,
+	suggestion?: string,
+): ParseResult<T> {
 	const issue: Issue = {
 		code,
 		severity: "warning",

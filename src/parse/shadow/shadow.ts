@@ -15,7 +15,7 @@ export function parse(value: string): ParseResult<Shadow> {
 	const textResult = TextShadow.parse(value);
 	if (textResult.ok) return toParseResult(textResult);
 
-	return parseErr("Invalid shadow value", {
+	return parseErr("invalid-value", "Invalid shadow value", {
 		suggestion: "Expected box-shadow (with optional inset) or text-shadow format",
 	});
 }

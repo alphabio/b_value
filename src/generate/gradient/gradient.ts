@@ -29,7 +29,7 @@ import * as Radial from "./radial";
 export function generate(gradient: Type.Gradient): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!gradient || typeof gradient !== "object" || !("kind" in gradient)) {
-		return generateErr("Invalid gradient IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid gradient IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -46,7 +46,7 @@ export function generate(gradient: Type.Gradient): GenerateResult {
 			return generateOk(Conic.toCss(gradient));
 
 		default:
-			return generateErr(`Unknown gradient kind: ${(gradient as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown gradient kind: ${(gradient as { kind?: string }).kind}`, {
 				suggestion: "Check that gradient IR is valid",
 			});
 	}
