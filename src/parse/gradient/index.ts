@@ -19,6 +19,12 @@ export * as ColorStop from "./color-stop";
  * @see {@link Conic.parse}
  */
 export * as Conic from "./conic";
+/**
+ * Unified gradient dispatcher with auto-detection.
+ *
+ * @see {@link module:Parse.Gradient}
+ */
+export { parse, parseNode } from "./gradient";
 
 /**
  * Parse linear and repeating-linear gradients.
