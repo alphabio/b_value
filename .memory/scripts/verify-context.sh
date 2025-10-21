@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/scripts/verify-context.sh
 # Context verification for agent onboarding
 # Detects stale CONTINUE.md and guides to recent work
 

@@ -1,3 +1,4 @@
+// b_path:: src/parse/transition/timing-function.ts
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";

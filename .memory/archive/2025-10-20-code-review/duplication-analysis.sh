@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/archive/2025-10-20-code-review/duplication-analysis.sh
 # Analyze code duplication across the codebase
 
 echo "=== DUPLICATION ANALYSIS ==="

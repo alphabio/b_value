@@ -1,3 +1,4 @@
+// b_path:: test/me.ts
 // DO NOT DELETE
 
 import { expand } from "b_short";

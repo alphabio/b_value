@@ -1,3 +1,4 @@
+// b_path:: scripts/shared/types.ts
 /**
  * Shared types for verification scripts
  */
