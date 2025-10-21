@@ -2,7 +2,7 @@
 
 import type { CssNode } from "css-tree";
 import * as cssTree from "css-tree";
-import { type ParseResult, parseErr, toParseResult } from "@/core/result";
+import { err, type ParseResult, parseErr, type Result, toParseResult } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Circle from "./circle";
 import * as Ellipse from "./ellipse";

@@ -9,7 +9,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("circle(50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-circle");
+				expect(result.value?.kind).toBe("clip-path-circle");
 			}
 		});
 
@@ -17,7 +17,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("ellipse(50% 30%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-ellipse");
+				expect(result.value?.kind).toBe("clip-path-ellipse");
 			}
 		});
 
@@ -25,7 +25,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("inset(10px)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-inset");
+				expect(result.value?.kind).toBe("clip-path-inset");
 			}
 		});
 
@@ -33,7 +33,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("polygon(0 0, 100% 0, 100% 100%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-polygon");
+				expect(result.value?.kind).toBe("clip-path-polygon");
 			}
 		});
 
@@ -41,7 +41,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("rect(10px 20px 30px 40px)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-rect");
+				expect(result.value?.kind).toBe("clip-path-rect");
 			}
 		});
 
@@ -49,7 +49,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("xywh(10px 20px 30px 40px)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-xywh");
+				expect(result.value?.kind).toBe("clip-path-xywh");
 			}
 		});
 
@@ -57,7 +57,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse('path("M 10 10 L 50 50")');
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-path");
+				expect(result.value?.kind).toBe("clip-path-path");
 			}
 		});
 	});
@@ -67,7 +67,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("none");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-none");
+				expect(result.value?.kind).toBe("clip-path-none");
 			}
 		});
 	});
@@ -77,9 +77,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("border-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("border-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("border-box");
 				}
 			}
 		});
@@ -88,9 +88,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("padding-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("padding-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("padding-box");
 				}
 			}
 		});
@@ -99,9 +99,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("content-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("content-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("content-box");
 				}
 			}
 		});
@@ -110,9 +110,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("fill-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("fill-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("fill-box");
 				}
 			}
 		});
@@ -121,9 +121,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("stroke-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("stroke-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("stroke-box");
 				}
 			}
 		});
@@ -132,9 +132,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("view-box");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-geometry-box");
-				if (result.value.kind === "clip-path-geometry-box") {
-					expect(result.value.value).toBe("view-box");
+				expect(result.value?.kind).toBe("clip-path-geometry-box");
+				if (result.value?.kind === "clip-path-geometry-box") {
+					expect(result.value?.value).toBe("view-box");
 				}
 			}
 		});
@@ -145,9 +145,9 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("url(#clip-shape)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("url");
-				if (result.value.kind === "url") {
-					expect(result.value.value).toBe("#clip-shape");
+				expect(result.value?.kind).toBe("url");
+				if (result.value?.kind === "url") {
+					expect(result.value?.value).toBe("#clip-shape");
 				}
 			}
 		});
@@ -158,7 +158,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Empty");
+				expect(result.issues[0]?.message).toContain("Empty");
 			}
 		});
 
@@ -166,7 +166,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("unknown(10px)");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Unknown clip-path function");
+				expect(result.issues[0]?.message).toContain("Unknown clip-path function");
 			}
 		});
 
@@ -174,7 +174,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("invalid-keyword");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Invalid geometry-box value");
+				expect(result.issues[0]?.message).toContain("Invalid geometry-box value");
 			}
 		});
 	});
@@ -184,7 +184,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("CIRCLE(50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-circle");
+				expect(result.value?.kind).toBe("clip-path-circle");
 			}
 		});
 
@@ -192,7 +192,7 @@ describe("parse() - unified dispatcher", () => {
 			const result = parse("Polygon(0 0, 100% 0, 100% 100%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("clip-path-polygon");
+				expect(result.value?.kind).toBe("clip-path-polygon");
 			}
 		});
 	});

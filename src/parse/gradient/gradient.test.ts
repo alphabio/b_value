@@ -9,8 +9,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("linear-gradient(red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("linear");
-				expect(result.value.repeating).toBe(false);
+				expect(result.value?.kind).toBe("linear");
+				expect(result.value?.repeating).toBe(false);
 			}
 		});
 
@@ -18,8 +18,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("repeating-linear-gradient(red 0%, blue 10%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("linear");
-				expect(result.value.repeating).toBe(true);
+				expect(result.value?.kind).toBe("linear");
+				expect(result.value?.repeating).toBe(true);
 			}
 		});
 	});
@@ -29,8 +29,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("radial-gradient(circle, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("radial");
-				expect(result.value.repeating).toBe(false);
+				expect(result.value?.kind).toBe("radial");
+				expect(result.value?.repeating).toBe(false);
 			}
 		});
 
@@ -38,8 +38,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("repeating-radial-gradient(circle, red 0%, blue 10%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("radial");
-				expect(result.value.repeating).toBe(true);
+				expect(result.value?.kind).toBe("radial");
+				expect(result.value?.repeating).toBe(true);
 			}
 		});
 	});
@@ -49,8 +49,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("conic-gradient(red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("conic");
-				expect(result.value.repeating).toBe(false);
+				expect(result.value?.kind).toBe("conic");
+				expect(result.value?.repeating).toBe(false);
 			}
 		});
 
@@ -58,8 +58,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("repeating-conic-gradient(red 0deg, blue 180deg)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("conic");
-				expect(result.value.repeating).toBe(true);
+				expect(result.value?.kind).toBe("conic");
+				expect(result.value?.repeating).toBe(true);
 			}
 		});
 	});
@@ -69,7 +69,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("linear-gradient(45deg, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("linear");
+				expect(result.value?.kind).toBe("linear");
 			}
 		});
 
@@ -77,7 +77,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("linear-gradient(to right, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("linear");
+				expect(result.value?.kind).toBe("linear");
 			}
 		});
 
@@ -85,7 +85,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("radial-gradient(at center, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("radial");
+				expect(result.value?.kind).toBe("radial");
 			}
 		});
 
@@ -93,7 +93,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("conic-gradient(from 45deg, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("conic");
+				expect(result.value?.kind).toBe("conic");
 			}
 		});
 	});
@@ -103,7 +103,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("unknown-gradient(red, blue)");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Unknown gradient function");
+				expect(result.issues[0]?.message).toContain("Unknown gradient function");
 			}
 		});
 
@@ -123,7 +123,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("linear-gradient(red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("linear");
+				expect(result.value?.kind).toBe("linear");
 			}
 		});
 
@@ -131,7 +131,7 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("radial-gradient(circle, red, blue)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("radial");
+				expect(result.value?.kind).toBe("radial");
 			}
 		});
 
@@ -139,8 +139,8 @@ describe("parse() - unified gradient dispatcher", () => {
 			const result = parse("repeating-conic-gradient(red 0deg, blue 180deg)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("conic");
-				expect(result.value.repeating).toBe(true);
+				expect(result.value?.kind).toBe("conic");
+				expect(result.value?.repeating).toBe(true);
 			}
 		});
 	});

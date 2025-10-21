@@ -11,7 +11,7 @@ describe("Transform Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translate",
 					x: { value: 100, unit: "px" },
 					y: { value: 50, unit: "px" },
@@ -26,7 +26,7 @@ describe("Transform Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translate",
 					x: { value: 100, unit: "px" },
 					y: undefined,
@@ -40,7 +40,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translate",
 					x: { value: 50, unit: "%" },
 					y: { value: 25, unit: "%" },
@@ -54,7 +54,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translateX",
 					x: { value: 100, unit: "px" },
 				});
@@ -67,7 +67,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translateY",
 					y: { value: 50, unit: "%" },
 				});
@@ -80,7 +80,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translateZ",
 					z: { value: 30, unit: "px" },
 				});
@@ -93,7 +93,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "translate3d",
 					x: { value: 10, unit: "px" },
 					y: { value: 20, unit: "px" },
@@ -110,7 +110,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotate",
 					angle: { value: 45, unit: "deg" },
 				});
@@ -123,7 +123,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotate",
 					angle: { value: 1.57, unit: "rad" },
 				});
@@ -136,7 +136,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotate",
 					angle: { value: 0.25, unit: "turn" },
 				});
@@ -149,7 +149,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotateX",
 					angle: { value: 45, unit: "deg" },
 				});
@@ -162,7 +162,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotateY",
 					angle: { value: 45, unit: "deg" },
 				});
@@ -175,7 +175,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotateZ",
 					angle: { value: 45, unit: "deg" },
 				});
@@ -188,7 +188,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "rotate3d",
 					x: 1,
 					y: 1,
@@ -206,7 +206,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scale",
 					x: 1.5,
 					y: 2,
@@ -220,7 +220,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scale",
 					x: 1.5,
 					y: 1.5,
@@ -234,7 +234,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scaleX",
 					x: 1.5,
 				});
@@ -247,7 +247,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scaleY",
 					y: 2,
 				});
@@ -260,7 +260,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scaleZ",
 					z: 0.5,
 				});
@@ -273,7 +273,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "scale3d",
 					x: 1.5,
 					y: 2,
@@ -290,7 +290,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "skew",
 					x: { value: 45, unit: "deg" },
 					y: { value: 10, unit: "deg" },
@@ -304,7 +304,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "skew",
 					x: { value: 45, unit: "deg" },
 					y: { value: 0, unit: "deg" },
@@ -318,7 +318,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "skewX",
 					x: { value: 45, unit: "deg" },
 				});
@@ -331,7 +331,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "skewY",
 					y: { value: 10, unit: "deg" },
 				});
@@ -346,7 +346,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "matrix",
 					a: 1,
 					b: 0.5,
@@ -364,7 +364,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "matrix3d",
 					values: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
 				});
@@ -379,7 +379,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					kind: "perspective",
 					depth: { value: 1000, unit: "px" },
 				});
@@ -395,9 +395,9 @@ describe("Transform Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(3);
-				expect(result.value[0]?.kind).toBe("translateX");
-				expect(result.value[1]?.kind).toBe("rotate");
-				expect(result.value[2]?.kind).toBe("scale");
+				expect(result.value?.[0]?.kind).toBe("translateX");
+				expect(result.value?.[1]?.kind).toBe("rotate");
+				expect(result.value?.[2]?.kind).toBe("scale");
 			}
 		});
 
@@ -408,9 +408,9 @@ describe("Transform Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(3);
-				expect(result.value[0]?.kind).toBe("translate3d");
-				expect(result.value[1]?.kind).toBe("rotateY");
-				expect(result.value[2]?.kind).toBe("scale3d");
+				expect(result.value?.[0]?.kind).toBe("translate3d");
+				expect(result.value?.[1]?.kind).toBe("rotateY");
+				expect(result.value?.[2]?.kind).toBe("scale3d");
 			}
 		});
 	});
@@ -422,7 +422,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("No valid transform functions found");
+				expect(result.issues[0]?.message).toContain("No valid transform functions found");
 			}
 		});
 
@@ -439,7 +439,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("expects 1 or 2 arguments");
+				expect(result.issues[0]?.message).toContain("expects 1 or 2 arguments");
 			}
 		});
 
@@ -449,7 +449,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("expects 4 arguments");
+				expect(result.issues[0]?.message).toContain("expects 4 arguments");
 			}
 		});
 
@@ -459,7 +459,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("expects 6 arguments");
+				expect(result.issues[0]?.message).toContain("expects 6 arguments");
 			}
 		});
 
@@ -469,7 +469,7 @@ describe("Transform Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("expects 16 arguments");
+				expect(result.issues[0]?.message).toContain("expects 16 arguments");
 			}
 		});
 	});
