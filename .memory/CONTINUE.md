@@ -1,13 +1,108 @@
-<!-- LAST UPDATED: 2025-10-21T02:12:51 -->
+<!-- LAST UPDATED: 2025-10-21T02:40:00 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-21 Universal API Design & Planning  
-**Status**: 📋 **PLANNING COMPLETE** - Ready to implement  
+**Last Session**: 2025-10-21 Universal API Design (Complete Session)  
+**Status**: 🎯 **MAJOR BREAKTHROUGH** - Dual API Design  
 **Tests**: 2390 passing (baseline green ✅)  
-**Next**: 🚀 **Phase 1: Property Mapping** (3-4 hours)
+**Next**: 🔄 **Decide: Phase 0.5 or Phase 1**
 
-**👉 START HERE**: `.memory/archive/2025-10-21-universal-parse-api/START_HERE.md`
+**👉 READ FIRST**: `.memory/archive/2025-10-21-universal-parse-api/SESSION_UPDATE.md`
+
+---
+
+## 🎯 Major Breakthrough This Session
+
+### The Insight: Support BOTH APIs
+
+Don't just add universal API - **fix module API first!**
+
+**Module API** (make consistent):
+```typescript
+Parse.Animation.parse()    // Add unified dispatcher
+Parse.Border.parse()       // Add unified dispatcher  
+Parse.Layout.parse()       // Add unified dispatcher
+// ALL 14 modules get .parse() and .generate()
+```
+
+**Universal API** (thin routing layer):
+```typescript
+parse("property: value")   // Routes to modules
+generate(ir, {property})   // Routes to modules
+```
+
+**Why**: Fixes root inconsistency, makes both APIs clean
+
+---
+
+## 📋 Updated Implementation Path
+
+### Option A: Phase 0.5 First (RECOMMENDED)
+**Make module API consistent**:
+1. Add unified dispatchers to 10 modules
+2. Each module handles its own routing
+3. Then universal API is trivial
+
+**Pros**: Clean foundation, benefits everyone  
+**Cons**: More upfront work
+
+### Option B: Skip to Phase 1
+**Go straight to universal API**:
+1. Work around module inconsistencies
+2. Two-tier routing complexity
+3. Module API stays broken
+
+**Pros**: Faster  
+**Cons**: Technical debt
+
+---
+
+## 📚 Session Artifacts
+
+**Complete Documentation**:
+- SESSION_UPDATE.md ← **Read this first**
+- MASTER_PLAN.md (updated with 2-tier routing)
+- PHASE_0_AUDIT.md (complete codebase audit)
+- READINESS_ASSESSMENT.md (gaps filled)
+- START_HERE.md (API spec)
+
+**Key Stats**:
+- 14 parser modules (4 unified, 10 need work)
+- 14 generator modules (81 generators total)
+- 120+ IR kinds documented
+- 100-120 properties to support
+- 35-40 shorthand properties to reject
+
+---
+
+## 🎯 For Next Agent
+
+**Read in order**:
+1. SESSION_UPDATE.md (this session's breakthrough)
+2. PHASE_0_AUDIT.md (what exists in codebase)
+3. MASTER_PLAN.md (full implementation plan)
+
+**Then decide**:
+- Start Phase 0.5 (fix modules)?
+- Or skip to Phase 1 (universal API)?
+
+**Recommendation**: Phase 0.5 first (clean foundation)
+
+---
+
+## ✅ Session Stats
+
+**Duration**: ~2.5 hours  
+**Commits**: 2 (need 1 more)  
+**Documents Created**: 6  
+**Major Decisions**: 5  
+**Breakthroughs**: 1 (dual API design)
+
+**Plan Readiness**: 85% (was 70%)
+
+---
+
+**Status**: Excellent planning session. Major architectural insight achieved. Ready to implement once approach is chosen. 🚀
 
 ---
 
