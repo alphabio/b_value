@@ -132,23 +132,39 @@ type CSSValue =
 
 **Goal**: Map CSS properties to parse/generate modules
 
+**CRITICAL DISCOVERY**: Two parser patterns exist in codebase!
+
+**Pattern A - Unified Dispatchers (4 modules)**:
+- `Parse.ClipPath.parse()` - Auto-detects shape type
+- `Parse.Color.parse()` - Auto-detects color format
+- `Parse.Filter.parse()` - Auto-detects filter function
+- `Parse.Gradient.parse()` - Auto-detects gradient type
+
+**Pattern B - Sub-parsers Only (10 modules)**:
+- `Parse.Animation.Delay.parse()` - Specific property parser
+- `Parse.Border.Width.parse()` - Specific property parser
+- `Parse.Layout.Display.parse()` - Specific property parser
+- (No unified entry point)
+
+**Implication**: We need **two-tier routing**!
+
 **Tasks**:
-1. Create comprehensive property map
-2. Identify all shorthand properties
+1. Create two-tier property map (unified + sub-parsers)
+2. Identify all shorthand properties (~35-40)
 3. Map shorthand → longhand for error messages
-4. Create reverse map (IR kind → generator)
+4. Create reverse map (IR kind → generator) (~120+ kinds)
 
 **Files to create**:
 ```
-src/property-map.ts          # Property → module mapping
+src/property-map.ts          # Two-tier property → parser mapping
 src/shorthand-properties.ts  # Shorthand detection & expansion map
-src/ir-to-generator.ts       # IR kind → generator function
+src/ir-to-generator.ts       # IR kind → generator function (~120 kinds)
 ```
 
-**Property Map Structure**:
+**Two-Tier Property Map Structure**:
 ```typescript
-// Map property → parser module
-export const PROPERTY_TO_PARSER: Record<string, ParserModule> = {
+// Tier 1: Unified parsers (~15-20 properties)
+export const UNIFIED_PARSERS: Record<string, UnifiedParser> = {
   // Color properties
   'color': Parse.Color,
   'background-color': Parse.Color,
@@ -158,7 +174,7 @@ export const PROPERTY_TO_PARSER: Record<string, ParserModule> = {
   'border-bottom-color': Parse.Color,
   'border-left-color': Parse.Color,
   'outline-color': Parse.Color,
-  'text-decoration-color': Parse.Text.Color,
+  'text-decoration-color': Parse.Color,
   
   // Gradient properties
   'background-image': Parse.Gradient,
@@ -170,35 +186,153 @@ export const PROPERTY_TO_PARSER: Record<string, ParserModule> = {
   // Filter
   'filter': Parse.Filter,
   'backdrop-filter': Parse.Filter,
-  
-  // ... ~100+ more properties
 };
 
-// Shorthand properties we reject
+// Tier 2: Sub-parsers (~80-100 properties)
+export const SUBPARSER_MAP: Record<string, SubParser> = {
+  // Animation properties
+  'animation-delay': Parse.Animation.Delay,
+  'animation-duration': Parse.Animation.Duration,
+  'animation-iteration-count': Parse.Animation.IterationCount,
+  'animation-direction': Parse.Animation.Direction,
+  'animation-fill-mode': Parse.Animation.FillMode,
+  'animation-play-state': Parse.Animation.PlayState,
+  'animation-name': Parse.Animation.Name,
+  'animation-timing-function': Parse.Animation.TimingFunction,
+  
+  // Background properties
+  'background-attachment': Parse.Background.Attachment,
+  'background-clip': Parse.Background.Clip,
+  'background-origin': Parse.Background.Origin,
+  'background-repeat': Parse.Background.Repeat,
+  'background-size': Parse.Background.Size,
+  
+  // Border properties
+  'border-width': Parse.Border.Width,
+  'border-top-width': Parse.Border.Width,
+  'border-right-width': Parse.Border.Width,
+  'border-bottom-width': Parse.Border.Width,
+  'border-left-width': Parse.Border.Width,
+  'border-style': Parse.Border.Style,
+  'border-top-style': Parse.Border.Style,
+  'border-right-style': Parse.Border.Style,
+  'border-bottom-style': Parse.Border.Style,
+  'border-left-style': Parse.Border.Style,
+  'border-radius': Parse.Border.Radius,
+  // ... border-*-radius variants
+  
+  // Layout properties
+  'display': Parse.Layout.Display,
+  'visibility': Parse.Layout.Visibility,
+  'width': Parse.Layout.Width,
+  'height': Parse.Layout.Height,
+  // ... more layout props
+  
+  // Outline properties
+  'outline-width': Parse.Outline.Width,
+  'outline-style': Parse.Outline.Style,
+  'outline-color': Parse.Outline.Color,
+  'outline-offset': Parse.Outline.Offset,
+  
+  // Position properties
+  'top': Parse.Position.parse,
+  'right': Parse.Position.parse,
+  'bottom': Parse.Position.parse,
+  'left': Parse.Position.parse,
+  
+  // Shadow properties
+  'box-shadow': Parse.Shadow.BoxShadow,
+  'text-shadow': Parse.Shadow.TextShadow,
+  
+  // Text properties
+  'text-decoration-line': Parse.Text.Line,
+  'text-decoration-style': Parse.Text.Style,
+  'text-decoration-thickness': Parse.Text.Thickness,
+  
+  // Transform properties
+  'transform': Parse.Transform.parse,
+  'transform-origin': Parse.Transform.Origin,
+  
+  // Transition properties
+  'transition-delay': Parse.Transition.Delay,
+  'transition-duration': Parse.Transition.Duration,
+  'transition-property': Parse.Transition.Property,
+  'transition-timing-function': Parse.Transition.TimingFunction,
+};
+
+// Routing helper
+function routeToParser(property: string): Parser | null {
+  // Check unified parsers first
+  if (property in UNIFIED_PARSERS) {
+    return UNIFIED_PARSERS[property];
+  }
+  
+  // Check sub-parsers
+  if (property in SUBPARSER_MAP) {
+    return SUBPARSER_MAP[property];
+  }
+  
+  return null;
+}
+```
+
+**Complete Shorthand List (~35-40)**:
+```typescript
 export const SHORTHAND_PROPERTIES = new Set([
-  'margin', 'padding', 'border', 'border-width', 'border-style', 'border-color',
-  'background', 'font', 'animation', 'transition', 'flex', 'grid',
-  'gap', 'place-items', 'place-content', 'place-self',
-  // ... complete list
+  // Spacing
+  'margin', 'padding', 'inset',
+  
+  // Border
+  'border', 'border-top', 'border-right', 'border-bottom', 'border-left',
+  'border-width', 'border-style', 'border-color',
+  'border-image', 'border-radius',
+  
+  // Background, Font, Text
+  'background', 'font', 'text-decoration',
+  
+  // List, Outline
+  'list-style', 'outline',
+  
+  // Flex & Grid
+  'flex', 'flex-flow',
+  'grid', 'grid-template', 'grid-area', 'grid-column', 'grid-row',
+  'place-items', 'place-content', 'place-self', 'gap',
+  
+  // Animation, Transition
+  'animation', 'transition',
+  
+  // Other
+  'columns', 'column-rule', 'mask', 'offset',
 ]);
 
-// Shorthand → longhand mapping
+// Shorthand → longhand mapping (for helpful errors)
 export const SHORTHAND_TO_LONGHAND: Record<string, string[]> = {
   'margin': ['margin-top', 'margin-right', 'margin-bottom', 'margin-left'],
   'padding': ['padding-top', 'padding-right', 'padding-bottom', 'padding-left'],
   'border': ['border-width', 'border-style', 'border-color'],
+  'border-width': ['border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width'],
+  'border-style': ['border-top-style', 'border-right-style', 'border-bottom-style', 'border-left-style'],
+  'border-color': ['border-top-color', 'border-right-color', 'border-bottom-color', 'border-left-color'],
   'background': ['background-color', 'background-image', 'background-position', 
                  'background-size', 'background-repeat', 'background-origin', 
                  'background-clip', 'background-attachment'],
-  // ... complete list
+  'animation': ['animation-name', 'animation-duration', 'animation-timing-function',
+                'animation-delay', 'animation-iteration-count', 'animation-direction',
+                'animation-fill-mode', 'animation-play-state'],
+  'transition': ['transition-property', 'transition-duration', 'transition-timing-function', 'transition-delay'],
+  'font': ['font-style', 'font-variant', 'font-weight', 'font-size', 'line-height', 'font-family'],
+  'flex': ['flex-grow', 'flex-shrink', 'flex-basis'],
+  'grid-template': ['grid-template-rows', 'grid-template-columns', 'grid-template-areas'],
+  'gap': ['row-gap', 'column-gap'],
+  // ... complete mapping
 };
 ```
 
-**IR to Generator Map**:
+**IR to Generator Map (~120 IR kinds)**:
 ```typescript
 // Map IR kind → generator function
 export const IR_KIND_TO_GENERATOR: Record<string, GeneratorFunction> = {
-  // Colors
+  // Colors (12)
   'hex': Generate.Color.Hex.toCss,
   'rgb': Generate.Color.RGB.toCss,
   'hsl': Generate.Color.HSL.toCss,
@@ -210,29 +344,121 @@ export const IR_KIND_TO_GENERATOR: Record<string, GeneratorFunction> = {
   'named': Generate.Color.Named.toCss,
   'system': Generate.Color.System.toCss,
   'special': Generate.Color.Special.toCss,
+  'color': Generate.Color.Color.toCss,
   
-  // Gradients
+  // Gradients (3)
   'radial': Generate.Gradient.Radial.toCss,
   'linear': Generate.Gradient.Linear.toCss,
   'conic': Generate.Gradient.Conic.toCss,
   
-  // Clip-path
+  // Clip-path (9)
   'clip-path-circle': Generate.ClipPath.Circle.toCss,
   'clip-path-ellipse': Generate.ClipPath.Ellipse.toCss,
   'clip-path-inset': Generate.ClipPath.Inset.toCss,
   'clip-path-polygon': Generate.ClipPath.Polygon.toCss,
   'clip-path-rect': Generate.ClipPath.Rect.toCss,
   'clip-path-xywh': Generate.ClipPath.Xywh.toCss,
+  'clip-path-path': Generate.ClipPath.Path.toCss,
+  'clip-path-geometry-box': Generate.ClipPath.GeometryBox.toCss,
+  'clip-path-none': Generate.ClipPath.None.toCss,
   
-  // Filters
-  'filter-blur': Generate.Filter.Blur.toCss,
-  'filter-brightness': Generate.Filter.Brightness.toCss,
-  'filter-contrast': Generate.Filter.Contrast.toCss,
-  // ... all filter types
+  // Filters (11)
+  'blur': Generate.Filter.Blur.toCss,
+  'brightness': Generate.Filter.Brightness.toCss,
+  'contrast': Generate.Filter.Contrast.toCss,
+  'drop-shadow': Generate.Filter.DropShadow.toCss,
+  'grayscale': Generate.Filter.Grayscale.toCss,
+  'hue-rotate': Generate.Filter.HueRotate.toCss,
+  'invert': Generate.Filter.Invert.toCss,
+  'opacity': Generate.Filter.Opacity.toCss,
+  'saturate': Generate.Filter.Saturate.toCss,
+  'sepia': Generate.Filter.Sepia.toCss,
+  'url': Generate.Filter.Url.toCss,
   
-  // ... all other IR kinds
+  // Animation (8)
+  'animation-delay': Generate.Animation.Delay.toCss,
+  'animation-duration': Generate.Animation.Duration.toCss,
+  'animation-iteration-count': Generate.Animation.IterationCount.toCss,
+  'animation-direction': Generate.Animation.Direction.toCss,
+  'animation-fill-mode': Generate.Animation.FillMode.toCss,
+  'animation-play-state': Generate.Animation.PlayState.toCss,
+  'animation-name': Generate.Animation.Name.toCss,
+  'animation-timing-function': Generate.Animation.TimingFunction.toCss,
+  
+  // Border (4)
+  'border-width': Generate.Border.Width.toCss,
+  'border-style': Generate.Border.Style.toCss,
+  'border-color': Generate.Border.Color.toCss,
+  'border-radius': Generate.Border.Radius.toCss,
+  
+  // Layout (14)
+  'display': Generate.Layout.Display.toCss,
+  'visibility': Generate.Layout.Visibility.toCss,
+  'width': Generate.Layout.Width.toCss,
+  'height': Generate.Layout.Height.toCss,
+  'z-index': Generate.Layout.ZIndex.toCss,
+  'cursor': Generate.Layout.Cursor.toCss,
+  'overflow-x': Generate.Layout.OverflowX.toCss,
+  'overflow-y': Generate.Layout.OverflowY.toCss,
+  // ... more layout kinds
+  
+  // Outline (4)
+  'outline-width': Generate.Outline.Width.toCss,
+  'outline-style': Generate.Outline.Style.toCss,
+  'outline-color': Generate.Outline.Color.toCss,
+  'outline-offset': Generate.Outline.Offset.toCss,
+  
+  // Position (6)
+  'top': Generate.Position.toCss,
+  'right': Generate.Position.toCss,
+  'bottom': Generate.Position.toCss,
+  'left': Generate.Position.toCss,
+  'center': Generate.Position.toCss,
+  'position-property': Generate.Position.toCss,
+  
+  // Shadow (2)
+  'box-shadow': Generate.Shadow.BoxShadow.toCss,
+  'text-shadow': Generate.Shadow.TextShadow.toCss,
+  
+  // Transform (24 - matrix, translate, rotate, scale, skew, perspective)
+  'matrix': Generate.Transform.Matrix.toCss,
+  'matrix3d': Generate.Transform.Matrix3d.toCss,
+  'translate': Generate.Transform.Translate.toCss,
+  'translate3d': Generate.Transform.Translate3d.toCss,
+  'translateX': Generate.Transform.TranslateX.toCss,
+  'translateY': Generate.Transform.TranslateY.toCss,
+  'translateZ': Generate.Transform.TranslateZ.toCss,
+  'rotate': Generate.Transform.Rotate.toCss,
+  'rotate3d': Generate.Transform.Rotate3d.toCss,
+  'rotateX': Generate.Transform.RotateX.toCss,
+  'rotateY': Generate.Transform.RotateY.toCss,
+  'rotateZ': Generate.Transform.RotateZ.toCss,
+  'scale': Generate.Transform.Scale.toCss,
+  'scale3d': Generate.Transform.Scale3d.toCss,
+  'scaleX': Generate.Transform.ScaleX.toCss,
+  'scaleY': Generate.Transform.ScaleY.toCss,
+  'scaleZ': Generate.Transform.ScaleZ.toCss,
+  'skew': Generate.Transform.Skew.toCss,
+  'skewX': Generate.Transform.SkewX.toCss,
+  'skewY': Generate.Transform.SkewY.toCss,
+  'perspective': Generate.Transform.Perspective.toCss,
+  // ... function variants
+  
+  // Transition (4)
+  'transition-delay': Generate.Transition.Delay.toCss,
+  'transition-duration': Generate.Transition.Duration.toCss,
+  'transition-property': Generate.Transition.Property.toCss,
+  'transition-timing-function': Generate.Transition.TimingFunction.toCss,
+  
+  // Shared/Utility types
+  'angle': Generate.Shared.Angle.toCss,
+  'keyword': Generate.Shared.Keyword.toCss,
+  'auto': Generate.Shared.Auto.toCss,
+  // ... more utility kinds
 };
 ```
+
+**Note**: Complete list of 120+ IR kinds documented in `PHASE_0_AUDIT.md`
 
 **Tests**:
 ```typescript
