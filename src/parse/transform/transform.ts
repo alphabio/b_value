@@ -1,7 +1,7 @@
 // b_path:: src/parse/transform/transform.ts
 import type * as csstree from "css-tree";
 import { TRANSFORM_FUNCTION_NAMES } from "@/core/keywords";
-import { err, ok, type Result } from "@/core/result";
+import { err, ok, type ParseResult, parseErr, parseOk, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ParseUtils from "@/utils/parse";
 
@@ -496,7 +496,7 @@ export function fromFunction(fn: csstree.FunctionNode, canonicalName?: string): 
  * @see {@link https://www.w3.org/TR/css-transforms-1/ | W3C Spec: CSS Transforms Level 1}
  * @see {@link https://www.w3.org/TR/css-transforms-2/ | W3C Spec: CSS Transforms Level 2}
  */
-export function parse(css: string): Result<Type.Transform, string> {
+export function parse(css: string): ParseResult<Type.Transform> {
 	const csstree = require("css-tree");
 
 	try {
@@ -528,13 +528,16 @@ export function parse(css: string): Result<Type.Transform, string> {
 
 		if (transformFunctions.length === 0) {
 			if (errors.length > 0) {
-				return err(errors.join("; "));
+				return parseErr(errors.join("; "));
 			}
-			return err("No valid transform functions found in CSS string");
+			return parseErr("No valid transform functions found in CSS string", {
+				suggestion:
+					"Expected transform functions like translate(), rotate(), scale(), skew(), matrix(), or perspective()",
+			});
 		}
 
-		return ok(transformFunctions);
+		return parseOk(transformFunctions);
 	} catch (e) {
-		return err(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
+		return parseErr(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }

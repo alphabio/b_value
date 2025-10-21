@@ -1,7 +1,7 @@
 // b_path:: src/parse/clip-path/index.ts
 
 export * as Circle from "./circle";
-export { parse, parseNode } from "./clip-path";
+export { parse } from "./clip-path";
 export * as Ellipse from "./ellipse";
 export * as GeometryBox from "./geometry-box";
 export * as Inset from "./inset";

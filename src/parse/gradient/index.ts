@@ -24,7 +24,7 @@ export * as Conic from "./conic";
  *
  * @see {@link module:Parse.Gradient}
  */
-export { parse, parseNode } from "./gradient";
+export { parse } from "./gradient";
 
 /**
  * Parse linear and repeating-linear gradients.

@@ -68,10 +68,12 @@ export function parse(css: string): Result<Type.Position2D | Type.Position3D, st
 	// Fall back to 2D parsing
 	const result2D = Position.parse(css);
 	if (!result2D.ok) {
-		return err(`Invalid transform-origin: ${result2D.error}`);
+		const errorMsg = result2D.issues[0]?.message || "Invalid transform-origin";
+		return err(errorMsg);
 	}
 
-	return result2D;
+	// Convert ParseResult to Result
+	return result2D.value ? { ok: true, value: result2D.value, error: undefined } : err("Missing position value");
 }
 
 /**
@@ -104,7 +106,9 @@ export function parse(css: string): Result<Type.Position2D | Type.Position3D, st
 export function parsePerspectiveOrigin(css: string): Result<Type.Position2D, string> {
 	const result = Position.parse(css);
 	if (!result.ok) {
-		return err(`Invalid perspective-origin: ${result.error}`);
+		const errorMsg = result.issues[0]?.message || "Invalid perspective-origin";
+		return err(errorMsg);
 	}
-	return result;
+	// Convert ParseResult to Result
+	return result.value ? { ok: true, value: result.value, error: undefined } : err("Missing position value");
 }

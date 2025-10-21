@@ -1,6 +1,6 @@
 // b_path:: src/parse/position/position.ts
 import type * as csstree from "css-tree";
-import { err, ok, type Result } from "@/core/result";
+import { err, ok, type ParseResult, parseErr, parseOk, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ParseUtils from "@/utils/parse";
 
@@ -223,7 +223,7 @@ function parsePosition3DFromNodes(
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/position_value | MDN: position}
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#background-position | W3C Spec: background-position}
  */
-export function parse(css: string): Result<Type.Position2D, string> {
+export function parse(css: string): ParseResult<Type.Position2D> {
 	const csstree = require("css-tree");
 
 	try {
@@ -233,17 +233,17 @@ export function parse(css: string): Result<Type.Position2D, string> {
 		// Find the position nodes (should be the main content)
 		const children = ast.children.toArray();
 		if (children.length === 0) {
-			return err("No position values found in CSS string");
+			return parseErr("No position values found in CSS string");
 		}
 
 		const result = parsePosition2DFromNodes(children, 0);
 		if (!result.ok) {
-			return err(`Failed to parse position: ${result.error}`);
+			return parseErr(result.error);
 		}
 
-		return ok(result.value.position);
+		return parseOk(result.value.position);
 	} catch (e) {
-		return err(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
+		return parseErr(`Failed to parse CSS: ${e instanceof Error ? e.message : String(e)}`);
 	}
 }
 

@@ -2,7 +2,7 @@
 
 import type { CssNode } from "css-tree";
 import * as cssTree from "css-tree";
-import { err, type Result } from "@/core/result";
+import { err, type ParseResult, parseErr, type Result, toParseResult } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Blur from "./blur";
 import * as Brightness from "./brightness";
@@ -37,12 +37,13 @@ import * as Url from "./url";
  *
  * @public
  */
-export function parse(value: string): Result<Type.FilterFunction, string> {
+export function parse(value: string): ParseResult<Type.FilterFunction> {
 	const ast = cssTree.parse(value, { context: "value" }) as cssTree.Value;
-	if (!ast.children) return err("Empty value");
+	if (!ast.children) return parseErr("Empty value");
 	const first = ast.children.first;
-	if (!first) return err("Empty value");
-	return parseNode(first);
+	if (!first) return parseErr("Empty value");
+	const result = parseNode(first);
+	return toParseResult(result);
 }
 
 /**
@@ -51,9 +52,9 @@ export function parse(value: string): Result<Type.FilterFunction, string> {
  * @param node - CSS AST node
  * @returns Result with FilterFunction IR or error
  *
- * @public
+ * @internal
  */
-export function parseNode(node: CssNode): Result<Type.FilterFunction, string> {
+function parseNode(node: CssNode): Result<Type.FilterFunction, string> {
 	// URL filter (special case - Url node type)
 	if (node.type === "Url") {
 		const css = cssTree.generate(node);

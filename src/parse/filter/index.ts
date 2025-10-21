@@ -38,7 +38,7 @@ export * as DropShadow from "./drop-shadow";
  *
  * @see {@link module:Parse.Filter}
  */
-export { parse, parseNode } from "./filter";
+export { parse } from "./filter";
 /**
  * Parse grayscale filter functions.
  *
