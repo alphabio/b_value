@@ -9,7 +9,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("#abc");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hex");
+				expect(result.value?.kind).toBe("hex");
 			}
 		});
 
@@ -17,7 +17,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("#ff5733");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hex");
+				expect(result.value?.kind).toBe("hex");
 			}
 		});
 
@@ -25,7 +25,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("#ff573380");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hex");
+				expect(result.value?.kind).toBe("hex");
 			}
 		});
 	});
@@ -35,7 +35,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("rgb(255, 0, 0)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("rgb");
+				expect(result.value?.kind).toBe("rgb");
 			}
 		});
 
@@ -43,7 +43,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("rgba(255, 0, 0, 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("rgb");
+				expect(result.value?.kind).toBe("rgb");
 			}
 		});
 
@@ -51,7 +51,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("rgb(255 0 0 / 50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("rgb");
+				expect(result.value?.kind).toBe("rgb");
 			}
 		});
 	});
@@ -61,7 +61,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("hsl(0, 100%, 50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hsl");
+				expect(result.value?.kind).toBe("hsl");
 			}
 		});
 
@@ -69,7 +69,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("hsla(120, 100%, 50%, 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hsl");
+				expect(result.value?.kind).toBe("hsl");
 			}
 		});
 
@@ -77,7 +77,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("hsl(240 100% 50% / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hsl");
+				expect(result.value?.kind).toBe("hsl");
 			}
 		});
 	});
@@ -87,7 +87,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("hwb(0 0% 0%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hwb");
+				expect(result.value?.kind).toBe("hwb");
 			}
 		});
 
@@ -95,7 +95,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("hwb(120 30% 40% / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hwb");
+				expect(result.value?.kind).toBe("hwb");
 			}
 		});
 	});
@@ -105,7 +105,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("lab(50% 40 30)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("lab");
+				expect(result.value?.kind).toBe("lab");
 			}
 		});
 
@@ -113,7 +113,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("lab(50% 40 30 / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("lab");
+				expect(result.value?.kind).toBe("lab");
 			}
 		});
 	});
@@ -123,7 +123,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("lch(50% 40 30)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("lch");
+				expect(result.value?.kind).toBe("lch");
 			}
 		});
 
@@ -131,7 +131,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("lch(50% 40 30 / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("lch");
+				expect(result.value?.kind).toBe("lch");
 			}
 		});
 	});
@@ -141,7 +141,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("oklab(0.5 0.4 0.3)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("oklab");
+				expect(result.value?.kind).toBe("oklab");
 			}
 		});
 
@@ -149,7 +149,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("oklab(0.5 0.4 0.3 / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("oklab");
+				expect(result.value?.kind).toBe("oklab");
 			}
 		});
 	});
@@ -159,7 +159,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("oklch(0.5 0.4 30)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("oklch");
+				expect(result.value?.kind).toBe("oklch");
 			}
 		});
 
@@ -167,7 +167,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("oklch(0.5 0.4 30 / 0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("oklch");
+				expect(result.value?.kind).toBe("oklch");
 			}
 		});
 	});
@@ -177,7 +177,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("color(srgb 1 0 0)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("color");
+				expect(result.value?.kind).toBe("color");
 			}
 		});
 
@@ -185,7 +185,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("color(display-p3 1 0 0)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("color");
+				expect(result.value?.kind).toBe("color");
 			}
 		});
 	});
@@ -195,9 +195,9 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("red");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("named");
-				if (result.value.kind === "named") {
-					expect(result.value.name).toBe("red");
+				expect(result.value?.kind).toBe("named");
+				if (result.value?.kind === "named") {
+					expect(result.value?.name).toBe("red");
 				}
 			}
 		});
@@ -206,9 +206,9 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("cornflowerblue");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("named");
-				if (result.value.kind === "named") {
-					expect(result.value.name).toBe("cornflowerblue");
+				expect(result.value?.kind).toBe("named");
+				if (result.value?.kind === "named") {
+					expect(result.value?.name).toBe("cornflowerblue");
 				}
 			}
 		});
@@ -217,7 +217,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("BLUE");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("named");
+				expect(result.value?.kind).toBe("named");
 			}
 		});
 	});
@@ -227,9 +227,9 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("transparent");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("special");
-				if (result.value.kind === "special") {
-					expect(result.value.keyword).toBe("transparent");
+				expect(result.value?.kind).toBe("special");
+				if (result.value?.kind === "special") {
+					expect(result.value?.keyword).toBe("transparent");
 				}
 			}
 		});
@@ -238,9 +238,9 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("currentcolor");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("special");
-				if (result.value.kind === "special") {
-					expect(result.value.keyword).toBe("currentcolor");
+				expect(result.value?.kind).toBe("special");
+				if (result.value?.kind === "special") {
+					expect(result.value?.keyword).toBe("currentcolor");
 				}
 			}
 		});
@@ -249,7 +249,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("CurrentColor");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("special");
+				expect(result.value?.kind).toBe("special");
 			}
 		});
 	});
@@ -259,7 +259,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("Canvas");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("system");
+				expect(result.value?.kind).toBe("system");
 			}
 		});
 
@@ -267,7 +267,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("ButtonText");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("system");
+				expect(result.value?.kind).toBe("system");
 			}
 		});
 	});
@@ -277,7 +277,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Empty");
+				expect(result.issues[0]?.message).toContain("Empty");
 			}
 		});
 
@@ -285,7 +285,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("unknown(10, 20, 30)");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Unknown color function");
+				expect(result.issues[0]?.message).toContain("Unknown color function");
 			}
 		});
 
@@ -293,7 +293,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("notacolor");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("color name");
+				expect(result.issues[0]?.message).toContain("color name");
 			}
 		});
 
@@ -301,7 +301,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("#gggggg");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Invalid hex");
+				expect(result.issues[0]?.message).toContain("Invalid hex");
 			}
 		});
 	});
@@ -311,7 +311,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("RGB(255, 0, 0)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("rgb");
+				expect(result.value?.kind).toBe("rgb");
 			}
 		});
 
@@ -319,7 +319,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("HSL(0, 100%, 50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hsl");
+				expect(result.value?.kind).toBe("hsl");
 			}
 		});
 
@@ -327,7 +327,7 @@ describe("parse() - unified color dispatcher", () => {
 			const result = parse("OKLCH(0.5 0.4 30)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("oklch");
+				expect(result.value?.kind).toBe("oklch");
 			}
 		});
 	});

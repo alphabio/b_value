@@ -9,7 +9,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("blur(5px)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("blur");
+				expect(result.value?.kind).toBe("blur");
 			}
 		});
 
@@ -17,7 +17,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("brightness(1.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("brightness");
+				expect(result.value?.kind).toBe("brightness");
 			}
 		});
 
@@ -25,7 +25,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("contrast(200%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("contrast");
+				expect(result.value?.kind).toBe("contrast");
 			}
 		});
 
@@ -33,7 +33,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("drop-shadow(2px 2px 4px black)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("drop-shadow");
+				expect(result.value?.kind).toBe("drop-shadow");
 			}
 		});
 
@@ -41,7 +41,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("grayscale(50%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("grayscale");
+				expect(result.value?.kind).toBe("grayscale");
 			}
 		});
 
@@ -49,7 +49,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("hue-rotate(90deg)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("hue-rotate");
+				expect(result.value?.kind).toBe("hue-rotate");
 			}
 		});
 
@@ -57,7 +57,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("invert(100%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("invert");
+				expect(result.value?.kind).toBe("invert");
 			}
 		});
 
@@ -65,7 +65,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("opacity(0.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("opacity");
+				expect(result.value?.kind).toBe("opacity");
 			}
 		});
 
@@ -73,7 +73,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("saturate(150%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("saturate");
+				expect(result.value?.kind).toBe("saturate");
 			}
 		});
 
@@ -81,7 +81,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("sepia(75%)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("sepia");
+				expect(result.value?.kind).toBe("sepia");
 			}
 		});
 
@@ -89,7 +89,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("url(#filter-id)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("url");
+				expect(result.value?.kind).toBe("url");
 			}
 		});
 	});
@@ -99,7 +99,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("unknown(50%)");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Unknown filter function");
+				expect(result.issues[0]?.message).toContain("Unknown filter function");
 			}
 		});
 
@@ -119,7 +119,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("BLUR(5px)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("blur");
+				expect(result.value?.kind).toBe("blur");
 			}
 		});
 
@@ -127,7 +127,7 @@ describe("parse() - unified filter dispatcher", () => {
 			const result = parse("BrIgHtNeSs(1.5)");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
-				expect(result.value.kind).toBe("brightness");
+				expect(result.value?.kind).toBe("brightness");
 			}
 		});
 	});

@@ -142,15 +142,15 @@ describe("Position Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(3);
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					horizontal: "center",
 					vertical: "center",
 				});
-				expect(result.value[1]).toEqual({
+				expect(result.value?.[1]).toEqual({
 					horizontal: "left",
 					vertical: "top",
 				});
-				expect(result.value[2]).toEqual({
+				expect(result.value?.[2]).toEqual({
 					horizontal: { value: 50, unit: "%" },
 					vertical: { value: 25, unit: "%" },
 				});
@@ -164,7 +164,7 @@ describe("Position Parser", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0]).toEqual({
+				expect(result.value?.[0]).toEqual({
 					horizontal: "center",
 					vertical: "center",
 				});
@@ -200,7 +200,7 @@ describe("Position Parser", () => {
 
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("No position values found");
+				expect(result.issues[0]?.message).toContain("No position values found");
 			}
 		});
 	});
