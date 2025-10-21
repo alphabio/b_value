@@ -22,7 +22,7 @@ import * as Position from "./position";
  */
 export function generate(position: Type.Position2D): GenerateResult {
 	if (!position || typeof position !== "object") {
-		return generateErr("Invalid position IR", {
+		return generateErr("invalid-ir", "Invalid position IR", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -31,7 +31,7 @@ export function generate(position: Type.Position2D): GenerateResult {
 		const css = Position.toCss(position);
 		return generateOk(css);
 	} catch (error) {
-		return generateErr(`Failed to generate position: ${error}`, {
+		return generateErr("invalid-ir", `Failed to generate position: ${error}`, {
 			suggestion: "Check that position IR is valid",
 		});
 	}

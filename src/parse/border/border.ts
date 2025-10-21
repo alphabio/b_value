@@ -20,7 +20,7 @@ export function parse(value: string): ParseResult<unknown> {
 	const colorResult = Color.parse(value);
 	if (colorResult.ok) return toParseResult(colorResult);
 
-	return parseErr("Invalid border property value", {
+	return parseErr("invalid-value", "Invalid border property value", {
 		suggestion: "Expected width, style, radius, or color",
 	});
 }

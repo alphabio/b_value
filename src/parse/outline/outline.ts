@@ -20,7 +20,7 @@ export function parse(value: string): ParseResult<unknown> {
 	const offsetResult = Offset.parse(value);
 	if (offsetResult.ok) return toParseResult(offsetResult);
 
-	return parseErr("Invalid outline property value", {
+	return parseErr("invalid-value", "Invalid outline property value", {
 		suggestion: "Expected width, style, color, or offset",
 	});
 }

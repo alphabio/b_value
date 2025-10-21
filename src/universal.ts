@@ -9,7 +9,14 @@
  * @module
  */
 
-import { type GenerateResult, generateErr, type ParseResult, parseErr, toParseResult } from "./core/result";
+import {
+	type CSSPropertyName,
+	type GenerateResult,
+	generateErr,
+	type ParseResult,
+	parseErr,
+	toParseResult,
+} from "./core/result";
 // Import module generators
 import * as AnimationGenerate from "./generate/animation/animation";
 import * as BorderGenerate from "./generate/border/border";
@@ -337,7 +344,7 @@ export function parse(declaration: string): ParseResult {
 	// Step 1: Parse declaration syntax
 	const parsed = parseDeclaration(declaration);
 	if (!parsed) {
-		return parseErr("Invalid CSS declaration syntax", {
+		return parseErr("invalid-syntax", "Invalid CSS declaration syntax", {
 			suggestion: "Expected format: 'property: value' or 'property: value;'",
 		});
 	}
@@ -346,19 +353,19 @@ export function parse(declaration: string): ParseResult {
 
 	// Step 2: Check if shorthand
 	if (isShorthand(property)) {
-		return parseErr(`"${property}" is a shorthand property`, {
+		return parseErr("shorthand-not-supported", `"${property}" is a shorthand property`, {
 			suggestion: `Use individual longhand properties instead`,
 			action: "Use b_short library to expand shorthands first",
-			property,
+			property: property as CSSPropertyName,
 		});
 	}
 
 	// Step 3: Find parser
 	const parser = PROPERTY_PARSERS[property];
 	if (!parser) {
-		return parseErr(`Unknown or unsupported property: "${property}"`, {
+		return parseErr("unknown-property", `Unknown or unsupported property: "${property}"`, {
 			suggestion: "Check property name spelling or check if b_value supports this property yet",
-			property,
+			property: property as CSSPropertyName,
 		});
 	}
 
@@ -411,18 +418,18 @@ export function generate(options: { property: string; value: unknown }): Generat
 
 	// Step 1: Check if shorthand
 	if (isShorthand(property)) {
-		return generateErr(`"${property}" is a shorthand property`, {
+		return generateErr("shorthand-not-supported", `"${property}" is a shorthand property`, {
 			action: "Use b_short library for shorthand generation",
-			property,
+			property: property as CSSPropertyName,
 		});
 	}
 
 	// Step 2: Find generator
 	const generator = PROPERTY_GENERATORS[property];
 	if (!generator) {
-		return generateErr(`Unknown or unsupported property: "${property}"`, {
+		return generateErr("unknown-property", `Unknown or unsupported property: "${property}"`, {
 			suggestion: "Check property name spelling or check if b_value supports this property yet",
-			property,
+			property: property as CSSPropertyName,
 		});
 	}
 

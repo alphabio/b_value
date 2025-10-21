@@ -27,7 +27,7 @@ export function parse(value: string): ParseResult<Transition> {
 	const propertyResult = Property.parse(value);
 	if (propertyResult.ok) return toParseResult(propertyResult);
 
-	return parseErr("Invalid transition property value", {
+	return parseErr("invalid-value", "Invalid transition property value", {
 		suggestion: "Expected duration (1s, 500ms), delay, timing-function, or property name",
 	});
 }

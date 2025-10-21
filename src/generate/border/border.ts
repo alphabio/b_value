@@ -75,7 +75,7 @@ export function generate(
 ): GenerateResult {
 	// Validate IR has 'kind' field
 	if (!border || typeof border !== "object" || !("kind" in border)) {
-		return generateErr("Invalid border IR: missing 'kind' field", {
+		return generateErr("missing-required-field", "Invalid border IR: missing 'kind' field", {
 			suggestion: "Ensure IR was parsed correctly",
 		});
 	}
@@ -95,7 +95,7 @@ export function generate(
 			return generateOk(Radius.toCss(border));
 
 		default:
-			return generateErr(`Unknown border kind: ${(border as { kind?: string }).kind}`, {
+			return generateErr("unsupported-kind", `Unknown border kind: ${(border as { kind?: string }).kind}`, {
 				suggestion:
 					"Expected 'border-width', 'border-style', 'border-color', or 'border-radius'. Check that border IR is valid.",
 			});
