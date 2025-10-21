@@ -83,7 +83,7 @@ export * as Core from "./core";
  *
  * @example
  * ```typescript
- * import type { ParseResult, GenerateResult, Issue } from "b_value";
+ * import type { ParseResult, GenerateResult, Issue, CSSPropertyName } from "b_value";
  *
  * const result: ParseResult<Color> = Parse.Color.parse("#ff0000");
  * if (result.ok) {
@@ -93,16 +93,16 @@ export * as Core from "./core";
  * }
  * ```
  */
-export type { GenerateResult, Issue, ParseResult } from "./core/result";
-export {
-	addIssue,
-	combineResults,
-	generateErr,
-	generateOk,
-	parseErr,
-	parseOk,
-	withWarning,
+export type {
+	CSSLonghandProperty,
+	CSSPropertyName,
+	CSSShorthandProperty,
+	GenerateResult,
+	Issue,
+	IssueCode,
+	ParseResult,
 } from "./core/result";
+export { Issues, addIssue, combineResults, generateErr, generateOk, parseErr, parseOk, withWarning } from "./core/result";
 /**
  * CSS → IR generators (convert IR to CSS strings).
  *
