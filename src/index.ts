@@ -189,5 +189,17 @@ export * as Parse from "./parse";
  *   console.log(result.value); // "#ff0000"
  * }
  * ```
+ *
+ * @example
+ * Batch parse multiple properties:
+ * ```typescript
+ * import { parseAll } from "b_value";
+ *
+ * const result = parseAll("color: red; width: 10px");
+ * if (result.ok) {
+ *   console.log(result.value.color);  // { kind: "named", name: "red" }
+ *   console.log(result.value.width);  // { kind: "length", value: 10, unit: "px" }
+ * }
+ * ```
  */
-export { generate, parse } from "./universal";
+export { generate, parse, parseAll } from "./universal";
