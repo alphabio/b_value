@@ -1,7 +1,7 @@
 // b_path:: src/generate/transform/transform.generate.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as TransformGenerator from "./transform";
+import * as TransformGenerator from "./utils";
 
 describe("Transform Generator", () => {
 	describe("Translation transform generation", () => {

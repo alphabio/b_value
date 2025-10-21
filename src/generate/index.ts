@@ -103,7 +103,7 @@ export * as Text from "./text";
 /**
  * Transform generators (translate, rotate, scale, skew, matrix, etc.).
  *
- * @see {@link Transform.toCss}
+ * @see {@link Transform.Utils.toCss}
  */
 export * as Transform from "./transform";
 /**
