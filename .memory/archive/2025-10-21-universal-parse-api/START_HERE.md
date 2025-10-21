@@ -58,9 +58,9 @@ parse("margin: 10px")  // Shorthand = error!
 //   }]}
 
 /**
- * Batch parse multiple declarations
+ * Parse multiple declarations
  */
-parseCSS("color: red; clip-path: circle(50%); filter: blur(5px)")
+parseAll("color: red; clip-path: circle(50%); filter: blur(5px)")
 // → [{ ok: true, ... }, { ok: true, ... }, { ok: true, ... }]
 ```
 
@@ -77,9 +77,9 @@ generate({ kind: "hex", value: "#FF0000" }, { property: "color" })
 // → "color: #FF0000"
 
 /**
- * Batch generate multiple declarations
+ * Generate multiple declarations
  */
-generateCSS([
+generateAll([
   { property: "color", value: colorIR },
   { property: "clip-path", value: clipPathIR }
 ])
@@ -253,7 +253,7 @@ type CSSValue =
 3. Shorthand rejection with helpful errors
 4. Unknown property detection with "did you mean"
 5. Format validation
-6. Implement `parseCSS()` batch parser
+6. Implement `parseAll()` batch parser
 7. 50+ tests covering all cases
 
 **Test coverage**:
@@ -279,7 +279,7 @@ type CSSValue =
 2. Route to appropriate generator
 3. Support value-only generation
 4. Support full declaration generation
-5. Implement `generateCSS()` batch generator
+5. Implement `generateAll()` batch generator
 6. 30+ tests
 
 **Test coverage**:
@@ -354,7 +354,7 @@ const expanded = expand("margin: 10px 20px;");
 // → "margin-top: 10px; margin-right: 20px; ..."
 
 // 2. Parse each longhand declaration
-const results = parseCSS(expanded.result);
+const results = parseAll(expanded.result);
 
 // 3. Modify values
 const modified = results.map(r => {
@@ -365,7 +365,7 @@ const modified = results.map(r => {
 });
 
 // 4. Generate back to CSS
-const css = generateCSS(modified.map((value, i) => ({
+const css = generateAll(modified.map((value, i) => ({
   property: results[i].property!,
   value
 })));

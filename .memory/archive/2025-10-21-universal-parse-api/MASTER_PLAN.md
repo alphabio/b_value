@@ -40,7 +40,7 @@ const result2 = parse("background-image: radial-gradient(red, blue)");
 // → { ok: true, property: "background-image", value: { kind: "radial", ... }, issues: [] }
 
 // Batch parse
-const results = parseCSS(`
+const results = parseAll(`
   clip-path: circle(50%);
   color: #ff0000;
   filter: blur(5px);
@@ -60,7 +60,7 @@ const decl = generate(value, { property: "background-image" });
 // → "background-image: radial-gradient(circle, red, blue)"
 
 // Batch generate
-const declarations = generateCSS([
+const declarations = generateAll([
   { property: "color", value: colorIR },
   { property: "clip-path", value: clipPathIR }
 ]);
@@ -258,7 +258,7 @@ describe("property-map", () => {
 
 ### Phase 2: Parse API (6-7h)
 
-**Goal**: Implement `parse()` and `parseCSS()`
+**Goal**: Implement `parse()` and `parseAll()`
 
 **Tasks**:
 1. Implement declaration parsing (split on colon)
@@ -267,7 +267,7 @@ describe("property-map", () => {
 4. Unknown property detection
 5. Format validation
 6. Comprehensive error handling
-7. `parseCSS()` batch parser
+7. `parseAll()` batch parser
 
 **Files to create**:
 ```
@@ -401,11 +401,11 @@ export function parse(input: string): ParseResult {
  * 
  * @example
  * ```typescript
- * const results = parseCSS("color: red; background: blue");
+ * const results = parseAll("color: red; background: blue");
  * // → [{ ok: true, ... }, { ok: false, ... }]
  * ```
  */
-export function parseCSS(css: string): ParseResult[] {
+export function parseAll(css: string): ParseResult[] {
   return css
     .split(';')
     .map(s => s.trim())
@@ -465,7 +465,7 @@ function levenshtein(a: string, b: string): number {
 // src/parse.test.ts
 
 import { describe, expect, it } from "vitest";
-import { parse, parseCSS } from "./parse";
+import { parse, parseAll } from "./parse";
 
 describe("parse()", () => {
   describe("valid declarations", () => {
@@ -563,9 +563,9 @@ describe("parse()", () => {
   });
 });
 
-describe("parseCSS()", () => {
+describe("parseAll()", () => {
   it("parses multiple declarations", () => {
-    const results = parseCSS(`
+    const results = parseAll(`
       color: #ff0000;
       clip-path: circle(50%);
       filter: blur(5px)
@@ -576,7 +576,7 @@ describe("parseCSS()", () => {
   });
   
   it("handles mix of valid and invalid", () => {
-    const results = parseCSS("color: red; margin: 10px; clip-path: circle(50%)");
+    const results = parseAll("color: red; margin: 10px; clip-path: circle(50%)");
     
     expect(results).toHaveLength(3);
     expect(results[0].ok).toBe(true);   // color
@@ -585,7 +585,7 @@ describe("parseCSS()", () => {
   });
   
   it("ignores empty declarations", () => {
-    const results = parseCSS("color: red;; ; clip-path: circle(50%)");
+    const results = parseAll("color: red;; ; clip-path: circle(50%)");
     expect(results).toHaveLength(2);
   });
 });
@@ -595,7 +595,7 @@ describe("parseCSS()", () => {
 
 ### Phase 3: Generate API (4-5h)
 
-**Goal**: Implement `generate()` and `generateCSS()`
+**Goal**: Implement `generate()` and `generateAll()`
 
 **Tasks**:
 1. Auto-detect IR kind and route to generator
@@ -663,14 +663,14 @@ export function generate(value: CSSValue, options?: GenerateOptions): string {
  * 
  * @example
  * ```typescript
- * const css = generateCSS([
+ * const css = generateAll([
  *   { property: "color", value: colorIR },
  *   { property: "clip-path", value: clipPathIR }
  * ]);
  * // → "color: #ff0000; clip-path: circle(50%)"
  * ```
  */
-export function generateCSS(
+export function generateAll(
   declarations: Array<{ property: string; value: CSSValue }>,
   options?: { minify?: boolean }
 ): string {
@@ -696,7 +696,7 @@ export function isValidIR(value: unknown): value is CSSValue {
 // src/generate.test.ts
 
 import { describe, expect, it } from "vitest";
-import { generate, generateCSS } from "./generate";
+import { generate, generateAll } from "./generate";
 import type { HexColor, RadialGradient } from "./core/types";
 
 describe("generate()", () => {
@@ -752,7 +752,7 @@ describe("generate()", () => {
   });
 });
 
-describe("generateCSS()", () => {
+describe("generateAll()", () => {
   it("generates multiple declarations", () => {
     const declarations = [
       { 
@@ -765,7 +765,7 @@ describe("generateCSS()", () => {
       }
     ];
     
-    const css = generateCSS(declarations);
+    const css = generateAll(declarations);
     expect(css).toBe("color: #FF0000; background-color: #0000FF");
   });
   
@@ -775,7 +775,7 @@ describe("generateCSS()", () => {
       { property: "background-color", value: { kind: "hex", value: "#0000FF" } as HexColor }
     ];
     
-    const css = generateCSS(declarations, { minify: true });
+    const css = generateAll(declarations, { minify: true });
     expect(css).toBe("color: #FF0000;background-color: #0000FF");
   });
 });
@@ -887,14 +887,14 @@ docs/guides/b_short.md      # Integration guide
 
 1. **Parse API**: CSS declarations → IR
    - `parse("property: value")` - single declaration
-   - `parseCSS("prop1: val1; prop2: val2")` - batch
+   - `parseAll("prop1: val1; prop2: val2")` - batch
    - Rejects shorthands with helpful errors
    - No heuristic value parsing (too ambiguous)
 
 2. **Generate API**: IR → CSS
    - `generate(ir)` - value only
    - `generate(ir, {property})` - full declaration
-   - `generateCSS([{property, value}])` - batch
+   - `generateAll([{property, value}])` - batch
 
 ### Key Design Decisions
 
