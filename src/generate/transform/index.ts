@@ -2,3 +2,4 @@
 
 export * as Origin from "./origin";
 export * as Transform from "./transform";
+export { generate } from "./transform-generate";
