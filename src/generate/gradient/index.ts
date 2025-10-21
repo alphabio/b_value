@@ -19,6 +19,12 @@ export * as ColorStop from "./color-stop";
  * @see {@link Conic.toCss}
  */
 export * as Conic from "./conic";
+/**
+ * Generate CSS from gradient IR with auto-detection.
+ *
+ * @see {@link generate}
+ */
+export { generate } from "./gradient";
 
 /**
  * Generate linear and repeating-linear gradient CSS strings.
