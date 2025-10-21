@@ -1,10 +1,13 @@
 # ADR-001: Convenience API Layer for Progressive Disclosure
 
-**Status**: ✅ Approved
+**Status**: 🔄 **SUPERSEDED by ADR-002**
 **Date**: 2025-10-19
+**Superseded**: 2025-10-21
 **Deciders**: Development Team
 **Category**: API Design
 **Priority**: High
+
+> ⚠️ **DECOMMISSIONED**: This ADR has been superseded by ADR-002 which provides a clearer distinction between Module API (auto-detection per module) and Universal API (full CSS parsing). The concepts here are still valid but the implementation approach has evolved.
 
 ---
 
@@ -362,11 +365,19 @@ This isn't just "nice to have" - it's **essential for making b_gee's migration s
 
 ## Decision Outcome
 
-**Status**: ✅ Approved
-**Implemented**: Partially (color convenience functions exist via dispatchers)
-**Next Steps**:
-1. Create dedicated convenience layer directory structure
-2. Implement `parseColor()` and `generateColor()` as proof of concept
-3. Extend to other value types
-4. Update documentation with both API patterns
-5. Create b_gee migration guide
+**Status**: 🔄 **SUPERSEDED by ADR-002**
+**Implemented**: Partially (dispatchers exist in modules)
+**Superseded By**: ADR-002 - Three-Layer API Architecture (2025-10-21)
+
+**What Changed**:
+- ADR-001 called it "Convenience API" (confusing name)
+- ADR-002 clarifies it as "Module API" with auto-detection per module
+- The concept is the same, but architecture is clearer
+- Universal API (Phase 1) is now separate from Module API (Phase 0.5)
+
+**Migration Path**:
+- ✅ Module API is Phase 0.5 (auto-detection within modules)
+- ✅ Universal API is Phase 1 (full CSS parsing with semicolons/commas)
+- ✅ Expert API remains (specific format parsers)
+
+See ADR-002 for the evolved architecture.
