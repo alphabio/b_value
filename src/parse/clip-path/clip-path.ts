@@ -2,7 +2,7 @@
 
 import type { CssNode } from "css-tree";
 import * as cssTree from "css-tree";
-import { err, type Result } from "@/core/result";
+import { type ParseResult, parseErr, toParseResult } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Circle from "./circle";
 import * as Ellipse from "./ellipse";
@@ -37,12 +37,13 @@ import * as Xywh from "./xywh";
  *
  * @public
  */
-export function parse(value: string): Result<Type.ClipPathValue, string> {
+export function parse(value: string): ParseResult<Type.ClipPathValue> {
 	const ast = cssTree.parse(value, { context: "value" }) as cssTree.Value;
-	if (!ast.children) return err("Empty value");
+	if (!ast.children) return parseErr("Empty value");
 	const first = ast.children.first;
-	if (!first) return err("Empty value");
-	return parseNode(first);
+	if (!first) return parseErr("Empty value");
+	const result = parseNode(first);
+	return toParseResult(result);
 }
 
 /**
@@ -51,9 +52,9 @@ export function parse(value: string): Result<Type.ClipPathValue, string> {
  * @param node - CSS AST node
  * @returns Result with ClipPathValue IR or error
  *
- * @public
+ * @internal
  */
-export function parseNode(node: CssNode): Result<Type.ClipPathValue, string> {
+function parseNode(node: CssNode): Result<Type.ClipPathValue, string> {
 	// Keyword: none
 	if (node.type === "Identifier" && node.name === "none") {
 		return None.parse("none");

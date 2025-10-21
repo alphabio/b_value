@@ -2,7 +2,7 @@
 
 import type { CssNode } from "css-tree";
 import * as cssTree from "css-tree";
-import { err, type Result } from "@/core/result";
+import { err, type ParseResult, parseErr, type Result, toParseResult } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Conic from "./conic";
 import * as Linear from "./linear";
@@ -29,12 +29,13 @@ import * as Radial from "./radial";
  *
  * @public
  */
-export function parse(value: string): Result<Type.Gradient, string> {
+export function parse(value: string): ParseResult<Type.Gradient> {
 	const ast = cssTree.parse(value, { context: "value" }) as cssTree.Value;
-	if (!ast.children) return err("Empty value");
+	if (!ast.children) return parseErr("Empty value");
 	const first = ast.children.first;
-	if (!first) return err("Empty value");
-	return parseNode(first);
+	if (!first) return parseErr("Empty value");
+	const result = parseNode(first);
+	return toParseResult(result);
 }
 
 /**
@@ -43,9 +44,9 @@ export function parse(value: string): Result<Type.Gradient, string> {
  * @param node - CSS AST node
  * @returns Result with Gradient IR or error
  *
- * @public
+ * @internal
  */
-export function parseNode(node: CssNode): Result<Type.Gradient, string> {
+function parseNode(node: CssNode): Result<Type.Gradient, string> {
 	// All gradients are Function nodes
 	if (node.type === "Function") {
 		const css = cssTree.generate(node);

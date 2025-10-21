@@ -2,7 +2,7 @@
 
 import type { CssNode } from "css-tree";
 import * as cssTree from "css-tree";
-import { err, type Result } from "@/core/result";
+import { err, type ParseResult, parseErr, type Result, toParseResult } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorFunction from "./color-function";
 import * as Hex from "./hex";
@@ -48,12 +48,13 @@ import * as System from "./system";
  *
  * @public
  */
-export function parse(value: string): Result<Type.Color, string> {
+export function parse(value: string): ParseResult<Type.Color> {
 	const ast = cssTree.parse(value, { context: "value" }) as cssTree.Value;
-	if (!ast.children) return err("Empty value");
+	if (!ast.children) return parseErr("Empty value");
 	const first = ast.children.first;
-	if (!first) return err("Empty value");
-	return parseNode(first);
+	if (!first) return parseErr("Empty value");
+	const result = parseNode(first);
+	return toParseResult(result);
 }
 
 /**
@@ -62,9 +63,9 @@ export function parse(value: string): Result<Type.Color, string> {
  * @param node - CSS AST node
  * @returns Result with Color IR or error
  *
- * @public
+ * @internal
  */
-export function parseNode(node: CssNode): Result<Type.Color, string> {
+function parseNode(node: CssNode): Result<Type.Color, string> {
 	// 1. Hex color (Hash node)
 	if (node.type === "Hash") {
 		const css = `#${node.value}`;
