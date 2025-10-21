@@ -1,46 +1,50 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-01-21T12:17:00Z  
+**LAST UPDATED**: 2025-10-21T05:32:00Z  
 **PROJECT**: b_value - CSS value parser/generator  
 **CURRENT PHASE**: 0.5 - Universal ParseResult/GenerateResult API  
-**STATUS**: Phase 0.5d IN PROGRESS (4/14 modules complete) 🚧
+**STATUS**: Phase 0.5d IN PROGRESS (6/14 modules complete, 7 remaining) 🚧
 
 ---
 
 ## ✅ What Just Happened
 
-**Phase 0.5d - Generate API Started** - 4 modules complete with unified `generate()`:
+**Phase 0.5d - Audit & Planning Complete** - 6 modules complete with unified `generate()`:
 
 1. ✅ **color** - generate() returns GenerateResult (15 tests)
 2. ✅ **clip-path** - generate() returns GenerateResult (12 tests)  
 3. ✅ **gradient** - generate() returns GenerateResult (5 tests)
 4. ✅ **filter** - generate() returns GenerateResult (11 tests)
+5. ✅ **position** - generate() wrapper in separate file (16 tests)
+6. ✅ **transform** - generate() wrapper in separate file (17 tests)
 
-**Total**: 43 new tests added, 2469 tests passing
+**Total**: 76 new tests added, 2469 tests passing
 
-**Latest Commits**:
-- `efbb9c8` - feat(filter): add unified generate()
-- `b50b7b9` - feat(gradient): add unified generate()
-- `4b90763` - feat(clip-path): add unified generate()
-- `f78fc01` - feat(color): add unified generate()
+**Latest Actions**:
+- `1d02b58` - feat(position,transform): add unified generate()
+- Created comprehensive MASTER_PLAN.md for remaining 7 modules
+- Created START_HERE.md quick reference
+- Created AUDIT_REPORT.md documenting current state
 
 ---
 
 ## ✅ Current Status
 
 **All systems green**:
-- ✅ Format: Clean (485 files)
+- ✅ Format: Clean (495 files)
 - ✅ Lint: No issues
 - ✅ TypeScript: No errors
-- ✅ Tests: **2426 passing** 🎉
+- ✅ Tests: **2469 passing** 🎉
 
 ---
 
 ## 🎯 Next Steps
 
-### Continue Phase 0.5d - Generate API (10 modules remaining)
+### Continue Phase 0.5d - Generate API (7 modules remaining)
 
-**Pattern** (already working for 4 modules):
+**Comprehensive master plan created**: `.memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md`
+
+**Pattern A** (preferred - single file):
 ```typescript
 export function generate(ir: ModuleIR): GenerateResult {
   if (!ir || !ir.kind) return generateErr("Invalid IR...");
@@ -53,35 +57,29 @@ export function generate(ir: ModuleIR): GenerateResult {
 ```
 
 **Remaining modules** (priority order):
-5. ⚠️ **position** - BLOCKED: needs base generator file recreated first
-6. ⚠️ **transform** - BLOCKED: needs base generator file recreated first  
-7. **layout** (7 sub-modules) - width, height, top, left, etc.
-8. **border** (4 sub-modules) - width, style, color, radius
-9. **outline** (3 sub-modules) - width, style, color
-10. **animation** (7 sub-modules) - duration, delay, etc.
-11. **transition** (4 sub-modules) - duration, delay, etc.
-12. **background** (1 module)
-13. **text** - text-specific properties
-14. **shadow** - box-shadow, text-shadow
+1. 🎯 **shadow** (2 types) - START HERE (simplest, 20-30 min)
+2. **transition** (4 props) - Similar to animation
+3. **outline** (4 props) - Similar to border
+4. **border** (4 props) - Similar to outline
+5. **text** (4 props) - Text decoration
+6. **background** (5 props) - Background properties
+7. **animation** (8 props) - Most complex
+8. ⚪ **layout** - DEFERRED (no unified IR type)
 
-**Blockers**:
-- `transform.ts` and `position.ts` were deleted in DRY refactoring commit `ba3fc04`
-- Tests expect these files to exist
-- Need to recreate base generators before adding `generate()` wrapper
-
-**Next action**: Skip position/transform for now, continue with layout/border/outline modules
+**Next action**: Execute Session 1 - shadow module (see MASTER_PLAN.md)
 
 ---
 
 ## 📚 Key Documents
 
-**MUST READ**:
+**MUST READ (Phase 0.5d)**:
+- `.memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md` - **DETAILED IMPLEMENTATION GUIDE**
+- `.memory/archive/2025-10-21-phase0.5d-generate-api/START_HERE.md` - Quick reference
+- `.memory/archive/2025-10-21-phase0.5d-generate-api/AUDIT_REPORT.md` - Current state
+
+**Reference (Phase 0.5 design)**:
 - `.memory/archive/2025-10-21-phase0.5-v2/MASTER_PLAN.md` - Parse implementation guide
 - `.memory/archive/2025-10-21-phase0.5-v2/GENERATE_API_DESIGN.md` - Generate API design
-
-**Reference**:
-- `START_HERE.md` - Quick overview
-- `API_DESIGN_CLARIFICATION.md` - Architecture decisions
 
 ---
 
@@ -94,16 +92,18 @@ export function generate(ir: ModuleIR): GenerateResult {
 - ✅ Phase 0.5a: Complete (ParseResult + GenerateResult types)
 - ✅ Phase 0.5b: Complete (7 new parse() functions)  
 - ✅ Phase 0.5c: Complete (6 modules updated + tests fixed)
-- 🚧 Phase 0.5d: **IN PROGRESS** (4/14 generate() functions added, 43 tests)
+- 🚧 Phase 0.5d: **IN PROGRESS** (6/14 generate() functions added, 76 tests, 7 remaining)
 
 **Phase 0.5d Progress**:
-- ✅ color (15 tests)
-- ✅ clip-path (12 tests)
-- ✅ gradient (5 tests)
-- ✅ filter (11 tests)
-- ⚠️ position (blocked)
-- ⚠️ transform (blocked)
-- 🔜 layout, border, outline, animation, transition, background, text, shadow
+- ✅ color (15 tests) - Pattern A
+- ✅ clip-path (12 tests) - Pattern A
+- ✅ gradient (5 tests) - Pattern A
+- ✅ filter (11 tests) - Pattern A
+- ✅ position (16 tests) - Pattern B
+- ✅ transform (17 tests) - Pattern B
+- 🎯 shadow - NEXT (est. 10 tests)
+- 🔜 transition, outline, border, text, background, animation
+- ⚪ layout - DEFERRED (no unified IR)
 
 ---
 
@@ -135,4 +135,29 @@ pnpm run typecheck 2>&1 | grep "error TS"
 
 ---
 
-**Next Agent**: Start Phase 0.5d - Create generate() functions for modules! 🚀
+## 🚀 IMMEDIATE NEXT STEPS
+
+**For next agent**:
+
+1. **Read the master plan**:
+   ```bash
+   cat .memory/archive/2025-10-21-phase0.5d-generate-api/MASTER_PLAN.md
+   ```
+
+2. **Execute Session 1 - shadow module**:
+   - Simplest module (2 types: box-shadow, text-shadow)
+   - Estimated time: 20-30 minutes
+   - Follow detailed guide in MASTER_PLAN.md
+
+3. **Verify baseline before starting**:
+   ```bash
+   just check && just test  # Should show 2469 tests passing
+   ```
+
+4. **After completion**:
+   - Update this CONTINUE.md with progress (7/14 complete)
+   - Create handover doc if ending session
+
+---
+
+**Next Agent**: Execute Session 1 (shadow) from MASTER_PLAN.md! 🚀
