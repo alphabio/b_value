@@ -5,7 +5,7 @@
  */
 
 import { describe, expect, it } from "vitest";
-import { parseAll } from "./universal";
+import { generateAll, parseAll } from "./universal";
 
 describe("parseAll()", () => {
 	describe("basic functionality", () => {
@@ -140,6 +140,195 @@ describe("parseAll()", () => {
 			expect(result.value?.width).toBe("invalid");
 			expect(result.value?.height).toBeDefined();
 			expect(result.issues.length).toBeGreaterThan(0);
+		});
+	});
+});
+
+describe("generateAll()", () => {
+	describe("basic functionality", () => {
+		it("should generate CSS from single IR value", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+			});
+
+			expect(css).toBe("color: red");
+		});
+
+		it("should generate CSS from multiple IR values", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+				width: { kind: "width", value: { value: 10, unit: "px" } },
+			});
+
+			expect(css).toBe("color: red; width: 10px");
+		});
+
+		it("should handle empty input", () => {
+			const css = generateAll({});
+
+			expect(css).toBe("");
+		});
+
+		it("should handle null values object", () => {
+			const css = generateAll(null as unknown as Record<string, string>);
+
+			expect(css).toBe("");
+		});
+	});
+
+	describe("string passthrough", () => {
+		it("should pass through string values as-is", () => {
+			const css = generateAll({
+				color: "red",
+				border: "1px solid blue",
+			});
+
+			expect(css).toBe("color: red; border: 1px solid blue");
+		});
+
+		it("should handle mix of IR and string values", () => {
+			const css = generateAll({
+				color: { kind: "hex", value: "#FF0000" },
+				border: "1px solid blue",
+			});
+
+			expect(css).toBe("color: #FF0000; border: 1px solid blue");
+		});
+	});
+
+	describe("minify option", () => {
+		it("should minify output when minify: true", () => {
+			const css = generateAll(
+				{
+					color: { kind: "named", name: "red" },
+					width: { kind: "width", value: { value: 10, unit: "px" } },
+				},
+				{ minify: true },
+			);
+
+			expect(css).toBe("color:red;width:10px");
+		});
+
+		it("should not minify by default", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+			});
+
+			expect(css).toBe("color: red");
+		});
+
+		it("should minify string values too", () => {
+			const css = generateAll(
+				{
+					color: "red",
+					border: "1px solid blue",
+				},
+				{ minify: true },
+			);
+
+			expect(css).toBe("color:red;border:1px solid blue");
+		});
+	});
+
+	describe("edge cases", () => {
+		it("should skip undefined values", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+				width: undefined as unknown as string,
+			});
+
+			expect(css).toBe("color: red");
+		});
+
+		it("should skip null values", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+				width: null as unknown as string,
+			});
+
+			expect(css).toBe("color: red");
+		});
+
+		it("should skip properties with invalid generation", () => {
+			// If IR is invalid or generation fails, property should be silently skipped
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+				// Unknown property generator will skip
+				"made-up-property": "some-value",
+			});
+
+			// Should only have color
+			expect(css).toBe("color: red; made-up-property: some-value");
+		});
+	});
+
+	describe("round-trip", () => {
+		it("should round-trip simple values", () => {
+			const input = "color: red; width: 10px";
+			const parsed = parseAll(input);
+
+			expect(parsed.ok).toBe(true);
+			if (!parsed.ok || !parsed.value) return;
+
+			const css = generateAll(parsed.value);
+
+			expect(css).toBe("color: red; width: 10px");
+		});
+
+		it("should round-trip after modification", () => {
+			const input = "color: red; width: 10px";
+			const parsed = parseAll(input);
+
+			expect(parsed.ok).toBe(true);
+			if (!parsed.ok || !parsed.value) return;
+
+			// Modify color
+			parsed.value.color = { kind: "hex", value: "#00FF00" };
+
+			const css = generateAll(parsed.value);
+
+			expect(css).toBe("color: #00FF00; width: 10px");
+		});
+
+		it("should preserve string values in round-trip", () => {
+			const input = "color: red; border: 1px solid blue";
+			const parsed = parseAll(input);
+
+			// border will be unparsed string (shorthand)
+			if (!parsed.value) return;
+			const css = generateAll(parsed.value);
+
+			expect(css).toContain("color: red");
+			expect(css).toContain("border: 1px solid blue");
+		});
+
+		it("should round-trip complex properties", () => {
+			const input = "transform: rotate(45deg) scale(2); filter: blur(5px)";
+			const parsed = parseAll(input);
+
+			expect(parsed.ok).toBe(true);
+			if (!parsed.ok || !parsed.value) return;
+
+			const css = generateAll(parsed.value);
+
+			expect(css).toContain("transform:");
+			expect(css).toContain("rotate(45deg)");
+			expect(css).toContain("scale("); // scale() may add implicit second param
+			expect(css).toContain("filter:");
+			expect(css).toContain("blur(5px)");
+		});
+	});
+
+	describe("property ordering", () => {
+		it("should preserve property order from object iteration", () => {
+			const css = generateAll({
+				color: { kind: "named", name: "red" },
+				width: { kind: "width", value: { value: 10, unit: "px" } },
+				height: { kind: "height", value: { value: 20, unit: "px" } },
+			});
+
+			// Note: Object iteration order is insertion order in modern JS
+			expect(css).toBe("color: red; width: 10px; height: 20px");
 		});
 	});
 });

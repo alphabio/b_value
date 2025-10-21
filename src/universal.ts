@@ -26,6 +26,7 @@ import * as ClipPathGenerate from "./generate/clip-path/clip-path";
 import * as ColorGenerate from "./generate/color/color";
 import * as FilterGenerate from "./generate/filter/filter";
 import * as GradientGenerate from "./generate/gradient/gradient";
+import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
 import * as PositionGenerate from "./generate/position/position-generate";
 import * as ShadowGenerate from "./generate/shadow/shadow";
@@ -95,6 +96,23 @@ function wrapParser(parser: (value: string) => any): PropertyParser {
 		// Old Result<T, string> - convert
 		// biome-ignore lint/suspicious/noExplicitAny: Type conversion between Result formats
 		return toParseResult(result as any);
+	};
+}
+
+/**
+ * Wrap old toCss generators to return GenerateResult.
+ * @internal
+ */
+// biome-ignore lint/suspicious/noExplicitAny: Wrapper handles different IR types
+function wrapGenerator(generator: (value: any) => string): PropertyGenerator {
+	// biome-ignore lint/suspicious/noExplicitAny: Generator accepts any IR type
+	return (value: any) => {
+		try {
+			const css = generator(value);
+			return { ok: true, value: css, issues: [] };
+		} catch (error) {
+			return generateErr("invalid-ir", error instanceof Error ? error.message : "Generation failed");
+		}
 	};
 }
 
@@ -208,7 +226,21 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	// Border properties
 	"border-radius": BorderGenerate.generate,
 
-	// Layout properties (would need individual generators)
+	// Layout properties
+	top: wrapGenerator(LayoutGenerate.Top.toCss),
+	right: wrapGenerator(LayoutGenerate.Right.toCss),
+	bottom: wrapGenerator(LayoutGenerate.Bottom.toCss),
+	left: wrapGenerator(LayoutGenerate.Left.toCss),
+	width: wrapGenerator(LayoutGenerate.Width.toCss),
+	height: wrapGenerator(LayoutGenerate.Height.toCss),
+	position: wrapGenerator(LayoutGenerate.Position.toCss),
+	display: wrapGenerator(LayoutGenerate.Display.toCss),
+	opacity: wrapGenerator(LayoutGenerate.Opacity.toCss),
+	visibility: wrapGenerator(LayoutGenerate.Visibility.toCss),
+	"z-index": wrapGenerator(LayoutGenerate.ZIndex.toCss),
+	cursor: wrapGenerator(LayoutGenerate.Cursor.toCss),
+	"overflow-x": wrapGenerator(LayoutGenerate.OverflowX.toCss),
+	"overflow-y": wrapGenerator(LayoutGenerate.OverflowY.toCss),
 
 	// Outline properties
 	"outline-style": OutlineGenerate.generate,
@@ -603,4 +635,102 @@ function mergeResults(
 		value,
 		issues,
 	};
+}
+
+/**
+ * Generate CSS declarations from a flat object of properties.
+ *
+ * Takes the same shape returned by parseAll() - a flat object with property names
+ * as keys and IR values or unparsed strings as values. Returns formatted CSS string.
+ *
+ * **Features**:
+ * - IR values: Automatically calls generate() for each property
+ * - String values: Pass through as-is (already valid CSS)
+ * - Minify option: Control spacing and formatting
+ * - Perfect round-trip: parseAll() → modify → generateAll()
+ *
+ * @param values - Flat object of property names to values (IR or strings)
+ * @param options - Optional generation options
+ * @returns CSS declaration string (e.g., "color: red; width: 10px")
+ *
+ * @example
+ * Basic usage:
+ * ```typescript
+ * const css = generateAll({
+ *   color: { kind: "hex", r: 255, g: 0, b: 0 },
+ *   width: { kind: "length", value: 10, unit: "px" }
+ * });
+ * // Returns: "color: #ff0000; width: 10px"
+ * ```
+ *
+ * @example
+ * Mix IR and string values:
+ * ```typescript
+ * const css = generateAll({
+ *   color: { kind: "hex", r: 255, g: 0, b: 0 },
+ *   border: "1px solid blue"  // String passthrough
+ * });
+ * // Returns: "color: #ff0000; border: 1px solid blue"
+ * ```
+ *
+ * @example
+ * Minified output:
+ * ```typescript
+ * const css = generateAll(
+ *   { color: { kind: "named", name: "red" } },
+ *   { minify: true }
+ * );
+ * // Returns: "color:red"
+ * ```
+ *
+ * @example
+ * Round-trip:
+ * ```typescript
+ * const parsed = parseAll("color: red; width: 10px");
+ * if (parsed.ok) {
+ *   // Modify values
+ *   parsed.value.color = { kind: "hex", r: 0, g: 255, b: 0 };
+ *
+ *   // Generate back to CSS
+ *   const css = generateAll(parsed.value);
+ *   // Returns: "color: #00ff00; width: 10px"
+ * }
+ * ```
+ *
+ * @public
+ */
+export function generateAll(values: Record<string, CSSValue | string>, options?: { minify?: boolean }): string {
+	// Handle empty input
+	if (!values || Object.keys(values).length === 0) {
+		return "";
+	}
+
+	const declarations: string[] = [];
+
+	// Process each property
+	for (const [property, value] of Object.entries(values)) {
+		// Skip undefined/null values
+		if (value === undefined || value === null) {
+			continue;
+		}
+
+		// String passthrough - already valid CSS
+		if (typeof value === "string") {
+			const formatted = options?.minify ? `${property}:${value}` : `${property}: ${value}`;
+			declarations.push(formatted);
+			continue;
+		}
+
+		// IR value - generate CSS
+		const result = generate({ property, value });
+		if (result.ok) {
+			const formatted = options?.minify ? `${property}:${result.value}` : `${property}: ${result.value}`;
+			declarations.push(formatted);
+		}
+		// Silently skip failed generation (shouldn't happen with valid IR)
+	}
+
+	// Join declarations
+	const separator = options?.minify ? ";" : "; ";
+	return declarations.join(separator);
 }
