@@ -1,6 +1,7 @@
 // b_path:: src/generate/clip-path/index.ts
 
 export * as Circle from "./circle";
+export { generate } from "./clip-path";
 export * as Ellipse from "./ellipse";
 export * as GeometryBox from "./geometry-box";
 export * as Inset from "./inset";
