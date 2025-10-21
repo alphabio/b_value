@@ -1,158 +1,207 @@
-<!-- LAST UPDATED: 2025-10-21T03:08:00 -->
+<!-- LAST UPDATED: 2025-10-21T03:22:00 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-21 Phase 0.5 Attempt 1 (FAILED - Reverted)  
-**Status**: 🔴 **RECOVERED** - Clean baseline restored  
+**Last Session**: 2025-10-21 Phase 0.5 Design (APPROVED ⭐)  
+**Status**: 🎨 **AUTHORITATIVE DESIGN** - Ready for Implementation  
 **Tests**: 2406 passing (baseline green ✅)  
-**Next**: 🚀 **Phase 0.5 v2 - Start Fresh with Correct Pattern**
+**Next**: 🚀 **Phase 0.5a - Create ParseResult Type**
 
-**👉 READ FIRST**: `.memory/archive/2025-10-21-phase0.5-v2/POST_MORTEM.md`  
-**👉 THEN READ**: `.memory/archive/2025-10-21-phase0.5-v2/MASTER_PLAN.md`
-
----
-
-## 💥 Previous Session Failed
-
-**What happened**: Implemented wrong pattern with type errors (19 errors)  
-**Recovery**: Reverted 3 commits, cleaned up 16 files  
-**Lesson**: Study existing code BEFORE implementing!
-
-**Key mistakes**:
-1. Used `Result<any, string>` instead of proper types
-2. Added `issues` field not in Result<T, E> type
-3. Used property-name routing (wrong abstraction level)
-4. Didn't follow Color/ClipPath pattern
-
-**All fixed**: Back to commit 632c661, baseline green ✅
+**👉 READ**: `.memory/archive/2025-10-21-phase0.5-v2/MASTER_PLAN.md` ← AUTHORITATIVE
 
 ---
 
-## 🎯 Phase 0.5: Module API Unification (v2)
+## ⭐ APPROVED DESIGN
 
-**Goal**: Add unified `parse()` to 7 modules  
-**Pattern**: Copy Color/ClipPath (try-all, no property routing)  
-**Timeline**: 3-5 hours (testing after each module)
+**User decision**: "LOVE THIS: universal return type for clients, internal types for implementation"
 
-### The Correct Pattern
+**What we're building**:
 
 ```typescript
-// ✅ Module API (what we're building)
-export function parse(value: string): Result<Type.Animation.Kinds, string> {
-  const delay = Delay.parse(value);
-  if (delay.ok) return delay;
-  
-  const duration = Duration.parse(value);
-  if (duration.ok) return duration;
-  // ... try all parsers
-  
-  return err("No animation value matched");
-}
+// ALL public parsers return ParseResult<T>
+const {ok, value, property, issues} = Parse.Color.parse("#ff0000")
+const {ok, value, property, issues} = Parse.Animation.parse("100ms")
+const {ok, value, property, issues} = parse("color: #ff0000")  // Phase 1
 ```
 
-**NOT this** (that's Phase 1 - Universal API):
+**Architecture**:
+- **Internal**: `Result<T, E>` (simple, fast) - for implementation
+- **Public**: `ParseResult<T>` (rich, consistent) - client-facing API
+
+---
+
+## 🎯 ParseResult Type
+
 ```typescript
-// ❌ Wrong - property routing is for Universal API
-export function parse(property: string, value: string) {
-  switch (property) {
-    case 'animation-delay': return Delay.parse(value);
+export type ParseResult<T = unknown> = {
+  ok: boolean           // Success flag
+  value?: T             // Parsed value
+  property?: string     // Property name (when available)
+  issues: Issue[]       // Always present, empty if no issues
+}
+
+export type Issue = {
+  severity: 'error' | 'warning' | 'info'
+  message: string
+  suggestion?: string   // How to fix
+  action?: string       // Code snippet
+  location?: {
+    offset: number
+    length: number
   }
 }
 ```
+
+**Benefits**:
+- ✅ Single consistent type everywhere
+- ✅ Rich error messages with suggestions
+- ✅ Warnings don't block parsing
+- ✅ Property tracking (when available)
+- ✅ Foundation for LSP/diagnostics
 
 ---
 
 ## 📋 Implementation Plan
 
-### Phase 1: Simple Modules (2-3 hours)
+### Phase 0.5a: Create ParseResult Type (1 hour) ← START HERE
 
-1. ✅ **Shadow** (2 parsers) - 15 min ← START HERE
-2. **Outline** (3 parsers) - 15 min
-3. **Transition** (4 parsers) - 20 min
-4. **Animation** (8 parsers) - 30 min
+1. Add types to `src/core/result.ts`
+2. Add helper functions (parseOk, parseErr, toParseResult, etc.)
+3. Export from `src/index.ts`
+4. Run `just check && just test` (must pass)
+5. Commit: `feat(core): add ParseResult type for universal public API`
 
-### Phase 2: Delegating Modules (1-2 hours)
+### Phase 0.5b: Create 7 Module Parsers (3-4 hours)
 
-5. **Text** (7 parsers, delegates to Color)
-6. **Background** (5 parsers, delegates to Color/Gradient)
-7. **Border** (4 parsers, delegates to Color)
+1. Shadow (2 parsers) - 20 min
+2. Outline (3 parsers) - 20 min
+3. Transition (4 parsers) - 25 min
+4. Animation (8 parsers) - 35 min
+5. Text (7 parsers) - 30 min
+6. Background (5 parsers) - 30 min
+7. Border (4 parsers) - 30 min
 
-### Phase 3: Complex Module (skip for now)
+**Per module**: Create → Test → Export → Check → Commit
 
-8. **Layout** - SKIP (17+ parsers, handle separately)
+### Phase 0.5c: Update 4 Existing Modules (2 hours)
+
+1. Color (12 formats) - 30 min
+2. ClipPath (10 shapes) - 30 min
+3. Filter (11 functions) - 30 min
+4. Gradient (6 types) - 30 min
+
+**Upgrade to ParseResult for consistency**
+
+**Total**: 6-7 hours, 60-90 new tests
+
+---
+
+## 🚀 Quick Start (Phase 0.5a)
+
+```bash
+# 1. Open result.ts
+code src/core/result.ts
+
+# 2. Add ParseResult type and helpers
+# (See MASTER_PLAN.md Phase 0.5a section for exact code)
+
+# 3. Export from public API
+code src/index.ts
+# Add exports for ParseResult, Issue, parseOk, parseErr, etc.
+
+# 4. Verify baseline
+just check && just test
+
+# 5. Commit
+git add -A
+git commit -m "feat(core): add ParseResult type for universal public API"
+```
+
+**Then move to Phase 0.5b** (Shadow module first)
+
+---
+
+## 📊 Example Usage
+
+**Success case**:
+```typescript
+const result = Parse.Color.parse("#ff0000");
+// {
+//   ok: true,
+//   value: { kind: "hex", r: 255, g: 0, b: 0, a: 1 },
+//   property: undefined,
+//   issues: []
+// }
+```
+
+**Error with suggestion**:
+```typescript
+const result = Parse.Color.parse("bad-color");
+// {
+//   ok: false,
+//   value: undefined,
+//   property: undefined,
+//   issues: [{
+//     severity: "error",
+//     message: "No color format matched",
+//     suggestion: "Expected hex (#fff), rgb(), hsl(), or named color"
+//   }]
+// }
+```
+
+**Success with warning**:
+```typescript
+const result = parse("color: rgb(255, 0, 0)");
+// {
+//   ok: true,
+//   value: { kind: "rgb", ... },
+//   property: "color",
+//   issues: [{
+//     severity: "warning",
+//     message: "Legacy rgb() syntax",
+//     suggestion: "Consider modern syntax: rgb(255 0 0)"
+//   }]
+// }
+```
 
 ---
 
 ## ✅ Critical Rules
 
-### Type System
-- ✅ Use `Result<Type.Module.Kinds, string>`
-- ❌ Never use `Result<any, string>`
-- ❌ Don't add fields to Result type
-- ✅ Simple error strings: `err("message")`
+**Type System**:
+- ✅ Public API returns `ParseResult<T>`
+- ✅ Internal parsers can keep `Result<T, E>`
+- ✅ Convert at boundary with `parseOk()` / `parseErr()`
+- ❌ Never use `any` types
 
-### Architecture
-- ✅ Module API: `parse(value: string)`
-- ❌ NOT: `parse(property: string, value: string)`
-- ✅ Try-all pattern (like Color/ClipPath)
-- ❌ NOT: property-name routing
+**Error Messages**:
+- ✅ Always provide suggestions
+- ✅ Issues always present (empty array if none)
+- ✅ Property tracking when available
 
-### Workflow
-1. Create file with parse() function
-2. Add tests
-3. Export from index.ts
-4. Run `just check` ← Must pass!
-5. Run `just test` ← Must pass!
-6. Commit when green
-7. **One module at a time!**
+**Testing**:
+- ✅ Test success case (check issues=[])
+- ✅ Test error case (check issues array)
+- ✅ Test each sub-parser path
 
----
-
-## 🚀 Next Steps
-
-```bash
-# 1. Check Shadow module structure
-ls -la src/parse/shadow/
-
-# 2. Study existing pattern
-cat src/parse/color/color.ts
-
-# 3. Create shadow.ts with parse()
-# (See MASTER_PLAN.md for exact code pattern)
-
-# 4. Test incrementally
-just check && just test
-
-# 5. Commit when green
-git add -A && git commit -m "feat(shadow): add unified parse() dispatcher"
-```
+**Workflow**:
+- ✅ One module at a time
+- ✅ Run `just check` after each file
+- ✅ Run `just test` before commit
+- ✅ Commit only when green
 
 ---
 
-## 📚 Session Documents
+## 📚 Documentation
 
-**Location**: `.memory/archive/2025-10-21-phase0.5-v2/`
-- **POST_MORTEM.md** - What went wrong & lessons
-- **MASTER_PLAN.md** - Complete implementation guide
+**Authoritative source**: `.memory/archive/2025-10-21-phase0.5-v2/MASTER_PLAN.md`
 
----
+**Additional docs**:
+- `UNIVERSAL_TYPE_DECISION.md` - Design rationale
+- `API_DESIGN_CLARIFICATION.md` - Two-tier architecture
+- `POST_MORTEM.md` - Previous session lessons
 
-## ⚠️ CRITICAL: LONGHAND PROPERTIES ONLY
-
-**b_value ONLY handles LONGHAND property values.**
-
-❌ **NOT SUPPORTED** (shorthands):
-- `border: 1px solid red` ← NO! Use `border-width`, `border-style`, `border-color`
-- `margin: 10px 20px` ← NO! Use `margin-top`, `margin-right`, etc.
-- `background: red url(...)` ← NO! Use `background-color`, `background-image`, etc.
-
-✅ **SUPPORTED** (longhands):
-- `border-width: 1px` ← YES!
-- `border-color: red` ← YES!
-- `margin-top: 10px` ← YES!
-- `background-color: red` ← YES!
-
-**Shorthand expansion** = Different library (**b_short**)
+**Session**: `.memory/archive/2025-10-21-phase0.5-v2/`
 
 ---
 
@@ -162,15 +211,29 @@ git add -A && git commit -m "feat(shadow): add unified parse() dispatcher"
 ```bash
 just check                 # Format + typecheck + lint
 just test                  # All tests (2406 passing)
-pnpm test -- shadow        # Test specific module
+pnpm test -- animation     # Test specific module
 ```
 
 ### Baseline Status
 - ✅ Tests: 2406 passing
 - ✅ TypeScript: 0 errors
 - ✅ Lint: Clean
-- ✅ Format: Clean
+- ✅ Commit: 632c661 (good state)
 
 ---
 
-**Next Agent**: Start with Shadow module - follow MASTER_PLAN.md exactly! 🎯
+## ⚠️ LONGHAND PROPERTIES ONLY
+
+**b_value ONLY handles LONGHAND property values.**
+
+❌ `border: 1px solid red` (shorthand)  
+✅ `border-width: 1px` (longhand)  
+✅ `border-color: red` (longhand)
+
+**Shorthand expansion** = Different library (**b_short**)
+
+---
+
+**Next Agent**: Start Phase 0.5a - Create ParseResult type! 🚀
+
+Follow MASTER_PLAN.md exactly. This is the authoritative document. ⭐

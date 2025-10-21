@@ -1,7 +1,7 @@
 # Post-Mortem Analysis + Recovery
 
-**Analysis Date**: 2025-10-21T03:07:00  
-**Previous Session**: FAILED - 19 TypeScript errors  
+**Analysis Date**: 2025-10-21T03:07:00
+**Previous Session**: FAILED - 19 TypeScript errors
 **Current Status**: ✅ REVERTED - Clean baseline restored
 
 ---
@@ -26,7 +26,7 @@ return {
 
 ```typescript
 // ✅ Actual Result<T, E> type (from src/core/result.ts)
-type Result<T, E> = 
+type Result<T, E> =
   | { ok: true; value: T; error: undefined }
   | { ok: false; value: undefined; error: E };  // Just 'error', no 'issues'
 ```
@@ -52,7 +52,7 @@ export const parse = (property: string, value: string) => {
 export const parse = (value: string) => {
   const delay = Delay.parse(value);
   if (delay.ok) return delay;
-  
+
   const duration = Duration.parse(value);
   if (duration.ok) return duration;
   // ...
