@@ -34,6 +34,12 @@ export * as Contrast from "./contrast";
  */
 export * as DropShadow from "./drop-shadow";
 /**
+ * Unified filter dispatcher with auto-detection.
+ *
+ * @see {@link module:Parse.Filter}
+ */
+export { parse, parseNode } from "./filter";
+/**
  * Parse grayscale filter functions.
  *
  * @see {@link Grayscale.parse}
