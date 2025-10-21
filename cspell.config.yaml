@@ -9,10 +9,12 @@ words:
   - evenodd
   - Flexbox
   - grayscale
+  - justfile
   - mynew
   - oklab
   - oklch
   - oneline
+  - parseable
   - prophoto
   - rebeccapurple
   - reparsed
