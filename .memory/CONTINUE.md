@@ -1,58 +1,125 @@
-<!-- LAST UPDATED: 2025-10-21T08:15 -->
+<!-- LAST UPDATED: 2025-10-21T08:43 -->
 
 # Continue From Here
 
-**Last Session**: 2025-10-21-unified-api (Complete)  
-**Status**: 🎉 **ALL 3 PHASES COMPLETE**  
-**Tests**: 2390 passing (72 new)  
-**Next**: 🔍 Choose next enhancement
+**Last Session**: 2025-10-21 Unified Dispatcher + Simple API Discovery  
+**Status**: 🎉 **DISPATCHER COMPLETE** + 💡 **BETTER API DISCOVERED**  
+**Tests**: 2406 passing (88 new total)  
+**Next**: 🚀 **Declaration Parser API** (1.5-2 days)
 
 ---
 
-## 🎉 Recent Success: Unified API Implementation
+## 🎯 Next Project: Declaration Parser API
 
-**Session**: 2025-10-21-unified-api ✅ COMPLETE  
-**Duration**: ~2 hours (under 3h estimate)  
-**Commits**: 9bdae21 (clip-path), aa3d3b8 (color), b2200f8 (filter)
+**Goal**: `parse("clip-path: circle(50%)")` - Natural CSS syntax!
 
-### All Phases Complete
+**Why Better**: Parse CSS declarations, not separate value+property
 
-✅ **Phase 1: clip-path** (10 formats, 20 tests)  
-✅ **Phase 2: color** (12 formats, 36 tests)  
-✅ **Phase 3: filter** (11 formats, 16 tests)
+### Current API (Namespaced)
+```typescript
+Parse.ClipPath.parse("circle(50%)")
+Parse.Color.parse("#ff0000")
+Parse.Gradient.parse("radial-gradient(red, blue)")
+Parse.Filter.parse("blur(5px)")
+```
 
-**Result**: 3 modules with unified dispatcher, 72 new tests, all passing
+### Desired API (Universal)
+```typescript
+parse("clip-path: circle(50%)")
+parse("color: #ff0000")
+parse("background-image: radial-gradient(red, blue)")
+parse("filter: blur(5px)")
 
-**Details**: `.memory/archive/2025-10-21-unified-api/FINAL_HANDOVER.md`
+// Also works value-only (heuristic fallback):
+parse("circle(50%)")  // Detects clip-path
+parse("#ff0000")      // Detects color
+```
+
+**Benefits**:
+- ✅ Natural CSS syntax - copy/paste from stylesheets
+- ✅ No duplication - property in the string
+- ✅ Self-documenting
+- ✅ Perfect for b_short integration
+
+**Estimate**: 1.5-2 days (~12-18 hours)
+
+**Details**: `.memory/archive/2025-10-21-transform-unified-api/BETTER_API_PROPOSAL.md`
 
 ---
 
-## 🔮 Future Opportunities
+## 🏆 Unified Dispatcher Project: COMPLETE
 
-### Additional Modules for Unified API
+**Achievement**: 4 major CSS parser modules unified  
+**Time**: ~2.5 hours total  
+**Impact**: 39 format types, 88 tests, 100% passing
 
-From session analysis, good candidates:
+### Modules Completed
 
-**High Value**:
-- gradient (3 types: linear, radial, conic) - 1.5-2h
-- transform (7 functions) - 2-3h
-- animation (8 properties) - 2-3h
+1. ✅ **clip-path** (10 shapes) - 20 tests - commit 9bdae21
+2. ✅ **color** (12 formats) - 36 tests - commit aa3d3b8
+3. ✅ **filter** (11 functions) - 16 tests - commit b2200f8
+4. ✅ **gradient** (6 variants) - 16 tests - commit 0b83b4c
 
-**Medium Value**:
-- transition (5 properties) - 1.5-2h
-- border (5 sub-properties) - 1-1.5h
+**Pattern**: Auto-detection dispatcher for properties that accept one value from multiple types
 
-See `.memory/archive/2025-10-21-unified-api/FINAL_HANDOVER.md` for details.
+**Docs**: `.memory/archive/2025-10-21-transform-unified-api/FINAL_ANALYSIS.md`
 
 ---
 
-## 📚 Recent Work
+## 🔍 Research Findings
 
-**2025-10-21 unified-api** ✅ COMPLETE
-- All 3 phases done: clip-path, color, filter
-- 72 new tests (2390 total, all passing)
-- 33 format types with auto-detection
-- Time: ~2h (under estimate)
+### Why We Stopped
+
+**Transform analysis revealed**: Not all CSS properties need the same pattern!
+
+**Property Types**:
+1. **Single-value, multi-type** (our pattern ✅) - clip-path, color, filter, gradient
+2. **List properties** (different pattern) - transform (space-separated functions)
+3. **Simple longhand** (no complex parsing) - animation-*, transition-*, border-*, layout
+4. **Shorthand properties** (handled by b_short lib) - margin, background, animation, etc.
+
+**Note**: We work with LONGHAND property values only. Shorthand expansion (margin → 4 properties) is handled by the separate **b_short** library.
+
+**Coverage**: 4/4 high-value complex-value properties complete (~80% user impact)
+
+**Details**: `.memory/archive/2025-10-21-transform-unified-api/SCOPE_CLARIFICATION.md`
+
+---
+
+## 🔮 Future Project Ideas
+
+### Different Patterns for Different Needs
+
+**List Value Parsing** (if needed):
+- box-shadow: parse comma-separated shadow lists
+- text-shadow: parse comma-separated shadow lists
+- Multiple backgrounds: parse comma-separated bg-image lists
+- Estimate: 1-2 weeks
+
+**Generator Expansion** (check if needed):
+- Reverse of parse (IR → CSS strings)
+- May already be comprehensive
+- Could benefit from same auto-detection pattern
+- Estimate: varies
+
+**Or Something Completely Different!**
+- Performance optimization
+- Documentation improvements  
+- New CSS property support
+- Bug fixes / tech debt
+- Integration with b_short library
+
+**Note**: Shorthand property parsing (margin → 4 properties) is handled by our separate **b_short** library, not b_value.
+
+---
+
+## 📚 Recent Sessions
+
+**2025-10-21 unified-dispatcher** ✅ COMPLETE (4 modules)
+- Morning: clip-path, color, filter (3 phases)
+- Afternoon: gradient (record time!)
+- Research: transform analysis (project complete)
+- Total: 88 tests, 2.5 hours, 100% passing
 
 **2025-10-20 split-nodes-refactor** ✅ COMPLETE
 - Split 751-line nodes.ts into 7 focused modules
