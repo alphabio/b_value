@@ -1,3 +1,4 @@
+export { generate } from "./filter";
 // b_path:: src/generate/filter/index.ts
 
 /**
