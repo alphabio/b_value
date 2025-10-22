@@ -42,9 +42,11 @@ Attempted to increase test coverage from 60.94% → 90% by creating generator te
 - Don't follow the standard `generate()` pattern
 
 **DO** focus on:
-- Implementing remaining properties per `ROADMAP.md`
-- Following existing patterns in `src/generate/` and `src/parse/`
-- Letting coverage improve naturally as properties are added
+- **ACHIEVING 90%+ COVERAGE** - this is the PRIMARY goal
+- Testing utils/generate and utils/parse (lowest coverage)
+- Testing complex parsers (transform, shadow, text)
+- Testing typography parsers (many at 0%)
+- Following existing test patterns in test/ directory
 
 ---
 
