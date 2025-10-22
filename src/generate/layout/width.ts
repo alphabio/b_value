@@ -43,5 +43,5 @@ export function generate(width: Width): GenerateResult {
 	if (typeof width.value === "string") {
 		return generateOk(width.value);
 	}
-	return GenUtils.lengthPercentageToCss(width.value);
+	return generateOk(GenUtils.lengthPercentageToCss(width.value));
 }

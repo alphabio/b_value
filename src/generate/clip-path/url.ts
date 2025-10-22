@@ -1,6 +1,6 @@
 // b_path:: src/generate/clip-path/url.ts
 
-import { type GenerateResult, generateErr } from "@/core/result";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Url } from "@/core/types/url";
 import { urlToCss } from "@/utils/generate/url";
 
@@ -31,5 +31,5 @@ export function generate(value: Url): GenerateResult {
 	if (value === undefined || value === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return urlToCss(value);
+	return generateOk(urlToCss(value));
 }

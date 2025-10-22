@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import * as Parse from "../../parse/color/color-function";
 import * as Generate from "./color-function";
 
-describe("toCss() - color() function generator", () => {
+describe("generate() - color() function generator", () => {
 	describe("Basic Generation", () => {
 		test("srgb color space", () => {
 			const css = Generate.generate({

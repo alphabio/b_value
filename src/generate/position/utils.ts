@@ -80,7 +80,7 @@ export function to3DCss(ir: Type.Position3D): GenerateResult {
  * @public
  */
 export function toListCss(ir: Type.PositionList): GenerateResult {
-	const positionStrings = ir.map(toCss);
+	const positionStrings = ir.map(generate);
 	return generateOk(positionStrings.join(", "));
 }
 
@@ -94,5 +94,5 @@ export function toListCss(ir: Type.PositionList): GenerateResult {
  */
 export function fromCommonPosition(preset: keyof Type.CommonPositions): GenerateResult {
 	const position = Type.COMMON_POSITIONS[preset];
-	return toCss(position);
+	return generate(position);
 }

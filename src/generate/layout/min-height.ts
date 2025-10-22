@@ -21,5 +21,5 @@ export function generate(minHeight: MinHeight): GenerateResult {
 	if (typeof minHeight.value === "string") {
 		return generateOk(minHeight.value);
 	}
-	return GenUtils.lengthPercentageToCss(minHeight.value);
+	return generateOk(GenUtils.lengthPercentageToCss(minHeight.value));
 }

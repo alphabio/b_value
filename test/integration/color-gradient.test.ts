@@ -28,7 +28,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(#FF0000, rgb(0 255 0))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("linear-gradient(#FF0000, rgb(0 255 0))");
 			}
 		});
 
@@ -51,7 +56,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(red, hsl(120 100% 50%))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("linear-gradient(red, hsl(120 100% 50%))");
 			}
 		});
 
@@ -76,7 +86,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(oklch(0.5 0.2 180), lab(50 -20 30))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("linear-gradient(oklch(0.5 0.2 180), lab(50 -20 30))");
 			}
 		});
 
@@ -97,7 +112,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(transparent, currentcolor)");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("linear-gradient(transparent, currentcolor)");
 			}
 		});
 
@@ -130,7 +150,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(hwb(120 20% 30%) 0%, lch(50 50 180) 100%)");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("linear-gradient(hwb(120 20% 30%) 0%, lch(50 50 180) 100%)");
 			}
 		});
 	});
@@ -155,7 +180,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = RadialGenerate.generate(result.value);
-				expect(css).toBe("radial-gradient(circle, rgb(255 0 0), #0000FF)");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("radial-gradient(circle, rgb(255 0 0), #0000FF)");
 			}
 		});
 
@@ -180,7 +210,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = RadialGenerate.generate(result.value);
-				expect(css).toBe("radial-gradient(oklab(0.5 -0.2 0.3), hsl(240 100% 50%))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("radial-gradient(oklab(0.5 -0.2 0.3), hsl(240 100% 50%))");
 			}
 		});
 	});
@@ -209,7 +244,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = ConicGenerate.generate(result.value);
-				expect(css).toBe("conic-gradient(#FF0000, blue, rgb(0 255 0))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("conic-gradient(#FF0000, blue, rgb(0 255 0))");
 			}
 		});
 
@@ -242,7 +282,12 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = ConicGenerate.generate(result.value);
-				expect(css).toBe("conic-gradient(oklch(0.5 0.2 180) 0deg, lab(50 -20 30) 90deg)");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe("conic-gradient(oklch(0.5 0.2 180) 0deg, lab(50 -20 30) 90deg)");
 			}
 		});
 	});
@@ -278,7 +323,14 @@ describe("Color-Gradient Integration", () => {
 
 				// Round-trip
 				const css = LinearGenerate.generate(result.value);
-				expect(css).toBe("linear-gradient(rgb(255 0 0 / 0.5), hsl(120 100% 50% / 0.8), oklch(0.5 0.2 180 / 0.3))");
+
+				expect(css.ok).toBe(true);
+
+				if (!css.ok) return;
+
+				expect(css.value).toBe(
+					"linear-gradient(rgb(255 0 0 / 0.5), hsl(120 100% 50% / 0.8), oklch(0.5 0.2 180 / 0.3))",
+				);
 			}
 		});
 	});

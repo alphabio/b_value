@@ -37,5 +37,5 @@ export function generate(top: Top): GenerateResult {
 	if (top.value === "auto") {
 		return generateOk("auto");
 	}
-	return GenUtils.lengthPercentageToCss(top.value);
+	return generateOk(GenUtils.lengthPercentageToCss(top.value));
 }

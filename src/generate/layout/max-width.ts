@@ -21,5 +21,5 @@ export function generate(maxWidth: MaxWidth): GenerateResult {
 	if (typeof maxWidth.value === "string") {
 		return generateOk(maxWidth.value);
 	}
-	return GenUtils.lengthPercentageToCss(maxWidth.value);
+	return generateOk(GenUtils.lengthPercentageToCss(maxWidth.value));
 }

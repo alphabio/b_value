@@ -21,5 +21,5 @@ export function generate(minWidth: MinWidth): GenerateResult {
 	if (typeof minWidth.value === "string") {
 		return generateOk(minWidth.value);
 	}
-	return GenUtils.lengthPercentageToCss(minWidth.value);
+	return generateOk(GenUtils.lengthPercentageToCss(minWidth.value));
 }

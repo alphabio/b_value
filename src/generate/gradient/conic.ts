@@ -19,7 +19,7 @@ function positionToCss(position: Type.Position2D): GenerateResult {
 			: `${position.horizontal.value}${position.horizontal.unit}`;
 	const v =
 		typeof position.vertical === "string" ? position.vertical : `${position.vertical.value}${position.vertical.unit}`;
-	return `${h} ${v}`;
+	return generateOk(`${h} ${v}`);
 }
 
 /**

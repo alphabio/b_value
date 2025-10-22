@@ -65,7 +65,9 @@ export function generate(value: Type.ClipPathEllipse): GenerateResult {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Utils.generate(value.position));
+		const posResult = Generate.Position.Utils.generate(value.position);
+		if (!posResult.ok) return posResult;
+		parts.push(posResult.value);
 	}
 
 	parts.push(")");

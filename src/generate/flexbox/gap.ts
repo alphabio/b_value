@@ -11,5 +11,5 @@ export function generate(ir: Gap): GenerateResult {
 	if (typeof ir.value === "string") {
 		return generateOk(ir.value);
 	}
-	return GenUtils.lengthPercentageToCss(ir.value);
+	return generateOk(GenUtils.lengthPercentageToCss(ir.value));
 }

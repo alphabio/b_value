@@ -27,13 +27,15 @@ export function generate(fontFamily: FontFamily): GenerateResult {
 	if (fontFamily === undefined || fontFamily === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return fontFamily.families
-		.map((family) => {
-			// Quote families with spaces
-			if (family.includes(" ")) {
-				return generateOk(`"${family}"`);
-			}
-			return generateOk(family);
-		})
-		.join(", ");
+	return generateOk(
+		fontFamily.families
+			.map((family) => {
+				// Quote families with spaces
+				if (family.includes(" ")) {
+					return `"${family}"`;
+				}
+				return family;
+			})
+			.join(", "),
+	);
 }

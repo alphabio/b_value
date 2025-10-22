@@ -376,8 +376,10 @@ describe("LCH Color Parser", () => {
 				expect(parseResult.ok).toBe(true);
 				if (parseResult.ok) {
 					expect(parseResult.value).toEqual(expected);
-					const generated = LCHGenerator.toCss(parseResult.value);
-					const reparsed = LCHParser.parse(generated);
+					const generated = LCHGenerator.generate(parseResult.value);
+					expect(generated.ok).toBe(true);
+					if (!generated.ok) return;
+					const reparsed = LCHParser.parse(generated.value);
 					expect(reparsed.ok).toBe(true);
 					if (reparsed.ok) {
 						expect(reparsed.value).toEqual(expected);
