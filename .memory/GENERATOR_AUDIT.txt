@@ -1,0 +1,319 @@
+# Generator Function Audit
+
+## Finding all generator function signatures
+
+## Module: animation
+File: src/generate/animation/play-state.ts
+export function toCss(ir: Type.AnimationPlayState): string {
+File: src/generate/animation/fill-mode.ts
+export function toCss(ir: Type.AnimationFillMode): string {
+File: src/generate/animation/name.ts
+export function toCss(ir: Type.AnimationName): string {
+File: src/generate/animation/delay.ts
+export function toCss(ir: Type.AnimationDelay): string {
+File: src/generate/animation/animation.ts
+export function generate(animation: Animation): GenerateResult {
+File: src/generate/animation/timing-function.ts
+export function toCss(ir: Type.AnimationTimingFunction): string {
+File: src/generate/animation/duration.ts
+export function toCss(ir: Type.AnimationDuration): string {
+File: src/generate/animation/direction.ts
+export function toCss(ir: Type.AnimationDirection): string {
+File: src/generate/animation/iteration-count.ts
+export function toCss(ir: Type.AnimationIterationCount): string {
+
+## Module: background
+File: src/generate/background/clip.ts
+export function toCss(keyword: Keyword.BackgroundClipKeyword): string {
+File: src/generate/background/origin.ts
+export function toCss(keyword: Keyword.VisualBoxKeyword): string {
+File: src/generate/background/position-y.ts
+export function toCss(value: PositionValue): string {
+File: src/generate/background/repeat.ts
+export function toCss(keyword: Keyword.RepeatKeyword): string {
+File: src/generate/background/attachment.ts
+export function toCss(keyword: Keyword.BackgroundAttachmentKeyword): string {
+File: src/generate/background/position-x.ts
+export function toCss(value: PositionValue): string {
+File: src/generate/background/size.ts
+export function toCss(value: BackgroundSizeValue): string {
+
+## Module: border
+File: src/generate/border/border.ts
+export function generate(
+File: src/generate/border/radius.ts
+export function toCss(ir: Type.BorderRadiusValue): string {
+File: src/generate/border/width.ts
+export function toCss(ir: Type.BorderWidthValue): string {
+File: src/generate/border/style.ts
+export function toCss(ir: Type.BorderStyleValue): string {
+File: src/generate/border/color.ts
+export function toCss(ir: Type.BorderColorValue): string {
+
+## Module: clip-path
+File: src/generate/clip-path/geometry-box.ts
+export function toCss(value: ClipPathGeometryBox): string {
+File: src/generate/clip-path/path.ts
+export function toCss(value: Type.ClipPathPath): string {
+File: src/generate/clip-path/ellipse.ts
+export function toCss(value: Type.ClipPathEllipse): string {
+File: src/generate/clip-path/clip-path.ts
+export function generate(clipPath: Type.ClipPathValue): GenerateResult {
+File: src/generate/clip-path/url.ts
+export function toCss(value: Url): string {
+File: src/generate/clip-path/rect.ts
+export function toCss(value: Type.ClipPathRect): string {
+File: src/generate/clip-path/inset.ts
+export function toCss(value: Type.ClipPathInset): string {
+File: src/generate/clip-path/polygon.ts
+export function toCss(polygon: Type.ClipPathPolygon): string {
+File: src/generate/clip-path/circle.ts
+export function toCss(value: Type.ClipPathCircle): string {
+File: src/generate/clip-path/none.ts
+export function toCss(_value: ClipPathNone): string {
+File: src/generate/clip-path/xywh.ts
+export function toCss(value: Type.ClipPathXywh): string {
+
+## Module: color
+File: src/generate/color/lab.ts
+export function toCss(color: LABColor): string {
+File: src/generate/color/named.ts
+export function toCss(color: NamedColor): string {
+File: src/generate/color/special.ts
+export function toCss(color: SpecialColor): string {
+File: src/generate/color/color-function.ts
+export function toCss(value: Type.ColorFunction): string {
+File: src/generate/color/lch.ts
+export function toCss(color: LCHColor): string {
+File: src/generate/color/rgb.ts
+export function toCss(color: RGBColor): string {
+File: src/generate/color/hex.ts
+export function toCss(color: HexColor): string {
+File: src/generate/color/oklab.ts
+export function toCss(color: OKLabColor): string {
+File: src/generate/color/hwb.ts
+export function toCss(color: HWBColor): string {
+File: src/generate/color/oklch.ts
+export function toCss(color: OKLCHColor): string {
+File: src/generate/color/color.ts
+export function generate(color: Type.Color): GenerateResult {
+File: src/generate/color/system.ts
+export function toCss(color: SystemColor): string {
+File: src/generate/color/hsl.ts
+export function toCss(color: HSLColor): string {
+
+## Module: filter
+File: src/generate/filter/contrast.ts
+export function toCss(filter: ContrastFilter): string {
+File: src/generate/filter/brightness.ts
+export function toCss(filter: BrightnessFilter): string {
+File: src/generate/filter/invert.ts
+export function toCss(filter: InvertFilter): string {
+File: src/generate/filter/filter.ts
+export function generate(filter: Type.FilterFunction): GenerateResult {
+File: src/generate/filter/drop-shadow.ts
+export function toCss(filter: DropShadowFilter): string {
+File: src/generate/filter/opacity.ts
+export function toCss(filter: OpacityFilter): string {
+File: src/generate/filter/blur.ts
+export function toCss(filter: BlurFilter): string {
+File: src/generate/filter/url.ts
+export function toCss(filter: UrlFilter): string {
+File: src/generate/filter/saturate.ts
+export function toCss(filter: SaturateFilter): string {
+File: src/generate/filter/sepia.ts
+export function toCss(filter: SepiaFilter): string {
+File: src/generate/filter/grayscale.ts
+export function toCss(filter: GrayscaleFilter): string {
+File: src/generate/filter/hue-rotate.ts
+export function toCss(filter: HueRotateFilter): string {
+
+## Module: flexbox
+File: src/generate/flexbox/justify-content.ts
+export function toCss(ir: JustifyContent): string {
+File: src/generate/flexbox/flex-wrap.ts
+export function toCss(ir: FlexWrap): string {
+File: src/generate/flexbox/align-items.ts
+export function toCss(ir: AlignItems): string {
+File: src/generate/flexbox/gap.ts
+export function toCss(ir: Gap): string {
+File: src/generate/flexbox/flex-basis.ts
+export function toCss(ir: FlexBasis): string {
+File: src/generate/flexbox/align-content.ts
+export function toCss(ir: AlignContent): string {
+File: src/generate/flexbox/flex-shrink.ts
+export function toCss(ir: FlexShrink): string {
+File: src/generate/flexbox/align-self.ts
+export function toCss(ir: AlignSelf): string {
+File: src/generate/flexbox/flex-grow.ts
+export function toCss(ir: FlexGrow): string {
+File: src/generate/flexbox/order.ts
+export function toCss(ir: Order): string {
+File: src/generate/flexbox/flex-direction.ts
+export function toCss(ir: FlexDirection): string {
+
+## Module: gradient
+File: src/generate/gradient/conic.ts
+export function toCss(ir: Type.ConicGradient): string {
+File: src/generate/gradient/radial.ts
+export function toCss(ir: Type.RadialGradient): string {
+File: src/generate/gradient/gradient.ts
+export function generate(gradient: Type.Gradient): GenerateResult {
+File: src/generate/gradient/linear.ts
+export function toCss(ir: Type.LinearGradient): string {
+File: src/generate/gradient/color-stop.ts
+export function toCss(ir: Type.ColorStop): string {
+
+## Module: interaction
+File: src/generate/interaction/pointer-events.ts
+export function toCss(pointerEvents: PointerEvents): string {
+File: src/generate/interaction/user-select.ts
+export function toCss(userSelect: UserSelect): string {
+
+## Module: layout
+File: src/generate/layout/float.generate.ts
+export function toCss(float: Float): string {
+File: src/generate/layout/padding-bottom.ts
+export function toCss(paddingBottom: PaddingBottom): string {
+File: src/generate/layout/cursor.ts
+export function toCss(cursor: Cursor): string {
+File: src/generate/layout/min-width.ts
+export function toCss(minWidth: MinWidth): string {
+File: src/generate/layout/overflow.generate.ts
+export function toCss(overflow: Overflow): string {
+File: src/generate/layout/visibility.ts
+export function toCss(visibility: Visibility): string {
+File: src/generate/layout/padding-top.ts
+export function toCss(paddingTop: PaddingTop): string {
+File: src/generate/layout/padding-right.ts
+export function toCss(paddingRight: PaddingRight): string {
+File: src/generate/layout/z-index.ts
+export function toCss(zIndex: ZIndex): string {
+File: src/generate/layout/opacity.ts
+export function toCss(opacity: Opacity): string {
+File: src/generate/layout/width.ts
+export function toCss(width: Width): string {
+File: src/generate/layout/min-height.ts
+export function toCss(minHeight: MinHeight): string {
+File: src/generate/layout/overflow-x.ts
+export function toCss(overflowX: OverflowX): string {
+File: src/generate/layout/position.ts
+export function toCss(position: PositionProperty): string {
+File: src/generate/layout/max-width.ts
+export function toCss(maxWidth: MaxWidth): string {
+File: src/generate/layout/margin-left.ts
+export function toCss(marginLeft: MarginLeft): string {
+File: src/generate/layout/overflow-y.ts
+export function toCss(overflowY: OverflowY): string {
+File: src/generate/layout/margin-top.ts
+export function toCss(marginTop: MarginTop): string {
+File: src/generate/layout/display.ts
+export function toCss(display: Display): string {
+File: src/generate/layout/top.ts
+export function toCss(top: Top): string {
+File: src/generate/layout/right.ts
+export function toCss(right: Right): string {
+File: src/generate/layout/margin-bottom.ts
+export function toCss(marginBottom: MarginBottom): string {
+File: src/generate/layout/bottom.ts
+export function toCss(bottom: Bottom): string {
+File: src/generate/layout/max-height.ts
+export function toCss(maxHeight: MaxHeight): string {
+File: src/generate/layout/clear.generate.ts
+export function toCss(clear: Clear): string {
+File: src/generate/layout/margin-right.ts
+export function toCss(marginRight: MarginRight): string {
+File: src/generate/layout/height.ts
+export function toCss(height: Height): string {
+File: src/generate/layout/left.ts
+export function toCss(left: Left): string {
+File: src/generate/layout/box-sizing.ts
+export function toCss(boxSizing: BoxSizing): string {
+File: src/generate/layout/padding-left.ts
+export function toCss(paddingLeft: PaddingLeft): string {
+
+## Module: outline
+File: src/generate/outline/width.ts
+export function toCss(ir: Type.OutlineWidthValue): string {
+File: src/generate/outline/outline.ts
+export function generate(
+File: src/generate/outline/offset.ts
+export function toCss(ir: Type.OutlineOffsetValue): string {
+File: src/generate/outline/style.ts
+export function toCss(ir: Type.OutlineStyleValue): string {
+File: src/generate/outline/color.ts
+export function toCss(ir: Type.OutlineColorValue): string {
+
+## Module: position
+File: src/generate/position/position.ts
+export function generate(position: Type.Position2D): GenerateResult {
+File: src/generate/position/utils.ts
+export function toCss(ir: Type.Position2D): string {
+
+## Module: shadow
+File: src/generate/shadow/shadow.ts
+export function generate(shadow: Type.BoxShadow | Type.TextShadow): GenerateResult {
+File: src/generate/shadow/text-shadow.ts
+export function toCss(shadow: TextShadow): string {
+File: src/generate/shadow/box-shadow.ts
+export function toCss(shadow: BoxShadow): string {
+
+## Module: text
+File: src/generate/text/line.ts
+export function toCss(keyword: Keyword.TextDecorationLineKeyword): string {
+File: src/generate/text/style.ts
+export function toCss(keyword: Keyword.TextDecorationStyleKeyword): string {
+File: src/generate/text/color.ts
+export function toCss(color: Color): string {
+File: src/generate/text/thickness.ts
+export function toCss(value: TextDecorationThicknessValue): string {
+
+## Module: transform
+File: src/generate/transform/origin.ts
+export function toCss(ir: Type.Position2D | Type.Position3D): string {
+File: src/generate/transform/transform.ts
+export function generate(transform: Type.Transform): GenerateResult {
+File: src/generate/transform/utils.ts
+export function toCss(ir: Type.Transform): string {
+
+## Module: transition
+File: src/generate/transition/delay.ts
+export function toCss(ir: Type.TransitionDelay): string {
+File: src/generate/transition/timing-function.ts
+export function toCss(ir: Type.TransitionTimingFunction): string {
+File: src/generate/transition/transition.ts
+export function generate(
+File: src/generate/transition/duration.ts
+export function toCss(ir: Type.TransitionDuration): string {
+File: src/generate/transition/property.ts
+export function toCss(ir: Type.TransitionProperty): string {
+
+## Module: typography
+File: src/generate/typography/font-family.ts
+export function toCss(fontFamily: FontFamily): string {
+File: src/generate/typography/line-height.ts
+export function toCss(lineHeight: LineHeight): string {
+File: src/generate/typography/overflow-wrap.ts
+export function toCss(overflowWrap: OverflowWrap): string {
+File: src/generate/typography/vertical-align.ts
+export function toCss(verticalAlign: VerticalAlign): string {
+File: src/generate/typography/letter-spacing.ts
+export function toCss(letterSpacing: LetterSpacing): string {
+File: src/generate/typography/font-size.ts
+export function toCss(fontSize: FontSize): string {
+File: src/generate/typography/word-break.ts
+export function toCss(wordBreak: WordBreak): string {
+File: src/generate/typography/text-transform.ts
+export function toCss(textTransform: TextTransform): string {
+File: src/generate/typography/font-weight.ts
+export function toCss(fontWeight: FontWeight): string {
+File: src/generate/typography/font-style.ts
+export function toCss(fontStyle: FontStyle): string {
+File: src/generate/typography/text-align.ts
+export function toCss(textAlign: TextAlign): string {
+
+## Module: visual
+File: src/generate/visual/background-blend-mode.generate.ts
+export function generateBackgroundBlendMode(ir: BackgroundBlendModeIR): string {
+File: src/generate/visual/mix-blend-mode.generate.ts
+export function generateMixBlendMode(ir: MixBlendModeIR): string {
