@@ -45,6 +45,7 @@ import * as TextThicknessGen from "./generate/text/thickness";
 import * as TransformGenerate from "./generate/transform/transform";
 import * as TransitionGenerate from "./generate/transition/transition";
 import * as TypographyGenerate from "./generate/typography";
+import * as VisualGenerate from "./generate/visual";
 // Import module parsers
 import * as AnimationParse from "./parse/animation/animation";
 // Import individual property parsers
@@ -104,6 +105,7 @@ import * as TextThickness from "./parse/text/thickness";
 import * as TransformParse from "./parse/transform/transform";
 import * as TransitionParse from "./parse/transition/transition";
 import * as Typography from "./parse/typography";
+import * as VisualParse from "./parse/visual";
 
 // ============================================================================
 // Property Registry
@@ -235,6 +237,10 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	// Interaction properties
 	"pointer-events": wrapParser(InteractionParse.PointerEvents.parse),
 	"user-select": wrapParser(InteractionParse.UserSelect.parse),
+
+	// Visual properties
+	"background-blend-mode": wrapParser(VisualParse.parseBackgroundBlendMode),
+	"mix-blend-mode": wrapParser(VisualParse.parseMixBlendMode),
 
 	// Flexbox properties
 	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
@@ -368,6 +374,10 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	// Interaction properties
 	"pointer-events": wrapGenerator(InteractionGenerate.PointerEvents.toCss),
 	"user-select": wrapGenerator(InteractionGenerate.UserSelect.toCss),
+
+	// Visual properties
+	"background-blend-mode": wrapGenerator(VisualGenerate.generateBackgroundBlendMode),
+	"mix-blend-mode": wrapGenerator(VisualGenerate.generateMixBlendMode),
 
 	// Flexbox properties
 	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),
