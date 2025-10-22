@@ -6,6 +6,21 @@
 
 ---
 
+## ⚡ NEW: Definitive Plan Available
+
+**STOP. Read this first**: `.memory/DEFINITIVE_GENERATOR_FIX_PLAN.md`
+
+This is a **fool-proof, step-by-step plan** with:
+- ✅ Copy-paste templates (3 patterns)
+- ✅ Exact execution order (module-by-module)
+- ✅ Clear validation rules (no ambiguity)
+- ✅ Binary success criteria
+- ✅ No hacks, no noise, clean API
+
+**Execution checklist**: `.memory/EXECUTION_CHECKLIST.md`
+
+---
+
 ## Quick Context
 
 **Problem**: 128 generators (92%) don't validate input or return Result types. They throw exceptions instead of returning errors gracefully.
@@ -18,21 +33,21 @@
 
 ## What You Need To Read (In Order)
 
-1. **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** (5 min)
+1. **`.memory/DEFINITIVE_GENERATOR_FIX_PLAN.md`** (10 min) ⭐ **READ THIS FIRST**
+   - Fool-proof execution plan
+   - Copy-paste templates
+   - Exact module order
+   - Zero ambiguity
+
+2. **`.memory/EXECUTION_CHECKLIST.md`** (5 min)
+   - Track your progress
+   - Check off completed files
+   - Time estimates per module
+
+3. **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** (5 min)
    - WHY we're doing this
    - The failure modes
    - Never repeat this conversation
-
-2. **`.memory/MASTER_PLAN_GENERATOR_FIX.md`** (10 min)
-   - Complete implementation plan
-   - Validation patterns
-   - Execution order
-   - Risk mitigation
-
-3. **`.memory/GENERATOR_FIX_TRACKER.md`** (5 min)
-   - Progress checklist
-   - All 139 files listed
-   - Track your work here
 
 4. **`.memory/GENERATOR_COMPLETE_AUDIT.txt`** (reference)
    - Full audit of all 138 generators
