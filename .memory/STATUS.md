@@ -1,9 +1,9 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T06:34:00Z  
-**Property Count**: 102 CSS properties ✅  
-**Test Status**: 2866/2866 passing (100%) ✅  
-**Coverage**: 22.9% of 446 MDM longhands  
+**Last Updated**: 2025-10-22T06:34:00Z
+**Property Count**: 102 CSS properties ✅
+**Test Status**: 2866/2866 passing (100%) ✅
+**Coverage**: 22.9% of 446 MDM longhands
 **Branch**: `develop`
 
 ---
@@ -18,33 +18,38 @@ d0553c3  docs(handover): add START_HERE guide for next agent
 
 ---
 
-## 🚨 CRITICAL BLOCKER
+## 🚨 CRITICAL: API Fix Required
 
-**API Design Inconsistency Discovered** - See `.memory/AUDIT_REQUIRED.md`
+**Master Plan Complete** - See `.memory/API_FIX_MASTER_PLAN.md`
 
-The `generate()` function requires redundant property parameter despite IR already containing property via `kind` discriminant. This must be resolved before implementing more properties to avoid technical debt across 102+ properties.
+**Decision**: BREAKING CHANGE approach (user approved)
+- Change `generate()` signature from `{ property, value }` to just `ir`
+- Let tests break (~160 files) - intentional
+- Fix all tests in one session (~3-4 hours)
+- Clean, symmetric API matching `parse()`
 
-**Action Required**: Next agent MUST audit and fix API before continuing implementation.
+**Status**: ✅ Plan ready, awaiting implementation
+**Handover**: `.memory/archive/session-2025-10-22-api-fix/HANDOVER.md`
 
 ---
 
 ## Current Focus
 
-**Phase 1: Tier 1 CRITICAL** - Implementing highest-usage properties (90%+ websites).  
+**Phase 1: Tier 1 CRITICAL** - Implementing highest-usage properties (90%+ websites).
 **Progress**: 8/16 properties complete (50% done), all with comprehensive test coverage.
 
 ---
 
 ## What's Next
 
-### 🔥 IMMEDIATE (MUST DO FIRST)
-1. **Audit `generate()` API** - See `.memory/AUDIT_REQUIRED.md`
-   - Fix asymmetric API design (parse vs generate)
-   - Infer property from IR.kind discriminant
-   - Update all integration tests
-   - Document decision in ADR
+### 🔥 PRIORITY 1: Execute API Fix
+**READ FIRST**: `.memory/archive/session-2025-10-22-api-fix/HANDOVER.md`
 
-### Immediate (After API Fix)
+1. **Phase 1**: Change `generate()` signature in `src/universal.ts` (~30 min)
+2. **Phase 2**: Fix ~160 test files with new signature (~2-3 hours)
+3. **Phase 3**: Update README, CHANGELOG (~30 min)
+
+### Priority 2: Continue Implementation (After API Fix)
 2. **Continue Phase 1: Tier 1 CRITICAL** - 8 properties remaining
    - Interaction: content (1 prop)
    - Layout: overflow, float, clear (3 props)
