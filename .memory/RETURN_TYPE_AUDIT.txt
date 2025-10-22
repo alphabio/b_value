@@ -1,0 +1,468 @@
+=== PARSER RETURN TYPE AUDIT ===
+Date: Wed Oct 22 20:01:28 +07 2025
+
+File: src/parse/animation/animation.ts
+export function parse(value: string): ParseResult<Animation> {
+
+File: src/parse/animation/delay.ts
+export function parse(css: string): Result<Type.AnimationDelay, string> {
+
+File: src/parse/animation/direction.ts
+export function parse(css: string): Result<Type.AnimationDirection, string> {
+
+File: src/parse/animation/duration.ts
+export function parse(css: string): Result<Type.AnimationDuration, string> {
+
+File: src/parse/animation/fill-mode.ts
+export function parse(css: string): Result<Type.AnimationFillMode, string> {
+
+File: src/parse/animation/iteration-count.ts
+export function parse(css: string): Result<Type.AnimationIterationCount, string> {
+
+File: src/parse/animation/name.ts
+export function parse(css: string): Result<Type.AnimationName, string> {
+
+File: src/parse/animation/play-state.ts
+export function parse(css: string): Result<Type.AnimationPlayState, string> {
+
+File: src/parse/animation/timing-function.ts
+export function parse(css: string): Result<Type.AnimationTimingFunction, string> {
+
+File: src/parse/background/attachment.ts
+export function parse(css: string): Result<Keyword.BackgroundAttachmentKeyword, string> {
+
+File: src/parse/background/background.ts
+export function parse(value: string): ParseResult<unknown> {
+
+File: src/parse/background/clip.ts
+export function parse(css: string): Result<Keyword.BackgroundClipKeyword, string> {
+
+File: src/parse/background/image.ts
+export function parse(value: string): ParseResult<BackgroundImage> {
+
+File: src/parse/background/origin.ts
+export function parse(css: string): Result<Keyword.VisualBoxKeyword, string> {
+
+File: src/parse/background/position-x.ts
+export function parse(css: string): ParseResult<Type.PositionValue> {
+
+File: src/parse/background/position-y.ts
+export function parse(css: string): ParseResult<Type.PositionValue> {
+
+File: src/parse/background/repeat.ts
+export function parse(css: string): Result<Keyword.RepeatKeyword, string> {
+
+File: src/parse/background/size.ts
+export function parse(css: string): Result<BackgroundSizeValue, string> {
+
+File: src/parse/border/border.ts
+export function parse(value: string): ParseResult<unknown> {
+
+File: src/parse/border/color.ts
+export function parse(css: string): Result<Type.BorderColorValue, string> {
+
+File: src/parse/border/radius.ts
+export function parse(css: string): Result<Type.BorderRadiusValue, string> {
+
+File: src/parse/border/style.ts
+export function parse(css: string): Result<Type.BorderStyleValue, string> {
+
+File: src/parse/border/width.ts
+export function parse(css: string): Result<Type.BorderWidthValue, string> {
+
+File: src/parse/clip-path/circle.ts
+export function parse(css: string): Result<Type.ClipPathCircle, string> {
+
+File: src/parse/clip-path/clip-path.ts
+export function parse(value: string): ParseResult<Type.ClipPathValue> {
+
+File: src/parse/clip-path/ellipse.ts
+export function parse(css: string): Result<Type.ClipPathEllipse, string> {
+
+File: src/parse/clip-path/geometry-box.ts
+export function parse(input: string): Result<ClipPathGeometryBox, string> {
+
+File: src/parse/clip-path/inset.ts
+export function parse(css: string): Result<Type.ClipPathInset, string> {
+
+File: src/parse/clip-path/none.ts
+export function parse(css: string): Result<ClipPathNone, string> {
+
+File: src/parse/clip-path/path.ts
+export function parse(css: string): Result<Type.ClipPathPath, string> {
+
+File: src/parse/clip-path/polygon.ts
+export function parse(css: string): Result<Type.ClipPathPolygon, string> {
+
+File: src/parse/clip-path/rect.ts
+export function parse(css: string): Result<Type.ClipPathRect, string> {
+
+File: src/parse/clip-path/url.ts
+export function parse(input: string): Result<Url, string> {
+
+File: src/parse/clip-path/utils.ts
+ * export function parse(css: string): Result<ClipPathRect, string> {
+	css: string,
+	functionName: string,
+ * export function parse(css: string): Result<ClipPathPolygon, string> {
+	css: string,
+	functionName: string,
+
+File: src/parse/clip-path/xywh.ts
+export function parse(css: string): Result<Type.ClipPathXywh, string> {
+
+File: src/parse/color/color-function.ts
+export function parse(input: string): Result<Type.ColorFunction, string> {
+
+File: src/parse/color/color.ts
+export function parse(value: string): ParseResult<Type.Color> {
+
+File: src/parse/color/hex.ts
+export function parse(input: string): Result<HexColor, string> {
+
+File: src/parse/color/hsl.ts
+export function parse(input: string): Result<HSLColor, string> {
+
+File: src/parse/color/hwb.ts
+export function parse(input: string): Result<HWBColor, string> {
+
+File: src/parse/color/lab.ts
+export function parse(input: string): Result<LABColor, string> {
+
+File: src/parse/color/lch.ts
+export function parse(input: string): Result<LCHColor, string> {
+
+File: src/parse/color/named.ts
+export function parse(input: string): Result<NamedColor, string> {
+
+File: src/parse/color/oklab.ts
+export function parse(input: string): Result<OKLabColor, string> {
+
+File: src/parse/color/oklch.ts
+export function parse(input: string): Result<OKLCHColor, string> {
+
+File: src/parse/color/rgb.ts
+export function parse(input: string): Result<RGBColor, string> {
+
+File: src/parse/color/special.ts
+export function parse(input: string): Result<SpecialColor, string> {
+
+File: src/parse/color/system.ts
+export function parse(input: string): Result<SystemColor, string> {
+
+File: src/parse/filter/blur.ts
+export function parse(input: string): Result<BlurFilter, string> {
+
+File: src/parse/filter/brightness.ts
+export function parse(input: string): Result<BrightnessFilter, string> {
+
+File: src/parse/filter/contrast.ts
+export function parse(input: string): Result<ContrastFilter, string> {
+
+File: src/parse/filter/drop-shadow.ts
+export function parse(input: string): Result<DropShadowFilter, string> {
+
+File: src/parse/filter/filter.ts
+export function parse(value: string): ParseResult<Type.FilterFunction> {
+
+File: src/parse/filter/grayscale.ts
+export function parse(input: string): Result<GrayscaleFilter, string> {
+
+File: src/parse/filter/hue-rotate.ts
+export function parse(input: string): Result<HueRotateFilter, string> {
+
+File: src/parse/filter/invert.ts
+export function parse(input: string): Result<InvertFilter, string> {
+
+File: src/parse/filter/opacity.ts
+export function parse(input: string): Result<OpacityFilter, string> {
+
+File: src/parse/filter/saturate.ts
+export function parse(input: string): Result<SaturateFilter, string> {
+
+File: src/parse/filter/sepia.ts
+export function parse(input: string): Result<SepiaFilter, string> {
+
+File: src/parse/filter/url.ts
+export function parse(input: string): Result<UrlFilter, string> {
+
+File: src/parse/flexbox/align-content.ts
+export function parse(css: string): Result<Type.AlignContent, string> {
+
+File: src/parse/flexbox/align-items.ts
+export function parse(css: string): Result<Type.AlignItems, string> {
+
+File: src/parse/flexbox/align-self.ts
+export function parse(css: string): Result<Type.AlignSelf, string> {
+
+File: src/parse/flexbox/flex-basis.ts
+export function parse(css: string): Result<Type.FlexBasis, string> {
+
+File: src/parse/flexbox/flex-direction.ts
+export function parse(css: string): Result<Type.FlexDirection, string> {
+
+File: src/parse/flexbox/flex-grow.ts
+export function parse(css: string): Result<Type.FlexGrow, string> {
+
+File: src/parse/flexbox/flex-shrink.ts
+export function parse(css: string): Result<Type.FlexShrink, string> {
+
+File: src/parse/flexbox/flex-wrap.ts
+export function parse(css: string): Result<Type.FlexWrap, string> {
+
+File: src/parse/flexbox/gap.ts
+export function parse(css: string): Result<Type.Gap, string> {
+
+File: src/parse/flexbox/justify-content.ts
+export function parse(css: string): Result<Type.JustifyContent, string> {
+
+File: src/parse/flexbox/order.ts
+export function parse(css: string): Result<Type.Order, string> {
+
+File: src/parse/gradient/color-stop.ts
+  [No explicit return type or non-standard]
+
+File: src/parse/gradient/conic.ts
+export function parse(css: string): Result<Type.ConicGradient, string> {
+
+File: src/parse/gradient/gradient.ts
+export function parse(value: string): ParseResult<Type.Gradient> {
+
+File: src/parse/gradient/linear.ts
+export function parse(css: string): Result<Type.LinearGradient, string> {
+
+File: src/parse/gradient/radial.ts
+export function parse(css: string): Result<Type.RadialGradient, string> {
+
+File: src/parse/interaction/pointer-events.ts
+export function parse(css: string): Result<Type.PointerEvents, string> {
+
+File: src/parse/interaction/user-select.ts
+export function parse(css: string): Result<Type.UserSelect, string> {
+
+File: src/parse/layout/bottom.ts
+export function parse(css: string): Result<Type.Bottom, string> {
+
+File: src/parse/layout/box-sizing.ts
+export function parse(css: string): Result<Type.BoxSizing, string> {
+
+File: src/parse/layout/clear.ts
+export function parse(value: string): Result<Clear, string> {
+
+File: src/parse/layout/cursor.ts
+export function parse(css: string): Result<Type.Cursor, string> {
+
+File: src/parse/layout/display.ts
+export function parse(css: string): Result<Type.Display, string> {
+
+File: src/parse/layout/float.ts
+export function parse(value: string): Result<Float, string> {
+
+File: src/parse/layout/height.ts
+export function parse(css: string): Result<Type.Height, string> {
+
+File: src/parse/layout/left.ts
+export function parse(css: string): Result<Type.Left, string> {
+
+File: src/parse/layout/margin-bottom.ts
+export function parse(css: string): Result<Type.MarginBottom, string> {
+
+File: src/parse/layout/margin-left.ts
+export function parse(css: string): Result<Type.MarginLeft, string> {
+
+File: src/parse/layout/margin-right.ts
+export function parse(css: string): Result<Type.MarginRight, string> {
+
+File: src/parse/layout/margin-top.ts
+export function parse(css: string): Result<Type.MarginTop, string> {
+
+File: src/parse/layout/max-height.ts
+export function parse(css: string): Result<Type.MaxHeight, string> {
+
+File: src/parse/layout/max-width.ts
+export function parse(css: string): Result<Type.MaxWidth, string> {
+
+File: src/parse/layout/min-height.ts
+export function parse(css: string): Result<Type.MinHeight, string> {
+
+File: src/parse/layout/min-width.ts
+export function parse(css: string): Result<Type.MinWidth, string> {
+
+File: src/parse/layout/opacity.ts
+export function parse(css: string): Result<Type.Opacity, string> {
+
+File: src/parse/layout/overflow-x.ts
+export function parse(css: string): Result<Type.OverflowX, string> {
+
+File: src/parse/layout/overflow-y.ts
+export function parse(css: string): Result<Type.OverflowY, string> {
+
+File: src/parse/layout/overflow.ts
+export function parse(value: string): Result<Overflow, string> {
+
+File: src/parse/layout/padding-bottom.ts
+export function parse(css: string): Result<Type.PaddingBottom, string> {
+
+File: src/parse/layout/padding-left.ts
+export function parse(css: string): Result<Type.PaddingLeft, string> {
+
+File: src/parse/layout/padding-right.ts
+export function parse(css: string): Result<Type.PaddingRight, string> {
+
+File: src/parse/layout/padding-top.ts
+export function parse(css: string): Result<Type.PaddingTop, string> {
+
+File: src/parse/layout/position.ts
+export function parse(css: string): Result<Type.PositionProperty, string> {
+
+File: src/parse/layout/right.ts
+export function parse(css: string): Result<Type.Right, string> {
+
+File: src/parse/layout/top.ts
+export function parse(css: string): Result<Type.Top, string> {
+
+File: src/parse/layout/visibility.ts
+export function parse(css: string): Result<Type.Visibility, string> {
+
+File: src/parse/layout/width.ts
+export function parse(css: string): Result<Type.Width, string> {
+
+File: src/parse/layout/z-index.ts
+export function parse(css: string): Result<Type.ZIndex, string> {
+
+File: src/parse/outline/color.ts
+export function parse(css: string): Result<Type.OutlineColorValue, string> {
+
+File: src/parse/outline/offset.ts
+export function parse(css: string): Result<Type.OutlineOffsetValue, string> {
+
+File: src/parse/outline/outline.ts
+export function parse(value: string): ParseResult<unknown> {
+
+File: src/parse/outline/style.ts
+export function parse(css: string): Result<Type.OutlineStyleValue, string> {
+
+File: src/parse/outline/width.ts
+export function parse(css: string): Result<Type.OutlineWidthValue, string> {
+
+File: src/parse/position/position.ts
+export function parse(css: string): ParseResult<Type.Position2D> {
+export function parse3D(css: string): Result<Type.Position3D, string> {
+export function parseList(css: string): Result<Type.PositionList, string> {
+
+File: src/parse/shadow/box-shadow.ts
+export function parse(css: string): Result<BoxShadow, string> {
+
+File: src/parse/shadow/shadow.ts
+export function parse(value: string): ParseResult<Shadow> {
+
+File: src/parse/shadow/text-shadow.ts
+export function parse(css: string): Result<TextShadow, string> {
+
+File: src/parse/text/color.ts
+export function parse(css: string): Result<Color, string> {
+
+File: src/parse/text/line.ts
+export function parse(css: string): Result<Keyword.TextDecorationLineKeyword, string> {
+
+File: src/parse/text/style.ts
+export function parse(css: string): Result<Keyword.TextDecorationStyleKeyword, string> {
+
+File: src/parse/text/text.ts
+export function parse(value: string): ParseResult<unknown> {
+
+File: src/parse/text/thickness.ts
+export function parse(css: string): Result<TextDecorationThicknessValue, string> {
+
+File: src/parse/transform/origin.ts
+export function parse(css: string): Result<Type.Position2D | Type.Position3D, string> {
+export function parsePerspectiveOrigin(css: string): Result<Type.Position2D, string> {
+
+File: src/parse/transform/transform.ts
+export function parse(css: string): ParseResult<Type.Transform> {
+
+File: src/parse/transition/delay.ts
+export function parse(css: string): Result<Type.TransitionDelay, string> {
+
+File: src/parse/transition/duration.ts
+export function parse(css: string): Result<Type.TransitionDuration, string> {
+
+File: src/parse/transition/property.ts
+export function parse(css: string): Result<Type.TransitionProperty, string> {
+
+File: src/parse/transition/timing-function.ts
+export function parse(css: string): Result<Type.TransitionTimingFunction, string> {
+
+File: src/parse/transition/transition.ts
+export function parse(value: string): ParseResult<Transition> {
+
+File: src/parse/typography/font-family.ts
+export function parse(css: string): Result<Type.FontFamily, string> {
+
+File: src/parse/typography/font-size.ts
+export function parse(css: string): Result<Type.FontSize, string> {
+
+File: src/parse/typography/font-style.ts
+export function parse(css: string): Result<Type.FontStyle, string> {
+
+File: src/parse/typography/font-weight.ts
+export function parse(css: string): Result<Type.FontWeight, string> {
+
+File: src/parse/typography/letter-spacing.ts
+export function parse(css: string): Result<Type.LetterSpacing, string> {
+
+File: src/parse/typography/line-height.ts
+export function parse(css: string): Result<Type.LineHeight, string> {
+
+File: src/parse/typography/overflow-wrap.ts
+export function parse(css: string): Result<Type.OverflowWrap, string> {
+
+File: src/parse/typography/text-align.ts
+export function parse(css: string): Result<Type.TextAlign, string> {
+
+File: src/parse/typography/text-transform.ts
+export function parse(css: string): Result<Type.TextTransform, string> {
+
+File: src/parse/typography/vertical-align.ts
+export function parse(css: string): Result<Type.VerticalAlign, string> {
+
+File: src/parse/typography/word-break.ts
+export function parse(css: string): Result<Type.WordBreak, string> {
+
+File: src/parse/visual/background-blend-mode.ts
+export function parseBackgroundBlendMode(value: string): Result<BackgroundBlendModeIR, string> {
+
+File: src/parse/visual/mix-blend-mode.ts
+export function parseMixBlendMode(value: string): Result<MixBlendModeIR, string> {
+
+=== SUMMARY ===
+
+Result<T, string> occurrences: 196
+ParseResult<T> occurrences: 16
+Raw string return occurrences: 0
+
+=== DETAILED BREAKDOWN ===
+
+Functions returning Result<T, string>:
+src/parse/background/clip.ts:export function parse(css: string): Result<Keyword.BackgroundClipKeyword, string> {
+src/parse/background/origin.ts:export function parse(css: string): Result<Keyword.VisualBoxKeyword, string> {
+src/parse/background/repeat.ts:export function parse(css: string): Result<Keyword.RepeatKeyword, string> {
+src/parse/background/attachment.ts:export function parse(css: string): Result<Keyword.BackgroundAttachmentKeyword, string> {
+src/parse/background/size.ts:export function parse(css: string): Result<BackgroundSizeValue, string> {
+src/parse/gradient/conic.ts:export function fromFunction(fn: csstree.FunctionNode): Result<Type.ConicGradient, string> {
+src/parse/gradient/conic.ts:export function parse(css: string): Result<Type.ConicGradient, string> {
+src/parse/gradient/radial.ts:export function fromFunction(fn: csstree.FunctionNode): Result<Type.RadialGradient, string> {
+src/parse/gradient/radial.ts:export function parse(css: string): Result<Type.RadialGradient, string> {
+src/parse/gradient/linear.ts:export function fromFunction(fn: csstree.FunctionNode): Result<Type.LinearGradient, string> {
+
+Functions returning ParseResult<T>:
+src/parse/background/image.ts:export function parse(value: string): ParseResult<BackgroundImage> {
+src/parse/background/position-y.ts:export function parse(css: string): ParseResult<Type.PositionValue> {
+src/parse/background/position-x.ts:export function parse(css: string): ParseResult<Type.PositionValue> {
+src/parse/background/background.ts:export function parse(value: string): ParseResult<unknown> {
+src/parse/gradient/gradient.ts:export function parse(value: string): ParseResult<Type.Gradient> {
+src/parse/border/border.ts:export function parse(value: string): ParseResult<unknown> {
+src/parse/transition/transition.ts:export function parse(value: string): ParseResult<Transition> {
+src/parse/position/position.ts:export function parse(css: string): ParseResult<Type.Position2D> {
+src/parse/color/color.ts:export function parse(value: string): ParseResult<Type.Color> {
+src/parse/shadow/shadow.ts:export function parse(value: string): ParseResult<Shadow> {
