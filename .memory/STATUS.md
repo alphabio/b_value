@@ -43,6 +43,13 @@ c146923  feat(visual): background-blend-mode, mix-blend-mode - 107 properties
 ### Priority 1: Complete Phase 1 (1 property remaining)
 - content (1 prop) - Critical for pseudo-elements (complex: 2-3 hours)
 
+### Priority 2: Result<T, string> → ParseResult Migration
+- **Status**: 133 files need migration, 17 already migrated
+- **Audit**: See `.memory/archive/result-migration-audit.md`
+- **Strategy**: Gradual migration, module-by-module
+- **Safety**: `wrapParser()` provides backward compatibility
+- **Next modules**: Layout (30 files), Typography (11 files)
+
 ### Short-term Goal: v1.0.0
 - Complete Phase 1: Tier 1 CRITICAL (16 properties)
 - Reach 110 properties (25% coverage)
