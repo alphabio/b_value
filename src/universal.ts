@@ -43,6 +43,7 @@ import * as TextStyleGen from "./generate/text/style";
 import * as TextThicknessGen from "./generate/text/thickness";
 import * as TransformGenerate from "./generate/transform/transform";
 import * as TransitionGenerate from "./generate/transition/transition";
+import * as TypographyGenerate from "./generate/typography";
 // Import module parsers
 import * as AnimationParse from "./parse/animation/animation";
 // Import individual property parsers
@@ -60,6 +61,7 @@ import * as ColorParse from "./parse/color/color";
 import * as FilterParse from "./parse/filter/filter";
 import * as FlexboxParse from "./parse/flexbox";
 import * as LayoutBottom from "./parse/layout/bottom";
+import * as LayoutBoxSizing from "./parse/layout/box-sizing";
 import * as LayoutCursor from "./parse/layout/cursor";
 import * as LayoutDisplay from "./parse/layout/display";
 import * as LayoutHeight from "./parse/layout/height";
@@ -96,6 +98,7 @@ import * as TextStyle from "./parse/text/style";
 import * as TextThickness from "./parse/text/thickness";
 import * as TransformParse from "./parse/transform/transform";
 import * as TransitionParse from "./parse/transition/transition";
+import * as Typography from "./parse/typography";
 
 // ============================================================================
 // Property Registry
@@ -206,6 +209,14 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	cursor: wrapParser(LayoutCursor.parse),
 	"overflow-x": wrapParser(LayoutOverflowX.parse),
 	"overflow-y": wrapParser(LayoutOverflowY.parse),
+	"box-sizing": wrapParser(LayoutBoxSizing.parse),
+
+	// Typography properties
+	"font-size": wrapParser(Typography.FontSize.parse),
+	"font-family": wrapParser(Typography.FontFamily.parse),
+	"font-weight": wrapParser(Typography.FontWeight.parse),
+	"line-height": wrapParser(Typography.LineHeight.parse),
+	"text-align": wrapParser(Typography.TextAlign.parse),
 
 	// Flexbox properties
 	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
@@ -318,6 +329,14 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	cursor: wrapGenerator(LayoutGenerate.Cursor.toCss),
 	"overflow-x": wrapGenerator(LayoutGenerate.OverflowX.toCss),
 	"overflow-y": wrapGenerator(LayoutGenerate.OverflowY.toCss),
+	"box-sizing": wrapGenerator(LayoutGenerate.BoxSizing.toCss),
+
+	// Typography properties
+	"font-size": wrapGenerator(TypographyGenerate.FontSize.toCss),
+	"font-family": wrapGenerator(TypographyGenerate.FontFamily.toCss),
+	"font-weight": wrapGenerator(TypographyGenerate.FontWeight.toCss),
+	"line-height": wrapGenerator(TypographyGenerate.LineHeight.toCss),
+	"text-align": wrapGenerator(TypographyGenerate.TextAlign.toCss),
 
 	// Flexbox properties
 	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),

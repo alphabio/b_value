@@ -1,0 +1,34 @@
+// b_path:: src/generate/typography/font-family.ts
+import type { FontFamily } from "@/core/types";
+
+/**
+ * Generate CSS font-family property from IR.
+ *
+ * Outputs comma-separated list of font families.
+ *
+ * @param fontFamily - FontFamily IR
+ * @returns CSS string like "Arial, sans-serif"
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/font-family}
+ *
+ * @example
+ * ```typescript
+ * import { toCss } from "@/generate/typography/font-family";
+ *
+ * const css = toCss({ kind: "font-family", families: ["Arial", "sans-serif"] });
+ * // "Arial, sans-serif"
+ * ```
+ *
+ * @public
+ */
+export function toCss(fontFamily: FontFamily): string {
+	return fontFamily.families
+		.map((family) => {
+			// Quote families with spaces
+			if (family.includes(" ")) {
+				return `"${family}"`;
+			}
+			return family;
+		})
+		.join(", ");
+}

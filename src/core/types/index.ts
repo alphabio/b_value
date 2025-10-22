@@ -22,3 +22,4 @@ export * from "./size-layer";
 export * from "./time";
 export * from "./transform";
 export * from "./transition";
+export * from "./typography";

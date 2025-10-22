@@ -1,6 +1,7 @@
 // b_path:: src/generate/layout/index.ts
 
 export * as Bottom from "./bottom";
+export * as BoxSizing from "./box-sizing";
 export * as Cursor from "./cursor";
 export * as Display from "./display";
 export * as Height from "./height";
