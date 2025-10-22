@@ -8,53 +8,56 @@ describe("background-image", () => {
 		it("parses single linear gradient", () => {
 			const result = parse("linear-gradient(red, blue)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0].kind).toBe("linear");
+				expect(result.value[0]?.kind).toBe("linear");
 			}
 		});
 
 		it("parses single radial gradient", () => {
 			const result = parse("radial-gradient(circle, red, blue)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0].kind).toBe("radial");
+				expect(result.value[0]?.kind).toBe("radial");
 			}
 		});
 
 		it("parses single conic gradient", () => {
 			const result = parse("conic-gradient(red, blue)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0].kind).toBe("conic");
+				expect(result.value[0]?.kind).toBe("conic");
 			}
 		});
 
 		it("parses url()", () => {
 			const result = parse("url(image.png)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0]).toEqual({ kind: "url", url: "image.png" });
+				const layer0 = result.value[0];
+				expect(layer0).toEqual({ kind: "url", url: "image.png" });
 			}
 		});
 
 		it("parses url() with quotes", () => {
 			const result = parse('url("image.png")');
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
-				expect(result.value[0]).toEqual({ kind: "url", url: "image.png" });
+			if (result.ok) {
+				const layer0 = result.value[0];
+				expect(layer0).toEqual({ kind: "url", url: "image.png" });
 			}
 		});
 
 		it("parses none", () => {
 			const result = parse("none");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(1);
-				expect(result.value[0]).toEqual({ kind: "none" });
+				const layer0 = result.value[0];
+				expect(layer0).toEqual({ kind: "none" });
 			}
 		});
 	});
@@ -63,10 +66,10 @@ describe("background-image", () => {
 		it("parses two gradients", () => {
 			const result = parse("linear-gradient(red, blue), radial-gradient(green, yellow)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(2);
-				expect(result.value[0].kind).toBe("linear");
-				expect(result.value[1].kind).toBe("radial");
+				expect(result.value[0]?.kind).toBe("linear");
+				expect(result.value[1]?.kind).toBe("radial");
 			}
 		});
 
@@ -77,7 +80,7 @@ describe("background-image", () => {
         conic-gradient(red, blue)
       `);
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(3);
 			}
 		});
@@ -85,20 +88,20 @@ describe("background-image", () => {
 		it("parses mixed layers (url + gradient)", () => {
 			const result = parse("url(bg.png), linear-gradient(red, blue)");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(2);
-				expect(result.value[0].kind).toBe("url");
-				expect(result.value[1].kind).toBe("linear");
+				expect(result.value[0]?.kind).toBe("url");
+				expect(result.value[1]?.kind).toBe("linear");
 			}
 		});
 
 		it("parses mixed layers (gradient + none)", () => {
 			const result = parse("linear-gradient(red, blue), none");
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(2);
-				expect(result.value[0].kind).toBe("linear");
-				expect(result.value[1].kind).toBe("none");
+				expect(result.value[0]?.kind).toBe("linear");
+				expect(result.value[1]?.kind).toBe("none");
 			}
 		});
 	});
@@ -119,10 +122,10 @@ describe("background-image", () => {
 			const result = parse(css);
 
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(7);
-				expect(result.value[0].kind).toBe("radial");
-				expect(result.value[6].kind).toBe("linear");
+				expect(result.value[0]?.kind).toBe("radial");
+				expect(result.value[6]?.kind).toBe("linear");
 			}
 		});
 
@@ -136,13 +139,13 @@ describe("background-image", () => {
       `;
 			const result = parse(css);
 			expect(result.ok).toBe(true);
-			if (result.ok && result.value) {
+			if (result.ok) {
 				expect(result.value).toHaveLength(5);
-				expect(result.value[0].kind).toBe("linear");
-				expect(result.value[1].kind).toBe("radial");
-				expect(result.value[2].kind).toBe("conic");
-				expect(result.value[3].kind).toBe("url");
-				expect(result.value[4].kind).toBe("linear");
+				expect(result.value[0]?.kind).toBe("linear");
+				expect(result.value[1]?.kind).toBe("radial");
+				expect(result.value[2]?.kind).toBe("conic");
+				expect(result.value[3]?.kind).toBe("url");
+				expect(result.value[4]?.kind).toBe("linear");
 			}
 		});
 	});

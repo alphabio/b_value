@@ -340,11 +340,17 @@ export type Issue = {
  *
  * Used by Module API (e.g., Parse.Color.parse()) and Universal API (e.g., parse()).
  *
+ * Discriminated union ensures type safety:
+ * - When `ok: true`, `value` is guaranteed to be present (type T)
+ * - When `ok: false`, `value` is undefined
+ *
+ * This means `if (result.ok)` is sufficient - no need for `if (result.ok && result.value)`.
+ *
  * @example
  * ```typescript
  * const result = Parse.Color.parse("#ff0000");
  * if (result.ok) {
- *   console.log(result.value);  // Color IR
+ *   console.log(result.value);  // Color IR - TypeScript knows it's defined
  * } else {
  *   console.error(result.issues[0].message);
  *   console.log(result.issues[0].suggestion);
@@ -353,46 +359,32 @@ export type Issue = {
  *
  * @public
  */
-export type ParseResult<T = unknown> = {
-	/** Success flag */
-	ok: boolean;
-	/** Parsed value (present when ok=true) */
-	value?: T;
-	/** Property name from CSS declaration (Module API: undefined, Universal API: present) */
-	property?: string;
-	/** Issues encountered (always present, empty array if none) */
-	issues: Issue[];
-};
-
-// export type ParseResult<T = unknown> =
-//   | { ok: true; value: T; property?: string; issues: Issue[] }
-//   | { ok: false; value?: undefined; property?: string; issues: Issue[] };
+export type ParseResult<T = unknown> =
+	| { ok: true; value: T; property?: string; issues: Issue[] }
+	| { ok: false; value?: undefined; property?: string; issues: Issue[] };
 
 /**
  * Result of generating CSS from intermediate representation.
  *
  * Used by Module API (e.g., Generate.Color.generate()) and Universal API.
  *
+ * Discriminated union ensures type safety:
+ * - When `ok: true`, `value` is guaranteed to be present (string)
+ * - When `ok: false`, `value` is undefined
+ *
  * @example
  * ```typescript
  * const result = Generate.Color.generate(colorIR);
  * if (result.ok) {
- *   console.log(result.value);  // "#ff0000"
+ *   console.log(result.value);  // "#ff0000" - TypeScript knows it's defined
  * }
  * ```
  *
  * @public
  */
-export type GenerateResult = {
-	/** Success flag */
-	ok: boolean;
-	/** Generated CSS string (present when ok=true) */
-	value?: string;
-	/** Property name when generating declarations */
-	property?: string;
-	/** Issues encountered (always present, empty array if none) */
-	issues: Issue[];
-};
+export type GenerateResult =
+	| { ok: true; value: string; property?: string; issues: Issue[] }
+	| { ok: false; value?: undefined; property?: string; issues: Issue[] };
 
 // ============================================================================
 // Helper Functions
