@@ -77,7 +77,7 @@ describe("angleToCss", () => {
 	});
 
 	it("should convert angle values in radians", () => {
-		expect(angleToCss({ value: Math.PI, unit: "rad" })).toBe("3.14159rad");
+		expect(angleToCss({ value: Math.PI, unit: "rad" })).toBe(`${Math.PI}rad`);
 		expect(angleToCss({ value: 1.5708, unit: "rad" })).toBe("1.5708rad");
 	});
 
@@ -108,7 +108,7 @@ describe("numberToCss", () => {
 	it("should convert decimals", () => {
 		expect(numberToCss(0.5)).toBe("0.5");
 		expect(numberToCss(1.25)).toBe("1.25");
-		expect(numberToCss(Math.PI)).toBe("3.14159");
+		expect(numberToCss(Math.PI)).toBe(String(Math.PI));
 	});
 
 	it("should handle negative numbers", () => {
