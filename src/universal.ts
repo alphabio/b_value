@@ -228,6 +228,7 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 
 	// Interaction properties
 	"pointer-events": wrapParser(InteractionParse.PointerEvents.parse),
+	"user-select": wrapParser(InteractionParse.UserSelect.parse),
 
 	// Flexbox properties
 	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
@@ -357,6 +358,7 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 
 	// Interaction properties
 	"pointer-events": wrapGenerator(InteractionGenerate.PointerEvents.toCss),
+	"user-select": wrapGenerator(InteractionGenerate.UserSelect.toCss),
 
 	// Flexbox properties
 	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),
