@@ -14,15 +14,15 @@ import * as ColorStop from "./color-stop";
  */
 function directionToCss(direction: Type.GradientDirection): GenerateResult {
 	if (direction.kind === "angle") {
-		return `${direction.value.value}${direction.value.unit}`;
+		return generateOk(`${direction.value.value}${direction.value.unit}`);
 	}
 
 	if (direction.kind === "to-side") {
-		return `to ${direction.value}`;
+		return generateOk(`to ${direction.value}`);
 	}
 
 	// to-corner
-	return `to ${direction.value}`;
+	return generateOk(`to ${direction.value}`);
 }
 
 /**
@@ -150,7 +150,9 @@ export function generate(ir: Type.LinearGradient): GenerateResult {
 			// Direction and color space together
 			parts.push(`${dirStr} in ${ir.colorSpace}`);
 		} else {
-			parts.push(dirStr);
+			const _result = dirStr;
+			if (!_result.ok) return _result;
+			parts.push(_result.value);
 		}
 	} else if (ir.colorSpace) {
 		// Just color space

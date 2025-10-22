@@ -21,5 +21,5 @@ export function generate(marginRight: MarginRight): GenerateResult {
 	if (typeof marginRight.value === "string") {
 		return generateOk(marginRight.value);
 	}
-	return GenUtils.lengthPercentageToCss(marginRight.value);
+	return generateOk(GenUtils.lengthPercentageToCss(marginRight.value));
 }

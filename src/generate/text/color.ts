@@ -1,5 +1,6 @@
 // b_path:: src/generate/text/color.ts
 import type { GenerateResult } from "@/core/result";
+import { generateErr } from "@/core/result";
 import type { Color } from "@/core/types/color";
 import * as ColorGenerators from "../color";
 

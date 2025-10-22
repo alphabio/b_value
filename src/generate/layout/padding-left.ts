@@ -1,6 +1,6 @@
 // b_path:: src/generate/layout/padding-left.ts
 
-import { type GenerateResult, generateErr } from "@/core/result";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { PaddingLeft } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -18,5 +18,5 @@ export function generate(paddingLeft: PaddingLeft): GenerateResult {
 	if (paddingLeft === undefined || paddingLeft === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return GenUtils.lengthPercentageToCss(paddingLeft.value);
+	return generateOk(GenUtils.lengthPercentageToCss(paddingLeft.value));
 }

@@ -339,8 +339,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -353,8 +355,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -367,8 +371,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -381,8 +387,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -395,8 +403,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -409,8 +419,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -423,8 +435,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -437,8 +451,10 @@ describe("OKLCH Color Parser", () => {
 			const parsed = OKLCHParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLCHGenerator.toCss(parsed.value);
-				const reparsed = OKLCHParser.parse(generated);
+				const generated = OKLCHGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLCHParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);

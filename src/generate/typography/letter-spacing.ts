@@ -31,5 +31,5 @@ export function generate(letterSpacing: LetterSpacing): GenerateResult {
 	if (letterSpacing.value === "normal") {
 		return generateOk("normal");
 	}
-	return lengthPercentageToCss(letterSpacing.value);
+	return generateOk(lengthPercentageToCss(letterSpacing.value));
 }

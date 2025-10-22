@@ -31,5 +31,5 @@ export function generate(verticalAlign: VerticalAlign): GenerateResult {
 	if (typeof verticalAlign.value === "string") {
 		return generateOk(verticalAlign.value);
 	}
-	return lengthPercentageToCss(verticalAlign.value);
+	return generateOk(lengthPercentageToCss(verticalAlign.value));
 }

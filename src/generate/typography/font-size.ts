@@ -37,5 +37,5 @@ export function generate(fontSize: FontSize): GenerateResult {
 	if (typeof fontSize.value === "string") {
 		return generateOk(fontSize.value);
 	}
-	return GenUtils.lengthPercentageToCss(fontSize.value);
+	return generateOk(GenUtils.lengthPercentageToCss(fontSize.value));
 }

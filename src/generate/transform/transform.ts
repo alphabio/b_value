@@ -38,7 +38,8 @@ export function generate(transform: Type.Transform): GenerateResult {
 
 	try {
 		const css = Utils.generate(transform);
-		return generateOk(css);
+		if (!css.ok) return css;
+		return generateOk(css.value);
 	} catch (error) {
 		return generateErr("invalid-ir", `Failed to generate transform: ${error}`, {
 			suggestion: "Check that transform IR is valid",

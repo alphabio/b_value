@@ -1,6 +1,6 @@
 // b_path:: src/generate/layout/padding-bottom.ts
 
-import { type GenerateResult, generateErr } from "@/core/result";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { PaddingBottom } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -18,5 +18,5 @@ export function generate(paddingBottom: PaddingBottom): GenerateResult {
 	if (paddingBottom === undefined || paddingBottom === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return GenUtils.lengthPercentageToCss(paddingBottom.value);
+	return generateOk(GenUtils.lengthPercentageToCss(paddingBottom.value));
 }

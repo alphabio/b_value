@@ -38,5 +38,5 @@ export function generate(lineHeight: LineHeight): GenerateResult {
 		return generateOk(String(value));
 	}
 
-	return GenUtils.lengthPercentageToCss(value);
+	return generateOk(GenUtils.lengthPercentageToCss(value));
 }

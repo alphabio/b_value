@@ -29,7 +29,8 @@ export function generate(position: Type.Position2D): GenerateResult {
 
 	try {
 		const css = Utils.generate(position);
-		return generateOk(css);
+		if (!css.ok) return css;
+		return generateOk(css.value);
 	} catch (error) {
 		return generateErr("invalid-ir", `Failed to generate position: ${error}`, {
 			suggestion: "Check that position IR is valid",
