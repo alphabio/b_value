@@ -1,711 +1,33 @@
-# Master CSS Property Plan - b_value
-**Date**: 2025-10-22T01:34:00Z
-**Current**: v0.1.0 (51 properties)
-**Goal**: v2.0.0 (131+ properties - 100% longhand coverage)
+# FOOLPROOF MASTER PROPERTY PLAN (MDM-ALIGNED)
+**Generated**: 2025-10-22T04:13:44.207Z
+**Source**: /Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json
+**MDM Version**: Latest (609 total entries, 446 longhand properties)
 
 ---
 
-## Quick Status
+## Executive Summary
 
-| Phase | Properties | Effort | Status | Target |
-|-------|------------|--------|--------|--------|
-| 0 - Fix Registration | 32 | 2h | ⏳ Pending | v1.0 |
-| 1 - Box Model | 12 | 4h | ⏳ Pending | v1.0 |
-| 2 - Flexbox | 11 | 6h | ⏳ Pending | v1.1 |
-| 3 - Typography | 9 | 5h | ⏳ Pending | v1.1 |
-| 4 - Grid | 8 | 8h | ⏳ Pending | v1.2 |
-| 5 - Advanced | 8+ | 12h | ⏳ Pending | v2.0 |
-| **TOTAL** | **80+** | **37h** | | |
+**Current Status**:
+- ✅ Implemented: 71 properties
+- ❌ Missing: 375 properties  
+- 📊 Coverage: **15.9%** of MDM longhands
 
-**Current Coverage**: 51/131 properties (39%)
-**After Phase 0**: 51/131 (39%) - Registration fixed
-**After Phase 1**: 63/131 (48%) - Box model added
-**After Phase 2**: 74/131 (56%) - Flexbox added
-**After Phase 3**: 83/131 (63%) - Typography complete
-**After Phase 4**: 91/131 (69%) - Grid added
-**After Phase 5**: 99+/131 (75%+) - Advanced features
+**Reality Check**:
+- Previous plan claimed: 131 properties total (❌ WRONG - based on manual MDN list)
+- Actual MDM longhand count: 446 properties
+- We were off by: **3.4x**
+
+**Revised Goal**: 
+- Target v1.0: 90+ properties (19% coverage - essential properties)
+- Target v2.0: 200+ properties (42% coverage - common properties)
+- Target v3.0: 350+ properties (74% coverage - comprehensive)
+- Target v4.0: 446 properties (100% coverage - complete spec)
 
 ---
 
-## Phase 0: Fix Registration (v1.0 - CRITICAL) ⚠️
+## Current Implementation (71 properties)
 
-**Effort**: 2 hours
-**Priority**: CRITICAL - Must fix before v1.0
-**Impact**: Makes 32 existing generators accessible via universal API
-
-### The Problem
-
-We have **32 working generators** that aren't registered in `universal.ts`:
-
-```typescript
-// These generators EXIST and WORK:
-src/generate/animation/delay.ts        ✅
-src/generate/animation/duration.ts     ✅
-src/generate/animation/timing-function.ts ✅
-// ... (32 total)
-
-// But they're NOT in universal.ts:
-const PROPERTY_GENERATORS = {
-  "animation-name": AnimationGenerate.generate,  // ✅ Only this one!
-  // ❌ Missing: animation-delay, duration, timing-function, etc.
-}
-```
-
-### Properties to Register
-
-**Animation** (7 properties):
-- [ ] animation-delay
-- [ ] animation-direction
-- [ ] animation-duration
-- [ ] animation-fill-mode
-- [ ] animation-iteration-count
-- [ ] animation-play-state
-- [ ] animation-timing-function
-
-**Transition** (3 properties):
-- [ ] transition-delay
-- [ ] transition-duration
-- [ ] transition-timing-function
-
-**Border** (12 properties):
-- [ ] border-top-style
-- [ ] border-right-style
-- [ ] border-bottom-style
-- [ ] border-left-style
-- [ ] border-top-width
-- [ ] border-right-width
-- [ ] border-bottom-width
-- [ ] border-left-width
-- [ ] border-top-left-radius
-- [ ] border-top-right-radius
-- [ ] border-bottom-left-radius
-- [ ] border-bottom-right-radius
-
-**Background** (5 properties):
-- [ ] background-attachment
-- [ ] background-clip
-- [ ] background-origin
-- [ ] background-repeat
-- [ ] background-size
-
-**Outline** (1 property):
-- [ ] outline-offset
-
-**Text** (4 properties):
-- [ ] text-decoration-color
-- [ ] text-decoration-line
-- [ ] text-decoration-style
-- [ ] text-decoration-thickness
-
-### Implementation
-
-```typescript
-// In src/universal.ts - Add to PROPERTY_GENERATORS:
-
-// Animation properties
-"animation-delay": AnimationGenerate.generate,
-"animation-direction": AnimationGenerate.generate,
-"animation-duration": AnimationGenerate.generate,
-"animation-fill-mode": AnimationGenerate.generate,
-"animation-iteration-count": AnimationGenerate.generate,
-"animation-play-state": AnimationGenerate.generate,
-"animation-timing-function": AnimationGenerate.generate,
-
-// Transition properties
-"transition-delay": TransitionGenerate.generate,
-"transition-duration": TransitionGenerate.generate,
-"transition-timing-function": TransitionGenerate.generate,
-
-// Border properties
-"border-top-style": BorderGenerate.generate,
-"border-right-style": BorderGenerate.generate,
-"border-bottom-style": BorderGenerate.generate,
-"border-left-style": BorderGenerate.generate,
-"border-top-width": BorderGenerate.generate,
-"border-right-width": BorderGenerate.generate,
-"border-bottom-width": BorderGenerate.generate,
-"border-left-width": BorderGenerate.generate,
-"border-top-left-radius": wrapGenerator(BorderRadius.toCss),
-"border-top-right-radius": wrapGenerator(BorderRadius.toCss),
-"border-bottom-left-radius": wrapGenerator(BorderRadius.toCss),
-"border-bottom-right-radius": wrapGenerator(BorderRadius.toCss),
-
-// Background properties
-"background-attachment": wrapGenerator(BackgroundAttachment.toCss),
-"background-clip": wrapGenerator(BackgroundClip.toCss),
-"background-origin": wrapGenerator(BackgroundOrigin.toCss),
-"background-repeat": wrapGenerator(BackgroundRepeat.toCss),
-"background-size": wrapGenerator(BackgroundSize.toCss),
-
-// Outline
-"outline-offset": OutlineGenerate.generate,
-
-// Text decoration
-"text-decoration-color": ColorGenerate.generate,
-"text-decoration-line": wrapGenerator(TextLine.toCss),
-"text-decoration-style": wrapGenerator(TextStyle.toCss),
-"text-decoration-thickness": wrapGenerator(TextThickness.toCss),
-```
-
-### Testing
-
-```typescript
-// Test each property via universal API:
-const result = generate({
-  property: "animation-delay",
-  value: { kind: "animation-delay", delays: [{ value: 1, unit: "s" }] }
-});
-expect(result.ok).toBe(true);
-expect(result.value).toBe("1s");
-```
-
-### Validation
-
-```bash
-# 1. Run tests
-just test
-
-# 2. Manual test all 32 properties
-pnpm test src/universal.test.ts
-
-# 3. Test via generateAll()
-const css = generateAll({
-  "animation-delay": IR,
-  "border-top-width": IR,
-  // ... all 32 properties
-});
-```
-
----
-
-## Phase 1: Box Model (v1.0 - STRONGLY RECOMMENDED) 📦
-
-**Effort**: 4 hours
-**Priority**: HIGH - Essential for ANY layout work
-**Impact**: Users can actually build layouts
-
-### Why Box Model First?
-
-**Every website needs**:
-- `width` / `height` - Size elements
-- `margin` - Space between elements
-- `padding` - Space inside elements
-- `max-width` / `min-height` - Responsive design
-
-**Without these**: b_value is only useful for colors/effects, not layouts
-
-### Properties to Add (12)
-
-**Size** (4 properties):
-- [ ] width
-- [ ] height
-- [ ] max-width
-- [ ] max-height
-- [ ] min-width
-- [ ] min-height
-
-**Margin** (4 properties):
-- [ ] margin-top
-- [ ] margin-right
-- [ ] margin-bottom
-- [ ] margin-left
-
-**Padding** (4 properties):
-- [ ] padding-top
-- [ ] padding-right
-- [ ] padding-bottom
-- [ ] padding-left
-
-### IR Design
-
-```typescript
-// Reuse existing Length type
-type BoxDimension = Length | Percentage | Keyword<"auto">;
-
-type Width = {
-  kind: "width";
-  value: BoxDimension;
-};
-
-type MarginTop = {
-  kind: "margin-top";
-  value: BoxDimension;
-};
-
-// Similar for all 12 properties
-```
-
-### Implementation Plan
-
-**1. Create Module** (1h):
-
-```bash
-src/parse/box-model/
-  ├── index.ts
-  ├── width.ts
-  ├── height.ts
-  ├── max-width.ts
-  ├── max-height.ts
-  ├── min-width.ts
-  ├── min-height.ts
-  ├── margin-top.ts
-  ├── margin-right.ts
-  ├── margin-bottom.ts
-  ├── margin-left.ts
-  ├── padding-top.ts
-  ├── padding-right.ts
-  ├── padding-bottom.ts
-  └── padding-left.ts
-```
-
-**2. Write Parsers** (1.5h):
-
-```typescript
-// Simple length parser
-export function parse(value: string): Result<Width, string> {
-  // Try "auto"
-  if (value === "auto") {
-    return ok({ kind: "width", value: { type: "keyword", value: "auto" } });
-  }
-
-  // Try length
-  const length = Length.parse(value);
-  if (length.ok) {
-    return ok({ kind: "width", value: length.value });
-  }
-
-  // Try percentage
-  const pct = Percentage.parse(value);
-  if (pct.ok) {
-    return ok({ kind: "width", value: pct.value });
-  }
-
-  return err("Invalid width value");
-}
-```
-
-**3. Write Generators** (1h):
-
-```typescript
-export function toCss(ir: Width): string {
-  if (ir.value.type === "keyword") {
-    return ir.value.value; // "auto"
-  }
-  if (ir.value.type === "length") {
-    return `${ir.value.value}${ir.value.unit}`; // "10px"
-  }
-  if (ir.value.type === "percentage") {
-    return `${ir.value.value}%`; // "50%"
-  }
-}
-```
-
-**4. Tests** (30min):
-
-```typescript
-// width.test.ts
-test("parse width", () => {
-  expect(parse("10px")).toMatchObject({ ok: true, value: { value: 10, unit: "px" } });
-  expect(parse("auto")).toMatchObject({ ok: true, value: { type: "keyword", value: "auto" } });
-  expect(parse("50%")).toMatchObject({ ok: true, value: { value: 50 } });
-});
-
-// width.generate.test.ts
-test("generate width", () => {
-  expect(toCss({ kind: "width", value: { type: "length", value: 10, unit: "px" } })).toBe("10px");
-  expect(toCss({ kind: "width", value: { type: "keyword", value: "auto" } })).toBe("auto");
-});
-```
-
-**5. Register** (30min):
-
-```typescript
-// In universal.ts
-import * as BoxModel from "./parse/box-model";
-
-const PROPERTY_PARSERS = {
-  // ... existing
-  width: BoxModel.Width.parse,
-  height: BoxModel.Height.parse,
-  // ... (12 total)
-};
-
-const PROPERTY_GENERATORS = {
-  // ... existing
-  width: wrapGenerator(BoxModel.Width.toCss),
-  height: wrapGenerator(BoxModel.Height.toCss),
-  // ... (12 total)
-};
-```
-
-### Value Delivered
-
-After Phase 1, users can do:
-
-```typescript
-parseAll(`
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;  /* Wait - this is shorthand! Use margin-left/right */
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 20px;
-`);
-```
-
-**Coverage**: 51 → 63 properties (48%)
-
----
-
-## Phase 2: Flexbox (v1.1) 🧩
-
-**Effort**: 6 hours
-**Priority**: HIGH - Modern layouts require flexbox
-**Impact**: Enable modern responsive layouts
-
-### Why Flexbox?
-
-- Used by **90%+ of modern websites**
-- Essential for responsive design
-- Simpler than Grid for 1D layouts
-- High user demand
-
-### Properties to Add (11)
-
-**Container** (6 properties):
-- [ ] flex-direction
-- [ ] flex-wrap
-- [ ] justify-content
-- [ ] align-items
-- [ ] align-content
-- [ ] flex-flow (SHORTHAND - reject with error pointing to b_short)
-
-**Items** (5 properties):
-- [ ] flex-grow
-- [ ] flex-shrink
-- [ ] flex-basis
-- [ ] align-self
-- [ ] order
-
-### IR Design
-
-```typescript
-type FlexDirection = {
-  kind: "flex-direction";
-  value: "row" | "row-reverse" | "column" | "column-reverse";
-};
-
-type JustifyContent = {
-  kind: "justify-content";
-  value: "flex-start" | "flex-end" | "center" | "space-between" | "space-around" | "space-evenly";
-};
-
-type FlexGrow = {
-  kind: "flex-grow";
-  value: number;
-};
-
-type FlexBasis = {
-  kind: "flex-basis";
-  value: Length | Percentage | Keyword<"auto" | "content">;
-};
-```
-
-### Implementation
-
-Similar to Box Model:
-1. Create `src/parse/flex/` module
-2. Write parsers (keyword-based, simple)
-3. Write generators
-4. Tests
-5. Register in universal.ts
-
-**Coverage**: 63 → 74 properties (56%)
-
----
-
-## Phase 3: Typography (v1.1) 📝
-
-**Effort**: 5 hours
-**Priority**: HIGH - Every website has text
-**Impact**: Complete text styling capabilities
-
-### Why Typography?
-
-- **Every website** uses text
-- Currently only 5/14 text properties supported
-- High user demand (font-size, font-family, etc.)
-
-### Properties to Add (9)
-
-**Font** (6 properties):
-- [ ] font-family
-- [ ] font-size
-- [ ] font-weight
-- [ ] font-style
-- [ ] line-height
-- [ ] font-variant
-
-**Spacing** (3 properties):
-- [ ] letter-spacing
-- [ ] word-spacing
-- [ ] white-space
-
-### IR Design
-
-```typescript
-type FontFamily = {
-  kind: "font-family";
-  families: Array<{ type: "name" | "generic", value: string }>;
-};
-
-type FontSize = {
-  kind: "font-size";
-  value: Length | Percentage | Keyword<"small" | "medium" | "large" | ...>;
-};
-
-type FontWeight = {
-  kind: "font-weight";
-  value: number | Keyword<"normal" | "bold" | "lighter" | "bolder">;
-};
-```
-
-### Challenges
-
-**font-family** is complex:
-
-```css
-font-family: "Helvetica Neue", Arial, sans-serif;
-font-family: 'Times New Roman', serif;
-```
-
-Need to:
-- Parse quoted strings
-- Handle comma-separated lists
-- Distinguish named fonts vs generic families
-
-**Effort breakdown**:
-- font-family: 2h (complex parsing)
-- Others: 3h (simpler)
-
-**Coverage**: 74 → 83 properties (63%)
-
----
-
-## Phase 4: Grid (v1.2) 🎯
-
-**Effort**: 8 hours
-**Priority**: MEDIUM - Advanced layouts
-**Impact**: Enable modern grid layouts
-
-### Why Grid Later?
-
-- Less common than Flexbox (60% vs 90% usage)
-- More complex spec
-- More edge cases
-- Can ship without Grid initially
-
-### Properties to Add (8)
-
-**Template** (2 properties):
-- [ ] grid-template-columns
-- [ ] grid-template-rows
-
-**Placement** (4 properties):
-- [ ] grid-column-start
-- [ ] grid-column-end
-- [ ] grid-row-start
-- [ ] grid-row-end
-
-**Gap** (2 properties):
-- [ ] grid-column-gap
-- [ ] grid-row-gap
-
-### IR Design
-
-```typescript
-type GridTemplateColumns = {
-  kind: "grid-template-columns";
-  tracks: Array<GridTrack>;
-};
-
-type GridTrack =
-  | { type: "length", value: number, unit: string }
-  | { type: "fr", value: number }
-  | { type: "minmax", min: GridTrack, max: GridTrack }
-  | { type: "repeat", count: number | "auto-fill" | "auto-fit", track: GridTrack };
-```
-
-### Challenges
-
-Grid syntax is **extremely complex**:
-
-```css
-grid-template-columns: 100px 1fr 2fr;
-grid-template-columns: repeat(3, 1fr);
-grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-grid-template-columns: [header-start] 1fr [header-end content-start] 2fr [content-end];
-```
-
-**Needs**:
-- Track parsing (px, fr, %, auto)
-- `repeat()` function
-- `minmax()` function
-- Named grid lines
-- `auto-fill` / `auto-fit`
-
-**Effort**: High complexity, worth 8h
-
-**Coverage**: 83 → 91 properties (69%)
-
----
-
-## Phase 5: Advanced Properties (v2.0+) 🚀
-
-**Effort**: 12+ hours
-**Priority**: LOW - Nice-to-have
-**Impact**: Complete spec coverage
-
-### Categories
-
-**SVG** (4+ properties):
-- [ ] fill
-- [ ] stroke
-- [ ] stroke-width
-- [ ] stroke-dasharray
-
-**Scroll** (3 properties):
-- [ ] scroll-behavior
-- [ ] scroll-margin-top
-- [ ] scroll-padding-top
-
-**Container Queries** (2+ properties):
-- [ ] container-type
-- [ ] container-name
-
-**Custom Properties** (special):
-- [ ] --* (custom property support)
-
-**Other**:
-- [ ] aspect-ratio
-- [ ] gap
-- [ ] place-items
-- [ ] place-content
-
-**Coverage**: 91+ → 99+ properties (75%+)
-
----
-
-## Implementation Strategy
-
-### Sprint Planning
-
-**Sprint 1 (v1.0)**: Registration + Box Model
-- Week 1: Fix registration gap (2h)
-- Week 1: Add box model (4h)
-- Week 1: Test, document, release v1.0
-- **Deliverable**: 63 properties (48% coverage)
-
-**Sprint 2 (v1.1)**: Flexbox + Typography
-- Week 2: Add flexbox (6h)
-- Week 3: Add typography (5h)
-- Week 3: Test, document, release v1.1
-- **Deliverable**: 83 properties (63% coverage)
-
-**Sprint 3 (v1.2)**: Grid
-- Week 4-5: Add grid (8h)
-- Week 5: Test, document, release v1.2
-- **Deliverable**: 91 properties (69% coverage)
-
-**Sprint 4 (v2.0)**: Advanced
-- Week 6-8: Add advanced properties (12h+)
-- Week 8: Test, document, release v2.0
-- **Deliverable**: 99+ properties (75%+ coverage)
-
-### Prioritization Matrix
-
-| Property | User Value | Complexity | ROI | Phase |
-|----------|------------|------------|-----|-------|
-| Box Model | ⭐⭐⭐⭐⭐ | ⭐ | 🔥 HIGHEST | v1.0 |
-| Flexbox | ⭐⭐⭐⭐⭐ | ⭐⭐ | 🔥 HIGH | v1.1 |
-| Typography | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | 🔥 HIGH | v1.1 |
-| Grid | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐ MEDIUM | v1.2 |
-| SVG | ⭐⭐ | ⭐⭐ | ⭐ LOW | v2.0 |
-| Custom | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐ LOW | v2.0 |
-
-### Success Metrics
-
-**v1.0** (48% coverage):
-- ✅ Universal API works for all properties
-- ✅ Box model supported
-- ✅ Can build basic layouts
-
-**v1.1** (63% coverage):
-- ✅ Flexbox supported
-- ✅ Typography complete
-- ✅ Can build modern responsive websites
-
-**v1.2** (69% coverage):
-- ✅ Grid supported
-- ✅ Can build complex layouts
-- ✅ 70% of CSS properties covered
-
-**v2.0** (75%+ coverage):
-- ✅ Advanced features
-- ✅ Near-complete CSS support
-- ✅ Industry-leading coverage
-
----
-
-## Contributing
-
-Want to help? Pick a property from the list!
-
-### Easy Properties (Good First Issues) ⭐
-
-These are simple keyword-based properties:
-- `flex-direction` (4 keywords)
-- `flex-wrap` (3 keywords)
-- `font-style` (3 keywords)
-- `white-space` (6 keywords)
-
-**Effort**: 30min - 1h each
-
-### Medium Properties ⭐⭐
-
-These need length/percentage parsing:
-- `width` / `height`
-- `margin-*` / `padding-*`
-- `font-size`
-- `letter-spacing`
-
-**Effort**: 1-2h each
-
-### Hard Properties ⭐⭐⭐
-
-Complex syntax:
-- `font-family` (quoted strings, comma lists)
-- `grid-template-columns` (repeat, minmax, fr units)
-
-**Effort**: 2-4h each
-
-### Contribution Process
-
-```bash
-# 1. Pick a property
-# 2. Create parser in src/parse/MODULE/property.ts
-# 3. Create generator in src/generate/MODULE/property.ts
-# 4. Write tests (both .test.ts and .generate.test.ts)
-# 5. Register in src/universal.ts
-# 6. Update this document (check off property)
-# 7. Submit PR
-```
-
----
-
-## Appendix: Full Property List (131 MDN Properties)
-
-### Animation (8) - ✅ 100% Coverage
+### Animation (8 properties)
 
 - [x] animation-delay
 - [x] animation-direction
@@ -716,7 +38,7 @@ Complex syntax:
 - [x] animation-play-state
 - [x] animation-timing-function
 
-### Background (8) - 🟡 75% Coverage
+### Background (8 properties)
 
 - [x] background-attachment
 - [x] background-clip
@@ -727,141 +49,966 @@ Complex syntax:
 - [x] background-repeat
 - [x] background-size
 
-### Border (15) - ✅ 100% Coverage
+### Border (16 properties)
 
-- [x] border-top-color
-- [x] border-right-color
 - [x] border-bottom-color
-- [x] border-left-color
-- [x] border-top-style
-- [x] border-right-style
-- [x] border-bottom-style
-- [x] border-left-style
-- [x] border-top-width
-- [x] border-right-width
-- [x] border-bottom-width
-- [x] border-left-width
-- [x] border-top-left-radius
-- [x] border-top-right-radius
 - [x] border-bottom-left-radius
 - [x] border-bottom-right-radius
+- [x] border-bottom-style
+- [x] border-bottom-width
+- [x] border-left-color
+- [x] border-left-style
+- [x] border-left-width
+- [x] border-right-color
+- [x] border-right-style
+- [x] border-right-width
+- [x] border-top-color
+- [x] border-top-left-radius
+- [x] border-top-right-radius
+- [x] border-top-style
+- [x] border-top-width
 
-### Box Model (12) - ❌ 0% Coverage - PHASE 1
-
-- [ ] width
-- [ ] height
-- [ ] max-width
-- [ ] max-height
-- [ ] min-width
-- [ ] min-height
-- [ ] margin-top
-- [ ] margin-right
-- [ ] margin-bottom
-- [ ] margin-left
-- [ ] padding-top
-- [ ] padding-right
-- [ ] padding-bottom
-- [ ] padding-left
-
-### Display & Layout (13) - ✅ 108% Coverage (we have extras!)
-
-- [x] display
-- [x] position
-- [x] top
-- [x] right
-- [x] bottom
-- [x] left
-- [x] z-index
-- [ ] float
-- [ ] clear
-- [ ] overflow (we have overflow-x, overflow-y)
-- [x] overflow-x
-- [x] overflow-y
-- [x] visibility
-
-### Flexbox (11) - ❌ 0% Coverage - PHASE 2
-
-- [ ] flex-grow
-- [ ] flex-shrink
-- [ ] flex-basis
-- [ ] flex-direction
-- [ ] flex-wrap
-- [ ] justify-content
-- [ ] align-items
-- [ ] align-content
-- [ ] align-self
-- [ ] order
-- [ ] ~~flex~~ (SHORTHAND - will reject)
-
-### Grid (8) - ❌ 0% Coverage - PHASE 4
-
-- [ ] grid-template-columns
-- [ ] grid-template-rows
-- [ ] grid-column-start
-- [ ] grid-column-end
-- [ ] grid-row-start
-- [ ] grid-row-end
-- [ ] grid-column-gap
-- [ ] grid-row-gap
-
-### Outline (4) - ✅ 100% Coverage
+### Outline (4 properties)
 
 - [x] outline-color
 - [x] outline-offset
 - [x] outline-style
 - [x] outline-width
 
-### Text (14) - 🔴 36% Coverage - PHASE 3
-
-- [x] color
-- [ ] font-family
-- [ ] font-size
-- [ ] font-weight
-- [ ] font-style
-- [ ] line-height
-- [ ] text-align
-- [x] text-decoration-color
-- [x] text-decoration-line
-- [x] text-decoration-style
-- [x] text-decoration-thickness
-- [ ] text-transform
-- [ ] letter-spacing
-- [ ] word-spacing
-- [ ] white-space
-
-### Transform (2) - ✅ 100% Coverage
-
-- [x] transform
-- [x] transform-origin
-
-### Transition (4) - ✅ 100% Coverage
+### Transition (4 properties)
 
 - [x] transition-delay
 - [x] transition-duration
 - [x] transition-property
 - [x] transition-timing-function
 
-### Visual Effects (7) - ✅ 100% Coverage
+### Text (5 properties)
 
-- [x] opacity
-- [x] clip-path
-- [x] filter
-- [x] box-shadow
+- [x] text-decoration-color
+- [x] text-decoration-line
+- [x] text-decoration-style
+- [x] text-decoration-thickness
 - [x] text-shadow
-- [x] cursor
-- [x] visibility
 
-### Other Common Properties
+### Layout (3 properties)
 
-- [ ] aspect-ratio
-- [ ] gap
-- [ ] place-items
-- [ ] place-content
-- [ ] object-fit
-- [ ] object-position
+- [x] overflow-x
+- [x] overflow-y
+- [x] z-index
+
+### Flexbox (9 properties)
+
+- [x] align-content
+- [x] align-items
+- [x] align-self
+- [x] flex-basis
+- [x] flex-direction
+- [x] flex-grow
+- [x] flex-shrink
+- [x] flex-wrap
+- [x] justify-content
+
+### Visual (3 properties)
+
+- [x] box-shadow
+- [x] clip-path
+- [x] text-shadow
+
+### Other (12 properties)
+
+- [x] margin-bottom
+- [x] margin-left
+- [x] margin-right
+- [x] margin-top
+- [x] max-height
+- [x] max-width
+- [x] min-height
+- [x] min-width
+- [x] padding-bottom
+- [x] padding-left
+- [x] padding-right
+- [x] padding-top
 
 ---
 
-**Total**: 51/131 current → 131/131 target
-**Timeline**: v1.0 (48%) → v1.1 (63%) → v1.2 (69%) → v2.0 (75%+)
-**Effort**: 37+ hours over 4 releases
+## Phase Plan (Priority-Driven)
+
+### Phase 1: Essential Box Model (NEXT - v1.0)
+**Properties**: 12  
+**Effort**: 4-6 hours  
+**Priority**: 🔥 CRITICAL - Required for ANY layout work
+
+Every website needs these properties. Without them, b_value is unusable for real layouts.
+
+- [ ] width
+- [ ] height
+- [x] min-width
+- [x] min-height
+- [x] max-width
+- [x] max-height
+- [x] margin-top
+- [x] margin-right
+- [x] margin-bottom
+- [x] margin-left
+- [x] padding-top
+- [x] padding-right
+- [x] padding-bottom
+- [x] padding-left
+
+**Deliverable**: 71 → 73 properties
+
+### Phase 2: Typography Core (v1.0)
+**Properties**: 9  
+**Effort**: 5-7 hours  
+**Priority**: 🔥 CRITICAL - Every website uses text
+
+- [ ] font-family
+- [ ] font-size
+- [ ] font-weight
+- [ ] font-style
+- [ ] line-height
+- [ ] text-align
+- [ ] text-transform
+- [ ] letter-spacing
+- [ ] word-spacing
+
+**Deliverable**: Modern text styling capability
+
+### Phase 3: Modern Flexbox (v1.1)
+**Properties**: 6 (remaining)
+**Effort**: 3-4 hours  
+**Priority**: ⭐⭐⭐ HIGH - 90% of modern layouts
+
+- [x] flex-direction
+- [x] flex-wrap
+- [x] justify-content
+- [x] align-items
+- [x] align-content
+- [x] align-self
+
+**Deliverable**: Full flexbox support
+
+### Phase 4: CSS Grid (v1.2)
+**Properties**: 13  
+**Effort**: 12-16 hours  
+**Priority**: ⭐⭐ MEDIUM - Complex layouts
+
+**Grid Template**:
+- [ ] grid-template-areas
+- [ ] grid-template-columns
+- [ ] grid-template-rows
+
+**Grid Placement**:
+- [ ] grid-auto-columns
+- [ ] grid-auto-rows
+- [ ] grid-column-end
+- [ ] grid-column-gap
+- [ ] grid-column-start
+- [ ] grid-row-end
+- [ ] grid-row-gap
+- [ ] grid-row-start
+- [ ] grid-template-columns
+- [ ] grid-template-rows
+
+... and -2 more grid properties
+
+---
+
+## Full Property Breakdown by Category
+
+### Layout - Box Model (3 properties)
+
+- [ ] height
+- [ ] max-lines
+- [ ] width
+
+### Layout - Flexbox (4 properties)
+
+- [ ] align-tracks
+- [ ] justify-items
+- [ ] justify-self
+- [ ] justify-tracks
+
+### Layout - Grid (13 properties)
+
+- [ ] grid-auto-columns
+- [ ] grid-auto-flow
+- [ ] grid-auto-rows
+- [ ] grid-column-end
+- [ ] grid-column-gap
+- [ ] grid-column-start
+- [ ] grid-gap
+- [ ] grid-row-end
+- [ ] grid-row-gap
+- [ ] grid-row-start
+- [ ] grid-template-areas
+- [ ] grid-template-columns
+- [ ] grid-template-rows
+
+### Layout - Positioning (13 properties)
+
+- [ ] bottom
+- [ ] clear
+- [ ] float
+- [ ] left
+- [ ] position
+- [ ] position-anchor
+- [ ] position-area
+- [ ] position-try
+- [ ] position-try-fallbacks
+- [ ] position-try-order
+- [ ] position-visibility
+- [ ] right
+- [ ] top
+
+### Layout - Multi-column (8 properties)
+
+- [ ] column-count
+- [ ] column-fill
+- [ ] column-gap
+- [ ] column-rule-color
+- [ ] column-rule-style
+- [ ] column-rule-width
+- [ ] column-span
+- [ ] column-width
+
+### Typography - Font (25 properties)
+
+- [ ] font-family
+- [ ] font-feature-settings
+- [ ] font-kerning
+- [ ] font-language-override
+- [ ] font-optical-sizing
+- [ ] font-palette
+- [ ] font-size
+- [ ] font-size-adjust
+- [ ] font-smooth
+- [ ] font-stretch
+- [ ] font-style
+- [ ] font-synthesis-position
+- [ ] font-synthesis-small-caps
+- [ ] font-synthesis-style
+- [ ] font-synthesis-weight
+- [ ] font-variant-alternates
+- [ ] font-variant-caps
+- [ ] font-variant-east-asian
+- [ ] font-variant-emoji
+- [ ] font-variant-ligatures
+
+... and 5 more properties
+
+### Typography - Text (37 properties)
+
+- [ ] letter-spacing
+- [ ] line-break
+- [ ] line-clamp
+- [ ] line-height
+- [ ] line-height-step
+- [ ] tab-size
+- [ ] text-align
+- [ ] text-align-last
+- [ ] text-anchor
+- [ ] text-autospace
+- [ ] text-box
+- [ ] text-box-edge
+- [ ] text-box-trim
+- [ ] text-combine-upright
+- [ ] text-decoration-skip
+- [ ] text-decoration-skip-ink
+- [ ] text-emphasis-color
+- [ ] text-emphasis-position
+- [ ] text-emphasis-style
+- [ ] text-indent
+
+... and 17 more properties
+
+### Typography - Writing (3 properties)
+
+- [ ] direction
+- [ ] unicode-bidi
+- [ ] writing-mode
+
+### Visual - Color/Background (6 properties)
+
+- [ ] background-blend-mode
+- [ ] background-position-x
+- [ ] background-position-y
+- [ ] color
+- [ ] color-interpolation-filters
+- [ ] color-scheme
+
+### Visual - Border/Outline (29 properties)
+
+- [ ] border-block-color
+- [ ] border-block-end-color
+- [ ] border-block-end-style
+- [ ] border-block-end-width
+- [ ] border-block-start-color
+- [ ] border-block-start-style
+- [ ] border-block-start-width
+- [ ] border-block-style
+- [ ] border-block-width
+- [ ] border-collapse
+- [ ] border-end-end-radius
+- [ ] border-end-start-radius
+- [ ] border-image-outset
+- [ ] border-image-repeat
+- [ ] border-image-slice
+- [ ] border-image-source
+- [ ] border-image-width
+- [ ] border-inline-color
+- [ ] border-inline-end-color
+- [ ] border-inline-end-style
+
+... and 9 more properties
+
+### Visual - Effects (5 properties)
+
+- [ ] backdrop-filter
+- [ ] filter
+- [ ] isolation
+- [ ] mix-blend-mode
+- [ ] opacity
+
+### Visual - SVG (21 properties)
+
+- [ ] fill
+- [ ] fill-opacity
+- [ ] fill-rule
+- [ ] marker
+- [ ] marker-end
+- [ ] marker-mid
+- [ ] marker-start
+- [ ] shape-image-threshold
+- [ ] shape-margin
+- [ ] shape-outside
+- [ ] shape-rendering
+- [ ] stroke
+- [ ] stroke-color
+- [ ] stroke-dasharray
+- [ ] stroke-dashoffset
+- [ ] stroke-linecap
+- [ ] stroke-linejoin
+- [ ] stroke-miterlimit
+- [ ] stroke-opacity
+- [ ] stroke-width
+
+... and 1 more properties
+
+### Interaction (5 properties)
+
+- [ ] cursor
+- [ ] pointer-events
+- [ ] resize
+- [ ] touch-action
+- [ ] user-select
+
+### Spacing (10 properties)
+
+- [ ] margin-block-end
+- [ ] margin-block-start
+- [ ] margin-inline-end
+- [ ] margin-inline-start
+- [ ] margin-trim
+- [ ] padding-block-end
+- [ ] padding-block-start
+- [ ] padding-inline-end
+- [ ] padding-inline-start
+- [ ] row-gap
+
+### Lists (3 properties)
+
+- [ ] list-style-image
+- [ ] list-style-position
+- [ ] list-style-type
+
+### Tables (3 properties)
+
+- [ ] caption-side
+- [ ] empty-cells
+- [ ] table-layout
+
+### Scroll (29 properties)
+
+- [ ] scroll-behavior
+- [ ] scroll-initial-target
+- [ ] scroll-margin-block-end
+- [ ] scroll-margin-block-start
+- [ ] scroll-margin-bottom
+- [ ] scroll-margin-inline-end
+- [ ] scroll-margin-inline-start
+- [ ] scroll-margin-left
+- [ ] scroll-margin-right
+- [ ] scroll-margin-top
+- [ ] scroll-padding-block-end
+- [ ] scroll-padding-block-start
+- [ ] scroll-padding-bottom
+- [ ] scroll-padding-inline-end
+- [ ] scroll-padding-inline-start
+- [ ] scroll-padding-left
+- [ ] scroll-padding-right
+- [ ] scroll-padding-top
+- [ ] scroll-snap-align
+- [ ] scroll-snap-coordinate
+
+... and 9 more properties
+
+### Container Queries (2 properties)
+
+- [ ] container-name
+- [ ] container-type
+
+### Logical Properties (12 properties)
+
+- [ ] animation-range-end
+- [ ] animation-range-start
+- [ ] contain-intrinsic-block-size
+- [ ] contain-intrinsic-inline-size
+- [ ] inset-block-end
+- [ ] inset-block-start
+- [ ] inset-inline-end
+- [ ] inset-inline-start
+- [ ] max-block-size
+- [ ] max-inline-size
+- [ ] min-block-size
+- [ ] min-inline-size
+
+### Experimental (9 properties)
+
+- [ ] anchor-name
+- [ ] anchor-scope
+- [ ] animation-range
+- [ ] timeline-scope
+- [ ] view-timeline-axis
+- [ ] view-timeline-inset
+- [ ] view-timeline-name
+- [ ] view-transition-class
+- [ ] view-transition-name
+
+### Other (135 properties)
+
+- [ ] accent-color
+- [ ] alignment-baseline
+- [ ] animation-composition
+- [ ] animation-timeline
+- [ ] appearance
+- [ ] aspect-ratio
+- [ ] backface-visibility
+- [ ] baseline-shift
+- [ ] block-size
+- [ ] box-align
+- [ ] box-decoration-break
+- [ ] box-direction
+- [ ] box-flex
+- [ ] box-flex-group
+- [ ] box-lines
+- [ ] box-ordinal-group
+- [ ] box-orient
+- [ ] box-pack
+- [ ] box-sizing
+- [ ] break-after
+
+... and 115 more properties
+
+---
+
+## Implementation Strategy
+
+### Prioritization Criteria
+
+1. **Usage Frequency**: Properties used on 50%+ of websites
+2. **User Requests**: Community demand
+3. **Implementation Complexity**: ROI (value delivered / effort)
+4. **Dependencies**: Build in logical order
+5. **Modern Web**: Prioritize current best practices
+
+### Phases Overview
+
+| Phase | Properties | Coverage | Target | Effort |
+|-------|-----------|----------|--------|--------|
+| Current | 71 | 15.9% | - | Done |
+| Phase 1 | +12 | 18.6% | v1.0 | 4-6h |
+| Phase 2 | +9 | 20.6% | v1.0 | 5-7h |
+| Phase 3 | +6 | 22.0% | v1.1 | 3-4h |
+| Phase 4 | +20 | 26.5% | v1.2 | 12-16h |
+| Phase 5+ | +328 | 100% | v2.0+ | TBD |
+
+### Success Metrics
+
+**v1.0 Release Criteria** (Target: ~95 properties):
+- ✅ Box model complete
+- ✅ Typography complete  
+- ✅ All baseline tests passing
+- ✅ Documentation updated
+- ✅ Can build production websites
+
+**v1.1 Release Criteria** (~101 properties):
+- ✅ Flexbox complete
+- ✅ Modern responsive layouts supported
+
+**v2.0 Release Criteria** (~200 properties):
+- ✅ Grid complete
+- ✅ 40%+ coverage
+- ✅ Industry competitive
+
+---
+
+## Appendix: Complete Property List
+
+### All 446 MDM Longhand Properties
+
+  1. [ ] accent-color
+  2. [x] align-content
+  3. [x] align-items
+  4. [x] align-self
+  5. [ ] align-tracks
+  6. [ ] alignment-baseline
+  7. [ ] anchor-name
+  8. [ ] anchor-scope
+  9. [ ] animation-composition
+ 10. [x] animation-delay
+ 11. [x] animation-direction
+ 12. [x] animation-duration
+ 13. [x] animation-fill-mode
+ 14. [x] animation-iteration-count
+ 15. [x] animation-name
+ 16. [x] animation-play-state
+ 17. [ ] animation-range
+ 18. [ ] animation-range-end
+ 19. [ ] animation-range-start
+ 20. [ ] animation-timeline
+ 21. [x] animation-timing-function
+ 22. [ ] appearance
+ 23. [ ] aspect-ratio
+ 24. [ ] backdrop-filter
+ 25. [ ] backface-visibility
+ 26. [x] background-attachment
+ 27. [ ] background-blend-mode
+ 28. [x] background-clip
+ 29. [x] background-color
+ 30. [x] background-image
+ 31. [x] background-origin
+ 32. [x] background-position
+ 33. [ ] background-position-x
+ 34. [ ] background-position-y
+ 35. [x] background-repeat
+ 36. [x] background-size
+ 37. [ ] baseline-shift
+ 38. [ ] block-size
+ 39. [ ] border-block-color
+ 40. [ ] border-block-end-color
+ 41. [ ] border-block-end-style
+ 42. [ ] border-block-end-width
+ 43. [ ] border-block-start-color
+ 44. [ ] border-block-start-style
+ 45. [ ] border-block-start-width
+ 46. [ ] border-block-style
+ 47. [ ] border-block-width
+ 48. [x] border-bottom-color
+ 49. [x] border-bottom-left-radius
+ 50. [x] border-bottom-right-radius
+ 51. [x] border-bottom-style
+ 52. [x] border-bottom-width
+ 53. [ ] border-collapse
+ 54. [ ] border-end-end-radius
+ 55. [ ] border-end-start-radius
+ 56. [ ] border-image-outset
+ 57. [ ] border-image-repeat
+ 58. [ ] border-image-slice
+ 59. [ ] border-image-source
+ 60. [ ] border-image-width
+ 61. [ ] border-inline-color
+ 62. [ ] border-inline-end-color
+ 63. [ ] border-inline-end-style
+ 64. [ ] border-inline-end-width
+ 65. [ ] border-inline-start-color
+ 66. [ ] border-inline-start-style
+ 67. [ ] border-inline-start-width
+ 68. [ ] border-inline-style
+ 69. [ ] border-inline-width
+ 70. [x] border-left-color
+ 71. [x] border-left-style
+ 72. [x] border-left-width
+ 73. [x] border-right-color
+ 74. [x] border-right-style
+ 75. [x] border-right-width
+ 76. [ ] border-spacing
+ 77. [ ] border-start-end-radius
+ 78. [ ] border-start-start-radius
+ 79. [x] border-top-color
+ 80. [x] border-top-left-radius
+ 81. [x] border-top-right-radius
+ 82. [x] border-top-style
+ 83. [x] border-top-width
+ 84. [ ] bottom
+ 85. [ ] box-align
+ 86. [ ] box-decoration-break
+ 87. [ ] box-direction
+ 88. [ ] box-flex
+ 89. [ ] box-flex-group
+ 90. [ ] box-lines
+ 91. [ ] box-ordinal-group
+ 92. [ ] box-orient
+ 93. [ ] box-pack
+ 94. [x] box-shadow
+ 95. [ ] box-sizing
+ 96. [ ] break-after
+ 97. [ ] break-before
+ 98. [ ] break-inside
+ 99. [ ] caption-side
+100. [ ] caret
+101. [ ] caret-color
+102. [ ] caret-shape
+103. [ ] clear
+104. [ ] clip
+105. [x] clip-path
+106. [ ] clip-rule
+107. [ ] color
+108. [ ] color-interpolation-filters
+109. [ ] color-scheme
+110. [ ] column-count
+111. [ ] column-fill
+112. [ ] column-gap
+113. [ ] column-rule-color
+114. [ ] column-rule-style
+115. [ ] column-rule-width
+116. [ ] column-span
+117. [ ] column-width
+118. [ ] contain
+119. [ ] contain-intrinsic-block-size
+120. [ ] contain-intrinsic-height
+121. [ ] contain-intrinsic-inline-size
+122. [ ] contain-intrinsic-size
+123. [ ] contain-intrinsic-width
+124. [ ] container-name
+125. [ ] container-type
+126. [ ] content
+127. [ ] content-visibility
+128. [ ] counter-increment
+129. [ ] counter-reset
+130. [ ] counter-set
+131. [ ] cursor
+132. [ ] cx
+133. [ ] cy
+134. [ ] d
+135. [ ] direction
+136. [ ] display
+137. [ ] dominant-baseline
+138. [ ] empty-cells
+139. [ ] field-sizing
+140. [ ] fill
+141. [ ] fill-opacity
+142. [ ] fill-rule
+143. [ ] filter
+144. [x] flex-basis
+145. [x] flex-direction
+146. [x] flex-grow
+147. [x] flex-shrink
+148. [x] flex-wrap
+149. [ ] float
+150. [ ] flood-color
+151. [ ] flood-opacity
+152. [ ] font-family
+153. [ ] font-feature-settings
+154. [ ] font-kerning
+155. [ ] font-language-override
+156. [ ] font-optical-sizing
+157. [ ] font-palette
+158. [ ] font-size
+159. [ ] font-size-adjust
+160. [ ] font-smooth
+161. [ ] font-stretch
+162. [ ] font-style
+163. [ ] font-synthesis-position
+164. [ ] font-synthesis-small-caps
+165. [ ] font-synthesis-style
+166. [ ] font-synthesis-weight
+167. [ ] font-variant-alternates
+168. [ ] font-variant-caps
+169. [ ] font-variant-east-asian
+170. [ ] font-variant-emoji
+171. [ ] font-variant-ligatures
+172. [ ] font-variant-numeric
+173. [ ] font-variant-position
+174. [ ] font-variation-settings
+175. [ ] font-weight
+176. [ ] font-width
+177. [ ] forced-color-adjust
+178. [ ] grid-auto-columns
+179. [ ] grid-auto-flow
+180. [ ] grid-auto-rows
+181. [ ] grid-column-end
+182. [ ] grid-column-gap
+183. [ ] grid-column-start
+184. [ ] grid-gap
+185. [ ] grid-row-end
+186. [ ] grid-row-gap
+187. [ ] grid-row-start
+188. [ ] grid-template-areas
+189. [ ] grid-template-columns
+190. [ ] grid-template-rows
+191. [ ] hanging-punctuation
+192. [ ] height
+193. [ ] hyphenate-character
+194. [ ] hyphenate-limit-chars
+195. [ ] hyphens
+196. [ ] image-orientation
+197. [ ] image-rendering
+198. [ ] image-resolution
+199. [ ] ime-mode
+200. [ ] initial-letter
+201. [ ] initial-letter-align
+202. [ ] inline-size
+203. [ ] inset-block-end
+204. [ ] inset-block-start
+205. [ ] inset-inline-end
+206. [ ] inset-inline-start
+207. [ ] interpolate-size
+208. [ ] isolation
+209. [x] justify-content
+210. [ ] justify-items
+211. [ ] justify-self
+212. [ ] justify-tracks
+213. [ ] left
+214. [ ] letter-spacing
+215. [ ] lighting-color
+216. [ ] line-break
+217. [ ] line-clamp
+218. [ ] line-height
+219. [ ] line-height-step
+220. [ ] list-style-image
+221. [ ] list-style-position
+222. [ ] list-style-type
+223. [ ] margin-block-end
+224. [ ] margin-block-start
+225. [x] margin-bottom
+226. [ ] margin-inline-end
+227. [ ] margin-inline-start
+228. [x] margin-left
+229. [x] margin-right
+230. [x] margin-top
+231. [ ] margin-trim
+232. [ ] marker
+233. [ ] marker-end
+234. [ ] marker-mid
+235. [ ] marker-start
+236. [ ] mask-border-mode
+237. [ ] mask-border-outset
+238. [ ] mask-border-repeat
+239. [ ] mask-border-slice
+240. [ ] mask-border-source
+241. [ ] mask-border-width
+242. [ ] mask-clip
+243. [ ] mask-composite
+244. [ ] mask-image
+245. [ ] mask-mode
+246. [ ] mask-origin
+247. [ ] mask-position
+248. [ ] mask-repeat
+249. [ ] mask-size
+250. [ ] mask-type
+251. [ ] masonry-auto-flow
+252. [ ] math-depth
+253. [ ] math-shift
+254. [ ] math-style
+255. [ ] max-block-size
+256. [x] max-height
+257. [ ] max-inline-size
+258. [ ] max-lines
+259. [x] max-width
+260. [ ] min-block-size
+261. [x] min-height
+262. [ ] min-inline-size
+263. [x] min-width
+264. [ ] mix-blend-mode
+265. [ ] object-fit
+266. [ ] object-position
+267. [ ] object-view-box
+268. [ ] offset-anchor
+269. [ ] offset-distance
+270. [ ] offset-path
+271. [ ] offset-position
+272. [ ] offset-rotate
+273. [ ] opacity
+274. [ ] order
+275. [ ] orphans
+276. [x] outline-color
+277. [x] outline-offset
+278. [x] outline-style
+279. [x] outline-width
+280. [ ] overflow-anchor
+281. [ ] overflow-block
+282. [ ] overflow-clip-box
+283. [ ] overflow-clip-margin
+284. [ ] overflow-inline
+285. [ ] overflow-wrap
+286. [x] overflow-x
+287. [x] overflow-y
+288. [ ] overlay
+289. [ ] overscroll-behavior-block
+290. [ ] overscroll-behavior-inline
+291. [ ] overscroll-behavior-x
+292. [ ] overscroll-behavior-y
+293. [ ] padding-block-end
+294. [ ] padding-block-start
+295. [x] padding-bottom
+296. [ ] padding-inline-end
+297. [ ] padding-inline-start
+298. [x] padding-left
+299. [x] padding-right
+300. [x] padding-top
+301. [ ] page
+302. [ ] page-break-after
+303. [ ] page-break-before
+304. [ ] page-break-inside
+305. [ ] paint-order
+306. [ ] perspective
+307. [ ] perspective-origin
+308. [ ] pointer-events
+309. [ ] position
+310. [ ] position-anchor
+311. [ ] position-area
+312. [ ] position-try
+313. [ ] position-try-fallbacks
+314. [ ] position-try-order
+315. [ ] position-visibility
+316. [ ] print-color-adjust
+317. [ ] quotes
+318. [ ] r
+319. [ ] resize
+320. [ ] right
+321. [ ] rotate
+322. [ ] row-gap
+323. [ ] ruby-align
+324. [ ] ruby-merge
+325. [ ] ruby-overhang
+326. [ ] ruby-position
+327. [ ] rx
+328. [ ] ry
+329. [ ] scale
+330. [ ] scroll-behavior
+331. [ ] scroll-initial-target
+332. [ ] scroll-margin-block-end
+333. [ ] scroll-margin-block-start
+334. [ ] scroll-margin-bottom
+335. [ ] scroll-margin-inline-end
+336. [ ] scroll-margin-inline-start
+337. [ ] scroll-margin-left
+338. [ ] scroll-margin-right
+339. [ ] scroll-margin-top
+340. [ ] scroll-padding-block-end
+341. [ ] scroll-padding-block-start
+342. [ ] scroll-padding-bottom
+343. [ ] scroll-padding-inline-end
+344. [ ] scroll-padding-inline-start
+345. [ ] scroll-padding-left
+346. [ ] scroll-padding-right
+347. [ ] scroll-padding-top
+348. [ ] scroll-snap-align
+349. [ ] scroll-snap-coordinate
+350. [ ] scroll-snap-destination
+351. [ ] scroll-snap-points-x
+352. [ ] scroll-snap-points-y
+353. [ ] scroll-snap-stop
+354. [ ] scroll-snap-type
+355. [ ] scroll-snap-type-x
+356. [ ] scroll-snap-type-y
+357. [ ] scroll-timeline-axis
+358. [ ] scroll-timeline-name
+359. [ ] scrollbar-color
+360. [ ] scrollbar-gutter
+361. [ ] scrollbar-width
+362. [ ] shape-image-threshold
+363. [ ] shape-margin
+364. [ ] shape-outside
+365. [ ] shape-rendering
+366. [ ] speak-as
+367. [ ] stop-color
+368. [ ] stop-opacity
+369. [ ] stroke
+370. [ ] stroke-color
+371. [ ] stroke-dasharray
+372. [ ] stroke-dashoffset
+373. [ ] stroke-linecap
+374. [ ] stroke-linejoin
+375. [ ] stroke-miterlimit
+376. [ ] stroke-opacity
+377. [ ] stroke-width
+378. [ ] tab-size
+379. [ ] table-layout
+380. [ ] text-align
+381. [ ] text-align-last
+382. [ ] text-anchor
+383. [ ] text-autospace
+384. [ ] text-box
+385. [ ] text-box-edge
+386. [ ] text-box-trim
+387. [ ] text-combine-upright
+388. [x] text-decoration-color
+389. [x] text-decoration-line
+390. [ ] text-decoration-skip
+391. [ ] text-decoration-skip-ink
+392. [x] text-decoration-style
+393. [x] text-decoration-thickness
+394. [ ] text-emphasis-color
+395. [ ] text-emphasis-position
+396. [ ] text-emphasis-style
+397. [ ] text-indent
+398. [ ] text-justify
+399. [ ] text-orientation
+400. [ ] text-overflow
+401. [ ] text-rendering
+402. [x] text-shadow
+403. [ ] text-size-adjust
+404. [ ] text-spacing-trim
+405. [ ] text-transform
+406. [ ] text-underline-offset
+407. [ ] text-underline-position
+408. [ ] text-wrap
+409. [ ] text-wrap-mode
+410. [ ] text-wrap-style
+411. [ ] timeline-scope
+412. [ ] top
+413. [ ] touch-action
+414. [ ] transform
+415. [ ] transform-box
+416. [ ] transform-origin
+417. [ ] transform-style
+418. [ ] transition-behavior
+419. [x] transition-delay
+420. [x] transition-duration
+421. [x] transition-property
+422. [x] transition-timing-function
+423. [ ] translate
+424. [ ] unicode-bidi
+425. [ ] user-select
+426. [ ] vector-effect
+427. [ ] vertical-align
+428. [ ] view-timeline-axis
+429. [ ] view-timeline-inset
+430. [ ] view-timeline-name
+431. [ ] view-transition-class
+432. [ ] view-transition-name
+433. [ ] visibility
+434. [ ] white-space
+435. [ ] white-space-collapse
+436. [ ] widows
+437. [ ] width
+438. [ ] will-change
+439. [ ] word-break
+440. [ ] word-spacing
+441. [ ] word-wrap
+442. [ ] writing-mode
+443. [ ] x
+444. [ ] y
+445. [x] z-index
+446. [ ] zoom
+
+---
+
+**Generated from MDM schema**: /Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json  
+**Total longhand properties**: 446  
+**Current implementation**: 71 (15.9%)  
+**Remaining work**: 375 properties
+
+This plan is automatically generated and aligned with the authoritative MDM (MDN Data) schema.
