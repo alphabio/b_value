@@ -2,8 +2,10 @@
 
 export * as Bottom from "./bottom";
 export * as BoxSizing from "./box-sizing";
+export * as Clear from "./clear.generate";
 export * as Cursor from "./cursor";
 export * as Display from "./display";
+export * as Float from "./float.generate";
 export * as Height from "./height";
 export * as Left from "./left";
 export * as MarginBottom from "./margin-bottom";
@@ -15,6 +17,7 @@ export * as MaxWidth from "./max-width";
 export * as MinHeight from "./min-height";
 export * as MinWidth from "./min-width";
 export * as Opacity from "./opacity";
+export * as Overflow from "./overflow.generate";
 export * as OverflowX from "./overflow-x";
 export * as OverflowY from "./overflow-y";
 export * as PaddingBottom from "./padding-bottom";

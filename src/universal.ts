@@ -64,8 +64,10 @@ import * as FlexboxParse from "./parse/flexbox";
 import * as InteractionParse from "./parse/interaction";
 import * as LayoutBottom from "./parse/layout/bottom";
 import * as LayoutBoxSizing from "./parse/layout/box-sizing";
+import * as LayoutClear from "./parse/layout/clear";
 import * as LayoutCursor from "./parse/layout/cursor";
 import * as LayoutDisplay from "./parse/layout/display";
+import * as LayoutFloat from "./parse/layout/float";
 import * as LayoutHeight from "./parse/layout/height";
 import * as LayoutLeft from "./parse/layout/left";
 import * as LayoutMarginBottom from "./parse/layout/margin-bottom";
@@ -77,6 +79,7 @@ import * as LayoutMaxWidth from "./parse/layout/max-width";
 import * as LayoutMinHeight from "./parse/layout/min-height";
 import * as LayoutMinWidth from "./parse/layout/min-width";
 import * as LayoutOpacity from "./parse/layout/opacity";
+import * as LayoutOverflow from "./parse/layout/overflow";
 import * as LayoutOverflowX from "./parse/layout/overflow-x";
 import * as LayoutOverflowY from "./parse/layout/overflow-y";
 import * as LayoutPaddingBottom from "./parse/layout/padding-bottom";
@@ -209,8 +212,11 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	visibility: wrapParser(LayoutVisibility.parse),
 	"z-index": wrapParser(LayoutZIndex.parse),
 	cursor: wrapParser(LayoutCursor.parse),
+	overflow: wrapParser(LayoutOverflow.parse),
 	"overflow-x": wrapParser(LayoutOverflowX.parse),
 	"overflow-y": wrapParser(LayoutOverflowY.parse),
+	float: wrapParser(LayoutFloat.parse),
+	clear: wrapParser(LayoutClear.parse),
 	"box-sizing": wrapParser(LayoutBoxSizing.parse),
 
 	// Typography properties
@@ -339,8 +345,11 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	visibility: wrapGenerator(LayoutGenerate.Visibility.toCss),
 	"z-index": wrapGenerator(LayoutGenerate.ZIndex.toCss),
 	cursor: wrapGenerator(LayoutGenerate.Cursor.toCss),
+	overflow: wrapGenerator(LayoutGenerate.Overflow.toCss),
 	"overflow-x": wrapGenerator(LayoutGenerate.OverflowX.toCss),
 	"overflow-y": wrapGenerator(LayoutGenerate.OverflowY.toCss),
+	float: wrapGenerator(LayoutGenerate.Float.toCss),
+	clear: wrapGenerator(LayoutGenerate.Clear.toCss),
 	"box-sizing": wrapGenerator(LayoutGenerate.BoxSizing.toCss),
 
 	// Typography properties
