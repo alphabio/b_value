@@ -1,7 +1,7 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T12:51:00Z  
-**Current Focus**: ✅ Clean baseline restored
+**Last Updated**: 2025-10-22T12:54:00Z  
+**Current Focus**: ✅ Clean baseline - ready for property work
 **Properties**: 114 implemented, 332 remaining
 
 ---
@@ -23,9 +23,11 @@
 
 ## 🎯 What's Next
 
-Continue implementing properties per ROADMAP.md.
+**Priority**: Continue implementing properties per ROADMAP.md Phase 1 (high-usage, foundational CSS)
 
-**Next Priority**: Phase 1 properties (high-usage, foundational CSS)
+**Future**: Build universal `parse(css)` / `generate(IR)` API **after** core properties complete
+- Keep existing `Module.Property.parse(value)` API (granular, typed, useful)
+- Add universal API on top (convenience layer for parsing/generating full declarations)
 
 ---
 
