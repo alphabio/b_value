@@ -1,10 +1,10 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T14:36:00Z
-**Property Count**: 102 CSS properties ✅
-**Test Status**: 2866/2866 passing (100%) ✅
+**Last Updated**: 2025-10-22T14:47:00Z
+**Property Count**: 105 CSS properties ✅
+**Test Status**: 2912/2912 passing (100%) ✅
 **Lint Status**: Clean ✅
-**Coverage**: 22.9% of 446 MDM longhands
+**Coverage**: 23.5% of 446 MDM longhands
 **Branch**: `develop`
 
 ---
@@ -24,9 +24,9 @@ All systems green:
 ## Recent Work
 
 ```
-[latest] feat(interaction): user-select property - 102 properties total
-e8a776f  feat(interaction): pointer-events property - 101 properties total
-4bba76a  docs(handover): add START_HERE guide for next agent
+[latest] feat(layout): overflow, float, clear - 105 properties total
+65eeddb  docs(status): cleanup complete - revert experimental API changes
+fad3273  feat(interaction): user-select property - 102 properties total
 ```
 
 ---
@@ -42,7 +42,7 @@ Previous session explored API redesign but **reverted** - the architecture requi
 ## Current Focus
 
 **Phase 1: Tier 1 CRITICAL** - Implementing highest-usage properties (90%+ websites).
-**Progress**: 8/16 properties complete (50% done), all with comprehensive test coverage.
+**Progress**: 11/16 properties complete (69% done), all with comprehensive test coverage.
 
 ---
 
@@ -50,7 +50,6 @@ Previous session explored API redesign but **reverted** - the architecture requi
 
 ### Priority 1: Continue Phase 1 Implementation
 - Interaction: content (1 prop)
-- Layout: overflow, float, clear (3 props)
 - Visual: background-blend-mode, mix-blend-mode (2 props)
 - Background: background-position-x, background-position-y (2 props)
 
