@@ -39,17 +39,13 @@
 
 ## 🎯 What's Next
 
-### Option 1: Resume Property Implementation
-- Continue adding new CSS properties
-- Use consistent `GenerateResult` API
-- Target: 446 total properties
+### Current Priority: Restore Test Coverage
+**Status**: In Progress (0/6 batches complete)  
+**Goal**: 60.94% → 90%+ coverage  
+**Plan**: `.memory/TEST_RESTORATION_PLAN.md`  
+**Progress**: `.memory/TEST_RESTORATION_PROGRESS.md`
 
-### Option 2: Restore Test Coverage (Optional)
-- Recreate deleted tests (~1-2 hours)
-- Focus on high-value generator tests
-- Target: >90% coverage
-
-**Recommendation**: Resume property implementation - refactor is complete!
+To continue: Read progress file and start next batch
 
 ---
 
