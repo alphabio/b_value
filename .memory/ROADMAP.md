@@ -1,9 +1,9 @@
 # Property Implementation Roadmap
 
-**Last Updated**: 2025-10-22T05:56:00Z  
-**Implemented**: 100 properties 🎉 **MILESTONE!**  
+**Last Updated**: 2025-10-22T08:30:00Z  
+**Implemented**: 109 properties  
 **Total MDM Longhands**: 446 properties  
-**Coverage**: 22.4%
+**Coverage**: 24.4%
 
 > Property count verified by `.memory/scripts/count-properties.sh`
 
@@ -36,17 +36,17 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 
 **Note**: 9 files in module (1 dispatcher + 8 properties)
 
-### Background (7/8) 🔄 NEAR COMPLETE
+### Background (9/9) ✅ COMPLETE
 
 - [x] background-attachment
 - [x] background-clip
 - [x] background-color
 - [x] background-image (includes gradients)
 - [x] background-origin
+- [x] background-position-x ⭐
+- [x] background-position-y ⭐
 - [x] background-repeat
 - [x] background-size
-- [ ] background-position-x ⭐
-- [ ] background-position-y ⭐
 
 **Note**: background-position is handled as a compound value (x/y together)
 
