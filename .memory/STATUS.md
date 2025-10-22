@@ -1,21 +1,41 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T12:56:00Z  
-**Current Focus**: 🔍 **AUDIT REQUIRED** - Return type inconsistency blocking universal API
-**Properties**: 114 implemented, 332 remaining
+**Last Updated**: 2025-10-22T13:26:00Z  
+**Current Focus**: 🔴 **CRITICAL ARCHITECTURE FIX** - Generator consistency required before universal API
+**Properties**: 109 implemented, 337 remaining
 
 ---
 
-## 🚨 Critical Issue
+## 🚨 Critical Issue - ROOT CAUSE IDENTIFIED
 
-**Universal API is BLOCKED** by inconsistent parser return types.
+**Universal API is BLOCKED** by inconsistent generator return types.
 
-**What user wants**:
-- `parse("color: red; width: 100px")` → `{ color: ColorIR, width: LengthIR }`
-- `generate({ color: ColorIR, width: LengthIR })` → `"color: red; width: 100px"`
+### The Problem
 
-**Problem**: Some parsers return `Result<T, string>`, others return `ParseResult<T>`.  
-**Solution**: Full audit required to determine standardization strategy.
+**Generators have 3 different patterns**:
+- **128 generators** (92%): `toCss()` → `string` (no validation)
+- **11 generators** (8%): `generate()` → `GenerateResult` (with validation)
+- **2 generators**: Custom function names
+
+### Why This Matters
+
+**BOTH parse() AND generate() MUST return Result types** because:
+- Parse validates untrusted CSS strings
+- **Generate validates untrusted IR objects** (users can construct IR manually)
+- JavaScript has no runtime type safety - MUST validate at runtime
+- Without validation, generators throw exceptions instead of returning errors gracefully
+
+See `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` for complete rationale.
+
+### The Fix
+
+**Make ALL 139 generators**:
+1. Return `GenerateResult` (not raw `string`)
+2. Validate their input IR
+3. Return errors gracefully (no thrown exceptions)
+4. Use consistent naming: `generate()` not `toCss()`
+
+**Estimated effort**: 6-8 hours
 
 ---
 
@@ -23,15 +43,17 @@
 
 - ✅ **Tests**: 2938/2938 passing (100%)
 - ✅ **Baseline**: Clean (lint + typecheck)
-- 📦 **Properties**: 114/446 (25.6%)
-- 🚧 **Universal API**: Blocked by return type audit
+- 📦 **Properties**: 109/446 (24.4%)
+- 🚧 **Universal API**: Blocked - generators must be fixed first
 
 ---
 
 ## 📁 Key Documents
 
 ### 🔥 **START HERE**:
-- **`.memory/HANDOVER_UNIVERSAL_API.md`** - Complete audit & implementation instructions
+- **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** - CRITICAL: Why generators must return Result types
+- **`.memory/GENERATOR_COMPLETE_AUDIT.txt`** - Complete audit of all 139 generators
+- **`.memory/GENERATOR_INCONSISTENCY_ANALYSIS.md`** - Detailed problem analysis
 
 ### Reference:
 - **`.memory/ROADMAP.md`** - Property implementation roadmap
@@ -43,30 +65,34 @@
 
 **Next agent must**:
 
-1. **READ** `.memory/HANDOVER_UNIVERSAL_API.md` (fool-proof instructions)
-2. **RUN** the audit script (10 minutes)
-3. **DECIDE** standardization strategy
-4. **IMPLEMENT** universal API (~2.5 hours total)
-5. **TEST** and ship
+1. **READ** `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` (understand why this matters)
+2. **Fix generators** (6-8 hours):
+   - Add validation to 128 generators
+   - Change return type: `string` → `GenerateResult`
+   - Rename function: `toCss` → `generate`
+   - Update tests
+   - Update callsites
+3. **THEN** build universal API (will be trivial with consistent generators)
 
-**Estimated time**: 2.5 hours focused work
-
----
-
-## 📝 What We Have vs. What We Need
-
-**Current (KEEP)**:
-- `Color.parse("red")` → ColorIR ✅
-- `Layout.Width.parse("100px")` → LengthIR ✅
-- Granular, typed, tested - **DO NOT CHANGE**
-
-**Need to ADD**:
-- `parse("color: red; width: 100px")` → `{ color: ColorIR, width: LengthIR }` 🎯
-- `generate({ color: ColorIR, width: LengthIR })` → `"color: red; width: 100px"` 🎯
-- Convenience layer **on top** of existing API
-
-**Both APIs will coexist** - granular for precision, universal for convenience.
+**Do NOT skip step 1.** Understanding the architecture is critical.
 
 ---
 
-**Audit first. Everything else follows.** 🔍
+## 📝 What We Learned
+
+**Key insight**: Generation validates untrusted IR objects, just like parsing validates untrusted CSS strings.
+
+Users can construct IR manually (not always from our parser). JavaScript has no runtime type safety. Generators MUST validate input and return Result types.
+
+The conversation that led to this understanding took hours. Read the architecture doc to avoid repeating it.
+
+---
+
+## ❌ What NOT To Do
+
+- Don't build adapters around the inconsistency
+- Don't assume "generation can't fail"
+- Don't think "the 92% majority must be right"
+- Don't skip the architecture document
+
+**Read `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` first.**
