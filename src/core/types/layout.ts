@@ -5,7 +5,7 @@ import { displayKeywordsSchema } from "../keywords/display-keywords";
 import { overflowKeywordsSchema } from "../keywords/overflow-keywords";
 import { positionPropertyKeywordsSchema } from "../keywords/position-property-keywords";
 import { visibilityKeywordsSchema } from "../keywords/visibility-keywords";
-import { lengthPercentageAutoSchema } from "./length-percentage";
+import { lengthPercentageAutoSchema, lengthPercentageSchema } from "./length-percentage";
 
 /**
  * CSS display property IR.
@@ -522,3 +522,207 @@ export const heightSchema = z.object({
  * @public
  */
 export type Height = z.infer<typeof heightSchema>;
+
+/**
+ * CSS min-width property IR.
+ *
+ * The min-width property sets the minimum width of an element.
+ * Accepts length-percentage, auto, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/min-width}
+ *
+ * @public
+ */
+export const minWidthSchema = z.object({
+	kind: z.literal("min-width"),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+export type MinWidth = z.infer<typeof minWidthSchema>;
+
+/**
+ * CSS max-width property IR.
+ *
+ * The max-width property sets the maximum width of an element.
+ * Accepts length-percentage, none keyword, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/max-width}
+ *
+ * @public
+ */
+export const maxWidthSchema = z.object({
+	kind: z.literal("max-width"),
+	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+export type MaxWidth = z.infer<typeof maxWidthSchema>;
+
+/**
+ * CSS min-height property IR.
+ *
+ * The min-height property sets the minimum height of an element.
+ * Accepts length-percentage, auto, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/min-height}
+ *
+ * @public
+ */
+export const minHeightSchema = z.object({
+	kind: z.literal("min-height"),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+export type MinHeight = z.infer<typeof minHeightSchema>;
+
+/**
+ * CSS max-height property IR.
+ *
+ * The max-height property sets the maximum height of an element.
+ * Accepts length-percentage, none keyword, or intrinsic sizing keywords.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/max-height}
+ *
+ * @public
+ */
+export const maxHeightSchema = z.object({
+	kind: z.literal("max-height"),
+	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])]),
+});
+
+export type MaxHeight = z.infer<typeof maxHeightSchema>;
+
+/**
+ * CSS margin-top property IR.
+ *
+ * The margin-top property sets the top margin of an element.
+ * Accepts length-percentage or auto keyword.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/margin-top}
+ *
+ * @public
+ */
+export const marginTopSchema = z.object({
+	kind: z.literal("margin-top"),
+	value: lengthPercentageAutoSchema,
+});
+
+export type MarginTop = z.infer<typeof marginTopSchema>;
+
+/**
+ * CSS margin-right property IR.
+ *
+ * The margin-right property sets the right margin of an element.
+ * Accepts length-percentage or auto keyword.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/margin-right}
+ *
+ * @public
+ */
+export const marginRightSchema = z.object({
+	kind: z.literal("margin-right"),
+	value: lengthPercentageAutoSchema,
+});
+
+export type MarginRight = z.infer<typeof marginRightSchema>;
+
+/**
+ * CSS margin-bottom property IR.
+ *
+ * The margin-bottom property sets the bottom margin of an element.
+ * Accepts length-percentage or auto keyword.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/margin-bottom}
+ *
+ * @public
+ */
+export const marginBottomSchema = z.object({
+	kind: z.literal("margin-bottom"),
+	value: lengthPercentageAutoSchema,
+});
+
+export type MarginBottom = z.infer<typeof marginBottomSchema>;
+
+/**
+ * CSS margin-left property IR.
+ *
+ * The margin-left property sets the left margin of an element.
+ * Accepts length-percentage or auto keyword.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/margin-left}
+ *
+ * @public
+ */
+export const marginLeftSchema = z.object({
+	kind: z.literal("margin-left"),
+	value: lengthPercentageAutoSchema,
+});
+
+export type MarginLeft = z.infer<typeof marginLeftSchema>;
+
+/**
+ * CSS padding-top property IR.
+ *
+ * The padding-top property sets the top padding of an element.
+ * Accepts length-percentage values (non-negative).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding-top}
+ *
+ * @public
+ */
+export const paddingTopSchema = z.object({
+	kind: z.literal("padding-top"),
+	value: lengthPercentageSchema,
+});
+
+export type PaddingTop = z.infer<typeof paddingTopSchema>;
+
+/**
+ * CSS padding-right property IR.
+ *
+ * The padding-right property sets the right padding of an element.
+ * Accepts length-percentage values (non-negative).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding-right}
+ *
+ * @public
+ */
+export const paddingRightSchema = z.object({
+	kind: z.literal("padding-right"),
+	value: lengthPercentageSchema,
+});
+
+export type PaddingRight = z.infer<typeof paddingRightSchema>;
+
+/**
+ * CSS padding-bottom property IR.
+ *
+ * The padding-bottom property sets the bottom padding of an element.
+ * Accepts length-percentage values (non-negative).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding-bottom}
+ *
+ * @public
+ */
+export const paddingBottomSchema = z.object({
+	kind: z.literal("padding-bottom"),
+	value: lengthPercentageSchema,
+});
+
+export type PaddingBottom = z.infer<typeof paddingBottomSchema>;
+
+/**
+ * CSS padding-left property IR.
+ *
+ * The padding-left property sets the left padding of an element.
+ * Accepts length-percentage values (non-negative).
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/padding-left}
+ *
+ * @public
+ */
+export const paddingLeftSchema = z.object({
+	kind: z.literal("padding-left"),
+	value: lengthPercentageSchema,
+});
+
+export type PaddingLeft = z.infer<typeof paddingLeftSchema>;
