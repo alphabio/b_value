@@ -263,8 +263,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -277,8 +279,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -291,8 +295,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -305,8 +311,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -319,8 +327,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -333,8 +343,10 @@ describe("OKLab Color Parser", () => {
 			const parsed = OKLabParser.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = OKLabGenerator.toCss(parsed.value);
-				const reparsed = OKLabParser.parse(generated);
+				const generated = OKLabGenerator.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = OKLabParser.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);

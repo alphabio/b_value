@@ -43,5 +43,5 @@ export function generate(height: Height): GenerateResult {
 	if (typeof height.value === "string") {
 		return generateOk(height.value);
 	}
-	return GenUtils.lengthPercentageToCss(height.value);
+	return generateOk(GenUtils.lengthPercentageToCss(height.value));
 }

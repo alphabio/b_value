@@ -292,8 +292,10 @@ describe("LAB Color Parser", () => {
 				expect(parseResult.ok).toBe(true);
 				if (parseResult.ok) {
 					expect(parseResult.value).toEqual(expected);
-					const generated = LABGenerator.toCss(parseResult.value);
-					const reparsed = LABParser.parse(generated);
+					const generated = LABGenerator.generate(parseResult.value);
+					expect(generated.ok).toBe(true);
+					if (!generated.ok) return;
+					const reparsed = LABParser.parse(generated.value);
 					expect(reparsed.ok).toBe(true);
 					if (reparsed.ok) {
 						expect(reparsed.value).toEqual(expected);

@@ -55,12 +55,14 @@ export function generate(ir: Type.TransitionProperty): GenerateResult {
 	if (ir === undefined || ir === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return ir.properties
-		.map((prop) => {
-			if (prop.type === "none" || prop.type === "all") {
-				return generateOk(prop.type);
-			}
-			return generateOk(prop.value);
-		})
-		.join(", ");
+	return generateOk(
+		ir.properties
+			.map((prop) => {
+				if (prop.type === "none" || prop.type === "all") {
+					return prop.type;
+				}
+				return prop.value;
+			})
+			.join(", "),
+	);
 }

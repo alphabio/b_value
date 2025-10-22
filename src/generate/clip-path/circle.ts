@@ -53,7 +53,9 @@ export function generate(value: Type.ClipPathCircle): GenerateResult {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Utils.generate(value.position));
+		const posResult = Generate.Position.Utils.generate(value.position);
+		if (!posResult.ok) return posResult;
+		parts.push(posResult.value);
 	}
 
 	parts.push(")");

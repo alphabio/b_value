@@ -21,5 +21,5 @@ export function generate(maxHeight: MaxHeight): GenerateResult {
 	if (typeof maxHeight.value === "string") {
 		return generateOk(maxHeight.value);
 	}
-	return GenUtils.lengthPercentageToCss(maxHeight.value);
+	return generateOk(GenUtils.lengthPercentageToCss(maxHeight.value));
 }
