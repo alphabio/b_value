@@ -630,11 +630,20 @@ function mergeResults(
 		issues.push(...result.issues);
 	}
 
+	if (allOk) {
+		return {
+			ok: true,
+			value,
+			issues,
+		};
+	}
+	// parseAll() has special semantics: value is always present (contains unparsed strings for failures)
+	// TypeScript's discriminated union doesn't support this, so we use unknown cast
 	return {
-		ok: allOk,
+		ok: false,
 		value,
 		issues,
-	};
+	} as unknown as ParseResult<Record<string, CSSValue | string>>;
 }
 
 /**
