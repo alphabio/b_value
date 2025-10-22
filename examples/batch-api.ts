@@ -19,10 +19,12 @@ const css1 = "color: red; width: 100px; opacity: 0.5";
 const result1 = parseAll(css1);
 
 if (result1.ok) {
+	console.log(result1);
+
 	console.log("✓ Successfully parsed 3 properties");
-	console.log("  color:", JSON.stringify(result1.value.color));
-	console.log("  width:", JSON.stringify(result1.value.width));
-	console.log("  opacity:", JSON.stringify(result1.value.opacity));
+	console.log("  color:", JSON.stringify(result1.value?.color));
+	console.log("  width:", JSON.stringify(result1.value?.width));
+	console.log("  opacity:", JSON.stringify(result1.value?.opacity));
 } else {
 	console.log("✗ Parse failed:", result1.issues);
 }
@@ -57,7 +59,7 @@ console.log("Initial CSS:", userCSS);
 // Parse it
 const parsed = parseAll(userCSS);
 
-if (parsed.ok) {
+if (parsed.ok && parsed.value) {
 	console.log("✓ Parsed successfully");
 
 	// User modifies color in UI
@@ -92,9 +94,9 @@ result2.issues.forEach((issue) => {
 });
 
 console.log("\nInvalid values preserved as strings:");
-console.log("  color:", result2.value.color); // "notacolor"
-console.log("  width:", JSON.stringify(result2.value.width)); // IR object
-console.log("  height:", result2.value.height); // "invalid"
+console.log("  color:", result2.value?.color); // "notacolor"
+console.log("  width:", JSON.stringify(result2.value?.width)); // IR object
+console.log("  height:", result2.value?.height); // "invalid"
 
 console.log("\n");
 
@@ -108,7 +110,7 @@ const duplicateCSS = "color: red; width: 100px; color: blue";
 const result3 = parseAll(duplicateCSS);
 
 console.log("Parse result - ok:", result3.ok); // true (warning, not error)
-console.log("Final color value:", JSON.stringify(result3.value.color)); // blue (last wins)
+console.log("Final color value:", JSON.stringify(result3.value?.color)); // blue (last wins)
 
 console.log("\nWarning issued:");
 result3.issues.forEach((issue) => {
@@ -130,12 +132,12 @@ const result4 = parseAll(mixedCSS);
 
 console.log("Parse result - ok:", result4.ok); // false (border is shorthand)
 console.log("\nParsed values:");
-console.log("  color:", JSON.stringify(result4.value.color)); // IR object
-console.log("  border:", result4.value.border); // "1px solid black" (string)
-console.log("  width:", JSON.stringify(result4.value.width)); // IR object
+console.log("  color:", JSON.stringify(result4.value?.color)); // IR object
+console.log("  border:", result4.value?.border); // "1px solid black" (string)
+console.log("  width:", JSON.stringify(result4.value?.width)); // IR object
 
 // Can still generate CSS with string values
-const generated2 = generateAll(result4.value);
+const generated2 = generateAll(result4);
 console.log("\nGenerated CSS:", generated2);
 
 console.log("\n");
@@ -171,12 +173,12 @@ const result5 = parseAll(complexCSS);
 
 if (result5.ok) {
 	console.log("✓ Successfully parsed complex properties");
-	console.log("  transform:", JSON.stringify(result5.value.transform));
-	console.log("  filter:", JSON.stringify(result5.value.filter));
-	console.log("  background-position:", JSON.stringify(result5.value["background-position"]));
+	console.log("  transform:", JSON.stringify(result5.value?.transform));
+	console.log("  filter:", JSON.stringify(result5.value?.filter));
+	console.log("  background-position:", JSON.stringify(result5.value?.["background-position"]));
 
 	// Generate back
-	const generated3 = generateAll(result5.value);
+	const generated3 = generateAll(result5);
 	console.log("\nGenerated CSS:", generated3);
 }
 
@@ -225,7 +227,7 @@ const editorInput = "color: red; width: notvalid; color: blue; height: 100px";
 const editableValues = cssEditorSimulation(editorInput);
 
 console.log("\nEditable values available:");
-console.log("  Properties:", Object.keys(editableValues).join(", "));
+console.log("  Properties:", Object.keys(editableValues || {}).join(", "));
 
 console.log("\n");
 
@@ -241,6 +243,6 @@ console.log("Batch API (one call):");
 console.time("  parseAll");
 const batchResult = parseAll(testCSS);
 console.timeEnd("  parseAll");
-console.log("  Properties parsed:", Object.keys(batchResult.value).length);
+console.log("  Properties parsed:", Object.keys(batchResult).length);
 
 console.log("\n=== Examples Complete ===");

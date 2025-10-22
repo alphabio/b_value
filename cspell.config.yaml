@@ -12,6 +12,8 @@ words:
   - grayscale
   - justfile
   - mynew
+  - notacolor
+  - notvalid
   - oklab
   - oklch
   - oneline
