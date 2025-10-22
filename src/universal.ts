@@ -62,9 +62,21 @@ import * as LayoutCursor from "./parse/layout/cursor";
 import * as LayoutDisplay from "./parse/layout/display";
 import * as LayoutHeight from "./parse/layout/height";
 import * as LayoutLeft from "./parse/layout/left";
+import * as LayoutMarginBottom from "./parse/layout/margin-bottom";
+import * as LayoutMarginLeft from "./parse/layout/margin-left";
+import * as LayoutMarginRight from "./parse/layout/margin-right";
+import * as LayoutMarginTop from "./parse/layout/margin-top";
+import * as LayoutMaxHeight from "./parse/layout/max-height";
+import * as LayoutMaxWidth from "./parse/layout/max-width";
+import * as LayoutMinHeight from "./parse/layout/min-height";
+import * as LayoutMinWidth from "./parse/layout/min-width";
 import * as LayoutOpacity from "./parse/layout/opacity";
 import * as LayoutOverflowX from "./parse/layout/overflow-x";
 import * as LayoutOverflowY from "./parse/layout/overflow-y";
+import * as LayoutPaddingBottom from "./parse/layout/padding-bottom";
+import * as LayoutPaddingLeft from "./parse/layout/padding-left";
+import * as LayoutPaddingRight from "./parse/layout/padding-right";
+import * as LayoutPaddingTop from "./parse/layout/padding-top";
 import * as LayoutPosition from "./parse/layout/position";
 import * as LayoutRight from "./parse/layout/right";
 import * as LayoutTop from "./parse/layout/top";
@@ -172,6 +184,18 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	left: wrapParser(LayoutLeft.parse),
 	width: wrapParser(LayoutWidth.parse),
 	height: wrapParser(LayoutHeight.parse),
+	"min-width": wrapParser(LayoutMinWidth.parse),
+	"max-width": wrapParser(LayoutMaxWidth.parse),
+	"min-height": wrapParser(LayoutMinHeight.parse),
+	"max-height": wrapParser(LayoutMaxHeight.parse),
+	"margin-top": wrapParser(LayoutMarginTop.parse),
+	"margin-right": wrapParser(LayoutMarginRight.parse),
+	"margin-bottom": wrapParser(LayoutMarginBottom.parse),
+	"margin-left": wrapParser(LayoutMarginLeft.parse),
+	"padding-top": wrapParser(LayoutPaddingTop.parse),
+	"padding-right": wrapParser(LayoutPaddingRight.parse),
+	"padding-bottom": wrapParser(LayoutPaddingBottom.parse),
+	"padding-left": wrapParser(LayoutPaddingLeft.parse),
 	position: wrapParser(LayoutPosition.parse),
 	display: wrapParser(LayoutDisplay.parse),
 	opacity: wrapParser(LayoutOpacity.parse),
@@ -259,6 +283,18 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	left: wrapGenerator(LayoutGenerate.Left.toCss),
 	width: wrapGenerator(LayoutGenerate.Width.toCss),
 	height: wrapGenerator(LayoutGenerate.Height.toCss),
+	"min-width": wrapGenerator(LayoutGenerate.MinWidth.toCss),
+	"max-width": wrapGenerator(LayoutGenerate.MaxWidth.toCss),
+	"min-height": wrapGenerator(LayoutGenerate.MinHeight.toCss),
+	"max-height": wrapGenerator(LayoutGenerate.MaxHeight.toCss),
+	"margin-top": wrapGenerator(LayoutGenerate.MarginTop.toCss),
+	"margin-right": wrapGenerator(LayoutGenerate.MarginRight.toCss),
+	"margin-bottom": wrapGenerator(LayoutGenerate.MarginBottom.toCss),
+	"margin-left": wrapGenerator(LayoutGenerate.MarginLeft.toCss),
+	"padding-top": wrapGenerator(LayoutGenerate.PaddingTop.toCss),
+	"padding-right": wrapGenerator(LayoutGenerate.PaddingRight.toCss),
+	"padding-bottom": wrapGenerator(LayoutGenerate.PaddingBottom.toCss),
+	"padding-left": wrapGenerator(LayoutGenerate.PaddingLeft.toCss),
 	position: wrapGenerator(LayoutGenerate.Position.toCss),
 	display: wrapGenerator(LayoutGenerate.Display.toCss),
 	opacity: wrapGenerator(LayoutGenerate.Opacity.toCss),
