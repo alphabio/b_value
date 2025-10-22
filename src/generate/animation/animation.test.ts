@@ -77,12 +77,12 @@ describe("animation generator (dispatcher)", () => {
 	test("should error on missing kind", () => {
 		const result = generate({} as any);
 		expect(result.ok).toBe(false);
-		if (!result.ok) expect(result.issues[0].message).toContain("missing 'kind' field");
+		if (!result.ok) expect(result.issues?.[0]?.message).toContain("missing 'kind' field");
 	});
 
 	test("should error on invalid kind", () => {
 		const result = generate({ kind: "animation-invalid" } as any);
 		expect(result.ok).toBe(false);
-		if (!result.ok) expect(result.issues[0].message).toContain("Unknown animation kind");
+		if (!result.ok) expect(result.issues?.[0]?.message).toContain("Unknown animation kind");
 	});
 });
