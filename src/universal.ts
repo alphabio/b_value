@@ -214,9 +214,15 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	// Typography properties
 	"font-size": wrapParser(Typography.FontSize.parse),
 	"font-family": wrapParser(Typography.FontFamily.parse),
+	"font-style": wrapParser(Typography.FontStyle.parse),
 	"font-weight": wrapParser(Typography.FontWeight.parse),
+	"letter-spacing": wrapParser(Typography.LetterSpacing.parse),
 	"line-height": wrapParser(Typography.LineHeight.parse),
+	"overflow-wrap": wrapParser(Typography.OverflowWrap.parse),
 	"text-align": wrapParser(Typography.TextAlign.parse),
+	"text-transform": wrapParser(Typography.TextTransform.parse),
+	"vertical-align": wrapParser(Typography.VerticalAlign.parse),
+	"word-break": wrapParser(Typography.WordBreak.parse),
 
 	// Flexbox properties
 	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
@@ -334,9 +340,15 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	// Typography properties
 	"font-size": wrapGenerator(TypographyGenerate.FontSize.toCss),
 	"font-family": wrapGenerator(TypographyGenerate.FontFamily.toCss),
+	"font-style": wrapGenerator(TypographyGenerate.FontStyle.toCss),
 	"font-weight": wrapGenerator(TypographyGenerate.FontWeight.toCss),
+	"letter-spacing": wrapGenerator(TypographyGenerate.LetterSpacing.toCss),
 	"line-height": wrapGenerator(TypographyGenerate.LineHeight.toCss),
+	"overflow-wrap": wrapGenerator(TypographyGenerate.OverflowWrap.toCss),
 	"text-align": wrapGenerator(TypographyGenerate.TextAlign.toCss),
+	"text-transform": wrapGenerator(TypographyGenerate.TextTransform.toCss),
+	"vertical-align": wrapGenerator(TypographyGenerate.VerticalAlign.toCss),
+	"word-break": wrapGenerator(TypographyGenerate.WordBreak.toCss),
 
 	// Flexbox properties
 	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),
