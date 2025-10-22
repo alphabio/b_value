@@ -114,7 +114,9 @@ describe("Animation Timing Function Generator", () => {
 			if (parsed.ok) {
 				const generated = Generator.generate(parsed.value);
 				expect(generated.ok && generated.value).toBe(keyword);
-				const reparsed = Parser.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parser.parse(generated.value);
 				expect(reparsed).toEqual(parsed);
 			}
 		}
@@ -127,7 +129,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});
@@ -139,7 +143,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});
@@ -151,7 +157,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});
@@ -163,7 +171,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});
@@ -175,7 +185,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});
@@ -187,7 +199,9 @@ describe("Animation Timing Function Generator", () => {
 		if (parsed.ok) {
 			const generated = Generator.generate(parsed.value);
 			expect(generated.ok && generated.value).toBe(css);
-			const reparsed = Parser.parse(generated);
+			expect(generated.ok).toBe(true);
+			if (!generated.ok) return;
+			const reparsed = Parser.parse(generated.value);
 			expect(reparsed).toEqual(parsed);
 		}
 	});

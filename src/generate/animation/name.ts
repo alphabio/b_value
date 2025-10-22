@@ -42,12 +42,13 @@ export function generate(ir: Type.AnimationName): GenerateResult {
 	if (ir === undefined || ir === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return ir.names
+	const values = ir.names
 		.map((name) => {
 			if (name.type === "none") {
-				return generateOk("none");
+				return "none";
 			}
-			return generateOk(name.value);
+			return name.value;
 		})
 		.join(", ");
+	return generateOk(values);
 }

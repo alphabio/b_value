@@ -1,7 +1,6 @@
 // b_path:: src/generate/clip-path/xywh.test.ts
 import { describe, expect, it } from "vitest";
 import { parse } from "@/parse/clip-path/xywh";
-import { toCss } from "./xywh";
 
 describe("generate xywh()", () => {
 	describe("basic position and size", () => {

@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/letter-spacing.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./letter-spacing";
 
 describe("Generate.Typography.LetterSpacing", () => {
 	it("should generate 'normal'", () => {

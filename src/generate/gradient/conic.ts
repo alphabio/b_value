@@ -1,5 +1,6 @@
 // b_path:: src/generate/gradient/conic.ts
 
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
@@ -11,7 +12,7 @@ import * as ColorStop from "./color-stop";
  *
  * @internal
  */
-function positionToCss(position: Type.Position2D): string {
+function positionToCss(position: Type.Position2D): GenerateResult {
 	const h =
 		typeof position.horizontal === "string"
 			? position.horizontal
@@ -138,7 +139,7 @@ function positionToCss(position: Type.Position2D): string {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/conic-gradient | MDN: conic-gradient()}
  * @see {@link https://www.w3.org/TR/css-images-4/#conic-gradients | W3C Spec: Conic Gradients}
  */
-export function toCss(ir: Type.ConicGradient): string {
+export function generate(ir: Type.ConicGradient): GenerateResult {
 	const parts: string[] = [];
 	const angleAndPos: string[] = [];
 
@@ -164,10 +165,13 @@ export function toCss(ir: Type.ConicGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
-	parts.push(...stopStrings);
+	for (const stop of ir.colorStops) {
+		const result = ColorStop.generate(stop);
+		if (!result.ok) return result;
+		parts.push(result.value);
+	}
 
 	// Generate function
 	const functionName = ir.repeating ? "repeating-conic-gradient" : "conic-gradient";
-	return `${functionName}(${parts.join(", ")})`;
+	return generateOk(`${functionName}(${parts.join(", ")})`);
 }

@@ -2,7 +2,6 @@
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
 import * as Parse from "@/parse/clip-path";
-import { toCss } from "./inset";
 
 describe("generate inset()", () => {
 	describe("TRBL optimization", () => {

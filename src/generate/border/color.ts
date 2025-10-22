@@ -1,4 +1,5 @@
 // b_path:: src/generate/border/color.ts
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -9,12 +10,12 @@ import type * as Type from "@/core/types";
  * Per CSS Backgrounds and Borders Module Level 3 specification.
  *
  * @param ir - BorderColorValue IR object
- * @returns CSS border-color value string
+ * @returns GenerateResult containing CSS border-color value string
  *
  * @example
  * ```typescript
- * const css = toCss({ kind: "border-color", color: "red" });
- * // "red"
+ * const result = generate({ kind: "border-color", color: "red" });
+ * // { ok: true, value: "red", issues: [] }
  * ```
  *
  * @public
@@ -22,6 +23,6 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/border-color | MDN: border-color}
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#border-color | W3C Spec}
  */
-export function toCss(ir: Type.BorderColorValue): string {
-	return ir.color;
+export function generate(ir: Type.BorderColorValue): GenerateResult {
+	return generateOk(ir.color);
 }
