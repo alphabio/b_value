@@ -1,10 +1,10 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T14:47:00Z
-**Property Count**: 105 CSS properties ✅
-**Test Status**: 2912/2912 passing (100%) ✅
+**Last Updated**: 2025-10-22T15:15:00Z
+**Property Count**: 107 CSS properties ✅
+**Test Status**: 2980/2980 passing (100%) ✅
 **Lint Status**: Clean ✅
-**Coverage**: 23.5% of 446 MDM longhands
+**Coverage**: 24.0% of 446 MDM longhands
 **Branch**: `develop`
 
 ---
@@ -12,7 +12,7 @@
 ## ✅ CLEAN BASELINE - Ready for Work
 
 All systems green:
-- ✅ Tests: 2866/2866 passing
+- ✅ Tests: 2980/2980 passing
 - ✅ Lint: Zero errors
 - ✅ TypeCheck: Clean
 - ✅ Git: Clean working tree
@@ -24,34 +24,25 @@ All systems green:
 ## Recent Work
 
 ```
-[latest] feat(layout): overflow, float, clear - 105 properties total
+[latest] feat(visual): background-blend-mode, mix-blend-mode - 107 properties
+481e014  feat(layout): overflow, float, clear - 105 properties total
 65eeddb  docs(status): cleanup complete - revert experimental API changes
-fad3273  feat(interaction): user-select property - 102 properties total
 ```
-
----
-
-## 📝 Cleanup Note
-
-Previous session explored API redesign but **reverted** - the architecture requires `{ property, value }` format because IR `kind` doesn't always match property name (e.g., color has `kind: "named"` not `kind: "color"`).
-
-**Lesson**: Current API is architecturally sound. No changes needed.
 
 ---
 
 ## Current Focus
 
 **Phase 1: Tier 1 CRITICAL** - Implementing highest-usage properties (90%+ websites).
-**Progress**: 11/16 properties complete (69% done), all with comprehensive test coverage.
+**Progress**: 13/16 properties complete (81% done), all with comprehensive test coverage.
 
 ---
 
 ## What's Next
 
-### Priority 1: Continue Phase 1 Implementation
-- Interaction: content (1 prop)
-- Visual: background-blend-mode, mix-blend-mode (2 props)
-- Background: background-position-x, background-position-y (2 props)
+### Priority 1: Complete Phase 1 (3 properties remaining)
+- content (1 prop) - Critical for pseudo-elements (complex: 2-3 hours)
+- background-position-x, background-position-y (2 props) - Positioning (~90 min)
 
 ### Short-term Goal: v1.0.0
 - Complete Phase 1: Tier 1 CRITICAL (16 properties)
