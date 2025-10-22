@@ -726,3 +726,34 @@ export const paddingLeftSchema = z.object({
 });
 
 export type PaddingLeft = z.infer<typeof paddingLeftSchema>;
+
+/**
+ * CSS box-sizing property IR.
+ *
+ * The box-sizing property defines how the width and height of an element are calculated,
+ * whether they should include padding and borders or not.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing}
+ *
+ * @example
+ * ```typescript
+ * const boxSizing: BoxSizing = {
+ *   kind: "box-sizing",
+ *   value: "border-box"
+ * };
+ * // CSS: box-sizing: border-box;
+ * ```
+ *
+ * @public
+ */
+export const boxSizingSchema = z.object({
+	kind: z.literal("box-sizing"),
+	value: z.enum(["content-box", "border-box"]),
+});
+
+/**
+ * TypeScript type for box-sizing property.
+ *
+ * @public
+ */
+export type BoxSizing = z.infer<typeof boxSizingSchema>;
