@@ -1,9 +1,57 @@
 # Continue Here - b_value Project
 
-**LAST UPDATED**: 2025-10-21T11:25:00Z  
+**LAST UPDATED**: 2025-10-22T01:25:00Z  
 **PROJECT**: b_value - CSS **LONGHAND** property parser/generator  
-**CURRENT PHASE**: 0.7 Phase 3 - COMPLETE ✅  
-**STATUS**: Phase 0.6 ✅ | Phase 0.7: ALL PHASES COMPLETE ✅ | Ready for v1.0
+**CURRENT PHASE**: Ready for v1.0 release  
+**STATUS**: ✅ All improvements complete | ✅ Baseline green | ✅ Policy decisions finalized
+
+---
+
+## 🎯 LATEST SESSION: ParseResult & Bare Number Policy (2025-10-22)
+
+### ✅ COMPLETE: ParseResult Discriminated Union
+
+**Problem**: User wanted `if (result.ok)` to be sufficient without checking `result.value`
+
+**Solution**: Changed to discriminated union:
+```typescript
+export type ParseResult<T> =
+  | { ok: true; value: T; property?: string; issues: Issue[] }
+  | { ok: false; value?: undefined; property?: string; issues: Issue[] };
+```
+
+**Results**:
+- ✅ TypeScript narrowing works: `if (result.ok)` → `result.value` is guaranteed
+- ✅ All 2654 tests passing
+- ✅ Baseline green
+- Commit: `db91281`
+
+**Special case**: `parseAll()` returns value even when `ok: false` (partial success)
+
+### ✅ DECIDED: Bare Number Policy - Strict Mode
+
+**Issue**: Should b_value accept bare numbers (e.g., `0`) without units?
+
+**Decision**: **Keep Strict Mode** - Reject bare numbers except where CSS spec explicitly allows
+
+**Rationale**:
+- Spec-compliant behavior
+- Clear, predictable errors
+- Forces correct CSS
+- Safe for v1.0 release
+- Users can rely on b_value for validation
+
+**Behavior**:
+- ❌ `radial-gradient(red 0, blue 100)` → Rejected (needs `0%`, `100%`)
+- ✅ `radial-gradient(red 0%, blue 100%)` → Accepted
+- ❌ `width: 0` → Rejected (needs `0px`)
+- ✅ `width: 0px` → Accepted
+- ✅ `opacity: 0.5` → Accepted (spec allows bare numbers)
+- ✅ `z-index: 10` → Accepted (spec allows bare integers)
+
+**Complete audit available**: `.memory/archive/2025-10-22-parseres-bare-num/BARE_NUMBER_AUDIT.md`
+
+**No code changes needed** - current behavior is correct.
 
 ---
 
@@ -317,14 +365,12 @@ parseErr(code: IssueCode, message: string, options?: {...})
 
 ## 📊 Current Stats
 
-- ✅ Baseline: **2568 tests passing** 🎉
+- ✅ Baseline: **2654 tests passing** 🎉
 - ✅ TypeScript: Clean (no errors)
 - ✅ Lint: Clean (no warnings)
-- ✅ Format: Clean (505 files)
-- ✅ Phase 0.5a: Complete (ParseResult + GenerateResult types)
-- ✅ Phase 0.5b: Complete (7 new parse() functions)  
-- ✅ Phase 0.5c: Complete (6 modules updated + tests fixed)
-- ✅ Phase 0.5d: **COMPLETE** (11/14 generate() functions added, ~178 tests, 3 deferred)
+- ✅ Format: Clean (512 files)
+- ✅ ParseResult: Discriminated union enabled (better type safety)
+- ✅ Bare number policy: Strict mode confirmed (spec-compliant)
 
 **Phase 0.5d Progress**:
 - ✅ color (15 tests) - Pattern A
