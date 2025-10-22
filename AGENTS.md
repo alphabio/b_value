@@ -18,27 +18,26 @@ echo ""
 echo "=== Recent session archives (<24h) ==="
 find .memory/archive -type f \( -name "HANDOVER.md" -o -name "START_HERE.md" -o -name "MASTER_PLAN.md" \) -mtime -1 2>/dev/null | head -5
 
-# 4. Read continuation context
-cat .memory/CONTINUE.md
+# 4. Read current status
+cat .memory/STATUS.md
 
-# 5. Cross-check staleness
-# Compare CONTINUE.md "LAST UPDATED" timestamp with git log
-# If git shows recent commits NOT in CONTINUE.md → Read recent archives FIRST
+# 5. Get accurate property count
+.memory/scripts/count-properties.sh
 
 # 6. Report status to user:
 # ✅ Baseline: [pass/fail - test count]
-# ⚠️ Staleness: [CONTINUE.md timestamp vs latest commit]
+# 📊 Properties: [count from script]
 # 📁 Recent work: [list archives found in step 3]
-# 🎯 Next task: [from CONTINUE.md OR from recent archive if stale]
+# 🎯 Next task: [from STATUS.md "What's Next"]
 ```
 
 **Only AFTER completing these steps** should you greet the user or respond to their request.
 
-**If staleness detected**: Read recent archive documents (MASTER_PLAN, HANDOVER, START_HERE) before trusting CONTINUE.md.
+**If recent archives found**: Read them to understand the latest completed work.
 
 ---
 
-**Read**: `.memory/CONTINUE.md` for all continuation details and project context.
+**Read**: `.memory/STATUS.md` for current status and `.memory/ROADMAP.md` for long-term plan.
 
 ---
 
