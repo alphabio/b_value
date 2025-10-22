@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/word-break.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./word-break";
 
 describe("Generate.Typography.WordBreak", () => {
 	it("should generate 'normal'", () => {

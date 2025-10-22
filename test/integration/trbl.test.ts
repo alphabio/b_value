@@ -10,8 +10,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Top.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Top.toCss(parsed.value);
-				const reparsed = Parse.Layout.Top.parse(generated);
+				const generated = Generate.Layout.Top.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Top.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -24,8 +26,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Top.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Top.toCss(parsed.value);
-				const reparsed = Parse.Layout.Top.parse(generated);
+				const generated = Generate.Layout.Top.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Top.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -38,7 +42,7 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Top.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Top.toCss(parsed.value);
+				const generated = Generate.Layout.Top.generate(parsed.value);
 				expect(generated).toBe("auto");
 			}
 		});
@@ -50,8 +54,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Right.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Right.toCss(parsed.value);
-				const reparsed = Parse.Layout.Right.parse(generated);
+				const generated = Generate.Layout.Right.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Right.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -64,8 +70,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Right.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Right.toCss(parsed.value);
-				const reparsed = Parse.Layout.Right.parse(generated);
+				const generated = Generate.Layout.Right.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Right.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -80,8 +88,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Bottom.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Bottom.toCss(parsed.value);
-				const reparsed = Parse.Layout.Bottom.parse(generated);
+				const generated = Generate.Layout.Bottom.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Bottom.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -96,8 +106,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			const parsed = Parse.Layout.Left.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Left.toCss(parsed.value);
-				const reparsed = Parse.Layout.Left.parse(generated);
+				const generated = Generate.Layout.Left.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Left.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -116,10 +128,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			expect(top.ok && right.ok && bottom.ok && left.ok).toBe(true);
 
 			if (top.ok && right.ok && bottom.ok && left.ok) {
-				expect(Generate.Layout.Top.toCss(top.value)).toBe("0px");
-				expect(Generate.Layout.Right.toCss(right.value)).toBe("0px");
-				expect(Generate.Layout.Bottom.toCss(bottom.value)).toBe("0px");
-				expect(Generate.Layout.Left.toCss(left.value)).toBe("0px");
+				expect(Generate.Layout.Top.generate(top.value)).toBe("0px");
+				expect(Generate.Layout.Right.generate(right.value)).toBe("0px");
+				expect(Generate.Layout.Bottom.generate(bottom.value)).toBe("0px");
+				expect(Generate.Layout.Left.generate(left.value)).toBe("0px");
 			}
 		});
 
@@ -130,8 +142,8 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			expect(top.ok && left.ok).toBe(true);
 
 			if (top.ok && left.ok) {
-				expect(Generate.Layout.Top.toCss(top.value)).toBe("50%");
-				expect(Generate.Layout.Left.toCss(left.value)).toBe("50%");
+				expect(Generate.Layout.Top.generate(top.value)).toBe("50%");
+				expect(Generate.Layout.Left.generate(left.value)).toBe("50%");
 			}
 		});
 
@@ -144,10 +156,10 @@ describe("Integration: Top/Right/Bottom/Left Properties", () => {
 			expect(top.ok && right.ok && bottom.ok && left.ok).toBe(true);
 
 			if (top.ok && right.ok && bottom.ok && left.ok) {
-				expect(Generate.Layout.Top.toCss(top.value)).toBe("10px");
-				expect(Generate.Layout.Right.toCss(right.value)).toBe("20px");
-				expect(Generate.Layout.Bottom.toCss(bottom.value)).toBe("10px");
-				expect(Generate.Layout.Left.toCss(left.value)).toBe("20px");
+				expect(Generate.Layout.Top.generate(top.value)).toBe("10px");
+				expect(Generate.Layout.Right.generate(right.value)).toBe("20px");
+				expect(Generate.Layout.Bottom.generate(bottom.value)).toBe("10px");
+				expect(Generate.Layout.Left.generate(left.value)).toBe("20px");
 			}
 		});
 	});

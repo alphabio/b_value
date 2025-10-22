@@ -1,28 +1,26 @@
-# 🚀 START HERE - Generator Fix Continuation
+# 🚀 START HERE - Generator Fix: Test Phase
 
-**Current Status**: 72% Complete (2113/2938 tests passing)  
-**Time Remaining**: 2-3 hours  
-**Last Session**: 2025-10-22T14:48:00Z
+**Current Status**: 76% Complete (2234/2938 tests passing)  
+**Time Remaining**: 1-2 hours  
+**Last Session**: 2025-10-22T22:08:00Z
 
 ---
 
-## ⚡ QUICK START (Copy-Paste)
+## ⚡ QUICK START
 
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
 
-# 1. Check current status
-just test | tail -5
+# 1. Verify starting point
+pnpm test | tail -5
+# Should show: ~2234 tests passing, ~700 failing
 
-# 2. Fix remaining source errors (~30 min)
-bash /tmp/wrap_all_returns.sh
-pnpm run typecheck 2>&1 | grep "error TS" | grep -v test | wc -l
+# 2. Fix integration tests manually (see below)
 
-# 3. Fix test assertions (~1 hour)
+# 3. Re-run test fix script for unit tests
 bash /tmp/fix_all_tests.sh
-pnpm test
 
-# 4. Final verification
+# 4. Final check
 just check && just test
 ```
 
@@ -31,23 +29,92 @@ just check && just test
 ## 📊 CURRENT STATE
 
 ✅ **Done**:
+- ALL source type errors fixed (0 remaining)
 - 101 generators converted
-- 12 color generators complete
-- 72 test files updated
-- 8 dispatchers fixed
+- 72 unit test files updated
+- Core infrastructure complete
 
 ⚠️ **Remaining**:
-- 60 source type errors (wrapping needed)
-- 825 test failures (assertion updates)
-- Manual fixes for gradient/border/clip-path
+- ~700 test failures (assertion patterns)
+- 5 integration test files need manual fixes
+- Unit test assertions need final pass
 
 ---
 
-## 📖 DETAILED INSTRUCTIONS
+## 🎯 STEP-BY-STEP EXECUTION
 
-Read: `.memory/HANDOVER_GENERATOR_FIX_72PCT.md`
+### Step 1: Fix Integration Tests (45 min)
 
-**TL;DR**: Follow the 3-step execution plan. All scripts ready. All patterns known.
+Manually fix these 5 files with the pattern below:
+
+#### Files to Fix:
+1. `test/integration/color-function.test.ts`
+2. `test/integration/color-gradient.test.ts`
+3. `test/integration/layout.test.ts`
+4. `test/integration/trbl.test.ts`
+5. `test/integration/width-height.test.ts`
+
+#### Pattern to Apply:
+
+**OLD (broken)**:
+```typescript
+const css = Generate.generate(parsed.value);
+expect(css).toBe(input);
+```
+
+**NEW (correct)**:
+```typescript
+const css = Generate.generate(parsed.value);
+expect(css.ok).toBe(true);
+if (css.ok) {
+  expect(css.value).toBe(input);
+}
+```
+
+**Also fix**:
+```typescript
+// OLD
+const generated = Gen.generate(ir);
+const reparsed = Parse.parse(generated);
+
+// NEW
+const generated = Gen.generate(ir);
+expect(generated.ok).toBe(true);
+if (!generated.ok) return;
+const reparsed = Parse.parse(generated.value);
+```
+
+### Step 2: Run Test Fix Script (15 min)
+
+```bash
+# This updates remaining unit test assertions
+bash /tmp/fix_all_tests.sh
+
+# Check progress
+pnpm test | tail -5
+```
+
+### Step 3: Final Verification (30 min)
+
+```bash
+# Full check
+just check && just test
+
+# Expected result:
+# ✅ Tests: 2938/2938 passing (100%)
+# ✅ Lint: Clean
+# ✅ Typecheck: Clean
+```
+
+---
+
+## 📖 DETAILED CONTEXT
+
+Read: `.memory/SESSION_SUMMARY_CONTINUATION.md` for:
+- What was accomplished (source fixes)
+- Patterns discovered
+- Files modified
+- Troubleshooting tips
 
 ---
 

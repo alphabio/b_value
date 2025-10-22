@@ -42,12 +42,13 @@ export function generate(ir: Type.AnimationDuration): GenerateResult {
 	if (ir === undefined || ir === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return ir.durations
+	const values = ir.durations
 		.map((duration) => {
 			if (duration.type === "auto") {
-				return generateOk("auto");
+				return "auto";
 			}
-			return generateOk(`${duration.value}${duration.unit}`);
+			return `${duration.value}${duration.unit}`;
 		})
 		.join(", ");
+	return generateOk(values);
 }

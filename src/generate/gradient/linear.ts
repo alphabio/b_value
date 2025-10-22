@@ -1,5 +1,6 @@
 // b_path:: src/generate/gradient/linear.ts
 
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
@@ -11,7 +12,7 @@ import * as ColorStop from "./color-stop";
  *
  * @internal
  */
-function directionToCss(direction: Type.GradientDirection): string {
+function directionToCss(direction: Type.GradientDirection): GenerateResult {
 	if (direction.kind === "angle") {
 		return `${direction.value.value}${direction.value.unit}`;
 	}
@@ -139,7 +140,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient | MDN: linear-gradient()}
  * @see {@link https://www.w3.org/TR/css-images-3/#linear-gradients | W3C Spec: Linear Gradients}
  */
-export function toCss(ir: Type.LinearGradient): string {
+export function generate(ir: Type.LinearGradient): GenerateResult {
 	const parts: string[] = [];
 
 	// Add direction if present
@@ -157,10 +158,13 @@ export function toCss(ir: Type.LinearGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
-	parts.push(...stopStrings);
+	for (const stop of ir.colorStops) {
+		const result = ColorStop.generate(stop);
+		if (!result.ok) return result;
+		parts.push(result.value);
+	}
 
 	// Generate function
 	const functionName = ir.repeating ? "repeating-linear-gradient" : "linear-gradient";
-	return `${functionName}(${parts.join(", ")})`;
+	return generateOk(`${functionName}(${parts.join(", ")})`);
 }

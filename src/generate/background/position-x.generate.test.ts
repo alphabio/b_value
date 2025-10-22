@@ -2,7 +2,6 @@
 
 import { describe, expect, it } from "vitest";
 import * as Parse from "@/parse/background/position-x";
-import { toCss } from "./position-x";
 
 describe("Generate.Background.PositionX", () => {
 	describe("keywords", () => {
@@ -53,7 +52,9 @@ describe("Generate.Background.PositionX", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -66,7 +67,9 @@ describe("Generate.Background.PositionX", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -79,7 +82,9 @@ describe("Generate.Background.PositionX", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);

@@ -1,4 +1,5 @@
 // b_path:: src/generate/outline/color.ts
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -9,19 +10,19 @@ import type * as Type from "@/core/types";
  * Per CSS Basic User Interface Module Level 3 specification.
  *
  * @param ir - OutlineColorValue IR object
- * @returns CSS outline-color value string
+ * @returns GenerateResult containing CSS outline-color value string
  *
  * @example
  * ```typescript
- * const css = toCss({ kind: "outline-color", color: "red" });
- * // "red"
+ * const result = generate({ kind: "outline-color", color: "red" });
+ * // { ok: true, value: "red", issues: [] }
  * ```
  *
  * @example
  * Invert (outline-specific):
  * ```typescript
- * const css = toCss({ kind: "outline-color", color: "invert" });
- * // "invert"
+ * const result = generate({ kind: "outline-color", color: "invert" });
+ * // { ok: true, value: "invert", issues: [] }
  * ```
  *
  * @public
@@ -29,6 +30,6 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/outline-color | MDN: outline-color}
  * @see {@link https://www.w3.org/TR/css-ui-3/#outline-color | W3C Spec}
  */
-export function toCss(ir: Type.OutlineColorValue): string {
-	return ir.color;
+export function generate(ir: Type.OutlineColorValue): GenerateResult {
+	return generateOk(ir.color);
 }

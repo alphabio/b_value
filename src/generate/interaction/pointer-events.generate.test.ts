@@ -1,6 +1,5 @@
 // b_path:: src/generate/interaction/pointer-events.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./pointer-events";
 
 describe("Generate.Interaction.PointerEvents", () => {
 	describe("standard values", () => {

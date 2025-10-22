@@ -1,4 +1,6 @@
 // b_path:: src/utils/generate/color.ts
+
+import type { GenerateResult } from "@/core/result";
 import type { Color } from "@/core/types/color";
 import * as ColorGenerate from "@/generate/color";
 
@@ -14,30 +16,44 @@ import * as ColorGenerate from "@/generate/color";
  * @internal
  */
 export function generateColor(color: Color): string {
+	let result: GenerateResult;
 	switch (color.kind) {
 		case "hex":
-			return ColorGenerate.Hex.toCss(color);
+			result = ColorGenerate.Hex.generate(color);
+			break;
 		case "named":
-			return ColorGenerate.Named.toCss(color);
+			result = ColorGenerate.Named.generate(color);
+			break;
 		case "rgb":
-			return ColorGenerate.Rgb.toCss(color);
+			result = ColorGenerate.Rgb.generate(color);
+			break;
 		case "hsl":
-			return ColorGenerate.Hsl.toCss(color);
+			result = ColorGenerate.Hsl.generate(color);
+			break;
 		case "hwb":
-			return ColorGenerate.Hwb.toCss(color);
+			result = ColorGenerate.Hwb.generate(color);
+			break;
 		case "lab":
-			return ColorGenerate.Lab.toCss(color);
+			result = ColorGenerate.Lab.generate(color);
+			break;
 		case "lch":
-			return ColorGenerate.Lch.toCss(color);
+			result = ColorGenerate.Lch.generate(color);
+			break;
 		case "oklab":
-			return ColorGenerate.Oklab.toCss(color);
+			result = ColorGenerate.Oklab.generate(color);
+			break;
 		case "oklch":
-			return ColorGenerate.Oklch.toCss(color);
+			result = ColorGenerate.Oklch.generate(color);
+			break;
 		case "system":
-			return ColorGenerate.System.toCss(color);
+			result = ColorGenerate.System.generate(color);
+			break;
 		case "special":
-			return ColorGenerate.Special.toCss(color);
+			result = ColorGenerate.Special.generate(color);
+			break;
 		case "color":
-			return ColorGenerate.ColorFunction.toCss(color);
+			result = ColorGenerate.ColorFunction.generate(color);
+			break;
 	}
+	return result.ok ? result.value : "";
 }

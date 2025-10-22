@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/text-transform.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./text-transform";
 
 describe("Generate.Typography.TextTransform", () => {
 	it("should generate 'none'", () => {

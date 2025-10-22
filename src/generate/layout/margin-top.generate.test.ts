@@ -1,7 +1,6 @@
 // b_path:: src/generate/layout/margin-top.generate.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import { toCss } from "./margin-top";
 
 describe("generate margin-top", () => {
 	it("should generate pixel values", () => {

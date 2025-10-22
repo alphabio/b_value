@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/font-style.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./font-style";
 
 describe("Generate.Typography.FontStyle", () => {
 	it("should generate 'normal'", () => {
