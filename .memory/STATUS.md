@@ -1,12 +1,12 @@
 # Project Status
 
-**Last Updated**: 2025-10-22T13:26:00Z  
-**Current Focus**: 🔴 **CRITICAL ARCHITECTURE FIX** - Generator consistency required before universal API
+**Last Updated**: 2025-10-22T14:30:00Z  
+**Current Focus**: 🔴 **READY TO EXECUTE** - Generator fix plan complete
 **Properties**: 109 implemented, 337 remaining
 
 ---
 
-## 🚨 Critical Issue - ROOT CAUSE IDENTIFIED
+## ✅ Planning Complete - Ready for Execution
 
 **Universal API is BLOCKED** by inconsistent generator return types.
 
@@ -17,25 +17,24 @@
 - **11 generators** (8%): `generate()` → `GenerateResult` (with validation)
 - **2 generators**: Custom function names
 
-### Why This Matters
+### The Solution
 
-**BOTH parse() AND generate() MUST return Result types** because:
-- Parse validates untrusted CSS strings
-- **Generate validates untrusted IR objects** (users can construct IR manually)
-- JavaScript has no runtime type safety - MUST validate at runtime
-- Without validation, generators throw exceptions instead of returning errors gracefully
-
-See `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` for complete rationale.
-
-### The Fix
-
-**Make ALL 139 generators**:
+**Make ALL 139 generators consistent**:
 1. Return `GenerateResult` (not raw `string`)
-2. Validate their input IR
+2. Validate their input IR (type validation only)
 3. Return errors gracefully (no thrown exceptions)
 4. Use consistent naming: `generate()` not `toCss()`
 
 **Estimated effort**: 6-8 hours
+
+### Planning Documents (All Complete)
+
+1. **`.memory/READY_TO_EXECUTE.md`** - START HERE (quick overview)
+2. **`.memory/DEFINITIVE_GENERATOR_FIX_PLAN.md`** - Fool-proof execution plan
+3. **`.memory/EXECUTION_CHECKLIST.md`** - Progress tracking (194 files)
+4. **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** - Rationale
+
+**Next agent**: Read READY_TO_EXECUTE.md and begin execution.
 
 ---
 
@@ -45,19 +44,20 @@ See `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` for complete rationale.
 - ✅ **Baseline**: Clean (lint + typecheck)
 - 📦 **Properties**: 109/446 (24.4%)
 - 🚧 **Universal API**: Blocked - generators must be fixed first
+- ✅ **Planning**: Complete - ready to execute
 
 ---
 
 ## 📁 Key Documents
 
 ### 🔥 **START HERE**:
-- **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** - CRITICAL: Why generators must return Result types
-- **`.memory/GENERATOR_COMPLETE_AUDIT.txt`** - Complete audit of all 139 generators
-- **`.memory/GENERATOR_INCONSISTENCY_ANALYSIS.md`** - Detailed problem analysis
+- **`.memory/READY_TO_EXECUTE.md`** - Quick overview + how to start
+- **`.memory/DEFINITIVE_GENERATOR_FIX_PLAN.md`** - Fool-proof execution plan
+- **`.memory/EXECUTION_CHECKLIST.md`** - Track progress (194 files)
 
 ### Reference:
+- **`.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md`** - WHY we're doing this
 - **`.memory/ROADMAP.md`** - Property implementation roadmap
-- **`.memory/STATUS.md`** - This file
 
 ---
 
@@ -65,16 +65,17 @@ See `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` for complete rationale.
 
 **Next agent must**:
 
-1. **READ** `.memory/ARCHITECTURE_PARSE_GENERATE_SYMMETRY.md` (understand why this matters)
-2. **Fix generators** (6-8 hours):
-   - Add validation to 128 generators
-   - Change return type: `string` → `GenerateResult`
-   - Rename function: `toCss` → `generate`
-   - Update tests
-   - Update callsites
-3. **THEN** build universal API (will be trivial with consistent generators)
+1. **READ** `.memory/READY_TO_EXECUTE.md` (5 min overview)
+2. **READ** `.memory/DEFINITIVE_GENERATOR_FIX_PLAN.md` (10 min plan)
+3. **Execute** using templates from the plan:
+   - Start with Module 1: Color (12 files, 30 min)
+   - Use Template 1 for simple generators
+   - Test after each module: `pnpm test src/generate/color`
+   - Track progress in EXECUTION_CHECKLIST.md
+4. **Verify** all tests pass: `just test`
+5. **Commit** when 100% complete
 
-**Do NOT skip step 1.** Understanding the architecture is critical.
+**Estimated time**: 6-8 hours focused work
 
 ---
 
