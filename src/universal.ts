@@ -32,6 +32,7 @@ import * as BorderRadiusGen from "./generate/border/radius";
 import * as ClipPathGenerate from "./generate/clip-path/clip-path";
 import * as ColorGenerate from "./generate/color/color";
 import * as FilterGenerate from "./generate/filter/filter";
+import * as FlexboxGenerate from "./generate/flexbox";
 import * as GradientGenerate from "./generate/gradient/gradient";
 import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
@@ -57,6 +58,7 @@ import * as BorderWidth from "./parse/border/width";
 import * as ClipPathParse from "./parse/clip-path/clip-path";
 import * as ColorParse from "./parse/color/color";
 import * as FilterParse from "./parse/filter/filter";
+import * as FlexboxParse from "./parse/flexbox";
 import * as LayoutBottom from "./parse/layout/bottom";
 import * as LayoutCursor from "./parse/layout/cursor";
 import * as LayoutDisplay from "./parse/layout/display";
@@ -205,6 +207,19 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	"overflow-x": wrapParser(LayoutOverflowX.parse),
 	"overflow-y": wrapParser(LayoutOverflowY.parse),
 
+	// Flexbox properties
+	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
+	"flex-wrap": wrapParser(FlexboxParse.FlexWrap.parse),
+	"flex-grow": wrapParser(FlexboxParse.FlexGrow.parse),
+	"flex-shrink": wrapParser(FlexboxParse.FlexShrink.parse),
+	"flex-basis": wrapParser(FlexboxParse.FlexBasis.parse),
+	"justify-content": wrapParser(FlexboxParse.JustifyContent.parse),
+	"align-items": wrapParser(FlexboxParse.AlignItems.parse),
+	"align-content": wrapParser(FlexboxParse.AlignContent.parse),
+	"align-self": wrapParser(FlexboxParse.AlignSelf.parse),
+	order: wrapParser(FlexboxParse.Order.parse),
+	gap: wrapParser(FlexboxParse.Gap.parse),
+
 	// Outline properties
 	"outline-style": wrapParser(OutlineStyle.parse),
 	"outline-width": wrapParser(OutlineWidth.parse),
@@ -304,6 +319,19 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	"overflow-x": wrapGenerator(LayoutGenerate.OverflowX.toCss),
 	"overflow-y": wrapGenerator(LayoutGenerate.OverflowY.toCss),
 
+	// Flexbox properties
+	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),
+	"flex-wrap": wrapGenerator(FlexboxGenerate.FlexWrap.toCss),
+	"flex-grow": wrapGenerator(FlexboxGenerate.FlexGrow.toCss),
+	"flex-shrink": wrapGenerator(FlexboxGenerate.FlexShrink.toCss),
+	"flex-basis": wrapGenerator(FlexboxGenerate.FlexBasis.toCss),
+	"justify-content": wrapGenerator(FlexboxGenerate.JustifyContent.toCss),
+	"align-items": wrapGenerator(FlexboxGenerate.AlignItems.toCss),
+	"align-content": wrapGenerator(FlexboxGenerate.AlignContent.toCss),
+	"align-self": wrapGenerator(FlexboxGenerate.AlignSelf.toCss),
+	order: wrapGenerator(FlexboxGenerate.Order.toCss),
+	gap: wrapGenerator(FlexboxGenerate.Gap.toCss),
+
 	// Outline properties
 	"outline-color": ColorGenerate.generate,
 	"outline-style": OutlineGenerate.generate,
@@ -370,7 +398,6 @@ const SHORTHAND_PROPERTIES = [
 	"flex",
 	"flex-flow",
 	"font",
-	"gap",
 	"grid",
 	"grid-area",
 	"grid-column",

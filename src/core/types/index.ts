@@ -8,6 +8,7 @@ export * from "./color";
 export * from "./color-stop";
 export * from "./css-value";
 export * from "./filter";
+export * from "./flexbox";
 export * from "./gradient";
 export * from "./grid-line";
 export * from "./layout";
