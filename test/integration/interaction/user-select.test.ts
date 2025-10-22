@@ -1,27 +1,27 @@
-// b_path:: test/integration/interaction/pointer-events.test.ts
+// b_path:: test/integration/interaction/user-select.test.ts
 import { describe, expect, it } from "vitest";
 import { generate, parse } from "@/index";
 
-describe("Integration.Interaction.PointerEvents", () => {
+describe("Integration.Interaction.UserSelect", () => {
 	describe("parse()", () => {
 		it("should parse standard values", () => {
-			const result = parse("pointer-events: none");
+			const result = parse("user-select: none");
 			expect(result.ok).toBe(true);
 			if (result.ok && result.value && typeof result.value === "object" && "kind" in result.value) {
-				expect(result.value.kind).toBe("pointer-events");
+				expect(result.value.kind).toBe("user-select");
 				if ("value" in result.value) {
 					expect(result.value.value).toBe("none");
 				}
 			}
 		});
 
-		it("should parse SVG values", () => {
-			const result = parse("pointer-events: visiblePainted");
+		it("should parse text value", () => {
+			const result = parse("user-select: text");
 			expect(result.ok).toBe(true);
 			if (result.ok && result.value && typeof result.value === "object" && "kind" in result.value) {
-				expect(result.value.kind).toBe("pointer-events");
+				expect(result.value.kind).toBe("user-select");
 				if ("value" in result.value) {
-					expect(result.value.value).toBe("visiblePainted");
+					expect(result.value.value).toBe("text");
 				}
 			}
 		});
@@ -30,9 +30,9 @@ describe("Integration.Interaction.PointerEvents", () => {
 	describe("generate()", () => {
 		it("should generate CSS from IR", () => {
 			const result = generate({
-				property: "pointer-events",
+				property: "user-select",
 				value: {
-					kind: "pointer-events",
+					kind: "user-select",
 					value: "none",
 				},
 			});
@@ -44,27 +44,15 @@ describe("Integration.Interaction.PointerEvents", () => {
 	});
 
 	describe("roundtrip", () => {
-		const testCases = [
-			"auto",
-			"none",
-			"visiblePainted",
-			"visibleFill",
-			"visibleStroke",
-			"visible",
-			"painted",
-			"fill",
-			"stroke",
-			"all",
-			"bounding-box",
-		];
+		const testCases = ["auto", "text", "none", "contain", "all"];
 
 		testCases.forEach((value) => {
 			it(`should roundtrip ${value}`, () => {
-				const parsed = parse(`pointer-events: ${value}`);
+				const parsed = parse(`user-select: ${value}`);
 				expect(parsed.ok).toBe(true);
 				if (parsed.ok) {
 					const generated = generate({
-						property: "pointer-events",
+						property: "user-select",
 						value: parsed.value,
 					});
 					expect(generated.ok).toBe(true);

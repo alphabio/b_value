@@ -19,3 +19,12 @@ export interface PointerEvents {
 		| "all"
 		| "bounding-box";
 }
+
+/**
+ * user-select property
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/user-select}
+ */
+export interface UserSelect {
+	readonly kind: "user-select";
+	readonly value: "auto" | "text" | "none" | "contain" | "all";
+}
