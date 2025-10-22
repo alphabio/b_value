@@ -364,6 +364,10 @@ export type ParseResult<T = unknown> = {
 	issues: Issue[];
 };
 
+// export type ParseResult<T = unknown> =
+//   | { ok: true; value: T; property?: string; issues: Issue[] }
+//   | { ok: false; value?: undefined; property?: string; issues: Issue[] };
+
 /**
  * Result of generating CSS from intermediate representation.
  *

@@ -37,6 +37,7 @@ import * as AnimationParse from "./parse/animation/animation";
 // Import individual property parsers
 import * as BackgroundAttachment from "./parse/background/attachment";
 import * as BackgroundClip from "./parse/background/clip";
+import * as BackgroundImage from "./parse/background/image";
 import * as BackgroundOrigin from "./parse/background/origin";
 import * as BackgroundRepeat from "./parse/background/repeat";
 import * as BackgroundSize from "./parse/background/size";
@@ -46,7 +47,6 @@ import * as BorderWidth from "./parse/border/width";
 import * as ClipPathParse from "./parse/clip-path/clip-path";
 import * as ColorParse from "./parse/color/color";
 import * as FilterParse from "./parse/filter/filter";
-import * as GradientParse from "./parse/gradient/gradient";
 import * as LayoutBottom from "./parse/layout/bottom";
 import * as LayoutCursor from "./parse/layout/cursor";
 import * as LayoutDisplay from "./parse/layout/display";
@@ -138,7 +138,7 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	"background-repeat": wrapParser(BackgroundRepeat.parse),
 	"background-size": wrapParser(BackgroundSize.parse),
 	"background-position": PositionParse.parse,
-	"background-image": GradientParse.parse, // gradient or image URL
+	"background-image": BackgroundImage.parse, // gradient, url, or none (comma-separated list)
 
 	// Border properties (individual sides only - full sides are shorthands)
 	"border-top-style": wrapParser(BorderStyle.parse),
