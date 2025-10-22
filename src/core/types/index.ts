@@ -11,6 +11,7 @@ export * from "./filter";
 export * from "./flexbox";
 export * from "./gradient";
 export * from "./grid-line";
+export * from "./interaction";
 export * from "./layout";
 export * from "./length-percentage";
 export * from "./outline";

@@ -71,6 +71,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Interaction generators (pointer-events).
+ *
+ * @see {@link Interaction.PointerEvents.toCss}
+ */
+export * as Interaction from "./interaction";
+/**
  * Layout generators (display, visibility, opacity).
  *
  * @see {@link Layout.Display.toCss}

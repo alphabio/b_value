@@ -70,6 +70,12 @@ export * as Filter from "./filter";
  */
 export * as Gradient from "./gradient";
 /**
+ * Interaction parsers (pointer-events).
+ *
+ * @see {@link Interaction.PointerEvents.parse}
+ */
+export * as Interaction from "./interaction";
+/**
  * Layout parsers (display, visibility, opacity).
  *
  * @see {@link Layout.Display.parse}
