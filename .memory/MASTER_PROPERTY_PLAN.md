@@ -1,6 +1,6 @@
 # Master CSS Property Plan - b_value
-**Date**: 2025-10-22T01:34:00Z  
-**Current**: v0.1.0 (51 properties)  
+**Date**: 2025-10-22T01:34:00Z
+**Current**: v0.1.0 (51 properties)
 **Goal**: v2.0.0 (131+ properties - 100% longhand coverage)
 
 ---
@@ -17,20 +17,20 @@
 | 5 - Advanced | 8+ | 12h | ⏳ Pending | v2.0 |
 | **TOTAL** | **80+** | **37h** | | |
 
-**Current Coverage**: 51/131 properties (39%)  
-**After Phase 0**: 51/131 (39%) - Registration fixed  
-**After Phase 1**: 63/131 (48%) - Box model added  
-**After Phase 2**: 74/131 (56%) - Flexbox added  
-**After Phase 3**: 83/131 (63%) - Typography complete  
-**After Phase 4**: 91/131 (69%) - Grid added  
+**Current Coverage**: 51/131 properties (39%)
+**After Phase 0**: 51/131 (39%) - Registration fixed
+**After Phase 1**: 63/131 (48%) - Box model added
+**After Phase 2**: 74/131 (56%) - Flexbox added
+**After Phase 3**: 83/131 (63%) - Typography complete
+**After Phase 4**: 91/131 (69%) - Grid added
 **After Phase 5**: 99+/131 (75%+) - Advanced features
 
 ---
 
 ## Phase 0: Fix Registration (v1.0 - CRITICAL) ⚠️
 
-**Effort**: 2 hours  
-**Priority**: CRITICAL - Must fix before v1.0  
+**Effort**: 2 hours
+**Priority**: CRITICAL - Must fix before v1.0
 **Impact**: Makes 32 existing generators accessible via universal API
 
 ### The Problem
@@ -180,8 +180,8 @@ const css = generateAll({
 
 ## Phase 1: Box Model (v1.0 - STRONGLY RECOMMENDED) 📦
 
-**Effort**: 4 hours  
-**Priority**: HIGH - Essential for ANY layout work  
+**Effort**: 4 hours
+**Priority**: HIGH - Essential for ANY layout work
 **Impact**: Users can actually build layouts
 
 ### Why Box Model First?
@@ -238,6 +238,7 @@ type MarginTop = {
 ### Implementation Plan
 
 **1. Create Module** (1h):
+
 ```bash
 src/parse/box-model/
   ├── index.ts
@@ -258,6 +259,7 @@ src/parse/box-model/
 ```
 
 **2. Write Parsers** (1.5h):
+
 ```typescript
 // Simple length parser
 export function parse(value: string): Result<Width, string> {
@@ -265,24 +267,25 @@ export function parse(value: string): Result<Width, string> {
   if (value === "auto") {
     return ok({ kind: "width", value: { type: "keyword", value: "auto" } });
   }
-  
+
   // Try length
   const length = Length.parse(value);
   if (length.ok) {
     return ok({ kind: "width", value: length.value });
   }
-  
+
   // Try percentage
   const pct = Percentage.parse(value);
   if (pct.ok) {
     return ok({ kind: "width", value: pct.value });
   }
-  
+
   return err("Invalid width value");
 }
 ```
 
 **3. Write Generators** (1h):
+
 ```typescript
 export function toCss(ir: Width): string {
   if (ir.value.type === "keyword") {
@@ -298,6 +301,7 @@ export function toCss(ir: Width): string {
 ```
 
 **4. Tests** (30min):
+
 ```typescript
 // width.test.ts
 test("parse width", () => {
@@ -314,6 +318,7 @@ test("generate width", () => {
 ```
 
 **5. Register** (30min):
+
 ```typescript
 // In universal.ts
 import * as BoxModel from "./parse/box-model";
@@ -336,6 +341,7 @@ const PROPERTY_GENERATORS = {
 ### Value Delivered
 
 After Phase 1, users can do:
+
 ```typescript
 parseAll(`
   width: 100%;
@@ -353,8 +359,8 @@ parseAll(`
 
 ## Phase 2: Flexbox (v1.1) 🧩
 
-**Effort**: 6 hours  
-**Priority**: HIGH - Modern layouts require flexbox  
+**Effort**: 6 hours
+**Priority**: HIGH - Modern layouts require flexbox
 **Impact**: Enable modern responsive layouts
 
 ### Why Flexbox?
@@ -420,8 +426,8 @@ Similar to Box Model:
 
 ## Phase 3: Typography (v1.1) 📝
 
-**Effort**: 5 hours  
-**Priority**: HIGH - Every website has text  
+**Effort**: 5 hours
+**Priority**: HIGH - Every website has text
 **Impact**: Complete text styling capabilities
 
 ### Why Typography?
@@ -467,6 +473,7 @@ type FontWeight = {
 ### Challenges
 
 **font-family** is complex:
+
 ```css
 font-family: "Helvetica Neue", Arial, sans-serif;
 font-family: 'Times New Roman', serif;
@@ -487,8 +494,8 @@ Need to:
 
 ## Phase 4: Grid (v1.2) 🎯
 
-**Effort**: 8 hours  
-**Priority**: MEDIUM - Advanced layouts  
+**Effort**: 8 hours
+**Priority**: MEDIUM - Advanced layouts
 **Impact**: Enable modern grid layouts
 
 ### Why Grid Later?
@@ -522,7 +529,7 @@ type GridTemplateColumns = {
   tracks: Array<GridTrack>;
 };
 
-type GridTrack = 
+type GridTrack =
   | { type: "length", value: number, unit: string }
   | { type: "fr", value: number }
   | { type: "minmax", min: GridTrack, max: GridTrack }
@@ -532,6 +539,7 @@ type GridTrack =
 ### Challenges
 
 Grid syntax is **extremely complex**:
+
 ```css
 grid-template-columns: 100px 1fr 2fr;
 grid-template-columns: repeat(3, 1fr);
@@ -554,8 +562,8 @@ grid-template-columns: [header-start] 1fr [header-end content-start] 2fr [conten
 
 ## Phase 5: Advanced Properties (v2.0+) 🚀
 
-**Effort**: 12+ hours  
-**Priority**: LOW - Nice-to-have  
+**Effort**: 12+ hours
+**Priority**: LOW - Nice-to-have
 **Impact**: Complete spec coverage
 
 ### Categories
@@ -854,6 +862,6 @@ Complex syntax:
 
 ---
 
-**Total**: 51/131 current → 131/131 target  
-**Timeline**: v1.0 (48%) → v1.1 (63%) → v1.2 (69%) → v2.0 (75%+)  
+**Total**: 51/131 current → 131/131 target
+**Timeline**: v1.0 (48%) → v1.1 (63%) → v1.2 (69%) → v2.0 (75%+)
 **Effort**: 37+ hours over 4 releases
