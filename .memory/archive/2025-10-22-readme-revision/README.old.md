@@ -5,176 +5,33 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
 
-**Bidirectional CSS longhand property parser and generator**
+**Bidirectional CSS value parser - The Rosetta Stone for CSS values**
 
-Transform CSS declarations into structured TypeScript objects and back again. Perfect for CSS editors, design tools, linters, and style manipulation.
+Parse CSS values to structured IR (Intermediate Representation) and generate CSS from IR. Built with [css-tree](https://github.com/csstree/csstree) and [Zod](https://github.com/colinhacks/zod) for type-safe, spec-compliant CSS value handling.
 
-```typescript
-// Parse any CSS longhand property
-const result = parse("transform: rotate(45deg) scale(1.5)");
-// → { ok: true, value: [{ kind: "rotate", angle: {...} }, { kind: "scale", ... }] }
+## Why b_value?
 
-// Modify and regenerate
-result.value[0].angle.value = 90;
-generate({ property: "transform", value: result.value });
-// → "transform: rotate(90deg) scale(1.5)"
-```
+CSS values are complex. Gradients, positions, transforms, colors - they all have intricate syntax with optional components, keywords, and units. b_value gives you:
 
-## Table of Contents
-
-- [Features](#features)
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Use Cases](#use-cases)
-- [API Overview](#api-overview)
-- [Supported Properties](#supported-properties)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Features
-
-### Why b_value?
-
-CSS property values are notoriously complex to parse and manipulate. `b_value` makes it simple:
-
-- **🔄 Bidirectional**: Parse CSS → IR → CSS with perfect round-trip fidelity
-- **🎯 60+ Properties**: Colors, gradients, transforms, layouts, animations, and more
-- **📦 Batch Operations**: Parse and generate multiple properties at once
-- **🛡️ Type-Safe**: Full TypeScript support with Zod schemas
-- **✅ Spec-Compliant**: Built on [css-tree](https://github.com/csstree/csstree)'s W3C-aligned parser
-- **🌳 Tree-Shakeable**: Import only what you need
-- **🧪 Battle-Tested**: 2,600+ tests with 86% coverage
-
-### What Makes It Different?
-
-Most CSS parsers only go **one direction** (CSS → Object). b_value is **bidirectional**:
-
-1. **Parse** CSS declarations to structured TypeScript objects
-2. **Modify** the objects programmatically
-3. **Generate** valid CSS back from the modified objects
-
-This enables powerful workflows like visual editors, style transformations, and code generation.
-
-## Installation
-
-```bash
-npm install b_value
-```
-
-Or using other package managers:
-
-```bash
-yarn add b_value
-pnpm add b_value
-bun add b_value
-```
+- **Bidirectional transformation**: CSS ⇄ IR (parse and generate)
+- **Type-safe IR**: Zod schemas + TypeScript types for all CSS values
+- **Spec-compliant**: Built on css-tree's W3C-aligned parser
+- **Tree-shakeable**: Import only what you need
+- **Round-trip tested**: Parse → Generate → Parse produces identical results
 
 ## Quick Start
 
-### Parse a Single Property
-
-```typescript
-import { parse } from "b_value";
-
-// Parse any CSS longhand property
-const result = parse("color: #ff0080");
-
-if (result.ok) {
-  console.log(result.property); // "color"
-  console.log(result.value);    // { kind: "hex", r: 255, g: 0, b: 128 }
-}
+```bash
+npm install b_value
+# or
+pnpm add b_value
 ```
 
-### Generate CSS from IR
+## Usage
 
-```typescript
-import { generate } from "b_value";
+### Universal API (Single Properties)
 
-const css = generate({
-  property: "color",
-  value: { kind: "hex", value: "#ff0080" }
-});
-
-if (css.ok) {
-  console.log(css.value); // "color: #ff0080"
-}
-```
-
-### Parse Multiple Properties at Once
-
-```typescript
-import { parseAll, generateAll } from "b_value";
-
-// Parse entire style blocks
-const styles = parseAll("color: red; width: 100px; opacity: 0.5");
-
-if (styles.ok) {
-  // Modify values
-  styles.value.color = { kind: "hex", value: "#0000ff" };
-  styles.value.opacity = { kind: "opacity", value: 1.0 };
-  
-  // Generate CSS back
-  const css = generateAll(styles.value);
-  console.log(css); // "color: #0000ff; width: 100px; opacity: 1"
-}
-```
-
-## Use Cases
-
-### 🎨 Visual CSS Editors
-
-Build interactive style editors where users can manipulate CSS properties visually:
-
-```typescript
-// User adjusts a color picker
-const styles = parseAll(element.style.cssText);
-styles.value.color = userSelectedColor;
-element.style.cssText = generateAll(styles.value);
-```
-
-### 🔧 CSS Transformation Tools
-
-Transform styles programmatically (e.g., theme generation, dark mode):
-
-```typescript
-// Convert all colors to dark mode variants
-const styles = parseAll(css);
-for (const [prop, value] of Object.entries(styles.value)) {
-  if (typeof value === "object" && value.kind === "hex") {
-    styles.value[prop] = darkenColor(value);
-  }
-}
-```
-
-### ✨ Code Generators
-
-Generate CSS from design tokens or configuration:
-
-```typescript
-const tokens = { primary: "#ff0080", spacing: "1rem" };
-const css = generateAll({
-  color: { kind: "hex", value: tokens.primary },
-  padding: { kind: "length", value: tokens.spacing }
-});
-```
-
-### 🔍 CSS Linters & Formatters
-
-Parse, validate, and auto-fix CSS properties:
-
-```typescript
-const result = parse("color: red");
-if (!result.ok) {
-  console.error(`Invalid color: ${result.issues[0].message}`);
-}
-```
-
-## API Overview
-
-### Single Property API
-
-Parse and generate individual CSS properties with automatic routing:
+Parse and generate **any** CSS longhand property with automatic routing:
 
 ```typescript
 import { parse, generate } from "b_value";
@@ -596,178 +453,22 @@ pnpm test
 pnpm test:coverage
 ```
 
-## Examples
-
-### Working with Colors
-
-```typescript
-import { parse, generate } from "b_value";
-
-// Parse hex color
-const hex = parse("color: #ff0080");
-// { kind: "hex", r: 255, g: 0, b: 128 }
-
-// Parse RGB with alpha
-const rgb = parse("color: rgb(255 0 128 / 0.5)");
-// { kind: "rgb", r: 255, g: 0, b: 128, alpha: 0.5 }
-
-// Convert between formats
-generate({ property: "color", value: { kind: "hsl", h: 330, s: 100, l: 50 } });
-// "color: hsl(330 100% 50%)"
-```
-
-### Working with Transforms
-
-```typescript
-// Parse complex transforms
-const result = parse("transform: rotate(45deg) scale(1.5) translateX(20px)");
-
-// Modify individual transforms
-result.value[0].angle.value = 90; // Change rotation
-
-// Generate updated CSS
-generate({ property: "transform", value: result.value });
-// "transform: rotate(90deg) scale(1.5) translateX(20px)"
-```
-
-### Working with Gradients
-
-```typescript
-// Parse radial gradient
-const gradient = parse("background-image: radial-gradient(circle at center, red, blue)");
-
-// Access gradient data
-gradient.value.shape; // "circle"
-gradient.value.position; // { kind: "keyword-pair", x: "center", y: "center" }
-gradient.value.colorStops; // [{ color: {...}, position: undefined }, ...]
-```
-
-### Batch Operations for CSS Editors
-
-```typescript
-import { parseAll, generateAll } from "b_value";
-
-// User's current styles
-const userCSS = "color: red; font-size: 16px; margin: 0";
-
-// Parse all properties
-const styles = parseAll(userCSS);
-
-if (styles.ok) {
-  // Update properties via UI
-  styles.value.color = { kind: "hex", value: "#0000ff" };
-  styles.value["font-size"] = { kind: "length", value: { value: 18, unit: "px" } };
-  
-  // Generate updated CSS
-  const updatedCSS = generateAll(styles.value);
-  console.log(updatedCSS);
-  // "color: #0000ff; font-size: 18px; margin: 0"
-}
-```
-
-### Error Handling
-
-```typescript
-const result = parse("color: not-a-valid-color");
-
-if (!result.ok) {
-  console.error("Parse failed:");
-  result.issues.forEach(issue => {
-    console.log(`  ${issue.severity}: ${issue.message}`);
-    console.log(`  Code: ${issue.code}`);
-  });
-}
-```
-
-## Important: Longhand Properties Only
-
-**b_value handles LONGHAND properties only**, not shorthand properties.
-
-```typescript
-// ✅ SUPPORTED (longhand)
-parse("color: red")
-parse("background-color: blue")
-parse("margin-top: 10px")
-parse("border-top-width: 2px")
-
-// ❌ NOT SUPPORTED (shorthand)
-parse("background: blue url(...)") // Use b_short library
-parse("margin: 10px 20px")         // Use b_short library
-parse("border: 1px solid red")     // Use b_short library
-```
-
-For shorthand property expansion, use the companion library **[b_short](https://github.com/alphabio/b_short)**.
-
 ## Why Bidirectional?
 
-Most CSS parsers only parse **CSS → Object**. b_value supports **CSS ⇄ Object**:
+Unidirectional parsers are common, but bidirectional transformation unlocks:
 
-- **Visual Editors**: Parse styles, modify via UI, generate CSS back
-- **Code Generation**: Transform design tokens → CSS
-- **Linting & Auto-fixing**: Parse → normalize → re-emit
-- **Style Transformations**: Modify styles programmatically (theming, dark mode)
-- **Round-trip Safety**: Validate transformations preserve semantics
+- **Live editors**: Update IR → emit CSS in real-time
+- **Code generation**: Transform IR → Tailwind, vanilla CSS, CSS-in-JS
+- **Linting & autofixing**: Parse → normalize → re-emit
+- **Design tokens**: Transform between token systems
+- **Round-trip safety**: Validate transformations preserve semantics
 
-## Development
+## Relationship to Other Projects
 
-### Prerequisites
-
-- Node.js 18+
-- pnpm 8+
-
-### Setup
-
-```bash
-# Install dependencies
-pnpm install
-
-# Run all checks (format, lint, typecheck)
-just check
-
-# Run tests
-pnpm test
-
-# Run tests with coverage
-pnpm test:coverage
-
-# Watch mode for development
-pnpm test:watch
-```
-
-### Project Structure
-
-```
-b_value/
-├── src/
-│   ├── parse/           # Property parsers
-│   ├── generate/        # Property generators
-│   ├── core/            # Core types and utilities
-│   ├── universal.ts     # Universal parse/generate API
-│   └── universal-batch.ts # Batch parseAll/generateAll API
-├── test/                # Integration tests
-└── docs/                # API documentation
-```
-
-## Contributing
-
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
-### Adding a New Property
-
-1. Create parser in `src/parse/<module>/<property>.ts`
-2. Create generator in `src/generate/<module>/<property>.ts`
-3. Add tests for both
-4. Register in `src/universal.ts`
-5. Update documentation
-
-## Related Projects
-
-- **[b_short](https://github.com/alphabio/b_short)** - CSS shorthand property expansion
-- **[css-tree](https://github.com/csstree/csstree)** - CSS parser used internally
-- **[b_gee](https://github.com/alphabio/b_gee)** - Original project (b_value was extracted for reusability)
+- **b_short**: Handles CSS shorthand property expansion (e.g., `margin: 10px` → individual properties)
+- **b_value**: Handles CSS value parsing/generation (e.g., `radial-gradient(...)` → structured IR)
+- **b_gee**: Original project from which b_value was extracted for reusability
 
 ## License
 
 MIT © b_value contributors
-
-See [LICENSE](LICENSE) for details.
