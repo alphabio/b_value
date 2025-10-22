@@ -39,12 +39,18 @@
 
 ## 🎯 What's Next
 
-### Current Priority: Continue Property Implementation
-**Status**: Ready to resume  
-**Focus**: Continue Phase 1 properties per ROADMAP.md  
-**Coverage**: 62.69% baseline - coverage improvement is NOT a priority
+### Current Priority: ACHIEVE 90%+ TEST COVERAGE
+**Status**: CRITICAL PRIORITY  
+**Current**: 60.58% coverage  
+**Target**: 90%+ coverage  
+**Focus**: Create tests for uncovered code, particularly:
+- Complex parsers (transform, shadow, text, transition)
+- Generate utilities (`src/utils/generate/values.ts` - only 24% covered)
+- Typography parsers (many at 0%)
 
-**Note**: The `.generate.test.ts` experiment was abandoned - those files use a different API pattern (named exports like `generateBackgroundBlendMode` instead of `generate`). Focus on implementing properties, not test coverage.
+**Strategy**: Target high-impact files first - utilities and complex parsers give biggest coverage gains.
+
+**What NOT to do**: Don't create `.generate.test.ts` files for auto-generated code with named exports.
 
 ---
 
