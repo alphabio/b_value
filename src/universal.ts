@@ -25,6 +25,8 @@ import * as AnimationGenerate from "./generate/animation/animation";
 import * as BackgroundAttachmentGen from "./generate/background/attachment";
 import * as BackgroundClipGen from "./generate/background/clip";
 import * as BackgroundOriginGen from "./generate/background/origin";
+import * as BackgroundPositionXGen from "./generate/background/position-x";
+import * as BackgroundPositionYGen from "./generate/background/position-y";
 import * as BackgroundRepeatGen from "./generate/background/repeat";
 import * as BackgroundSizeGen from "./generate/background/size";
 import * as BorderGenerate from "./generate/border/border";
@@ -53,6 +55,8 @@ import * as BackgroundAttachment from "./parse/background/attachment";
 import * as BackgroundClip from "./parse/background/clip";
 import * as BackgroundImage from "./parse/background/image";
 import * as BackgroundOrigin from "./parse/background/origin";
+import * as BackgroundPositionX from "./parse/background/position-x";
+import * as BackgroundPositionY from "./parse/background/position-y";
 import * as BackgroundRepeat from "./parse/background/repeat";
 import * as BackgroundSize from "./parse/background/size";
 import * as BorderRadius from "./parse/border/radius";
@@ -172,6 +176,8 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	"background-repeat": wrapParser(BackgroundRepeat.parse),
 	"background-size": wrapParser(BackgroundSize.parse),
 	"background-position": PositionParse.parse,
+	"background-position-x": BackgroundPositionX.parse,
+	"background-position-y": BackgroundPositionY.parse,
 	"background-image": BackgroundImage.parse, // gradient, url, or none (comma-separated list)
 
 	// Border properties (individual sides only - full sides are shorthands)
@@ -304,6 +310,8 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 
 	// Background properties
 	"background-position": PositionGenerate.generate,
+	"background-position-x": wrapGenerator(BackgroundPositionXGen.toCss),
+	"background-position-y": wrapGenerator(BackgroundPositionYGen.toCss),
 	"background-image": GradientGenerate.generate,
 	"background-attachment": wrapGenerator(BackgroundAttachmentGen.toCss),
 	"background-clip": wrapGenerator(BackgroundClipGen.toCss),
