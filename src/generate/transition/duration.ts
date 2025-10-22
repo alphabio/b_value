@@ -1,4 +1,6 @@
 // b_path:: src/generate/transition/duration.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -39,6 +41,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration | MDN: transition-duration}
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-duration-property | W3C Spec}
  */
-export function toCss(ir: Type.TransitionDuration): string {
-	return ir.durations.map((duration) => `${duration.value}${duration.unit}`).join(", ");
+export function generate(ir: Type.TransitionDuration): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.durations.map((duration) => `${duration.value}${duration.unit}`).join(", "));
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/text-transform.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { TextTransform } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { TextTransform } from "@/core/types";
  *
  * @public
  */
-export function toCss(textTransform: TextTransform): string {
-	return textTransform.value;
+export function generate(textTransform: TextTransform): GenerateResult {
+	if (textTransform === undefined || textTransform === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(textTransform.value);
 }

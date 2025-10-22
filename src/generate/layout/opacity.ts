@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/opacity.ts
+
+import { type GenerateResult, generateErr } from "@/core/result";
 import type { Opacity } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { Opacity } from "@/core/types";
  *
  * @public
  */
-export function toCss(opacity: Opacity): string {
+export function generate(opacity: Opacity): GenerateResult {
+	if (opacity === undefined || opacity === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return opacity.value.toString();
 }

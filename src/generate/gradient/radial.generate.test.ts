@@ -14,8 +14,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(red, blue)" });
 	});
 
 	it("should generate radial gradient with shape", () => {
@@ -29,8 +29,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(circle, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(circle, red, blue)" });
 	});
 
 	it("should generate radial gradient with size keyword", () => {
@@ -45,8 +45,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(circle closest-side, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(circle closest-side, red, blue)" });
 	});
 
 	it("should generate radial gradient with position", () => {
@@ -63,8 +63,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(at left top, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(at left top, red, blue)" });
 	});
 
 	it("should generate radial gradient with center position", () => {
@@ -81,8 +81,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(at center center, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(at center center, red, blue)" });
 	});
 
 	it("should generate radial gradient with percentage positions", () => {
@@ -99,8 +99,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(at 50% 75%, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(at 50% 75%, red, blue)" });
 	});
 
 	it("should generate radial gradient with color stop positions", () => {
@@ -113,8 +113,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(red 0%, blue 100%)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(red 0%, blue 100%)" });
 	});
 
 	it("should generate repeating radial gradient", () => {
@@ -127,8 +127,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: true,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("repeating-radial-gradient(red, blue 20px)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "repeating-radial-gradient(red, blue 20px)" });
 	});
 
 	it("should generate complex radial gradient", () => {
@@ -147,8 +147,12 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(ellipse farthest-corner at 30% 30%, red 0%, blue 100%)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({
+			ok: true,
+			issues: [],
+			value: "radial-gradient(ellipse farthest-corner at 30% 30%, red 0%, blue 100%)",
+		});
 	});
 
 	it("should generate radial gradient with multiple color stops", () => {
@@ -163,8 +167,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(red, yellow 30%, green 60%, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(red, yellow 30%, green 60%, blue)" });
 	});
 
 	it("should generate radial gradient with explicit circle radius", () => {
@@ -182,8 +186,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(circle 100px, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(circle 100px, red, blue)" });
 	});
 
 	it("should generate radial gradient with explicit ellipse radii", () => {
@@ -202,8 +206,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(ellipse 100px 50px, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(ellipse 100px 50px, red, blue)" });
 	});
 
 	it("should generate radial gradient with color interpolation", () => {
@@ -217,8 +221,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(in srgb, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(in srgb, red, blue)" });
 	});
 
 	it("should generate radial gradient with shape and color space", () => {
@@ -233,8 +237,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(circle in oklch, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(circle in oklch, red, blue)" });
 	});
 
 	it("should generate radial gradient with position and color space", () => {
@@ -252,8 +256,8 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(at center center in display-p3, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(at center center in display-p3, red, blue)" });
 	});
 
 	it("should generate radial gradient with shape, size and color space", () => {
@@ -269,7 +273,7 @@ describe("Radial Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = RadialGenerator.toCss(ir);
-		expect(css).toBe("radial-gradient(ellipse farthest-corner in lab, red, blue)");
+		const css = RadialGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "radial-gradient(ellipse farthest-corner in lab, red, blue)" });
 	});
 });

@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/visibility.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Visibility } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { Visibility } from "@/core/types";
  *
  * @public
  */
-export function toCss(visibility: Visibility): string {
-	return visibility.value;
+export function generate(visibility: Visibility): GenerateResult {
+	if (visibility === undefined || visibility === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(visibility.value);
 }

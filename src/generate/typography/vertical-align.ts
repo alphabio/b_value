@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/vertical-align.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { VerticalAlign } from "@/core/types";
 import { lengthPercentageToCss } from "@/utils/generate/values";
 
@@ -22,9 +24,12 @@ import { lengthPercentageToCss } from "@/utils/generate/values";
  *
  * @public
  */
-export function toCss(verticalAlign: VerticalAlign): string {
+export function generate(verticalAlign: VerticalAlign): GenerateResult {
+	if (verticalAlign === undefined || verticalAlign === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof verticalAlign.value === "string") {
-		return verticalAlign.value;
+		return generateOk(verticalAlign.value);
 	}
 	return lengthPercentageToCss(verticalAlign.value);
 }

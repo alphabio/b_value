@@ -1,6 +1,6 @@
 // b_path:: src/generate/border/border.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types/border";
 import * as Color from "./color";
 import * as Radius from "./radius";
@@ -83,16 +83,16 @@ export function generate(
 	// Dispatch based on kind
 	switch (border.kind) {
 		case "border-width":
-			return generateOk(Width.toCss(border));
+			return Width.generate(border);
 
 		case "border-style":
-			return generateOk(Style.toCss(border));
+			return Style.generate(border);
 
 		case "border-color":
-			return generateOk(Color.toCss(border));
+			return Color.generate(border);
 
 		case "border-radius":
-			return generateOk(Radius.toCss(border));
+			return Radius.generate(border);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown border kind: ${(border as { kind?: string }).kind}`, {

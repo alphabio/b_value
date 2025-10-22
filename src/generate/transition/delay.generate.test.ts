@@ -10,8 +10,8 @@ describe("Transition Delay Generator", () => {
 			delays: [{ value: 1, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("1s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1s" });
 	});
 
 	it("should generate single delay in milliseconds", () => {
@@ -20,8 +20,8 @@ describe("Transition Delay Generator", () => {
 			delays: [{ value: 500, unit: "ms" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("500ms");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "500ms" });
 	});
 
 	it("should generate negative delay", () => {
@@ -30,8 +30,8 @@ describe("Transition Delay Generator", () => {
 			delays: [{ value: -2, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("-2s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "-2s" });
 	});
 
 	it("should generate zero delay", () => {
@@ -40,8 +40,8 @@ describe("Transition Delay Generator", () => {
 			delays: [{ value: 0, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("0s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0s" });
 	});
 
 	it("should generate decimal values", () => {
@@ -50,8 +50,8 @@ describe("Transition Delay Generator", () => {
 			delays: [{ value: 0.5, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("0.5s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0.5s" });
 	});
 
 	it("should generate multiple delays", () => {
@@ -64,8 +64,8 @@ describe("Transition Delay Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("1s, 500ms, 2s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1s, 500ms, 2s" });
 	});
 
 	it("should generate mixed positive and negative delays", () => {
@@ -78,8 +78,8 @@ describe("Transition Delay Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("1s, -500ms, 2s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1s, -500ms, 2s" });
 	});
 
 	// Round-trip tests
@@ -89,8 +89,8 @@ describe("Transition Delay Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -100,8 +100,8 @@ describe("Transition Delay Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -111,8 +111,8 @@ describe("Transition Delay Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -122,8 +122,8 @@ describe("Transition Delay Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 });

@@ -14,7 +14,7 @@
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   shape: "circle",
  *   colorStops: [

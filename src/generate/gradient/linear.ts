@@ -47,7 +47,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
@@ -58,7 +58,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @example
  * With angle direction:
  * ```typescript
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   direction: { kind: "angle", value: { value: 45, unit: "deg" } },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
@@ -70,7 +70,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @example
  * With side direction:
  * ```typescript
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   direction: { kind: "to-side", value: "right" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
@@ -82,7 +82,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @example
  * With corner direction:
  * ```typescript
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   direction: { kind: "to-corner", value: "top right" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
@@ -94,7 +94,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @example
  * With color interpolation:
  * ```typescript
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   direction: { kind: "angle", value: { value: 90, unit: "deg" } },
  *   colorSpace: "oklch",
@@ -110,7 +110,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * @example
  * Repeating gradient:
  * ```typescript
- * const css = Generate.Gradient.Linear.toCss({
+ * const css = Generate.Gradient.Linear.generate({
  *   kind: "linear",
  *   direction: { kind: "angle", value: { value: 45, unit: "deg" } },
  *   colorStops: [
@@ -131,7 +131,7 @@ function directionToCss(direction: Type.GradientDirection): string {
  * const parsed = Parse.Gradient.Linear.parse(original);
  *
  * if (parsed.ok) {
- *   const generated = Generate.Gradient.Linear.toCss(parsed.value);
+ *   const generated = Generate.Gradient.Linear.generate(parsed.value);
  *   console.log(generated === original); // true - perfect round-trip!
  * }
  * ```
@@ -157,7 +157,7 @@ export function toCss(ir: Type.LinearGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.toCss(stop));
+	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
 	parts.push(...stopStrings);
 
 	// Generate function

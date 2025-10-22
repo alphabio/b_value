@@ -5,16 +5,16 @@ import { toCss } from "./font-style";
 describe("Generate.Typography.FontStyle", () => {
 	it("should generate 'normal'", () => {
 		const result = toCss({ kind: "font-style", value: "normal" });
-		expect(result).toBe("normal");
+		expect(result).toEqual({ ok: true, issues: [], value: "normal" });
 	});
 
 	it("should generate 'italic'", () => {
 		const result = toCss({ kind: "font-style", value: "italic" });
-		expect(result).toBe("italic");
+		expect(result).toEqual({ ok: true, issues: [], value: "italic" });
 	});
 
 	it("should generate 'oblique'", () => {
 		const result = toCss({ kind: "font-style", value: "oblique" });
-		expect(result).toBe("oblique");
+		expect(result).toEqual({ ok: true, issues: [], value: "oblique" });
 	});
 });

@@ -11,7 +11,7 @@ describe("generate path()", () => {
 				pathData: "M 10,10 L 90,10 L 50,90 Z",
 			});
 
-			expect(css).toBe("path('M 10,10 L 90,10 L 50,90 Z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path('M 10,10 L 90,10 L 50,90 Z')" });
 		});
 
 		it("should generate path with lowercase commands", () => {
@@ -20,7 +20,7 @@ describe("generate path()", () => {
 				pathData: "m 10,10 l 80,0 l -40,80 z",
 			});
 
-			expect(css).toBe("path('m 10,10 l 80,0 l -40,80 z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path('m 10,10 l 80,0 l -40,80 z')" });
 		});
 
 		it("should generate compact path syntax", () => {
@@ -29,7 +29,7 @@ describe("generate path()", () => {
 				pathData: "M10 10L90 10L50 90z",
 			});
 
-			expect(css).toBe("path('M10 10L90 10L50 90z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path('M10 10L90 10L50 90z')" });
 		});
 
 		it("should generate path with various commands", () => {
@@ -38,7 +38,7 @@ describe("generate path()", () => {
 				pathData: "M 0,0 H 100 V 100 L 0,100 Z",
 			});
 
-			expect(css).toBe("path('M 0,0 H 100 V 100 L 0,100 Z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path('M 0,0 H 100 V 100 L 0,100 Z')" });
 		});
 	});
 
@@ -50,7 +50,7 @@ describe("generate path()", () => {
 				pathData: "M 10,10 L 90,10 Z",
 			});
 
-			expect(css).toBe("path(nonzero, 'M 10,10 L 90,10 Z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path(nonzero, 'M 10,10 L 90,10 Z')" });
 		});
 
 		it("should generate with evenodd fill-rule", () => {
@@ -60,7 +60,7 @@ describe("generate path()", () => {
 				pathData: "M 10,10 L 90,10 Z",
 			});
 
-			expect(css).toBe("path(evenodd, 'M 10,10 L 90,10 Z')");
+			expect(css).toEqual({ ok: true, issues: [], value: "path(evenodd, 'M 10,10 L 90,10 Z')" });
 		});
 	});
 

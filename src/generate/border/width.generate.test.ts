@@ -10,8 +10,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("thin");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "thin" });
 			}
 		});
 
@@ -20,8 +20,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("medium");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "medium" });
 			}
 		});
 
@@ -30,8 +30,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("thick");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "thick" });
 			}
 		});
 
@@ -40,8 +40,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("1px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "1px" });
 			}
 		});
 
@@ -50,8 +50,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("2.5em");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "2.5em" });
 			}
 		});
 
@@ -60,8 +60,8 @@ describe("Generate.Border.Width", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("0px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "0px" });
 			}
 		});
 	});

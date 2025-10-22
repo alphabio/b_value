@@ -1,4 +1,6 @@
 // b_path:: src/generate/interaction/user-select.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { UserSelect } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { UserSelect } from "@/core/types";
  *
  * @public
  */
-export function toCss(userSelect: UserSelect): string {
-	return userSelect.value;
+export function generate(userSelect: UserSelect): GenerateResult {
+	if (userSelect === undefined || userSelect === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(userSelect.value);
 }

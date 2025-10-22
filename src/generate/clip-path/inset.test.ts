@@ -191,7 +191,7 @@ describe("generate inset()", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const generated = toCss(parsed.value);
-				expect(generated).toBe(original);
+				expect(generated.ok && generated.value).toBe(original);
 			}
 		});
 
@@ -202,7 +202,7 @@ describe("generate inset()", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const generated = toCss(parsed.value);
-				expect(generated).toBe(original);
+				expect(generated.ok && generated.value).toBe(original);
 			}
 		});
 
@@ -213,7 +213,7 @@ describe("generate inset()", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const generated = toCss(parsed.value);
-				expect(generated).toBe(original);
+				expect(generated.ok && generated.value).toBe(original);
 			}
 		});
 
@@ -224,7 +224,7 @@ describe("generate inset()", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const generated = toCss(parsed.value);
-				expect(generated).toBe("inset(10px)");
+				expect(generated).toEqual({ ok: true, issues: [], value: "inset(10px)" });
 			}
 		});
 
@@ -235,7 +235,7 @@ describe("generate inset()", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const generated = toCss(parsed.value);
-				expect(generated).toBe(original);
+				expect(generated.ok && generated.value).toBe(original);
 			}
 		});
 	});

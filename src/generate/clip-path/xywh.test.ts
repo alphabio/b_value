@@ -14,7 +14,7 @@ describe("generate xywh()", () => {
 				height: { value: 50, unit: "px" },
 			});
 
-			expect(css).toBe("xywh(10px 20px 100px 50px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(10px 20px 100px 50px)" });
 		});
 
 		it("should generate with percentages", () => {
@@ -26,7 +26,7 @@ describe("generate xywh()", () => {
 				height: { value: 100, unit: "%" },
 			});
 
-			expect(css).toBe("xywh(0% 0% 100% 100%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(0% 0% 100% 100%)" });
 		});
 
 		it("should generate with zero values", () => {
@@ -38,7 +38,7 @@ describe("generate xywh()", () => {
 				height: { value: 0, unit: "px" },
 			});
 
-			expect(css).toBe("xywh(0px 0px 0px 0px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(0px 0px 0px 0px)" });
 		});
 
 		it("should generate with mixed units", () => {
@@ -50,7 +50,7 @@ describe("generate xywh()", () => {
 				height: { value: 80, unit: "px" },
 			});
 
-			expect(css).toBe("xywh(10px 5em 50% 80px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(10px 5em 50% 80px)" });
 		});
 	});
 
@@ -70,7 +70,7 @@ describe("generate xywh()", () => {
 				},
 			});
 
-			expect(css).toBe("xywh(10px 20px 100px 50px round 5px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(10px 20px 100px 50px round 5px)" });
 		});
 
 		it("should generate with different border-radius values", () => {
@@ -88,7 +88,7 @@ describe("generate xywh()", () => {
 				},
 			});
 
-			expect(css).toBe("xywh(0% 0% 100% 100% round 5px 10px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "xywh(0% 0% 100% 100% round 5px 10px)" });
 		});
 	});
 

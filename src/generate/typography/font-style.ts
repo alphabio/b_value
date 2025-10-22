@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/font-style.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { FontStyle } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { FontStyle } from "@/core/types";
  *
  * @public
  */
-export function toCss(fontStyle: FontStyle): string {
-	return fontStyle.value;
+export function generate(fontStyle: FontStyle): GenerateResult {
+	if (fontStyle === undefined || fontStyle === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(fontStyle.value);
 }

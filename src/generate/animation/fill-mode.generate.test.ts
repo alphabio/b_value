@@ -6,22 +6,22 @@ import * as Generator from "./fill-mode";
 describe("Animation Fill Mode Generator", () => {
 	it("should generate none", () => {
 		const ir = { kind: "animation-fill-mode" as const, modes: ["none" as const] };
-		expect(Generator.toCss(ir)).toBe("none");
+		expect(Generator.generate(ir)).toBe("none");
 	});
 
 	it("should generate forwards", () => {
 		const ir = { kind: "animation-fill-mode" as const, modes: ["forwards" as const] };
-		expect(Generator.toCss(ir)).toBe("forwards");
+		expect(Generator.generate(ir)).toBe("forwards");
 	});
 
 	it("should generate backwards", () => {
 		const ir = { kind: "animation-fill-mode" as const, modes: ["backwards" as const] };
-		expect(Generator.toCss(ir)).toBe("backwards");
+		expect(Generator.generate(ir)).toBe("backwards");
 	});
 
 	it("should generate both", () => {
 		const ir = { kind: "animation-fill-mode" as const, modes: ["both" as const] };
-		expect(Generator.toCss(ir)).toBe("both");
+		expect(Generator.generate(ir)).toBe("both");
 	});
 
 	it("should generate multiple modes", () => {
@@ -29,7 +29,7 @@ describe("Animation Fill Mode Generator", () => {
 			kind: "animation-fill-mode" as const,
 			modes: ["none" as const, "forwards" as const, "both" as const],
 		};
-		expect(Generator.toCss(ir)).toBe("none, forwards, both");
+		expect(Generator.generate(ir)).toBe("none, forwards, both");
 	});
 
 	// Round-trip tests
@@ -39,8 +39,8 @@ describe("Animation Fill Mode Generator", () => {
 			const parsed = Parser.parse(keyword);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generator.toCss(parsed.value);
-				expect(generated).toBe(keyword);
+				const generated = Generator.generate(parsed.value);
+				expect(generated.ok && generated.value).toBe(keyword);
 				const reparsed = Parser.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -52,8 +52,8 @@ describe("Animation Fill Mode Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}

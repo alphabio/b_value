@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/contrast.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { ContrastFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { ContrastFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: ContrastFilter): string {
+export function generate(filter: ContrastFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { value } = filter;
-	return `contrast(${value})`;
+	return generateOk(`contrast(${value})`);
 }

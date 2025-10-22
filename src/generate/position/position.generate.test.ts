@@ -10,8 +10,8 @@ describe("Position Generator", () => {
 				horizontal: "center",
 				vertical: "center",
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("center center");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "center center" });
 		});
 
 		it("should generate two keyword positions", () => {
@@ -19,8 +19,8 @@ describe("Position Generator", () => {
 				horizontal: "left",
 				vertical: "top",
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("left top");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "left top" });
 		});
 
 		it("should generate all keyword combinations", () => {
@@ -56,7 +56,7 @@ describe("Position Generator", () => {
 			];
 
 			for (const { ir, expected } of positions) {
-				const css = PositionGenerator.toCss(ir);
+				const css = PositionGenerator.generate(ir);
 				expect(css).toBe(expected);
 			}
 		});
@@ -66,8 +66,8 @@ describe("Position Generator", () => {
 				horizontal: { value: 100, unit: "px" },
 				vertical: { value: 50, unit: "px" },
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("100px 50px");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "100px 50px" });
 		});
 
 		it("should generate percentage values", () => {
@@ -75,8 +75,8 @@ describe("Position Generator", () => {
 				horizontal: { value: 50, unit: "%" },
 				vertical: { value: 25, unit: "%" },
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("50% 25%");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "50% 25%" });
 		});
 
 		it("should generate mixed keyword and length", () => {
@@ -84,8 +84,8 @@ describe("Position Generator", () => {
 				horizontal: "left",
 				vertical: { value: 50, unit: "px" },
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("left 50px");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "left 50px" });
 		});
 
 		it("should generate mixed keyword and percentage", () => {
@@ -93,8 +93,8 @@ describe("Position Generator", () => {
 				horizontal: { value: 50, unit: "%" },
 				vertical: "top",
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("50% top");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "50% top" });
 		});
 
 		it("should generate mixed length and percentage", () => {
@@ -102,8 +102,8 @@ describe("Position Generator", () => {
 				horizontal: { value: 100, unit: "px" },
 				vertical: { value: 50, unit: "%" },
 			};
-			const css = PositionGenerator.toCss(ir);
-			expect(css).toBe("100px 50%");
+			const css = PositionGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "100px 50%" });
 		});
 	});
 
@@ -115,7 +115,7 @@ describe("Position Generator", () => {
 				z: { value: 30, unit: "px" },
 			};
 			const css = PositionGenerator.to3DCss(ir);
-			expect(css).toBe("10px 20px 30px");
+			expect(css).toEqual({ ok: true, issues: [], value: "10px 20px 30px" });
 		});
 
 		it("should generate 3D position with mixed units", () => {
@@ -125,7 +125,7 @@ describe("Position Generator", () => {
 				z: { value: 2, unit: "em" },
 			};
 			const css = PositionGenerator.to3DCss(ir);
-			expect(css).toBe("50% 100px 2em");
+			expect(css).toEqual({ ok: true, issues: [], value: "50% 100px 2em" });
 		});
 
 		it("should generate 3D position with mixed keyword and values", () => {
@@ -135,7 +135,7 @@ describe("Position Generator", () => {
 				z: { value: 30, unit: "px" },
 			};
 			const css = PositionGenerator.to3DCss(ir);
-			expect(css).toBe("center 20px 30px");
+			expect(css).toEqual({ ok: true, issues: [], value: "center 20px 30px" });
 		});
 	});
 
@@ -147,26 +147,26 @@ describe("Position Generator", () => {
 				{ horizontal: { value: 50, unit: "%" }, vertical: { value: 25, unit: "%" } },
 			];
 			const css = PositionGenerator.toListCss(ir);
-			expect(css).toBe("center center, left top, 50% 25%");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center, left top, 50% 25%" });
 		});
 
 		it("should generate single position in list", () => {
 			const ir: Type.PositionList = [{ horizontal: "center", vertical: "center" }];
 			const css = PositionGenerator.toListCss(ir);
-			expect(css).toBe("center center");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center" });
 		});
 
 		it("should generate empty position list", () => {
 			const ir: Type.PositionList = [];
 			const css = PositionGenerator.toListCss(ir);
-			expect(css).toBe("");
+			expect(css).toEqual({ ok: true, issues: [], value: "" });
 		});
 	});
 
 	describe("Common position presets", () => {
 		it("should generate from common position presets", () => {
 			const css = PositionGenerator.fromCommonPosition("center");
-			expect(css).toBe("center center");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center" });
 		});
 
 		it("should generate from all common position presets", () => {

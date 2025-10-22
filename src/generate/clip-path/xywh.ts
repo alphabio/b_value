@@ -1,4 +1,6 @@
 // b_path:: src/generate/clip-path/xywh.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as GenerateUtils from "@/utils/generate";
 
@@ -24,7 +26,10 @@ import * as GenerateUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(value: Type.ClipPathXywh): string {
+export function generate(value: Type.ClipPathXywh): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const x = GenerateUtils.lengthPercentageToCss(value.x);
 	const y = GenerateUtils.lengthPercentageToCss(value.y);
 	const width = GenerateUtils.lengthPercentageToCss(value.width);
@@ -38,5 +43,5 @@ export function toCss(value: Type.ClipPathXywh): string {
 		radiusCss = ` round ${GenerateUtils.borderRadiusToCss(value.borderRadius)}`;
 	}
 
-	return `xywh(${xywhCss}${radiusCss})`;
+	return generateOk(`xywh(${xywhCss}${radiusCss})`);
 }

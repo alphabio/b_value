@@ -10,8 +10,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("none");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "none" });
 			}
 		});
 
@@ -20,8 +20,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("hidden");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "hidden" });
 			}
 		});
 
@@ -30,8 +30,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("solid");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "solid" });
 			}
 		});
 
@@ -40,8 +40,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("dashed");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "dashed" });
 			}
 		});
 
@@ -50,8 +50,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("dotted");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "dotted" });
 			}
 		});
 
@@ -60,8 +60,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("double");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "double" });
 			}
 		});
 
@@ -70,8 +70,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("groove");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "groove" });
 			}
 		});
 
@@ -80,8 +80,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("ridge");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "ridge" });
 			}
 		});
 
@@ -90,8 +90,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("inset");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "inset" });
 			}
 		});
 
@@ -100,8 +100,8 @@ describe("Generate.Border.Style", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("outset");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "outset" });
 			}
 		});
 	});

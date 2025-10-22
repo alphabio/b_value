@@ -1,4 +1,6 @@
 // b_path:: src/generate/shadow/box-shadow.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { BoxShadow } from "@/core/types/shadow";
 import { generateColor } from "@/utils/generate/color";
 
@@ -76,7 +78,10 @@ import { generateColor } from "@/utils/generate/color";
  *
  * @public
  */
-export function toCss(shadow: BoxShadow): string {
+export function generate(shadow: BoxShadow): GenerateResult {
+	if (shadow === undefined || shadow === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const layers = shadow.shadows.map((layer) => {
 		const { inset, offsetX, offsetY, blurRadius, spreadRadius, color } = layer;
 
@@ -106,8 +111,8 @@ export function toCss(shadow: BoxShadow): string {
 			parts.push(generateColor(color));
 		}
 
-		return parts.join(" ");
+		return generateOk(parts.join(" "));
 	});
 
-	return layers.join(", ");
+	return generateOk(layers.join(", "));
 }

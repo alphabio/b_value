@@ -1,4 +1,6 @@
 // b_path:: src/generate/animation/name.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -36,13 +38,16 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name | MDN: animation-name}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-name | W3C Spec}
  */
-export function toCss(ir: Type.AnimationName): string {
+export function generate(ir: Type.AnimationName): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return ir.names
 		.map((name) => {
 			if (name.type === "none") {
-				return "none";
+				return generateOk("none");
 			}
-			return name.value;
+			return generateOk(name.value);
 		})
 		.join(", ");
 }

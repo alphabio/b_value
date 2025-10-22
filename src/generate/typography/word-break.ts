@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/word-break.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { WordBreak } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { WordBreak } from "@/core/types";
  *
  * @public
  */
-export function toCss(wordBreak: WordBreak): string {
-	return wordBreak.value;
+export function generate(wordBreak: WordBreak): GenerateResult {
+	if (wordBreak === undefined || wordBreak === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(wordBreak.value);
 }

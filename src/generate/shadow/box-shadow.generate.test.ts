@@ -16,8 +16,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px" });
 	});
 
 	it("should generate box-shadow with blur radius", () => {
@@ -32,8 +32,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px 4px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px 4px" });
 	});
 
 	it("should generate box-shadow with spread radius", () => {
@@ -49,8 +49,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px 4px 2px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px 4px 2px" });
 	});
 
 	it("should generate box-shadow with color", () => {
@@ -65,8 +65,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px black");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px black" });
 	});
 
 	it("should generate inset box-shadow", () => {
@@ -82,8 +82,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("inset 0px 0px 10px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "inset 0px 0px 10px" });
 	});
 
 	it("should generate inset box-shadow with color", () => {
@@ -100,8 +100,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("inset 0px 0px 10px black");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "inset 0px 0px 10px black" });
 	});
 
 	it("should generate box-shadow with all parameters", () => {
@@ -119,8 +119,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("inset 1px 2px 3px 4px red");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "inset 1px 2px 3px 4px red" });
 	});
 
 	it("should generate multiple box-shadows", () => {
@@ -142,8 +142,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px black, inset 0px 0px 10px white");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px black, inset 0px 0px 10px white" });
 	});
 
 	it("should preserve different length units", () => {
@@ -158,8 +158,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1em 1.5rem 0.5vw");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1em 1.5rem 0.5vw" });
 	});
 
 	it("should handle negative offsets", () => {
@@ -173,8 +173,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("-2px -2px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "-2px -2px" });
 	});
 
 	it("should generate box-shadow with rgba color", () => {
@@ -196,8 +196,8 @@ describe("BoxShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px 4px rgb(0 0 0 / 0.5)");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px 4px rgb(0 0 0 / 0.5)" });
 	});
 
 	describe("Round-trip parsing", () => {
@@ -207,8 +207,8 @@ describe("BoxShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 
@@ -221,8 +221,8 @@ describe("BoxShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 
@@ -235,8 +235,8 @@ describe("BoxShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 

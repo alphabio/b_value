@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/saturate.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { SaturateFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { SaturateFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: SaturateFilter): string {
+export function generate(filter: SaturateFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { value } = filter;
-	return `saturate(${value})`;
+	return generateOk(`saturate(${value})`);
 }

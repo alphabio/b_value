@@ -5,22 +5,22 @@ import * as OverflowGen from "./overflow.generate";
 
 describe("generate/layout/overflow", () => {
 	it("generates visible", () => {
-		expect(OverflowGen.toCss("visible")).toBe("visible");
+		expect(OverflowGen.generate("visible")).toBe("visible");
 	});
 
 	it("generates hidden", () => {
-		expect(OverflowGen.toCss("hidden")).toBe("hidden");
+		expect(OverflowGen.generate("hidden")).toBe("hidden");
 	});
 
 	it("generates clip", () => {
-		expect(OverflowGen.toCss("clip")).toBe("clip");
+		expect(OverflowGen.generate("clip")).toBe("clip");
 	});
 
 	it("generates scroll", () => {
-		expect(OverflowGen.toCss("scroll")).toBe("scroll");
+		expect(OverflowGen.generate("scroll")).toBe("scroll");
 	});
 
 	it("generates auto", () => {
-		expect(OverflowGen.toCss("auto")).toBe("auto");
+		expect(OverflowGen.generate("auto")).toBe("auto");
 	});
 });

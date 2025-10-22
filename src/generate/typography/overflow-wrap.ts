@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/overflow-wrap.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { OverflowWrap } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { OverflowWrap } from "@/core/types";
  *
  * @public
  */
-export function toCss(overflowWrap: OverflowWrap): string {
-	return overflowWrap.value;
+export function generate(overflowWrap: OverflowWrap): GenerateResult {
+	if (overflowWrap === undefined || overflowWrap === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(overflowWrap.value);
 }

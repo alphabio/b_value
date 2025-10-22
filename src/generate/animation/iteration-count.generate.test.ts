@@ -10,7 +10,7 @@ describe("Animation Iteration Count Generator", () => {
 			counts: [{ type: "number" as const, value: 3 }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("3");
+		expect(Generator.generate(ir)).toBe("3");
 	});
 
 	it("should generate infinite keyword", () => {
@@ -19,7 +19,7 @@ describe("Animation Iteration Count Generator", () => {
 			counts: [{ type: "infinite" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("infinite");
+		expect(Generator.generate(ir)).toBe("infinite");
 	});
 
 	it("should generate zero count", () => {
@@ -28,7 +28,7 @@ describe("Animation Iteration Count Generator", () => {
 			counts: [{ type: "number" as const, value: 0 }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("0");
+		expect(Generator.generate(ir)).toBe("0");
 	});
 
 	it("should generate decimal values", () => {
@@ -37,7 +37,7 @@ describe("Animation Iteration Count Generator", () => {
 			counts: [{ type: "number" as const, value: 2.5 }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("2.5");
+		expect(Generator.generate(ir)).toBe("2.5");
 	});
 
 	it("should generate multiple counts", () => {
@@ -50,7 +50,7 @@ describe("Animation Iteration Count Generator", () => {
 			],
 		};
 
-		expect(Generator.toCss(ir)).toBe("1, infinite, 2.5");
+		expect(Generator.generate(ir)).toBe("1, infinite, 2.5");
 	});
 
 	// Round-trip tests
@@ -59,8 +59,8 @@ describe("Animation Iteration Count Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -72,8 +72,8 @@ describe("Animation Iteration Count Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -85,8 +85,8 @@ describe("Animation Iteration Count Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -98,8 +98,8 @@ describe("Animation Iteration Count Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);

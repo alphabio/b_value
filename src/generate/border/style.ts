@@ -1,4 +1,6 @@
 // b_path:: src/generate/border/style.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -22,6 +24,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/border-style | MDN: border-style}
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#border-style | W3C Spec}
  */
-export function toCss(ir: Type.BorderStyleValue): string {
-	return ir.style;
+export function generate(ir: Type.BorderStyleValue): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.style);
 }

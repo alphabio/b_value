@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/lch.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { LCHColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { LCHColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: LCHColor): string {
+export function generate(color: LCHColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "LCHColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected LCHColor object, got ${typeof color}`);
+	}
+	if (!("l" in color) || !("c" in color) || !("h" in color)) {
+		return generateErr("missing-required-field", "LCHColor must have 'l', 'c', 'h' fields");
+	}
+
 	const { l, c, h, alpha } = color;
 
 	// Format LCH values (lightness, chroma, hue as numbers)
@@ -37,8 +49,8 @@ export function toCss(color: LCHColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `lch(${lchPart} / ${alpha})`;
+		return generateOk(`lch(${lchPart} / ${alpha})`);
 	}
 
-	return `lch(${lchPart})`;
+	return generateOk(`lch(${lchPart})`);
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/lab.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { LABColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { LABColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: LABColor): string {
+export function generate(color: LABColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "LABColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected LABColor object, got ${typeof color}`);
+	}
+	if (!("l" in color) || !("a" in color) || !("b" in color)) {
+		return generateErr("missing-required-field", "LABColor must have 'l', 'a', 'b' fields");
+	}
+
 	const { l, a, b, alpha } = color;
 
 	// Format LAB values (lightness, a, b as numbers)
@@ -37,8 +49,8 @@ export function toCss(color: LABColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `lab(${labPart} / ${alpha})`;
+		return generateOk(`lab(${labPart} / ${alpha})`);
 	}
 
-	return `lab(${labPart})`;
+	return generateOk(`lab(${labPart})`);
 }

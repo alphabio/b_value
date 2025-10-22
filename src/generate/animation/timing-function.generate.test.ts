@@ -7,22 +7,22 @@ describe("Animation Timing Function Generator", () => {
 	// Keywords
 	it("should generate ease keyword", () => {
 		const ir = { kind: "animation-timing-function" as const, functions: ["ease" as const] };
-		expect(Generator.toCss(ir)).toBe("ease");
+		expect(Generator.generate(ir)).toBe("ease");
 	});
 
 	it("should generate ease-in keyword", () => {
 		const ir = { kind: "animation-timing-function" as const, functions: ["ease-in" as const] };
-		expect(Generator.toCss(ir)).toBe("ease-in");
+		expect(Generator.generate(ir)).toBe("ease-in");
 	});
 
 	it("should generate linear keyword", () => {
 		const ir = { kind: "animation-timing-function" as const, functions: ["linear" as const] };
-		expect(Generator.toCss(ir)).toBe("linear");
+		expect(Generator.generate(ir)).toBe("linear");
 	});
 
 	it("should generate step-start keyword", () => {
 		const ir = { kind: "animation-timing-function" as const, functions: ["step-start" as const] };
-		expect(Generator.toCss(ir)).toBe("step-start");
+		expect(Generator.generate(ir)).toBe("step-start");
 	});
 
 	// cubic-bezier()
@@ -31,7 +31,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "cubic-bezier" as const, x1: 0.1, y1: 0.7, x2: 1.0, y2: 0.1 }],
 		};
-		expect(Generator.toCss(ir)).toBe("cubic-bezier(0.1, 0.7, 1, 0.1)");
+		expect(Generator.generate(ir)).toBe("cubic-bezier(0.1, 0.7, 1, 0.1)");
 	});
 
 	it("should generate cubic-bezier with integers", () => {
@@ -39,7 +39,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "cubic-bezier" as const, x1: 0, y1: 0, x2: 1, y2: 1 }],
 		};
-		expect(Generator.toCss(ir)).toBe("cubic-bezier(0, 0, 1, 1)");
+		expect(Generator.generate(ir)).toBe("cubic-bezier(0, 0, 1, 1)");
 	});
 
 	// steps()
@@ -48,7 +48,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "steps" as const, steps: 4, position: undefined }],
 		};
-		expect(Generator.toCss(ir)).toBe("steps(4)");
+		expect(Generator.generate(ir)).toBe("steps(4)");
 	});
 
 	it("should generate steps with position", () => {
@@ -56,7 +56,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "steps" as const, steps: 4, position: "jump-start" as const }],
 		};
-		expect(Generator.toCss(ir)).toBe("steps(4, jump-start)");
+		expect(Generator.generate(ir)).toBe("steps(4, jump-start)");
 	});
 
 	// linear()
@@ -65,7 +65,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "linear" as const, stops: [{ output: 0 }] }],
 		};
-		expect(Generator.toCss(ir)).toBe("linear(0)");
+		expect(Generator.generate(ir)).toBe("linear(0)");
 	});
 
 	it("should generate linear with multiple stops", () => {
@@ -73,7 +73,7 @@ describe("Animation Timing Function Generator", () => {
 			kind: "animation-timing-function" as const,
 			functions: [{ type: "linear" as const, stops: [{ output: 0 }, { output: 0.5 }, { output: 1 }] }],
 		};
-		expect(Generator.toCss(ir)).toBe("linear(0, 0.5, 1)");
+		expect(Generator.generate(ir)).toBe("linear(0, 0.5, 1)");
 	});
 
 	it("should generate linear with input percentages", () => {
@@ -89,7 +89,7 @@ describe("Animation Timing Function Generator", () => {
 				},
 			],
 		};
-		expect(Generator.toCss(ir)).toBe("linear(0 0%, 1 100%)");
+		expect(Generator.generate(ir)).toBe("linear(0 0%, 1 100%)");
 	});
 
 	// Multiple functions
@@ -102,7 +102,7 @@ describe("Animation Timing Function Generator", () => {
 				{ type: "steps" as const, steps: 2, position: undefined },
 			],
 		};
-		expect(Generator.toCss(ir)).toBe("ease, cubic-bezier(0, 0, 1, 1), steps(2)");
+		expect(Generator.generate(ir)).toBe("ease, cubic-bezier(0, 0, 1, 1), steps(2)");
 	});
 
 	// Round-trip tests
@@ -112,8 +112,8 @@ describe("Animation Timing Function Generator", () => {
 			const parsed = Parser.parse(keyword);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generator.toCss(parsed.value);
-				expect(generated).toBe(keyword);
+				const generated = Generator.generate(parsed.value);
+				expect(generated.ok && generated.value).toBe(keyword);
 				const reparsed = Parser.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -125,8 +125,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -137,8 +137,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -149,8 +149,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -161,8 +161,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -173,8 +173,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -185,8 +185,8 @@ describe("Animation Timing Function Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}

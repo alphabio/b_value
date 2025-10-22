@@ -1,4 +1,6 @@
 // b_path:: src/generate/clip-path/path.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -31,12 +33,15 @@ import type * as Type from "@/core/types";
  *
  * @public
  */
-export function toCss(value: Type.ClipPathPath): string {
+export function generate(value: Type.ClipPathPath): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const pathDataEscaped = value.pathData.replace(/'/g, "\\'");
 
 	if (value.fillRule) {
-		return `path(${value.fillRule}, '${pathDataEscaped}')`;
+		return generateOk(`path(${value.fillRule}, '${pathDataEscaped}')`);
 	}
 
-	return `path('${pathDataEscaped}')`;
+	return generateOk(`path('${pathDataEscaped}')`);
 }

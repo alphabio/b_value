@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/min-width.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MinWidth } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(minWidth: MinWidth): string {
+export function generate(minWidth: MinWidth): GenerateResult {
+	if (minWidth === undefined || minWidth === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof minWidth.value === "string") {
-		return minWidth.value;
+		return generateOk(minWidth.value);
 	}
 	return GenUtils.lengthPercentageToCss(minWidth.value);
 }

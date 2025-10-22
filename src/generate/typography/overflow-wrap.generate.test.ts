@@ -5,16 +5,16 @@ import { toCss } from "./overflow-wrap";
 describe("Generate.Typography.OverflowWrap", () => {
 	it("should generate 'normal'", () => {
 		const result = toCss({ kind: "overflow-wrap", value: "normal" });
-		expect(result).toBe("normal");
+		expect(result).toEqual({ ok: true, issues: [], value: "normal" });
 	});
 
 	it("should generate 'break-word'", () => {
 		const result = toCss({ kind: "overflow-wrap", value: "break-word" });
-		expect(result).toBe("break-word");
+		expect(result).toEqual({ ok: true, issues: [], value: "break-word" });
 	});
 
 	it("should generate 'anywhere'", () => {
 		const result = toCss({ kind: "overflow-wrap", value: "anywhere" });
-		expect(result).toBe("anywhere");
+		expect(result).toEqual({ ok: true, issues: [], value: "anywhere" });
 	});
 });

@@ -7,32 +7,32 @@ describe("Generate.Layout.OverflowX", () => {
 	describe("valid overflow-x keywords", () => {
 		it("should generate 'visible'", () => {
 			const ir: OverflowX = { kind: "overflow-x", value: "visible" };
-			const css = Generate.Layout.OverflowX.toCss(ir);
-			expect(css).toBe("visible");
+			const css = Generate.Layout.OverflowX.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "visible" });
 		});
 
 		it("should generate 'hidden'", () => {
 			const ir: OverflowX = { kind: "overflow-x", value: "hidden" };
-			const css = Generate.Layout.OverflowX.toCss(ir);
-			expect(css).toBe("hidden");
+			const css = Generate.Layout.OverflowX.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "hidden" });
 		});
 
 		it("should generate 'clip'", () => {
 			const ir: OverflowX = { kind: "overflow-x", value: "clip" };
-			const css = Generate.Layout.OverflowX.toCss(ir);
-			expect(css).toBe("clip");
+			const css = Generate.Layout.OverflowX.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "clip" });
 		});
 
 		it("should generate 'scroll'", () => {
 			const ir: OverflowX = { kind: "overflow-x", value: "scroll" };
-			const css = Generate.Layout.OverflowX.toCss(ir);
-			expect(css).toBe("scroll");
+			const css = Generate.Layout.OverflowX.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scroll" });
 		});
 
 		it("should generate 'auto'", () => {
 			const ir: OverflowX = { kind: "overflow-x", value: "auto" };
-			const css = Generate.Layout.OverflowX.toCss(ir);
-			expect(css).toBe("auto");
+			const css = Generate.Layout.OverflowX.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "auto" });
 		});
 	});
 });

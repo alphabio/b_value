@@ -1,6 +1,6 @@
 // b_path:: src/generate/transition/transition.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types/transition";
 import * as Delay from "./delay";
 import * as Duration from "./duration";
@@ -82,16 +82,16 @@ export function generate(
 	// Dispatch based on kind
 	switch (transition.kind) {
 		case "transition-duration":
-			return generateOk(Duration.toCss(transition));
+			return Duration.generate(transition);
 
 		case "transition-delay":
-			return generateOk(Delay.toCss(transition));
+			return Delay.generate(transition);
 
 		case "transition-timing-function":
-			return generateOk(TimingFunction.toCss(transition));
+			return TimingFunction.generate(transition);
 
 		case "transition-property":
-			return generateOk(Property.toCss(transition));
+			return Property.generate(transition);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown transition kind: ${(transition as { kind?: string }).kind}`, {

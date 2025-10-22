@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/hue-rotate.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { HueRotateFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { HueRotateFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: HueRotateFilter): string {
+export function generate(filter: HueRotateFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { angle } = filter;
-	return `hue-rotate(${angle.value}${angle.unit})`;
+	return generateOk(`hue-rotate(${angle.value}${angle.unit})`);
 }

@@ -1,5 +1,6 @@
 // b_path:: src/generate/layout/clear.generate.ts
 
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Clear } from "../../parse/layout/clear";
 
 /**
@@ -12,6 +13,12 @@ import type { Clear } from "../../parse/layout/clear";
  * toCss("both")  // "both"
  * toCss("left")  // "left"
  */
-export function toCss(clear: Clear): string {
-	return clear;
+export function generate(clear: Clear): GenerateResult {
+	if (clear === undefined || clear === null) {
+		return generateErr("invalid-ir", "Clear must not be null or undefined");
+	}
+	if (typeof clear !== "string") {
+		return generateErr("invalid-ir", `Expected string, got ${typeof clear}`);
+	}
+	return generateOk(clear);
 }

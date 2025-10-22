@@ -10,8 +10,8 @@ describe("Transition Duration Generator", () => {
 			durations: [{ value: 1, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("1s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1s" });
 	});
 
 	it("should generate single duration in milliseconds", () => {
@@ -20,8 +20,8 @@ describe("Transition Duration Generator", () => {
 			durations: [{ value: 500, unit: "ms" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("500ms");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "500ms" });
 	});
 
 	it("should generate zero duration", () => {
@@ -30,8 +30,8 @@ describe("Transition Duration Generator", () => {
 			durations: [{ value: 0, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("0s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0s" });
 	});
 
 	it("should generate decimal values", () => {
@@ -40,8 +40,8 @@ describe("Transition Duration Generator", () => {
 			durations: [{ value: 0.5, unit: "s" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("0.5s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0.5s" });
 	});
 
 	it("should generate multiple durations", () => {
@@ -54,8 +54,8 @@ describe("Transition Duration Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("1s, 500ms, 2s");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1s, 500ms, 2s" });
 	});
 
 	// Round-trip tests
@@ -65,8 +65,8 @@ describe("Transition Duration Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -76,8 +76,8 @@ describe("Transition Duration Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -87,8 +87,8 @@ describe("Transition Duration Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -98,8 +98,8 @@ describe("Transition Duration Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 });

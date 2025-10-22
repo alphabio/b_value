@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/color-function.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -20,7 +22,17 @@ import type * as Type from "@/core/types";
  *
  * @public
  */
-export function toCss(value: Type.ColorFunction): string {
+export function generate(value: Type.ColorFunction): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "ColorFunction must not be null or undefined");
+	}
+	if (typeof value !== "object") {
+		return generateErr("invalid-ir", `Expected ColorFunction object, got ${typeof value}`);
+	}
+	if (!("colorSpace" in value) || !("channels" in value)) {
+		return generateErr("missing-required-field", "ColorFunction must have 'colorSpace' and 'channels' fields");
+	}
+
 	const parts: string[] = ["color(", value.colorSpace];
 
 	// Add channels
@@ -36,5 +48,5 @@ export function toCss(value: Type.ColorFunction): string {
 	}
 
 	parts.push(")");
-	return parts.join("");
+	return generateOk(parts.join(""));
 }

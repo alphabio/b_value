@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/font-weight.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { FontWeight } from "@/core/types";
 
 /**
@@ -27,6 +29,9 @@ import type { FontWeight } from "@/core/types";
  *
  * @public
  */
-export function toCss(fontWeight: FontWeight): string {
-	return String(fontWeight.value);
+export function generate(fontWeight: FontWeight): GenerateResult {
+	if (fontWeight === undefined || fontWeight === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(String(fontWeight.value));
 }
