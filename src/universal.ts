@@ -21,7 +21,14 @@ import {
 } from "./core/result";
 // Import module generators
 import * as AnimationGenerate from "./generate/animation/animation";
+// Import individual property generators
+import * as BackgroundAttachmentGen from "./generate/background/attachment";
+import * as BackgroundClipGen from "./generate/background/clip";
+import * as BackgroundOriginGen from "./generate/background/origin";
+import * as BackgroundRepeatGen from "./generate/background/repeat";
+import * as BackgroundSizeGen from "./generate/background/size";
 import * as BorderGenerate from "./generate/border/border";
+import * as BorderRadiusGen from "./generate/border/radius";
 import * as ClipPathGenerate from "./generate/clip-path/clip-path";
 import * as ColorGenerate from "./generate/color/color";
 import * as FilterGenerate from "./generate/filter/filter";
@@ -30,6 +37,9 @@ import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
 import * as PositionGenerate from "./generate/position/position";
 import * as ShadowGenerate from "./generate/shadow/shadow";
+import * as TextLineGen from "./generate/text/line";
+import * as TextStyleGen from "./generate/text/style";
+import * as TextThicknessGen from "./generate/text/thickness";
 import * as TransformGenerate from "./generate/transform/transform";
 import * as TransitionGenerate from "./generate/transition/transition";
 // Import module parsers
@@ -217,14 +227,30 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	"border-right-color": BorderGenerate.generate,
 	"border-bottom-color": BorderGenerate.generate,
 	"border-left-color": BorderGenerate.generate,
-	"outline-color": OutlineGenerate.generate,
 
 	// Background properties
 	"background-position": PositionGenerate.generate,
 	"background-image": GradientGenerate.generate,
+	"background-attachment": wrapGenerator(BackgroundAttachmentGen.toCss),
+	"background-clip": wrapGenerator(BackgroundClipGen.toCss),
+	"background-origin": wrapGenerator(BackgroundOriginGen.toCss),
+	"background-repeat": wrapGenerator(BackgroundRepeatGen.toCss),
+	"background-size": wrapGenerator(BackgroundSizeGen.toCss),
 
 	// Border properties
 	"border-radius": BorderGenerate.generate,
+	"border-top-style": BorderGenerate.generate,
+	"border-right-style": BorderGenerate.generate,
+	"border-bottom-style": BorderGenerate.generate,
+	"border-left-style": BorderGenerate.generate,
+	"border-top-width": BorderGenerate.generate,
+	"border-right-width": BorderGenerate.generate,
+	"border-bottom-width": BorderGenerate.generate,
+	"border-left-width": BorderGenerate.generate,
+	"border-top-left-radius": wrapGenerator(BorderRadiusGen.toCss),
+	"border-top-right-radius": wrapGenerator(BorderRadiusGen.toCss),
+	"border-bottom-left-radius": wrapGenerator(BorderRadiusGen.toCss),
+	"border-bottom-right-radius": wrapGenerator(BorderRadiusGen.toCss),
 
 	// Layout properties
 	top: wrapGenerator(LayoutGenerate.Top.toCss),
@@ -243,8 +269,10 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	"overflow-y": wrapGenerator(LayoutGenerate.OverflowY.toCss),
 
 	// Outline properties
+	"outline-color": ColorGenerate.generate,
 	"outline-style": OutlineGenerate.generate,
 	"outline-width": OutlineGenerate.generate,
+	"outline-offset": OutlineGenerate.generate,
 
 	// Complex properties
 	"clip-path": ClipPathGenerate.generate,
@@ -253,9 +281,25 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	"box-shadow": ShadowGenerate.generate,
 	"text-shadow": ShadowGenerate.generate,
 
+	// Text decoration properties
+	"text-decoration-color": ColorGenerate.generate,
+	"text-decoration-line": wrapGenerator(TextLineGen.toCss),
+	"text-decoration-style": wrapGenerator(TextStyleGen.toCss),
+	"text-decoration-thickness": wrapGenerator(TextThicknessGen.toCss),
+
 	// Animation/Transition
 	"animation-name": AnimationGenerate.generate,
+	"animation-delay": AnimationGenerate.generate,
+	"animation-direction": AnimationGenerate.generate,
+	"animation-duration": AnimationGenerate.generate,
+	"animation-fill-mode": AnimationGenerate.generate,
+	"animation-iteration-count": AnimationGenerate.generate,
+	"animation-play-state": AnimationGenerate.generate,
+	"animation-timing-function": AnimationGenerate.generate,
 	"transition-property": TransitionGenerate.generate,
+	"transition-delay": TransitionGenerate.generate,
+	"transition-duration": TransitionGenerate.generate,
+	"transition-timing-function": TransitionGenerate.generate,
 };
 
 /**
