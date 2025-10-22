@@ -1,7 +1,6 @@
 // b_path:: src/generate/layout/right.generate.test.ts
 import { describe, expect, it } from "vitest";
 import * as Parse from "@/parse/layout/right";
-import { toCss } from "./right";
 
 describe("Generate.Layout.Right", () => {
 	describe("auto keyword", () => {
@@ -36,7 +35,9 @@ describe("Generate.Layout.Right", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -49,7 +50,9 @@ describe("Generate.Layout.Right", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);

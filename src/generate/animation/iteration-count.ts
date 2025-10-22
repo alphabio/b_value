@@ -42,12 +42,13 @@ export function generate(ir: Type.AnimationIterationCount): GenerateResult {
 	if (ir === undefined || ir === null) {
 		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return ir.counts
+	const values = ir.counts
 		.map((count) => {
 			if (count.type === "infinite") {
-				return generateOk("infinite");
+				return "infinite";
 			}
-			return generateOk(String(count.value));
+			return String(count.value);
 		})
 		.join(", ");
+	return generateOk(values);
 }

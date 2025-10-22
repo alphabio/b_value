@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/vertical-align.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./vertical-align";
 
 describe("Generate.Typography.VerticalAlign", () => {
 	describe("keywords", () => {

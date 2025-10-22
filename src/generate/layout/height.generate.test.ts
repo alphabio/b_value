@@ -1,7 +1,6 @@
 // b_path:: src/generate/layout/height.generate.test.ts
 import { describe, expect, it } from "vitest";
 import * as Parse from "@/parse/layout/height";
-import { toCss } from "./height";
 
 describe("Generate.Layout.Height", () => {
 	describe("auto keyword", () => {
@@ -53,7 +52,9 @@ describe("Generate.Layout.Height", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -66,7 +67,9 @@ describe("Generate.Layout.Height", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -79,7 +82,9 @@ describe("Generate.Layout.Height", () => {
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
 				const css = toCss(parsed.value);
-				const reparsed = Parse.parse(css);
+				expect(css.ok).toBe(true);
+				if (!css.ok) return;
+				const reparsed = Parse.parse(css.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);

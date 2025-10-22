@@ -10,8 +10,10 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
-				const reparsed = Parse.Layout.Width.parse(generated);
+				const generated = Generate.Layout.Width.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Width.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -24,7 +26,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
+				const generated = Generate.Layout.Width.generate(parsed.value);
 				expect(generated).toBe("50%");
 			}
 		});
@@ -34,7 +36,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
+				const generated = Generate.Layout.Width.generate(parsed.value);
 				expect(generated).toBe("auto");
 			}
 		});
@@ -44,7 +46,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
+				const generated = Generate.Layout.Width.generate(parsed.value);
 				expect(generated).toBe("min-content");
 			}
 		});
@@ -54,7 +56,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
+				const generated = Generate.Layout.Width.generate(parsed.value);
 				expect(generated).toBe("max-content");
 			}
 		});
@@ -64,7 +66,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Width.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Width.toCss(parsed.value);
+				const generated = Generate.Layout.Width.generate(parsed.value);
 				expect(generated).toBe("fit-content");
 			}
 		});
@@ -76,8 +78,10 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Height.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Height.toCss(parsed.value);
-				const reparsed = Parse.Layout.Height.parse(generated);
+				const generated = Generate.Layout.Height.generate(parsed.value);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Height.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -90,7 +94,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Height.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Height.toCss(parsed.value);
+				const generated = Generate.Layout.Height.generate(parsed.value);
 				expect(generated).toBe("100vh");
 			}
 		});
@@ -100,7 +104,7 @@ describe("Integration: Width/Height Properties", () => {
 			const parsed = Parse.Layout.Height.parse(css);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generate.Layout.Height.toCss(parsed.value);
+				const generated = Generate.Layout.Height.generate(parsed.value);
 				expect(generated).toBe("max-content");
 			}
 		});
@@ -114,8 +118,8 @@ describe("Integration: Width/Height Properties", () => {
 			expect(width.ok && height.ok).toBe(true);
 
 			if (width.ok && height.ok) {
-				expect(Generate.Layout.Width.toCss(width.value)).toBe("200px");
-				expect(Generate.Layout.Height.toCss(height.value)).toBe("100px");
+				expect(Generate.Layout.Width.generate(width.value)).toBe("200px");
+				expect(Generate.Layout.Height.generate(height.value)).toBe("100px");
 			}
 		});
 
@@ -126,8 +130,8 @@ describe("Integration: Width/Height Properties", () => {
 			expect(width.ok && height.ok).toBe(true);
 
 			if (width.ok && height.ok) {
-				expect(Generate.Layout.Width.toCss(width.value)).toBe("100%");
-				expect(Generate.Layout.Height.toCss(height.value)).toBe("auto");
+				expect(Generate.Layout.Width.generate(width.value)).toBe("100%");
+				expect(Generate.Layout.Height.generate(height.value)).toBe("auto");
 			}
 		});
 
@@ -138,8 +142,8 @@ describe("Integration: Width/Height Properties", () => {
 			expect(width.ok && height.ok).toBe(true);
 
 			if (width.ok && height.ok) {
-				expect(Generate.Layout.Width.toCss(width.value)).toBe("min-content");
-				expect(Generate.Layout.Height.toCss(height.value)).toBe("fit-content");
+				expect(Generate.Layout.Width.generate(width.value)).toBe("min-content");
+				expect(Generate.Layout.Height.generate(height.value)).toBe("fit-content");
 			}
 		});
 	});

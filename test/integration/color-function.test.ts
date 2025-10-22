@@ -10,7 +10,7 @@ describe("Integration: color() function", () => {
 		const parsed = Parse.parse(input);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const css = Generate.toCss(parsed.value);
+			const css = Generate.generate(parsed.value);
 			expect(css).toBe(input);
 		}
 	});
@@ -21,7 +21,7 @@ describe("Integration: color() function", () => {
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
 			expect(parsed.value.colorSpace).toBe("srgb-linear");
-			const css = Generate.toCss(parsed.value);
+			const css = Generate.generate(parsed.value);
 			expect(css).toBe(input);
 		}
 	});
@@ -60,7 +60,7 @@ describe("Integration: color() function", () => {
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
 			expect(parsed.value.alpha).toBe(0.5);
-			const css = Generate.toCss(parsed.value);
+			const css = Generate.generate(parsed.value);
 			expect(css).toBe(input);
 		}
 	});

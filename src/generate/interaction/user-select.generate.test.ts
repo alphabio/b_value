@@ -1,6 +1,5 @@
 // b_path:: src/generate/interaction/user-select.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./user-select";
 
 describe("Generate.Interaction.UserSelect", () => {
 	it("should generate 'auto'", () => {

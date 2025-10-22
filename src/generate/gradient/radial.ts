@@ -1,5 +1,6 @@
 // b_path:: src/generate/gradient/radial.ts
 
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorStop from "./color-stop";
 
@@ -11,7 +12,7 @@ import * as ColorStop from "./color-stop";
  *
  * @internal
  */
-function positionToCss(position: Type.Position2D): string {
+function positionToCss(position: Type.Position2D): GenerateResult {
 	const h =
 		typeof position.horizontal === "string"
 			? position.horizontal
@@ -29,7 +30,7 @@ function positionToCss(position: Type.Position2D): string {
  *
  * @internal
  */
-function sizeToCss(size: Type.RadialGradientSize): string {
+function sizeToCss(size: Type.RadialGradientSize): GenerateResult {
 	if (size.kind === "keyword") {
 		return size.value;
 	}
@@ -159,7 +160,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/radial-gradient | MDN: radial-gradient()}
  * @see {@link https://www.w3.org/TR/css-images-3/#radial-gradients | W3C Spec: Radial Gradients}
  */
-export function toCss(ir: Type.RadialGradient): string {
+export function generate(ir: Type.RadialGradient): GenerateResult {
 	const parts: string[] = [];
 	const shapeAndSize: string[] = [];
 
@@ -196,10 +197,13 @@ export function toCss(ir: Type.RadialGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
-	parts.push(...stopStrings);
+	for (const stop of ir.colorStops) {
+		const result = ColorStop.generate(stop);
+		if (!result.ok) return result;
+		parts.push(result.value);
+	}
 
 	// Generate function
 	const functionName = ir.repeating ? "repeating-radial-gradient" : "radial-gradient";
-	return `${functionName}(${parts.join(", ")})`;
+	return generateOk(`${functionName}(${parts.join(", ")})`);
 }

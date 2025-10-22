@@ -11,7 +11,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -22,7 +22,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -33,7 +33,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -44,7 +44,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -55,7 +55,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -66,7 +66,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -77,7 +77,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -88,7 +88,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -99,7 +99,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});
@@ -110,7 +110,7 @@ describe("Radial Gradient - Round-Trip Integration", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = RadialGenerator.toCss(parsed.value);
+			const generated = RadialGenerator.generate(parsed.value);
 			expect(generated).toBe(original);
 		}
 	});

@@ -1,7 +1,6 @@
 // b_path:: src/generate/clip-path/path.test.ts
 import { describe, expect, it } from "vitest";
 import { parse } from "@/parse/clip-path/path";
-import { toCss } from "./path";
 
 describe("generate path()", () => {
 	describe("basic path data", () => {

@@ -29,10 +29,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.Cursor.toCss(parsed.value);
+				const generated = Generate.Layout.Cursor.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.Cursor.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Cursor.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -62,10 +64,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.Display.toCss(parsed.value);
+				const generated = Generate.Layout.Display.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.Display.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Display.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -83,10 +87,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.Visibility.toCss(parsed.value);
+				const generated = Generate.Layout.Visibility.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.Visibility.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Visibility.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -113,10 +119,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.Opacity.toCss(parsed.value);
+				const generated = Generate.Layout.Opacity.generate(parsed.value);
 				expect(generated).toBe(expected);
 
-				const reparsed = Parse.Layout.Opacity.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Opacity.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -134,10 +142,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.OverflowX.toCss(parsed.value);
+				const generated = Generate.Layout.OverflowX.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.OverflowX.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.OverflowX.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -155,10 +165,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.OverflowY.toCss(parsed.value);
+				const generated = Generate.Layout.OverflowY.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.OverflowY.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.OverflowY.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -176,10 +188,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.Position.toCss(parsed.value);
+				const generated = Generate.Layout.Position.generate(parsed.value);
 				expect(generated).toBe(css);
 
-				const reparsed = Parse.Layout.Position.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.Position.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 
@@ -204,10 +218,12 @@ describe("Integration: Layout Properties Round-Trip", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.Layout.ZIndex.toCss(parsed.value);
+				const generated = Generate.Layout.ZIndex.generate(parsed.value);
 				expect(generated).toBe(expected);
 
-				const reparsed = Parse.Layout.ZIndex.parse(generated);
+				expect(generated.ok).toBe(true);
+				if (!generated.ok) return;
+				const reparsed = Parse.Layout.ZIndex.parse(generated.value);
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;
 

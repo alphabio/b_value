@@ -1,6 +1,5 @@
 // b_path:: src/generate/typography/overflow-wrap.generate.test.ts
 import { describe, expect, it } from "vitest";
-import { toCss } from "./overflow-wrap";
 
 describe("Generate.Typography.OverflowWrap", () => {
 	it("should generate 'normal'", () => {

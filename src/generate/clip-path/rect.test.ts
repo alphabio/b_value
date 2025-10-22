@@ -1,7 +1,6 @@
 // b_path:: src/generate/clip-path/rect.test.ts
 import { describe, expect, it } from "vitest";
 import { parse } from "@/parse/clip-path/rect";
-import { toCss } from "./rect";
 
 describe("generate rect()", () => {
 	describe("basic TRBL", () => {
