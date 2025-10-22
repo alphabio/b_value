@@ -11,23 +11,23 @@ import type * as Type from "@/core/types";
  *
  * @internal
  */
-function easingFunctionToCss(func: Type.EasingFunction): GenerateResult {
+function easingFunctionToCss(func: Type.EasingFunction): string {
 	// Keyword
 	if (typeof func === "string") {
-		return generateOk(func);
+		return func;
 	}
 
 	// cubic-bezier()
 	if (func.type === "cubic-bezier") {
-		return generateOk(`cubic-bezier(${func.x1}, ${func.y1}, ${func.x2}, ${func.y2})`);
+		return `cubic-bezier(${func.x1}, ${func.y1}, ${func.x2}, ${func.y2})`;
 	}
 
 	// steps()
 	if (func.type === "steps") {
 		if (func.position !== undefined) {
-			return generateOk(`steps(${func.steps}, ${func.position})`);
+			return `steps(${func.steps}, ${func.position})`;
 		}
-		return generateOk(`steps(${func.steps})`);
+		return `steps(${func.steps})`;
 	}
 
 	// linear()
@@ -35,15 +35,15 @@ function easingFunctionToCss(func: Type.EasingFunction): GenerateResult {
 		const stops = func.stops
 			.map((stop) => {
 				if (stop.input !== undefined) {
-					return generateOk(`${stop.output} ${stop.input * 100}%`);
+					return `${stop.output} ${stop.input * 100}%`;
 				}
 				return String(stop.output);
 			})
 			.join(", ");
-		return generateOk(`linear(${stops})`);
+		return `linear(${stops})`;
 	}
 
-	return generateOk("");
+	return "";
 }
 
 /**
