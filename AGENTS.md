@@ -41,6 +41,16 @@ cat .memory/STATUS.md
 
 ---
 
+---
+
+## Key References
+
+- **`.memory/STATUS.md`** - Current state, recent work, next priorities
+- **`.memory/ROADMAP.md`** - Module-based property breakdown (94 implemented, 352 remaining)
+- **`.memory/scripts/count-properties.sh`** - Automated property counter (source of truth)
+
+---
+
 ## For New Agents (Old Protocol - Backup)
 
 <details>

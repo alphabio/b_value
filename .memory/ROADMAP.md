@@ -1,9 +1,11 @@
 # Property Implementation Roadmap
 
-**Last Updated**: 2025-10-22T05:10:00Z  
+**Last Updated**: 2025-10-22T05:22:00Z  
 **Implemented**: 94 properties  
 **Total MDM Longhands**: 446 properties  
 **Coverage**: 21.1%
+
+> Property count verified by `.memory/scripts/count-properties.sh`
 
 ---
 
@@ -32,40 +34,54 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [x] animation-play-state
 - [x] animation-timing-function
 
-### Background (9/9) ✅ COMPLETE
+**Note**: 9 files in module (1 dispatcher + 8 properties)
+
+### Background (7/8) 🔄 NEAR COMPLETE
 
 - [x] background-attachment
 - [x] background-clip
 - [x] background-color
 - [x] background-image (includes gradients)
 - [x] background-origin
-- [x] background-position
 - [x] background-repeat
 - [x] background-size
+- [ ] background-position-x ⭐
+- [ ] background-position-y ⭐
 
-### Border (17/20) 🔄 IN PROGRESS
+**Note**: background-position is handled as a compound value (x/y together)
 
-**Implemented**:
-- [x] border-bottom-color
-- [x] border-bottom-left-radius
-- [x] border-bottom-right-radius
-- [x] border-bottom-style
-- [x] border-bottom-width
-- [x] border-left-color
-- [x] border-left-style
-- [x] border-left-width
-- [x] border-radius
-- [x] border-right-color
-- [x] border-right-style
-- [x] border-right-width
-- [x] border-top-color
-- [x] border-top-left-radius
-- [x] border-top-right-radius
-- [x] border-top-style
-- [x] border-top-width
+### Border (17/25) 🔄 IN PROGRESS
 
-**TODO**:
-- [ ] border-image-* (5 properties) - 📦
+**Implemented** (17):
+- [x] border-top-width 🔥
+- [x] border-right-width 🔥
+- [x] border-bottom-width 🔥
+- [x] border-left-width 🔥
+- [x] border-top-color 🔥
+- [x] border-right-color 🔥
+- [x] border-bottom-color 🔥
+- [x] border-left-color 🔥
+- [x] border-top-style 🔥
+- [x] border-right-style 🔥
+- [x] border-bottom-style 🔥
+- [x] border-left-style 🔥
+- [x] border-top-left-radius ⭐
+- [x] border-top-right-radius ⭐
+- [x] border-bottom-right-radius ⭐
+- [x] border-bottom-left-radius ⭐
+- [x] border-collapse 📦
+
+**TODO** (8):
+- [ ] border-spacing 📦 (table borders)
+- [ ] border-image-source 📦
+- [ ] border-image-slice 📦
+- [ ] border-image-width 📦
+- [ ] border-image-outset 📦
+- [ ] border-image-repeat 📦
+- [ ] border-start-* / border-end-* (logical properties) 🔬
+- [ ] border-block-* / border-inline-* (logical properties) 🔬
+
+**Note**: border-radius is a shorthand (handled separately)
 
 ### Box Model (25/25) ✅ COMPLETE
 
@@ -103,13 +119,36 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [x] overflow-y ⭐
 - [x] box-sizing 🔥
 
-### Color (8/8) ✅ COMPLETE
+### Clip-Path (10/10) ✅ COMPLETE
 
-- [x] color 🔥
-- [x] background-color 🔥
-- [x] border-*-color (4 sides) 🔥
-- [x] outline-color ⭐
-- [x] text-decoration-color ⭐
+All basic shapes + geometry-box:
+- [x] circle() ⭐
+- [x] ellipse() ⭐
+- [x] inset() ⭐
+- [x] polygon() ⭐
+- [x] path() 📦
+- [x] rect() 📦
+- [x] xywh() 📦
+- [x] url() 📦
+- [x] none ⭐
+- [x] geometry-box (border-box, etc.) 📦
+
+**Note**: 11 files in module (1 dispatcher + 10 shapes/values)
+
+### Color (Core Value Type) ✅ COMPLETE
+
+All color formats supported:
+- [x] Named colors (140 keywords)
+- [x] Hex (#rgb, #rrggbb, #rrggbbaa)
+- [x] rgb() / rgba() 🔥
+- [x] hsl() / hsla() ⭐
+- [x] hwb() 📦
+- [x] lab() / lch() 📦
+- [x] oklab() / oklch() 📦
+- [x] System colors 📦
+- [x] currentColor / transparent 🔥
+
+**Note**: Color is a value type, not a property. Used by: color, background-color, border-*-color, outline-color, text-decoration-color, etc.
 
 ### Flexbox (11/11) ✅ COMPLETE
 
@@ -136,21 +175,48 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [ ] grid-gap 📦
 - [ ] ... (21 more grid properties)
 
+### Filter (12/12) ✅ COMPLETE
+
+All filter functions:
+- [x] blur() ⭐
+- [x] brightness() ⭐
+- [x] contrast() ⭐
+- [x] drop-shadow() ⭐
+- [x] grayscale() 📦
+- [x] hue-rotate() 📦
+- [x] invert() 📦
+- [x] opacity() ⭐
+- [x] saturate() 📦
+- [x] sepia() 📦
+- [x] url() 📦
+- [x] none ⭐
+
+### Gradient (Core Value Type) ✅ COMPLETE
+
+All gradient types:
+- [x] linear-gradient() 🔥
+- [x] radial-gradient() ⭐
+- [x] conic-gradient() 📦
+- [x] repeating-linear-gradient() 📦
+- [x] repeating-radial-gradient() 📦
+
+**Note**: Gradients are value types used in background-image, border-image, etc.
+
 ### Outline (4/4) ✅ COMPLETE
 
-- [x] outline-color
-- [x] outline-offset
-- [x] outline-style
-- [x] outline-width
+- [x] outline-color ⭐
+- [x] outline-offset ⭐
+- [x] outline-style ⭐
+- [x] outline-width ⭐
 
 ### Shadow (2/2) ✅ COMPLETE
 
 - [x] box-shadow 🔥
 - [x] text-shadow ⭐
 
-### Text & Typography (10/30) 🔄 IN PROGRESS
+### Text & Typography (11/35) 🔄 IN PROGRESS
 
-**Implemented**:
+**Implemented** (11):
 - [x] color 🔥
 - [x] font-family 🔥
 - [x] font-size 🔥
@@ -161,32 +227,55 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [x] text-decoration-line ⭐
 - [x] text-decoration-style ⭐
 - [x] text-decoration-thickness ⭐
+- [x] text-shadow ⭐
 
-**TODO - High Priority**:
-- [ ] font-style 🔥 (italic, oblique)
-- [ ] letter-spacing ⭐
-- [ ] text-transform ⭐ (uppercase, lowercase)
+**TODO - Tier 1 CRITICAL** (6):
+- [ ] font-style 🔥 (italic, oblique, normal)
+- [ ] letter-spacing 🔥
+- [ ] text-transform 🔥 (uppercase, lowercase, capitalize)
+- [ ] vertical-align 🔥
+- [ ] word-break 🔥
+- [ ] overflow-wrap 🔥
+
+**TODO - Tier 2 COMMON** (10):
 - [ ] text-indent ⭐
 - [ ] word-spacing ⭐
 - [ ] white-space ⭐
+- [ ] text-overflow ⭐
+- [ ] direction ⭐
+- [ ] unicode-bidi ⭐
+- [ ] writing-mode ⭐
+- [ ] text-orientation ⭐
+- [ ] font-variant ⭐
+- [ ] text-rendering ⭐
 
-**TODO - Standard**:
-- [ ] font-variant 📦
-- [ ] text-overflow 📦
-- [ ] word-break 📦
-- [ ] ... (14 more text properties)
+**TODO - Tier 3 STANDARD** (8+):
+- [ ] hyphens 📦
+- [ ] text-align-last 📦
+- [ ] text-decoration-skip 📦
+- [ ] text-underline-position 📦
+- [ ] text-underline-offset 📦
+- [ ] font-feature-settings 📦
+- [ ] font-variation-settings 📦
+- [ ] ... (more OpenType properties)
 
-### Transform (1/10) 🔄 IN PROGRESS
+### Transform (2/12) 🔄 IN PROGRESS
 
-**Implemented**:
-- [x] transform ⭐
+**Implemented** (2):
+- [x] transform ⭐ (all functions: translate, rotate, scale, skew, matrix)
+- [x] transform-origin ⭐
 
-**TODO**:
-- [ ] transform-origin ⭐
+**TODO** (10):
+- [ ] perspective ⭐
+- [ ] perspective-origin ⭐
 - [ ] transform-style 📦
-- [ ] perspective 📦
-- [ ] perspective-origin 📦
-- [ ] ... (6 more transform properties)
+- [ ] transform-box 📦
+- [ ] backface-visibility 📦
+- [ ] rotate 📦 (individual transform properties)
+- [ ] scale 📦
+- [ ] translate 📦
+- [ ] skew 🔬
+- [ ] offset-* 🔬 (motion path properties, 8 total)
 
 ### Transition (4/4) ✅ COMPLETE
 
@@ -195,80 +284,142 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [x] transition-property
 - [x] transition-timing-function
 
-### Visual Effects (3/15) 🔄 IN PROGRESS
+### Visual Effects & Interaction (3/20) 🔄 IN PROGRESS
 
-**Implemented**:
-- [x] clip-path ⭐
-- [x] filter ⭐
+**Implemented** (3):
+- [x] clip-path ⭐ (all shapes)
+- [x] filter ⭐ (all functions)
 - [x] cursor ⭐
 
-**TODO**:
-- [ ] backdrop-filter 📦
-- [ ] mask-* 🔬 (8 properties)
-- [ ] mix-blend-mode 📦
-- [ ] ... (4 more visual properties)
+**TODO - High Priority** (5):
+- [ ] backdrop-filter ⭐ (same as filter, applies to backdrop)
+- [ ] mix-blend-mode ⭐
+- [ ] isolation 📦
+- [ ] pointer-events 🔥
+- [ ] user-select 🔥
+
+**TODO - Standard** (12):
+- [ ] mask-image 📦
+- [ ] mask-mode 📦
+- [ ] mask-position 📦
+- [ ] mask-size 📦
+- [ ] mask-repeat 📦
+- [ ] mask-origin 📦
+- [ ] mask-clip 📦
+- [ ] mask-composite 📦
+- [ ] object-fit 📦
+- [ ] object-position 📦
+- [ ] image-rendering 📦
+- [ ] will-change 📦
 
 ---
 
 ## Summary by Status
 
-| Status | Count | Percentage |
-|--------|-------|------------|
-| ✅ Complete Modules | 7 modules | Animation, Background, Box Model, Color, Flexbox, Outline, Shadow, Transition |
-| 🔄 In Progress | 4 modules | Border, Text, Transform, Visual |
-| 🔬 Not Started | 10+ modules | Grid, Table, Lists, Columns, etc. |
+| Status | Count | Notes |
+|--------|-------|-------|
+| ✅ **Complete** | 10 modules | Animation, Clip-Path, Color (type), Filter, Flexbox, Gradient (type), Layout/Box Model, Outline, Shadow, Transition |
+| 🔄 **In Progress** | 5 modules | Background (7/8), Border (17/25), Text/Typography (11/35), Transform (2/12), Visual Effects (3/20) |
+| 🔬 **Not Started** | 15+ modules | Grid (0/25), Table (0/10), Lists (0/8), Columns (0/10), Counters (0/5), Scroll (0/8), Contain (0/6), etc. |
+
+**Completion Rate**: 94/446 properties (21.1%)
 
 ---
 
 ## Next Priorities
 
-### Phase 1: Complete Tier 1 CRITICAL (10-15 properties)
-**Goal**: 100% of most-used properties
+### Phase 1: Complete Tier 1 CRITICAL (16 properties)
+**Goal**: 100% of most-used properties (90%+ usage)
 
-- [ ] font-style (italic, oblique)
-- [ ] text-transform (uppercase, lowercase, capitalize)
-- [ ] letter-spacing
-- [ ] vertical-align
-- [ ] pointer-events
-- [ ] user-select
-- [ ] content (::before/::after)
-- [ ] overflow (unified property)
-- [ ] ... (determine from usage data)
+**Typography** (6):
+- [ ] font-style 🔥
+- [ ] letter-spacing 🔥
+- [ ] text-transform 🔥
+- [ ] vertical-align 🔥
+- [ ] word-break 🔥
+- [ ] overflow-wrap 🔥
 
-**Effort**: 8-12 hours  
-**Result**: ~104-109 properties → Core web development complete
+**Interaction** (3):
+- [ ] pointer-events 🔥
+- [ ] user-select 🔥
+- [ ] content 🔥 (::before/::after)
 
-### Phase 2: Complete Tier 2 COMMON (20-30 properties)
-**Goal**: 90%+ coverage of common use cases
+**Layout** (3):
+- [ ] overflow 🔥 (unified, maps to overflow-x/y)
+- [ ] float 🔥
+- [ ] clear 🔥
 
-Focus on completing:
-- Text/Typography module (20 more properties)
-- Transform module (9 more properties)
-- Visual effects (10 more properties)
+**Visual** (2):
+- [ ] background-blend-mode 🔥
+- [ ] mix-blend-mode 🔥
 
-**Effort**: 20-30 hours  
-**Result**: ~130-140 properties → Professional web development complete
+**Background** (2):
+- [ ] background-position-x ⭐
+- [ ] background-position-y ⭐
+
+**Effort**: 12-16 hours  
+**Target**: v1.0.0 with 110 properties (25% coverage)
+
+### Phase 2: Complete Tier 2 COMMON (30-40 properties)
+**Goal**: 60-90% usage properties
+
+**Typography** (10):
+- text-indent, word-spacing, white-space, text-overflow
+- direction, unicode-bidi, writing-mode, text-orientation
+- font-variant, text-rendering
+
+**Transform** (4):
+- perspective, perspective-origin, transform-style, backface-visibility
+
+**Visual Effects** (5):
+- backdrop-filter, isolation, object-fit, object-position, image-rendering
+
+**Layout** (8):
+- aspect-ratio, resize, scroll-behavior, scroll-margin-*
+- contain, content-visibility
+
+**Lists** (5):
+- list-style-type, list-style-position, list-style-image, marker-offset
+
+**Effort**: 25-35 hours  
+**Target**: v1.5.0 with 140-150 properties (32% coverage)
 
 ### Phase 3: Grid Layout (25 properties)
-**Goal**: Modern layout support
+**Goal**: Modern layout system (40% usage, high complexity)
 
-- Grid container properties (10)
-- Grid item properties (10)
-- Grid placement (5)
+**Container** (11):
+- grid-template-columns, grid-template-rows, grid-template-areas
+- grid-auto-columns, grid-auto-rows, grid-auto-flow
+- column-gap, row-gap (also used by flexbox)
+- justify-items, align-items
 
-**Effort**: 40-50 hours (high complexity)  
-**Result**: ~155-165 properties → Modern CSS complete
+**Item** (8):
+- grid-column-start, grid-column-end
+- grid-row-start, grid-row-end
+- justify-self, align-self
+- grid-area
+
+**Sizing** (6):
+- minmax(), fit-content(), repeat() functions
+- fr unit support
+- auto-fill, auto-fit keywords
+
+**Effort**: 40-60 hours (requires new value parsers)  
+**Target**: v2.0.0 with 175 properties (39% coverage)
 
 ---
 
-## Coverage Goals
+## Coverage Goals & Timeline
 
-- **v0.1.0** (Current): 94 properties (21% coverage) ✅
-- **v1.0.0** (Target): 110 properties (25% coverage) - Tier 1 complete
-- **v1.5.0**: 140 properties (31% coverage) - Tier 2 complete
-- **v2.0.0**: 170 properties (38% coverage) - Grid + common modules
-- **v3.0.0**: 250 properties (56% coverage) - Comprehensive
-- **v4.0.0**: 446 properties (100% coverage) - Full spec
+| Version | Properties | Coverage | Milestone | Effort |
+|---------|-----------|----------|-----------|--------|
+| **v0.1.0** | 94 | 21% | ✅ Current baseline | Done |
+| **v1.0.0** | 110 | 25% | 🎯 Tier 1 CRITICAL complete | 12-16h |
+| **v1.5.0** | 145 | 33% | Tier 2 COMMON complete | +30h |
+| **v2.0.0** | 175 | 39% | Grid Layout support | +50h |
+| **v2.5.0** | 225 | 50% | Halfway milestone | +60h |
+| **v3.0.0** | 300 | 67% | Comprehensive coverage | +100h |
+| **v4.0.0** | 446 | 100% | Complete MDM spec | +200h+
 
 ---
 
