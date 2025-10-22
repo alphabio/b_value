@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/cursor.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Cursor } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { Cursor } from "@/core/types";
  *
  * @public
  */
-export function toCss(cursor: Cursor): string {
-	return cursor.value;
+export function generate(cursor: Cursor): GenerateResult {
+	if (cursor === undefined || cursor === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(cursor.value);
 }

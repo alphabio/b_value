@@ -1,4 +1,6 @@
 // b_path:: src/generate/text/thickness.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { TextDecorationThicknessValue } from "../../parse/text/thickness";
 
 /**
@@ -14,20 +16,23 @@ import type { TextDecorationThicknessValue } from "../../parse/text/thickness";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Text.Thickness.toCss("auto");
+ * const css = Generate.Text.Thickness.generate("auto");
  * console.log(css); // "auto"
  * ```
  *
  * @example
  * Length value:
  * ```typescript
- * const css = Generate.Text.Thickness.toCss({ value: 2, unit: "px" });
+ * const css = Generate.Text.Thickness.generate({ value: 2, unit: "px" });
  * console.log(css); // "2px"
  * ```
  */
-export function toCss(value: TextDecorationThicknessValue): string {
-	if (typeof value === "string") {
-		return value;
+export function generate(value: TextDecorationThicknessValue): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return `${value.value}${value.unit}`;
+	if (typeof value === "string") {
+		return generateOk(value);
+	}
+	return generateOk(`${value.value}${value.unit}`);
 }

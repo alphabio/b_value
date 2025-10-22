@@ -11,8 +11,8 @@ describe("Transition Timing Function Generator", () => {
 			functions: ["ease" as const],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("ease");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "ease" });
 	});
 
 	it("should generate ease-in keyword", () => {
@@ -21,8 +21,8 @@ describe("Transition Timing Function Generator", () => {
 			functions: ["ease-in" as const],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("ease-in");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "ease-in" });
 	});
 
 	it("should generate linear keyword", () => {
@@ -31,8 +31,8 @@ describe("Transition Timing Function Generator", () => {
 			functions: ["linear" as const],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("linear");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear" });
 	});
 
 	// cubic-bezier
@@ -50,8 +50,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("cubic-bezier(0.1, 0.7, 1, 0.1)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "cubic-bezier(0.1, 0.7, 1, 0.1)" });
 	});
 
 	it("should generate cubic-bezier with negative values", () => {
@@ -68,8 +68,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("cubic-bezier(0.5, -0.5, 0.5, 1.5)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "cubic-bezier(0.5, -0.5, 0.5, 1.5)" });
 	});
 
 	// steps
@@ -84,8 +84,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("steps(4)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "steps(4)" });
 	});
 
 	it("should generate steps with start position", () => {
@@ -100,8 +100,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("steps(4, start)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "steps(4, start)" });
 	});
 
 	it("should generate steps with end position", () => {
@@ -116,8 +116,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("steps(4, end)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "steps(4, end)" });
 	});
 
 	// linear()
@@ -132,8 +132,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("linear(0)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear(0)" });
 	});
 
 	it("should generate linear with multiple stops", () => {
@@ -147,8 +147,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("linear(0, 0.5, 1)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear(0, 0.5, 1)" });
 	});
 
 	it("should generate linear with input percentages", () => {
@@ -166,8 +166,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("linear(0 0%, 0.5 50%, 1 100%)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear(0 0%, 0.5 50%, 1 100%)" });
 	});
 
 	// Multiple functions
@@ -177,8 +177,8 @@ describe("Transition Timing Function Generator", () => {
 			functions: ["ease" as const, "ease-in" as const, "linear" as const],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("ease, ease-in, linear");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "ease, ease-in, linear" });
 	});
 
 	it("should generate mixed function types", () => {
@@ -200,8 +200,8 @@ describe("Transition Timing Function Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("ease-in, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "ease-in, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)" });
 	});
 
 	// Round-trip tests
@@ -211,8 +211,8 @@ describe("Transition Timing Function Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -222,8 +222,8 @@ describe("Transition Timing Function Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -233,8 +233,8 @@ describe("Transition Timing Function Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -244,8 +244,8 @@ describe("Transition Timing Function Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -255,8 +255,8 @@ describe("Transition Timing Function Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 });

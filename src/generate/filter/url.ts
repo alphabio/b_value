@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/url.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { UrlFilter } from "@/core/types/filter";
 
 /**
@@ -24,7 +26,10 @@ import type { UrlFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: UrlFilter): string {
+export function generate(filter: UrlFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { url } = filter;
-	return `url(${url})`;
+	return generateOk(`url(${url})`);
 }

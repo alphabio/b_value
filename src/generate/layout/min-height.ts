@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/min-height.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MinHeight } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(minHeight: MinHeight): string {
+export function generate(minHeight: MinHeight): GenerateResult {
+	if (minHeight === undefined || minHeight === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof minHeight.value === "string") {
-		return minHeight.value;
+		return generateOk(minHeight.value);
 	}
 	return GenUtils.lengthPercentageToCss(minHeight.value);
 }

@@ -65,7 +65,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
@@ -76,7 +76,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @example
  * Circle with keyword size:
  * ```typescript
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "keyword", value: "closest-side" },
@@ -89,7 +89,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @example
  * Positioned gradient:
  * ```typescript
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   shape: "ellipse",
  *   position: { horizontal: "left", vertical: "top" },
@@ -102,7 +102,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @example
  * With explicit size:
  * ```typescript
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   shape: "circle",
  *   size: { kind: "circle-explicit", radius: { value: 100, unit: "px" } },
@@ -115,7 +115,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @example
  * With color interpolation:
  * ```typescript
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   colorSpace: "oklch",
  *   colorStops: [
@@ -130,7 +130,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * @example
  * Repeating gradient:
  * ```typescript
- * const css = Generate.Gradient.Radial.toCss({
+ * const css = Generate.Gradient.Radial.generate({
  *   kind: "radial",
  *   shape: "circle",
  *   colorStops: [
@@ -151,7 +151,7 @@ function sizeToCss(size: Type.RadialGradientSize): string {
  * const parsed = Parse.Gradient.Radial.parse(original);
  *
  * if (parsed.ok) {
- *   const generated = Generate.Gradient.Radial.toCss(parsed.value);
+ *   const generated = Generate.Gradient.Radial.generate(parsed.value);
  *   console.log(generated === original); // true - perfect round-trip!
  * }
  * ```
@@ -196,7 +196,7 @@ export function toCss(ir: Type.RadialGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.toCss(stop));
+	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
 	parts.push(...stopStrings);
 
 	// Generate function

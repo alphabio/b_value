@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/position.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { PositionProperty } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { PositionProperty } from "@/core/types";
  *
  * @public
  */
-export function toCss(position: PositionProperty): string {
-	return position.value;
+export function generate(position: PositionProperty): GenerateResult {
+	if (position === undefined || position === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(position.value);
 }

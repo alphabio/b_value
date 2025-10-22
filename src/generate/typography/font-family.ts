@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/font-family.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { FontFamily } from "@/core/types";
 
 /**
@@ -21,14 +23,17 @@ import type { FontFamily } from "@/core/types";
  *
  * @public
  */
-export function toCss(fontFamily: FontFamily): string {
+export function generate(fontFamily: FontFamily): GenerateResult {
+	if (fontFamily === undefined || fontFamily === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return fontFamily.families
 		.map((family) => {
 			// Quote families with spaces
 			if (family.includes(" ")) {
-				return `"${family}"`;
+				return generateOk(`"${family}"`);
 			}
-			return family;
+			return generateOk(family);
 		})
 		.join(", ");
 }

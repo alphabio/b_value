@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/display.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Display } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { Display } from "@/core/types";
  *
  * @public
  */
-export function toCss(display: Display): string {
-	return display.value;
+export function generate(display: Display): GenerateResult {
+	if (display === undefined || display === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(display.value);
 }

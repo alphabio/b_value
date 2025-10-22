@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/max-width.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MaxWidth } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(maxWidth: MaxWidth): string {
+export function generate(maxWidth: MaxWidth): GenerateResult {
+	if (maxWidth === undefined || maxWidth === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof maxWidth.value === "string") {
-		return maxWidth.value;
+		return generateOk(maxWidth.value);
 	}
 	return GenUtils.lengthPercentageToCss(maxWidth.value);
 }

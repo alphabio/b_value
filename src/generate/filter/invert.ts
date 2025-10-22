@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/invert.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { InvertFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { InvertFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: InvertFilter): string {
+export function generate(filter: InvertFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { value } = filter;
-	return `invert(${value})`;
+	return generateOk(`invert(${value})`);
 }

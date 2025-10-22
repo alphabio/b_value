@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/margin-left.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MarginLeft } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(marginLeft: MarginLeft): string {
+export function generate(marginLeft: MarginLeft): GenerateResult {
+	if (marginLeft === undefined || marginLeft === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof marginLeft.value === "string") {
-		return marginLeft.value;
+		return generateOk(marginLeft.value);
 	}
 	return GenUtils.lengthPercentageToCss(marginLeft.value);
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/shadow/text-shadow.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { TextShadow } from "@/core/types/shadow";
 import { generateColor } from "@/utils/generate/color";
 
@@ -74,7 +76,10 @@ import { generateColor } from "@/utils/generate/color";
  *
  * @public
  */
-export function toCss(shadow: TextShadow): string {
+export function generate(shadow: TextShadow): GenerateResult {
+	if (shadow === undefined || shadow === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const layers = shadow.shadows.map((layer) => {
 		const { offsetX, offsetY, blurRadius, color } = layer;
 
@@ -94,8 +99,8 @@ export function toCss(shadow: TextShadow): string {
 			parts.push(generateColor(color));
 		}
 
-		return parts.join(" ");
+		return generateOk(parts.join(" "));
 	});
 
-	return layers.join(", ");
+	return generateOk(layers.join(", "));
 }

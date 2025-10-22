@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/margin-top.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MarginTop } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(marginTop: MarginTop): string {
+export function generate(marginTop: MarginTop): GenerateResult {
+	if (marginTop === undefined || marginTop === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof marginTop.value === "string") {
-		return marginTop.value;
+		return generateOk(marginTop.value);
 	}
 	return GenUtils.lengthPercentageToCss(marginTop.value);
 }

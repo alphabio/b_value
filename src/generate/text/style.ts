@@ -1,5 +1,6 @@
 // b_path:: src/generate/text/style.ts
 import type * as Keyword from "@/core/keywords";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 
 /**
  * Generate CSS text-decoration-style string from keyword.
@@ -13,10 +14,16 @@ import type * as Keyword from "@/core/keywords";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Text.Style.toCss("wavy");
+ * const css = Generate.Text.Style.generate("wavy");
  * console.log(css); // "wavy"
  * ```
  */
-export function toCss(keyword: Keyword.TextDecorationStyleKeyword): string {
-	return keyword;
+export function generate(keyword: Keyword.TextDecorationStyleKeyword): GenerateResult {
+	if (keyword === undefined || keyword === null) {
+		return generateErr("invalid-ir", "Keyword.TextDecorationStyleKeyword must not be null or undefined");
+	}
+	if (typeof keyword !== "string") {
+		return generateErr("invalid-ir", `Expected string, got ${typeof keyword}`);
+	}
+	return generateOk(keyword);
 }

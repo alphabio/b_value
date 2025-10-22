@@ -1,4 +1,6 @@
 // b_path:: src/generate/clip-path/circle.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Generate from "@/generate";
 import * as GenerateUtils from "@/utils/generate";
@@ -30,7 +32,10 @@ import * as GenerateUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(value: Type.ClipPathCircle): string {
+export function generate(value: Type.ClipPathCircle): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const parts: string[] = ["circle("];
 
 	// Add radius if present
@@ -48,9 +53,9 @@ export function toCss(value: Type.ClipPathCircle): string {
 			parts.push(" ");
 		}
 		parts.push("at ");
-		parts.push(Generate.Position.Utils.toCss(value.position));
+		parts.push(Generate.Position.Utils.generate(value.position));
 	}
 
 	parts.push(")");
-	return parts.join("");
+	return generateOk(parts.join(""));
 }

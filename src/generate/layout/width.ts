@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/width.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Width } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -34,9 +36,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(width: Width): string {
+export function generate(width: Width): GenerateResult {
+	if (width === undefined || width === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof width.value === "string") {
-		return width.value;
+		return generateOk(width.value);
 	}
 	return GenUtils.lengthPercentageToCss(width.value);
 }

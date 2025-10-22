@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/overflow-y.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { OverflowY } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { OverflowY } from "@/core/types";
  *
  * @public
  */
-export function toCss(overflowY: OverflowY): string {
-	return overflowY.value;
+export function generate(overflowY: OverflowY): GenerateResult {
+	if (overflowY === undefined || overflowY === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(overflowY.value);
 }

@@ -1,6 +1,6 @@
 // b_path:: src/generate/shadow/shadow.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types/shadow";
 import * as BoxShadow from "./box-shadow";
 import * as TextShadow from "./text-shadow";
@@ -92,10 +92,10 @@ export function generate(shadow: Type.BoxShadow | Type.TextShadow): GenerateResu
 	// Dispatch based on kind
 	switch (shadow.kind) {
 		case "box-shadow":
-			return generateOk(BoxShadow.toCss(shadow));
+			return BoxShadow.generate(shadow);
 
 		case "text-shadow":
-			return generateOk(TextShadow.toCss(shadow));
+			return TextShadow.generate(shadow);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown shadow kind: ${(shadow as { kind?: string }).kind}`, {

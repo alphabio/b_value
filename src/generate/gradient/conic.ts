@@ -44,7 +44,7 @@ function positionToCss(position: Type.Position2D): string {
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   colorStops: [{ color: "red" }, { color: "blue" }],
  *   repeating: false
@@ -55,7 +55,7 @@ function positionToCss(position: Type.Position2D): string {
  * @example
  * With starting angle:
  * ```typescript
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   fromAngle: { value: 45, unit: "deg" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
@@ -67,7 +67,7 @@ function positionToCss(position: Type.Position2D): string {
  * @example
  * At specific position:
  * ```typescript
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   position: { horizontal: "left", vertical: "top" },
  *   colorStops: [{ color: "red" }, { color: "blue" }],
@@ -79,7 +79,7 @@ function positionToCss(position: Type.Position2D): string {
  * @example
  * With both angle and position:
  * ```typescript
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   fromAngle: { value: 90, unit: "deg" },
  *   position: { horizontal: { value: 50, unit: "%" }, vertical: { value: 50, unit: "%" } },
@@ -95,7 +95,7 @@ function positionToCss(position: Type.Position2D): string {
  * @example
  * With color interpolation:
  * ```typescript
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   colorSpace: "oklch",
  *   colorStops: [
@@ -110,7 +110,7 @@ function positionToCss(position: Type.Position2D): string {
  * @example
  * Repeating gradient:
  * ```typescript
- * const css = Generate.Gradient.Conic.toCss({
+ * const css = Generate.Gradient.Conic.generate({
  *   kind: "conic",
  *   colorStops: [
  *     { color: "red", position: { value: 0, unit: "deg" } },
@@ -130,7 +130,7 @@ function positionToCss(position: Type.Position2D): string {
  * const parsed = Parse.Gradient.Conic.parse(original);
  *
  * if (parsed.ok) {
- *   const generated = Generate.Gradient.Conic.toCss(parsed.value);
+ *   const generated = Generate.Gradient.Conic.generate(parsed.value);
  *   console.log(generated === original); // true - perfect round-trip!
  * }
  * ```
@@ -164,7 +164,7 @@ export function toCss(ir: Type.ConicGradient): string {
 	}
 
 	// Add color stops
-	const stopStrings = ir.colorStops.map((stop) => ColorStop.toCss(stop));
+	const stopStrings = ir.colorStops.map((stop) => ColorStop.generate(stop));
 	parts.push(...stopStrings);
 
 	// Generate function

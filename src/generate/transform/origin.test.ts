@@ -6,90 +6,90 @@ import * as Origin from "./origin";
 describe("Transform.Origin.toCss", () => {
 	describe("2D positions - keywords", () => {
 		it("generates center", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: "center",
 				vertical: "center",
 			});
-			expect(css).toBe("center center");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center" });
 		});
 
 		it("generates left top", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: "left",
 				vertical: "top",
 			});
-			expect(css).toBe("left top");
+			expect(css).toEqual({ ok: true, issues: [], value: "left top" });
 		});
 
 		it("generates right bottom", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: "right",
 				vertical: "bottom",
 			});
-			expect(css).toBe("right bottom");
+			expect(css).toEqual({ ok: true, issues: [], value: "right bottom" });
 		});
 	});
 
 	describe("2D positions - values", () => {
 		it("generates percentage values", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: { value: 50, unit: "%" },
 				vertical: { value: 50, unit: "%" },
 			});
-			expect(css).toBe("50% 50%");
+			expect(css).toEqual({ ok: true, issues: [], value: "50% 50%" });
 		});
 
 		it("generates pixel values", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: { value: 100, unit: "px" },
 				vertical: { value: 200, unit: "px" },
 			});
-			expect(css).toBe("100px 200px");
+			expect(css).toEqual({ ok: true, issues: [], value: "100px 200px" });
 		});
 
 		it("generates mixed values", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: "left",
 				vertical: { value: 25, unit: "%" },
 			});
-			expect(css).toBe("left 25%");
+			expect(css).toEqual({ ok: true, issues: [], value: "left 25%" });
 		});
 
 		it("generates zero values", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				horizontal: { value: 0, unit: "px" },
 				vertical: { value: 0, unit: "px" },
 			});
-			expect(css).toBe("0px 0px");
+			expect(css).toEqual({ ok: true, issues: [], value: "0px 0px" });
 		});
 	});
 
 	describe("3D positions", () => {
 		it("generates 3D with pixel values", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				x: { value: 50, unit: "px" },
 				y: { value: 100, unit: "px" },
 				z: { value: 10, unit: "px" },
 			});
-			expect(css).toBe("50px 100px 10px");
+			expect(css).toEqual({ ok: true, issues: [], value: "50px 100px 10px" });
 		});
 
 		it("generates 3D with keywords and z-value", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				x: "left",
 				y: "top",
 				z: { value: 20, unit: "px" },
 			});
-			expect(css).toBe("left top 20px");
+			expect(css).toEqual({ ok: true, issues: [], value: "left top 20px" });
 		});
 
 		it("generates 3D with center", () => {
-			const css = Origin.toCss({
+			const css = Origin.generate({
 				x: "center",
 				y: "center",
 				z: { value: 5, unit: "px" },
 			});
-			expect(css).toBe("center center 5px");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center 5px" });
 		});
 	});
 
@@ -99,8 +99,8 @@ describe("Transform.Origin.toCss", () => {
 			const parsed = Parse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Origin.toCss(parsed.value);
-				const reparsed = Parse.parse(generated);
+				const generated = Origin.generate(parsed.value);
+				const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -113,8 +113,8 @@ describe("Transform.Origin.toCss", () => {
 			const parsed = Parse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Origin.toCss(parsed.value);
-				const reparsed = Parse.parse(generated);
+				const generated = Origin.generate(parsed.value);
+				const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -127,8 +127,8 @@ describe("Transform.Origin.toCss", () => {
 			const parsed = Parse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Origin.toCss(parsed.value);
-				const reparsed = Parse.parse(generated);
+				const generated = Origin.generate(parsed.value);
+				const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -141,8 +141,8 @@ describe("Transform.Origin.toCss", () => {
 			const parsed = Parse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Origin.toCss(parsed.value);
-				const reparsed = Parse.parse(generated);
+				const generated = Origin.generate(parsed.value);
+				const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 				expect(reparsed.ok).toBe(true);
 				if (reparsed.ok) {
 					expect(reparsed.value).toEqual(parsed.value);
@@ -159,7 +159,7 @@ describe("Transform.PerspectiveOrigin.toCssPerspectiveOrigin", () => {
 				horizontal: "center",
 				vertical: "center",
 			});
-			expect(css).toBe("center center");
+			expect(css).toEqual({ ok: true, issues: [], value: "center center" });
 		});
 
 		it("generates percentage values", () => {
@@ -167,7 +167,7 @@ describe("Transform.PerspectiveOrigin.toCssPerspectiveOrigin", () => {
 				horizontal: { value: 50, unit: "%" },
 				vertical: { value: 50, unit: "%" },
 			});
-			expect(css).toBe("50% 50%");
+			expect(css).toEqual({ ok: true, issues: [], value: "50% 50%" });
 		});
 
 		it("generates mixed values", () => {
@@ -175,7 +175,7 @@ describe("Transform.PerspectiveOrigin.toCssPerspectiveOrigin", () => {
 				horizontal: "left",
 				vertical: { value: 75, unit: "%" },
 			});
-			expect(css).toBe("left 75%");
+			expect(css).toEqual({ ok: true, issues: [], value: "left 75%" });
 		});
 	});
 

@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/oklab.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { OKLabColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { OKLabColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: OKLabColor): string {
+export function generate(color: OKLabColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "OKLabColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected OKLabColor object, got ${typeof color}`);
+	}
+	if (!("l" in color) || !("a" in color) || !("b" in color)) {
+		return generateErr("missing-required-field", "OKLabColor must have 'l', 'a', 'b' fields");
+	}
+
 	const { l, a, b, alpha } = color;
 
 	// Format OKLab values (lightness, a, b as numbers)
@@ -37,8 +49,8 @@ export function toCss(color: OKLabColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `oklab(${oklabPart} / ${alpha})`;
+		return generateOk(`oklab(${oklabPart} / ${alpha})`);
 	}
 
-	return `oklab(${oklabPart})`;
+	return generateOk(`oklab(${oklabPart})`);
 }

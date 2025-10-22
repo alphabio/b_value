@@ -1,4 +1,6 @@
 // b_path:: src/generate/border/radius.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -30,6 +32,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius | MDN: border-radius}
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#border-radius | W3C Spec}
  */
-export function toCss(ir: Type.BorderRadiusValue): string {
-	return `${ir.radius.value}${ir.radius.unit}`;
+export function generate(ir: Type.BorderRadiusValue): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(`${ir.radius.value}${ir.radius.unit}`);
 }

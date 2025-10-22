@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/special.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { SpecialColor } from "@/core/types/color";
 
 /**
@@ -23,6 +25,15 @@ import type { SpecialColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: SpecialColor): string {
-	return color.keyword;
+export function generate(color: SpecialColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "SpecialColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected SpecialColor object, got ${typeof color}`);
+	}
+	if (!("keyword" in color)) {
+		return generateErr("missing-required-field", "SpecialColor must have 'keyword' field");
+	}
+	return generateOk(color.keyword);
 }

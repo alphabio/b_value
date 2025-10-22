@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/margin-bottom.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { MarginBottom } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -12,9 +14,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(marginBottom: MarginBottom): string {
+export function generate(marginBottom: MarginBottom): GenerateResult {
+	if (marginBottom === undefined || marginBottom === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof marginBottom.value === "string") {
-		return marginBottom.value;
+		return generateOk(marginBottom.value);
 	}
 	return GenUtils.lengthPercentageToCss(marginBottom.value);
 }

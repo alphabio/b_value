@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/font-size.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { FontSize } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -28,9 +30,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(fontSize: FontSize): string {
+export function generate(fontSize: FontSize): GenerateResult {
+	if (fontSize === undefined || fontSize === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof fontSize.value === "string") {
-		return fontSize.value;
+		return generateOk(fontSize.value);
 	}
 	return GenUtils.lengthPercentageToCss(fontSize.value);
 }

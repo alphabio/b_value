@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/height.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Height } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -34,9 +36,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(height: Height): string {
+export function generate(height: Height): GenerateResult {
+	if (height === undefined || height === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (typeof height.value === "string") {
-		return height.value;
+		return generateOk(height.value);
 	}
 	return GenUtils.lengthPercentageToCss(height.value);
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/outline/offset.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -30,6 +32,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/outline-offset | MDN: outline-offset}
  * @see {@link https://www.w3.org/TR/css-ui-3/#outline-offset | W3C Spec}
  */
-export function toCss(ir: Type.OutlineOffsetValue): string {
-	return `${ir.offset.value}${ir.offset.unit}`;
+export function generate(ir: Type.OutlineOffsetValue): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(`${ir.offset.value}${ir.offset.unit}`);
 }

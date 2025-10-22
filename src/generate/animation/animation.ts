@@ -1,6 +1,6 @@
 // b_path:: src/generate/animation/animation.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types/animation";
 import * as Delay from "./delay";
 import * as Direction from "./direction";
@@ -97,28 +97,28 @@ export function generate(animation: Animation): GenerateResult {
 	// Dispatch based on kind
 	switch (animation.kind) {
 		case "animation-delay":
-			return generateOk(Delay.toCss(animation));
+			return Delay.generate(animation);
 
 		case "animation-direction":
-			return generateOk(Direction.toCss(animation));
+			return Direction.generate(animation);
 
 		case "animation-duration":
-			return generateOk(Duration.toCss(animation));
+			return Duration.generate(animation);
 
 		case "animation-fill-mode":
-			return generateOk(FillMode.toCss(animation));
+			return FillMode.generate(animation);
 
 		case "animation-iteration-count":
-			return generateOk(IterationCount.toCss(animation));
+			return IterationCount.generate(animation);
 
 		case "animation-name":
-			return generateOk(Name.toCss(animation));
+			return Name.generate(animation);
 
 		case "animation-play-state":
-			return generateOk(PlayState.toCss(animation));
+			return PlayState.generate(animation);
 
 		case "animation-timing-function":
-			return generateOk(TimingFunction.toCss(animation));
+			return TimingFunction.generate(animation);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown animation kind: ${(animation as { kind?: string }).kind}`, {

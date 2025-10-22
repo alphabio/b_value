@@ -1,5 +1,6 @@
 // b_path:: src/generate/clip-path/polygon.ts
 
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as GenerateUtils from "@/utils/generate";
 
@@ -20,7 +21,10 @@ import * as GenerateUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(polygon: Type.ClipPathPolygon): string {
+export function generate(polygon: Type.ClipPathPolygon): GenerateResult {
+	if (polygon === undefined || polygon === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const parts: string[] = ["polygon("];
 
 	// Add fill-rule if present
@@ -32,11 +36,11 @@ export function toCss(polygon: Type.ClipPathPolygon): string {
 	const pointStrings = polygon.points.map((point) => {
 		const x = GenerateUtils.lengthPercentageToCss(point.x);
 		const y = GenerateUtils.lengthPercentageToCss(point.y);
-		return `${x} ${y}`;
+		return generateOk(`${x} ${y}`);
 	});
 
 	parts.push(pointStrings.join(", "));
 	parts.push(")");
 
-	return parts.join("");
+	return generateOk(parts.join(""));
 }

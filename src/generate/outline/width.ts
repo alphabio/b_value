@@ -1,4 +1,6 @@
 // b_path:: src/generate/outline/width.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -30,9 +32,12 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/outline-width | MDN: outline-width}
  * @see {@link https://www.w3.org/TR/css-ui-3/#outline-width | W3C Spec}
  */
-export function toCss(ir: Type.OutlineWidthValue): string {
-	if (typeof ir.width === "string") {
-		return ir.width;
+export function generate(ir: Type.OutlineWidthValue): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return `${ir.width.value}${ir.width.unit}`;
+	if (typeof ir.width === "string") {
+		return generateOk(ir.width);
+	}
+	return generateOk(`${ir.width.value}${ir.width.unit}`);
 }

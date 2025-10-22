@@ -14,8 +14,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(red, blue)" });
 	});
 
 	it("should generate conic gradient with starting angle", () => {
@@ -29,8 +29,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 45deg, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(from 45deg, red, blue)" });
 	});
 
 	it("should generate conic gradient with position", () => {
@@ -47,8 +47,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(at center center, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(at center center, red, blue)" });
 	});
 
 	it("should generate conic gradient with position keywords", () => {
@@ -65,8 +65,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(at left top, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(at left top, red, blue)" });
 	});
 
 	it("should generate conic gradient with percentage position", () => {
@@ -83,8 +83,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(at 50% 75%, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(at 50% 75%, red, blue)" });
 	});
 
 	it("should generate conic gradient with both angle and position", () => {
@@ -102,8 +102,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 90deg at 50% 50%, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(from 90deg at 50% 50%, red, blue)" });
 	});
 
 	it("should generate conic gradient with turn unit", () => {
@@ -117,8 +117,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 0.25turn, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(from 0.25turn, red, blue)" });
 	});
 
 	it("should generate conic gradient with rad unit", () => {
@@ -132,8 +132,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 1.57rad, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(from 1.57rad, red, blue)" });
 	});
 
 	it("should generate conic gradient with color stop angle positions", () => {
@@ -146,8 +146,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(red 0deg, blue 180deg)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(red 0deg, blue 180deg)" });
 	});
 
 	it("should generate conic gradient with color interpolation", () => {
@@ -161,8 +161,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(in oklch, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(in oklch, red, blue)" });
 	});
 
 	it("should generate conic gradient with angle and color interpolation", () => {
@@ -177,8 +177,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 45deg in oklch, red, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(from 45deg in oklch, red, blue)" });
 	});
 
 	it("should generate repeating conic gradient", () => {
@@ -191,8 +191,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: true,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("repeating-conic-gradient(red 0deg, blue 45deg)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "repeating-conic-gradient(red 0deg, blue 45deg)" });
 	});
 
 	it("should generate complex conic gradient", () => {
@@ -211,8 +211,12 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(from 90deg at 30% 30%, red 0deg, yellow 120deg, blue 240deg)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({
+			ok: true,
+			issues: [],
+			value: "conic-gradient(from 90deg at 30% 30%, red 0deg, yellow 120deg, blue 240deg)",
+		});
 	});
 
 	it("should generate conic gradient with multiple color stops", () => {
@@ -228,8 +232,8 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(red, orange, yellow, green, blue)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(red, orange, yellow, green, blue)" });
 	});
 
 	it("should generate conic gradient with percentage color stop positions", () => {
@@ -242,7 +246,7 @@ describe("Conic Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = ConicGenerator.toCss(ir);
-		expect(css).toBe("conic-gradient(red 0%, blue 100%)");
+		const css = ConicGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "conic-gradient(red 0%, blue 100%)" });
 	});
 });

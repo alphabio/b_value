@@ -10,7 +10,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "time" as const, value: 1, unit: "s" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("1s");
+		expect(Generator.generate(ir)).toBe("1s");
 	});
 
 	it("should generate single time value in milliseconds", () => {
@@ -19,7 +19,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "time" as const, value: 500, unit: "ms" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("500ms");
+		expect(Generator.generate(ir)).toBe("500ms");
 	});
 
 	it("should generate auto keyword", () => {
@@ -28,7 +28,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "auto" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("auto");
+		expect(Generator.generate(ir)).toBe("auto");
 	});
 
 	it("should generate zero duration", () => {
@@ -37,7 +37,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "time" as const, value: 0, unit: "s" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("0s");
+		expect(Generator.generate(ir)).toBe("0s");
 	});
 
 	it("should generate decimal values", () => {
@@ -46,7 +46,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "time" as const, value: 0.5, unit: "s" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("0.5s");
+		expect(Generator.generate(ir)).toBe("0.5s");
 	});
 
 	it("should generate multiple durations", () => {
@@ -59,7 +59,7 @@ describe("Animation Duration Generator", () => {
 			],
 		};
 
-		expect(Generator.toCss(ir)).toBe("1s, auto, 500ms");
+		expect(Generator.generate(ir)).toBe("1s, auto, 500ms");
 	});
 
 	it("should generate large values", () => {
@@ -68,7 +68,7 @@ describe("Animation Duration Generator", () => {
 			durations: [{ type: "time" as const, value: 3600, unit: "s" as const }],
 		};
 
-		expect(Generator.toCss(ir)).toBe("3600s");
+		expect(Generator.generate(ir)).toBe("3600s");
 	});
 
 	// Round-trip tests
@@ -77,8 +77,8 @@ describe("Animation Duration Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -90,8 +90,8 @@ describe("Animation Duration Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -103,8 +103,8 @@ describe("Animation Duration Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
@@ -116,8 +116,8 @@ describe("Animation Duration Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);

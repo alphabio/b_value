@@ -1,4 +1,6 @@
 // b_path:: src/generate/border/width.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -30,9 +32,12 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/border-width | MDN: border-width}
  * @see {@link https://www.w3.org/TR/css-backgrounds-3/#border-width | W3C Spec}
  */
-export function toCss(ir: Type.BorderWidthValue): string {
-	if (typeof ir.width === "string") {
-		return ir.width;
+export function generate(ir: Type.BorderWidthValue): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
 	}
-	return `${ir.width.value}${ir.width.unit}`;
+	if (typeof ir.width === "string") {
+		return generateOk(ir.width);
+	}
+	return generateOk(`${ir.width.value}${ir.width.unit}`);
 }

@@ -1,6 +1,6 @@
 // b_path:: src/generate/outline/outline.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types/outline";
 import * as Color from "./color";
 import * as Offset from "./offset";
@@ -83,16 +83,16 @@ export function generate(
 	// Dispatch based on kind
 	switch (outline.kind) {
 		case "outline-width":
-			return generateOk(Width.toCss(outline));
+			return Width.generate(outline);
 
 		case "outline-style":
-			return generateOk(Style.toCss(outline));
+			return Style.generate(outline);
 
 		case "outline-color":
-			return generateOk(Color.toCss(outline));
+			return Color.generate(outline);
 
 		case "outline-offset":
-			return generateOk(Offset.toCss(outline));
+			return Offset.generate(outline);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown outline kind: ${(outline as { kind?: string }).kind}`, {

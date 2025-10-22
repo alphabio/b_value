@@ -14,7 +14,7 @@ describe("generate rect()", () => {
 				left: { value: 40, unit: "px" },
 			});
 
-			expect(css).toBe("rect(10px 20px 30px 40px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(10px 20px 30px 40px)" });
 		});
 
 		it("should generate with percentages", () => {
@@ -26,7 +26,7 @@ describe("generate rect()", () => {
 				left: { value: 40, unit: "%" },
 			});
 
-			expect(css).toBe("rect(10% 20% 30% 40%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(10% 20% 30% 40%)" });
 		});
 
 		it("should generate with zero values", () => {
@@ -38,7 +38,7 @@ describe("generate rect()", () => {
 				left: { value: 0, unit: "px" },
 			});
 
-			expect(css).toBe("rect(0px 0px 0px 0px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(0px 0px 0px 0px)" });
 		});
 	});
 
@@ -52,7 +52,7 @@ describe("generate rect()", () => {
 				left: "auto",
 			});
 
-			expect(css).toBe("rect(auto auto auto auto)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(auto auto auto auto)" });
 		});
 
 		it("should generate mixed auto and lengths", () => {
@@ -64,7 +64,7 @@ describe("generate rect()", () => {
 				left: "auto",
 			});
 
-			expect(css).toBe("rect(10px auto 20px auto)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(10px auto 20px auto)" });
 		});
 	});
 
@@ -84,7 +84,7 @@ describe("generate rect()", () => {
 				},
 			});
 
-			expect(css).toBe("rect(10px 10px 10px 10px round 5px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(10px 10px 10px 10px round 5px)" });
 		});
 
 		it("should generate with different border-radius values", () => {
@@ -102,7 +102,7 @@ describe("generate rect()", () => {
 				},
 			});
 
-			expect(css).toBe("rect(10px 10px 10px 10px round 5px 10px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rect(10px 10px 10px 10px round 5px 10px)" });
 		});
 	});
 

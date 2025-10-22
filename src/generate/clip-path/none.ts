@@ -1,5 +1,6 @@
 // b_path:: src/generate/clip-path/none.ts
 
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { ClipPathNone } from "@/core/types/clip-path";
 
 /**
@@ -16,12 +17,15 @@ import type { ClipPathNone } from "@/core/types/clip-path";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.ClipPath.None.toCss({ kind: "clip-path-none" });
+ * const css = Generate.ClipPath.None.generate({ kind: "clip-path-none" });
  * // "none"
  * ```
  *
  * @public
  */
-export function toCss(_value: ClipPathNone): string {
-	return "none";
+export function generate(_value: ClipPathNone): GenerateResult {
+	if (_value === undefined || _value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk("none");
 }

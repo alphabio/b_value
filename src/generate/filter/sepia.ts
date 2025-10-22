@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/sepia.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { SepiaFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { SepiaFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: SepiaFilter): string {
+export function generate(filter: SepiaFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { value } = filter;
-	return `sepia(${value})`;
+	return generateOk(`sepia(${value})`);
 }

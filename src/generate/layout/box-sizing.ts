@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/box-sizing.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { BoxSizing } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { BoxSizing } from "@/core/types";
  *
  * @public
  */
-export function toCss(boxSizing: BoxSizing): string {
-	return boxSizing.value;
+export function generate(boxSizing: BoxSizing): GenerateResult {
+	if (boxSizing === undefined || boxSizing === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(boxSizing.value);
 }

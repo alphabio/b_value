@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/letter-spacing.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { LetterSpacing } from "@/core/types";
 import { lengthPercentageToCss } from "@/utils/generate/values";
 
@@ -22,9 +24,12 @@ import { lengthPercentageToCss } from "@/utils/generate/values";
  *
  * @public
  */
-export function toCss(letterSpacing: LetterSpacing): string {
+export function generate(letterSpacing: LetterSpacing): GenerateResult {
+	if (letterSpacing === undefined || letterSpacing === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (letterSpacing.value === "normal") {
-		return "normal";
+		return generateOk("normal");
 	}
 	return lengthPercentageToCss(letterSpacing.value);
 }

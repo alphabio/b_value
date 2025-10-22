@@ -1,4 +1,6 @@
 // b_path:: src/generate/clip-path/rect.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as GenerateUtils from "@/utils/generate";
 
@@ -25,7 +27,10 @@ import * as GenerateUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(value: Type.ClipPathRect): string {
+export function generate(value: Type.ClipPathRect): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	// Generate TRBL CSS (always 4 values)
 	const top = value.top === "auto" ? "auto" : GenerateUtils.lengthPercentageToCss(value.top);
 	const right = value.right === "auto" ? "auto" : GenerateUtils.lengthPercentageToCss(value.right);
@@ -40,5 +45,5 @@ export function toCss(value: Type.ClipPathRect): string {
 		radiusCss = ` round ${GenerateUtils.borderRadiusToCss(value.borderRadius)}`;
 	}
 
-	return `rect(${trblCss}${radiusCss})`;
+	return generateOk(`rect(${trblCss}${radiusCss})`);
 }
