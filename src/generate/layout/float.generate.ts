@@ -1,5 +1,6 @@
 // b_path:: src/generate/layout/float.generate.ts
 
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Float } from "../../parse/layout/float";
 
 /**
@@ -12,6 +13,12 @@ import type { Float } from "../../parse/layout/float";
  * toCss("left")  // "left"
  * toCss("right") // "right"
  */
-export function toCss(float: Float): string {
-	return float;
+export function generate(float: Float): GenerateResult {
+	if (float === undefined || float === null) {
+		return generateErr("invalid-ir", "Float must not be null or undefined");
+	}
+	if (typeof float !== "string") {
+		return generateErr("invalid-ir", `Expected string, got ${typeof float}`);
+	}
+	return generateOk(float);
 }

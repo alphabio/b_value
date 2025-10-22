@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/oklch.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { OKLCHColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { OKLCHColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: OKLCHColor): string {
+export function generate(color: OKLCHColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "OKLCHColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected OKLCHColor object, got ${typeof color}`);
+	}
+	if (!("l" in color) || !("c" in color) || !("h" in color)) {
+		return generateErr("missing-required-field", "OKLCHColor must have 'l', 'c', 'h' fields");
+	}
+
 	const { l, c, h, alpha } = color;
 
 	// Format OKLCH values (lightness, chroma, hue as numbers)
@@ -38,8 +50,8 @@ export function toCss(color: OKLCHColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `oklch(${oklchPart} / ${alpha})`;
+		return generateOk(`oklch(${oklchPart} / ${alpha})`);
 	}
 
-	return `oklch(${oklchPart})`;
+	return generateOk(`oklch(${oklchPart})`);
 }

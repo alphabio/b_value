@@ -6,100 +6,100 @@ import * as Ellipse from "./ellipse";
 describe("generate/clip-path/ellipse", () => {
 	describe("basic generation", () => {
 		it("should generate ellipse with no arguments", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 			});
-			expect(css).toBe("ellipse()");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse()" });
 		});
 
 		it("should generate ellipse with single radius", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 50, unit: "px" },
 			});
-			expect(css).toBe("ellipse(50px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(50px)" });
 		});
 
 		it("should generate ellipse with two radii", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 50, unit: "px" },
 				radiusY: { value: 100, unit: "px" },
 			});
-			expect(css).toBe("ellipse(50px 100px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(50px 100px)" });
 		});
 
 		it("should generate ellipse with percentage radii", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 50, unit: "%" },
 				radiusY: { value: 75, unit: "%" },
 			});
-			expect(css).toBe("ellipse(50% 75%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(50% 75%)" });
 		});
 
 		it("should generate ellipse with mixed units", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 2, unit: "rem" },
 				radiusY: { value: 100, unit: "px" },
 			});
-			expect(css).toBe("ellipse(2rem 100px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(2rem 100px)" });
 		});
 	});
 
 	describe("keyword radii", () => {
 		it("should generate ellipse with closest-side keywords", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: "closest-side",
 				radiusY: "closest-side",
 			});
-			expect(css).toBe("ellipse(closest-side closest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(closest-side closest-side)" });
 		});
 
 		it("should generate ellipse with farthest-side keywords", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: "farthest-side",
 				radiusY: "farthest-side",
 			});
-			expect(css).toBe("ellipse(farthest-side farthest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(farthest-side farthest-side)" });
 		});
 
 		it("should generate ellipse with mixed keywords", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: "closest-side",
 				radiusY: "farthest-side",
 			});
-			expect(css).toBe("ellipse(closest-side farthest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(closest-side farthest-side)" });
 		});
 
 		it("should generate ellipse with keyword and value", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 50, unit: "px" },
 				radiusY: "farthest-side",
 			});
-			expect(css).toBe("ellipse(50px farthest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(50px farthest-side)" });
 		});
 	});
 
 	describe("position generation", () => {
 		it("should generate ellipse with position only", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				position: {
 					horizontal: "center",
 					vertical: "center",
 				},
 			});
-			expect(css).toBe("ellipse(at center center)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(at center center)" });
 		});
 
 		it("should generate ellipse with radii and position", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 50, unit: "px" },
 				radiusY: { value: 100, unit: "px" },
@@ -108,11 +108,11 @@ describe("generate/clip-path/ellipse", () => {
 					vertical: { value: 40, unit: "px" },
 				},
 			});
-			expect(css).toBe("ellipse(50px 100px at 30px 40px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(50px 100px at 30px 40px)" });
 		});
 
 		it("should generate ellipse with keywords and position", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: "closest-side",
 				radiusY: "farthest-side",
@@ -121,26 +121,26 @@ describe("generate/clip-path/ellipse", () => {
 					vertical: "top",
 				},
 			});
-			expect(css).toBe("ellipse(closest-side farthest-side at left top)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(closest-side farthest-side at left top)" });
 		});
 	});
 
 	describe("edge cases", () => {
 		it("should generate ellipse with zero radii", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusX: { value: 0, unit: "px" },
 				radiusY: { value: 0, unit: "px" },
 			});
-			expect(css).toBe("ellipse(0px 0px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(0px 0px)" });
 		});
 
 		it("should generate ellipse with only radiusY", () => {
-			const css = Ellipse.toCss({
+			const css = Ellipse.generate({
 				kind: "clip-path-ellipse",
 				radiusY: { value: 100, unit: "px" },
 			});
-			expect(css).toBe("ellipse(100px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "ellipse(100px)" });
 		});
 	});
 
@@ -150,7 +150,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -161,7 +161,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -172,7 +172,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -183,7 +183,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -194,7 +194,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -205,7 +205,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -216,7 +216,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -227,7 +227,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -238,7 +238,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -249,7 +249,7 @@ describe("generate/clip-path/ellipse", () => {
 			const parsed = Parse.ClipPath.Ellipse.parse(original);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Ellipse.toCss(parsed.value);
+				const generated = Ellipse.generate(parsed.value);
 				const reparsed = Parse.ClipPath.Ellipse.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}

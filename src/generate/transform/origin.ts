@@ -1,4 +1,6 @@
 // b_path:: src/generate/transform/origin.ts
+
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Position from "../position/utils";
 
@@ -18,7 +20,7 @@ import * as Position from "../position/utils";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Transform.Origin.toCss({
+ * const css = Generate.Transform.Origin.generate({
  *   horizontal: "center",
  *   vertical: "top"
  * });
@@ -28,7 +30,7 @@ import * as Position from "../position/utils";
  * @example
  * 2D with values:
  * ```typescript
- * const css = Generate.Transform.Origin.toCss({
+ * const css = Generate.Transform.Origin.generate({
  *   horizontal: { value: 50, unit: "%" },
  *   vertical: { value: 100, unit: "px" }
  * });
@@ -38,7 +40,7 @@ import * as Position from "../position/utils";
  * @example
  * 3D position:
  * ```typescript
- * const css = Generate.Transform.Origin.toCss({
+ * const css = Generate.Transform.Origin.generate({
  *   x: "left",
  *   y: "top",
  *   z: { value: 10, unit: "px" }
@@ -48,14 +50,17 @@ import * as Position from "../position/utils";
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin | MDN: transform-origin}
  */
-export function toCss(ir: Type.Position2D | Type.Position3D): string {
+export function generate(ir: Type.Position2D | Type.Position3D): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	// Check if it's a 3D position (has x, y, z)
 	if ("x" in ir && "y" in ir && "z" in ir) {
 		return Position.to3DCss(ir);
 	}
 
 	// 2D position
-	return Position.toCss(ir);
+	return Position.generate(ir);
 }
 
 /**
@@ -73,7 +78,7 @@ export function toCss(ir: Type.Position2D | Type.Position3D): string {
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Transform.PerspectiveOrigin.toCss({
+ * const css = Generate.Transform.PerspectiveOrigin.generate({
  *   horizontal: { value: 50, unit: "%" },
  *   vertical: { value: 50, unit: "%" }
  * });
@@ -82,6 +87,6 @@ export function toCss(ir: Type.Position2D | Type.Position3D): string {
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/perspective-origin | MDN: perspective-origin}
  */
-export function toCssPerspectiveOrigin(ir: Type.Position2D): string {
-	return Position.toCss(ir);
+export function toCssPerspectiveOrigin(ir: Type.Position2D): GenerateResult {
+	return Position.generate(ir);
 }

@@ -14,8 +14,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(red, blue)" });
 	});
 
 	it("should generate linear gradient with angle direction", () => {
@@ -29,8 +29,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(45deg, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(45deg, red, blue)" });
 	});
 
 	it("should generate linear gradient with to-side direction", () => {
@@ -44,8 +44,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(to right, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(to right, red, blue)" });
 	});
 
 	it("should generate linear gradient with to-corner direction", () => {
@@ -59,8 +59,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(to top right, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(to top right, red, blue)" });
 	});
 
 	it("should generate linear gradient with turn unit", () => {
@@ -74,8 +74,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(0.25turn, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(0.25turn, red, blue)" });
 	});
 
 	it("should generate linear gradient with rad unit", () => {
@@ -89,8 +89,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(1.57rad, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(1.57rad, red, blue)" });
 	});
 
 	it("should generate linear gradient with color stop positions", () => {
@@ -103,8 +103,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(red 0%, blue 100%)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(red 0%, blue 100%)" });
 	});
 
 	it("should generate linear gradient with color interpolation", () => {
@@ -118,8 +118,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(in oklch, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(in oklch, red, blue)" });
 	});
 
 	it("should generate linear gradient with direction and color interpolation", () => {
@@ -134,8 +134,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(45deg in oklch, red, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(45deg in oklch, red, blue)" });
 	});
 
 	it("should generate repeating linear gradient", () => {
@@ -149,8 +149,8 @@ describe("Linear Gradient Generator", () => {
 			repeating: true,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("repeating-linear-gradient(45deg, red 0px, blue 20px)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "repeating-linear-gradient(45deg, red 0px, blue 20px)" });
 	});
 
 	it("should generate complex linear gradient", () => {
@@ -165,8 +165,12 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(to bottom right, red 0%, yellow 50%, blue 100%)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({
+			ok: true,
+			issues: [],
+			value: "linear-gradient(to bottom right, red 0%, yellow 50%, blue 100%)",
+		});
 	});
 
 	it("should generate linear gradient with all side directions", () => {
@@ -183,8 +187,8 @@ describe("Linear Gradient Generator", () => {
 				repeating: false,
 			};
 
-			const css = LinearGenerator.toCss(ir);
-			expect(css).toBe(`linear-gradient(to ${side}, red, blue)`);
+			const css = LinearGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: `linear-gradient(to ${side}, red, blue)` });
 		}
 	});
 
@@ -207,8 +211,8 @@ describe("Linear Gradient Generator", () => {
 				repeating: false,
 			};
 
-			const css = LinearGenerator.toCss(ir);
-			expect(css).toBe(`linear-gradient(to ${corner}, red, blue)`);
+			const css = LinearGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: `linear-gradient(to ${corner}, red, blue)` });
 		}
 	});
 
@@ -225,7 +229,7 @@ describe("Linear Gradient Generator", () => {
 			repeating: false,
 		};
 
-		const css = LinearGenerator.toCss(ir);
-		expect(css).toBe("linear-gradient(red, orange, yellow, green, blue)");
+		const css = LinearGenerator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "linear-gradient(red, orange, yellow, green, blue)" });
 	});
 });

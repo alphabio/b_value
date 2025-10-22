@@ -6,72 +6,72 @@ import * as Generate from "./circle";
 describe("Generate.ClipPath.Circle", () => {
 	describe("Basic generation", () => {
 		it("generates circle() with no arguments", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 			});
 
-			expect(css).toBe("circle()");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle()" });
 		});
 
 		it("generates circle() with radius", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: { value: 50, unit: "px" },
 			});
 
-			expect(css).toBe("circle(50px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(50px)" });
 		});
 
 		it("generates circle() with percentage radius", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: { value: 50, unit: "%" },
 			});
 
-			expect(css).toBe("circle(50%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(50%)" });
 		});
 
 		it("generates circle() with closest-side", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: "closest-side",
 			});
 
-			expect(css).toBe("circle(closest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(closest-side)" });
 		});
 
 		it("generates circle() with farthest-side", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: "farthest-side",
 			});
 
-			expect(css).toBe("circle(farthest-side)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(farthest-side)" });
 		});
 	});
 
 	describe("Position generation", () => {
 		it("generates circle() with position only", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				position: { horizontal: "center", vertical: "center" },
 			});
 
-			expect(css).toBe("circle(at center center)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(at center center)" });
 		});
 
 		it("generates circle() with radius and position", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: { value: 50, unit: "px" },
 				position: { horizontal: "center", vertical: "center" },
 			});
 
-			expect(css).toBe("circle(50px at center center)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(50px at center center)" });
 		});
 
 		it("generates circle() with length-percentage position", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				position: {
 					horizontal: { value: 30, unit: "px" },
@@ -79,36 +79,36 @@ describe("Generate.ClipPath.Circle", () => {
 				},
 			});
 
-			expect(css).toBe("circle(at 30px 40%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(at 30px 40%)" });
 		});
 
 		it("generates circle() with keyword position", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				position: { horizontal: "left", vertical: "top" },
 			});
 
-			expect(css).toBe("circle(at left top)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(at left top)" });
 		});
 	});
 
 	describe("Edge cases", () => {
 		it("generates zero radius", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: { value: 0, unit: "px" },
 			});
 
-			expect(css).toBe("circle(0px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(0px)" });
 		});
 
 		it("generates zero percentage radius", () => {
-			const css = Generate.toCss({
+			const css = Generate.generate({
 				kind: "clip-path-circle",
 				radius: { value: 0, unit: "%" },
 			});
 
-			expect(css).toBe("circle(0%)");
+			expect(css).toEqual({ ok: true, issues: [], value: "circle(0%)" });
 		});
 	});
 
@@ -132,8 +132,8 @@ describe("Generate.ClipPath.Circle", () => {
 				expect(parsed.ok).toBe(true);
 				if (!parsed.ok) return;
 
-				const generated = Generate.toCss(parsed.value);
-				const reparsed = Parse.parse(generated);
+				const generated = Generate.generate(parsed.value);
+				const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 
 				expect(reparsed.ok).toBe(true);
 				if (!reparsed.ok) return;

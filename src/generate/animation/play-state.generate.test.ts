@@ -6,12 +6,12 @@ import * as Generator from "./play-state";
 describe("Animation Play State Generator", () => {
 	it("should generate running", () => {
 		const ir = { kind: "animation-play-state" as const, states: ["running" as const] };
-		expect(Generator.toCss(ir)).toBe("running");
+		expect(Generator.generate(ir)).toBe("running");
 	});
 
 	it("should generate paused", () => {
 		const ir = { kind: "animation-play-state" as const, states: ["paused" as const] };
-		expect(Generator.toCss(ir)).toBe("paused");
+		expect(Generator.generate(ir)).toBe("paused");
 	});
 
 	it("should generate multiple states", () => {
@@ -19,7 +19,7 @@ describe("Animation Play State Generator", () => {
 			kind: "animation-play-state" as const,
 			states: ["running" as const, "paused" as const],
 		};
-		expect(Generator.toCss(ir)).toBe("running, paused");
+		expect(Generator.generate(ir)).toBe("running, paused");
 	});
 
 	// Round-trip tests
@@ -29,8 +29,8 @@ describe("Animation Play State Generator", () => {
 			const parsed = Parser.parse(keyword);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const generated = Generator.toCss(parsed.value);
-				expect(generated).toBe(keyword);
+				const generated = Generator.generate(parsed.value);
+				expect(generated.ok && generated.value).toBe(keyword);
 				const reparsed = Parser.parse(generated);
 				expect(reparsed).toEqual(parsed);
 			}
@@ -42,8 +42,8 @@ describe("Animation Play State Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}

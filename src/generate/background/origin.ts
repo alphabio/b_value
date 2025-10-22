@@ -1,5 +1,6 @@
 // b_path:: src/generate/background/origin.ts
 import type * as Keyword from "@/core/keywords";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 
 /**
  * Generate CSS background-origin string from keyword.
@@ -13,10 +14,16 @@ import type * as Keyword from "@/core/keywords";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Background.Origin.toCss("content-box");
+ * const css = Generate.Background.Origin.generate("content-box");
  * console.log(css); // "content-box"
  * ```
  */
-export function toCss(keyword: Keyword.VisualBoxKeyword): string {
-	return keyword;
+export function generate(keyword: Keyword.VisualBoxKeyword): GenerateResult {
+	if (keyword === undefined || keyword === null) {
+		return generateErr("invalid-ir", "Keyword must not be null or undefined");
+	}
+	if (typeof keyword !== "string") {
+		return generateErr("invalid-ir", `Expected string keyword, got ${typeof keyword}`);
+	}
+	return generateOk(keyword);
 }

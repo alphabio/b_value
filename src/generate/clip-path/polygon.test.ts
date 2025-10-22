@@ -15,7 +15,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 0, unit: "%" as const }, y: { value: 100, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(50% 0%, 100% 100%, 0% 100%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(50% 0%, 100% 100%, 0% 100%)");
 		});
 
 		it("should generate 4-point square", () => {
@@ -28,7 +28,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 0, unit: "px" as const }, y: { value: 100, unit: "px" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(0px 0px, 100px 0px, 100px 100px, 0px 100px)");
+			expect(Polygon.generate(polygon)).toBe("polygon(0px 0px, 100px 0px, 100px 100px, 0px 100px)");
 		});
 
 		it("should generate 5-point pentagon", () => {
@@ -42,7 +42,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 0, unit: "%" as const }, y: { value: 38, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)");
 		});
 
 		it("should generate polygon with mixed units", () => {
@@ -54,7 +54,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 100, unit: "px" as const }, y: { value: 100, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(10px 20%, 50% 30px, 100px 100%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(10px 20%, 50% 30px, 100px 100%)");
 		});
 
 		it("should generate polygon with zero values", () => {
@@ -66,7 +66,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 100, unit: "px" as const }, y: { value: 100, unit: "px" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(0px 0px, 100px 0px, 100px 100px)");
+			expect(Polygon.generate(polygon)).toBe("polygon(0px 0px, 100px 0px, 100px 100px)");
 		});
 	});
 
@@ -81,7 +81,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 50, unit: "%" as const }, y: { value: 100, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(nonzero, 50% 0%, 100% 50%, 50% 100%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(nonzero, 50% 0%, 100% 50%, 50% 100%)");
 		});
 
 		it("should generate with evenodd fill-rule", () => {
@@ -94,7 +94,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 100, unit: "px" as const }, y: { value: 100, unit: "px" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(evenodd, 0px 0px, 100px 0px, 100px 100px)");
+			expect(Polygon.generate(polygon)).toBe("polygon(evenodd, 0px 0px, 100px 0px, 100px 100px)");
 		});
 
 		it("should generate without fill-rule when omitted", () => {
@@ -106,7 +106,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 50, unit: "%" as const }, y: { value: 100, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(50% 0%, 100% 50%, 50% 100%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(50% 0%, 100% 50%, 50% 100%)");
 		});
 	});
 
@@ -127,7 +127,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 39, unit: "%" as const }, y: { value: 35, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe(
+			expect(Polygon.generate(polygon)).toBe(
 				"polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)",
 			);
 		});
@@ -144,7 +144,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 					{ x: { value: 0, unit: "%" as const }, y: { value: 25, unit: "%" as const } },
 				],
 			};
-			expect(Polygon.toCss(polygon)).toBe("polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)");
+			expect(Polygon.generate(polygon)).toBe("polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)");
 		});
 	});
 
@@ -158,7 +158,7 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 				kind: "clip-path-polygon" as const,
 				points,
 			};
-			const css = Polygon.toCss(polygon);
+			const css = Polygon.generate(polygon);
 			expect(css).toContain("polygon(");
 			expect(css.split(",").length).toBe(20); // 20 points = 20 commas separating them
 		});
@@ -171,8 +171,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip with fill-rule", () => {
@@ -181,8 +181,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip square", () => {
@@ -191,8 +191,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip mixed units", () => {
@@ -201,8 +201,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip hexagon", () => {
@@ -211,8 +211,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip with evenodd", () => {
@@ -221,8 +221,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 
 		it("should round-trip star", () => {
@@ -231,8 +231,8 @@ describe("Generate.ClipPath.Polygon.toCss", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Polygon.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Polygon.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 		});
 	});
 });

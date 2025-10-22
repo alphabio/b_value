@@ -1,6 +1,6 @@
 // b_path:: src/generate/clip-path/clip-path.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Circle from "./circle";
 import * as Ellipse from "./ellipse";
@@ -47,34 +47,34 @@ export function generate(clipPath: Type.ClipPathValue): GenerateResult {
 	// Dispatch based on kind
 	switch (clipPath.kind) {
 		case "clip-path-none":
-			return generateOk(None.toCss(clipPath));
+			return None.generate(clipPath);
 
 		case "clip-path-geometry-box":
-			return generateOk(GeometryBox.toCss(clipPath));
+			return GeometryBox.generate(clipPath);
 
 		case "clip-path-inset":
-			return generateOk(Inset.toCss(clipPath));
+			return Inset.generate(clipPath);
 
 		case "clip-path-circle":
-			return generateOk(Circle.toCss(clipPath));
+			return Circle.generate(clipPath);
 
 		case "clip-path-ellipse":
-			return generateOk(Ellipse.toCss(clipPath));
+			return Ellipse.generate(clipPath);
 
 		case "clip-path-polygon":
-			return generateOk(Polygon.toCss(clipPath));
+			return Polygon.generate(clipPath);
 
 		case "clip-path-rect":
-			return generateOk(Rect.toCss(clipPath));
+			return Rect.generate(clipPath);
 
 		case "clip-path-xywh":
-			return generateOk(Xywh.toCss(clipPath));
+			return Xywh.generate(clipPath);
 
 		case "clip-path-path":
-			return generateOk(Path.toCss(clipPath));
+			return Path.generate(clipPath);
 
 		case "url":
-			return generateOk(Url.toCss(clipPath));
+			return Url.generate(clipPath);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown clip-path kind: ${(clipPath as { kind?: string }).kind}`, {

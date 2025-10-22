@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/rgb.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { RGBColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { RGBColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: RGBColor): string {
+export function generate(color: RGBColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "RGBColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected RGBColor object, got ${typeof color}`);
+	}
+	if (!("r" in color) || !("g" in color) || !("b" in color)) {
+		return generateErr("missing-required-field", "RGBColor must have 'r', 'g', 'b' fields");
+	}
+
 	const { r, g, b, alpha } = color;
 
 	// Format RGB values (integers)
@@ -37,8 +49,8 @@ export function toCss(color: RGBColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `rgb(${rgbPart} / ${alpha})`;
+		return generateOk(`rgb(${rgbPart} / ${alpha})`);
 	}
 
-	return `rgb(${rgbPart})`;
+	return generateOk(`rgb(${rgbPart})`);
 }

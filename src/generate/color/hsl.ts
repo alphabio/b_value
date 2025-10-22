@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/hsl.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { HSLColor } from "@/core/types/color";
 
 /**
@@ -29,7 +31,17 @@ import type { HSLColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: HSLColor): string {
+export function generate(color: HSLColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "HSLColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected HSLColor object, got ${typeof color}`);
+	}
+	if (!("h" in color) || !("s" in color) || !("l" in color)) {
+		return generateErr("missing-required-field", "HSLColor must have 'h', 's', 'l' fields");
+	}
+
 	const { h, s, l, alpha } = color;
 
 	// Format HSL values (hue as number, saturation and lightness with %)
@@ -37,8 +49,8 @@ export function toCss(color: HSLColor): string {
 
 	// Add alpha if present and not fully opaque
 	if (alpha !== undefined && alpha < 1) {
-		return `hsl(${hslPart} / ${alpha})`;
+		return generateOk(`hsl(${hslPart} / ${alpha})`);
 	}
 
-	return `hsl(${hslPart})`;
+	return generateOk(`hsl(${hslPart})`);
 }

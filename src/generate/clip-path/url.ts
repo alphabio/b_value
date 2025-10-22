@@ -1,5 +1,6 @@
 // b_path:: src/generate/clip-path/url.ts
 
+import { type GenerateResult, generateErr } from "@/core/result";
 import type { Url } from "@/core/types/url";
 import { urlToCss } from "@/utils/generate/url";
 
@@ -17,7 +18,7 @@ import { urlToCss } from "@/utils/generate/url";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.ClipPath.Url.toCss({
+ * const css = Generate.ClipPath.Url.generate({
  *   kind: "url",
  *   value: "#clip-shape"
  * });
@@ -26,6 +27,9 @@ import { urlToCss } from "@/utils/generate/url";
  *
  * @public
  */
-export function toCss(value: Url): string {
+export function generate(value: Url): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return urlToCss(value);
 }

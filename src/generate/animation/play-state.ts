@@ -1,4 +1,6 @@
 // b_path:: src/generate/animation/play-state.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -33,6 +35,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state | MDN: animation-play-state}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-play-state | W3C Spec}
  */
-export function toCss(ir: Type.AnimationPlayState): string {
-	return ir.states.join(", ");
+export function generate(ir: Type.AnimationPlayState): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.states.join(", "));
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/animation/fill-mode.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -33,6 +35,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode | MDN: animation-fill-mode}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-fill-mode | W3C Spec}
  */
-export function toCss(ir: Type.AnimationFillMode): string {
-	return ir.modes.join(", ");
+export function generate(ir: Type.AnimationFillMode): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.modes.join(", "));
 }

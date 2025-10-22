@@ -1,6 +1,6 @@
 // b_path:: src/generate/color/color.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as ColorFunction from "./color-function";
 import * as Hex from "./hex";
@@ -49,40 +49,40 @@ export function generate(color: Type.Color): GenerateResult {
 	// Dispatch based on kind
 	switch (color.kind) {
 		case "hex":
-			return generateOk(Hex.toCss(color));
+			return Hex.generate(color);
 
 		case "named":
-			return generateOk(Named.toCss(color));
+			return Named.generate(color);
 
 		case "rgb":
-			return generateOk(Rgb.toCss(color));
+			return Rgb.generate(color);
 
 		case "hsl":
-			return generateOk(Hsl.toCss(color));
+			return Hsl.generate(color);
 
 		case "hwb":
-			return generateOk(Hwb.toCss(color));
+			return Hwb.generate(color);
 
 		case "lab":
-			return generateOk(Lab.toCss(color));
+			return Lab.generate(color);
 
 		case "lch":
-			return generateOk(Lch.toCss(color));
+			return Lch.generate(color);
 
 		case "oklab":
-			return generateOk(Oklab.toCss(color));
+			return Oklab.generate(color);
 
 		case "oklch":
-			return generateOk(Oklch.toCss(color));
+			return Oklch.generate(color);
 
 		case "system":
-			return generateOk(System.toCss(color));
+			return System.generate(color);
 
 		case "special":
-			return generateOk(Special.toCss(color));
+			return Special.generate(color);
 
 		case "color":
-			return generateOk(ColorFunction.toCss(color));
+			return ColorFunction.generate(color);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown color kind: ${(color as { kind?: string }).kind}`, {

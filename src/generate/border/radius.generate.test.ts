@@ -10,8 +10,8 @@ describe("Generate.Border.Radius", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("5px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "5px" });
 			}
 		});
 
@@ -20,8 +20,8 @@ describe("Generate.Border.Radius", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("10.5px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "10.5px" });
 			}
 		});
 
@@ -30,8 +30,8 @@ describe("Generate.Border.Radius", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("50%");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "50%" });
 			}
 		});
 
@@ -40,8 +40,8 @@ describe("Generate.Border.Radius", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("1em");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "1em" });
 			}
 		});
 
@@ -50,8 +50,8 @@ describe("Generate.Border.Radius", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("0px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "0px" });
 			}
 		});
 	});

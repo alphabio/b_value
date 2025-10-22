@@ -11,8 +11,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "none" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("none");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "none" });
 	});
 
 	it("should generate all keyword", () => {
@@ -21,8 +21,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "all" as const }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("all");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "all" });
 	});
 
 	// Single properties
@@ -32,8 +32,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "identifier" as const, value: "opacity" }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("opacity");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "opacity" });
 	});
 
 	it("should generate hyphenated property name", () => {
@@ -42,8 +42,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "identifier" as const, value: "background-color" }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("background-color");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "background-color" });
 	});
 
 	it("should generate transform property", () => {
@@ -52,8 +52,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "identifier" as const, value: "transform" }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("transform");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "transform" });
 	});
 
 	it("should preserve case of property name", () => {
@@ -62,8 +62,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "identifier" as const, value: "WebkitTransform" }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("WebkitTransform");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "WebkitTransform" });
 	});
 
 	// Custom properties
@@ -73,8 +73,8 @@ describe("Transition Property Generator", () => {
 			properties: [{ type: "identifier" as const, value: "--custom-prop" }],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("--custom-prop");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "--custom-prop" });
 	});
 
 	// Multiple properties
@@ -87,8 +87,8 @@ describe("Transition Property Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("opacity, transform");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "opacity, transform" });
 	});
 
 	it("should generate three properties", () => {
@@ -101,8 +101,8 @@ describe("Transition Property Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("opacity, transform, background-color");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "opacity, transform, background-color" });
 	});
 
 	it("should generate mixed properties and custom properties", () => {
@@ -115,8 +115,8 @@ describe("Transition Property Generator", () => {
 			],
 		};
 
-		const css = Generator.toCss(ir);
-		expect(css).toBe("opacity, --custom-color, transform");
+		const css = Generator.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "opacity, --custom-color, transform" });
 	});
 
 	// Round-trip tests
@@ -126,8 +126,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -137,8 +137,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -148,8 +148,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -159,8 +159,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -170,8 +170,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -181,8 +181,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 
@@ -192,8 +192,8 @@ describe("Transition Property Generator", () => {
 
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(original);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(original);
 		}
 	});
 });

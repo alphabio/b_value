@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/left.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Left } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -28,9 +30,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(left: Left): string {
+export function generate(left: Left): GenerateResult {
+	if (left === undefined || left === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (left.value === "auto") {
-		return "auto";
+		return generateOk("auto");
 	}
 	return GenUtils.lengthPercentageToCss(left.value);
 }

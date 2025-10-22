@@ -1,4 +1,6 @@
 // b_path:: src/generate/transform/utils.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -9,8 +11,8 @@ import type * as Type from "@/core/types";
  *
  * @internal
  */
-function lengthPercentageToCss(value: Type.LengthPercentage): string {
-	return `${value.value}${value.unit}`;
+function lengthPercentageToCss(value: Type.LengthPercentage): GenerateResult {
+	return generateOk(`${value.value}${value.unit}`);
 }
 
 /**
@@ -21,8 +23,8 @@ function lengthPercentageToCss(value: Type.LengthPercentage): string {
  *
  * @internal
  */
-function lengthToCss(value: Type.Length): string {
-	return `${value.value}${value.unit}`;
+function lengthToCss(value: Type.Length): GenerateResult {
+	return generateOk(`${value.value}${value.unit}`);
 }
 
 /**
@@ -33,8 +35,8 @@ function lengthToCss(value: Type.Length): string {
  *
  * @internal
  */
-function angleToCss(value: Type.Angle): string {
-	return `${value.value}${value.unit}`;
+function angleToCss(value: Type.Angle): GenerateResult {
+	return generateOk(`${value.value}${value.unit}`);
 }
 
 /**
@@ -81,79 +83,81 @@ function angleToCss(value: Type.Angle): string {
  * console.log(css); // "scale(1.5, 2)"
  * ```
  */
-export function toFunctionCss(ir: Type.TransformFunction): string {
+export function toFunctionCss(ir: Type.TransformFunction): GenerateResult {
 	switch (ir.kind) {
 		case "translate":
 			if (ir.y) {
-				return `translate(${lengthPercentageToCss(ir.x)}, ${lengthPercentageToCss(ir.y)})`;
+				return generateOk(`translate(${lengthPercentageToCss(ir.x)}, ${lengthPercentageToCss(ir.y)})`);
 			}
-			return `translate(${lengthPercentageToCss(ir.x)})`;
+			return generateOk(`translate(${lengthPercentageToCss(ir.x)})`);
 
 		case "translateX":
-			return `translateX(${lengthPercentageToCss(ir.x)})`;
+			return generateOk(`translateX(${lengthPercentageToCss(ir.x)})`);
 
 		case "translateY":
-			return `translateY(${lengthPercentageToCss(ir.y)})`;
+			return generateOk(`translateY(${lengthPercentageToCss(ir.y)})`);
 
 		case "translateZ":
-			return `translateZ(${lengthToCss(ir.z)})`;
+			return generateOk(`translateZ(${lengthToCss(ir.z)})`);
 
 		case "translate3d":
-			return `translate3d(${lengthPercentageToCss(ir.x)}, ${lengthPercentageToCss(ir.y)}, ${lengthToCss(ir.z)})`;
+			return generateOk(
+				`translate3d(${lengthPercentageToCss(ir.x)}, ${lengthPercentageToCss(ir.y)}, ${lengthToCss(ir.z)})`,
+			);
 
 		case "rotate":
-			return `rotate(${angleToCss(ir.angle)})`;
+			return generateOk(`rotate(${angleToCss(ir.angle)})`);
 
 		case "rotateX":
-			return `rotateX(${angleToCss(ir.angle)})`;
+			return generateOk(`rotateX(${angleToCss(ir.angle)})`);
 
 		case "rotateY":
-			return `rotateY(${angleToCss(ir.angle)})`;
+			return generateOk(`rotateY(${angleToCss(ir.angle)})`);
 
 		case "rotateZ":
-			return `rotateZ(${angleToCss(ir.angle)})`;
+			return generateOk(`rotateZ(${angleToCss(ir.angle)})`);
 
 		case "rotate3d":
-			return `rotate3d(${ir.x}, ${ir.y}, ${ir.z}, ${angleToCss(ir.angle)})`;
+			return generateOk(`rotate3d(${ir.x}, ${ir.y}, ${ir.z}, ${angleToCss(ir.angle)})`);
 
 		case "scale":
 			if (ir.y) {
-				return `scale(${ir.x}, ${ir.y})`;
+				return generateOk(`scale(${ir.x}, ${ir.y})`);
 			}
-			return `scale(${ir.x})`;
+			return generateOk(`scale(${ir.x})`);
 
 		case "scaleX":
-			return `scaleX(${ir.x})`;
+			return generateOk(`scaleX(${ir.x})`);
 
 		case "scaleY":
-			return `scaleY(${ir.y})`;
+			return generateOk(`scaleY(${ir.y})`);
 
 		case "scaleZ":
-			return `scaleZ(${ir.z})`;
+			return generateOk(`scaleZ(${ir.z})`);
 
 		case "scale3d":
-			return `scale3d(${ir.x}, ${ir.y}, ${ir.z})`;
+			return generateOk(`scale3d(${ir.x}, ${ir.y}, ${ir.z})`);
 
 		case "skew":
 			if (ir.y) {
-				return `skew(${angleToCss(ir.x)}, ${angleToCss(ir.y)})`;
+				return generateOk(`skew(${angleToCss(ir.x)}, ${angleToCss(ir.y)})`);
 			}
-			return `skew(${angleToCss(ir.x)})`;
+			return generateOk(`skew(${angleToCss(ir.x)})`);
 
 		case "skewX":
-			return `skewX(${angleToCss(ir.x)})`;
+			return generateOk(`skewX(${angleToCss(ir.x)})`);
 
 		case "skewY":
-			return `skewY(${angleToCss(ir.y)})`;
+			return generateOk(`skewY(${angleToCss(ir.y)})`);
 
 		case "matrix":
-			return `matrix(${ir.a}, ${ir.b}, ${ir.c}, ${ir.d}, ${ir.e.value}, ${ir.f.value})`;
+			return generateOk(`matrix(${ir.a}, ${ir.b}, ${ir.c}, ${ir.d}, ${ir.e.value}, ${ir.f.value})`);
 
 		case "matrix3d":
-			return `matrix3d(${ir.values.join(", ")})`;
+			return generateOk(`matrix3d(${ir.values.join(", ")})`);
 
 		case "perspective":
-			return `perspective(${lengthToCss(ir.depth)})`;
+			return generateOk(`perspective(${lengthToCss(ir.depth)})`);
 
 		default: {
 			// Exhaustive check - TypeScript will ensure all cases are handled
@@ -185,7 +189,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Transform.toCss([{
+ * const css = Generate.Transform.generate([{
  *   kind: "translateX",
  *   x: { value: 100, unit: "px" }
  * }]);
@@ -195,7 +199,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * @example
  * Multiple transforms:
  * ```typescript
- * const css = Generate.Transform.toCss([
+ * const css = Generate.Transform.generate([
  *   { kind: "translate", x: { value: 100, unit: "px" }, y: { value: 50, unit: "px" } },
  *   { kind: "rotate", angle: { value: 45, unit: "deg" } },
  *   { kind: "scale", x: 1.5, y: 1.5 }
@@ -206,7 +210,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * @example
  * 3D transforms:
  * ```typescript
- * const css = Generate.Transform.toCss([
+ * const css = Generate.Transform.generate([
  *   { kind: "translate3d", x: { value: 10, unit: "px" }, y: { value: 20, unit: "px" }, z: { value: 30, unit: "px" } },
  *   { kind: "rotateY", angle: { value: 45, unit: "deg" } }
  * ]);
@@ -216,7 +220,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * @example
  * Matrix transform:
  * ```typescript
- * const css = Generate.Transform.toCss([{
+ * const css = Generate.Transform.generate([{
  *   kind: "matrix",
  *   a: 1, b: 0.5, c: -0.5, d: 1,
  *   e: { value: 10, unit: "px" },
@@ -234,7 +238,7 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * const parsed = Parse.Transform.parse(original);
  *
  * if (parsed.ok) {
- *   const generated = Generate.Transform.toCss(parsed.value);
+ *   const generated = Generate.Transform.generate(parsed.value);
  *   console.log(generated === original); // true - perfect round-trip!
  * }
  * ```
@@ -243,11 +247,14 @@ export function toFunctionCss(ir: Type.TransformFunction): string {
  * @see {@link https://www.w3.org/TR/css-transforms-1/ | W3C Spec: CSS Transforms Level 1}
  * @see {@link https://www.w3.org/TR/css-transforms-2/ | W3C Spec: CSS Transforms Level 2}
  */
-export function toCss(ir: Type.Transform): string {
+export function generate(ir: Type.Transform): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (ir.length === 0) {
-		return "";
+		return generateOk("");
 	}
 
 	const functionStrings = ir.map(toFunctionCss);
-	return functionStrings.join(" ");
+	return generateOk(functionStrings.join(" "));
 }

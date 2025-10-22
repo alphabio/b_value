@@ -1,4 +1,6 @@
 // b_path:: src/generate/animation/iteration-count.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -36,13 +38,16 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count | MDN: animation-iteration-count}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-iteration-count | W3C Spec}
  */
-export function toCss(ir: Type.AnimationIterationCount): string {
+export function generate(ir: Type.AnimationIterationCount): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return ir.counts
 		.map((count) => {
 			if (count.type === "infinite") {
-				return "infinite";
+				return generateOk("infinite");
 			}
-			return String(count.value);
+			return generateOk(String(count.value));
 		})
 		.join(", ");
 }

@@ -1,6 +1,6 @@
 // b_path:: src/generate/filter/filter.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Blur from "./blur";
 import * as Brightness from "./brightness";
@@ -31,27 +31,27 @@ export function generate(filter: Type.FilterFunction): GenerateResult {
 
 	switch (filter.kind) {
 		case "blur":
-			return generateOk(Blur.toCss(filter));
+			return Blur.generate(filter);
 		case "brightness":
-			return generateOk(Brightness.toCss(filter));
+			return Brightness.generate(filter);
 		case "contrast":
-			return generateOk(Contrast.toCss(filter));
+			return Contrast.generate(filter);
 		case "drop-shadow":
-			return generateOk(DropShadow.toCss(filter));
+			return DropShadow.generate(filter);
 		case "grayscale":
-			return generateOk(Grayscale.toCss(filter));
+			return Grayscale.generate(filter);
 		case "hue-rotate":
-			return generateOk(HueRotate.toCss(filter));
+			return HueRotate.generate(filter);
 		case "invert":
-			return generateOk(Invert.toCss(filter));
+			return Invert.generate(filter);
 		case "opacity":
-			return generateOk(Opacity.toCss(filter));
+			return Opacity.generate(filter);
 		case "saturate":
-			return generateOk(Saturate.toCss(filter));
+			return Saturate.generate(filter);
 		case "sepia":
-			return generateOk(Sepia.toCss(filter));
+			return Sepia.generate(filter);
 		case "url":
-			return generateOk(Url.toCss(filter));
+			return Url.generate(filter);
 		default:
 			return generateErr("unsupported-kind", `Unknown filter kind: ${(filter as { kind?: string }).kind}`, {
 				suggestion: "Check that filter IR is valid",

@@ -13,8 +13,8 @@ describe("Transform Generator", () => {
 					y: { value: 50, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translate(100px, 50px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translate(100px, 50px)" });
 		});
 
 		it("should generate translate with one value", () => {
@@ -24,8 +24,8 @@ describe("Transform Generator", () => {
 					x: { value: 100, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translate(100px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translate(100px)" });
 		});
 
 		it("should generate translate with percentage values", () => {
@@ -36,8 +36,8 @@ describe("Transform Generator", () => {
 					y: { value: 25, unit: "%" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translate(50%, 25%)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translate(50%, 25%)" });
 		});
 
 		it("should generate translateX", () => {
@@ -47,8 +47,8 @@ describe("Transform Generator", () => {
 					x: { value: 100, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translateX(100px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translateX(100px)" });
 		});
 
 		it("should generate translateY", () => {
@@ -58,8 +58,8 @@ describe("Transform Generator", () => {
 					y: { value: 50, unit: "%" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translateY(50%)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translateY(50%)" });
 		});
 
 		it("should generate translateZ", () => {
@@ -69,8 +69,8 @@ describe("Transform Generator", () => {
 					z: { value: 30, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translateZ(30px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translateZ(30px)" });
 		});
 
 		it("should generate translate3d", () => {
@@ -82,8 +82,8 @@ describe("Transform Generator", () => {
 					z: { value: 30, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translate3d(10px, 20px, 30px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translate3d(10px, 20px, 30px)" });
 		});
 	});
 
@@ -95,8 +95,8 @@ describe("Transform Generator", () => {
 					angle: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotate(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotate(45deg)" });
 		});
 
 		it("should generate rotate with radians", () => {
@@ -106,8 +106,8 @@ describe("Transform Generator", () => {
 					angle: { value: 1.57, unit: "rad" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotate(1.57rad)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotate(1.57rad)" });
 		});
 
 		it("should generate rotate with turns", () => {
@@ -117,8 +117,8 @@ describe("Transform Generator", () => {
 					angle: { value: 0.25, unit: "turn" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotate(0.25turn)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotate(0.25turn)" });
 		});
 
 		it("should generate rotateX", () => {
@@ -128,8 +128,8 @@ describe("Transform Generator", () => {
 					angle: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotateX(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotateX(45deg)" });
 		});
 
 		it("should generate rotateY", () => {
@@ -139,8 +139,8 @@ describe("Transform Generator", () => {
 					angle: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotateY(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotateY(45deg)" });
 		});
 
 		it("should generate rotateZ", () => {
@@ -150,8 +150,8 @@ describe("Transform Generator", () => {
 					angle: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotateZ(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotateZ(45deg)" });
 		});
 
 		it("should generate rotate3d", () => {
@@ -164,8 +164,8 @@ describe("Transform Generator", () => {
 					angle: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("rotate3d(1, 1, 0, 45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "rotate3d(1, 1, 0, 45deg)" });
 		});
 	});
 
@@ -178,8 +178,8 @@ describe("Transform Generator", () => {
 					y: 2,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scale(1.5, 2)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scale(1.5, 2)" });
 		});
 
 		it("should generate scale with one value", () => {
@@ -189,8 +189,8 @@ describe("Transform Generator", () => {
 					x: 1.5,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scale(1.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scale(1.5)" });
 		});
 
 		it("should generate scaleX", () => {
@@ -200,8 +200,8 @@ describe("Transform Generator", () => {
 					x: 1.5,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scaleX(1.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scaleX(1.5)" });
 		});
 
 		it("should generate scaleY", () => {
@@ -211,8 +211,8 @@ describe("Transform Generator", () => {
 					y: 2,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scaleY(2)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scaleY(2)" });
 		});
 
 		it("should generate scaleZ", () => {
@@ -222,8 +222,8 @@ describe("Transform Generator", () => {
 					z: 0.5,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scaleZ(0.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scaleZ(0.5)" });
 		});
 
 		it("should generate scale3d", () => {
@@ -235,8 +235,8 @@ describe("Transform Generator", () => {
 					z: 0.5,
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("scale3d(1.5, 2, 0.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "scale3d(1.5, 2, 0.5)" });
 		});
 	});
 
@@ -249,8 +249,8 @@ describe("Transform Generator", () => {
 					y: { value: 10, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("skew(45deg, 10deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "skew(45deg, 10deg)" });
 		});
 
 		it("should generate skew with one value", () => {
@@ -260,8 +260,8 @@ describe("Transform Generator", () => {
 					x: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("skew(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "skew(45deg)" });
 		});
 
 		it("should generate skewX", () => {
@@ -271,8 +271,8 @@ describe("Transform Generator", () => {
 					x: { value: 45, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("skewX(45deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "skewX(45deg)" });
 		});
 
 		it("should generate skewY", () => {
@@ -282,8 +282,8 @@ describe("Transform Generator", () => {
 					y: { value: 10, unit: "deg" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("skewY(10deg)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "skewY(10deg)" });
 		});
 	});
 
@@ -300,8 +300,8 @@ describe("Transform Generator", () => {
 					f: { value: 20, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("matrix(1, 0.5, -0.5, 1, 10, 20)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "matrix(1, 0.5, -0.5, 1, 10, 20)" });
 		});
 
 		it("should generate matrix3d", () => {
@@ -311,8 +311,8 @@ describe("Transform Generator", () => {
 					values: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)" });
 		});
 	});
 
@@ -324,8 +324,8 @@ describe("Transform Generator", () => {
 					depth: { value: 1000, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("perspective(1000px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "perspective(1000px)" });
 		});
 	});
 
@@ -336,8 +336,8 @@ describe("Transform Generator", () => {
 				{ kind: "rotate", angle: { value: 45, unit: "deg" } },
 				{ kind: "scale", x: 1.5, y: 1.5 },
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translateX(100px) rotate(45deg) scale(1.5, 1.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translateX(100px) rotate(45deg) scale(1.5, 1.5)" });
 		});
 
 		it("should generate complex transform chain", () => {
@@ -351,8 +351,12 @@ describe("Transform Generator", () => {
 				{ kind: "rotateY", angle: { value: 45, unit: "deg" } },
 				{ kind: "scale3d", x: 1.5, y: 2, z: 0.5 },
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translate3d(10px, 20px, 30px) rotateY(45deg) scale3d(1.5, 2, 0.5)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({
+				ok: true,
+				issues: [],
+				value: "translate3d(10px, 20px, 30px) rotateY(45deg) scale3d(1.5, 2, 0.5)",
+			});
 		});
 	});
 
@@ -364,7 +368,7 @@ describe("Transform Generator", () => {
 				y: { value: 50, unit: "px" },
 			};
 			const css = TransformGenerator.toFunctionCss(ir);
-			expect(css).toBe("translate(100px, 50px)");
+			expect(css).toEqual({ ok: true, issues: [], value: "translate(100px, 50px)" });
 		});
 
 		it("should generate individual rotate function", () => {
@@ -373,7 +377,7 @@ describe("Transform Generator", () => {
 				angle: { value: 45, unit: "deg" },
 			};
 			const css = TransformGenerator.toFunctionCss(ir);
-			expect(css).toBe("rotate(45deg)");
+			expect(css).toEqual({ ok: true, issues: [], value: "rotate(45deg)" });
 		});
 
 		it("should generate individual scale function", () => {
@@ -383,7 +387,7 @@ describe("Transform Generator", () => {
 				y: 2,
 			};
 			const css = TransformGenerator.toFunctionCss(ir);
-			expect(css).toBe("scale(1.5, 2)");
+			expect(css).toEqual({ ok: true, issues: [], value: "scale(1.5, 2)" });
 		});
 
 		it("should generate individual matrix function", () => {
@@ -397,15 +401,15 @@ describe("Transform Generator", () => {
 				f: { value: 20, unit: "px" },
 			};
 			const css = TransformGenerator.toFunctionCss(ir);
-			expect(css).toBe("matrix(1, 0.5, -0.5, 1, 10, 20)");
+			expect(css).toEqual({ ok: true, issues: [], value: "matrix(1, 0.5, -0.5, 1, 10, 20)" });
 		});
 	});
 
 	describe("Edge cases", () => {
 		it("should handle empty transform array", () => {
 			const ir: Type.Transform = [];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "" });
 		});
 
 		it("should handle single transform", () => {
@@ -415,8 +419,8 @@ describe("Transform Generator", () => {
 					x: { value: 100, unit: "px" },
 				},
 			];
-			const css = TransformGenerator.toCss(ir);
-			expect(css).toBe("translateX(100px)");
+			const css = TransformGenerator.generate(ir);
+			expect(css).toEqual({ ok: true, issues: [], value: "translateX(100px)" });
 		});
 	});
 });

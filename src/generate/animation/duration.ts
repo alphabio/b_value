@@ -1,4 +1,6 @@
 // b_path:: src/generate/animation/duration.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -36,13 +38,16 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration | MDN: animation-duration}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-duration | W3C Spec}
  */
-export function toCss(ir: Type.AnimationDuration): string {
+export function generate(ir: Type.AnimationDuration): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	return ir.durations
 		.map((duration) => {
 			if (duration.type === "auto") {
-				return "auto";
+				return generateOk("auto");
 			}
-			return `${duration.value}${duration.unit}`;
+			return generateOk(`${duration.value}${duration.unit}`);
 		})
 		.join(", ");
 }

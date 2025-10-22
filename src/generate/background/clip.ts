@@ -1,5 +1,6 @@
 // b_path:: src/generate/background/clip.ts
 import type * as Keyword from "@/core/keywords";
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 
 /**
  * Generate CSS background-clip string from keyword.
@@ -13,10 +14,16 @@ import type * as Keyword from "@/core/keywords";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Background.Clip.toCss("padding-box");
+ * const css = Generate.Background.Clip.generate("padding-box");
  * console.log(css); // "padding-box"
  * ```
  */
-export function toCss(keyword: Keyword.BackgroundClipKeyword): string {
-	return keyword;
+export function generate(keyword: Keyword.BackgroundClipKeyword): GenerateResult {
+	if (keyword === undefined || keyword === null) {
+		return generateErr("invalid-ir", "Keyword must not be null or undefined");
+	}
+	if (typeof keyword !== "string") {
+		return generateErr("invalid-ir", `Expected string keyword, got ${typeof keyword}`);
+	}
+	return generateOk(keyword);
 }

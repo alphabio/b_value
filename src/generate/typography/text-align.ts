@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/text-align.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { TextAlign } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { TextAlign } from "@/core/types";
  *
  * @public
  */
-export function toCss(textAlign: TextAlign): string {
-	return textAlign.value;
+export function generate(textAlign: TextAlign): GenerateResult {
+	if (textAlign === undefined || textAlign === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(textAlign.value);
 }

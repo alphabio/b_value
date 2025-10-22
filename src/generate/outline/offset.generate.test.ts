@@ -10,8 +10,8 @@ describe("Generate.Outline.Offset", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("5px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "5px" });
 			}
 		});
 
@@ -20,8 +20,8 @@ describe("Generate.Outline.Offset", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("2.5em");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "2.5em" });
 			}
 		});
 
@@ -30,8 +30,8 @@ describe("Generate.Outline.Offset", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("-1px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "-1px" });
 			}
 		});
 
@@ -40,8 +40,8 @@ describe("Generate.Outline.Offset", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("-2.5em");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "-2.5em" });
 			}
 		});
 
@@ -50,8 +50,8 @@ describe("Generate.Outline.Offset", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("0px");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "0px" });
 			}
 		});
 	});

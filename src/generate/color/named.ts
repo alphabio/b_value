@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/named.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { NamedColor } from "@/core/types/color";
 
 /**
@@ -12,17 +14,26 @@ import type { NamedColor } from "@/core/types/color";
  *
  * @example
  * ```typescript
- * import { toCss } from "@/generate/color/named";
+ * import { generate } from "@/generate/color/named";
  *
- * const css1 = toCss({ kind: "named", name: "red" });
- * // => "red"
+ * const css1 = generate({ kind: "named", name: "red" });
+ * // => { ok: true, value: "red" }
  *
- * const css2 = toCss({ kind: "named", name: "cornflowerblue" });
- * // => "cornflowerblue"
+ * const css2 = generate({ kind: "named", name: "cornflowerblue" });
+ * // => { ok: true, value: "cornflowerblue" }
  * ```
  *
  * @public
  */
-export function toCss(color: NamedColor): string {
-	return color.name;
+export function generate(color: NamedColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "NamedColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected NamedColor object, got ${typeof color}`);
+	}
+	if (!("name" in color)) {
+		return generateErr("missing-required-field", "NamedColor must have 'name' field");
+	}
+	return generateOk(color.name);
 }

@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/blur.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { BlurFilter } from "@/core/types/filter";
 
 /**
@@ -22,7 +24,10 @@ import type { BlurFilter } from "@/core/types/filter";
  *
  * @public
  */
-export function toCss(filter: BlurFilter): string {
+export function generate(filter: BlurFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { radius } = filter;
-	return `blur(${radius.value}${radius.unit})`;
+	return generateOk(`blur(${radius.value}${radius.unit})`);
 }

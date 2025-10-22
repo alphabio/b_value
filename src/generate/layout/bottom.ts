@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/bottom.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Bottom } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -28,9 +30,12 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(bottom: Bottom): string {
+export function generate(bottom: Bottom): GenerateResult {
+	if (bottom === undefined || bottom === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	if (bottom.value === "auto") {
-		return "auto";
+		return generateOk("auto");
 	}
 	return GenUtils.lengthPercentageToCss(bottom.value);
 }

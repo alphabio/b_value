@@ -1,4 +1,6 @@
 // b_path:: src/generate/layout/overflow-x.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { OverflowX } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { OverflowX } from "@/core/types";
  *
  * @public
  */
-export function toCss(overflowX: OverflowX): string {
-	return overflowX.value;
+export function generate(overflowX: OverflowX): GenerateResult {
+	if (overflowX === undefined || overflowX === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(overflowX.value);
 }

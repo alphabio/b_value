@@ -1,4 +1,6 @@
 // b_path:: src/generate/typography/line-height.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { LineHeight } from "@/core/types";
 import * as GenUtils from "@/utils/generate";
 
@@ -22,15 +24,18 @@ import * as GenUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(lineHeight: LineHeight): string {
+export function generate(lineHeight: LineHeight): GenerateResult {
+	if (lineHeight === undefined || lineHeight === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { value } = lineHeight;
 
 	if (typeof value === "string") {
-		return value;
+		return generateOk(value);
 	}
 
 	if (typeof value === "number") {
-		return String(value);
+		return generateOk(String(value));
 	}
 
 	return GenUtils.lengthPercentageToCss(value);

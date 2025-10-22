@@ -1,4 +1,6 @@
 // b_path:: src/generate/position/utils.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import * as Type from "@/core/types";
 import { positionValueToCss } from "@/utils/generate/values";
 
@@ -18,7 +20,7 @@ import { positionValueToCss } from "@/utils/generate/values";
  * ```typescript
  * import { Generate } from "b_value";
  *
- * const css = Generate.Position.toCss({
+ * const css = Generate.Position.generate({
  *   horizontal: "center",
  *   vertical: "center"
  * });
@@ -28,7 +30,7 @@ import { positionValueToCss } from "@/utils/generate/values";
  * @example
  * Mixed position:
  * ```typescript
- * const css = Generate.Position.toCss({
+ * const css = Generate.Position.generate({
  *   horizontal: "left",
  *   vertical: { value: 50, unit: "%" }
  * });
@@ -38,17 +40,20 @@ import { positionValueToCss } from "@/utils/generate/values";
  * @example
  * Length/percentage position:
  * ```typescript
- * const css = Generate.Position.toCss({
+ * const css = Generate.Position.generate({
  *   horizontal: { value: 100, unit: "px" },
  *   vertical: { value: 50, unit: "%" }
  * });
  * console.log(css); // "100px 50%"
  * ```
  */
-export function toCss(ir: Type.Position2D): string {
+export function generate(ir: Type.Position2D): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const h = positionValueToCss(ir.horizontal);
 	const v = positionValueToCss(ir.vertical);
-	return `${h} ${v}`;
+	return generateOk(`${h} ${v}`);
 }
 
 /**
@@ -59,11 +64,11 @@ export function toCss(ir: Type.Position2D): string {
  *
  * @public
  */
-export function to3DCss(ir: Type.Position3D): string {
+export function to3DCss(ir: Type.Position3D): GenerateResult {
 	const x = positionValueToCss(ir.x);
 	const y = positionValueToCss(ir.y);
 	const z = `${ir.z.value}${ir.z.unit}`;
-	return `${x} ${y} ${z}`;
+	return generateOk(`${x} ${y} ${z}`);
 }
 
 /**
@@ -74,9 +79,9 @@ export function to3DCss(ir: Type.Position3D): string {
  *
  * @public
  */
-export function toListCss(ir: Type.PositionList): string {
+export function toListCss(ir: Type.PositionList): GenerateResult {
 	const positionStrings = ir.map(toCss);
-	return positionStrings.join(", ");
+	return generateOk(positionStrings.join(", "));
 }
 
 /**
@@ -87,7 +92,7 @@ export function toListCss(ir: Type.PositionList): string {
  *
  * @public
  */
-export function fromCommonPosition(preset: keyof Type.CommonPositions): string {
+export function fromCommonPosition(preset: keyof Type.CommonPositions): GenerateResult {
 	const position = Type.COMMON_POSITIONS[preset];
 	return toCss(position);
 }

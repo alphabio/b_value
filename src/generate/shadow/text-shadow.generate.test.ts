@@ -16,8 +16,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px" });
 	});
 
 	it("should generate text-shadow with blur radius", () => {
@@ -32,8 +32,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px 2px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px 2px" });
 	});
 
 	it("should generate text-shadow with color", () => {
@@ -48,8 +48,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px gray");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px gray" });
 	});
 
 	it("should generate text-shadow with blur and color", () => {
@@ -65,8 +65,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px 2px gray");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px 2px gray" });
 	});
 
 	it("should generate multiple text-shadows", () => {
@@ -88,8 +88,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px 2px black, -1px -1px 2px white");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px 2px black, -1px -1px 2px white" });
 	});
 
 	it("should preserve different length units", () => {
@@ -104,8 +104,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("0.5em 0.5rem 1vw");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0.5em 0.5rem 1vw" });
 	});
 
 	it("should handle negative offsets", () => {
@@ -119,8 +119,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("-1px -1px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "-1px -1px" });
 	});
 
 	it("should handle zero offsets", () => {
@@ -135,8 +135,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("0px 0px 5px");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "0px 0px 5px" });
 	});
 
 	it("should generate text-shadow with rgba color", () => {
@@ -158,8 +158,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("1px 1px 2px rgb(128 128 128 / 0.5)");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "1px 1px 2px rgb(128 128 128 / 0.5)" });
 	});
 
 	it("should generate text-shadow with hex color", () => {
@@ -177,8 +177,8 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("2px 2px #FF0000");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({ ok: true, issues: [], value: "2px 2px #FF0000" });
 	});
 
 	it("should generate complex multi-layer shadow", () => {
@@ -224,8 +224,12 @@ describe("TextShadow Generator", () => {
 			],
 		};
 
-		const css = Generate.toCss(ir);
-		expect(css).toBe("0px 1px 2px rgb(0 0 0 / 0.3), 0px 2px 4px rgb(0 0 0 / 0.2), 0px 3px 6px rgb(0 0 0 / 0.1)");
+		const css = Generate.generate(ir);
+		expect(css).toEqual({
+			ok: true,
+			issues: [],
+			value: "0px 1px 2px rgb(0 0 0 / 0.3), 0px 2px 4px rgb(0 0 0 / 0.2), 0px 3px 6px rgb(0 0 0 / 0.1)",
+		});
 	});
 
 	describe("Round-trip parsing", () => {
@@ -235,8 +239,8 @@ describe("TextShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 
@@ -249,8 +253,8 @@ describe("TextShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 
@@ -263,8 +267,8 @@ describe("TextShadow Generator", () => {
 			expect(parsed.ok).toBe(true);
 			if (!parsed.ok) return;
 
-			const generated = Generate.toCss(parsed.value);
-			const reparsed = Parse.parse(generated);
+			const generated = Generate.generate(parsed.value);
+			const reparsed = generated.ok ? Parse.parse(generated.value) : { ok: false as const };
 			expect(reparsed.ok).toBe(true);
 			if (!reparsed.ok) return;
 

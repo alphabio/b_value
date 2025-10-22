@@ -1,4 +1,6 @@
 // b_path:: src/generate/color/hwb.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { HWBColor } from "@/core/types/color";
 
 /**
@@ -26,7 +28,17 @@ import type { HWBColor } from "@/core/types/color";
  *
  * @public
  */
-export function toCss(color: HWBColor): string {
+export function generate(color: HWBColor): GenerateResult {
+	if (color === undefined || color === null) {
+		return generateErr("invalid-ir", "HWBColor must not be null or undefined");
+	}
+	if (typeof color !== "object") {
+		return generateErr("invalid-ir", `Expected HWBColor object, got ${typeof color}`);
+	}
+	if (!("h" in color) || !("w" in color) || !("b" in color)) {
+		return generateErr("missing-required-field", "HWBColor must have 'h', 'w', 'b' fields");
+	}
+
 	const { h, w, b, alpha } = color;
 
 	// Format: hwb(H W% B%)
@@ -38,5 +50,5 @@ export function toCss(color: HWBColor): string {
 	}
 
 	result += ")";
-	return result;
+	return generateOk(result);
 }

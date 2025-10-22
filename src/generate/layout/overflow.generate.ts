@@ -1,5 +1,6 @@
 // b_path:: src/generate/layout/overflow.generate.ts
 
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { Overflow } from "../../parse/layout/overflow";
 
 /**
@@ -12,6 +13,12 @@ import type { Overflow } from "../../parse/layout/overflow";
  * toCss("auto")   // "auto"
  * toCss("hidden") // "hidden"
  */
-export function toCss(overflow: Overflow): string {
-	return overflow;
+export function generate(overflow: Overflow): GenerateResult {
+	if (overflow === undefined || overflow === null) {
+		return generateErr("invalid-ir", "Overflow must not be null or undefined");
+	}
+	if (typeof overflow !== "string") {
+		return generateErr("invalid-ir", `Expected string, got ${typeof overflow}`);
+	}
+	return generateOk(overflow);
 }

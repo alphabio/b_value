@@ -1,4 +1,6 @@
 // b_path:: src/generate/interaction/pointer-events.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { PointerEvents } from "@/core/types";
 
 /**
@@ -21,6 +23,9 @@ import type { PointerEvents } from "@/core/types";
  *
  * @public
  */
-export function toCss(pointerEvents: PointerEvents): string {
-	return pointerEvents.value;
+export function generate(pointerEvents: PointerEvents): GenerateResult {
+	if (pointerEvents === undefined || pointerEvents === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(pointerEvents.value);
 }

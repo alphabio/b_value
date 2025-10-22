@@ -10,8 +10,8 @@ describe("Generate.Border.Color", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("transparent");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "transparent" });
 			}
 		});
 
@@ -20,8 +20,8 @@ describe("Generate.Border.Color", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("currentcolor");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "currentcolor" });
 			}
 		});
 
@@ -30,8 +30,8 @@ describe("Generate.Border.Color", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("red");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "red" });
 			}
 		});
 
@@ -40,8 +40,8 @@ describe("Generate.Border.Color", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("blue");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "blue" });
 			}
 		});
 
@@ -50,8 +50,8 @@ describe("Generate.Border.Color", () => {
 			const parsed = Parse.parse(input);
 			expect(parsed.ok).toBe(true);
 			if (parsed.ok) {
-				const css = Generate.toCss(parsed.value);
-				expect(css).toBe("green");
+				const css = Generate.generate(parsed.value);
+				expect(css).toEqual({ ok: true, issues: [], value: "green" });
 			}
 		});
 	});

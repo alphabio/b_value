@@ -1,4 +1,6 @@
 // b_path:: src/generate/transition/delay.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -38,6 +40,9 @@ import type * as Type from "@/core/types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay | MDN: transition-delay}
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-delay-property | W3C Spec}
  */
-export function toCss(ir: Type.TransitionDelay): string {
-	return ir.delays.map((time) => `${time.value}${time.unit}`).join(", ");
+export function generate(ir: Type.TransitionDelay): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.delays.map((time) => `${time.value}${time.unit}`).join(", "));
 }

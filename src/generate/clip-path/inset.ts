@@ -1,4 +1,6 @@
 // b_path:: src/generate/clip-path/inset.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as GenerateUtils from "@/utils/generate";
 
@@ -27,7 +29,10 @@ import * as GenerateUtils from "@/utils/generate";
  *
  * @public
  */
-export function toCss(value: Type.ClipPathInset): string {
+export function generate(value: Type.ClipPathInset): GenerateResult {
+	if (value === undefined || value === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	// Generate TRBL CSS (optimized to shortest form)
 	const trblCss = generateTRBL({
 		top: value.top,
@@ -42,7 +47,7 @@ export function toCss(value: Type.ClipPathInset): string {
 		radiusCss = ` round ${GenerateUtils.borderRadiusToCss(value.borderRadius)}`;
 	}
 
-	return `inset(${trblCss}${radiusCss})`;
+	return generateOk(`inset(${trblCss}${radiusCss})`);
 }
 
 /**
@@ -55,7 +60,7 @@ function generateTRBL(trbl: {
 	right: Type.LengthPercentage;
 	bottom: Type.LengthPercentage;
 	left: Type.LengthPercentage;
-}): string {
+}): GenerateResult {
 	const top = GenerateUtils.lengthPercentageToCss(trbl.top);
 	const right = GenerateUtils.lengthPercentageToCss(trbl.right);
 	const bottom = GenerateUtils.lengthPercentageToCss(trbl.bottom);
@@ -64,19 +69,19 @@ function generateTRBL(trbl: {
 	// Check for optimization opportunities
 	if (top === right && right === bottom && bottom === left) {
 		// All equal: 1 value
-		return top;
+		return generateOk(top);
 	}
 
 	if (top === bottom && right === left) {
 		// Vertical same, horizontal same: 2 values
-		return `${top} ${right}`;
+		return generateOk(`${top} ${right}`);
 	}
 
 	if (right === left) {
 		// Left/right same: 3 values
-		return `${top} ${right} ${bottom}`;
+		return generateOk(`${top} ${right} ${bottom}`);
 	}
 
 	// All different: 4 values
-	return `${top} ${right} ${bottom} ${left}`;
+	return generateOk(`${top} ${right} ${bottom} ${left}`);
 }

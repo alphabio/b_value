@@ -1,6 +1,6 @@
 // b_path:: src/generate/gradient/gradient.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateErr } from "@/core/result";
 import type * as Type from "@/core/types";
 import * as Conic from "./conic";
 import * as Linear from "./linear";
@@ -37,13 +37,13 @@ export function generate(gradient: Type.Gradient): GenerateResult {
 	// Dispatch based on kind
 	switch (gradient.kind) {
 		case "linear":
-			return generateOk(Linear.toCss(gradient));
+			return Linear.generate(gradient);
 
 		case "radial":
-			return generateOk(Radial.toCss(gradient));
+			return Radial.generate(gradient);
 
 		case "conic":
-			return generateOk(Conic.toCss(gradient));
+			return Conic.generate(gradient);
 
 		default:
 			return generateErr("unsupported-kind", `Unknown gradient kind: ${(gradient as { kind?: string }).kind}`, {

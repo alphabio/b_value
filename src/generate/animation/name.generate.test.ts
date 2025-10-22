@@ -6,12 +6,12 @@ import * as Generator from "./name";
 describe("Animation Name Generator", () => {
 	it("should generate none", () => {
 		const ir = { kind: "animation-name" as const, names: [{ type: "none" as const }] };
-		expect(Generator.toCss(ir)).toBe("none");
+		expect(Generator.generate(ir)).toBe("none");
 	});
 
 	it("should generate identifier", () => {
 		const ir = { kind: "animation-name" as const, names: [{ type: "identifier" as const, value: "slideIn" }] };
-		expect(Generator.toCss(ir)).toBe("slideIn");
+		expect(Generator.generate(ir)).toBe("slideIn");
 	});
 
 	it("should generate multiple names", () => {
@@ -23,7 +23,7 @@ describe("Animation Name Generator", () => {
 				{ type: "none" as const },
 			],
 		};
-		expect(Generator.toCss(ir)).toBe("slideIn, fadeOut, none");
+		expect(Generator.generate(ir)).toBe("slideIn, fadeOut, none");
 	});
 
 	// Round-trip tests
@@ -32,8 +32,8 @@ describe("Animation Name Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -44,8 +44,8 @@ describe("Animation Name Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -56,8 +56,8 @@ describe("Animation Name Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}
@@ -68,8 +68,8 @@ describe("Animation Name Generator", () => {
 		const parsed = Parser.parse(css);
 		expect(parsed.ok).toBe(true);
 		if (parsed.ok) {
-			const generated = Generator.toCss(parsed.value);
-			expect(generated).toBe(css);
+			const generated = Generator.generate(parsed.value);
+			expect(generated.ok && generated.value).toBe(css);
 			const reparsed = Parser.parse(generated);
 			expect(reparsed).toEqual(parsed);
 		}

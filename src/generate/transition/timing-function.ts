@@ -1,4 +1,6 @@
 // b_path:: src/generate/transition/timing-function.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 
 /**
@@ -9,23 +11,23 @@ import type * as Type from "@/core/types";
  *
  * @internal
  */
-function easingFunctionToCss(func: Type.EasingFunction): string {
+function easingFunctionToCss(func: Type.EasingFunction): GenerateResult {
 	// Keyword
 	if (typeof func === "string") {
-		return func;
+		return generateOk(func);
 	}
 
 	// cubic-bezier()
 	if (func.type === "cubic-bezier") {
-		return `cubic-bezier(${func.x1}, ${func.y1}, ${func.x2}, ${func.y2})`;
+		return generateOk(`cubic-bezier(${func.x1}, ${func.y1}, ${func.x2}, ${func.y2})`);
 	}
 
 	// steps()
 	if (func.type === "steps") {
 		if (func.position !== undefined) {
-			return `steps(${func.steps}, ${func.position})`;
+			return generateOk(`steps(${func.steps}, ${func.position})`);
 		}
-		return `steps(${func.steps})`;
+		return generateOk(`steps(${func.steps})`);
 	}
 
 	// linear()
@@ -33,15 +35,15 @@ function easingFunctionToCss(func: Type.EasingFunction): string {
 		const stops = func.stops
 			.map((stop) => {
 				if (stop.input !== undefined) {
-					return `${stop.output} ${stop.input * 100}%`;
+					return generateOk(`${stop.output} ${stop.input * 100}%`);
 				}
 				return String(stop.output);
 			})
 			.join(", ");
-		return `linear(${stops})`;
+		return generateOk(`linear(${stops})`);
 	}
 
-	return "";
+	return generateOk("");
 }
 
 /**
@@ -79,6 +81,9 @@ function easingFunctionToCss(func: Type.EasingFunction): string {
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function | MDN: transition-timing-function}
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-timing-function-property | W3C Spec}
  */
-export function toCss(ir: Type.TransitionTimingFunction): string {
-	return ir.functions.map(easingFunctionToCss).join(", ");
+export function generate(ir: Type.TransitionTimingFunction): GenerateResult {
+	if (ir === undefined || ir === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
+	return generateOk(ir.functions.map(easingFunctionToCss).join(", "));
 }

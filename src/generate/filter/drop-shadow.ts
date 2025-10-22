@@ -1,4 +1,6 @@
 // b_path:: src/generate/filter/drop-shadow.ts
+
+import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type { DropShadowFilter } from "@/core/types/filter";
 import { generateColor } from "@/utils/generate/color";
 
@@ -48,7 +50,10 @@ import { generateColor } from "@/utils/generate/color";
  *
  * @public
  */
-export function toCss(filter: DropShadowFilter): string {
+export function generate(filter: DropShadowFilter): GenerateResult {
+	if (filter === undefined || filter === null) {
+		return generateErr("invalid-ir", "Input must not be null or undefined");
+	}
 	const { offsetX, offsetY, blurRadius, color } = filter;
 
 	// Start with required offset values
@@ -67,5 +72,5 @@ export function toCss(filter: DropShadowFilter): string {
 	// Close function
 	css += ")";
 
-	return css;
+	return generateOk(css);
 }
