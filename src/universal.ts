@@ -34,6 +34,7 @@ import * as ColorGenerate from "./generate/color/color";
 import * as FilterGenerate from "./generate/filter/filter";
 import * as FlexboxGenerate from "./generate/flexbox";
 import * as GradientGenerate from "./generate/gradient/gradient";
+import * as InteractionGenerate from "./generate/interaction";
 import * as LayoutGenerate from "./generate/layout";
 import * as OutlineGenerate from "./generate/outline/outline";
 import * as PositionGenerate from "./generate/position/position";
@@ -60,6 +61,7 @@ import * as ClipPathParse from "./parse/clip-path/clip-path";
 import * as ColorParse from "./parse/color/color";
 import * as FilterParse from "./parse/filter/filter";
 import * as FlexboxParse from "./parse/flexbox";
+import * as InteractionParse from "./parse/interaction";
 import * as LayoutBottom from "./parse/layout/bottom";
 import * as LayoutBoxSizing from "./parse/layout/box-sizing";
 import * as LayoutCursor from "./parse/layout/cursor";
@@ -224,6 +226,9 @@ const PROPERTY_PARSERS: Record<string, PropertyParser> = {
 	"vertical-align": wrapParser(Typography.VerticalAlign.parse),
 	"word-break": wrapParser(Typography.WordBreak.parse),
 
+	// Interaction properties
+	"pointer-events": wrapParser(InteractionParse.PointerEvents.parse),
+
 	// Flexbox properties
 	"flex-direction": wrapParser(FlexboxParse.FlexDirection.parse),
 	"flex-wrap": wrapParser(FlexboxParse.FlexWrap.parse),
@@ -349,6 +354,9 @@ const PROPERTY_GENERATORS: Record<string, PropertyGenerator> = {
 	"text-transform": wrapGenerator(TypographyGenerate.TextTransform.toCss),
 	"vertical-align": wrapGenerator(TypographyGenerate.VerticalAlign.toCss),
 	"word-break": wrapGenerator(TypographyGenerate.WordBreak.toCss),
+
+	// Interaction properties
+	"pointer-events": wrapGenerator(InteractionGenerate.PointerEvents.toCss),
 
 	// Flexbox properties
 	"flex-direction": wrapGenerator(FlexboxGenerate.FlexDirection.toCss),
