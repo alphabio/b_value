@@ -27,7 +27,6 @@ generate({ property: "transform", value: result.value });
 - [Quick Start](#quick-start)
 - [Use Cases](#use-cases)
 - [API Overview](#api-overview)
-- [Supported Properties](#supported-properties)
 - [Examples](#examples)
 - [Contributing](#contributing)
 - [License](#license)
@@ -113,7 +112,7 @@ if (styles.ok) {
   // Modify values
   styles.value.color = { kind: "hex", value: "#0000ff" };
   styles.value.opacity = { kind: "opacity", value: 1.0 };
-  
+
   // Generate CSS back
   const css = generateAll(styles.value);
   console.log(css); // "color: #0000ff; width: 100px; opacity: 1"
@@ -190,9 +189,9 @@ if (colorResult.ok) {
 }
 
 // Generate CSS from IR for ANY property
-const css1 = generate({ 
-  property: "color", 
-  value: { kind: "hex", value: "#FF0000" } 
+const css1 = generate({
+  property: "color",
+  value: { kind: "hex", value: "#FF0000" }
 });
 // Returns: { ok: true, value: "color: #FF0000", issues: [] }
 
@@ -247,6 +246,7 @@ const css = generateAll(result.value);
 - ✅ **String passthrough**: Unknown values preserved as strings
 
 **CSS Editor Use Case**:
+
 ```typescript
 // User editing styles in UI
 const styles = parseAll(userInput);
@@ -268,6 +268,7 @@ const updatedCSS = generateAll(styles.value, { minify: false });
 ```
 
 **Minification**:
+
 ```typescript
 // Normal spacing (default)
 generateAll({ color: "red", width: "100px" });
@@ -462,18 +463,18 @@ b_value/
 **Status**: 2 shadow properties complete, ~50 tests
 
 ### Border Properties ✅
-- border-width (thin, medium, thick, <length>)
+- border-width (thin, medium, thick, `<length>`)
 - border-style (11 style keywords)
-- border-color (<color> values)
-- border-radius (<length-percentage>, 1-4 values)
+- border-color (`<color>` values)
+- border-radius (`<length-percentage>`, 1-4 values)
 
 **Status**: 4 properties complete, ~80 tests
 
 ### Outline Properties ✅
-- outline-width (thin, medium, thick, <length>)
+- outline-width (thin, medium, thick, `<length>`)
 - outline-style (auto + 10 style keywords)
-- outline-color (<color> + invert keyword)
-- outline-offset (<length>)
+- outline-color (`<color>` + invert keyword)
+- outline-offset (`<length>`)
 
 **Status**: 4 properties complete, ~80 tests
 
@@ -490,9 +491,9 @@ b_value/
 **Status**: 1 property + 20 functions complete, ~150 tests
 
 ### Background Properties ✅
-- background-color (<color>)
-- background-position (<position>)
-- background-size (keywords + <length-percentage>)
+- background-color (`<color>`)
+- background-position (`<position>`)
+- background-size (keywords + `<length-percentage>`)
 - background-repeat (repeat-style keywords)
 - background-attachment (scroll, fixed, local)
 
@@ -502,7 +503,7 @@ b_value/
 - text-align (7 alignment keywords)
 - text-decoration-line (underline, overline, line-through, none)
 - text-decoration-style (5 style keywords)
-- text-decoration-color (<color>)
+- text-decoration-color (`<color>`)
 
 **Status**: 4 properties complete, ~60 tests
 
@@ -520,7 +521,7 @@ b_value/
 **Status**: 14 properties complete, ~160 tests
 
 ### Clip-Path Values 🔵 In Progress
-- **URL references**: url(#clipPath) 
+- **URL references**: url(#clipPath)
 - **Geometry box**: 7 keywords (border-box, padding-box, content-box, etc.)
 - **Basic shapes**:
   - ✅ inset() - Rectangle with optional rounded corners
@@ -657,7 +658,7 @@ if (styles.ok) {
   // Update properties via UI
   styles.value.color = { kind: "hex", value: "#0000ff" };
   styles.value["font-size"] = { kind: "length", value: { value: 18, unit: "px" } };
-  
+
   // Generate updated CSS
   const updatedCSS = generateAll(styles.value);
   console.log(updatedCSS);
