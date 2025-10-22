@@ -1,8 +1,8 @@
 # CONTINUE - Current Work Context
 
-**LAST UPDATED**: 2025-10-22T04:13:00Z  
+**LAST UPDATED**: 2025-10-22T04:20:00Z  
 **PROJECT**: b_value v0.1.0  
-**GOAL**: 90+ properties (20% coverage) before v1.0 release
+**GOAL**: 90% coverage of Tier 1+2 (CRITICAL + COMMON properties used by 60%+ of websites)
 
 ---
 
@@ -14,11 +14,12 @@
 - Zero lint/type errors
 - Clean baseline
 
-**Coverage**: 74/446 properties (16.6%) ⚠️ CORRECTED
-- **Previous target was WRONG**: Based on manual MDN list (131 props)
-- **Actual MDM schema**: 446 longhand properties
-- **New v1.0 target**: 90+ properties (20% - essential properties)
-- **Gap to v1.0**: 16 properties needed
+**Coverage**: 73/446 properties (16.4%) - MDM schema  
+**Tier 1+2 Coverage**: 66/93 properties (71%) ⭐  
+- **Tier 1 (CRITICAL)**: 16/32 (50%) - Used by 90%+ of websites
+- **Tier 2 (COMMON)**: 50/61 (82%) - Used by 60-90% of websites
+- **v1.0 Target**: 84 properties (90% of Tier 1+2)
+- **Gap to v1.0**: 11 properties (12-17 hours)
 
 **Branch**: develop  
 **Last Commits**: 
@@ -61,32 +62,40 @@
 
 ## Next Steps
 
-### Immediate: Complete Phase 1 - Essential Box Model (4h)
-Add the 2 remaining box model properties:
-- `width`, `height`
+### IMMEDIATE: Phase 1 - Tier 1 CRITICAL Properties (12h)
 
-**Why these matter**: Every layout needs explicit sizing. We already have min/max/margin/padding.
+**Goal**: 100% of Tier 1 (16 missing properties)  
+**Why**: These are used by 90%+ of websites - non-negotiable for v1.0
 
-**Result**: 74 → 76 properties (17% coverage)
+**Phase 1.1 - Layout Core** (4h):
+- `width`, `height` - Element sizing
+- `display` - Layout type
+- `position`, `top`, `left`, `right`, `bottom` - Positioning
 
-### Then: Phase 2 - Typography Core (5h)
-Add 9 text styling properties:
-- `font-size`, `font-weight`, `font-style`, `font-family`
-- `line-height`, `letter-spacing`, `word-spacing`
-- `text-align`, `text-transform`
+**Phase 1.2 - Typography Core** (6h):
+- `font-size`, `font-family`, `font-weight` - Font styling
+- `line-height`, `text-align` - Text layout
 
-**Result**: 76 → 85 properties (19% coverage)
+**Phase 1.3 - Visual Core** (2h):
+- `color` - Text color
+- `opacity` - Transparency
+- `box-sizing` - Box model
 
-### Goal: v1.0 Release at 90+ properties
-- Need 6 more properties after typography
-- Candidates: `display`, `position`, `top`, `left`, `right`, `bottom`
-- **Result**: 85 → 91 properties (20% coverage) ✅ SHIP v1.0
+**Result**: 73 → 89 properties (96% of Tier 1+2) ✅ v1.0 READY
+
+### OPTIONAL: Phase 2 - High-Value Tier 2 (5h)
+
+Add 5 most impactful missing Tier 2 properties:
+- `visibility`, `cursor`, `transform`, `transform-origin`, `white-space`
+
+**Result**: 89 → 94 properties (101% of target) 🎉 v1.0 PREMIUM
 
 ---
 
 ## Key Documents
 
-- **MASTER_PROPERTY_PLAN.md** - Full roadmap with phases
+- **V1_ROADMAP.md** - Usage-based v1.0 plan (Tier 1+2 properties)
+- **MASTER_PROPERTY_PLAN.md** - Full 446-property roadmap (MDM-aligned)
 - **PROJECT_HEALTH_AUDIT.md** - Latest health assessment
 - **SESSION_LOG.md** - Daily work tracking
 - **archive/** - Historical sessions organized by date
@@ -113,12 +122,12 @@ git branch --show-current
 
 ## Notes
 
-- ⚠️ **MASTER PLAN CORRECTED**: Now aligned with MDM schema (446 properties, not 131)
-- Real coverage: 16.6% (not 56%)
-- Realistic v1.0 target: 90+ properties (20% coverage)
-- NO release until essential properties complete
-- Phase 1 (Box Model) 10/12 complete - need width & height
+- ⚠️ **USAGE-BASED PRIORITY**: v1.0 targets properties used by 60%+ of websites
+- **Tier 1 (CRITICAL)**: 50% done - used by 90%+ of sites
+- **Tier 2 (COMMON)**: 82% done - used by 60-90% of sites
+- v1.0 = 90% coverage of Tier 1+2 (84 properties minimum)
+- Grid layout moved to v1.1 (40% usage, high complexity)
+- Phase 1 (Box Model) 10/12 complete
 - Phase 2 (Flexbox) COMPLETE ✅
-- Modern layout capabilities now available
 - All work archived daily in `.memory/archive/`
 - Keep tests passing at all times
