@@ -11,8 +11,8 @@ import type * as Type from "@/core/types";
  *
  * @internal
  */
-function lengthPercentageToCss(value: Type.LengthPercentage): GenerateResult {
-	return generateOk(`${value.value}${value.unit}`);
+function lengthPercentageToCss(value: Type.LengthPercentage): string {
+	return `${value.value}${value.unit}`;
 }
 
 /**
@@ -23,8 +23,8 @@ function lengthPercentageToCss(value: Type.LengthPercentage): GenerateResult {
  *
  * @internal
  */
-function lengthToCss(value: Type.Length): GenerateResult {
-	return generateOk(`${value.value}${value.unit}`);
+function lengthToCss(value: Type.Length): string {
+	return `${value.value}${value.unit}`;
 }
 
 /**
@@ -35,8 +35,8 @@ function lengthToCss(value: Type.Length): GenerateResult {
  *
  * @internal
  */
-function angleToCss(value: Type.Angle): GenerateResult {
-	return generateOk(`${value.value}${value.unit}`);
+function angleToCss(value: Type.Angle): string {
+	return `${value.value}${value.unit}`;
 }
 
 /**
@@ -255,6 +255,10 @@ export function generate(ir: Type.Transform): GenerateResult {
 		return generateOk("");
 	}
 
-	const functionStrings = ir.map(toFunctionCss);
+	const functionResults = ir.map(toFunctionCss);
+	const functionStrings = functionResults.map((result) => {
+		if (!result.ok) return "";
+		return result.value;
+	});
 	return generateOk(functionStrings.join(" "));
 }
