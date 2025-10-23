@@ -528,166 +528,160 @@
 		"line": 234
 	},
 	{
-		"css": "scroll",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 8
+		"css": "left",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 9
 	},
 	{
-		"css": "fixed",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 14
+		"css": "center",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 17
 	},
 	{
-		"css": "local",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 20
+		"css": "right",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 25
 	},
 	{
-		"css": "invalid",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 26
-	},
-	{
-		"css": "repeat",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 43
-	},
-	{
-		"css": "repeat-x",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 49
-	},
-	{
-		"css": "repeat-y",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 55
-	},
-	{
-		"css": "no-repeat",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 61
-	},
-	{
-		"css": "space",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 67
-	},
-	{
-		"css": "round",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 73
-	},
-	{
-		"css": "invalid",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 79
-	},
-	{
-		"css": "border-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 96
-	},
-	{
-		"css": "padding-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 102
-	},
-	{
-		"css": "content-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 108
-	},
-	{
-		"css": "text",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 114
-	},
-	{
-		"css": "invalid",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 120
-	},
-	{
-		"css": "border-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 137
-	},
-	{
-		"css": "padding-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 143
-	},
-	{
-		"css": "content-box",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 149
-	},
-	{
-		"css": "invalid",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 155
-	},
-	{
-		"css": "cover",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 173
-	},
-	{
-		"css": "contain",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 179
-	},
-	{
-		"css": "auto",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 185
-	},
-	{
-		"css": "100px",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 193
-	},
-	{
-		"css": "50%",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 201
+		"css": "10px",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 35
 	},
 	{
 		"css": "2em",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 209
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 43
 	},
 	{
-		"css": "invalid",
-		"category": "background",
-		"file": "src/parse/background/background.test.ts",
-		"line": 218
+		"css": "0",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 51
+	},
+	{
+		"css": "50%",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 61
+	},
+	{
+		"css": "0%",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 69
+	},
+	{
+		"css": "100%",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 77
+	},
+	{
+		"css": "CENTER",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 87
+	},
+	{
+		"css": "  left  ",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 95
+	},
+	{
+		"css": "left center",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 105
+	},
+	{
+		"css": "10invalid",
+		"category": "position-x",
+		"file": "src/parse/background/position-x.test.ts",
+		"line": 115
+	},
+	{
+		"css": "top",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 9
+	},
+	{
+		"css": "center",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 17
+	},
+	{
+		"css": "bottom",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 25
+	},
+	{
+		"css": "20px",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 35
+	},
+	{
+		"css": "3em",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 43
+	},
+	{
+		"css": "0",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 51
+	},
+	{
+		"css": "50%",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 61
+	},
+	{
+		"css": "0%",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 69
+	},
+	{
+		"css": "100%",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 77
+	},
+	{
+		"css": "TOP",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 87
+	},
+	{
+		"css": "  bottom  ",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 95
+	},
+	{
+		"css": "top bottom",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 105
+	},
+	{
+		"css": "20invalid",
+		"category": "position-y",
+		"file": "src/parse/background/position-y.test.ts",
+		"line": 115
 	},
 	{
 		"css": "transparent",
@@ -978,604 +972,568 @@
 		"line": 134
 	},
 	{
-		"css": "#abc",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 9
+		"css": "circle()",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 8
 	},
 	{
-		"css": "#000",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
+		"css": "circle(50px)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
 		"line": 18
 	},
 	{
-		"css": "#fff",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 26
+		"css": "circle(50%)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 29
 	},
 	{
-		"css": "#123",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 34
+		"css": "circle(closest-side)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 40
 	},
 	{
-		"css": "#abcd",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 44
+		"css": "circle(farthest-side)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 51
 	},
 	{
-		"css": "#0008",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 53
+		"css": "circle(at center)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 64
 	},
 	{
-		"css": "#fff0",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 61
+		"css": "circle(50px at center)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 75
 	},
 	{
-		"css": "#ff5733",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 71
-	},
-	{
-		"css": "#000000",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 80
-	},
-	{
-		"css": "#FFFFFF",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 88
-	},
-	{
-		"css": "#aAbBcC",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 96
-	},
-	{
-		"css": "#ff573380",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 106
-	},
-	{
-		"css": "#00000000",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 115
-	},
-	{
-		"css": "#FFFFFFFF",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 123
-	},
-	{
-		"css": "#ff5733ff",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 131
-	},
-	{
-		"css": "ff5733",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 141
-	},
-	{
-		"css": "#f",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 149
-	},
-	{
-		"css": "#ff",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 157
-	},
-	{
-		"css": "#ff573",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 165
-	},
-	{
-		"css": "#ff57338",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 173
-	},
-	{
-		"css": "#ggf",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 181
-	},
-	{
-		"css": "#ggff",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 189
-	},
-	{
-		"css": "#gg5733",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 197
-	},
-	{
-		"css": "#gg573380",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 205
-	},
-	{
-		"css": "#ff@733",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 213
-	},
-	{
-		"css": "#abc",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 223
-	},
-	{
-		"css": "#abcd",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 232
-	},
-	{
-		"css": "#ff5733",
-		"category": "hex",
-		"file": "src/parse/color/hex.test.ts",
-		"line": 261
-	},
-	{
-		"css": "hsl(120 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 9
-	},
-	{
-		"css": "hsl(0 0% 0%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 21
-	},
-	{
-		"css": "hsl(0 0% 100%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 31
-	},
-	{
-		"css": "hsl(240 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 41
-	},
-	{
-		"css": "hsl(120deg 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 53
-	},
-	{
-		"css": "hsl(1turn 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 61
-	},
-	{
-		"css": "hsl(0.5turn 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 69
-	},
-	{
-		"css": "hsl(200grad 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 77
-	},
-	{
-		"css": "hsl(3.14159rad 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 85
-	},
-	{
-		"css": "hsl(1.57rad 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 93
-	},
-	{
-		"css": "hsl(360 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 103
-	},
-	{
-		"css": "hsl(720 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 111
-	},
-	{
-		"css": "hsl(450 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 119
-	},
-	{
-		"css": "hsl(-90 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 127
-	},
-	{
-		"css": "hsl(-360 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 135
-	},
-	{
-		"css": "hsl(-450 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 143
-	},
-	{
-		"css": "hsl(120 100% 50% / 0.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 153
-	},
-	{
-		"css": "hsl(120 100% 50% / 0)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 164
-	},
-	{
-		"css": "hsl(120 100% 50% / 1)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 172
-	},
-	{
-		"css": "hsl(120 100% 50% / 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 180
-	},
-	{
-		"css": "hsl(120, 100%, 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 190
-	},
-	{
-		"css": "hsl(240, 50%, 75%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 200
-	},
-	{
-		"css": "hsla(120, 100%, 50%, 0.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 210
-	},
-	{
-		"css": "hsla(240, 50%, 75%, 0.25)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 221
-	},
-	{
-		"css": "hsl(120 150% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 234
-	},
-	{
-		"css": "hsl(120 -10% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 242
-	},
-	{
-		"css": "hsl(120 100% 150%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 250
-	},
-	{
-		"css": "hsl(120 100% -10%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 258
-	},
-	{
-		"css": "120 100% 50%",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 268
-	},
-	{
-		"css": "hsl(120 100%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 276
-	},
-	{
-		"css": "hsl(120 100% 50% / 1.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 284
-	},
-	{
-		"css": "hsl(120 100% 50% / -0.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 292
-	},
-	{
-		"css": "hsl(",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 300
-	},
-	{
-		"css": "hsl(120 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 307
-	},
-	{
-		"css": "hsl(240 50% 75%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 316
-	},
-	{
-		"css": "hsl(120 100% 50% / 0.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 325
-	},
-	{
-		"css": "hsl(120, 100%, 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 334
-	},
-	{
-		"css": "hsla(120, 100%, 50%, 0.5)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 343
-	},
-	{
-		"css": "hsl(0.5turn 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 352
-	},
-	{
-		"css": "hsl(450 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 361
-	},
-	{
-		"css": "hsl(-90 100% 50%)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 370
-	},
-	{
-		"css": "hsl(120 100% 50% / 1)",
-		"category": "hsl",
-		"file": "src/parse/color/hsl.test.ts",
-		"line": 379
-	},
-	{
-		"css": "hwb(120 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 9
-	},
-	{
-		"css": "hwb(0 0% 0%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 22
-	},
-	{
-		"css": "hwb(0 100% 0%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 35
-	},
-	{
-		"css": "hwb(0 0% 100%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 48
-	},
-	{
-		"css": "hwb(120deg 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 63
-	},
-	{
-		"css": "hwb(1turn 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 71
-	},
-	{
-		"css": "hwb(0.5turn 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 79
-	},
-	{
-		"css": "hwb(100grad 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
+		"css": "circle(at 30px 40%)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
 		"line": 87
 	},
 	{
-		"css": "hwb(1.5708rad 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 95
+		"css": "circle(closest-side at 30% top)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 101
 	},
 	{
-		"css": "hwb(240 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 103
+		"css": "circle(at left top)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 111
 	},
 	{
-		"css": "hwb(360 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 113
+		"css": "circle(0)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 124
 	},
 	{
-		"css": "hwb(450 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 121
+		"css": "circle(0%)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 135
 	},
 	{
-		"css": "hwb(-90 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 129
+		"css": "circle(-10px)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 146
 	},
 	{
-		"css": "hwb(-180 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 137
+		"css": "circle(-50%)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 154
 	},
 	{
-		"css": "hwb(720 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 145
+		"css": "inset(10px)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 164
 	},
 	{
-		"css": "hwb(120 20% 30% / 0.5)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 155
+		"css": "circle(50px at)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 172
 	},
 	{
-		"css": "hwb(120 20% 30% / 0)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 169
+		"css": "circle(invalid)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 180
 	},
 	{
-		"css": "hwb(120 20% 30% / 1)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 177
-	},
-	{
-		"css": "hwb(120 20% 30% / 1.5)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
+		"css": "circle(50px at center extra)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
 		"line": 185
 	},
 	{
-		"css": "hwb(120 20% 30% / -0.5)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
+		"css": "circle(50px center)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
 		"line": 193
 	},
 	{
-		"css": "hwb(120 150% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
+		"css": "circle(  50px   at   center  )",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
 		"line": 203
 	},
 	{
-		"css": "hwb(120 -20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 211
+		"css": "circle(50px at center)",
+		"category": "circle",
+		"file": "src/parse/clip-path/circle.test.ts",
+		"line": 215
 	},
 	{
-		"css": "hwb(120 20% 150%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 219
+		"css": "ellipse()",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 8
 	},
 	{
-		"css": "hwb(120 20% -30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 227
+		"css": "ellipse(50px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 18
 	},
 	{
-		"css": "rgb(120 20% 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 237
+		"css": "ellipse(50px 100px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 29
 	},
 	{
-		"css": "hwb(120 20%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 242
+		"css": "ellipse(50% 75%)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 41
 	},
 	{
-		"css": "hwb(120 20% 30% 40%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 247
+		"css": "ellipse(2rem 100px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 53
 	},
 	{
-		"css": "hwb(120 20% 30% /)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 252
+		"css": "ellipse(closest-side closest-side)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 67
 	},
 	{
-		"css": "hwb(120 20 30%)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 257
+		"css": "ellipse(farthest-side farthest-side)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 79
 	},
 	{
-		"css": "hwb(120 20% 30)",
-		"category": "hwb",
-		"file": "src/parse/color/hwb.test.ts",
-		"line": 262
+		"css": "ellipse(closest-side farthest-side)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 91
+	},
+	{
+		"css": "ellipse(50px farthest-side)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 103
+	},
+	{
+		"css": "ellipse(at center center)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 117
+	},
+	{
+		"css": "ellipse(50px 100px at 30px 40px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 131
+	},
+	{
+		"css": "ellipse(closest-side farthest-side at left top)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 147
+	},
+	{
+		"css": "ellipse(at 30% top)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 163
+	},
+	{
+		"css": "ellipse(0 0)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 179
+	},
+	{
+		"css": "ellipse(0 0)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 191
+	},
+	{
+		"css": "ellipse(-50px 100px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 200
+	},
+	{
+		"css": "ellipse(50px -100px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 208
+	},
+	{
+		"css": "circle(50px)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 218
+	},
+	{
+		"css": "ellipse(50px 100px at)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 223
+	},
+	{
+		"css": "ellipse(50px 100px center)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 231
+	},
+	{
+		"css": "ellipse(50px 100px at center extra)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 239
+	},
+	{
+		"css": "ellipse(invalid)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 244
+	},
+	{
+		"css": "ellipse(  50px   100px   at   center   center  )",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 251
+	},
+	{
+		"css": "ellipse(50px 100px at center center)",
+		"category": "ellipse",
+		"file": "src/parse/clip-path/ellipse.test.ts",
+		"line": 260
+	},
+	{
+		"css": "polygon(50% 0%, 100% 100%, 0% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 9
+	},
+	{
+		"css": "polygon(0px 0px, 100px 0px, 100px 100px, 0px 100px)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 24
+	},
+	{
+		"css": "polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 34
+	},
+	{
+		"css": "polygon(10px 20%, 50% 30px, 100px 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 42
+	},
+	{
+		"css": "polygon(0 0, 100px 0, 100px 100px)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 54
+	},
+	{
+		"css": "polygon(nonzero, 50% 0%, 100% 50%, 50% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 64
+	},
+	{
+		"css": "polygon(evenodd, 0px 0px, 100px 0px, 100px 100px)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 73
+	},
+	{
+		"css": "polygon(50% 0%, 100% 50%, 50% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 82
+	},
+	{
+		"css": "polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 102
+	},
+	{
+		"css": "polygon(0px 0px, 50px 50px, 100px 0px)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 112
+	},
+	{
+		"css": "polygon(${points})",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 121
+	},
+	{
+		"css": "polygon(50% 0%, 100% 50%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 131
+	},
+	{
+		"css": "polygon(50% 0%, 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 139
+	},
+	{
+		"css": "polygon(invalid, 50% 0%, 100% 50%, 50% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 147
+	},
+	{
+		"css": "circle(50%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 152
+	},
+	{
+		"css": "polygon(nonzero 50% 0%, 100% 50%, 50% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 160
+	},
+	{
+		"css": "polygon(  50%   0%  ,  100%   50%  ,  50%   100%  )",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 170
+	},
+	{
+		"css": "polygon(50% 0%,100% 50%,50% 100%)",
+		"category": "polygon",
+		"file": "src/parse/clip-path/polygon.test.ts",
+		"line": 178
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 8
+	},
+	{
+		"css": "color(srgb-linear 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 20
+	},
+	{
+		"css": "color(display-p3 0.928 0.322 0.203)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 32
+	},
+	{
+		"css": "color(a98-rgb 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 44
+	},
+	{
+		"css": "color(prophoto-rgb 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 56
+	},
+	{
+		"css": "color(rec2020 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 68
+	},
+	{
+		"css": "color(xyz 0.3 0.4 0.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 80
+	},
+	{
+		"css": "color(xyz-d50 0.3 0.4 0.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 92
+	},
+	{
+		"css": "color(xyz-d65 0.3 0.4 0.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 104
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 118
+	},
+	{
+		"css": "color(srgb 50% 20% 80%)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 126
+	},
+	{
+		"css": "color(srgb 0.5 20% 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 134
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8 / 0.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 144
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8 / 50%)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 157
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 165
+	},
+	{
+		"css": "color(srgb 0 0 0)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 175
+	},
+	{
+		"css": "color(srgb 1 1 1)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 183
+	},
+	{
+		"css": "color(srgb 0.123456 0.789012 0.345678)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 191
+	},
+	{
+		"css": "color(xyz -0.1 0.5 -0.2)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 199
+	},
+	{
+		"css": "color(xyz 1.5 2.0 1.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 207
+	},
+	{
+		"css": "color(SRGB 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 215
+	},
+	{
+		"css": "color(  srgb   0.5   0.2   0.8  )",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 223
+	},
+	{
+		"css": "color(invalid 0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 233
+	},
+	{
+		"css": "color(0.5 0.2 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 241
+	},
+	{
+		"css": "color(srgb 0.5 0.2)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 246
+	},
+	{
+		"css": "color(srgb 0.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 254
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8 / 1.5)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 259
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8 / -0.1)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 267
+	},
+	{
+		"css": "color(srgb 0.5 0.2 0.8 /)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 275
+	},
+	{
+		"css": "rgb(255 0 0)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 283
+	},
+	{
+		"css": "color(srgb 0.5, 0.2, 0.8)",
+		"category": "color-function",
+		"file": "src/parse/color/color-function.test.ts",
+		"line": 293
 	},
 	{
 		"css": "lab(50% -20 30)",
@@ -1942,180 +1900,6 @@
 		"category": "lch",
 		"file": "src/parse/color/lch.test.ts",
 		"line": 332
-	},
-	{
-		"css": "red",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 9
-	},
-	{
-		"css": "blue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 18
-	},
-	{
-		"css": "green",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 26
-	},
-	{
-		"css": "yellow",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 34
-	},
-	{
-		"css": "black",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 42
-	},
-	{
-		"css": "white",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 50
-	},
-	{
-		"css": "gray",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 58
-	},
-	{
-		"css": "grey",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 66
-	},
-	{
-		"css": "cornflowerblue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 76
-	},
-	{
-		"css": "aliceblue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 85
-	},
-	{
-		"css": "antiquewhite",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 93
-	},
-	{
-		"css": "aquamarine",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 101
-	},
-	{
-		"css": "blanchedalmond",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 109
-	},
-	{
-		"css": "darkorchid",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 117
-	},
-	{
-		"css": "mediumspringgreen",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 125
-	},
-	{
-		"css": "RED",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 135
-	},
-	{
-		"css": "Blue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 143
-	},
-	{
-		"css": "CORNFLOWERBLUE",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 151
-	},
-	{
-		"css": "AliceBlue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 159
-	},
-	{
-		"css": "MediumSpringGreen",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 167
-	},
-	{
-		"css": "notacolor",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 177
-	},
-	{
-		"css": "123",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 193
-	},
-	{
-		"css": "red@blue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 201
-	},
-	{
-		"css": "#ff5733",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 209
-	},
-	{
-		"css": "red",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 219
-	},
-	{
-		"css": "BLUE",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 228
-	},
-	{
-		"css": "cornflowerblue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 237
-	},
-	{
-		"css": "AliceBlue",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 246
-	},
-	{
-		"css": "mediumspringgreen",
-		"category": "named",
-		"file": "src/parse/color/named.test.ts",
-		"line": 255
 	},
 	{
 		"css": "oklab(0.5 -0.2 0.3)",
@@ -2496,526 +2280,790 @@
 		"line": 331
 	},
 	{
-		"css": "rgb(255 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 9
+		"css": "auto",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 8
 	},
 	{
-		"css": "rgb(0 128 255)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 21
+		"css": "none",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 19
 	},
 	{
-		"css": "rgb(100 200 50)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 31
+		"css": "visiblePainted",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 32
 	},
 	{
-		"css": "rgb(0 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 41
+		"css": "visibleFill",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 43
 	},
 	{
-		"css": "rgb(255 255 255)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 51
+		"css": "visibleStroke",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 54
 	},
 	{
-		"css": "rgb(255 0 0 / 0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 63
+		"css": "visible",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 65
 	},
 	{
-		"css": "rgb(100 200 50 / 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 74
+		"css": "painted",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 76
 	},
 	{
-		"css": "rgb(100 200 50 / 1)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 82
+		"css": "fill",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 87
 	},
 	{
-		"css": "rgb(255 0 0 / 0.25)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 90
-	},
-	{
-		"css": "rgb(255 0 0 / 0.75)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
+		"css": "stroke",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
 		"line": 98
 	},
 	{
-		"css": "rgb(255 0 0 / 50%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 108
+		"css": "all",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 109
 	},
 	{
-		"css": "rgb(255 0 0 / 0%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 116
-	},
-	{
-		"css": "rgb(255 0 0 / 100%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 124
-	},
-	{
-		"css": "rgb(255, 0, 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 134
-	},
-	{
-		"css": "rgb(100, 200, 50)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 145
-	},
-	{
-		"css": "rgba(255, 0, 0, 0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 155
-	},
-	{
-		"css": "rgba(100, 200, 50, 0.25)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 166
-	},
-	{
-		"css": "rgba(0, 0, 0, 1)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 177
-	},
-	{
-		"css": "rgb(100% 0% 0%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 187
-	},
-	{
-		"css": "rgb(50% 50% 50%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 197
-	},
-	{
-		"css": "rgb(0% 100% 50%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 207
-	},
-	{
-		"css": "rgb(100%, 0%, 0%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 217
-	},
-	{
-		"css": "rgb(100% 0% 0% / 50%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 227
-	},
-	{
-		"css": "rgb(255.5 128.7 64.2)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 240
-	},
-	{
-		"css": "rgb(100.1 200.9 50.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 251
-	},
-	{
-		"css": "rgb(300 128 50)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 261
-	},
-	{
-		"css": "rgb(-10 128 50)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 269
-	},
-	{
-		"css": "rgb(255 0 0 / 1.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 279
-	},
-	{
-		"css": "rgb(255 0 0 / -0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 287
-	},
-	{
-		"css": "rgb(255 0 0 / 150%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 295
-	},
-	{
-		"css": "rgb(255 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 303
-	},
-	{
-		"css": "rgb(255 0 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 311
-	},
-	{
-		"css": "255 0 0",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 316
-	},
-	{
-		"css": "rgb(",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 324
-	},
-	{
-		"css": "rgb(255 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 331
-	},
-	{
-		"css": "rgb(100 200 50)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 340
-	},
-	{
-		"css": "rgb(255 0 0 / 0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 349
-	},
-	{
-		"css": "rgb(255, 0, 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 358
-	},
-	{
-		"css": "rgba(255, 0, 0, 0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 367
-	},
-	{
-		"css": "rgb(100% 0% 0%)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 376
-	},
-	{
-		"css": "rgb(255 0 0 / 1)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 385
-	},
-	{
-		"css": "rgb(100.4 200.6 50.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 394
-	},
-	{
-		"css": "rgb(128 128 128)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 405
-	},
-	{
-		"css": "rgb(0 0 0 / 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 415
-	},
-	{
-		"css": "rgb(  255   0   0  )",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 426
-	},
-	{
-		"css": "RGB(255 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 434
-	},
-	{
-		"css": "RGBA(255, 0, 0, 0.5)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 442
-	},
-	{
-		"css": "rgb(0 0 0)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 450
-	},
-	{
-		"css": "rgb(255 255 255)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 460
-	},
-	{
-		"css": "rgb(127 127 127)",
-		"category": "rgb",
-		"file": "src/parse/color/rgb.test.ts",
-		"line": 470
-	},
-	{
-		"css": "transparent",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 9
-	},
-	{
-		"css": "currentcolor",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 20
-	},
-	{
-		"css": "TRANSPARENT",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 33
-	},
-	{
-		"css": "CurrentColor",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 41
-	},
-	{
-		"css": "CURRENTCOLOR",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 49
-	},
-	{
-		"css": "Transparent",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 57
-	},
-	{
-		"css": "  transparent",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 67
-	},
-	{
-		"css": "currentcolor  ",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 75
-	},
-	{
-		"css": "  transparent  ",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 83
+		"css": "bounding-box",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 120
 	},
 	{
 		"css": "invalid",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 93
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 133
 	},
 	{
-		"css": "red",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 98
+		"css": "1",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 141
 	},
 	{
-		"css": "ButtonText",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 103
+		"css": "none auto",
+		"category": "pointer-events",
+		"file": "src/parse/interaction/pointer-events.test.ts",
+		"line": 151
 	},
 	{
-		"css": "   ",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 113
+		"css": "auto",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 8
 	},
 	{
-		"css": "trans",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 118
+		"css": "text",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 19
 	},
 	{
-		"css": "current",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 123
+		"css": "none",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 30
 	},
 	{
-		"css": "transparent",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 192
+		"css": "contain",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 41
 	},
 	{
-		"css": "currentcolor",
-		"category": "special",
-		"file": "src/parse/color/special.test.ts",
-		"line": 201
+		"css": "all",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 52
 	},
 	{
-		"css": "AccentColor",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "AUTO",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 65
+	},
+	{
+		"css": "None",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 73
+	},
+	{
+		"css": "invalid",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 83
+	},
+	{
+		"css": "1",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 91
+	},
+	{
+		"css": "none auto",
+		"category": "user-select",
+		"file": "src/parse/interaction/user-select.test.ts",
+		"line": 101
+	},
+	{
+		"css": "left",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
 		"line": 9
 	},
 	{
-		"css": "AccentColorText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 20
+		"css": "right",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 14
 	},
 	{
-		"css": "ButtonText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 31
+		"css": "both",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 19
 	},
 	{
-		"css": "Canvas",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 42
+		"css": "none",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 24
 	},
 	{
-		"css": "CanvasText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "inline-start",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 29
+	},
+	{
+		"css": "inline-end",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 34
+	},
+	{
+		"css": "BOTH",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 41
+	},
+	{
+		"css": "  left  ",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
+		"line": 46
+	},
+	{
+		"css": "invalid",
+		"category": "clear",
+		"file": "src/parse/layout/clear.test.ts",
 		"line": 53
 	},
 	{
-		"css": "LinkText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 64
+		"css": "left",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 9
 	},
 	{
-		"css": "VisitedText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 75
+		"css": "right",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 14
 	},
 	{
-		"css": "Highlight",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 86
+		"css": "none",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 19
 	},
 	{
-		"css": "HighlightText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 97
+		"css": "inline-start",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 24
 	},
 	{
-		"css": "GrayText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 108
+		"css": "inline-end",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 29
 	},
 	{
-		"css": "buttontext",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "LEFT",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 36
+	},
+	{
+		"css": "  right  ",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 41
+	},
+	{
+		"css": "center",
+		"category": "float",
+		"file": "src/parse/layout/float.test.ts",
+		"line": 48
+	},
+	{
+		"css": "pointer",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 10
+	},
+	{
+		"css": "default",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 18
+	},
+	{
+		"css": "text",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 26
+	},
+	{
+		"css": "move",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 34
+	},
+	{
+		"css": "grab",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 42
+	},
+	{
+		"css": "grabbing",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 50
+	},
+	{
+		"css": "not-allowed",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 58
+	},
+	{
+		"css": "help",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 66
+	},
+	{
+		"css": "wait",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 74
+	},
+	{
+		"css": "crosshair",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 82
+	},
+	{
+		"css": "zoom-in",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 90
+	},
+	{
+		"css": "zoom-out",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 98
+	},
+	{
+		"css": "invalid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 106
+	},
+	{
+		"css": "flex",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 113
+	},
+	{
+		"css": "block",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
 		"line": 121
 	},
 	{
-		"css": "CANVAS",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "inline",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
 		"line": 129
 	},
 	{
-		"css": "lInKtExT",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "inline-block",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
 		"line": 137
 	},
 	{
-		"css": "  ButtonText",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 147
+		"css": "grid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 145
 	},
 	{
-		"css": "Canvas  ",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 155
+		"css": "none",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 153
 	},
 	{
-		"css": "  LinkText  ",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 163
+		"css": "table",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 161
 	},
 	{
-		"css": "InvalidColor",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 173
+		"css": "inline-flex",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 169
 	},
 	{
-		"css": "red",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 178
+		"css": "inline-grid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 177
 	},
 	{
-		"css": "transparent",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
-		"line": 183
+		"css": "contents",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 185
 	},
 	{
-		"css": "   ",
-		"category": "system",
-		"file": "src/parse/color/system.test.ts",
+		"css": "flow-root",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
 		"line": 193
+	},
+	{
+		"css": "invalid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 201
+	},
+	{
+		"css": "visible",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 208
+	},
+	{
+		"css": "hidden",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 216
+	},
+	{
+		"css": "collapse",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 224
+	},
+	{
+		"css": "invalid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 232
+	},
+	{
+		"css": "0",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 239
+	},
+	{
+		"css": "1",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 247
+	},
+	{
+		"css": "0.5",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 255
+	},
+	{
+		"css": "50%",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 263
+	},
+	{
+		"css": "100%",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 271
+	},
+	{
+		"css": "0%",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 279
+	},
+	{
+		"css": "1.5",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 287
+	},
+	{
+		"css": "-0.5",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 295
+	},
+	{
+		"css": "invalid",
+		"category": "layout",
+		"file": "src/parse/layout/layout.test.ts",
+		"line": 303
+	},
+	{
+		"css": "visible",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 8
+	},
+	{
+		"css": "hidden",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 19
+	},
+	{
+		"css": "clip",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 30
+	},
+	{
+		"css": "scroll",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 41
+	},
+	{
+		"css": "auto",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 52
+	},
+	{
+		"css": "HIDDEN",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 65
+	},
+	{
+		"css": "Scroll",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 73
+	},
+	{
+		"css": "invalid",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 83
+	},
+	{
+		"css": "123",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 96
+	},
+	{
+		"css": "hidden scroll",
+		"category": "overflow-x",
+		"file": "src/parse/layout/overflow-x.test.ts",
+		"line": 101
+	},
+	{
+		"css": "visible",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 8
+	},
+	{
+		"css": "hidden",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 19
+	},
+	{
+		"css": "clip",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 30
+	},
+	{
+		"css": "scroll",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 41
+	},
+	{
+		"css": "auto",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 52
+	},
+	{
+		"css": "VISIBLE",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 65
+	},
+	{
+		"css": "Auto",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 73
+	},
+	{
+		"css": "overflow",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 83
+	},
+	{
+		"css": "50",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 96
+	},
+	{
+		"css": "auto scroll",
+		"category": "overflow-y",
+		"file": "src/parse/layout/overflow-y.test.ts",
+		"line": 101
+	},
+	{
+		"css": "visible",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 9
+	},
+	{
+		"css": "hidden",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 14
+	},
+	{
+		"css": "clip",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 19
+	},
+	{
+		"css": "scroll",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 24
+	},
+	{
+		"css": "auto",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 29
+	},
+	{
+		"css": "HIDDEN",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 36
+	},
+	{
+		"css": "Auto",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 41
+	},
+	{
+		"css": "  scroll  ",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 46
+	},
+	{
+		"css": "invalid",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 53
+	},
+	{
+		"css": "10px",
+		"category": "overflow",
+		"file": "src/parse/layout/overflow.test.ts",
+		"line": 63
+	},
+	{
+		"css": "static",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 8
+	},
+	{
+		"css": "relative",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 19
+	},
+	{
+		"css": "absolute",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 30
+	},
+	{
+		"css": "fixed",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 41
+	},
+	{
+		"css": "sticky",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 52
+	},
+	{
+		"css": "ABSOLUTE",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 65
+	},
+	{
+		"css": "Sticky",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 73
+	},
+	{
+		"css": "positioned",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 83
+	},
+	{
+		"css": "10px",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 96
+	},
+	{
+		"css": "absolute fixed",
+		"category": "position",
+		"file": "src/parse/layout/position.test.ts",
+		"line": 101
+	},
+	{
+		"css": "10",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 8
+	},
+	{
+		"css": "-5",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 19
+	},
+	{
+		"css": "0",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 30
+	},
+	{
+		"css": "999",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 41
+	},
+	{
+		"css": "-999",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 52
+	},
+	{
+		"css": "auto",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 65
+	},
+	{
+		"css": "AUTO",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 76
+	},
+	{
+		"css": "1.5",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 86
+	},
+	{
+		"css": "50%",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 94
+	},
+	{
+		"css": "10px",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 99
+	},
+	{
+		"css": "inherit",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 104
+	},
+	{
+		"css": "10 20",
+		"category": "z-index",
+		"file": "src/parse/layout/z-index.test.ts",
+		"line": 117
 	},
 	{
 		"css": "invert",
@@ -3310,138 +3358,6 @@
 		"category": "width",
 		"file": "src/parse/outline/width.test.ts",
 		"line": 134
-	},
-	{
-		"css": "red",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 8
-	},
-	{
-		"css": "#ff0000",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 16
-	},
-	{
-		"css": "rgb(255 0 0)",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 24
-	},
-	{
-		"css": "hsl(0 100% 50%)",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 32
-	},
-	{
-		"css": "not-a-color",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 40
-	},
-	{
-		"css": "solid",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 61
-	},
-	{
-		"css": "double",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 67
-	},
-	{
-		"css": "dotted",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 73
-	},
-	{
-		"css": "dashed",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 79
-	},
-	{
-		"css": "wavy",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 85
-	},
-	{
-		"css": "invalid",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 91
-	},
-	{
-		"css": "none",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 108
-	},
-	{
-		"css": "underline",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 114
-	},
-	{
-		"css": "overline",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 120
-	},
-	{
-		"css": "line-through",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 126
-	},
-	{
-		"css": "invalid",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 132
-	},
-	{
-		"css": "auto",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 150
-	},
-	{
-		"css": "from-font",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 156
-	},
-	{
-		"css": "2px",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 164
-	},
-	{
-		"css": "10%",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 172
-	},
-	{
-		"css": "0.5em",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 180
-	},
-	{
-		"css": "invalid",
-		"category": "text",
-		"file": "src/parse/text/text.test.ts",
-		"line": 189
 	},
 	{
 		"css": "center",
@@ -3952,5 +3868,749 @@
 		"category": "timing-function",
 		"file": "src/parse/transition/timing-function.test.ts",
 		"line": 244
+	},
+	{
+		"css": "Arial",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 7
+	},
+	{
+		"css": "sans-serif",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 18
+	},
+	{
+		"css": "Helvetica Neue",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 42
+	},
+	{
+		"css": "Arial, sans-serif",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 52
+	},
+	{
+		"css": "Georgia, Times, serif",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 68
+	},
+	{
+		"css": "Arial , Helvetica , sans-serif",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 76
+	},
+	{
+		"css": "serif",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 86
+	},
+	{
+		"css": "monospace",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 92
+	},
+	{
+		"css": "cursive",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 98
+	},
+	{
+		"css": "fantasy",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 104
+	},
+	{
+		"css": ",,,",
+		"category": "font-family",
+		"file": "src/parse/typography/font-family.test.ts",
+		"line": 117
+	},
+	{
+		"css": "xx-small",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 7
+	},
+	{
+		"css": "x-small",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 18
+	},
+	{
+		"css": "small",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 24
+	},
+	{
+		"css": "medium",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 30
+	},
+	{
+		"css": "large",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 36
+	},
+	{
+		"css": "x-large",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 42
+	},
+	{
+		"css": "xx-large",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 48
+	},
+	{
+		"css": "xxx-large",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 54
+	},
+	{
+		"css": "larger",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 62
+	},
+	{
+		"css": "smaller",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 68
+	},
+	{
+		"css": "16px",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 76
+	},
+	{
+		"css": "1.5em",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 84
+	},
+	{
+		"css": "2rem",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 92
+	},
+	{
+		"css": "120%",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 102
+	},
+	{
+		"css": "invalid",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 112
+	},
+	{
+		"css": "16px 20px",
+		"category": "font-size",
+		"file": "src/parse/typography/font-size.test.ts",
+		"line": 117
+	},
+	{
+		"css": "normal",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 8
+	},
+	{
+		"css": "italic",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 19
+	},
+	{
+		"css": "oblique",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 30
+	},
+	{
+		"css": "ITALIC",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 43
+	},
+	{
+		"css": "Oblique",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 51
+	},
+	{
+		"css": "underline",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 61
+	},
+	{
+		"css": "400",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 69
+	},
+	{
+		"css": "italic normal",
+		"category": "font-style",
+		"file": "src/parse/typography/font-style.test.ts",
+		"line": 79
+	},
+	{
+		"css": "normal",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 7
+	},
+	{
+		"css": "bold",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 18
+	},
+	{
+		"css": "bolder",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 24
+	},
+	{
+		"css": "lighter",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 30
+	},
+	{
+		"css": "350",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 47
+	},
+	{
+		"css": "1",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 53
+	},
+	{
+		"css": "1000",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 59
+	},
+	{
+		"css": "invalid",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 67
+	},
+	{
+		"css": "0",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 72
+	},
+	{
+		"css": "1001",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 77
+	},
+	{
+		"css": "400 500",
+		"category": "font-weight",
+		"file": "src/parse/typography/font-weight.test.ts",
+		"line": 82
+	},
+	{
+		"css": "normal",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 8
+	},
+	{
+		"css": "NORMAL",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 21
+	},
+	{
+		"css": "Normal",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 29
+	},
+	{
+		"css": "0",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 39
+	},
+	{
+		"css": "0.1em",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 50
+	},
+	{
+		"css": "2px",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 61
+	},
+	{
+		"css": "-1px",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 72
+	},
+	{
+		"css": "0.05rem",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 83
+	},
+	{
+		"css": "10%",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 96
+	},
+	{
+		"css": "auto",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 109
+	},
+	{
+		"css": "2px 4px",
+		"category": "letter-spacing",
+		"file": "src/parse/typography/letter-spacing.test.ts",
+		"line": 122
+	},
+	{
+		"css": "normal",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 7
+	},
+	{
+		"css": "1",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 20
+	},
+	{
+		"css": "1.5",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 26
+	},
+	{
+		"css": "0.8",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 32
+	},
+	{
+		"css": "2.5",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 38
+	},
+	{
+		"css": "0",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 44
+	},
+	{
+		"css": "20px",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 52
+	},
+	{
+		"css": "1.5em",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 60
+	},
+	{
+		"css": "2rem",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 68
+	},
+	{
+		"css": "120%",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 78
+	},
+	{
+		"css": "150%",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 86
+	},
+	{
+		"css": "invalid",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 96
+	},
+	{
+		"css": "1.5 20px",
+		"category": "line-height",
+		"file": "src/parse/typography/line-height.test.ts",
+		"line": 101
+	},
+	{
+		"css": "normal",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 8
+	},
+	{
+		"css": "break-word",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 19
+	},
+	{
+		"css": "anywhere",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 30
+	},
+	{
+		"css": "BREAK-WORD",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 43
+	},
+	{
+		"css": "Anywhere",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 51
+	},
+	{
+		"css": "break-all",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 61
+	},
+	{
+		"css": "12px",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 69
+	},
+	{
+		"css": "normal anywhere",
+		"category": "overflow-wrap",
+		"file": "src/parse/typography/overflow-wrap.test.ts",
+		"line": 79
+	},
+	{
+		"css": "left",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 7
+	},
+	{
+		"css": "right",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 18
+	},
+	{
+		"css": "center",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 24
+	},
+	{
+		"css": "justify",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 30
+	},
+	{
+		"css": "start",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 38
+	},
+	{
+		"css": "end",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 44
+	},
+	{
+		"css": "invalid",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 52
+	},
+	{
+		"css": "left center",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 57
+	},
+	{
+		"css": "10px",
+		"category": "text-align",
+		"file": "src/parse/typography/text-align.test.ts",
+		"line": 62
+	},
+	{
+		"css": "none",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 8
+	},
+	{
+		"css": "capitalize",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 19
+	},
+	{
+		"css": "uppercase",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 30
+	},
+	{
+		"css": "lowercase",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 41
+	},
+	{
+		"css": "full-width",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 52
+	},
+	{
+		"css": "full-size-kana",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 63
+	},
+	{
+		"css": "UPPERCASE",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 76
+	},
+	{
+		"css": "Capitalize",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 84
+	},
+	{
+		"css": "underline",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 94
+	},
+	{
+		"css": "12px",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 102
+	},
+	{
+		"css": "uppercase lowercase",
+		"category": "text-transform",
+		"file": "src/parse/typography/text-transform.test.ts",
+		"line": 112
+	},
+	{
+		"css": "baseline",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 8
+	},
+	{
+		"css": "sub",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 19
+	},
+	{
+		"css": "super",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 30
+	},
+	{
+		"css": "text-top",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 41
+	},
+	{
+		"css": "text-bottom",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 52
+	},
+	{
+		"css": "middle",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 63
+	},
+	{
+		"css": "top",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 74
+	},
+	{
+		"css": "bottom",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 85
+	},
+	{
+		"css": "MIDDLE",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 98
+	},
+	{
+		"css": "Baseline",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 106
+	},
+	{
+		"css": "5px",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 116
+	},
+	{
+		"css": "0.5em",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 127
+	},
+	{
+		"css": "-2px",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 138
+	},
+	{
+		"css": "50%",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 151
+	},
+	{
+		"css": "-25%",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 162
+	},
+	{
+		"css": "center",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 175
+	},
+	{
+		"css": "middle top",
+		"category": "vertical-align",
+		"file": "src/parse/typography/vertical-align.test.ts",
+		"line": 188
+	},
+	{
+		"css": "normal",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 8
+	},
+	{
+		"css": "break-all",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 19
+	},
+	{
+		"css": "keep-all",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 30
+	},
+	{
+		"css": "break-word",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 41
+	},
+	{
+		"css": "BREAK-ALL",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 54
+	},
+	{
+		"css": "Keep-All",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 62
+	},
+	{
+		"css": "wrap",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 72
+	},
+	{
+		"css": "12px",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 80
+	},
+	{
+		"css": "normal break-all",
+		"category": "word-break",
+		"file": "src/parse/typography/word-break.test.ts",
+		"line": 90
 	}
 ]
