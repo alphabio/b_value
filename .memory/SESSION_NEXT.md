@@ -1,50 +1,35 @@
 # Next Session: Continue Coverage Push to 85%+
 
-**Current Coverage**: 82.58% → 84.41% (+1.83%)
-**Tests This Session**: 2889 → 2983 (+94 tests across 26 files)
-**Overall Progress**: 74.65% → 84.41% (+9.76% total)
+**Current Coverage**: 84.41% (maintained)
+**Tests This Session**: 2983 → 3039 (+56 tests across 4 files)
+**Overall Progress**: 74.65% → 84.41% (+9.76% total from start)
 
-## Files Added This Session (+94 tests)
+## Files Added This Session (+56 tests)
+
+**Type schemas** (2 files, +39 tests):
+- `src/core/types/border.test.ts` (24 tests) - border-width, border-style, border-color, border-radius schemas
+- `src/core/types/shadow.test.ts` (15 tests) - box-shadow and text-shadow schemas
+
+**Keyword validators** (2 files, +17 tests):
+- `src/core/keywords/background-attachment-keywords.test.ts` (9 tests) - scroll, fixed, local
+- `src/core/keywords/border-width-keywords.test.ts` (8 tests) - thin, medium, thick
+
+## Previous Session Files (+94 tests)
 
 **Layout parsers** (5 files, +60 tests):
-- `src/parse/layout/padding-left.test.ts` (12 tests)
-- `src/parse/layout/padding-right.test.ts` (12 tests)
-- `src/parse/layout/margin-bottom.test.ts` (12 tests)
-- `src/parse/layout/margin-left.test.ts` (12 tests)
-- `src/parse/layout/margin-right.test.ts` (12 tests)
+- padding-left, padding-right, margin-bottom, margin-left, margin-right
 
 **Keyword validators** (14 files, +45 tests):
-- `src/core/keywords/position-property-keywords.test.ts`
-- `src/core/keywords/align-content-keywords.test.ts`
-- `src/core/keywords/corner-shape-keywords.test.ts`
-- `src/core/keywords/align-items-keywords.test.ts`
-- `src/core/keywords/text-transform-keywords.test.ts`
-- `src/core/keywords/align-self-keywords.test.ts`
-- `src/core/keywords/justify-content-keywords.test.ts`
-- `src/core/keywords/word-break-keywords.test.ts`
-- `src/core/keywords/justify-items-keywords.test.ts`
-- `src/core/keywords/justify-self-keywords.test.ts`
-- `src/core/keywords/color-keywords.test.ts`
-- `src/core/keywords/auto-keyword.test.ts`
-- `src/core/keywords/white-space-keywords.test.ts`
-- `src/core/keywords/visibility-keywords.test.ts`
+- position-property, align-content, corner-shape, align-items, text-transform, etc.
 
 **Filter parsers** (2 files, +20 tests):
-- `src/parse/filter/blur.test.ts` (10 tests)
-- `src/parse/filter/hue-rotate.test.ts` (10 tests)
+- blur, hue-rotate
 
-**Color parsers** (1 file, +9 tests):
-- `src/parse/color/hex.test.ts`
-
-**Text parsers** (2 files, +17 tests):
-- `src/parse/text/thickness.test.ts` (9 tests)
-- `src/parse/text/color.test.ts` (8 tests)
+**Color & text parsers** (3 files, +26 tests):
+- hex, thickness, color
 
 **Generators** (1 file, +9 tests):
-- `src/generate/clip-path/ellipse.test.ts`
-
-**Previous Session Files** (10 files, +82 tests):
-*Keyword validators, type schemas, generators, parsers*
+- clip-path/ellipse
 
 ## 🎯 NEXT TASK: Push to 85%+ Coverage
 
@@ -109,8 +94,10 @@ it("parses valid value", () => {
 
 ## Notes
 
-- All 2983 tests passing ✅
+- All 3039 tests passing ✅
 - Zero test failures
-- Coverage incrementally improving (+1.83% this session)
-- Focus on breadth (many simple files) over depth for max coverage gain
-- Some type files (gradient/direction, gradient/radial-size) cause circular dependencies - skip them
+- Coverage: 84.41% (maintained - type files have low impact)
+- **Always check `/Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json` for spec-accurate schemas**
+- Example: `border-color` syntax is `<color>{1,4}`, box-shadow is `none | <shadow>#`
+- Type files test schema validation but don't execute much code → low coverage impact
+- Need to focus on parser/generator files for coverage boost
