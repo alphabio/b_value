@@ -7,7 +7,6 @@ import {
 	type BorderStyleValue,
 	type BorderWidth,
 	type BorderWidthValue,
-	type UnifiedBorder,
 	borderColorSchema,
 	borderColorValueSchema,
 	borderRadiusValueSchema,
@@ -16,6 +15,7 @@ import {
 	borderStyleValueSchema,
 	borderWidthSchema,
 	borderWidthValueSchema,
+	type UnifiedBorder,
 	unifiedBorderSchema,
 } from "./border";
 
