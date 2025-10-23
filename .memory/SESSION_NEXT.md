@@ -1,36 +1,42 @@
-# Next Session: Continue Coverage Push to 86.5%+
+# Next Session: Final Push to 89%
 
-**Current Coverage**: 85.26% (+0.65% this session)
-**Target**: 86.5% (+1.24%)
-**Status**: ✅ 3252 tests passing, all checks passing
+**Current Coverage**: 86.33% (honest measurement)
+**Target**: 89% (+2.67%)
+**Status**: ✅ 3305 tests passing, all checks passing
 
-## 🎯 Next High-Impact Files
+## 🎉 Session 5 Achievements
 
-**Remaining Low Coverage Generators**:
-1. `src/generate/clip-path/clip-path.ts` - dispatcher (needs tests)
-2. `src/generate/gradient/gradient.ts` - dispatcher (needs tests)
-3. `src/generate/filter/filter.ts` - dispatcher (needs tests)
+1. **Fixed TypeScript errors** in parser tests (csstree.Number → NumberNode)
+2. **Added shadow & transition tests** (+45 tests, +0.65% coverage)
+3. **Added keyword validator tests** (+53 tests for documentation)
+4. **Refined coverage config** (+1.07% by excluding barrel exports)
+5. **Created ADR** for system-colors deprecated vs supported
 
-**Keyword Validators** (~8 untested, easy wins):
-- `src/core/keywords/system-color-keywords.ts` (87 lines)
-- `src/core/keywords/basic-color-keywords.ts` (88 lines)
-- `src/core/keywords/animation-keywords.ts` (104 lines)
-- `src/core/keywords/box-edge-keywords.ts` (137 lines)
-- `src/core/keywords/repeat-keywords.ts` (160 lines)
-- `src/core/keywords/position-keywords.ts` (163 lines)
-- `src/core/keywords/shape-keywords.ts` (163 lines)
+**Total Progress**: 84.61% → 86.33% (+1.72%)
 
-## Work Completed This Session
+## 🎯 What to Test Next (2.67% needed)
 
-**Shadow & Transition Tests** (4 files, +45 tests):
-- `src/generate/shadow/box-shadow.test.ts` (13 tests)
-- `src/generate/shadow/text-shadow.test.ts` (11 tests)
-- `src/generate/shadow/shadow.test.ts` (9 tests)
-- `src/generate/transition/transition.test.ts` (12 tests)
+Use the HTML coverage report to find actual gaps:
+```bash
+open coverage/index.html
+```
 
-**Bugs Fixed**:
-- `src/generate/shadow/box-shadow.ts` - fixed `generateOk` in map returning Result objects
-- `src/generate/shadow/text-shadow.ts` - fixed same issue
+Look for files with <90% coverage, prioritize:
+- Generators with complex logic
+- Parsers with edge cases
+- Utilities with low coverage
+
+**Skip**:
+- Index files (barrel exports - already excluded)
+- Files already at 100%
+- Examples directory
+
+## 📝 Lessons Learned
+
+1. ✅ **Check HTML coverage report first** - don't guess
+2. ✅ **Exclude barrel exports** - they're just re-exports
+3. ✅ **ADRs for spec issues** - document don't fix during coverage push
+4. ✅ **Verify coverage gains are real** - check if files have logic to test
 
 ## Coverage Progress
 
@@ -38,32 +44,5 @@
 - **Session 2**: 82.58% (+7.93%)
 - **Session 3**: 84.41% (+1.83%)
 - **Session 4**: 84.61% (+0.20%)
-- **Session 5 (current)**: 85.26% (+0.65%)
-- **Next Target**: 86.5% (+1.24%)
-- **Final Goal**: 89%
-
-## Strategy
-
-Focus on **dispatcher pattern generators** - they route to specific generators and are straightforward to test. Then move to untested keyword validators for quick coverage gains.
-
-## Test Pattern for Dispatchers
-
-```typescript
-describe("generate[Type] (dispatcher)", () => {
-  it("dispatches to specific generator", () => {
-    const result = generate({ kind: "specific-type", /* ... */ });
-    expect(result.ok).toBe(true);
-    if (result.ok) {
-      expect(result.value).toBe("expected output");
-    }
-  });
-
-  it("rejects invalid input", () => {
-    const result = generate(null as any);
-    expect(result.ok).toBe(false);
-    if (!result.ok) {
-      expect(result.issues[0]?.code).toBe("missing-required-field");
-    }
-  });
-});
-```
+- **Session 5**: 86.33% (+1.72%)
+- **Final Goal**: 89% (2.67% to go)
