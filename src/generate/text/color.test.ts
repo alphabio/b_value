@@ -21,17 +21,19 @@ describe("text-decoration-color generator", () => {
 	});
 
 	test("should generate currentColor", () => {
-		const result = generate({ kind: "special", keyword: "currentColor" });
+		const result = generate({ kind: "special", keyword: "currentcolor" });
 		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("currentColor");
+		if (result.ok) expect(result.value).toBe("currentcolor");
 	});
 
 	test("should error on null", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
 		const result = generate(null as any);
 		expect(result.ok).toBe(false);
 	});
 
 	test("should error on undefined", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
 		const result = generate(undefined as any);
 		expect(result.ok).toBe(false);
 	});
