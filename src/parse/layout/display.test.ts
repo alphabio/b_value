@@ -82,5 +82,18 @@ describe("parse/layout/display", () => {
 			const result = Display.parse("");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects multiple values", () => {
+			const result = Display.parse("flex grid");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = Display.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse display");
+			}
+		});
 	});
 });

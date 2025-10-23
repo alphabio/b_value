@@ -50,5 +50,18 @@ describe("parse/layout/box-sizing", () => {
 			const result = BoxSizing.parse("");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects multiple values", () => {
+			const result = BoxSizing.parse("border-box content-box");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = BoxSizing.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse box-sizing");
+			}
+		});
 	});
 });

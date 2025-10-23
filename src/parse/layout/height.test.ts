@@ -117,5 +117,26 @@ describe("Parse.Layout.Height", () => {
 			const result = parse("100px 50px");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects unitless non-zero number", () => {
+			const result = parse("100");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("require a unit");
+			}
+		});
+
+		it("rejects invalid length type", () => {
+			const result = parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse height");
+			}
+		});
 	});
 });

@@ -82,5 +82,18 @@ describe("parse/layout/cursor", () => {
 			const result = Cursor.parse("");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects multiple values", () => {
+			const result = Cursor.parse("pointer default");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = Cursor.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse cursor");
+			}
+		});
 	});
 });
