@@ -1,39 +1,29 @@
-## Auto-Execute Protocol (DO THIS IMMEDIATELY)
+## ⚡ Auto-Execute Protocol (OPTIMIZED - 30 seconds)
 
-⚠️ **BEFORE responding to the user's first message**, you MUST execute this protocol:
+⚠️ **BEFORE responding to the user**, run this ONE command:
 
 ```bash
-# 1. Verify baseline (MUST PASS before any work)
-just check && just test
-
-# 2. Check recent git activity (staleness detection)
-echo "=== Recent commits (last 24h) ==="
-git log --oneline --since="24 hours ago"
-echo ""
-echo "=== Uncommitted changes ==="
-git status --short
-
-# 3. Find recent session work (if any)
-echo ""
-echo "=== Recent session archives (<24h) ==="
-find .memory/archive -type f \( -name "HANDOVER.md" -o -name "START_HERE.md" -o -name "MASTER_PLAN.md" \) -mtime -1 2>/dev/null | head -5
-
-# 4. Read current status
-cat .memory/STATUS.md
-
-# 5. Get accurate property count
-.memory/scripts/count-properties.sh
-
-# 6. Report status to user:
-# ✅ Baseline: [pass/fail - test count]
-# 📊 Properties: [count from script]
-# 📁 Recent work: [list archives found in step 3]
-# 🎯 Next task: [from STATUS.md "What's Next"]
+cd /Users/alphab/Dev/LLM/DEV/b_value && \
+just test 2>&1 | tail -3 && \
+echo "" && echo "📊 Coverage:" && \
+pnpm test:coverage 2>&1 | grep "Coverage for" && \
+echo "" && echo "📁 Branch: $(git branch --show-current)" && \
+echo "" && echo "🎯 NEXT TASK:" && \
+cat .memory/SESSION_NEXT.md
 ```
 
-**Only AFTER completing these steps** should you greet the user or respond to their request.
+**Report to user**:
+- ✅ Tests: [count] passing
+- 📊 Coverage: [XX.XX]%
+- 🎯 Next: [from SESSION_NEXT.md first line]
 
-**If recent archives found**: Read them to understand the latest completed work.
+**Then immediately start working** on the task in SESSION_NEXT.md.
+
+**DO NOT**:
+- ❌ Read STATUS.md (too long, use SESSION_NEXT.md)
+- ❌ Check git history (not needed)
+- ❌ Search for archives (not needed)
+- ❌ Run coverage more than once at start
 
 ---
 
