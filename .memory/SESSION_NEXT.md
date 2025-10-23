@@ -1,109 +1,93 @@
-# Next Session: Continue Here
+# Next Session: Continue Coverage Push
 
-**Current Coverage**: 74.65% → 80.95% (+6.30%)
-**Tests Added This Session**: +149 tests across 20 files
-- Simple parsers: clip-path, flexbox, text, color (9 files, +81 tests)
-- Generators: blend modes, layout, clip-path (11 files, +78 tests)
-- Units & utilities: time, frequency, angle, parse nodes (5 files, +37 tests)
-- Dispatcher tests: border, outline, text, background, transition (5 files, +45 tests)
+**Current Coverage**: 80.95% → 82.58% (+1.63%)
+**Tests This Session**: 2752 → 2834 (+82 tests across 10 files)
+**Overall Progress**: 74.65% → 82.58% (+7.93% total)
 
-**Last Completed**: Dispatcher pattern tests
+## Files Added This Mini-Session (+82 tests)
 
-**Key Learning**: Documented dispatcher pattern in `.memory/DISPATCHER_PATTERN.md`
-- Dispatchers are convenience functions, NOT shorthand expansion
-- b_short handles shorthand properties, b_value handles longhand values
+**Keyword validators** (5 files, +42 tests):
+- `src/core/keywords/outline-style-keywords.test.ts`
+- `src/core/keywords/text-decoration-line-keywords.test.ts`
+- `src/core/keywords/grid-auto-flow-keywords.test.ts`
+- `src/core/keywords/text-align-keywords.test.ts`
+- `src/core/keywords/overflow-keywords.test.ts`
+- `src/core/keywords/overflow-wrap-keywords.test.ts`
 
-## 🎯 NEXT TASK (Do This Immediately)
+**Type schemas** (1 file, +16 tests):
+- `src/core/types/box-model.test.ts`
 
-**Phase 3: Push to 77% Coverage** (Target: 77%)
+**Generators** (2 files, +24 tests):
+- `src/utils/generate/color.test.ts` (dispatcher)
+- `src/generate/clip-path/circle.test.ts`
 
-We're at 74.65%, need +2.35% more. Focus on:
+**Parsers** (1 file, +18 tests):
+- `src/parse/layout/padding-bottom.test.ts`
 
-1. **More generate/ files** - Many clip-path generators need tests
-2. **Type definition files** - src/core/types/ simple type files  
-3. **More keyword files** - src/core/keywords/ validators
-4. **Utility functions** - src/utils/ parse helpers
+## 🎯 NEXT TASK: Push to 85%+ Coverage
 
-**Goal**: Reach 77% coverage
+**Goal**: Add +2.42% more (target 85%)
+
+**Strategy**: Continue with simple files (< 80 lines) without tests
 
 **Command to find candidates**:
 ```bash
-# Find simple untested files (< 80 lines)
-find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -20
+find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -30
 ```
 
-## 📊 Coverage Progress
+## Remaining Simple Files (< 80 lines)
 
-- **Start**: 69.22%
-- **Current**: 72.22%
-- **Gain**: +3.00%
-- **Target**: 75% (need +2.78% more)
+**Keywords** (still ~20 untested):
+- position-property-keywords, align-content-keywords, corner-shape-keywords
+- align-items-keywords, text-transform-keywords, align-self-keywords
+- justify-content-keywords, word-break-keywords, justify-items-keywords
+- justify-self-keywords, color-keywords
+
+**Parse functions** (~10 untested):
+- padding-left, padding-right, filter/hue-rotate, filter/blur
+- color/hex, text/thickness
+
+**Type definitions** (~5 untested):
+- gradient/direction, gradient/radial-size
+
+**Utilities** (~3 untested):
+- utils/parse/color
+
+## Coverage Progress Tracker
+
+- **Start of all sessions**: 69.22%
+- **After Session 1**: 74.65% (+5.43%)
+- **Current**: 82.58% (+7.93% total)
+- **Next Target**: 85% (+2.42%)
 - **Final Goal**: 89%
 
-## 📝 Files Completed This Session
+## Test Patterns to Reuse
 
-**Text decoration generators** (4 files, 27 tests):
-- `src/generate/text/line.test.ts`
-- `src/generate/text/style.test.ts`
-- `src/generate/text/color.test.ts`
-- `src/generate/text/thickness.test.ts`
-
-**Background parsers** (5 files, 27 tests):
-- `src/parse/background/clip.test.ts`
-- `src/parse/background/origin.test.ts`
-- `src/parse/background/repeat.test.ts`
-- `src/parse/background/attachment.test.ts`
-- `src/parse/background/size.test.ts`
-
-**Layout parsers** (5 files, 44 tests):
-- `src/parse/layout/visibility.test.ts`
-- `src/parse/layout/display.test.ts`
-- `src/parse/layout/opacity.test.ts`
-- `src/parse/layout/box-sizing.test.ts`
-- `src/parse/layout/cursor.test.ts`
-
-**Flexbox parsers** (7 files, 55 tests):
-- `src/parse/flexbox/flex-shrink.test.ts`
-- `src/parse/flexbox/order.test.ts`
-- `src/parse/flexbox/flex-wrap.test.ts`
-- `src/parse/flexbox/align-content.test.ts`
-- `src/parse/flexbox/align-items.test.ts`
-- `src/parse/flexbox/align-self.test.ts`
-- `src/parse/flexbox/justify-content.test.ts`
-
-## 🔧 Test Patterns Used
-
-**Simple keyword parser** (e.g., visibility, display):
+**Keyword validator pattern**:
 ```typescript
-it("parses keyword", () => {
-  const result = parse("keyword");
-  expect(result.ok).toBe(true);
-  if (result.ok) {
-    expect(result.value).toEqual({ kind: "type", value: "keyword" });
+it("accepts all valid keywords", () => {
+  const keywords: KeywordType[] = ["value1", "value2"];
+  for (const keyword of keywords) {
+    expect(schema.safeParse(keyword).success).toBe(true);
   }
 });
 ```
 
-**Simple value parser** (e.g., opacity, order):
+**Parser pattern**:
 ```typescript
-it("parses value", () => {
-  const result = parse("0.5");
+it("parses valid value", () => {
+  const result = parse("10px");
   expect(result.ok).toBe(true);
   if (result.ok) {
-    expect(result.value).toEqual({ kind: "type", value: 0.5 });
+    expect(result.value.kind).toBe("property-name");
+    expect(result.value.value).toEqual({ value: 10, unit: "px" });
   }
 });
 ```
 
-**Error handling** (add biome-ignore comment):
-```typescript
-// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
-const result = parse(null as any);
-expect(result.ok).toBe(false);
-```
+## Notes
 
-## ✅ Quality Gates Passed
-
-- ✅ `just check` - Format, lint, typecheck
-- ✅ `just test` - All 2286 tests passing
-- ✅ All commits clean and descriptive
+- All 2834 tests passing ✅
+- Zero test failures
+- Coverage incrementally improving
+- Focus on breadth (many simple files) over depth for max coverage gain
