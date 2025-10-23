@@ -152,7 +152,7 @@ describe("parseLengthPercentageNode", () => {
 	});
 
 	it("parses unitless zero", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "0",
@@ -166,7 +166,7 @@ describe("parseLengthPercentageNode", () => {
 	});
 
 	it("rejects unitless non-zero", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "10",
@@ -247,7 +247,7 @@ describe("parseLengthPercentageNode", () => {
 
 describe("parseNumberNode", () => {
 	it("parses valid number", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "10",
@@ -260,7 +260,7 @@ describe("parseNumberNode", () => {
 	});
 
 	it("parses decimal number", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "10.5",
@@ -273,7 +273,7 @@ describe("parseNumberNode", () => {
 	});
 
 	it("parses negative number", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "-10",
@@ -286,7 +286,7 @@ describe("parseNumberNode", () => {
 	});
 
 	it("parses zero", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "0",
@@ -299,7 +299,7 @@ describe("parseNumberNode", () => {
 	});
 
 	it("rejects NaN value", () => {
-		const node: csstree.Number = {
+		const node: csstree.NumberNode = {
 			type: "Number",
 			loc: null,
 			value: "notanumber",
