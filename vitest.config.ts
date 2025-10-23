@@ -29,6 +29,10 @@ export default defineConfig({
 				"NOTES/**",
 				"benchmark/**",
 				"scripts/**",
+				"examples/**", // Example files not production code
+				"docs/**",
+				"docs.internal/**",
+				"docs.llm/**",
 				"packages/*/test{,s}/**",
 				"**/*.d.ts",
 				"cypress/**",
@@ -39,18 +43,11 @@ export default defineConfig({
 				"**/__test__/**",
 				"**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*",
 				"**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
-				"src/types/**",
-				"src/core/units/**", // Simple type exports, tested via usage
-				"src/core/result.ts", // Result type utilities, tested via usage
-				"src/index.ts", // Index files just re-export
-				"src/parse/index.ts",
-				"src/generate/index.ts",
-				"src/parse/gradient/index.ts",
-				"src/generate/gradient/index.ts",
-				"src/parse/position/index.ts", // Barrel file
-				"src/generate/position/index.ts", // Barrel file
-				"src/parse/transform/index.ts", // Barrel file
-				"src/generate/transform/index.ts", // Barrel file
+				// Index files (barrel exports only)
+				"**/index.ts",
+				// Core infrastructure (tested via usage)
+				"src/core/result.ts", // Result type utilities
+				"src/core/units/**", // Simple type exports
 			],
 			all: true,
 			thresholds: {

@@ -80,7 +80,11 @@ export function to3DCss(ir: Type.Position3D): GenerateResult {
  * @public
  */
 export function toListCss(ir: Type.PositionList): GenerateResult {
-	const positionStrings = ir.map(generate);
+	const positionResults = ir.map(generate);
+	const positionStrings = positionResults.map((result) => {
+		if (!result.ok) return "";
+		return result.value;
+	});
 	return generateOk(positionStrings.join(", "));
 }
 

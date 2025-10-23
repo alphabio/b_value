@@ -144,5 +144,26 @@ describe("Parse.Layout.Width", () => {
 			const result = parse("-100px");
 			expect(result.ok).toBe(true); // CSS allows negative widths (they're clamped to 0)
 		});
+
+		it("rejects unitless non-zero", () => {
+			const result = parse("100");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("require a unit");
+			}
+		});
+
+		it("rejects invalid value type", () => {
+			const result = parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse width");
+			}
+		});
 	});
 });

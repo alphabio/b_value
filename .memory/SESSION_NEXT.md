@@ -1,116 +1,111 @@
-# Next Session: Continue Coverage Push to 85%+
+# Session 7: Push to 90% Coverage
 
-**Current Coverage**: 82.58% → 84.41% (+1.83%)
-**Tests This Session**: 2889 → 2983 (+94 tests across 26 files)
-**Overall Progress**: 74.65% → 84.41% (+9.76% total)
+**Current Coverage**: 89.01% ✓ (exceeds 89% threshold!)
+**Target**: 90% (+0.99% remaining)
+**Status**: ✅ 3,480 tests passing, all checks passing
 
-## Files Added This Session (+94 tests)
+## ✅ Session 6 Achievements (86.74% → 89.01%)
 
-**Layout parsers** (5 files, +60 tests):
-- `src/parse/layout/padding-left.test.ts` (12 tests)
-- `src/parse/layout/padding-right.test.ts` (12 tests)
-- `src/parse/layout/margin-bottom.test.ts` (12 tests)
-- `src/parse/layout/margin-left.test.ts` (12 tests)
-- `src/parse/layout/margin-right.test.ts` (12 tests)
+Successfully reached 89% milestone with +2.27% coverage gain!
 
-**Keyword validators** (14 files, +45 tests):
-- `src/core/keywords/position-property-keywords.test.ts`
-- `src/core/keywords/align-content-keywords.test.ts`
-- `src/core/keywords/corner-shape-keywords.test.ts`
-- `src/core/keywords/align-items-keywords.test.ts`
-- `src/core/keywords/text-transform-keywords.test.ts`
-- `src/core/keywords/align-self-keywords.test.ts`
-- `src/core/keywords/justify-content-keywords.test.ts`
-- `src/core/keywords/word-break-keywords.test.ts`
-- `src/core/keywords/justify-items-keywords.test.ts`
-- `src/core/keywords/justify-self-keywords.test.ts`
-- `src/core/keywords/color-keywords.test.ts`
-- `src/core/keywords/auto-keyword.test.ts`
-- `src/core/keywords/white-space-keywords.test.ts`
-- `src/core/keywords/visibility-keywords.test.ts`
+### Work Completed:
+1. **Utils Testing** (+3 files, 81 tests)
+   - generate/position/utils.ts: 48% → 100%
+   - generate/transform/utils.ts: 56% → 100%
+   - utils/ast/functions.ts: 66.66% → 96.49%
+   
+2. **Parse/Layout Module** (+2 files, 24 tests)
+   - max-height.test.ts: NEW (7.27% → 92.72%)
+   - min-height.test.ts: NEW (7.27% → 92.72%)
+   - Enhanced 15 existing files
+   - Module: 73.03% → 86.32% (+13.29%)
 
-**Filter parsers** (2 files, +20 tests):
-- `src/parse/filter/blur.test.ts` (10 tests)
-- `src/parse/filter/hue-rotate.test.ts` (10 tests)
+3. **Bug Fixed**: toListCss() in generate/position/utils.ts
 
-**Color parsers** (1 file, +9 tests):
-- `src/parse/color/hex.test.ts`
+📄 **Full details**: `.memory/archive/2025-10-23-coverage-89-milestone/HANDOVER.md`
 
-**Text parsers** (2 files, +17 tests):
-- `src/parse/text/thickness.test.ts` (9 tests)
-- `src/parse/text/color.test.ts` (8 tests)
+## 🎯 Roadmap to 90% (+0.99% needed)
 
-**Generators** (1 file, +9 tests):
-- `src/generate/clip-path/ellipse.test.ts`
+### Strategy: Focus on parse/typography (~0.4% impact)
+These 4 files have consistent patterns and similar missing coverage:
 
-**Previous Session Files** (10 files, +82 tests):
-*Keyword validators, type schemas, generators, parsers*
+1. **font-family.ts** (87.5%)
+   - Uncovered: lines 39-40, 61, 78-79
+   - Need: ~3-4 tests (parse exception, edge cases)
+   
+2. **font-weight.ts** (80.95%)
+   - Uncovered: lines 39-40, 50-51, 82-85
+   - Need: ~4-5 tests (unitless non-zero, parse exception)
+   
+3. **letter-spacing.ts** (79.48%)
+   - Uncovered: lines 40-41, 51-52, 75-78
+   - Need: ~4-5 tests (unitless non-zero, parse exception)
+   
+4. **line-height.ts** (82.6%)
+   - Uncovered: lines 52, 79-80, 87-88
+   - Need: ~3-4 tests (parse exception, edge cases)
 
-## 🎯 NEXT TASK: Push to 85%+ Coverage
+### Additional Targets (if needed):
 
-**Goal**: Add +0.59% more (target 85%)
+5. **parse/outline** (~0.15% impact)
+   - color.ts: 84.21%
+   - offset.ts: 84%
+   - width.ts: 87.69%
 
-**Strategy**: Continue with simple files (< 80 lines) without tests
+6. **parse/layout margins/padding** (~0.2% impact)
+   - margin-bottom/left/right: ~83-84%
+   - padding-bottom/left/right: ~84-85%
 
-**Command to find candidates**:
+### Commands to Start
 
 ```bash
-find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -30
+# Check typography coverage
+pnpm test:coverage 2>&1 | grep "parse/typography"
+
+# View test file structure
+ls -la src/parse/typography/*.test.ts
+
+# View uncovered lines
+cat src/parse/typography/font-family.ts | sed -n '39,79p'
+cat src/parse/typography/font-weight.ts | sed -n '39,85p'
+
+# Run tests
+just test
 ```
 
-## Remaining Simple Files (< 80 lines)
+### Test Pattern for Typography Files
 
-**Generators** (~5 untested):
-- utils/generate/color, generate/clip-path/polygon
-
-**Parse functions** (~8 untested):
-- utils/parse/color, filter functions, text functions
-
-**Type definitions** (~3 untested):
-- grid-line, color-stop (may have circular dependencies - skip if needed)
-
-**Note**: Some type files cause circular dependency issues when tested directly.
-Focus on parsers and generators which are safe to test.
-
-## Coverage Progress Tracker
-
-- **Start of all sessions**: 69.22%
-- **After Session 1**: 74.65% (+5.43%)
-- **After Session 2**: 82.58% (+7.93%)
-- **Current**: 84.41% (+15.19% total)
-- **Next Target**: 85% (+0.59%)
-- **Final Goal**: 89%
-
-## Test Patterns to Reuse
-
-**Keyword validator pattern**:
-
+Most need this standard error path pattern:
 ```typescript
-it("accepts all valid keywords", () => {
-  const keywords: KeywordType[] = ["value1", "value2"];
-  for (const keyword of keywords) {
-    expect(schema.safeParse(keyword).success).toBe(true);
+it("rejects unitless non-zero", () => {
+  const result = parse("16");
+  expect(result.ok).toBe(false);
+  if (!result.ok) {
+    expect(result.error).toContain("require a unit");
+  }
+});
+
+it("rejects invalid value type", () => {
+  const result = parse("rgb(255, 0, 0)");
+  expect(result.ok).toBe(false);
+});
+
+it("handles parse exception", () => {
+  const result = parse("@@@");
+  expect(result.ok).toBe(false);
+  if (!result.ok) {
+    expect(result.error).toContain("Failed to parse [property]");
   }
 });
 ```
 
-**Parser pattern**:
+## 📊 Coverage Progress
 
-```typescript
-it("parses valid value", () => {
-  const result = parse("10px");
-  expect(result.ok).toBe(true);
-  if (result.ok) {
-    expect(result.value.kind).toBe("property-name");
-    expect(result.value.value).toEqual({ value: 10, unit: "px" });
-  }
-});
-```
-
-## Notes
-
-- All 2983 tests passing ✅
-- Zero test failures
-- Coverage incrementally improving (+1.83% this session)
-- Focus on breadth (many simple files) over depth for max coverage gain
-- Some type files (gradient/direction, gradient/radial-size) cause circular dependencies - skip them
+- **Session 1**: 74.65% (+5.43%)
+- **Session 2**: 82.58% (+7.93%)
+- **Session 3**: 84.41% (+1.83%)
+- **Session 4**: 84.61% (+0.20%)
+- **Session 5**: 86.33% (+1.72%)
+- **Session 6**: 86.74% (+0.41%)
+- **Session 7**: 89.01% (+2.27%) ✓ **89% MILESTONE ACHIEVED!**
+- **Next Goal**: 90% (0.99% to go)

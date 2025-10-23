@@ -120,5 +120,13 @@ describe("Parse.Layout.ZIndex", () => {
 				expect(result.error).toContain("Expected single value");
 			}
 		});
+
+		it("should handle parse exception", () => {
+			const result = Parse.Layout.ZIndex.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse z-index");
+			}
+		});
 	});
 });

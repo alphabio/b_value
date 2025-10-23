@@ -117,5 +117,34 @@ describe("Parse.Typography.FontSize", () => {
 			const result = FontSize.parse("16px 20px");
 			expect(result.ok).toBe(false);
 		});
+
+		it("should parse unitless zero", () => {
+			const result = FontSize.parse("0");
+			expect(result.ok).toBe(true);
+			if (result.ok) {
+				expect(result.value.value).toEqual({ value: 0, unit: "px" });
+			}
+		});
+
+		it("should reject unitless non-zero", () => {
+			const result = FontSize.parse("16");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("require a unit");
+			}
+		});
+
+		it("should reject invalid value type", () => {
+			const result = FontSize.parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
+
+		it("should handle parse exception", () => {
+			const result = FontSize.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse font-size");
+			}
+		});
 	});
 });

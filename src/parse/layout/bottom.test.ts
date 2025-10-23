@@ -96,5 +96,37 @@ describe("Parse.Layout.Bottom", () => {
 			const result = parse("10px 20px");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects unitless non-zero number", () => {
+			const result = parse("10");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("require a unit");
+			}
+		});
+
+		it("accepts unitless zero", () => {
+			const result = parse("0");
+			expect(result.ok).toBe(true);
+			if (result.ok) {
+				expect(result.value).toEqual({
+					kind: "bottom",
+					value: { value: 0, unit: "px" },
+				});
+			}
+		});
+
+		it("rejects invalid length type", () => {
+			const result = parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse bottom");
+			}
+		});
 	});
 });

@@ -92,5 +92,18 @@ describe("parse/layout/opacity", () => {
 			const result = Opacity.parse("");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects invalid length type", () => {
+			const result = Opacity.parse("10px");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = Opacity.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse opacity");
+			}
+		});
 	});
 });
