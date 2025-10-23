@@ -12,14 +12,14 @@ import * as ColorStop from "./color-stop";
  *
  * @internal
  */
-function positionToCss(position: Type.Position2D): GenerateResult {
+function positionToCss(position: Type.Position2D): string {
 	const h =
 		typeof position.horizontal === "string"
 			? position.horizontal
 			: `${position.horizontal.value}${position.horizontal.unit}`;
 	const v =
 		typeof position.vertical === "string" ? position.vertical : `${position.vertical.value}${position.vertical.unit}`;
-	return generateOk(`${h} ${v}`);
+	return `${h} ${v}`;
 }
 
 /**
