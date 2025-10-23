@@ -111,7 +111,7 @@ export function generate(shadow: BoxShadow): GenerateResult {
 			parts.push(generateColor(color));
 		}
 
-		return generateOk(parts.join(" "));
+		return parts.join(" ");
 	});
 
 	return generateOk(layers.join(", "));
