@@ -1,21 +1,30 @@
 # Next Session: Continue Here
 
-**Current Coverage**: 69.22% → 69.78% (+0.56%)
-**Tests Added This Session**: +27 tests (text-decoration: 4 files)
-**Last Completed**: Phase 1 Batch 3 - Text decoration generators
+**Current Coverage**: 69.22% → 72.22% (+3.00%)
+**Tests Added This Session**: +153 tests
+- Text decoration: 4 files (+27 tests)
+- Background parsers: 5 files (+27 tests)
+- Layout parsers: 5 files (+44 tests)
+- Flexbox parsers: 7 files (+55 tests)
+
+**Last Completed**: Flexbox parser tests
 
 ## 🎯 NEXT TASK (Do This Immediately)
 
-**Phase 1 Batch 4: Background Parsers** (5 files, ~25-30 tests, 20 min)
+**Continue Phase 2: More Simple Parsers** (Target: 75% coverage)
 
-Create tests for these files (NO TESTS EXIST YET):
-1. `src/parse/background/clip.ts` → `clip.test.ts`
-2. `src/parse/background/origin.ts` → `origin.test.ts`
-3. `src/parse/background/repeat.ts` → `repeat.test.ts`
-4. `src/parse/background/attachment.ts` → `attachment.test.ts`
-5. `src/parse/background/size.ts` → `size.test.ts`
+Check these directories for simple parsers without tests:
+1. `src/parse/clip-path/` - geometry-box, none, url parsers
+2. `src/parse/text/` - line, style parsers (if missing)
+3. `src/generate/` directory - look for untested generators
+4. Check other small files from the list
 
-**Pattern**: Simple keyword parsers - copy from `src/parse/layout/clear.test.ts`
+**Goal**: Reach 75% coverage with simple test additions
+
+**Command to find files**:
+```bash
+find src/parse -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec wc -l {} \; | sort -n | head -20
+```
 
 ## 📊 Progress Tracking
 
