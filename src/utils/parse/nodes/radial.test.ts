@@ -5,20 +5,20 @@ import { parseRadialSize } from "./radial";
 describe("parseRadialSize", () => {
 	const createIdentifier = (name: string): csstree.Identifier => ({
 		type: "Identifier",
-		loc: null,
+		loc: undefined,
 		name,
 	});
 
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createPercentage = (value: string): csstree.Percentage => ({
 		type: "Percentage",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 

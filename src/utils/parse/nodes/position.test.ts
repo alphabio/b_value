@@ -5,20 +5,20 @@ import { parseAtPosition, parsePosition2D, parsePositionValueNode } from "./posi
 describe("parsePositionValueNode", () => {
 	const createIdentifier = (name: string): csstree.Identifier => ({
 		type: "Identifier",
-		loc: null,
+		loc: undefined,
 		name,
 	});
 
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createPercentage = (value: string): csstree.Percentage => ({
 		type: "Percentage",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
@@ -107,20 +107,20 @@ describe("parsePositionValueNode", () => {
 describe("parsePosition2D", () => {
 	const createIdentifier = (name: string): csstree.Identifier => ({
 		type: "Identifier",
-		loc: null,
+		loc: undefined,
 		name,
 	});
 
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createPercentage = (value: string): csstree.Percentage => ({
 		type: "Percentage",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
@@ -254,13 +254,13 @@ describe("parsePosition2D", () => {
 describe("parseAtPosition", () => {
 	const createIdentifier = (name: string): csstree.Identifier => ({
 		type: "Identifier",
-		loc: null,
+		loc: undefined,
 		name,
 	});
 
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});

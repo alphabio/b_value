@@ -5,20 +5,20 @@ import { parseCornerValues, parseRoundBorderRadius, parseTRBLLengthPercentage } 
 describe("parseTRBLLengthPercentage", () => {
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createPercentage = (value: string): csstree.Percentage => ({
 		type: "Percentage",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
 	const createNumber = (value: string): csstree.NumberNode => ({
 		type: "Number",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
@@ -132,20 +132,20 @@ describe("parseTRBLLengthPercentage", () => {
 describe("parseCornerValues", () => {
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createPercentage = (value: string): csstree.Percentage => ({
 		type: "Percentage",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
 	const createNumber = (value: string): csstree.NumberNode => ({
 		type: "Number",
-		loc: null,
+		loc: undefined,
 		value,
 	});
 
@@ -265,14 +265,14 @@ describe("parseCornerValues", () => {
 describe("parseRoundBorderRadius", () => {
 	const createDimension = (value: string, unit: string): csstree.Dimension => ({
 		type: "Dimension",
-		loc: null,
+		loc: undefined,
 		value,
 		unit,
 	});
 
 	const createIdentifier = (name: string): csstree.Identifier => ({
 		type: "Identifier",
-		loc: null,
+		loc: undefined,
 		name,
 	});
 

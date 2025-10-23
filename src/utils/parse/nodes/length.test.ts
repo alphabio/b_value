@@ -6,7 +6,7 @@ describe("parseLengthNode", () => {
 	it("parses valid pixel dimension", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "10",
 			unit: "px",
 		};
@@ -23,7 +23,7 @@ describe("parseLengthNode", () => {
 		for (const unit of units) {
 			const node: csstree.Dimension = {
 				type: "Dimension",
-				loc: null,
+				loc: undefined,
 				value: "10",
 				unit,
 			};
@@ -37,7 +37,7 @@ describe("parseLengthNode", () => {
 		for (const unit of units) {
 			const node: csstree.Dimension = {
 				type: "Dimension",
-				loc: null,
+				loc: undefined,
 				value: "2",
 				unit,
 			};
@@ -51,7 +51,7 @@ describe("parseLengthNode", () => {
 		for (const unit of units) {
 			const node: csstree.Dimension = {
 				type: "Dimension",
-				loc: null,
+				loc: undefined,
 				value: "50",
 				unit,
 			};
@@ -63,7 +63,7 @@ describe("parseLengthNode", () => {
 	it("rejects invalid length unit", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "10",
 			unit: "invalid",
 		};
@@ -74,7 +74,7 @@ describe("parseLengthNode", () => {
 	it("rejects NaN value", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "notanumber",
 			unit: "px",
 		};
@@ -85,7 +85,7 @@ describe("parseLengthNode", () => {
 	it("rejects non-dimension node", () => {
 		const node: csstree.Identifier = {
 			type: "Identifier",
-			loc: null,
+			loc: undefined,
 			name: "auto",
 		};
 		const result = parseLengthNode(node);
@@ -95,7 +95,7 @@ describe("parseLengthNode", () => {
 	it("handles decimal values", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "10.5",
 			unit: "px",
 		};
@@ -109,7 +109,7 @@ describe("parseLengthNode", () => {
 	it("handles negative values", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "-10",
 			unit: "px",
 		};
@@ -125,7 +125,7 @@ describe("parseLengthPercentageNode", () => {
 	it("parses length dimension", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "10",
 			unit: "px",
 		};
@@ -140,7 +140,7 @@ describe("parseLengthPercentageNode", () => {
 	it("parses percentage", () => {
 		const node: csstree.Percentage = {
 			type: "Percentage",
-			loc: null,
+			loc: undefined,
 			value: "50",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -154,7 +154,7 @@ describe("parseLengthPercentageNode", () => {
 	it("parses unitless zero", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "0",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -168,7 +168,7 @@ describe("parseLengthPercentageNode", () => {
 	it("rejects unitless non-zero", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "10",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -178,7 +178,7 @@ describe("parseLengthPercentageNode", () => {
 	it("rejects invalid length unit", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "10",
 			unit: "invalid",
 		};
@@ -189,7 +189,7 @@ describe("parseLengthPercentageNode", () => {
 	it("rejects NaN length value", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "notanumber",
 			unit: "px",
 		};
@@ -200,7 +200,7 @@ describe("parseLengthPercentageNode", () => {
 	it("rejects NaN percentage value", () => {
 		const node: csstree.Percentage = {
 			type: "Percentage",
-			loc: null,
+			loc: undefined,
 			value: "notanumber",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -210,7 +210,7 @@ describe("parseLengthPercentageNode", () => {
 	it("rejects unsupported node type", () => {
 		const node: csstree.Identifier = {
 			type: "Identifier",
-			loc: null,
+			loc: undefined,
 			name: "auto",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -220,7 +220,7 @@ describe("parseLengthPercentageNode", () => {
 	it("handles negative length", () => {
 		const node: csstree.Dimension = {
 			type: "Dimension",
-			loc: null,
+			loc: undefined,
 			value: "-10",
 			unit: "px",
 		};
@@ -234,7 +234,7 @@ describe("parseLengthPercentageNode", () => {
 	it("handles negative percentage", () => {
 		const node: csstree.Percentage = {
 			type: "Percentage",
-			loc: null,
+			loc: undefined,
 			value: "-50",
 		};
 		const result = parseLengthPercentageNode(node);
@@ -249,7 +249,7 @@ describe("parseNumberNode", () => {
 	it("parses valid number", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "10",
 		};
 		const result = parseNumberNode(node);
@@ -262,7 +262,7 @@ describe("parseNumberNode", () => {
 	it("parses decimal number", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "10.5",
 		};
 		const result = parseNumberNode(node);
@@ -275,7 +275,7 @@ describe("parseNumberNode", () => {
 	it("parses negative number", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "-10",
 		};
 		const result = parseNumberNode(node);
@@ -288,7 +288,7 @@ describe("parseNumberNode", () => {
 	it("parses zero", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "0",
 		};
 		const result = parseNumberNode(node);
@@ -301,7 +301,7 @@ describe("parseNumberNode", () => {
 	it("rejects NaN value", () => {
 		const node: csstree.NumberNode = {
 			type: "Number",
-			loc: null,
+			loc: undefined,
 			value: "notanumber",
 		};
 		const result = parseNumberNode(node);
@@ -311,7 +311,7 @@ describe("parseNumberNode", () => {
 	it("rejects non-number node", () => {
 		const node: csstree.Identifier = {
 			type: "Identifier",
-			loc: null,
+			loc: undefined,
 			name: "auto",
 		};
 		const result = parseNumberNode(node);
