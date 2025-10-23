@@ -21,6 +21,7 @@ describe("invert generator", () => {
 	});
 
 	test("should error on null input", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
 		const result = generate(null as any);
 		expect(result.ok).toBe(false);
 	});
