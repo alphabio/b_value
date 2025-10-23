@@ -36,7 +36,7 @@ export function generate(polygon: Type.ClipPathPolygon): GenerateResult {
 	const pointStrings = polygon.points.map((point) => {
 		const x = GenerateUtils.lengthPercentageToCss(point.x);
 		const y = GenerateUtils.lengthPercentageToCss(point.y);
-		return generateOk(`${x} ${y}`);
+		return `${x} ${y}`;
 	});
 
 	parts.push(pointStrings.join(", "));
