@@ -64,8 +64,8 @@ describe("generateColor", () => {
 	});
 
 	it("generates special color currentColor", () => {
-		const color: Color = { kind: "special", keyword: "currentColor" };
-		expect(generateColor(color)).toBe("currentColor");
+		const color: Color = { kind: "special", keyword: "currentcolor" };
+		expect(generateColor(color)).toBe("currentcolor");
 	});
 
 	it("generates special color transparent", () => {

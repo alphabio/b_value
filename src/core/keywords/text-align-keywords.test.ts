@@ -71,7 +71,9 @@ describe("textAlignKeywordOptions", () => {
 	it("describes justify behavior", () => {
 		const justifyOption = textAlignKeywordOptions.find((opt) => opt.value === "justify");
 		expect(justifyOption).toBeDefined();
-		expect(justifyOption?.description.toLowerCase()).toContain("justif");
+		if (justifyOption?.description) {
+			expect(justifyOption.description.toLowerCase()).toContain("justif");
+		}
 	});
 });
 

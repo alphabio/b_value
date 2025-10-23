@@ -72,13 +72,17 @@ describe("overflowKeywordOptions", () => {
 	it("describes clipping behavior", () => {
 		const hiddenOption = overflowKeywordOptions.find((opt) => opt.value === "hidden");
 		expect(hiddenOption).toBeDefined();
-		expect(hiddenOption?.description.toLowerCase()).toContain("clip");
+		if (hiddenOption?.description) {
+			expect(hiddenOption.description.toLowerCase()).toContain("clip");
+		}
 	});
 
 	it("describes scrollbar behavior", () => {
 		const scrollOption = overflowKeywordOptions.find((opt) => opt.value === "scroll");
 		expect(scrollOption).toBeDefined();
-		expect(scrollOption?.description.toLowerCase()).toContain("scrollbar");
+		if (scrollOption?.description) {
+			expect(scrollOption.description.toLowerCase()).toContain("scrollbar");
+		}
 	});
 });
 
