@@ -1,52 +1,102 @@
-# Session 6: Progress to 89%
+# Session 7: Push to 90% Coverage
 
-**Current Coverage**: 86.74% (was 86.33%)
-**Target**: 89% (+2.26% remaining)
-**Status**: ✅ 3320 tests passing, all checks passing
+**Current Coverage**: 89.01% ✓ (exceeds 89% threshold!)
+**Target**: 90% (+0.99% remaining)
+**Status**: ✅ 3,480 tests passing, all checks passing
 
-## ✅ Session 6 Work Completed
+## ✅ Session 6 Achievements (86.74% → 89.01%)
 
-### 1. Fixed Critical Bugs in Gradient Generators (+0.41% coverage)
-- **Bug**: `positionToCss()` returned `GenerateResult` instead of `string`
-- **Impact**: Generated CSS had `[object Object]` instead of position values
-- **Fixed**: radial.ts and conic.ts now return string correctly
-- **Tests Added**:
-  - radial.test.ts: 7 tests (position, colorSpace, size, shape combinations)
-  - conic.test.ts: 8 tests (from angle, position, colorSpace combinations)
-- **Coverage**: generate/gradient 63.58% → 94.44% ✓
+Successfully reached 89% milestone with +2.27% coverage gain!
 
-## 🎯 What to Test Next (2.26% needed)
+### Work Completed:
+1. **Utils Testing** (+3 files, 81 tests)
+   - generate/position/utils.ts: 48% → 100%
+   - generate/transform/utils.ts: 56% → 100%
+   - utils/ast/functions.ts: 66.66% → 96.49%
+   
+2. **Parse/Layout Module** (+2 files, 24 tests)
+   - max-height.test.ts: NEW (7.27% → 92.72%)
+   - min-height.test.ts: NEW (7.27% → 92.72%)
+   - Enhanced 15 existing files
+   - Module: 73.03% → 86.32% (+13.29%)
 
-Based on coverage report analysis, focus on:
+3. **Bug Fixed**: toListCss() in generate/position/utils.ts
 
-### High-Value Targets (Real Coverage Gaps)
+📄 **Full details**: `.memory/archive/2025-10-23-coverage-89-milestone/HANDOVER.md`
 
-1. **Position/Transform Utils** (~0.7% impact)
-   - `generate/position/utils.ts` - 48% coverage
-   - `generate/transform/utils.ts` - 56.47% coverage
+## 🎯 Roadmap to 90% (+0.99% needed)
 
-2. **Parse Utilities** (~0.5% impact)
-   - `utils/ast/functions.ts` - 66.66% coverage
-   - `utils/parse/color-components.ts` - 80.9% coverage
+### Strategy: Focus on parse/typography (~0.4% impact)
+These 4 files have consistent patterns and similar missing coverage:
 
-3. **Linear Gradient** (~0.3% impact)
-   - `generate/gradient/linear.ts` - 78.78% coverage
-   - Lines 126, 151, 159-160 uncovered
+1. **font-family.ts** (87.5%)
+   - Uncovered: lines 39-40, 61, 78-79
+   - Need: ~3-4 tests (parse exception, edge cases)
+   
+2. **font-weight.ts** (80.95%)
+   - Uncovered: lines 39-40, 50-51, 82-85
+   - Need: ~4-5 tests (unitless non-zero, parse exception)
+   
+3. **letter-spacing.ts** (79.48%)
+   - Uncovered: lines 40-41, 51-52, 75-78
+   - Need: ~4-5 tests (unitless non-zero, parse exception)
+   
+4. **line-height.ts** (82.6%)
+   - Uncovered: lines 52, 79-80, 87-88
+   - Need: ~3-4 tests (parse exception, edge cases)
 
-4. **Parse Layout** (~0.4% impact)
-   - Various layout parsers at 60-85% coverage
-   - Focus on error path coverage
+### Additional Targets (if needed):
 
-### Commands
+5. **parse/outline** (~0.15% impact)
+   - color.ts: 84.21%
+   - offset.ts: 84%
+   - width.ts: 87.69%
+
+6. **parse/layout margins/padding** (~0.2% impact)
+   - margin-bottom/left/right: ~83-84%
+   - padding-bottom/left/right: ~84-85%
+
+### Commands to Start
 
 ```bash
-# Check specific file coverage
-pnpm test:coverage 2>&1 | grep "generate/position"
-pnpm test:coverage 2>&1 | grep "utils/ast"
+# Check typography coverage
+pnpm test:coverage 2>&1 | grep "parse/typography"
+
+# View test file structure
+ls -la src/parse/typography/*.test.ts
 
 # View uncovered lines
-cat src/generate/position/utils.ts | sed -n '72,98p'
-cat src/utils/ast/functions.ts | sed -n '79,143p'
+cat src/parse/typography/font-family.ts | sed -n '39,79p'
+cat src/parse/typography/font-weight.ts | sed -n '39,85p'
+
+# Run tests
+just test
+```
+
+### Test Pattern for Typography Files
+
+Most need this standard error path pattern:
+```typescript
+it("rejects unitless non-zero", () => {
+  const result = parse("16");
+  expect(result.ok).toBe(false);
+  if (!result.ok) {
+    expect(result.error).toContain("require a unit");
+  }
+});
+
+it("rejects invalid value type", () => {
+  const result = parse("rgb(255, 0, 0)");
+  expect(result.ok).toBe(false);
+});
+
+it("handles parse exception", () => {
+  const result = parse("@@@");
+  expect(result.ok).toBe(false);
+  if (!result.ok) {
+    expect(result.error).toContain("Failed to parse [property]");
+  }
+});
 ```
 
 ## 📊 Coverage Progress
@@ -57,4 +107,5 @@ cat src/utils/ast/functions.ts | sed -n '79,143p'
 - **Session 4**: 84.61% (+0.20%)
 - **Session 5**: 86.33% (+1.72%)
 - **Session 6**: 86.74% (+0.41%)
-- **Final Goal**: 89% (2.26% to go)
+- **Session 7**: 89.01% (+2.27%) ✓ **89% MILESTONE ACHIEVED!**
+- **Next Goal**: 90% (0.99% to go)
