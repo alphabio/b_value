@@ -75,12 +75,14 @@ describe("animation generator (dispatcher)", () => {
 	});
 
 	test("should error on missing kind", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
 		const result = generate({} as any);
 		expect(result.ok).toBe(false);
 		if (!result.ok) expect(result.issues?.[0]?.message).toContain("missing 'kind' field");
 	});
 
 	test("should error on invalid kind", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
 		const result = generate({ kind: "animation-invalid" } as any);
 		expect(result.ok).toBe(false);
 		if (!result.ok) expect(result.issues?.[0]?.message).toContain("Unknown animation kind");
