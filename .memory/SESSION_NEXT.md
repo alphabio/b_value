@@ -1,103 +1,71 @@
-# Next Session: Continue Coverage Push to 85%+
+# Next Session: Shadow & Transition Generators
 
-**Current Coverage**: 84.41% (maintained)
-**Tests This Session**: 2983 → 3039 (+56 tests across 4 files)
-**Overall Progress**: 74.65% → 84.41% (+9.76% total from start)
+**Current Coverage**: 84.61%
+**Target**: 86.5% (+1.89%)
+**Status**: ✅ All tests passing (3207), TypeScript clean
 
-## Files Added This Session (+56 tests)
+## 🎯 High-Impact Files (Lowest Coverage)
 
-**Type schemas** (2 files, +39 tests):
-- `src/core/types/border.test.ts` (24 tests) - border-width, border-style, border-color, border-radius schemas
-- `src/core/types/shadow.test.ts` (15 tests) - box-shadow and text-shadow schemas
+**Shadow Generators** (3 files, ~80 uncovered lines):
+1. `src/generate/shadow/box-shadow.ts` (11.11%) - 36 uncovered lines
+2. `src/generate/shadow/text-shadow.ts` (14.28%) - 26 uncovered lines  
+3. `src/generate/shadow/shadow.ts` (20%) - 19 uncovered lines
 
-**Keyword validators** (2 files, +17 tests):
-- `src/core/keywords/background-attachment-keywords.test.ts` (9 tests) - scroll, fixed, local
-- `src/core/keywords/border-width-keywords.test.ts` (8 tests) - thin, medium, thick
+**Transition Generators** (2 files, ~50 uncovered lines):
+4. `src/generate/transition/transition.ts` (20.68%) - 29 uncovered lines
+5. `src/generate/transition/timing-function.ts` (36.36%) - 21 uncovered lines
 
-## Previous Session Files (+94 tests)
+**Why These**: Lowest coverage percentages = highest impact per test
 
-**Layout parsers** (5 files, +60 tests):
-- padding-left, padding-right, margin-bottom, margin-left, margin-right
-
-**Keyword validators** (14 files, +45 tests):
-- position-property, align-content, corner-shape, align-items, text-transform, etc.
-
-**Filter parsers** (2 files, +20 tests):
-- blur, hue-rotate
-
-**Color & text parsers** (3 files, +26 tests):
-- hex, thickness, color
-
-**Generators** (1 file, +9 tests):
-- clip-path/ellipse
-
-## 🎯 NEXT TASK: Push to 85%+ Coverage
-
-**Goal**: Add +0.59% more (target 85%)
-
-**Strategy**: Continue with simple files (< 80 lines) without tests
-
-**Command to find candidates**:
+## Test Files to Create
 
 ```bash
-find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -30
+# Create these test files
+touch src/generate/shadow/box-shadow.test.ts
+touch src/generate/shadow/text-shadow.test.ts
+touch src/generate/shadow/shadow.test.ts
+touch src/generate/transition/transition.test.ts
+touch src/generate/transition/timing-function.test.ts
 ```
 
-## Remaining Simple Files (< 80 lines)
+## Test Pattern
 
-**Generators** (~5 untested):
-- utils/generate/color, generate/clip-path/polygon
+```typescript
+import { describe, expect, it } from "vitest";
+import { generateBoxShadow } from "./box-shadow";
 
-**Parse functions** (~8 untested):
-- utils/parse/color, filter functions, text functions
+describe("generateBoxShadow", () => {
+  it("generates basic shadow", () => {
+    const result = generateBoxShadow({
+      kind: "box-shadow",
+      value: { /* ... */ }
+    });
+    expect(result.ok).toBe(true);
+    if (result.ok) {
+      expect(result.value).toBe("2px 2px 4px rgba(0, 0, 0, 0.5)");
+    }
+  });
+});
+```
 
-**Type definitions** (~3 untested):
-- grid-line, color-stop (may have circular dependencies - skip if needed)
+## Commands
 
-**Note**: Some type files cause circular dependency issues when tested directly.
-Focus on parsers and generators which are safe to test.
+```bash
+# Verify all checks pass
+just check
 
-## Coverage Progress Tracker
+# Run tests with coverage
+pnpm test:coverage
 
-- **Start of all sessions**: 69.22%
-- **After Session 1**: 74.65% (+5.43%)
-- **After Session 2**: 82.58% (+7.93%)
-- **Current**: 84.41% (+15.19% total)
-- **Next Target**: 85% (+0.59%)
+# Check specific file coverage
+pnpm test:coverage src/generate/shadow/box-shadow.test.ts
+```
+
+## Coverage Progress
+
+- **Session 1**: 74.65% (+5.43%)
+- **Session 2**: 82.58% (+7.93%)
+- **Session 3**: 84.41% (+1.83%)
+- **Session 4**: 84.61% (+0.20%)
+- **Next Target**: 86.5% (+1.89%)
 - **Final Goal**: 89%
-
-## Test Patterns to Reuse
-
-**Keyword validator pattern**:
-
-```typescript
-it("accepts all valid keywords", () => {
-  const keywords: KeywordType[] = ["value1", "value2"];
-  for (const keyword of keywords) {
-    expect(schema.safeParse(keyword).success).toBe(true);
-  }
-});
-```
-
-**Parser pattern**:
-
-```typescript
-it("parses valid value", () => {
-  const result = parse("10px");
-  expect(result.ok).toBe(true);
-  if (result.ok) {
-    expect(result.value.kind).toBe("property-name");
-    expect(result.value.value).toEqual({ value: 10, unit: "px" });
-  }
-});
-```
-
-## Notes
-
-- All 3039 tests passing ✅
-- Zero test failures
-- Coverage: 84.41% (maintained - type files have low impact)
-- **Always check `/Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json` for spec-accurate schemas**
-- Example: `border-color` syntax is `<color>{1,4}`, box-shadow is `none | <shadow>#`
-- Type files test schema validation but don't execute much code → low coverage impact
-- Need to focus on parser/generator files for coverage boost

@@ -16,7 +16,7 @@ describe("parseTRBLLengthPercentage", () => {
 		value,
 	});
 
-	const createNumber = (value: string): csstree.Number => ({
+	const createNumber = (value: string): csstree.NumberNode => ({
 		type: "Number",
 		loc: null,
 		value,
@@ -143,7 +143,7 @@ describe("parseCornerValues", () => {
 		value,
 	});
 
-	const createNumber = (value: string): csstree.Number => ({
+	const createNumber = (value: string): csstree.NumberNode => ({
 		type: "Number",
 		loc: null,
 		value,
