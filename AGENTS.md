@@ -27,9 +27,68 @@ cat .memory/SESSION_NEXT.md
 
 ---
 
-**Read**: `.memory/STATUS.md` for current status and `.memory/ROADMAP.md` for long-term plan.
+## 📝 Session End Protocol
+
+**When finishing a session**, create a HANDOVER in the archive:
+
+```bash
+# 1. Create archive directory
+SESSION_DIR=".memory/archive/$(date +%Y-%m-%d)-[topic]"
+mkdir -p "$SESSION_DIR"
+
+# 2. Create HANDOVER.md
+cat > "$SESSION_DIR/HANDOVER.md" << 'EOF'
+# Session Summary: [Topic]
+
+**Date**: $(date +%Y-%m-%d)
+**Duration**: [X hours]
+
+## 📊 Metrics
+- **Coverage**: [start%] → [end%] (+[diff%])
+- **Tests**: +[count] tests across [N] files
+- **Commits**: [count] commits
+- **Test Suites**: [passing/total]
+
+## ✅ Work Completed
+1. **[Category 1]** ([N] files, [M] tests)
+   - file1.test.ts, file2.test.ts
+   
+2. **[Category 2]** ([N] files, [M] tests)
+   - file3.test.ts, file4.test.ts
+
+## 🎯 Next Session Setup
+- ✅ SESSION_NEXT.md updated with specific task
+- ✅ All tests passing
+- ✅ All checks passing
+- ✅ Branch: [name]
+- ✅ Commits: Clean and ready
+
+## 🔧 Patterns/Learnings
+- [Any useful patterns discovered]
+- [Any gotchas or tips]
+
+EOF
+```
+
+**Update SESSION_NEXT.md** with clear task for next agent:
+- Current coverage percentage
+- Specific next goal (e.g., "reach 75% with clip-path tests")
+- List of candidate files to test
+- Commands to find more work
+- Example test patterns if needed
+
+**Archive organization**:
+```
+.memory/archive/2025-10-23-coverage-boost/
+├── HANDOVER.md          ← Your session summary
+├── [any-scripts].sh     ← Session-specific tools
+├── [any-data].json      ← Session-specific data
+└── [notes].md           ← Additional notes
+```
 
 ---
+
+**Read**: `.memory/STATUS.md` for current status and `.memory/ROADMAP.md` for long-term plan.
 
 ---
 
