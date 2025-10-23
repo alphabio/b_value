@@ -40,7 +40,8 @@ export default defineConfig({
 				"**/{karma,rollup,webpack,vite,vitest,jest,ava,babel,nyc,cypress,tsup,build}.config.*",
 				"**/.{eslint,mocha,prettier}rc.{js,cjs,yml}",
 				"src/types/**",
-				"src/core/**", // Core is type definitions, not tested directly
+				"src/core/units/**", // Simple type exports, tested via usage
+				"src/core/result.ts", // Result type utilities, tested via usage
 				"src/index.ts", // Index files just re-export
 				"src/parse/index.ts",
 				"src/generate/index.ts",
