@@ -1,16 +1,16 @@
-// b_path:: src/parse/layout/width.test.ts
+// b_path:: src/parse/layout/max-height.test.ts
 import { describe, expect, it } from "vitest";
-import { parse } from "./width";
+import { parse } from "./max-height";
 
-describe("Parse.Layout.Width", () => {
-	describe("auto keyword", () => {
-		it("parses 'auto'", () => {
-			const result = parse("auto");
+describe("Parse.Layout.MaxHeight", () => {
+	describe("none keyword", () => {
+		it("parses 'none'", () => {
+			const result = parse("none");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
-					value: "auto",
+					kind: "max-height",
+					value: "none",
 				});
 			}
 		});
@@ -22,7 +22,7 @@ describe("Parse.Layout.Width", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
+					kind: "max-height",
 					value: "min-content",
 				});
 			}
@@ -33,7 +33,7 @@ describe("Parse.Layout.Width", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
+					kind: "max-height",
 					value: "max-content",
 				});
 			}
@@ -44,7 +44,7 @@ describe("Parse.Layout.Width", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
+					kind: "max-height",
 					value: "fit-content",
 				});
 			}
@@ -53,12 +53,12 @@ describe("Parse.Layout.Width", () => {
 
 	describe("length values", () => {
 		it("parses px", () => {
-			const result = parse("200px");
+			const result = parse("500px");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
-					value: { value: 200, unit: "px" },
+					kind: "max-height",
+					value: { value: 500, unit: "px" },
 				});
 			}
 		});
@@ -68,30 +68,19 @@ describe("Parse.Layout.Width", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
+					kind: "max-height",
 					value: { value: 10, unit: "em" },
 				});
 			}
 		});
 
-		it("parses rem", () => {
-			const result = parse("2.5rem");
+		it("parses vh", () => {
+			const result = parse("100vh");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
-					value: { value: 2.5, unit: "rem" },
-				});
-			}
-		});
-
-		it("parses vw", () => {
-			const result = parse("100vw");
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "width",
-					value: { value: 100, unit: "vw" },
+					kind: "max-height",
+					value: { value: 100, unit: "vh" },
 				});
 			}
 		});
@@ -107,23 +96,12 @@ describe("Parse.Layout.Width", () => {
 
 	describe("percentage values", () => {
 		it("parses percentage", () => {
-			const result = parse("50%");
+			const result = parse("75%");
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "width",
-					value: { value: 50, unit: "%" },
-				});
-			}
-		});
-
-		it("parses decimal percentage", () => {
-			const result = parse("33.33%");
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "width",
-					value: { value: 33.33, unit: "%" },
+					kind: "max-height",
+					value: { value: 75, unit: "%" },
 				});
 			}
 		});
@@ -136,16 +114,11 @@ describe("Parse.Layout.Width", () => {
 		});
 
 		it("rejects multiple values", () => {
-			const result = parse("100px 200px");
+			const result = parse("100px 50px");
 			expect(result.ok).toBe(false);
 		});
 
-		it("rejects negative values", () => {
-			const result = parse("-100px");
-			expect(result.ok).toBe(true); // CSS allows negative widths (they're clamped to 0)
-		});
-
-		it("rejects unitless non-zero", () => {
+		it("rejects unitless non-zero number", () => {
 			const result = parse("100");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -153,7 +126,7 @@ describe("Parse.Layout.Width", () => {
 			}
 		});
 
-		it("rejects invalid value type", () => {
+		it("rejects invalid length type", () => {
 			const result = parse("rgb(255, 0, 0)");
 			expect(result.ok).toBe(false);
 		});
@@ -162,7 +135,7 @@ describe("Parse.Layout.Width", () => {
 			const result = parse("@@@");
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
-				expect(result.error).toContain("Failed to parse width");
+				expect(result.error).toContain("Failed to parse max-height");
 			}
 		});
 	});

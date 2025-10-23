@@ -58,5 +58,18 @@ describe("parse/layout/visibility", () => {
 			const result = Visibility.parse("");
 			expect(result.ok).toBe(false);
 		});
+
+		it("rejects multiple values", () => {
+			const result = Visibility.parse("visible hidden");
+			expect(result.ok).toBe(false);
+		});
+
+		it("handles parse exception", () => {
+			const result = Visibility.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse visibility");
+			}
+		});
 	});
 });
