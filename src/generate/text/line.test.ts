@@ -27,16 +27,19 @@ describe("text-decoration-line generator", () => {
 	});
 
 	test("should error on null", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
 		const result = generate(null as any);
 		expect(result.ok).toBe(false);
 	});
 
 	test("should error on undefined", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
 		const result = generate(undefined as any);
 		expect(result.ok).toBe(false);
 	});
 
 	test("should error on non-string", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: Testing error handling
 		const result = generate(123 as any);
 		expect(result.ok).toBe(false);
 	});
