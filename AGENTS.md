@@ -25,6 +25,10 @@ cat .memory/SESSION_NEXT.md
 - ❌ Search for archives (not needed)
 - ❌ Run coverage more than once at start
 
+**💡 Git Commits**:
+- `.memory/` files are ignored by biome → always use `git commit --no-verify` for documentation changes
+- Or just commit source code separately from `.memory/` changes
+
 ---
 
 ## 📝 Session End Protocol
