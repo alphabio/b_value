@@ -1,29 +1,35 @@
 # Next Session: Continue Here
 
-**Current Coverage**: 69.22% → 72.22% (+3.00%)
-**Tests Added This Session**: +153 tests
-- Text decoration: 4 files (+27 tests)
-- Background parsers: 5 files (+27 tests)
-- Layout parsers: 5 files (+44 tests)
-- Flexbox parsers: 7 files (+55 tests)
+**Current Coverage**: 72.22% → 74.65% (+2.43%)
+**Tests Added This Session**: +241 tests across 28 files
+- Simple parsers: clip-path, flexbox, text, color (9 files, +81 tests)
+- Generators: blend modes, layout, clip-path (11 files, +78 tests)
+- Units & utilities: time, frequency, angle, parse nodes (5 files, +37 tests)
+- Dispatcher tests: border, outline, text, background, transition (5 files, +45 tests)
 
-**Last Completed**: Flexbox parser tests
+**Last Completed**: Dispatcher pattern tests
+
+**Key Learning**: Documented dispatcher pattern in `.memory/DISPATCHER_PATTERN.md`
+- Dispatchers are convenience functions, NOT shorthand expansion
+- b_short handles shorthand properties, b_value handles longhand values
 
 ## 🎯 NEXT TASK (Do This Immediately)
 
-**Continue Phase 2: More Simple Parsers** (Target: 75% coverage)
+**Phase 3: Push to 77% Coverage** (Target: 77%)
 
-Check these directories for simple parsers without tests:
-1. `src/parse/clip-path/` - geometry-box, none, url parsers
-2. `src/parse/text/` - line, style parsers (if missing)
-3. `src/generate/` directory - look for untested generators
-4. Check other small files from the list
+We're at 74.65%, need +2.35% more. Focus on:
 
-**Goal**: Reach 75% coverage with simple test additions
+1. **More generate/ files** - Many clip-path generators need tests
+2. **Type definition files** - src/core/types/ simple type files  
+3. **More keyword files** - src/core/keywords/ validators
+4. **Utility functions** - src/utils/ parse helpers
 
-**Command to find files**:
+**Goal**: Reach 77% coverage
+
+**Command to find candidates**:
 ```bash
-find src/parse -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec wc -l {} \; | sort -n | head -20
+# Find simple untested files (< 80 lines)
+find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -20
 ```
 
 ## 📊 Coverage Progress
