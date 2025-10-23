@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import {
 	type BoxShadow,
 	type BoxShadowLayer,
+	boxShadowSchema,
 	type TextShadow,
 	type TextShadowLayer,
-	boxShadowSchema,
 	textShadowSchema,
 } from "./shadow";
 

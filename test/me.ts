@@ -2,7 +2,8 @@
 // DO NOT DELETE
 
 import { expand } from "b_short";
-import { parse } from "@/index";
+
+// import { parse } from "@/index"; // TODO: Universal API not implemented yet
 
 // let css = `
 // animation:
@@ -61,4 +62,5 @@ const expanded = expand(css).result as string;
 
 console.log(expanded);
 
-console.log(JSON.stringify(parse(expanded), null, 2));
+// TODO: Universal API not implemented yet
+// console.log(JSON.stringify(parse(expanded), null, 2));
