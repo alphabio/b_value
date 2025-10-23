@@ -3,6 +3,8 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - backface
+  - bidi
   - clippath
   - colorspaces
   - cornflowerblue
@@ -14,6 +16,7 @@ words:
   - grayscale
   - justfile
   - longhands
+  - minmax
   - mynew
   - notacolor
   - notvalid

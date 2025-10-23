@@ -53,6 +53,7 @@
 **Strategy**: Continue with simple files (< 80 lines) without tests
 
 **Command to find candidates**:
+
 ```bash
 find src -name "*.ts" -not -name "*.test.ts" -not -name "index.ts" -exec bash -c 'lines=$(wc -l < "$1"); [ $lines -lt 80 ] && ! [ -f "${1%.ts}.test.ts" ] && echo "$lines $1"' _ {} \; | sort -n | head -30
 ```
@@ -83,6 +84,7 @@ Focus on parsers and generators which are safe to test.
 ## Test Patterns to Reuse
 
 **Keyword validator pattern**:
+
 ```typescript
 it("accepts all valid keywords", () => {
   const keywords: KeywordType[] = ["value1", "value2"];
@@ -93,6 +95,7 @@ it("accepts all valid keywords", () => {
 ```
 
 **Parser pattern**:
+
 ```typescript
 it("parses valid value", () => {
   const result = parse("10px");

@@ -1,8 +1,8 @@
 # Property Implementation Roadmap
 
-**Last Updated**: 2025-10-22T08:30:00Z  
-**Implemented**: 109 properties  
-**Total MDM Longhands**: 446 properties  
+**Last Updated**: 2025-10-22T08:30:00Z
+**Implemented**: 109 properties
+**Total MDM Longhands**: 446 properties
 **Coverage**: 24.4%
 
 > Property count verified by `.memory/scripts/count-properties.sh`
@@ -78,8 +78,8 @@ This roadmap organizes CSS properties by module. Properties marked [x] are imple
 - [ ] border-image-width 📦
 - [ ] border-image-outset 📦
 - [ ] border-image-repeat 📦
-- [ ] border-start-* / border-end-* (logical properties) 🔬
-- [ ] border-block-* / border-inline-* (logical properties) 🔬
+- [ ] border-start-*/ border-end-* (logical properties) 🔬
+- [ ] border-block-*/ border-inline-* (logical properties) 🔬
 
 **Note**: border-radius is a shorthand (handled separately)
 
@@ -355,7 +355,7 @@ All gradient types:
 - [ ] background-position-x ⭐
 - [ ] background-position-y ⭐
 
-**Effort**: 12-16 hours  
+**Effort**: 12-16 hours
 **Target**: v1.0.0 with 110 properties (25% coverage)
 
 ### Phase 2: Complete Tier 2 COMMON (30-40 properties)
@@ -379,7 +379,7 @@ All gradient types:
 **Lists** (5):
 - list-style-type, list-style-position, list-style-image, marker-offset
 
-**Effort**: 25-35 hours  
+**Effort**: 25-35 hours
 **Target**: v1.5.0 with 140-150 properties (32% coverage)
 
 ### Phase 3: Grid Layout (25 properties)
@@ -402,7 +402,7 @@ All gradient types:
 - fr unit support
 - auto-fill, auto-fit keywords
 
-**Effort**: 40-60 hours (requires new value parsers)  
+**Effort**: 40-60 hours (requires new value parsers)
 **Target**: v2.0.0 with 175 properties (39% coverage)
 
 ---
@@ -418,7 +418,7 @@ All gradient types:
 | **v2.0.0** | 175 | 39% | Grid Layout support | +50h |
 | **v2.5.0** | 225 | 50% | Halfway milestone | +60h |
 | **v3.0.0** | 300 | 67% | Comprehensive coverage | +100h |
-| **v4.0.0** | 446 | 100% | Complete MDM spec | +200h+
+| **v4.0.0** | 446 | 100% | Complete MDM spec | +200h+ |
 
 ---
 

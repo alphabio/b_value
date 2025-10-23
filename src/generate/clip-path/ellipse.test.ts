@@ -70,11 +70,13 @@ describe("generate ellipse clip-path", () => {
 	});
 
 	it("rejects null input", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 		const result = generate(null as any);
 		expect(result.ok).toBe(false);
 	});
 
 	it("rejects undefined input", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 		const result = generate(undefined as any);
 		expect(result.ok).toBe(false);
 	});

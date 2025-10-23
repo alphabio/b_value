@@ -103,8 +103,8 @@ Project memory and documentation for b_value.
 
 ## Cleanup (2025-10-22)
 
-**Problem**: 10 overlapping files with conflicting data  
-**Solution**: Consolidated to 5 focused files + automated counting  
+**Problem**: 10 overlapping files with conflicting data
+**Solution**: Consolidated to 5 focused files + automated counting
 **Result**: 40% fewer files, 100% accuracy, zero confusion
 
 See: [archive/2025-10-22-cleanup/HANDOVER.md](./archive/2025-10-22-cleanup/HANDOVER.md)
