@@ -82,5 +82,21 @@ describe("Parse.Typography.FontWeight", () => {
 			const result = FontWeight.parse("400 500");
 			expect(result.ok).toBe(false);
 		});
+
+		it("should reject invalid value type", () => {
+			const result = FontWeight.parse("10px");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Expected number or keyword");
+			}
+		});
+
+		it("should handle parse exception", () => {
+			const result = FontWeight.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse font-weight");
+			}
+		});
 	});
 });

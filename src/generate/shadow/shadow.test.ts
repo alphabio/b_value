@@ -109,6 +109,7 @@ describe("generateShadow (dispatcher)", () => {
 
 	describe("error handling", () => {
 		it("rejects null input", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 			const result = generate(null as any);
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -118,6 +119,7 @@ describe("generateShadow (dispatcher)", () => {
 		});
 
 		it("rejects undefined input", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 			const result = generate(undefined as any);
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -126,6 +128,7 @@ describe("generateShadow (dispatcher)", () => {
 		});
 
 		it("rejects object without kind field", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 			const result = generate({} as any);
 			expect(result.ok).toBe(false);
 			if (!result.ok) {
@@ -134,6 +137,7 @@ describe("generateShadow (dispatcher)", () => {
 		});
 
 		it("rejects unknown shadow kind", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 			const result = generate({ kind: "unknown-shadow" } as any);
 			expect(result.ok).toBe(false);
 			if (!result.ok) {

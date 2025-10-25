@@ -22,7 +22,7 @@ describe("generate() for conic gradient", () => {
 	test("generates conic gradient with from angle", () => {
 		const ir: Type.ConicGradient = {
 			kind: "conic",
-			fromAngle: { kind: "angle", value: 45, unit: "deg" },
+			fromAngle: { value: 45, unit: "deg" },
 			colorStops: [{ color: { kind: "named", name: "red" } }, { color: { kind: "named", name: "blue" } }],
 			repeating: false,
 		};
@@ -55,7 +55,7 @@ describe("generate() for conic gradient", () => {
 	test("generates conic gradient with from angle and position", () => {
 		const ir: Type.ConicGradient = {
 			kind: "conic",
-			fromAngle: { kind: "angle", value: 90, unit: "deg" },
+			fromAngle: { value: 90, unit: "deg" },
 			position: {
 				horizontal: { value: 75, unit: "%" },
 				vertical: { value: 25, unit: "%" },
@@ -89,7 +89,7 @@ describe("generate() for conic gradient", () => {
 	test("generates conic gradient with colorSpace (with from/position)", () => {
 		const ir: Type.ConicGradient = {
 			kind: "conic",
-			fromAngle: { kind: "angle", value: 0, unit: "deg" },
+			fromAngle: { value: 0, unit: "deg" },
 			colorSpace: "hsl",
 			colorStops: [{ color: { kind: "named", name: "red" } }, { color: { kind: "named", name: "blue" } }],
 			repeating: false,
@@ -119,8 +119,8 @@ describe("generate() for conic gradient", () => {
 		const ir: Type.ConicGradient = {
 			kind: "conic",
 			colorStops: [
-				{ color: { kind: "named", name: "red" }, position: { kind: "angle", value: 0, unit: "deg" } },
-				{ color: { kind: "named", name: "blue" }, position: { kind: "angle", value: 180, unit: "deg" } },
+				{ color: { kind: "named", name: "red" }, position: { value: 0, unit: "deg" } },
+				{ color: { kind: "named", name: "blue" }, position: { value: 180, unit: "deg" } },
 			],
 			repeating: false,
 		};

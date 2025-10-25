@@ -117,5 +117,18 @@ describe("Parse.Typography.FontFamily", () => {
 			const result = FontFamily.parse(",,,");
 			expect(result.ok).toBe(false);
 		});
+
+		it("should handle parse exceptions", () => {
+			const result = FontFamily.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse font-family");
+			}
+		});
+
+		it("should reject invalid CSS value types", () => {
+			const result = FontFamily.parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
 	});
 });

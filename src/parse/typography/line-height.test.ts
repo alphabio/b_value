@@ -101,5 +101,18 @@ describe("Parse.Typography.LineHeight", () => {
 			const result = LineHeight.parse("1.5 20px");
 			expect(result.ok).toBe(false);
 		});
+
+		it("should reject invalid value type", () => {
+			const result = LineHeight.parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+		});
+
+		it("should handle parse exception", () => {
+			const result = LineHeight.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse line-height");
+			}
+		});
 	});
 });

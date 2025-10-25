@@ -1,101 +1,98 @@
-# Session 7: Push to 90% Coverage
+# Session 8: Push to 90% Coverage
 
-**Current Coverage**: 89.01% ✓ (exceeds 89% threshold!)
-**Target**: 90% (+0.99% remaining)
-**Status**: ✅ 3,480 tests passing, all checks passing
+**Current Coverage**: 89.13% ✓ 
+**Target**: 90% (+0.87% remaining)
+**Status**: ✅ 3,488 tests passing, all checks passing
 
-## ✅ Session 6 Achievements (86.74% → 89.01%)
+## ✅ Session 7 Achievements (89.01% → 89.13%)
 
-Successfully reached 89% milestone with +2.27% coverage gain!
+Successfully fixed all build/lint errors and boosted typography coverage!
 
 ### Work Completed:
-1. **Utils Testing** (+3 files, 81 tests)
-   - generate/position/utils.ts: 48% → 100%
-   - generate/transform/utils.ts: 56% → 100%
-   - utils/ast/functions.ts: 66.66% → 96.49%
+1. **Test Fixes** (+10 files fixed)
+   - Removed incorrect `kind` fields from primitive types (angle, length)
+   - Fixed transition property test type
+   - Added biome-ignore for intentional `as any` usage
    
-2. **Parse/Layout Module** (+2 files, 24 tests)
-   - max-height.test.ts: NEW (7.27% → 92.72%)
-   - min-height.test.ts: NEW (7.27% → 92.72%)
-   - Enhanced 15 existing files
-   - Module: 73.03% → 86.32% (+13.29%)
+2. **Parse/Typography Module** (+4 files, 8 tests)
+   - font-family.test.ts: 87.5% → 92.5%
+   - font-weight.test.ts: 80.95% → 90.47%
+   - letter-spacing.test.ts: 79.48% → 89.74%
+   - line-height.test.ts: 82.6% → 91.3%
+   - Module: 83.01% → 86.36% (+3.35%)
 
-3. **Bug Fixed**: toListCss() in generate/position/utils.ts
+3. **Key Learning**: Primitive type schemas (angle, length) never had `kind` fields
 
-📄 **Full details**: `.memory/archive/2025-10-23-coverage-89-milestone/HANDOVER.md`
+📄 **Full details**: `.memory/archive/2025-01-25-bugfix-tests/HANDOVER.md`
 
-## 🎯 Roadmap to 90% (+0.99% needed)
+## 🎯 Roadmap to 90% (+0.87% needed)
 
-### Strategy: Focus on parse/typography (~0.4% impact)
-These 4 files have consistent patterns and similar missing coverage:
+### Strategy A: Generate Dispatchers (Quick Win ~0.5-0.8% impact)
 
-1. **font-family.ts** (87.5%)
-   - Uncovered: lines 39-40, 61, 78-79
-   - Need: ~3-4 tests (parse exception, edge cases)
-   
-2. **font-weight.ts** (80.95%)
-   - Uncovered: lines 39-40, 50-51, 82-85
-   - Need: ~4-5 tests (unitless non-zero, parse exception)
-   
-3. **letter-spacing.ts** (79.48%)
-   - Uncovered: lines 40-41, 51-52, 75-78
-   - Need: ~4-5 tests (unitless non-zero, parse exception)
-   
-4. **line-height.ts** (82.6%)
-   - Uncovered: lines 52, 79-80, 87-88
-   - Need: ~3-4 tests (parse exception, edge cases)
+These high-value dispatcher files have very low coverage:
 
-### Additional Targets (if needed):
+1. **clip-path/clip-path.ts** (27.27% coverage)
+   - Lines 41-84 uncovered (dispatcher logic)
+   - Need: ~6-8 tests for different clip-path kinds
+   - Impact: ~0.3-0.4%
 
-5. **parse/outline** (~0.15% impact)
-   - color.ts: 84.21%
-   - offset.ts: 84%
-   - width.ts: 87.69%
+2. **clip-path/inset.ts** (8.57% coverage)
+   - Lines 33-87 uncovered (most of file)
+   - Need: ~8-10 tests for inset generation
+   - Impact: ~0.2-0.3%
 
-6. **parse/layout margins/padding** (~0.2% impact)
-   - margin-bottom/left/right: ~83-84%
-   - padding-bottom/left/right: ~84-85%
+3. **transform/origin.ts** (28.57% coverage)
+   - Lines 54-64, 91-92 uncovered
+   - Need: ~4-6 tests for origin generation
+   - Impact: ~0.1-0.2%
+
+### Strategy B: Parse Error Paths (Systematic ~0.1-0.2% each)
+
+Focus on modules with consistent error path patterns:
+
+1. **parse/color** (lab, lch, oklab, oklch at 83-85%)
+2. **parse/filter** (brightness, contrast, grayscale at 51-54%)
+3. **parse/animation** (direction, fill-mode, play-state at 92%)
+
+### Strategy C: If not critical, document and plan next phase
 
 ### Commands to Start
 
 ```bash
-# Check typography coverage
-pnpm test:coverage 2>&1 | grep "parse/typography"
+# Quick check current state
+just test && just check
 
-# View test file structure
-ls -la src/parse/typography/*.test.ts
+# Option A: Generate dispatcher tests (best path to 90%)
+cat src/generate/clip-path/clip-path.ts
+cat src/generate/clip-path/clip-path.test.ts
+# Check what's missing, add dispatcher tests
 
-# View uncovered lines
-cat src/parse/typography/font-family.ts | sed -n '39,79p'
-cat src/parse/typography/font-weight.ts | sed -n '39,85p'
+# Option B: Parse error paths
+pnpm test:coverage 2>&1 | grep "parse/color"
+pnpm test:coverage 2>&1 | grep "parse/filter"
 
-# Run tests
-just test
+# Find all opportunities
+pnpm test:coverage 2>&1 | grep -v "100\s*|" | grep "\.ts"
 ```
 
-### Test Pattern for Typography Files
+### Test Pattern for Dispatchers
 
-Most need this standard error path pattern:
+Clip-path dispatcher example:
 ```typescript
-it("rejects unitless non-zero", () => {
-  const result = parse("16");
-  expect(result.ok).toBe(false);
-  if (!result.ok) {
-    expect(result.error).toContain("require a unit");
-  }
+it("dispatches circle", () => {
+  const result = generate({
+    kind: "clip-path",
+    value: { kind: "circle", radius: {...}, position: {...} }
+  });
+  expect(result.ok).toBe(true);
 });
 
-it("rejects invalid value type", () => {
-  const result = parse("rgb(255, 0, 0)");
-  expect(result.ok).toBe(false);
-});
-
-it("handles parse exception", () => {
-  const result = parse("@@@");
-  expect(result.ok).toBe(false);
-  if (!result.ok) {
-    expect(result.error).toContain("Failed to parse [property]");
-  }
+it("dispatches inset", () => {
+  const result = generate({
+    kind: "clip-path",
+    value: { kind: "inset", offsets: {...} }
+  });
+  expect(result.ok).toBe(true);
 });
 ```
 

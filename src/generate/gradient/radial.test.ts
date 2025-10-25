@@ -110,8 +110,8 @@ describe("generate() for radial gradient", () => {
 			kind: "radial",
 			size: {
 				kind: "ellipse-explicit",
-				radiusX: { kind: "length", value: 100, unit: "px" },
-				radiusY: { kind: "length", value: 50, unit: "px" },
+				radiusX: { value: 100, unit: "px" },
+				radiusY: { value: 50, unit: "px" },
 			},
 			colorStops: [{ color: { kind: "named", name: "red" } }, { color: { kind: "named", name: "blue" } }],
 			repeating: false,

@@ -203,6 +203,7 @@ describe("generateBoxShadow", () => {
 	});
 
 	it("rejects null input", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 		const result = generate(null as any);
 		expect(result.ok).toBe(false);
 		if (!result.ok) {
@@ -211,6 +212,7 @@ describe("generateBoxShadow", () => {
 	});
 
 	it("rejects undefined input", () => {
+		// biome-ignore lint/suspicious/noExplicitAny: testing invalid input
 		const result = generate(undefined as any);
 		expect(result.ok).toBe(false);
 		if (!result.ok) {
