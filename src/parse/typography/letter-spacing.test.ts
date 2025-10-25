@@ -122,5 +122,21 @@ describe("Parse.Typography.LetterSpacing", () => {
 			const result = LetterSpacing.parse("2px 4px");
 			expect(result.ok).toBe(false);
 		});
+
+		it("should reject invalid value type", () => {
+			const result = LetterSpacing.parse("rgb(255, 0, 0)");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Expected length or 'normal'");
+			}
+		});
+
+		it("should handle parse exception", () => {
+			const result = LetterSpacing.parse("@@@");
+			expect(result.ok).toBe(false);
+			if (!result.ok) {
+				expect(result.error).toContain("Failed to parse letter-spacing");
+			}
+		});
 	});
 });
