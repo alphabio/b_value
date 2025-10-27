@@ -1,114 +1,164 @@
-# Next Session: Continuing Generate Validation Work
+# Next Session: Continue Generate Validation or Complete Schema Improvements
 
 **Date**: 2025-10-27
-**Status**: ✅ **INFRASTRUCTURE COMPLETE** - Ready to continue validation rollout
-**Tests**: 3,723 passing
+**Status**: 🎉 **SCHEMA BLITZ COMPLETE** - 15 files improved, ready to use!
+**Tests**: 3,723 passing ✅
 **Branch**: coverage/90-percent
-**Latest Commit**: 6d5b646 (validation utilities + custom error messages)
+**Latest Commits**: 27f887e → 88d14b5 → 995af12 → c68c75b
 
 ---
 
-## 📊 What Was Completed Last Session
+## 🔥 What Just Happened (Epic Session!)
 
-### ✅ Validation Infrastructure Built
-1. **zodErrorToIssues utility** - `src/utils/generate/validation.ts`
-   - Recursive Zod error traversal with parent path context
-   - Handles Zod 4.x union errors (`errors` not `unionErrors`)
-   - Preserves full path context: `["durations", 0, "unit"]`
-   - No deprecated types, no `any` types
+Completed **massive schema improvement initiative** in ~2 hours:
+- ✅ **Phase 1**: All 6 unit schemas (angle, frequency, length types, time)
+- ✅ **Phase 2**: Animation & transition types (4 unions)
+- ✅ **Phase 3 Tier 1**: High-priority types (length-percentage, color, transform)
+- ✅ **Phase 3 Tier 2**: Visual properties (border, outline, clip-path, position-layer)
 
-2. **Custom union error messages** - Example in `src/core/units/time.ts`
-   - Before: 2 errors ("expected s", "expected ms")
-   - After: 1 clear error ("Invalid unit. Expected \"s\" or \"ms\".")
+**Total: 15 files with custom error messages!**
 
-3. **Enhanced Issue type** - `src/core/result.ts`
-   - Added `path?: (string | number)[]`
-   - Added `metadata?: { zodCode?: string, ... }`
-
-4. **Test generator improvements** - `scripts/generate-generate-tests.ts`
-   - Fixed quote escaping: `${JSON.stringify(errorMsg)}`
-   - Generates proper failure tests
-
-5. **Duration validation working** - `src/generate/animation/duration.ts`
-   - Uses Zod schema validation
-   - Catches invalid units, values, types
-   - All tests passing
+All schemas now provide single, clear error messages instead of confusing multiple "expected X" errors.
 
 ---
 
-## 🎯 Current Status & Open Questions
+## 🎯 Three Options for Next Session
 
-### ✅ What's Working
-- Zod validation in `duration.ts` with proper error messages
-- Test generator produces valid tests
-- Full path context in error messages
-- All 3,723 tests passing
+### Option A: Complete Schema Improvements (1-2 hours)
+Finish remaining 6 type files from Phase 3:
 
-### 🤔 Design Decisions to Make
+**Tier 3 - Layout** (4 files):
+- flexbox.ts
+- grid-line.ts
+- layout.ts
+- position.ts
 
-**1. Test Assertions Strategy**
-- Current: Only checking first issue `expect(result.issues?.[0]?.message).toBe(...)`
-- Options:
-  - A) Assert ALL issues (comprehensive but verbose)
-  - B) Assert count + key messages (practical) ← **RECOMMENDED**
-  - C) Keep current approach (fast but incomplete)
+**Tier 4 - Misc** (2 files):
+- ratio.ts
+- typography.ts
 
-**2. Parent Path Context**
-- Current: Full context `["durations", 0, "unit"]`
-- Simpler flatten would give: `["unit"]`
-- **Trade-off**: Complexity vs debuggability
-- **Recommendation**: Keep parent path - essential for debugging nested structures
+**Commands**:
 
-**3. Custom Error Messages Rollout**
-- Should we add custom errors to all unions?
-- **Recommendation**: Yes, but prioritize confusing unions first
+```bash
+grep -n "z.union" src/core/types/flexbox.ts
+# Apply pattern to each union found
+just test  # Verify
+git commit -m "feat(schemas): complete Phase 3 schema improvements"
+```
+
+### Option B: Use Improved Schemas in Generate Validation (RECOMMENDED)
+Leverage the newly improved animation/transition schemas for generate function work:
+
+**Current State**:
+- ✅ Validation infrastructure complete (`zodErrorToIssues` utility)
+- ✅ Duration generate function working with Zod validation
+- ✅ Animation/transition schemas now have custom errors
+- ⏳ 6 remaining animation properties need validation
+
+**Tasks**:
+1. Apply validation to remaining animation properties:
+   - timing-function
+   - delay
+   - iteration-count
+   - direction
+   - fill-mode
+   - play-state
+   - name
+
+2. Update test configs with invalid IR cases
+3. Regenerate tests with proper assertions
+4. Verify roundtrip behavior
+
+**Commands**:
+
+```bash
+# View current duration implementation (reference)
+cat src/generate/animation/duration.ts
+
+# Apply to next property
+vim src/generate/animation/timing-function.ts
+# Add Zod schema validation
+# Import zodErrorToIssues from @/utils/generate
+
+# Test it
+pnpm test src/generate/animation/timing-function
+```
+
+### Option C: Different Priority
+Move to other high-priority work. Both schema improvements and generate validation can continue later.
 
 ---
 
-## 🚀 Next Steps (Pick Up Here)
+## �� Current State Summary
 
-### Option A: Continue with Remaining Animation Properties (6 left)
-Apply the established pattern to:
-1. timing-function
-2. delay
-3. iteration-count
-4. direction
-5. fill-mode
-6. name
-7. play-state
+**Branch**: coverage/90-percent
+**Tests**: 3,723 passing ✅
+**Checks**: All passing ✅
 
-**Per property** (~45-60 mins each):
-- Add Zod schema validation to generate function
-- Add custom error messages to unions
-- Update test config with invalid IR cases
-- Run test generator
-- Verify all tests pass
+**Recent Work**:
+- Schema improvements (15 files) - COMPLETE for essential schemas
+- Generate validation infrastructure - COMPLETE
+- Duration generate validation - COMPLETE
 
-### Option B: Discuss & Refine Design First
-- Finalize test assertion strategy
-- Decide on custom error message conventions
-- Document the validation pattern
-- Then roll out to remaining properties
-
-### Option C: Improve Test Generator
-- Support multiple expected issues in config
-- Better NaN handling (becomes null in JSON)
-- Add assertion for issue count
-- Then regenerate duration tests as example
+**Ready For**:
+- More generate function validation (Option B)
+- Complete schema improvements (Option A)
+- Other work (Option C)
 
 ---
 
-## 💡 Key Patterns Established
+## 🔗 Key References
 
-### Zod Schema with Custom Errors
+**Implementation Files**:
+- `src/utils/generate/validation.ts` - zodErrorToIssues utility
+- `src/generate/animation/duration.ts` - Working validation example
+- `src/core/types/animation.ts` - Improved schemas ready to use
+
+**Documentation**:
+- `.memory/archive/2025-10-27-schema-improvements/HANDOVER.md` - Full session details
+- `.memory/SCHEMA_IMPROVEMENT_PLAN.md` - Schema improvement tracking
+
+**Test Infrastructure**:
+- `scripts/generate-generate-tests.ts` - Test generator
+- `scripts/generate-test-generator/configs/duration.ts` - Test config example
+
+---
+
+## 🚀 Quick Start Commands
+
+```bash
+# Check current state
+just test
+git status
+git log --oneline -5
+
+# Option A: Continue schemas
+grep -rn "z.union" src/core/types/flexbox.ts src/core/types/grid-line.ts
+
+# Option B: Generate validation
+cat src/generate/animation/duration.ts  # Reference
+vim src/generate/animation/timing-function.ts  # Next property
+
+# All checks
+just check
+```
+
+---
+
+## 💡 Pattern Reference (Quick Copy-Paste)
+
+### Zod Union with Custom Error
 
 ```typescript
-export const timeUnitSchema = z.union(
-  [z.literal("s"), z.literal("ms")],
+export const mySchema = z.union(
+  [
+    z.literal("option1").describe("description"),
+    z.literal("option2").describe("description"),
+  ],
   {
     error: (issue) =>
       issue.code === "invalid_union"
-        ? 'Invalid unit. Expected "s" or "ms".'
+        ? 'Clear error message with valid options'
         : "Invalid input"
   }
 );
@@ -117,12 +167,14 @@ export const timeUnitSchema = z.union(
 ### Generate Function Validation
 
 ```typescript
-export function generate(ir: Type.AnimationDuration): GenerateResult {
-  const validation = animationDurationSchema.safeParse(ir);
+import { zodErrorToIssues } from "@/utils/generate/validation";
+
+export function generate(ir: Type.MyType): GenerateResult {
+  const validation = mySchema.safeParse(ir);
   if (!validation.success) {
     return {
       ok: false,
-      issues: zodErrorToIssues(validation.error.errors, "animation-duration")
+      issues: zodErrorToIssues(validation.error.errors, "property-name")
     };
   }
   // ... generate CSS
@@ -131,58 +183,8 @@ export function generate(ir: Type.AnimationDuration): GenerateResult {
 
 ---
 
-## 📁 Key Files
-
-**Implementation**:
-- `src/utils/generate/validation.ts` - zodErrorToIssues utility
-- `src/generate/animation/duration.ts` - Working example with Zod validation
-- `src/core/units/time.ts` - Custom union error example
-
-**Testing**:
-- `scripts/generate-generate-tests.ts` - Test generator script
-- `scripts/generate-test-generator/configs/duration.ts` - Test config example
-
-**Documentation**:
-- `.memory/archive/2025-10-27-generate-validation/HANDOVER.md` - Full session details with all context
+**Recommended Next Action**: **Option B** - Apply validation to remaining animation properties using improved schemas. This leverages all the schema work we just completed and directly supports the generate validation goals.
 
 ---
 
-## 🔍 Quick Commands
-
-```bash
-# Run all tests
-just test
-
-# Run duration tests specifically
-pnpm test src/generate/animation/duration
-
-# See actual Zod errors for a case
-tsx -e "
-import { generate } from './src/generate/animation/duration.js';
-const result = generate({
-  kind: 'animation-duration',
-  durations: [{ type: 'time', value: -1, unit: 'px' }]
-});
-console.log(JSON.stringify(result.issues, null, 2));
-"
-
-# Generate tests for a property
-tsx scripts/generate-generate-tests.ts duration
-
-# All checks
-just check
-```
-
----
-
-## �� Notes
-
-- File kept under 300 lines per updated guidelines
-- Previous discovery about "generate functions lacking validation" is now RESOLVED for duration
-- Infrastructure is in place, now just need to roll out to remaining properties
-- All success criteria from last session are MET except applying to remaining properties
-- See `.memory/HANDOVER.md` for full detailed context from last session
-
----
-
-**Recommended next action**: Pick Option B - discuss and finalize design decisions (test assertions, custom error conventions) before rolling out to all 6 remaining animation properties. This ensures consistency and avoids rework.
+**File Length**: 183 lines (under 300 limit ✅)
