@@ -160,6 +160,7 @@ export * as Generate from "./generate";
  * ```
  */
 export * as Parse from "./parse";
+// export { parse } = Parse.parse;
 /**
  * Universal API for parsing and generating ANY CSS longhand property.
  *
@@ -194,9 +195,9 @@ export * as Parse from "./parse";
  * @example
  * Batch parse multiple properties:
  * ```typescript
- * import { parseAll } from "b_value";
+ * import { parse } from "b_value";
  *
- * const result = parseAll("color: red; width: 10px");
+ * const result = parse("color: red; width: 10px");
  * if (result.ok) {
  *   console.log(result.value.color);  // { kind: "named", name: "red" }
  *   console.log(result.value.width);  // { kind: "length", value: 10, unit: "px" }
@@ -206,9 +207,9 @@ export * as Parse from "./parse";
  * @example
  * Batch generate CSS from properties:
  * ```typescript
- * import { generateAll } from "b_value";
+ * import { generate } from "b_value";
  *
- * const css = generateAll({
+ * const css = generate({
  *   color: { kind: "hex", r: 255, g: 0, b: 0 },
  *   width: { kind: "length", value: 10, unit: "px" }
  * });
@@ -218,15 +219,15 @@ export * as Parse from "./parse";
  * @example
  * Round-trip: parse, modify, generate:
  * ```typescript
- * import { parseAll, generateAll } from "b_value";
+ * import { parse, generate } from "b_value";
  *
- * const parsed = parseAll("color: red; width: 10px");
+ * const parsed = parse("color: red; width: 10px");
  * if (parsed.ok) {
  *   // Modify the color
  *   parsed.value.color = { kind: "hex", r: 0, g: 255, b: 0 };
  *
  *   // Generate back to CSS
- *   const css = generateAll(parsed.value);
+ *   const css = generate(parsed.value);
  *   console.log(css); // "color: #00ff00; width: 10px"
  * }
  * ```

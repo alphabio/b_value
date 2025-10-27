@@ -1,7 +1,7 @@
 // b_path:: src/utils/parse/color-components.ts
 import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
-import * as ParseUtils from "@/utils/parse";
+import * as ParseUtils from "./nodes";
 
 /**
  * Options for parsing alpha values.
