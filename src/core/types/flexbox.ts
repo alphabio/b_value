@@ -177,13 +177,21 @@ export type FlexShrink = z.infer<typeof flexShrinkSchema>;
  */
 export const flexBasisSchema = z.object({
 	kind: z.literal("flex-basis"),
-	value: z.union([
-		lengthPercentageAutoSchema,
-		z.literal("content"),
-		z.literal("max-content"),
-		z.literal("min-content"),
-		z.literal("fit-content"),
-	]),
+	value: z.union(
+		[
+			lengthPercentageAutoSchema,
+			z.literal("content"),
+			z.literal("max-content"),
+			z.literal("min-content"),
+			z.literal("fit-content"),
+		],
+		{
+			errorMap: (issue) =>
+				issue.code === "invalid_union"
+					? { message: "Expected <length-percentage> | auto | content | max-content | min-content | fit-content" }
+					: { message: "Invalid flex-basis value" },
+		},
+	),
 });
 
 export type FlexBasis = z.infer<typeof flexBasisSchema>;
@@ -215,7 +223,12 @@ export type Order = z.infer<typeof orderSchema>;
  */
 export const gapSchema = z.object({
 	kind: z.literal("gap"),
-	value: z.union([lengthPercentageAutoSchema, z.literal("normal")]),
+	value: z.union([lengthPercentageAutoSchema, z.literal("normal")], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | auto | normal" }
+				: { message: "Invalid gap value" },
+	}),
 });
 
 export type Gap = z.infer<typeof gapSchema>;

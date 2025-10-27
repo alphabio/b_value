@@ -28,18 +28,26 @@ import { z } from "zod";
  *
  * @public
  */
-export const ratioSchema = z.union([
-	// Explicit ratio with numerator and denominator
-	z.object({
-		numerator: z.number().positive().describe("numerator of the ratio"),
-		denominator: z.number().positive().describe("denominator of the ratio"),
-	}),
+export const ratioSchema = z.union(
+	[
+		// Explicit ratio with numerator and denominator
+		z.object({
+			numerator: z.number().positive().describe("numerator of the ratio"),
+			denominator: z.number().positive().describe("denominator of the ratio"),
+		}),
 
-	// Auto keyword for automatic ratio
-	z
-		.literal("auto")
-		.describe("automatic ratio based on content"),
-]);
+		// Auto keyword for automatic ratio
+		z
+			.literal("auto")
+			.describe("automatic ratio based on content"),
+	],
+	{
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected { numerator: <positive-number>, denominator: <positive-number> } | auto" }
+				: { message: "Invalid ratio value" },
+	},
+);
 
 /**
  * TypeScript type for ratio.

@@ -32,16 +32,24 @@ import { z } from "zod";
  *
  * @public
  */
-export const gridLineSchema = z.union([
-	z.number().int().describe("integer grid line number (positive, negative, or zero)"),
-	z.literal("auto").describe("browser automatically places the item"),
-	z
-		.object({
-			type: z.literal("span"),
-			value: z.number().int().positive().describe("number of tracks to span"),
-		})
-		.describe("span notation (e.g., span 2 means span across 2 tracks)"),
-]);
+export const gridLineSchema = z.union(
+	[
+		z.number().int().describe("integer grid line number (positive, negative, or zero)"),
+		z.literal("auto").describe("browser automatically places the item"),
+		z
+			.object({
+				type: z.literal("span"),
+				value: z.number().int().positive().describe("number of tracks to span"),
+			})
+			.describe("span notation (e.g., span 2 means span across 2 tracks)"),
+	],
+	{
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: 'Expected <integer> | auto | { type: "span", value: <positive-integer> }' }
+				: { message: "Invalid grid line value" },
+	},
+);
 
 /**
  * TypeScript type for grid line values.
