@@ -34,3 +34,38 @@ export const timeSchema = z.object({
  * @public
  */
 export type Time = z.infer<typeof timeSchema>;
+
+/**
+ * CSS `<time>` dimension for delay values.
+ *
+ * A delay time value consists of a number and a time unit (s or ms).
+ * Unlike durations, delays can be negative to indicate the animation should start partway through.
+ *
+ * Used in animation-delay and transition-delay properties.
+ *
+ * Per CSS Animations Module Level 1 specification.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay}
+ * @see {@link https://www.w3.org/TR/css-animations-1/#animation-delay}
+ *
+ * @example
+ * ```typescript
+ * import { delayTimeSchema } from "@/core/types/time";
+ *
+ * const delay: DelayTime = { value: -500, unit: "ms" };
+ * const positiveDelay: DelayTime = { value: 1, unit: "s" };
+ * ```
+ *
+ * @public
+ */
+export const delayTimeSchema = z.object({
+	value: z.number(),
+	unit: Unit.timeUnitSchema,
+});
+
+/**
+ * CSS delay `<time>` type.
+ *
+ * @public
+ */
+export type DelayTime = z.infer<typeof delayTimeSchema>;

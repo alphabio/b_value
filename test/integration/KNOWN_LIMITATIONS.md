@@ -6,6 +6,29 @@ This document tracks incomplete implementations, missing functionality, and know
 
 ---
 
+## Animation Properties
+
+### animation-delay negative values
+**Status**: ✅ Fixed  
+**Issue**: Time schema didn't allow negative values, but animation-delay should  
+**Root Cause**: `timeSchema` used `.nonnegative()` but animation-delay must support negative values per CSS spec
+
+**Fixed In**: 2025-10-27  
+**Commit**: (current session)  
+**Files Modified**:
+- `src/core/types/time.ts` - Created `delayTimeSchema` that allows negative values
+- `src/core/types/animation.ts` - Updated animationDelaySchema to use delayTimeSchema
+- `scripts/generate-test-generator/configs/delay.ts` - Updated to mark negative values as valid
+- `test/integration/roundtrip/animation.test.ts` - Un-skipped negative delay test
+
+**Tests**:
+- ✅ Integration test passes: `test/integration/roundtrip/animation.test.ts` (negative delay: -500ms)
+- ✅ Generate tests pass: `src/generate/animation/delay.test.ts` (negative delay cases)
+
+**Reference**: https://www.w3.org/TR/css-animations-1/#animation-delay
+
+---
+
 ## Background Properties
 
 ### background-size
@@ -129,7 +152,7 @@ Move entries to `KNOWN_LIMITATIONS_ARCHIVE.md` when:
 ## Statistics
 
 **Total Known Limitations**: 2  
-**Fixed This Session**: 1 (inset generator)  
+**Fixed This Session**: 2 (inset generator, animation-delay negatives)  
 **High Priority**: 0  
 **Medium Priority**: 1 (background-size)  
 **Low Priority**: 1 (word-spacing)  

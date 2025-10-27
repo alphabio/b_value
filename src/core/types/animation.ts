@@ -2,13 +2,13 @@
 import { z } from "zod";
 import * as Keyword from "../keywords/animation";
 import { autoSchema } from "./auto";
-import { timeSchema } from "./time";
+import { delayTimeSchema, timeSchema } from "./time";
 
 /**
  * CSS animation-delay property IR.
  *
  * Specifies when an animation should start.
- * Comma-separated list of time values.
+ * Comma-separated list of time values (can be negative).
  *
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/animation-delay}
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-delay}
@@ -17,7 +17,7 @@ import { timeSchema } from "./time";
  */
 export const animationDelaySchema = z.object({
 	kind: z.literal("animation-delay"),
-	delays: z.array(timeSchema).min(1),
+	delays: z.array(delayTimeSchema).min(1),
 });
 
 /**
