@@ -1,153 +1,234 @@
 # Session: Generate Testing - The Inverse Challenge
 
-**Status**: 🚀 **NEW DIRECTION** - Pivot to generate testing approved!
+**Status**: 🚨 **CRITICAL ISSUE FOUND** - Generate functions lack validation!
 
-**Tests**: 3,709 passing (all animation parse tests complete)
+**Tests**: 3,722 passing (includes initial generate tests)
 **Branch**: coverage/90-percent
-**Latest Commit**: e61010c
+**Latest Commit**: 6a9e989
 
 ---
 
-## 🎯 Mission: Prove Parse ↔ Generate Symmetry
+## 🎯 Mission: Fix Generate Validation + Prove Parse ↔ Generate Symmetry
 
-Animation package parse tests are **100% complete**. 
-Now let's prove the full cycle with generate tests!
+### 🔴 Critical Discovery
 
-### Why This Matters
-
-**Current**: We validate `CSS → IR` (parse)
-**Missing**: We don't validate `IR → CSS` (generate)
-**Goal**: Validate **both directions + roundtrip**
+**The generate functions don't validate IR input!**
 
 ```typescript
-// Parse test: CSS → IR
-parse("1s") // ✅ tested
+// This should ERROR but returns ok:true with INVALID CSS!
+generate({
+  kind: "animation-duration",
+  durations: [{ type: "time", value: -1, unit: "px" }]
+})
+// → {"ok":true,"value":"-1px","issues":[]}  ❌ WRONG!
 
-// Generate test: IR → CSS  
-generate({value:1, unit:"s"}) // ❌ not tested
-
-// Roundtrip: IR → CSS → IR
-parse(generate({value:1, unit:"s"})) === input // ❌ not tested
+// Parse correctly rejects this:
+parse("-1px") 
+// → {"ok":false, error: "Invalid time unit: px"}  ✅ CORRECT!
 ```
+
+**Problems found**:
+1. ❌ No unit validation (accepts "px", "em", "banana")
+2. ❌ No value validation (accepts negative, strings, NaN)
+3. ❌ No type validation (accepts invalid types)
+4. ❌ Breaks parse ↔ generate symmetry
 
 ---
 
-## 📋 Next Steps
+## 📋 Revised Plan: Fix Then Test
 
-### Step 1: Reorganize (5 mins)
-```bash
-# Rename parse test generator
-mv scripts/generate-tests.ts scripts/generate-parse-tests.ts
-mv scripts/test-generator/ scripts/parse-test-generator/
+### Step 1: Fix Generate Functions (30-60 mins per property)
 
-# Create structure for generate tests
-mkdir -p scripts/generate-test-generator/configs
-mkdir -p scripts/generate-test-generator/templates
-```
+For each animation property, add IR validation to match parse behavior:
 
-### Step 2: Design Config Format (15 mins)
-
-**Parse test config** (current):
+**Example: duration.ts**
 ```typescript
-{ 
-  input: "1s",           // CSS string
-  expectValid: true,
-  expectedError: "..."   // for invalid cases
+export function generate(ir: Type.AnimationDuration): GenerateResult {
+  // 1. Null/undefined check (already done)
+  if (ir === undefined || ir === null) {
+    return generateErr("invalid-ir", "Input must not be null or undefined");
+  }
+  
+  // 2. Validate each duration
+  for (const duration of ir.durations) {
+    if (duration.type === "auto") {
+      continue; // Valid
+    }
+    
+    if (duration.type === "time") {
+      // Validate unit
+      if (duration.unit !== "s" && duration.unit !== "ms") {
+        return generateErr("invalid-unit", 
+          `Invalid time unit: ${duration.unit}. Expected 's' or 'ms'`);
+      }
+      
+      // Validate value
+      if (typeof duration.value !== "number" || isNaN(duration.value)) {
+        return generateErr("invalid-value", 
+          `Time value must be a number, got: ${duration.value}`);
+      }
+      
+      if (duration.value < 0) {
+        return generateErr("invalid-value", 
+          `animation-duration must be non-negative, got: ${duration.value}`);
+      }
+    } else {
+      return generateErr("invalid-type", 
+        `Invalid duration type: ${duration.type}. Expected 'time' or 'auto'`);
+    }
+  }
+  
+  // 3. Generate CSS
+  const values = ir.durations.map(...)...
+  return generateOk(values);
 }
 ```
 
-**Generate test config** (new):
+### Step 2: Update Generate Test Config (15 mins per property)
+
+Add comprehensive invalid IR test cases to match parse quality:
+
+**Invalid IR cases to test**:
 ```typescript
-{
-  input: { value: 1, unit: "s" },  // IR object
-  expected: "1s",                   // CSS output
-  roundtrip: true,                  // validate parse(generate(IR))
-  expectValid: true
-}
+// Invalid units
+{ type: "time", value: 1, unit: "px" }   // Should error
+{ type: "time", value: 1, unit: "em" }   // Should error
+{ type: "time", value: 1, unit: "banana" } // Should error
+
+// Invalid values
+{ type: "time", value: -1, unit: "s" }    // Should error (negative)
+{ type: "time", value: NaN, unit: "s" }   // Should error
+{ type: "time", value: "oops", unit: "s" } // Should error (string)
+
+// Invalid types
+{ type: "invalid" }                       // Should error
+{ type: 123 }                             // Should error
+
+// Empty/malformed
+{ durations: [] }                         // Should error?
 ```
 
-### Step 3: Pilot on duration (30 mins)
+### Step 3: Fix File Naming (5 mins)
 
-Create `scripts/generate-test-generator/configs/duration.ts`:
-- Valid IR objects → expected CSS
-- Invalid IR objects → expected errors
-- Roundtrip cases
+Current (WRONG):
+- ❌ `duration.generated.test.ts`
+- ❌ `duration.generated.failure.test.ts`
 
-Generate tests:
-- `src/generate/animation/duration.test.ts`
-- `src/generate/animation/duration.failure.test.ts`
+Should be (match parse):
+- ✅ `duration.test.ts` (overwrite existing hand-written tests)
+- ✅ `duration.failure.test.ts`
 
-### Step 4: Validate & Iterate (20 mins)
+Update generator script:
+```typescript
+outputPath: "src/generate/animation/duration.test.ts"  // Not .generated.test.ts
+```
 
-Run tests, refine config format, document patterns.
-
----
-
-## 🔍 Key Questions to Answer
-
-1. **Config format**: What IR structure do we provide?
-2. **Expected output**: Exact CSS or normalized CSS?
-3. **Roundtrip validation**: How to handle formatting differences?
-4. **Error cases**: What makes an IR object invalid for generate?
-5. **Normalization**: `1s` vs `1.0s` - are they equivalent?
-
----
-
-## 📚 Reference Files
-
-**Existing parsers** (for understanding IR):
-- `src/parse/animation/duration.ts`
-- `src/parse/animation/timing-function.ts`
-- etc.
-
-**Existing generators** (to test):
-- `src/generate/animation/duration.ts`
-- `src/generate/animation/timing-function.ts`
-- etc.
-
-**Parse test configs** (for inspiration):
-- `scripts/parse-test-generator/configs/duration.ts`
-- `scripts/parse-test-generator/configs/timing-function.ts`
-- etc.
-
-**Current generator**:
-- `scripts/generate-tests.ts` (to be renamed)
-
----
-
-## 🎓 Expected Learnings
-
-After this session, we'll have:
-1. ✅ Generate test config format defined
-2. ✅ Generate test generator working
-3. ✅ duration generate tests passing
-4. ✅ Roundtrip validation proven
-5. ✅ Pattern for applying to all 7 animation properties
-
-**Then**: Return to remaining parse properties with **dual-generator approach**
-- Generate parse tests
-- Generate generate tests  
-- Validate roundtrip
-- Check off in PROPERTY_COMPLETION_PLAN.md
-
----
-
-## 🚀 Quick Start Commands
+### Step 4: Run Generator (5 mins)
 
 ```bash
-# 1. Rename existing
-just rename-parse-generator  # (create this justfile recipe)
+tsx scripts/generate-generate-tests.ts duration
+```
 
-# 2. Check generate functions exist
-ls -la src/generate/animation/
+Should produce:
+- Comprehensive valid tests with roundtrip
+- Comprehensive invalid tests matching parse quality
+- Proper file names
 
-# 3. Review IR types
-grep -A 10 "AnimationDuration" src/core/types/animation.ts
+---
 
-# 4. Start design
+## 🎯 Workflow for Each Animation Property
+
+```bash
+# 1. Fix generate function validation
+vim src/generate/animation/duration.ts
+
+# 2. Update test config with invalid cases
 vim scripts/generate-test-generator/configs/duration.ts
+
+# 3. Generate tests
+tsx scripts/generate-generate-tests.ts duration
+
+# 4. Verify
+pnpm test src/generate/animation/duration.test.ts
+pnpm test src/generate/animation/duration.failure.test.ts
+
+# 5. Check roundtrip
+# All valid tests should have roundtrip: true and pass
 ```
 
 ---
 
-**Next Agent**: Design generate test config format, pilot on duration, prove symmetry! 🎯
+## 📊 Current Status
+
+✅ Infrastructure complete:
+- `generate-generate-tests.ts` script works
+- Roundtrip validation implemented
+- Config format designed
+
+🚧 Need to fix:
+1. Add validation to all 7 generate functions
+2. Update test configs with invalid cases
+3. Fix file naming (.test.ts not .generated.test.ts)
+4. Remove hand-written tests (replace with generated)
+
+---
+
+## 🔄 Properties to Fix (7 total)
+
+1. **duration** - Start here (pilot)
+2. timing-function
+3. delay  
+4. iteration-count
+5. direction
+6. fill-mode
+7. name
+8. play-state
+
+---
+
+## 💡 Key Insight
+
+**Generate functions are just as important as parse functions!**
+
+They need the same level of validation and testing. The TypeScript types help at compile time, but runtime validation is still needed for:
+- Invalid data from external sources
+- Type assertions with `as any`
+- Dynamic/unknown data
+- API consistency with parse
+
+
+---
+
+## 🚀 Quick Start (Next Agent)
+
+**Start here**: Fix duration.ts as the pilot, then replicate for other 7 properties.
+
+```bash
+# 1. Fix duration generate function
+vim src/generate/animation/duration.ts
+# Add validation (see example above)
+
+# 2. Update test config  
+vim scripts/generate-test-generator/configs/duration.ts
+# Add invalid IR test cases
+
+# 3. Fix file naming in config
+# Change: outputPath: "src/generate/animation/duration.test.ts"
+# (Remove ".generated" from filename)
+
+# 4. Generate tests
+tsx scripts/generate-generate-tests.ts duration
+
+# 5. Run tests
+pnpm test src/generate/animation/duration
+
+# 6. Verify roundtrip
+# All valid tests should show 🔄 and pass
+```
+
+**Success criteria**:
+- ✅ Generate function validates IR (rejects invalid units, negative values, etc.)
+- ✅ Tests match parse test quality (comprehensive invalid cases)
+- ✅ File naming matches parse (duration.test.ts, not duration.generated.test.ts)
+- ✅ All roundtrip tests pass
+- ✅ All checks pass (just check)
