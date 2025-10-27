@@ -1,177 +1,289 @@
-# Next Session: Complete Transition Module (Phase 2A - IN PROGRESS)
+# Next Session: Complete Transition Module (Phase 2A - ALMOST DONE!)
 
 **Date**: 2025-10-28  
-**Status**: Transition module 60% complete - configs created, Zod validation added, tests generated  
-**Tests**: 3,899 passing (+83 from 3,816), 3 failing  
+**Status**: Transition module 60% complete - 3/5 properties working perfectly  
+**Tests**: 3,899 passing (all passing!)  
 **Branch**: coverage/90-percent  
-**Latest Work**: Started Phase 2A transition module
+**Latest Work**: Fixed IR format issues, Zod validation, and test generator
 
 ---
 
-## �� Current Status: Transition Module
+## 📊 Current Status: Transition Module
 
-### ✅ Completed
-1. ✅ Created directory structure (configs/transition/, results/transition/)
-2. ✅ Copied 3 shared properties from animation (duration, delay, timing-function)
-3. ✅ Updated module fields in all 6 configs
-4. ✅ Added Zod validation to all 3 generate functions:
-   - src/generate/transition/duration.ts
-   - src/generate/transition/delay.ts
-   - src/generate/transition/timing-function.ts
-5. ✅ Generated tests (+83 tests total)
-6. ✅ Parse tests all passing (transition-duration parse works)
+### ✅ Completed (3/5 Properties Working)
+1. ✅ transition-duration - Parse + Generate + Tests (all passing)
+2. ✅ transition-delay - Parse + Generate + Tests (all passing)
+3. ✅ transition-timing-function - Parse + Generate + Tests (all passing)
 
-### ⚠️ Remaining Work
-1. **Fix generate configs for IR format difference**:
-   - Animation uses: `{ type: "time", value: 1, unit: "s" }` or `{ type: "auto" }`
-   - Transition uses: `{ value: 1, unit: "s" }` (no type field, no auto support)
-   - Need to remove `type:` fields and `auto` test cases from duration/delay configs
+### ✅ Recent Fixes (Latest Session)
+- ✅ Fixed IR format: Removed `type` field from duration/delay configs
+- ✅ Fixed Zod validation: transitionDelaySchema now uses delayTimeSchema (allows negative values)
+- ✅ Fixed test generator: Uses module name for type prefix (Transition* vs Animation*)
+- ✅ Removed obsolete 'invalid-type' test case
+- ✅ All 3,899 tests passing
 
-2. **Regenerate tests after fixing configs**
+### 🎯 Remaining Work (2/5 Properties)
 
-3. **Verify all tests passing**
+1. **transition-property** - NEEDS IMPLEMENTATION
+   - Property names + 'all' + 'none' keywords
+   - Should be straightforward (similar to other identifier-based properties)
+   - IR already defined in src/core/types/transition.ts
 
-4. **Create configs for remaining 2 properties**:
-   - transition-property (CSS property names + all/none keywords)
-   - transition (shorthand - optional, can skip for now)
+2. **transition** (shorthand) - OPTIONAL/LATER
+   - Can skip for now (shorthands are complex)
+   - Not blocking module completion
 
 ---
 
-## 🔧 Immediate Fix Needed
+## 🚀 Quick Start: Implement transition-property
 
-The generate configs were copied from animation but have IR format mismatches:
-
-### Problem
-```typescript
-// Animation IR (has discriminated union with type field)
-durations: [{ type: "time", value: 1, unit: "s" }]
-durations: [{ type: "auto" }]
-
-// Transition IR (plain time objects, no auto support)
-durations: [{ value: 1, unit: "s" }]
-```
-
-### Solution Script
+### Step 1: Create Parse Function
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
 
-# Create a proper fix script
-cat > /tmp/fix_transition_configs.sh << 'SCRIPT'
-#!/bin/bash
-for file in scripts/generate-test-generator/configs/transition/{duration,delay}.ts; do
-  # Use Node.js to properly parse and fix the config
-  node -e "
-    const fs = require('fs');
-    let content = fs.readFileSync('$file', 'utf8');
-    
-    // Remove type: 'time', from objects
-    content = content.replace(/{ type: \"time\", value:/g, '{ value:');
-    
-    // Remove entire auto test case objects (between curly braces)
-    content = content.replace(/{\s*input:\s*{\s*kind:\s*\"transition-[^\"]+\",\s*durations:\s*\[\s*{\s*type:\s*\"auto\"\s*}\s*\]\s*},\s*expected:\s*\"auto\",\s*category:\s*\"valid-keyword\",\s*roundtrip:\s*true,\s*expectValid:\s*true\s*},?/g, '');
-    
-    fs.writeFileSync('$file', content);
-    console.log('Fixed: $file');
-  "
-done
-SCRIPT
+# Create src/parse/transition/property.ts (copy from existing identifier property parser)
+# Example structure:
+cat > src/parse/transition/property.ts << 'PARSE'
+// b_path:: src/parse/transition/property.ts
 
-bash /tmp/fix_transition_configs.sh
+import { type ParseResult, parseOk, parseError } from "@/core/result";
+import type * as Type from "@/core/types";
 
-# Regenerate tests
-pnpm tsx scripts/generate-generate-tests.ts transition/duration
-pnpm tsx scripts/generate-generate-tests.ts transition/delay
+/**
+ * Parse CSS transition-property value to IR.
+ *
+ * Supports:
+ * - none: No transition
+ * - all: All properties
+ * - <identifier>: Specific CSS property names
+ * - Multiple values (comma-separated)
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property}
+ */
+export function parse(input: string): ParseResult<Type.TransitionProperty> {
+const trimmed = input.trim();
+if (!trimmed) {
+return parseError("Empty input");
+}
 
-# Verify
-just test
+// Split by comma and parse each value
+const parts = trimmed.split(",").map(p => p.trim());
+const properties: Type.TransitionProperty["properties"] = [];
+
+for (const part of parts) {
+if (part === "none") {
+properties.push({ type: "none" });
+} else if (part === "all") {
+properties.push({ type: "all" });
+} else {
+// CSS identifier (property name)
+properties.push({ type: "identifier", value: part });
+}
+}
+
+return parseOk({
+kind: "transition-property",
+properties,
+});
+}
+PARSE
 ```
+
+### Step 2: Create Generate Function
+```bash
+# Create src/generate/transition/property.ts
+cat > src/generate/transition/property.ts << 'GEN'
+// b_path:: src/generate/transition/property.ts
+
+import { type GenerateResult, generateOk } from "@/core/result";
+import type * as Type from "@/core/types";
+import { transitionPropertySchema } from "@/core/types/transition";
+import { zodErrorToIssues } from "@/utils/generate";
+
+/**
+ * Generate CSS transition-property value from IR.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property}
+ */
+export function generate(ir: Type.TransitionProperty): GenerateResult {
+// Validate IR with Zod schema
+const validation = transitionPropertySchema.safeParse(ir);
+
+if (!validation.success) {
+const issues = zodErrorToIssues(validation.error);
+return {
+ok: false,
+issues,
+};
+}
+
+// Generate CSS
+const parts = ir.properties.map(prop => {
+if (prop.type === "none") return "none";
+if (prop.type === "all") return "all";
+return prop.value;
+});
+
+return generateOk(parts.join(", "));
+}
+GEN
+```
+
+### Step 3: Create Test Config
+```bash
+# Create config
+mkdir -p scripts/generate-test-generator/configs/transition
+cat > scripts/generate-test-generator/configs/transition/property.ts << 'CONFIG'
+/**
+ * Test cases for transition-property generator
+ */
+
+import type { TransitionProperty } from "@/core/types/index.js";
+
+export interface GenerateTestCase {
+input: TransitionProperty | any;
+expected: string;
+description: string;
+category: string;
+roundtrip?: boolean;
+expectValid?: boolean;
+expectedError?: string;
+}
+
+export interface PropertyConfig {
+module: string;
+propertyName: string;
+sourceFile: string;
+importPath: string;
+parseImportPath: string;
+outputPath: string;
+cases: GenerateTestCase[];
+}
+
+export const config: PropertyConfig = {
+propertyName: "property",
+module: "transition",
+sourceFile: "src/generate/transition/property.ts",
+importPath: "../src/generate/transition/property.js",
+parseImportPath: "../src/parse/transition/property.js",
+outputPath: "src/generate/transition/property.test.ts",
+cases: [
+// Valid - keywords
+{
+input: {
+kind: "transition-property",
+properties: [{ type: "none" }]
+},
+expected: "none",
+description: "none keyword",
+category: "valid-keyword",
+roundtrip: true,
+expectValid: true
+},
+{
+input: {
+kind: "transition-property",
+properties: [{ type: "all" }]
+},
+expected: "all",
+description: "all keyword",
+category: "valid-keyword",
+roundtrip: true,
+expectValid: true
+},
+// Valid - single property
+{
+input: {
+kind: "transition-property",
+properties: [{ type: "identifier", value: "opacity" }]
+},
+expected: "opacity",
+description: "single property",
+category: "valid-basic",
+roundtrip: true,
+expectValid: true
+},
+// Valid - multiple properties
+{
+input: {
+kind: "transition-property",
+properties: [
+{ type: "identifier", value: "opacity" },
+{ type: "identifier", value: "transform" }
+]
+},
+expected: "opacity, transform",
+description: "multiple properties",
+category: "valid-list",
+roundtrip: true,
+expectValid: true
+},
+// Invalid - empty array
+{
+input: {
+kind: "transition-property",
+properties: []
+},
+expected: "",
+description: "empty properties array",
+category: "invalid-empty",
+expectValid: false,
+expectedError: "Too small"
+},
+],
+};
+CONFIG
+
+# Generate tests
+pnpm tsx scripts/generate-generate-tests.ts transition/property
+```
+
+### Step 4: Run Tests
+```bash
+just test
+just check
+```
+
+---
+
+## 📚 Key Learnings from This Session
+
+1. **Animation vs Transition IR differences**:
+   - Animation-duration: `{ type: "time", value: 1, unit: "s" }` or `{ type: "auto" }`
+   - Transition-duration: `{ value: 1, unit: "s" }` (no type field, no auto)
+   - Always check IR type definitions before copying configs
+
+2. **Delay vs Duration schemas**:
+   - Duration: Uses `timeSchema` (non-negative only)
+   - Delay: Uses `delayTimeSchema` (allows negative values)
+   - Negative delays make transitions start partway through
+
+3. **Test generator was hardcoded**:
+   - Fixed: Now uses `config.module` to generate correct type names
+   - TransitionDuration vs AnimationDuration
+
+4. **When copying configs between modules**:
+   - ✅ Update `module` field
+   - ✅ Update `kind` in all test cases
+   - ✅ Check IR type differences
+   - ✅ Remove unsupported features (like `auto`)
+   - ✅ Adjust Zod schemas if needed
 
 ---
 
 ## 📊 Progress Metrics
 
-**Dual Test Coverage**:
-- Animation: 8/8 (100%) ✅
-- Transition: 3/5 (60%) ⚠️ (duration, delay, timing-function configs exist but need fixing)
-- Total: 11/94 (11.7%)
+**Transition Module**:
+- Duration: ✅ Parse + Generate + Tests
+- Delay: ✅ Parse + Generate + Tests  
+- Timing-function: ✅ Parse + Generate + Tests
+- Property: ⏳ TODO
+- (shorthand): ⏸️ Skip for now
 
-**Tests**:
-- Before session: 3,816 passing
-- Current: 3,899 passing (+83)
-- Failing: 3 (IR format issues in generate configs)
+**Overall Progress**:
+- Tests: 3,899 passing
+- Modules: Animation (100%), Transition (60%)
+- Branch: coverage/90-percent
+- All checks passing ✅
 
----
-
-## 🚀 Quick Resume Commands
-
-```bash
-# Fix the configs
-node -e "
-const fs = require('fs');
-['duration', 'delay'].forEach(prop => {
-  const file = \`scripts/generate-test-generator/configs/transition/\${prop}.ts\`;
-  let content = fs.readFileSync(file, 'utf8');
-  // Remove type field
-  content = content.replace(/{ type: 'time', /g, '{ ');
-  // Remove auto test cases (find full object and delete)
-  const lines = content.split('\\n');
-  const filtered = [];
-  let inAutoBlock = false;
-  let braceCount = 0;
-  
-  for (const line of lines) {
-    if (line.includes('type: \"auto\"')) {
-      inAutoBlock = true;
-      braceCount = 0;
-    }
-    if (inAutoBlock) {
-      braceCount += (line.match(/{/g) || []).length;
-      braceCount -= (line.match(/}/g) || []).length;
-      if (braceCount === 0 && line.includes('}')) {
-        inAutoBlock = false;
-        continue;
-      }
-      continue;
-    }
-    filtered.push(line);
-  }
-  fs.writeFileSync(file, filtered.join('\\n'));
-  console.log(\`Fixed \${file}\`);
-});
-"
-
-# Regenerate
-pnpm tsx scripts/generate-generate-tests.ts transition/duration
-pnpm tsx scripts/generate-generate-tests.ts transition/delay
-
-# Test
-just test
-```
-
----
-
-## 📚 Key Learnings
-
-1. **Animation vs Transition IR differences**:
-   - Animation-duration supports `auto` keyword → uses discriminated union with `type` field
-   - Transition-duration only supports time values → plain objects, no type field
-   - Must adapt configs when copying between modules
-
-2. **Test generator workflow**:
-   - ✅ Copy configs from similar module
-   - ✅ Update module field and paths
-   - ⚠️ **Check IR type definitions** before generating
-   - ✅ Add Zod validation to generate functions
-   - ✅ Generate tests
-   - ✅ Fix any config mismatches
-   - ✅ Regenerate and verify
-
-3. **Zod validation is critical**:
-   - Must be added before generating tests
-   - Enables `.failure.test.ts` generation
-   - Catches invalid IR before CSS generation
-
----
-
-**Next Action**: Fix the IR format in duration/delay configs, regenerate tests, verify all 3,902 tests pass, then optionally add transition-property config.
-
+**Next Action**: Implement transition-property to reach 80% module completion (4/5 properties)
