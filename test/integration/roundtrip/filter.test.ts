@@ -15,14 +15,20 @@ import * as ContrastGenerate from "@/generate/filter/contrast";
 import * as DropShadowGenerate from "@/generate/filter/drop-shadow";
 import * as GrayscaleGenerate from "@/generate/filter/grayscale";
 import * as HueRotateGenerate from "@/generate/filter/hue-rotate";
+import * as InvertGenerate from "@/generate/filter/invert";
+import * as OpacityGenerate from "@/generate/filter/opacity";
 import * as SaturateGenerate from "@/generate/filter/saturate";
+import * as SepiaGenerate from "@/generate/filter/sepia";
 import * as BlurParse from "@/parse/filter/blur";
 import * as BrightnessParse from "@/parse/filter/brightness";
 import * as ContrastParse from "@/parse/filter/contrast";
 import * as DropShadowParse from "@/parse/filter/drop-shadow";
 import * as GrayscaleParse from "@/parse/filter/grayscale";
 import * as HueRotateParse from "@/parse/filter/hue-rotate";
+import * as InvertParse from "@/parse/filter/invert";
+import * as OpacityParse from "@/parse/filter/opacity";
 import * as SaturateParse from "@/parse/filter/saturate";
+import * as SepiaParse from "@/parse/filter/sepia";
 
 describe("Round-Trip: filter functions", () => {
 	test("blur: blur(5px)", () => {
@@ -147,6 +153,54 @@ describe("Round-Trip: filter functions", () => {
 		if (!gen.ok) return;
 
 		const p2 = DropShadowParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("opacity: opacity(0.5)", () => {
+		const p1 = OpacityParse.parse("opacity(0.5)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = OpacityGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = OpacityParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("invert: invert(75%)", () => {
+		const p1 = InvertParse.parse("invert(75%)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = InvertGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = InvertParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("sepia: sepia(60%)", () => {
+		const p1 = SepiaParse.parse("sepia(60%)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = SepiaGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = SepiaParse.parse(gen.value);
 		expect(p2.ok).toBe(true);
 		if (!p2.ok) return;
 
