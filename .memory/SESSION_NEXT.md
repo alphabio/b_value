@@ -1,129 +1,140 @@
-# Session: Test Generator v2.0 - REVIEW NEEDED
+# Session: Test Generator v2.0 - Ready to Scale
 
-**Status**: ⚠️ **HOLD FOR DISCUSSION** - Generator working but need user approval before proceeding
+**Status**: ✅ **APPROVED** - Exact error assertions implemented
 
-**Tests**: 3,641 passing (365 test files)
-**Branch**: coverage/90-percent
-**Latest Commit**: 2c17c77
-
----
-
-## ⚠️ IMPORTANT: User Wants Discussion First
-
-**User's Note**: _"Not ready yet... I still want to discuss the outcomes with you in the next session"_
-
-**Do NOT proceed with timing-function or other properties until after discussion!**
+**Tests**: 3,641 passing (365 test files)  
+**Branch**: coverage/90-percent  
+**Latest Commit**: bcf2554
 
 ---
 
-## 🎯 What We Built (Ready for Review)
+## ✅ Discussion Complete
 
-### Generator Features (v2.0):
-1. ✅ External configs (`scripts/test-generator/configs/*.ts`)
-2. ✅ Issue detection (`expectValid` flag catches mismatches)
-3. ✅ Spec validation (extracts `@see` links, validates URLs)
-4. ✅ **Separate failure tests** (`property.failure.test.ts`)
-5. ✅ **URL accessibility check** (HTTP HEAD requests)
-6. ✅ Co-located tests (`src/**/*.test.ts`)
+### User Feedback: Exact Error Assertions
 
-### Pilot Complete:
-- `duration` property (24 tests: 13 valid + 11 invalid)
-- 2 spec refs validated (MDN + W3C, both accessible)
-- 2 test files generated (valid + failure)
-- All tests passing
+**Issue**: Generator was using `toContain("Expected")` - too weak!
 
----
+**Solution**: ✅ Implemented exact error message assertions:
+```typescript
+// Before
+expect(result.error).toContain("Expected");  // ❌ Weak
 
-## 💬 Discussion Topics for Next Session
-
-### 1. **Separate Files Approach**
-   - Is split into `.test.ts` + `.failure.test.ts` working well?
-   - File naming okay?
-   - Easier to navigate?
-
-### 2. **Spec URL Validation**  
-   - HTTP HEAD check sufficient?
-   - Should we cache results?
-   - 5s timeout appropriate?
-   - What if URLs unreachable?
-
-### 3. **Generated Test Quality**
-   - Tests comprehensive enough?
-   - Error validation working? (extracts key terms)
-   - Descriptions clear?
-
-### 4. **Issue Detection**
-   - `expectValid` flag working as intended?
-   - ISSUES.md format helpful?
-   - Exit with error on issues - correct behavior?
-
-### 5. **Ready to Scale?**
-   - Apply to `timing-function` next?
-   - Any changes needed first?
-   - Documentation clear?
-
----
-
-## 📁 Review These Files
-
-**Generated output** (from `tsx scripts/generate-tests.ts duration`):
-- `src/parse/animation/duration.test.ts` (13 valid tests, 5.8KB)
-- `src/parse/animation/duration.failure.test.ts` (11 invalid tests, 2.8KB)
-- `scripts/test-generator/duration-results.json` (raw output)
-
-**Documentation**:
-- `scripts/test-generator/README.md` (257 lines, comprehensive)
-- `.memory/archive/2025-10-27-test-generator-v2/HANDOVER.md` (full session details)
-
-**Config example**:
-- `scripts/test-generator/configs/duration.ts` (55 lines)
-
----
-
-## 🔄 Next Steps
-
-### Step 1: **Review & Discuss** (Next Session Start)
-
-Read handover, review generated files, discuss 5 topics above.
-
-### Step 2: **Make Adjustments** (If Needed)
-
-Based on feedback, refine generator before scaling up.
-
-### Step 3: **Apply to timing-function** (Only After Approval)
-
-Most complex property - good stress test:
-- Keywords (ease, linear, ease-in, ease-out, ease-in-out, step-start, step-end)
-- `cubic-bezier(x1, y1, x2, y2)` with range constraints (x: 0-1, y: any)
-- `steps(n, position)` with validation (n > 0, position enum)
-
----
-
-## 📊 Current State
-
-```bash
-cd /Users/alphab/Dev/LLM/DEV/b_value
-just test                    # 3,641 passing (365 files)
-git log -3 --oneline         # Last 3 commits
+// After  
+expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Number");  // ✅ Strong
 ```
 
-**Branch**: `coverage/90-percent`
+**Benefits**:
+1. ✅ Enforces consistent `"property-name: details"` schema
+2. ✅ Catches error message regressions
+3. ✅ Self-documenting (shows exact user-facing errors)
+4. ✅ No false positives from partial matching
+
+**Changes Made**:
+- Added `expectedError?: string` to TestCase interface
+- Updated generator to use `.toBe()` for exact matching
+- Added exact error messages to duration config
+- Regenerated duration tests (24/24 passing)
+- Updated README with rationale and workflow
+
+**Commit**: bcf2554 - All 3,641 tests passing
 
 ---
 
-## 📚 Key References
+## 🎯 Next Task: Apply to timing-function
 
-- **Full session details**: `.memory/archive/2025-10-27-test-generator-v2/HANDOVER.md`
+Generator is now **production-ready** with exact error assertions!
+
+### Step 1: Create timing-function config
+
+```bash
+# Create config file
+cat > scripts/test-generator/configs/timing-function.ts << 'EOTS'
+export const config: PropertyConfig = {
+  propertyName: "timing-function",
+  sourceFile: "src/parse/animation/timing-function.ts",
+  importPath: "../src/parse/animation/timing-function.js",
+  outputPath: "src/parse/animation/timing-function.test.ts",
+  cases: [
+    // Keywords
+    { input: "ease", category: "valid-keyword", expectValid: true },
+    { input: "linear", category: "valid-keyword", expectValid: true },
+    { input: "ease-in", category: "valid-keyword", expectValid: true },
+    { input: "ease-out", category: "valid-keyword", expectValid: true },
+    { input: "ease-in-out", category: "valid-keyword", expectValid: true },
+    { input: "step-start", category: "valid-keyword", expectValid: true },
+    { input: "step-end", category: "valid-keyword", expectValid: true },
+    
+    // cubic-bezier()
+    { input: "cubic-bezier(0, 0, 1, 1)", category: "valid-bezier", expectValid: true },
+    { input: "cubic-bezier(0.42, 0, 0.58, 1)", category: "valid-bezier", expectValid: true },
+    { input: "cubic-bezier(0, -2, 1, 3)", category: "valid-bezier", expectValid: true },  // Y can be any value
+    
+    // steps()
+    { input: "steps(1)", category: "valid-steps", expectValid: true },
+    { input: "steps(4, jump-start)", category: "valid-steps", expectValid: true },
+    { input: "steps(10, jump-end)", category: "valid-steps", expectValid: true },
+    { input: "steps(5, jump-none)", category: "valid-steps", expectValid: true },
+    { input: "steps(3, jump-both)", category: "valid-steps", expectValid: true },
+    
+    // Invalid
+    { input: "cubic-bezier(-1, 0, 1, 1)", category: "invalid-bezier", expectValid: false },  // X must be 0-1
+    { input: "cubic-bezier(0, 0, 2, 1)", category: "invalid-bezier", expectValid: false },   // X must be 0-1
+    { input: "steps(0)", category: "invalid-steps", expectValid: false },  // n must be > 0
+    { input: "invalid", category: "invalid-keyword", expectValid: false },
+  ],
+};
+EOTS
+
+# Run generator (first pass - see actual errors)
+tsx scripts/generate-tests.ts timing-function
+
+# Copy error messages from output, add to config as expectedError
+# Then regenerate
+```
+
+### Step 2: Iterate on error messages
+
+1. First run shows actual parser errors
+2. Copy exact errors into config
+3. Regenerate with exact assertions
+4. Verify all tests pass
+
+### Step 3: Review & refine
+
+- Check edge cases (e.g., X range constraints for cubic-bezier)
+- Verify error messages are consistent
+- Add more test cases if needed
+
+---
+
+## 📚 References
+
 - **Generator docs**: `scripts/test-generator/README.md`
-- **Duration config**: `scripts/test-generator/configs/duration.ts`
-- **Generated tests**: `src/parse/animation/duration*.test.ts`
+- **Duration example**: `scripts/test-generator/configs/duration.ts`
+- **Exact error rationale**: `.memory/EXACT_ERROR_ASSERTIONS.md`
+- **Source parser**: `src/parse/animation/timing-function.ts`
 
 ---
 
-**Next Agent**: 
-1. ❗**START WITH DISCUSSION** - Review handover with user
-2. Discuss all 5 question areas
-3. Make any requested changes
-4. **THEN** (only after approval) proceed with timing-function
+## 🔧 Quick Commands
 
-**DO NOT auto-proceed to timing-function - user wants to review first!**
+```bash
+# Check current spec
+view src/parse/animation/timing-function.ts
+
+# Create config
+vim scripts/test-generator/configs/timing-function.ts
+
+# Generate tests (first pass)
+tsx scripts/generate-tests.ts timing-function
+
+# Run tests
+pnpm test src/parse/animation/timing-function
+
+# Commit
+git add -A && git commit -m "test(animation): Add timing-function tests via generator"
+```
+
+---
+
+**Next Agent**: Create timing-function config and apply the proven generator workflow!
