@@ -1,16 +1,19 @@
 #!/usr/bin/env tsx
 /**
- * Test Generation Script
- * 
+ * Test Generation Script v2.0
+ *
  * Workflow:
- * 1. Define test cases (valid + invalid)
- * 2. Run them through parser
- * 3. Save results to JSON
- * 4. Generate test file from results
- * 
+ * 1. Load test case config from configs/ *.ts
+ * 2. Validate spec references exist in source file
+ * 3. Run cases through parser
+ * 4. Detect issues (mismatches between expected and actual)
+ * 5. Save results to JSON
+ * 6. Generate co-located test file (src/ ** /*.test.ts)
+ * 7. Save ISSUES.md if any mismatches found
+ *
  * Usage:
- *   tsx scripts/generate-tests.ts <property-name>
- *   
+ *   tsx scripts/generate-tests.ts <config-name>
+ *
  * Example:
  *   tsx scripts/generate-tests.ts duration
  */
@@ -22,6 +25,15 @@ interface TestCase {
 	input: string;
 	description: string;
 	category: string;
+	expectValid?: boolean;
+}
+
+interface PropertyConfig {
+	propertyName: string;
+	sourceFile: string;
+	importPath: string;
+	outputPath: string;
+	cases: TestCase[];
 }
 
 interface TestResult {
@@ -30,101 +42,169 @@ interface TestResult {
 	category: string;
 	output: unknown;
 	success: boolean;
+	expectValid?: boolean;
+	issue?: string;
 }
 
-const PROPERTY_CONFIGS: Record<string, {
-	importPath: string;
-	cases: TestCase[];
-}> = {
-	duration: {
-		importPath: "../src/parse/animation/duration.js",
-		cases: [
-			// Valid cases
-			{ input: "1s", description: "single time value in seconds", category: "valid-basic" },
-			{ input: "500ms", description: "single time value in milliseconds", category: "valid-basic" },
-			{ input: "auto", description: "auto keyword", category: "valid-keyword" },
-			{ input: "AUTO", description: "case insensitive auto", category: "valid-keyword" },
-			{ input: "0s", description: "zero duration", category: "valid-edge" },
-			{ input: "0ms", description: "zero duration in ms", category: "valid-edge" },
-			{ input: "0.5s", description: "decimal values", category: "valid-decimal" },
-			{ input: "2.5s", description: "decimal seconds", category: "valid-decimal" },
-			{ input: "100.5ms", description: "decimal milliseconds", category: "valid-decimal" },
-			{ input: "3600s", description: "large values", category: "valid-large" },
-			{ input: "1s, auto, 500ms", description: "multiple durations", category: "valid-list" },
-			{ input: "1s , auto , 2s", description: "durations with whitespace", category: "valid-list" },
-			{ input: "1s, 2s, 3s, 4s", description: "multiple time values", category: "valid-list" },
-			
-			// Invalid cases
-			{ input: "-1s", description: "negative duration", category: "invalid-negative" },
-			{ input: "-500ms", description: "negative milliseconds", category: "invalid-negative" },
-			{ input: "1px", description: "invalid unit", category: "invalid-unit" },
-			{ input: "1em", description: "wrong unit type", category: "invalid-unit" },
-			{ input: "1", description: "missing unit", category: "invalid-unit" },
-			{ input: "", description: "empty value", category: "invalid-empty" },
-			{ input: "1s,", description: "trailing comma", category: "invalid-comma" },
-			{ input: ",1s", description: "leading comma", category: "invalid-comma" },
-			{ input: "1s,,2s", description: "double comma", category: "invalid-comma" },
-			{ input: "invalid", description: "invalid keyword", category: "invalid-keyword" },
-			{ input: "none", description: "wrong keyword", category: "invalid-keyword" },
-		],
-	},
-};
+interface SpecRef {
+	type: "w3c" | "mdn" | "other";
+	url: string;
+}
 
-async function runTests(propertyName: string) {
-	const config = PROPERTY_CONFIGS[propertyName];
-	if (!config) {
-		console.error(`❌ Unknown property: ${propertyName}`);
-		console.error(`   Available: ${Object.keys(PROPERTY_CONFIGS).join(", ")}`);
+async function loadConfig(configName: string): Promise<PropertyConfig> {
+	const configPath = path.join(
+		path.dirname(new URL(import.meta.url).pathname),
+		"test-generator",
+		"configs",
+		`${configName}.ts`
+	);
+
+	if (!fs.existsSync(configPath)) {
+		console.error(`❌ Config not found: ${configPath}`);
+		console.error(`   Available configs:`);
+		const configsDir = path.join(path.dirname(configPath));
+		if (fs.existsSync(configsDir)) {
+			const files = fs.readdirSync(configsDir).filter(f => f.endsWith(".ts"));
+			files.forEach(f => console.error(`   - ${f.replace(".ts", "")}`));
+		}
 		process.exit(1);
 	}
 
-	console.log(`🧪 Running test cases for: ${propertyName}\n`);
+	const module = await import(configPath);
+	return module.config;
+}
+
+function extractSpecRefs(sourceFilePath: string): SpecRef[] {
+	if (!fs.existsSync(sourceFilePath)) {
+		console.warn(`⚠️  Source file not found: ${sourceFilePath}`);
+		return [];
+	}
+
+	const content = fs.readFileSync(sourceFilePath, "utf-8");
+	const refs: SpecRef[] = [];
+
+	// Extract @see links from JSDoc
+	const seePattern = /@see\s+\{@link\s+(https?:\/\/[^\s|]+)[^}]*\}/g;
+	let match: RegExpExecArray | null;
+
+	while ((match = seePattern.exec(content)) !== null) {
+		const url = match[1];
+		let type: "w3c" | "mdn" | "other" = "other";
+		if (url.includes("w3.org")) type = "w3c";
+		else if (url.includes("developer.mozilla.org")) type = "mdn";
+		
+		refs.push({ type, url });
+	}
+
+	return refs;
+}
+
+async function runTests(config: PropertyConfig) {
+	console.log(`🧪 Running test cases for: ${config.propertyName}\n`);
+
+	// Validate spec refs exist
+	const specRefs = extractSpecRefs(config.sourceFile);
+	if (specRefs.length === 0) {
+		console.warn(`⚠️  No spec references found in ${config.sourceFile}`);
+		console.warn(`   Expected @see {@link ...} in JSDoc comments\n`);
+	} else {
+		console.log(`📖 Found ${specRefs.length} spec reference(s):`);
+		specRefs.forEach(ref => console.log(`   ${ref.type}: ${ref.url}`));
+		console.log();
+	}
 
 	// Dynamic import of parser
 	const parser = await import(config.importPath);
 
 	const results: TestResult[] = [];
+	const issues: string[] = [];
 
 	for (const testCase of config.cases) {
 		const result = parser.parse(testCase.input);
-		
+		const success = result.ok === true;
+
+		let issue: string | undefined;
+
+		// Detect mismatches between expected and actual behavior
+		if (testCase.expectValid !== undefined && testCase.expectValid !== success) {
+			if (testCase.expectValid && !success) {
+				issue = `Expected VALID but got ERROR: ${result.ok ? "" : result.error}`;
+				issues.push(`❌ "${testCase.input}" - ${testCase.description}`);
+				issues.push(`   Expected: VALID (ok: true)`);
+				issues.push(`   Actual: ERROR - ${result.ok ? "" : result.error}\n`);
+			} else {
+				issue = `Expected ERROR but got VALID`;
+				issues.push(`❌ "${testCase.input}" - ${testCase.description}`);
+				issues.push(`   Expected: ERROR (ok: false)`);
+				issues.push(`   Actual: VALID - ${JSON.stringify(result.ok ? result.value : null)}\n`);
+			}
+		}
+
 		results.push({
 			input: testCase.input,
 			description: testCase.description,
 			category: testCase.category,
 			output: result,
-			success: result.ok === true,
+			success,
+			expectValid: testCase.expectValid,
+			issue,
 		});
 
-		const status = result.ok ? "✅" : "❌";
-		console.log(`${status} [${testCase.category}] "${testCase.input}"`);
-		if (!result.ok) {
-			console.log(`   Error: ${result.error}`);
+		const status = success ? "✅" : "❌";
+		const issueFlag = issue ? " ⚠️  ISSUE" : "";
+		console.log(`${status} [${testCase.category}] "${testCase.input}"${issueFlag}`);
+		if (!success) {
+			console.log(`   Error: ${result.ok ? "" : result.error}`);
 		}
 	}
 
-	return results;
+	return { results, issues, specRefs };
 }
 
-function saveResults(propertyName: string, results: TestResult[]) {
-	const outputPath = path.join("scripts", "test-generator", `${propertyName}-results.json`);
+function saveResults(config: PropertyConfig, results: TestResult[]) {
+	const outputPath = path.join("scripts", "test-generator", `${config.propertyName}-results.json`);
 	fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
 	console.log(`\n📁 Results saved to: ${outputPath}`);
 }
 
-function generateTestFile(propertyName: string, results: TestResult[]): string {
+function saveIssues(config: PropertyConfig, issues: string[]) {
+	if (issues.length === 0) return;
+
+	const outputPath = path.join("scripts", "test-generator", `${config.propertyName}-ISSUES.md`);
+	let content = `# Issues Found: ${config.propertyName}\n\n`;
+	content += `**Date**: ${new Date().toISOString().split("T")[0]}\n\n`;
+	content += `Found ${issues.length / 3} mismatches between expected and actual parser behavior.\n\n`;
+	content += `These need to be reviewed:\n`;
+	content += `- If parser is wrong: Fix parser, then regenerate tests\n`;
+	content += `- If expectation is wrong: Update config, then regenerate tests\n`;
+	content += `- If behavior is intentional: Document as known limitation\n\n`;
+	content += `---\n\n`;
+	content += issues.join("\n");
+
+	fs.writeFileSync(outputPath, content);
+	console.log(`\n⚠️  ISSUES found! See: ${outputPath}`);
+}
+
+function generateTestFile(config: PropertyConfig, results: TestResult[], specRefs: SpecRef[]): string {
 	const validCases = results.filter(r => r.success);
 	const invalidCases = results.filter(r => !r.success);
 
-	const importPath = `@/parse/animation/${propertyName}`;
-
-	let testFile = `// b_path:: test/parse/animation/${propertyName}.test.ts
-// Auto-generated test file from scripts/generate-tests.ts
-import { describe, expect, it } from "vitest";
-import * as Parser from "${importPath}";
-
-describe("parse/animation/${propertyName}", () => {
-`;
+	let testFile = `// b_path:: ${config.outputPath}\n`;
+	testFile += `// Auto-generated from scripts/test-generator/configs/${config.propertyName}.ts\n`;
+	testFile += `//\n`;
+	
+	if (specRefs.length > 0) {
+		testFile += `// Spec references:\n`;
+		specRefs.forEach(ref => {
+			testFile += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
+		});
+	} else {
+		testFile += `// ⚠️  No spec references found in source file\n`;
+	}
+	
+	testFile += `import { describe, expect, it } from "vitest";\n`;
+	testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n\n`;
+	testFile += `describe("parse/animation/${config.propertyName}", () => {\n`;
 
 	// Group valid cases by category
 	const validByCategory = validCases.reduce((acc, r) => {
@@ -181,8 +261,8 @@ describe("parse/animation/${propertyName}", () => {
 	return testFile;
 }
 
-function saveTestFile(propertyName: string, content: string) {
-	const testPath = path.join("test", "parse", "animation", `${propertyName}.test.ts`);
+function saveTestFile(config: PropertyConfig, content: string) {
+	const testPath = config.outputPath;
 	
 	// Create directory if it doesn't exist
 	const dir = path.dirname(testPath);
@@ -195,27 +275,35 @@ function saveTestFile(propertyName: string, content: string) {
 }
 
 async function main() {
-	const propertyName = process.argv[2];
+	const configName = process.argv[2];
 
-	if (!propertyName) {
-		console.error("Usage: tsx scripts/generate-tests.ts <property-name>");
-		console.error(`Available: ${Object.keys(PROPERTY_CONFIGS).join(", ")}`);
+	if (!configName) {
+		console.error("Usage: tsx scripts/generate-tests.ts <config-name>");
+		console.error("\nExample: tsx scripts/generate-tests.ts duration");
 		process.exit(1);
 	}
 
-	const results = await runTests(propertyName);
+	const config = await loadConfig(configName);
+	const { results, issues, specRefs } = await runTests(config);
 	
 	console.log(`\n📊 Summary:`);
 	console.log(`   Valid: ${results.filter(r => r.success).length}`);
 	console.log(`   Invalid: ${results.filter(r => !r.success).length}`);
 	console.log(`   Total: ${results.length}`);
+	console.log(`   Issues: ${issues.length / 3}`);
 
-	saveResults(propertyName, results);
+	saveResults(config, results);
+	saveIssues(config, issues);
 	
-	const testFileContent = generateTestFile(propertyName, results);
-	saveTestFile(propertyName, testFileContent);
+	const testFileContent = generateTestFile(config, results, specRefs);
+	saveTestFile(config, testFileContent);
 
-	console.log(`\n✅ Done! Run: pnpm test test/parse/animation/${propertyName}.test.ts`);
+	console.log(`\n✅ Done! Run: pnpm test ${config.outputPath}`);
+	
+	if (issues.length > 0) {
+		console.log(`\n⚠️  ${issues.length / 3} issues detected - review before proceeding`);
+		process.exit(1);
+	}
 }
 
 main().catch(console.error);
