@@ -1,0 +1,291 @@
+[
+  {
+    "description": "normal direction",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "normal",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "normal",
+    "actual": "normal",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "reverse direction",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "reverse",
+    "actual": "reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "alternate direction",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "alternate",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "alternate",
+    "actual": "alternate",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "alternate-reverse direction",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "alternate-reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "alternate-reverse",
+    "actual": "alternate-reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "two directions",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "normal, reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "normal, reverse",
+    "actual": "normal, reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "all four direction keywords",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "normal, reverse, alternate, alternate-reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "normal, reverse, alternate, alternate-reverse",
+    "actual": "normal, reverse, alternate, alternate-reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "wrong kind literal",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"animation-direction\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "kind: Invalid literal value, expected \"animation-direction\"",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"animation-direction\""
+  },
+  {
+    "description": "invalid direction keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\"",
+          "path": [
+            "directions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "directions[0]: Invalid enum value",
+    "expected": "",
+    "actual": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\""
+  },
+  {
+    "description": "fill-mode keyword instead of direction",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\"",
+          "path": [
+            "directions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "directions[0]: Invalid enum value",
+    "expected": "",
+    "actual": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\""
+  },
+  {
+    "description": "empty directions array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "directions: Too small: expected array to have >=1 items",
+          "path": [
+            "directions"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "directions: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "string instead of array",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "directions: Invalid input: expected array, received string",
+          "path": [
+            "directions"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "directions: Invalid input: expected array",
+    "expected": "",
+    "actual": "directions: Invalid input: expected array, received string"
+  },
+  {
+    "description": "number instead of string",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\"",
+          "path": [
+            "directions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "directions[0]: Invalid enum value",
+    "expected": "",
+    "actual": "directions[0]: Invalid option: expected one of \"normal\"|\"reverse\"|\"alternate\"|\"alternate-reverse\""
+  }
+]

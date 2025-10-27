@@ -1,0 +1,306 @@
+[
+  {
+    "description": "none fill mode",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none",
+    "actual": "none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "forwards fill mode",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "forwards",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "forwards",
+    "actual": "forwards",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "backwards fill mode",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "backwards",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "backwards",
+    "actual": "backwards",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "both fill mode",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "both",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "both",
+    "actual": "both",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "two fill modes",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "none, forwards",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none, forwards",
+    "actual": "none, forwards",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "all four fill mode keywords",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "none, forwards, backwards, both",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none, forwards, backwards, both",
+    "actual": "none, forwards, backwards, both",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "repeated keywords",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "forwards, forwards, backwards",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "forwards, forwards, backwards",
+    "actual": "forwards, forwards, backwards",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "wrong kind literal",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"animation-fill-mode\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "kind: Invalid literal value, expected \"animation-fill-mode\"",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"animation-fill-mode\""
+  },
+  {
+    "description": "invalid fill mode keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\"",
+          "path": [
+            "modes",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "modes[0]: Invalid enum value",
+    "expected": "",
+    "actual": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\""
+  },
+  {
+    "description": "direction keyword instead of fill-mode",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\"",
+          "path": [
+            "modes",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "modes[0]: Invalid enum value",
+    "expected": "",
+    "actual": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\""
+  },
+  {
+    "description": "empty modes array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "modes: Too small: expected array to have >=1 items",
+          "path": [
+            "modes"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "modes: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "string instead of array",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "modes: Invalid input: expected array, received string",
+          "path": [
+            "modes"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "modes: Invalid input: expected array",
+    "expected": "",
+    "actual": "modes: Invalid input: expected array, received string"
+  },
+  {
+    "description": "boolean instead of string",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\"",
+          "path": [
+            "modes",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "modes[0]: Invalid enum value",
+    "expected": "",
+    "actual": "modes[0]: Invalid option: expected one of \"none\"|\"forwards\"|\"backwards\"|\"both\""
+  }
+]
