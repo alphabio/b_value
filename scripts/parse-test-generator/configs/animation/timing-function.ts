@@ -11,7 +11,7 @@ expectedError?: string;
 }
 
 export interface PropertyConfig {
-propertyName: string;
+module: string;propertyName: string;
 sourceFile: string;
 importPath: string;
 outputPath: string;
@@ -20,7 +20,7 @@ cases: TestCase[];
 
 export const config: PropertyConfig = {
 propertyName: "timing-function",
-sourceFile: "src/parse/animation/timing-function.ts",
+module: "animation",sourceFile: "src/parse/animation/timing-function.ts",
 importPath: "../src/parse/animation/timing-function.js",
 outputPath: "src/parse/animation/timing-function.test.ts",
 cases: [

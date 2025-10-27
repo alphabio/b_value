@@ -4,7 +4,7 @@
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationPlayState } from "../../../src/core/types/index.js";
+import type { AnimationPlayState } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
 	input: AnimationPlayState | any;
@@ -17,6 +17,7 @@ export interface GenerateTestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string;
 	importPath: string;
@@ -27,6 +28,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "play-state",
+	module: "animation",
 	sourceFile: "src/generate/animation/play-state.ts",
 	importPath: "../src/generate/animation/play-state.js",
 	parseImportPath: "../src/parse/animation/play-state.js",

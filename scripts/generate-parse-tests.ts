@@ -30,6 +30,7 @@ interface TestCase {
 }
 
 interface PropertyConfig {
+	module: string; // NEW: explicit module name (e.g., "animation", "border")
 	propertyName: string;
 	sourceFile: string;
 	importPath: string;
@@ -54,20 +55,45 @@ interface SpecRef {
 }
 
 async function loadConfig(configName: string): Promise<PropertyConfig> {
+	// Support both "module/property" and "module property" formats
+	const parts = configName.includes("/") ? configName.split("/") : configName.split(" ");
+	
+	if (parts.length !== 2) {
+		console.error(`❌ Invalid config name format: ${configName}`);
+		console.error(`   Expected: <module>/<property> or <module> <property>`);
+		console.error(`   Example: animation/duration or animation duration`);
+		process.exit(1);
+	}
+	
+	const [moduleName, propertyName] = parts;
+	
 	const configPath = path.join(
 		path.dirname(new URL(import.meta.url).pathname),
-		"test-generator",
+		"parse-test-generator",
 		"configs",
-		`${configName}.ts`,
+		moduleName,
+		`${propertyName}.ts`,
 	);
 
 	if (!fs.existsSync(configPath)) {
 		console.error(`❌ Config not found: ${configPath}`);
-		console.error(`   Available configs:`);
-		const configsDir = path.join(path.dirname(configPath));
-		if (fs.existsSync(configsDir)) {
-			const files = fs.readdirSync(configsDir).filter((f) => f.endsWith(".ts"));
-			files.forEach((f) => console.error(`   - ${f.replace(".ts", "")}`));
+		console.error(`   Available modules:`);
+		const modulesDir = path.join(
+			path.dirname(new URL(import.meta.url).pathname),
+			"parse-test-generator",
+			"configs",
+		);
+		if (fs.existsSync(modulesDir)) {
+			const modules = fs.readdirSync(modulesDir).filter((f) => {
+				const stat = fs.statSync(path.join(modulesDir, f));
+				return stat.isDirectory();
+			});
+			modules.forEach((mod) => {
+				console.error(`\n   ${mod}:`);
+				const modPath = path.join(modulesDir, mod);
+				const files = fs.readdirSync(modPath).filter((f) => f.endsWith(".ts"));
+				files.forEach((f) => console.error(`     - ${mod}/${f.replace(".ts", "")}`));
+			});
 		}
 		process.exit(1);
 	}
@@ -193,7 +219,11 @@ async function runTests(config: PropertyConfig) {
 }
 
 function saveResults(config: PropertyConfig, results: TestResult[]) {
-	const outputPath = path.join("scripts", "test-generator", `${config.propertyName}-results.json`);
+	const outputDir = path.join("scripts", "parse-test-generator", "results", config.module);
+	if (!fs.existsSync(outputDir)) {
+		fs.mkdirSync(outputDir, { recursive: true });
+	}
+	const outputPath = path.join(outputDir, `${config.propertyName}-results.json`);
 	fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
 	console.log(`\n📁 Results saved to: ${outputPath}`);
 }
@@ -201,8 +231,12 @@ function saveResults(config: PropertyConfig, results: TestResult[]) {
 function saveIssues(config: PropertyConfig, issues: string[]) {
 	if (issues.length === 0) return;
 
-	const outputPath = path.join("scripts", "test-generator", `${config.propertyName}-ISSUES.md`);
-	let content = `# Issues Found: ${config.propertyName}\n\n`;
+	const outputDir = path.join("scripts", "parse-test-generator", "results", config.module);
+	if (!fs.existsSync(outputDir)) {
+		fs.mkdirSync(outputDir, { recursive: true });
+	}
+	const outputPath = path.join(outputDir, `${config.propertyName}-ISSUES.md`);
+	let content = `# Issues Found: ${config.module}/${config.propertyName}\n\n`;
 	content += `**Date**: ${new Date().toISOString().split("T")[0]}\n\n`;
 	content += `Found ${issues.length / 3} mismatches between expected and actual parser behavior.\n\n`;
 	content += `These need to be reviewed:\n`;
@@ -218,7 +252,7 @@ function saveIssues(config: PropertyConfig, issues: string[]) {
 
 function generateValidTestFile(config: PropertyConfig, validCases: TestResult[], specRefs: SpecRef[]): string {
 	let testFile = `// b_path:: ${config.outputPath}\n`;
-	testFile += `// Auto-generated from scripts/test-generator/configs/${config.propertyName}.ts\n`;
+	testFile += `// Auto-generated from scripts/parse-test-generator/configs/${config.module}/${config.propertyName}.ts\n`;
 	testFile += `//\n`;
 
 	if (specRefs.length > 0) {
@@ -231,8 +265,8 @@ function generateValidTestFile(config: PropertyConfig, validCases: TestResult[],
 	}
 
 	testFile += `import { describe, expect, it } from "vitest";\n`;
-	testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n\n`;
-	testFile += `describe("parse/animation/${config.propertyName} - valid cases", () => {\n`;
+	testFile += `import * as Parser from "@/parse/${config.module}/${config.propertyName}";\n\n`;
+	testFile += `describe("parse/${config.module}/${config.propertyName} - valid cases", () => {\n`;
 
 	// Group valid cases by category
 	const validByCategory = validCases.reduce(
@@ -280,8 +314,8 @@ function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResul
 	}
 
 	testFile += `import { describe, expect, it } from "vitest";\n`;
-	testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n\n`;
-	testFile += `describe("parse/animation/${config.propertyName} - invalid cases", () => {\n`;
+	testFile += `import * as Parser from "@/parse/${config.module}/${config.propertyName}";\n\n`;
+	testFile += `describe("parse/${config.module}/${config.propertyName} - invalid cases", () => {\n`;
 
 	// Group invalid cases by category
 	const invalidByCategory = invalidCases.reduce(
@@ -330,13 +364,20 @@ function saveTestFile(config: PropertyConfig, validContent: string, failureConte
 }
 
 async function main() {
-	const configName = process.argv[2];
+	const arg1 = process.argv[2];
+	const arg2 = process.argv[3];
 
-	if (!configName) {
-		console.error("Usage: tsx scripts/generate-tests.ts <config-name>");
-		console.error("\nExample: tsx scripts/generate-tests.ts duration");
+	if (!arg1) {
+		console.error("Usage: tsx scripts/generate-parse-tests.ts <module>/<property>");
+		console.error("   Or: tsx scripts/generate-parse-tests.ts <module> <property>");
+		console.error("\nExamples:");
+		console.error("  tsx scripts/generate-parse-tests.ts animation/duration");
+		console.error("  tsx scripts/generate-parse-tests.ts animation duration");
 		process.exit(1);
 	}
+
+	// Support both "module/property" and "module property" formats
+	const configName = arg2 ? `${arg1}/${arg2}` : arg1;
 
 	const config = await loadConfig(configName);
 	const { results, issues, specRefs } = await runTests(config);

@@ -11,6 +11,7 @@ export interface TestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string; // Path to source file (for spec ref validation)
 	importPath: string; // Path for dynamic import
@@ -20,6 +21,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "duration",
+	module: "animation",
 	sourceFile: "src/parse/animation/duration.ts",
 	importPath: "../src/parse/animation/duration.js",
 	outputPath: "src/parse/animation/duration.test.ts",

@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/duration.test.ts
-// Auto-generated from scripts/test-generator/configs/duration.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/duration.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration
