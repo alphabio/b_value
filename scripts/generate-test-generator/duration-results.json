@@ -173,7 +173,11 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected object, received null"
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
         }
       ]
     },
@@ -192,7 +196,11 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected object, received undefined"
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
         }
       ]
     },
@@ -211,17 +219,41 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"auto\""
+          "message": "durations[0].type: Invalid input: expected \"auto\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"s\""
+          "message": "durations[0].unit: Invalid input: expected \"s\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"ms\""
+          "message": "durations[0].unit: Invalid input: expected \"ms\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         }
       ]
     },
@@ -229,7 +261,7 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "Invalid input: expected \"auto\""
+    "actual": "durations[0].type: Invalid input: expected \"auto\""
   },
   {
     "description": "invalid unit em",
@@ -240,17 +272,41 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"auto\""
+          "message": "durations[0].type: Invalid input: expected \"auto\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"s\""
+          "message": "durations[0].unit: Invalid input: expected \"s\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"ms\""
+          "message": "durations[0].unit: Invalid input: expected \"ms\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         }
       ]
     },
@@ -258,7 +314,7 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "Invalid input: expected \"auto\""
+    "actual": "durations[0].type: Invalid input: expected \"auto\""
   },
   {
     "description": "negative value in seconds",
@@ -269,7 +325,15 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Time value must be non-negative"
+          "message": "durations[0].value: Time value must be non-negative",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
         }
       ]
     },
@@ -277,7 +341,7 @@
     "expectValid": false,
     "expectedError": "Time value must be non-negative",
     "expected": "",
-    "actual": "Time value must be non-negative"
+    "actual": "durations[0].value: Time value must be non-negative"
   },
   {
     "description": "negative value in milliseconds",
@@ -288,7 +352,15 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Time value must be non-negative"
+          "message": "durations[0].value: Time value must be non-negative",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
         }
       ]
     },
@@ -296,7 +368,7 @@
     "expectValid": false,
     "expectedError": "Time value must be non-negative",
     "expected": "",
-    "actual": "Time value must be non-negative"
+    "actual": "durations[0].value: Time value must be non-negative"
   },
   {
     "description": "string value",
@@ -307,12 +379,28 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"auto\""
+          "message": "durations[0].type: Invalid input: expected \"auto\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected number, received string"
+          "message": "durations[0].value: Invalid input: expected number, received string",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
         }
       ]
     },
@@ -320,7 +408,7 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "Invalid input: expected \"auto\""
+    "actual": "durations[0].type: Invalid input: expected \"auto\""
   },
   {
     "description": "NaN value",
@@ -331,12 +419,28 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"auto\""
+          "message": "durations[0].type: Invalid input: expected \"auto\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected number, received NaN"
+          "message": "durations[0].value: Invalid input: expected number, received NaN",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
         }
       ]
     },
@@ -344,7 +448,7 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "Invalid input: expected \"auto\""
+    "actual": "durations[0].type: Invalid input: expected \"auto\""
   },
   {
     "description": "invalid duration type",
@@ -355,27 +459,67 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"auto\""
+          "message": "durations[0].type: Invalid input: expected \"auto\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected number, received undefined"
+          "message": "durations[0].value: Invalid input: expected number, received undefined",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"s\""
+          "message": "durations[0].unit: Invalid input: expected \"s\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"ms\""
+          "message": "durations[0].unit: Invalid input: expected \"ms\"",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         },
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Invalid input: expected \"time\""
+          "message": "durations[0].type: Invalid input: expected \"time\"",
+          "path": [
+            "durations",
+            0,
+            "type"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
         }
       ]
     },
@@ -383,6 +527,6 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "Invalid input: expected \"auto\""
+    "actual": "durations[0].type: Invalid input: expected \"auto\""
   }
 ]
