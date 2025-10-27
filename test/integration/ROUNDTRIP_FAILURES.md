@@ -4,6 +4,8 @@
 
 **Status**: ✅ All 21 tests passing (as of 2025-10-27)
 
+**Test Location**: `test/integration/roundtrip/` (organized by property category)
+
 ---
 
 ## Current Status
@@ -17,41 +19,14 @@ All round-trip tests are passing! This is excellent news and indicates:
 
 ## Test Coverage
 
-### Properties Tested (21 tests)
-1. **color** (5 tests)
-   - Named colors (red)
-   - Hex colors (#ff0000)
-   - RGB (rgb(255, 0, 0))
-   - RGBA with alpha (rgba(255, 0, 0, 0.5))
-   - HSL (hsl(0, 100%, 50%))
+### Test Files (5 files, 21 tests)
+1. **color.test.ts** (5 tests) - Named colors, hex, RGB, RGBA, HSL
+2. **layout.test.ts** (5 tests) - width/height with various units and keywords
+3. **border.test.ts** (4 tests) - border-color, border-width
+4. **transform.test.ts** (4 tests) - Individual and multiple transform functions
+5. **gradient.test.ts** (3 tests) - Linear gradients with angles and stops
 
-2. **width** (4 tests)
-   - Pixels (100px)
-   - Percentage (50%)
-   - Em units (2.5em)
-   - Viewport width (80vw)
-
-3. **height** (1 test)
-   - Keyword (auto)
-
-4. **border-color** (2 tests)
-   - Named color (blue)
-   - Transparent keyword
-
-5. **border-width** (2 tests)
-   - Length (2px)
-   - Keyword (thin)
-
-6. **transform** (4 tests)
-   - Translate (translate(10px, 20px))
-   - Rotate (rotate(45deg))
-   - Scale (scale(1.5))
-   - Multiple transforms (translate + rotate)
-
-7. **linear-gradient** (3 tests)
-   - Simple (linear-gradient(red, blue))
-   - With angle (linear-gradient(45deg, red, blue))
-   - With color stops (linear-gradient(red 0%, blue 100%))
+See `test/integration/roundtrip/README.md` for detailed breakdown.
 
 ---
 
