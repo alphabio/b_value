@@ -1,49 +1,254 @@
-# Session: Phase 2.1 - Comprehensive Testing Pilot
+# Session: Phase 2.1 - Awaiting User Feedback on Pilot
 
-**Current Status**: 89.49% coverage, 3,576 tests passing ✅  
+**Current Status**: 89.49% coverage, 3,760 tests passing (+184 from pilot) ✅  
 **Phase 1**: ✅ COMPLETE (100/100 round-trip tests)  
-**Phase 2**: 🔥 **CRITICAL PIVOT** - Comprehensive CSS Spec Testing  
+**Phase 2.1**: ✅ PILOT COMPLETE - ⏸️ **AWAITING USER FEEDBACK**  
 
 ---
 
-## ⚠️ Critical Discovery: Testing Quality Crisis
+## ⚠️ CRITICAL: Pilot Complete, Pattern NOT Finalized
 
-**User identified fundamental problems**:
-- ❌ We do NOT support CSS shorthand properties (that's `b_short` library's job)
-- ❌ Current tests barely cover CSS spec surface area  
-- ❌ We do a VERY poor job testing failures (should have MORE failure tests than success tests)
-- ❌ Current test organization is monolithic and hard to maintain
-- ❌ Schema constraints are too loose (e.g., `cubicBezierSchema` accepts NaN, Infinity, values > 1)
+We completed an **experimental implementation** of the 4-layer comprehensive testing approach for ONE property (`animation-timing-function`).
 
-**Example**: `cubicBezierSchema` (src/core/types/animation.ts:190-196)
-```typescript
-export const cubicBezierSchema = z.object({
-  type: z.literal("cubic-bezier"),
-  x1: z.number(),  // ❌ TOO LOOSE
-  y1: z.number(),
-  x2: z.number(),
-  y2: z.number(),
-});
+**Results**: +184 tests, 2 bugs fixed, all tests passing
+
+**Status**: ⏸️ **WAITING FOR USER DECISIONS** before proceeding
+
+---
+
+## 🎯 What Was Done (Pilot)
+
+Implemented 4-layer testing for `animation-timing-function`:
+
+1. **Schema Tests** (55 tests) - `src/core/types/animation.test.ts`
+2. **Valid Parser Tests** (44 tests) - `timing-function.valid.test.ts`
+3. **Invalid Parser Tests** (85 tests, 12 skipped) - `timing-function.invalid.test.ts`
+4. **Parser Validation** - Added schema validation in parser
+
+**Achievements**:
+- ✅ 184 new tests (3,576 → 3,760)
+- ✅ Found 2 real bugs (schema + parser validation)
+- ✅ Achieved 1.93:1 invalid:valid ratio (close to 2:1 target)
+- ✅ No regressions (all existing tests pass)
+- ✅ Flat file structure implemented
+- ✅ Documented css-tree limitations (12 skipped tests)
+
+---
+
+## ❓ Open Questions Requiring User Decisions
+
+### 1. File Organization
+
+**Current**: Flat structure (co-located)
+```
+src/parse/animation/
+  timing-function.ts
+  timing-function.valid.test.ts
+  timing-function.invalid.test.ts
 ```
 
-**Per CSS Easing Spec**:
-- x1, x2 MUST be in [0, 1] range
-- y1, y2 can be any number
-- Should reject NaN, Infinity
+**Question**: Keep flat or use directories?
+
+### 2. Skipped Tests (12 tests)
+
+We have 12 tests skipped for css-tree parser limitations (accepts malformed syntax, normalizes case).
+
+**Options**:
+- A) Keep skipped with comments (current)
+- B) Remove entirely
+- C) Move to "known-limitations.test.ts"
+- D) File upstream issues
+
+**Question**: How to handle css-tree limitations?
+
+### 3. Schema Test Value
+
+Schema tests (55 tests) found real bugs but test Zod directly.
+
+**Question**: Keep Layer 1 (schema tests) or remove as redundant?
+
+### 4. Error Message Validation
+
+Currently only check `result.ok === false`, don't validate error messages.
+
+**Question**: Should we validate error message content?
+
+### 5. Generator Testing
+
+Generators not tested comprehensively yet (Layer 4 incomplete).
+
+**Question**: Apply same `.valid.test.ts` / `.invalid.test.ts` pattern to generators?
+
+### 6. Test Ratio
+
+Achieved 1.93:1 (invalid:valid).
+
+**Question**: Is 2:1 the right target or aim for 3:1?
+
+### 7. Rollout Strategy
+
+**Options**:
+- A) Iterate on 2-3 more properties first (refine pattern)
+- B) Discuss and refine before continuing
+- C) Apply to all 60+ properties immediately
+
+**Question**: What's next?
 
 ---
 
-## 🎯 Phase 2 Mission: Full CSS Spec Coverage + Robust Failure Testing
+## 📊 Pilot Results
 
-**Goal**: Test parsers/generators to their limits with 4-layer comprehensive testing  
-**Target**: ~100-150 tests for ONE property (pilot), then systematic rollout  
-**Focus**: Schema validation, full spec coverage, MORE failure tests than success tests  
+### Bugs Found and Fixed
 
-### Core Principles
-1. **Test the Full CSS Spec Surface** - ALL valid syntax per W3C/MDN
-2. **More Failure Tests Than Success Tests** - 2:1 or 3:1 ratio
-3. **Validate Schema Constraints** - Zod schemas must be strict
-4. **Decompose for Readability** - One property = multiple focused test files
+1. **`cubicBezierSchema` too loose**
+   - ❌ Before: Accepted NaN, Infinity, x values > 1
+   - ✅ After: `.min(0).max(1)` constraints added
+
+2. **`parseCubicBezier()` missing validation**
+   - ❌ Before: No schema validation
+   - ✅ After: Validates with `cubicBezierSchema.safeParse()`
+
+### Discovered Limitations
+
+**css-tree parser accepts invalid syntax**:
+- Trailing commas: `cubic-bezier(0, 0, 1, 1,)`
+- Missing parentheses: `cubic-bezier(0, 0, 1, 1`
+- Missing commas: `cubic-bezier(0 0 1 1)`
+- Uppercase keywords: `EASE` → normalized to `ease`
+
+**12 tests skipped** with comments documenting these limitations.
+
+---
+
+## 📁 Files Created
+
+```
+src/core/types/
+  animation.test.ts                     (55 tests - NEW)
+
+src/parse/animation/
+  timing-function.valid.test.ts         (44 tests - NEW)
+  timing-function.invalid.test.ts       (85 tests, 12 skipped - NEW)
+
+src/utils/parse/easing/
+  easing-function.ts                    (MODIFIED - added validation)
+
+.memory/archive/2025-10-27-phase2-pilot/
+  HANDOVER.md                           (COMPREHENSIVE - READ THIS!)
+```
+
+---
+
+## 🎯 Next Agent Should
+
+### 1. Present Pilot to User
+
+**Explain**:
+- What was implemented (4-layer approach)
+- What worked well (bugs found, tests passing)
+- What needs decisions (7 open questions)
+- What's not finalized (pattern needs iteration)
+
+### 2. Get User Feedback
+
+**Ask user to review**:
+- `src/core/types/animation.test.ts`
+- `src/parse/animation/timing-function.valid.test.ts`
+- `src/parse/animation/timing-function.invalid.test.ts`
+- `.memory/archive/2025-10-27-phase2-pilot/HANDOVER.md`
+
+**Get decisions on**:
+- File organization (flat vs directories)
+- Skipped tests handling
+- Schema test value
+- Error message validation
+- Generator testing approach
+- Test ratio target
+- Rollout strategy (iterate vs proceed)
+
+### 3. Wait for User Input
+
+**DO NOT**:
+- ❌ Apply pattern to more properties yet
+- ❌ Document as official pattern yet
+- ❌ Start systematic rollout yet
+
+**This is still an experiment** awaiting validation.
+
+### 4. After User Feedback
+
+**Option A**: User wants iteration
+- Pick 2-3 simpler properties
+- Refine pattern based on feedback
+- Iterate until pattern is solid
+
+**Option B**: User approves pattern
+- Document pattern officially
+- Apply to remaining animation properties
+- Roll out systematically
+
+**Option C**: User wants changes
+- Adjust approach based on feedback
+- Re-pilot with changes
+- Get approval before rollout
+
+---
+
+## 💡 Key Insights from Pilot
+
+1. **Writing comprehensive tests is SLOW** - 184 tests took ~1.5 hours
+2. **Invalid tests require 2-3x effort** - More edge cases to consider
+3. **Schema validation is valuable** - Catches bugs parsers miss
+4. **css-tree has limitations** - Permissive parsing, case normalization
+5. **Pattern needs more iteration** - One property isn't enough to finalize
+
+---
+
+## 📊 Comparison: Before vs After
+
+| Metric | Before Pilot | After Pilot | Change |
+|--------|-------------|-------------|--------|
+| **Tests** | 3,576 | 3,760 | +184 (+5.1%) |
+| **Coverage** | 89.49% | 89.49% | 0% |
+| **Test Files** | 363 | 366 | +3 |
+| **Bugs Fixed** | 0 | 2 | 🐛 Found & fixed |
+| **Schema Validation** | ❌ Missing | ✅ Added | Improved |
+
+---
+
+## 🔗 Related Documents
+
+**Must Read**:
+- `.memory/archive/2025-10-27-phase2-pilot/HANDOVER.md` - Comprehensive pilot analysis
+- `.memory/TESTING_STRATEGY_PHASE2.md` - Original strategy (700 lines)
+
+**Context**:
+- `.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md` - Phase 1 completion
+
+**Specs**:
+- https://www.w3.org/TR/css-easing-1/ - CSS Easing Functions
+- https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function - MDN
+
+---
+
+## 🚦 Current State
+
+```bash
+cd /Users/alphab/Dev/LLM/DEV/b_value
+just test                    # 3,760 tests passing, 12 skipped
+git status                   # Clean
+git branch --show-current    # coverage/90-percent
+git log -1 --oneline         # 5833d7d feat(test): Phase 2.1 pilot
+```
+
+**Ready for user review and feedback!**
+
+---
+
+**Last Updated**: 2025-10-27 (after pilot completion)  
+**Next Agent**: Present pilot results, get user feedback, await decisions  
+**Status**: ⏸️ Paused for user input  
+**Commit**: `5833d7d` - Phase 2.1 pilot complete
 
 ---
 
