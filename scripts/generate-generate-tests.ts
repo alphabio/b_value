@@ -1,24 +1,42 @@
 #!/usr/bin/env tsx
 /**
- * Generate Test Generation Script v1.0
+ * Generate Test Generation Script v2.0
  *
- * Tests IR → CSS conversion and roundtrip validation.
+ * Generates tests for IR → CSS generation functions with roundtrip validation.
  *
  * Workflow:
- * 1. Load test case config from configs/ .ts files
+ * 1. Load test case config from configs/{module}/{property}.ts
  * 2. Validate spec references exist in source file
- * 3. Run cases through generator
+ * 3. Run test cases through generator (IR → CSS string)
  * 4. For roundtrip cases: validate parse(generate(IR)) === IR
  * 5. Detect issues (mismatches between expected and actual)
- * 6. Save results to JSON
- * 7. Generate co-located test file (src/generate/ .generated.test.ts)
+ * 6. Save results to results/{module}/{property}-results.json
+ * 7. Generate co-located test files:
+ *    - src/generate/{module}/{property}.test.ts (valid cases with roundtrip)
+ *    - src/generate/{module}/{property}.failure.test.ts (invalid cases)
  * 8. Save ISSUES.md if any mismatches found
  *
- * Usage:
- *   tsx scripts/generate-generate-tests.ts <config-name>
+ * Prerequisites:
+ * - Generator must exist at src/generate/{module}/{property}.ts
+ * - Generator must implement Zod validation (safeParse with zodErrorToIssues)
+ * - Parser must exist at src/parse/{module}/{property}.ts (for roundtrip)
+ * - Config must exist at scripts/generate-test-generator/configs/{module}/{property}.ts
  *
- * Example:
- *   tsx scripts/generate-generate-tests.ts duration
+ * Important:
+ * Before generating tests, ensure the generator function includes validation:
+ *   const validation = {propertyName}Schema.safeParse(ir);
+ *   if (!validation.success) {
+ *     const issues = zodErrorToIssues(validation.error);
+ *     return { ok: false, issues };
+ *   }
+ *
+ * Usage:
+ *   tsx scripts/generate-generate-tests.ts <module>/<property>
+ *   tsx scripts/generate-generate-tests.ts <module> <property>
+ *
+ * Examples:
+ *   tsx scripts/generate-generate-tests.ts animation/duration
+ *   tsx scripts/generate-generate-tests.ts transition delay
  */
 
 import * as fs from "node:fs";
@@ -46,16 +64,16 @@ interface SpecRef {
 async function loadConfig(configName: string): Promise<any> {
 	// Support both "module/property" and "module property" formats
 	const parts = configName.includes("/") ? configName.split("/") : configName.split(" ");
-	
+
 	if (parts.length !== 2) {
 		console.error(`❌ Invalid config name format: ${configName}`);
 		console.error(`   Expected: <module>/<property> or <module> <property>`);
 		console.error(`   Example: animation/duration or animation duration`);
 		process.exit(1);
 	}
-	
+
 	const [moduleName, propertyName] = parts;
-	
+
 	const configPath = path.join(
 		path.dirname(new URL(import.meta.url).pathname),
 		"generate-test-generator",
@@ -319,13 +337,13 @@ function generateValidTestFile(config: any, validCases: TestResult[], specRefs: 
 
 	testFile += `import { describe, expect, it } from "vitest";\n`;
 	testFile += `import * as Generator from "@/generate/${config.module}/${config.propertyName}";\n`;
-	
+
 	// Add parser import if roundtrip tests exist
 	const hasRoundtrip = validCases.some((r) => r.roundtrip);
 	if (hasRoundtrip) {
 		testFile += `import * as Parser from "@/parse/${config.module}/${config.propertyName}";\n`;
 	}
-	
+
 	testFile += `import type * as Type from "@/core/types";\n\n`;
 	testFile += `describe("generate/${config.module}/${config.propertyName} - valid cases", () => {\n`;
 
@@ -390,12 +408,12 @@ function generateFailureTestFile(config: any, invalidCases: TestResult[], specRe
 
 	testFile += `import { describe, expect, it } from "vitest";\n`;
 	testFile += `import * as Generator from "@/generate/${config.module}/${config.propertyName}";\n`;
-	
+
 	// Only add Type import if there are invalid cases
 	if (invalidCases.length > 0) {
 		testFile += `\n`;
 	}
-	
+
 	testFile += `describe("generate/${config.module}/${config.propertyName} - invalid cases", () => {\n`;
 
 	// Group invalid cases by category
@@ -414,8 +432,8 @@ function generateFailureTestFile(config: any, invalidCases: TestResult[], specRe
 			// Get original input from config
 			const configCase = config.cases.find((c: any) => c.description === testCase.description);
 			// Handle undefined specially since JSON.stringify(undefined) returns undefined
-			const inputJson = configCase?.input === undefined 
-				? "undefined" 
+			const inputJson = configCase?.input === undefined
+				? "undefined"
 				: JSON.stringify(configCase?.input || null, null, 3).replace(/\n/g, "\n\t\t\t");
 			const errorMsg = (testCase.output as any)?.issues?.[0]?.message || (testCase.output as any)?.error || "";
 

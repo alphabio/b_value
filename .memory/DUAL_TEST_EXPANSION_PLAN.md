@@ -17,7 +17,7 @@
 ### Phase 2: Adjacent Modules (Next)
 Expand to modules that share properties with animation:
 1. **Transition** (5 properties) - shares duration, delay, timing-function
-2. **Visual** (2 properties) - opacity, visibility  
+2. **Visual** (2 properties) - opacity, visibility
 
 ### Phase 3: Simple Enums (After Phase 2)
 Focus on properties with enum values (easiest to test):
@@ -43,17 +43,18 @@ Properties with numeric/length values:
 
 ### Phase 2A: Transition Module (IMMEDIATE NEXT)
 
-**Effort**: ~30-40 minutes  
+**Effort**: ~30-40 minutes
 **Priority**: HIGH - validates cross-module property handling
 
 **Properties** (5):
 1. ✅ transition-duration - copy animation config
-2. ✅ transition-delay - copy animation config  
+2. ✅ transition-delay - copy animation config
 3. ✅ transition-timing-function - copy animation config
 4. ⚠️ transition-property - NEW config (CSS property names + all/none)
 5. ⚠️ transition - NEW config (shorthand, optional)
 
 **Steps**:
+
 ```bash
 # 1. Create directories
 mkdir -p scripts/parse-test-generator/configs/transition
@@ -85,6 +86,7 @@ just test
 ```
 
 **Success Criteria**:
+- [ ] All generate functions have Zod validation (CRITICAL!)
 - [ ] All 5 properties have parse + generate configs
 - [ ] All tests generated and passing
 - [ ] Roundtrip validation works for all
@@ -94,7 +96,7 @@ just test
 
 ### Phase 2B: Visual Module (Simple)
 
-**Effort**: ~20 minutes  
+**Effort**: ~20 minutes
 **Priority**: MEDIUM - very simple properties
 
 **Properties** (2):
@@ -113,7 +115,7 @@ just test
 - cursor - enum + url()
 - pointer-events - enum
 
-#### Layout Core (5 properties)  
+#### Layout Core (5 properties)
 - display - enum (block, inline, flex, grid, none, etc.)
 - position - enum (static, relative, absolute, fixed, sticky)
 - overflow-x - enum (visible, hidden, scroll, auto)
@@ -137,7 +139,7 @@ just test
 #### Border (17 properties)
 Already implemented, need configs:
 - border-{top,right,bottom,left}-width
-- border-{top,right,bottom,left}-color  
+- border-{top,right,bottom,left}-color
 - border-{top,right,bottom,left}-style
 - border-{top-left,top-right,bottom-right,bottom-left}-radius
 - border-collapse
@@ -168,7 +170,7 @@ Already implemented, need configs:
 - filter - filter functions
 - Individual filter properties (blur, brightness, contrast, etc.)
 
-#### Clip-path (11 properties)  
+#### Clip-path (11 properties)
 - clip-path - shape functions (circle, ellipse, polygon, inset, etc.)
 
 #### Shadow (3 properties)
@@ -183,6 +185,7 @@ Already implemented, need configs:
 ## 📊 Coverage Goals
 
 ### Current State
+
 ```
 Animation:     8/8   (100%) ✅
 Transition:    0/5   (0%)
@@ -199,6 +202,7 @@ TOTAL:         8/94  (8.5%)
 ```
 
 ### Phase Targets
+
 ```
 After Phase 2:  15/94  (16%)  ← Transition + Visual
 After Phase 3:  28/94  (30%)  ← + Enums
@@ -208,9 +212,70 @@ After Phase 5:  94/94  (100%) ← Complete!
 
 ---
 
+## ⚠️ CRITICAL: Generate Function Validation
+
+**Before creating generate test configs**, ensure the generate function includes Zod validation:
+
+### Required Pattern
+```typescript
+// src/generate/{module}/{property}.ts
+import { zodErrorToIssues } from "@/generate/utils";
+import { {propertyName}Schema } from "@/core/types/{module}";
+
+export function generate(ir: Type.{PropertyName}): GenerateResult {
+  // 1. Validate IR with Zod schema (REQUIRED!)
+  const validation = {propertyName}Schema.safeParse(ir);
+  
+  if (!validation.success) {
+    // Convert Zod errors to Issue array
+    const issues = zodErrorToIssues(validation.error);
+    return { ok: false, issues };
+  }
+
+  // 2. Generate CSS (existing logic)
+  return generateOk(/* CSS string */);
+}
+```
+
+### Example (animation-delay)
+```typescript
+export function generate(ir: Type.AnimationDelay): GenerateResult {
+  // Validate IR with Zod schema
+  const validation = animationDelaySchema.safeParse(ir);
+
+  if (!validation.success) {
+    const issues = zodErrorToIssues(validation.error);
+    return { ok: false, issues };
+  }
+
+  // Generate CSS
+  return generateOk(
+    ir.delays.map((time) => `${time.value}${time.unit}`).join(", ")
+  );
+}
+```
+
+### Why This Matters
+- ✅ Catches invalid IR before generating CSS
+- ✅ Provides consistent error messages
+- ✅ Test generator can verify error handling
+- ✅ Enables `.failure.test.ts` generation
+- ❌ **Without validation, generate tests will be incomplete**
+
+### Implementation Checklist
+For each property:
+1. [ ] Check if Zod schema exists in `@/core/types/{module}`
+2. [ ] Import schema and `zodErrorToIssues` utility
+3. [ ] Add validation at start of generate function
+4. [ ] Return `{ ok: false, issues }` on validation failure
+5. [ ] Verify with a failing test case
+
+---
+
 ## 🔧 Automation Opportunities
 
 ### Create Config Templates
+
 ```bash
 # scripts/create-config.sh <module> <property> <type>
 # Types: enum, length, number, color, keyword, complex
@@ -221,18 +286,20 @@ After Phase 5:  94/94  (100%) ← Complete!
 
 ### Bulk Config Generation
 For modules with many similar properties (border, box-model):
+
 ```bash
 # scripts/bulk-create-configs.sh border width,style,color
 # Creates 3 configs with shared structure
 ```
 
 ### Config Validator
+
 ```bash
 # scripts/validate-config.sh <module> <property>
 # Checks:
 # - module field present
 # - importPath correct
-# - outputPath correct  
+# - outputPath correct
 # - at least 5 test cases
 ```
 
@@ -284,7 +351,7 @@ for prop in duration delay timing-function; do
 done
 
 # 3. Update all 6 copied files
-# - Change module: "animation" → module: "transition"  
+# - Change module: "animation" → module: "transition"
 # - Change /animation/ → /transition/ in all paths
 # - Update comments/descriptions
 
@@ -306,4 +373,3 @@ just test
 - Generator scripts: `scripts/generate-{parse,generate}-tests.ts`
 - ROADMAP: `.memory/ROADMAP.md` (property inventory)
 - Session notes: `.memory/SESSION_NEXT.md`
-
