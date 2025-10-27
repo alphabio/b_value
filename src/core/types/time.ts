@@ -24,7 +24,7 @@ import * as Unit from "../units";
  * @public
  */
 export const timeSchema = z.object({
-	value: z.number(),
+	value: z.number().nonnegative("Time value must be non-negative"),
 	unit: Unit.timeUnitSchema,
 });
 

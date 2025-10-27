@@ -30,7 +30,7 @@ export const config: PropertyConfig = {
 	sourceFile: "src/generate/animation/duration.ts",
 	importPath: "../src/generate/animation/duration.js",
 	parseImportPath: "../src/parse/animation/duration.js",
-	outputPath: "src/generate/animation/duration.generated.test.ts",
+	outputPath: "src/generate/animation/duration.test.ts",
 	cases: [
 		// Valid cases - basic time values
 		{
@@ -179,7 +179,7 @@ export const config: PropertyConfig = {
 			description: "null input",
 			category: "invalid-null",
 			expectValid: false,
-			expectedError: "Input must not be null or undefined"
+			expectedError: "Invalid input: expected object, received null"
 		},
 		{
 			input: undefined as any,
@@ -187,7 +187,92 @@ export const config: PropertyConfig = {
 			description: "undefined input",
 			category: "invalid-null",
 			expectValid: false,
-			expectedError: "Input must not be null or undefined"
+			expectedError: "Invalid input: expected object, received undefined"
+		},
+		
+		// Invalid cases - invalid units
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: 1, unit: "px" as any }]
+			},
+			expected: "",
+			description: "invalid unit px",
+			category: "invalid-unit",
+			expectValid: false,
+			expectedError: "Invalid input"
+		},
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: 1, unit: "em" as any }]
+			},
+			expected: "",
+			description: "invalid unit em",
+			category: "invalid-unit",
+			expectValid: false,
+			expectedError: "Invalid input"
+		},
+		
+		// Invalid cases - negative values
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: -1, unit: "s" }]
+			},
+			expected: "",
+			description: "negative value in seconds",
+			category: "invalid-negative",
+			expectValid: false,
+			expectedError: "Time value must be non-negative"
+		},
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: -500, unit: "ms" }]
+			},
+			expected: "",
+			description: "negative value in milliseconds",
+			category: "invalid-negative",
+			expectValid: false,
+			expectedError: "Time value must be non-negative"
+		},
+		
+		// Invalid cases - wrong value types
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: "oops" as any, unit: "s" }]
+			},
+			expected: "",
+			description: "string value",
+			category: "invalid-value-type",
+			expectValid: false,
+			expectedError: "Invalid input"
+		},
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "time", value: NaN, unit: "s" }]
+			},
+			expected: "",
+			description: "NaN value",
+			category: "invalid-value-type",
+			expectValid: false,
+			expectedError: "Invalid input"
+		},
+		
+		// Invalid cases - invalid duration type
+		{
+			input: {
+				kind: "animation-duration",
+				durations: [{ type: "invalid" as any }]
+			},
+			expected: "",
+			description: "invalid duration type",
+			category: "invalid-type",
+			expectValid: false,
+			expectedError: "Invalid input"
 		},
 	],
 };

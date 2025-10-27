@@ -374,7 +374,10 @@ function generateFailureTestFile(config: any, invalidCases: TestResult[], specRe
 		for (const testCase of cases) {
 			// Get original input from config
 			const configCase = config.cases.find((c: any) => c.description === testCase.description);
-			const inputJson = JSON.stringify(configCase?.input || null, null, 3).replace(/\n/g, "\n\t\t\t");
+			// Handle undefined specially since JSON.stringify(undefined) returns undefined
+			const inputJson = configCase?.input === undefined 
+				? "undefined" 
+				: JSON.stringify(configCase?.input || null, null, 3).replace(/\n/g, "\n\t\t\t");
 			const errorMsg = (testCase.output as any)?.issues?.[0]?.message || (testCase.output as any)?.error || "";
 
 			testFile += `\t\tit("should reject ${testCase.description}", () => {\n`;

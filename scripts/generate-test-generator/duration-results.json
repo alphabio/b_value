@@ -173,15 +173,15 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Input must not be null or undefined"
+          "message": "Invalid input: expected object, received null"
         }
       ]
     },
     "success": false,
     "expectValid": false,
-    "expectedError": "Input must not be null or undefined",
+    "expectedError": "Invalid input: expected object, received null",
     "expected": "",
-    "actual": "Input must not be null or undefined"
+    "actual": "Invalid input: expected object, received null"
   },
   {
     "description": "undefined input",
@@ -192,14 +192,147 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "Input must not be null or undefined"
+          "message": "Invalid input: expected object, received undefined"
         }
       ]
     },
     "success": false,
     "expectValid": false,
-    "expectedError": "Input must not be null or undefined",
+    "expectedError": "Invalid input: expected object, received undefined",
     "expected": "",
-    "actual": "Input must not be null or undefined"
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "invalid unit px",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input"
+  },
+  {
+    "description": "invalid unit em",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input"
+  },
+  {
+    "description": "negative value in seconds",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Time value must be non-negative"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Time value must be non-negative",
+    "expected": "",
+    "actual": "Time value must be non-negative"
+  },
+  {
+    "description": "negative value in milliseconds",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Time value must be non-negative"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Time value must be non-negative",
+    "expected": "",
+    "actual": "Time value must be non-negative"
+  },
+  {
+    "description": "string value",
+    "category": "invalid-value-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input"
+  },
+  {
+    "description": "NaN value",
+    "category": "invalid-value-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input"
+  },
+  {
+    "description": "invalid duration type",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input"
   }
 ]
