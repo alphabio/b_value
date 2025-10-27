@@ -1,106 +1,101 @@
-# Session: Test Generator - Design Decisions & Next Steps
+# Session: Test Generator v2.0 - REVIEW NEEDED
 
-**Status**: ✅ Pilot complete - Generator works! Now need design decisions before scaling up.
+**Status**: ⚠️ **HOLD FOR DISCUSSION** - Generator working but need user approval before proceeding
 
-**Tests**: 3,655 passing (365 test files)
+**Tests**: 3,641 passing (365 test files)
 **Branch**: coverage/90-percent
-**Commit**: ed57231
+**Latest Commit**: 2c17c77
 
 ---
 
-## ✅ What We Built
+## ⚠️ IMPORTANT: User Wants Discussion First
 
-**Test Generator Script** (`scripts/generate-tests.ts`):
-- Define test cases → Run parser → Auto-generate tests
-- **Pilot**: duration property (24 tests, all passing, ~5 min vs 30+ min manual)
-- See: `.memory/archive/2025-10-27-test-generator-pilot/HANDOVER.md`
+**User's Note**: _"Not ready yet... I still want to discuss the outcomes with you in the next session"_
 
----
-
-## 🔍 DISCUSS: 6 Key Design Decisions
-
-### 1. **Make Script Generic**
-Currently hardcoded to animation parsers. Need to support:
-- Different import paths (not just `src/parse/animation/`)
-- Different output paths (not just `test/parse/animation/`)
-- Any property type (color, transform, filter, etc.)
-
-### 2. **Externalize Configs**
-Should we move `PROPERTY_CONFIGS` out of the script?
-
-```
-scripts/test-generator/
-  configs/
-    animation-duration.ts
-    animation-timing-function.ts
-  generate-tests.ts (just the generator logic)
-```
-
-**Benefits**: Cleaner, reusable as fixtures, easier to maintain
-
-### 3. **Separate Valid/Invalid Files?**
-- **Current**: One file with both sections
-- **TESTING_STRATEGY_PHASE2.md recommends**: Two files (`.valid.test.ts` + `.invalid.test.ts`)
-- **Reason**: Invalid should be 2-3x larger, easier to navigate
-
-### 4. **Co-located vs Test Directory?**
-- **Current**: Generates to `test/parse/animation/`
-- **Existing project**: Uses co-located `src/parse/animation/*.test.ts`
-- **Question**: Which pattern to follow?
-
-### 5. **Configs as Fixtures?**
-Can we reuse test case definitions for:
-- Documentation generation
-- Parser fuzzing
-- Example code
-- Multiple purposes beyond test generation
-
-### 6. **Alignment with TESTING_STRATEGY_PHASE2.md?**
-Strategy defines 4 layers:
-- **Layer 1**: Schema validation tests (not implemented)
-- **Layer 2**: Parser valid tests (✅ implemented)
-- **Layer 3**: Parser invalid tests (✅ implemented)
-- **Layer 4**: Generator tests (not implemented)
-
-**Questions**:
-- Should generator support schema testing?
-- Should we enforce invalid > valid ratio (2:1 or 3:1)?
-- Should we add spec reference annotations?
+**Do NOT proceed with timing-function or other properties until after discussion!**
 
 ---
 
-## 📋 Documented: Failing Test Essence
+## 🎯 What We Built (Ready for Review)
 
-**File**: `src/parse/animation/timing-function.valid.test.ts:562`
+### Generator Features (v2.0):
+1. ✅ External configs (`scripts/test-generator/configs/*.ts`)
+2. ✅ Issue detection (`expectValid` flag catches mismatches)
+3. ✅ Spec validation (extracts `@see` links, validates URLs)
+4. ✅ **Separate failure tests** (`property.failure.test.ts`)
+5. ✅ **URL accessibility check** (HTTP HEAD requests)
+6. ✅ Co-located tests (`src/**/*.test.ts`)
 
-```typescript
-test("number as position (css-tree behavior)", () => {
-  const result = parse("steps(4, 1)");
-  // Tests that css-tree accepts numeric position "1" instead of keyword
-  // This is technically invalid per CSS spec
-  expect(result.value.functions[0]).toEqual({
-    type: "steps",
-    steps: 4,
-    position: "1", // Expected "1" as string, not a keyword
-  });
-});
-```
-
-**What it tested**: css-tree's behavior of accepting invalid numeric positions
-**Why it failed**: Expected `steps: 4` but got `steps: 1`
-**Resolution**: File deleted (was being replaced anyway)
-**Decision needed**: Should we accept numeric positions (like css-tree) or reject per spec?
+### Pilot Complete:
+- `duration` property (24 tests: 13 valid + 11 invalid)
+- 2 spec refs validated (MDN + W3C, both accessible)
+- 2 test files generated (valid + failure)
+- All tests passing
 
 ---
 
-## 🚀 After Discussion: Next Steps
+## 💬 Discussion Topics for Next Session
 
-Based on decisions above, refactor generator then:
+### 1. **Separate Files Approach**
+   - Is split into `.test.ts` + `.failure.test.ts` working well?
+   - File naming okay?
+   - Easier to navigate?
 
-1. **Add timing-function config** (most complex property - cubic-bezier, steps, keywords)
-2. **Generate timing-function tests** (validate generator handles complexity)
-3. **Apply to 2-3 more properties** (delay, iteration-count, direction)
-4. **Document patterns** (lessons learned, gotchas)
+### 2. **Spec URL Validation**  
+   - HTTP HEAD check sufficient?
+   - Should we cache results?
+   - 5s timeout appropriate?
+   - What if URLs unreachable?
+
+### 3. **Generated Test Quality**
+   - Tests comprehensive enough?
+   - Error validation working? (extracts key terms)
+   - Descriptions clear?
+
+### 4. **Issue Detection**
+   - `expectValid` flag working as intended?
+   - ISSUES.md format helpful?
+   - Exit with error on issues - correct behavior?
+
+### 5. **Ready to Scale?**
+   - Apply to `timing-function` next?
+   - Any changes needed first?
+   - Documentation clear?
+
+---
+
+## 📁 Review These Files
+
+**Generated output** (from `tsx scripts/generate-tests.ts duration`):
+- `src/parse/animation/duration.test.ts` (13 valid tests, 5.8KB)
+- `src/parse/animation/duration.failure.test.ts` (11 invalid tests, 2.8KB)
+- `scripts/test-generator/duration-results.json` (raw output)
+
+**Documentation**:
+- `scripts/test-generator/README.md` (257 lines, comprehensive)
+- `.memory/archive/2025-10-27-test-generator-v2/HANDOVER.md` (full session details)
+
+**Config example**:
+- `scripts/test-generator/configs/duration.ts` (55 lines)
+
+---
+
+## 🔄 Next Steps
+
+### Step 1: **Review & Discuss** (Next Session Start)
+
+Read handover, review generated files, discuss 5 topics above.
+
+### Step 2: **Make Adjustments** (If Needed)
+
+Based on feedback, refine generator before scaling up.
+
+### Step 3: **Apply to timing-function** (Only After Approval)
+
+Most complex property - good stress test:
+- Keywords (ease, linear, ease-in, ease-out, ease-in-out, step-start, step-end)
+- `cubic-bezier(x1, y1, x2, y2)` with range constraints (x: 0-1, y: any)
+- `steps(n, position)` with validation (n > 0, position enum)
 
 ---
 
@@ -108,55 +103,27 @@ Based on decisions above, refactor generator then:
 
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
-just test                    # 3,655 passing (365 files)
-git log -1 --oneline         # ed57231 docs: Rewrite SESSION_NEXT.md
+just test                    # 3,641 passing (365 files)
+git log -3 --oneline         # Last 3 commits
 ```
 
 **Branch**: `coverage/90-percent`
 
 ---
 
-## 📁 Key Files
+## 📚 Key References
 
-**New**:
-- `scripts/generate-tests.ts` (test generator - working pilot)
-- `scripts/test-generator/README.md` (documentation)
-- `test/parse/animation/duration.test.ts` (auto-generated, 24 tests)
-- `.memory/archive/2025-10-27-test-generator-pilot/HANDOVER.md` (full session summary)
-
-**Removed**:
-- `src/parse/animation/timing-function.*.test.ts` (broken tests, will be regenerated)
-
-**Context**:
-- `.memory/TESTING_STRATEGY_PHASE2.md` (4-layer testing strategy)
-- `scripts/test-generator/duration-results.json` (example output)
+- **Full session details**: `.memory/archive/2025-10-27-test-generator-v2/HANDOVER.md`
+- **Generator docs**: `scripts/test-generator/README.md`
+- **Duration config**: `scripts/test-generator/configs/duration.ts`
+- **Generated tests**: `src/parse/animation/duration*.test.ts`
 
 ---
 
-## ✅ Success Criteria
+**Next Agent**: 
+1. ❗**START WITH DISCUSSION** - Review handover with user
+2. Discuss all 5 question areas
+3. Make any requested changes
+4. **THEN** (only after approval) proceed with timing-function
 
-Pattern is production-ready when:
-- [ ] Script is generic (works for any property)
-- [ ] Configs are externalized
-- [ ] Design decisions documented
-- [ ] Applied to timing-function successfully
-- [ ] Applied to 2-3 more properties
-- [ ] Pattern documented
-
----
-
-## 💡 Key Learnings
-
-1. **Script approach is 6x faster** - 5 min vs 30+ min manual
-2. **Auto-generation is reliable** - 24/24 tests passing first run
-3. **JSON output is valuable** - Review before generation catches issues
-4. **Categories organize naturally** - Good for test readability
-5. **Error extraction works** - Regex finds key validation terms
-
----
-
-**Next Agent**:
-1. Discuss 6 design decisions with user
-2. Refactor generator based on decisions
-3. Apply to timing-function
-4. Document learnings
+**DO NOT auto-proceed to timing-function - user wants to review first!**
