@@ -25,6 +25,10 @@ cat .memory/SESSION_NEXT.md
 - ❌ Search for archives (not needed)
 - ❌ Run coverage more than once at start
 
+**📚 First Session or Need Structure Info?**:
+- 📖 Read `.memory/README.md` - explains directory structure, session protocols, ADRs, and archive rules
+- Essential for understanding where things live and how to properly archive work
+
 **💡 Git Commits**:
 - `.memory/` files are ignored by biome → always use `git commit --no-verify` for documentation changes
 - Or just commit source code separately from `.memory/` changes
@@ -80,7 +84,7 @@ EOF
 - List of candidate files to test
 - Commands to find more work
 - Example test patterns if needed
-- Keep file to less than 150 lines
+- Keep file to **less than 300 lines** (critical to avoid CLI issues)
 
 **Archive organization**:
 
@@ -100,6 +104,8 @@ EOF
 
 ## Key References
 
+- **`.memory/README.md`** - Directory structure, session protocols, ADR process (READ THIS FIRST!)
+- **`.memory/SESSION_NEXT.md`** - Current task (auto-loaded by protocol)
 - **`.memory/STATUS.md`** - Current state, recent work, next priorities
 - **`.memory/ROADMAP.md`** - Module-based property breakdown (94 implemented, 352 remaining)
 - **`.memory/scripts/count-properties.sh`** - Automated property counter (source of truth)
