@@ -731,3 +731,64 @@ export function toParseResult<T>(result: Result<T, string>, property?: CSSProper
 	// Use generic invalid-value code for Result<T, string> conversions
 	return parseErr("invalid-value", result.error, property ? { property } : undefined);
 }
+
+// ============================================================================
+// Zod Integration Utilities
+// ============================================================================
+
+/**
+ * Extract all meaningful error messages from nested Zod validation errors.
+ *
+ * Zod creates deeply nested error structures for unions and complex schemas.
+ * This recursively traverses the error tree and extracts actionable error messages.
+ *
+ * @param zodError - Zod validation error
+ * @returns Array of Issue objects with detailed error information
+ *
+ * @example
+ * ```typescript
+ * const validation = schema.safeParse(input);
+ * if (!validation.success) {
+ *   const issues = zodErrorToIssues(validation.error);
+ *   return { ok: false, issues };
+ * }
+ * ```
+ *
+ * @public
+ */
+export function zodErrorToIssues(zodError: { issues: any[] }): Issue[] {
+	const issues: Issue[] = [];
+
+	function traverse(errorIssues: any[]): void {
+		for (const issue of errorIssues) {
+			// Handle nested union errors by recursively traversing
+			if (issue.code === "invalid_union" && Array.isArray(issue.errors)) {
+				for (const errorGroup of issue.errors) {
+					traverse(errorGroup);
+				}
+			} else {
+				// Add meaningful error messages (skip generic "Invalid input")
+				if (issue.message && issue.message !== "Invalid input") {
+					issues.push({
+						code: "invalid-ir",
+						severity: "error",
+						message: issue.message,
+					});
+				}
+			}
+		}
+	}
+
+	traverse(zodError.issues);
+
+	// If we found no specific errors, return a generic one
+	if (issues.length === 0) {
+		issues.push({
+			code: "invalid-ir",
+			severity: "error",
+			message: "Invalid IR structure",
+		});
+	}
+
+	return issues;
+}
