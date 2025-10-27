@@ -9,7 +9,12 @@ import { lengthPercentageSchema, lengthSchema } from "./length-percentage";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/border-width}
  * @public
  */
-export const borderWidthSchema = z.union([lengthSchema, Keyword.borderWidthKeywordsSchema]);
+export const borderWidthSchema = z.union([lengthSchema, Keyword.borderWidthKeywordsSchema], {
+	error: (issue) =>
+		issue.code === "invalid_union"
+			? 'Invalid border width. Expected a length or keyword ("thin", "medium", "thick").'
+			: "Invalid input",
+});
 
 /**
  * CSS <border-style> data type.
