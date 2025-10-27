@@ -1,0 +1,419 @@
+[
+  {
+    "input": "1",
+    "description": "integer",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 1
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0",
+    "description": "zero",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 0
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "3",
+    "description": "multiple iterations",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 3
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "10",
+    "description": "larger count",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 10
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.5",
+    "description": "half iteration",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 0.5
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "2.5",
+    "description": "decimal iterations",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 2.5
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.1",
+    "description": "small decimal",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 0.1
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "infinite",
+    "description": "infinite keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "infinite"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "INFINITE",
+    "description": "case insensitive",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "infinite"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Infinite",
+    "description": "mixed case",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "infinite"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1, 2, 3",
+    "description": "multiple numbers",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 1
+          },
+          {
+            "type": "number",
+            "value": 2
+          },
+          {
+            "type": "number",
+            "value": 3
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "infinite, 2",
+    "description": "infinite with number",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "infinite"
+          },
+          {
+            "type": "number",
+            "value": 2
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1, infinite, 0.5",
+    "description": "mixed values",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 1
+          },
+          {
+            "type": "infinite"
+          },
+          {
+            "type": "number",
+            "value": 0.5
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1 , 2",
+    "description": "list with whitespace",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-iteration-count",
+        "counts": [
+          {
+            "type": "number",
+            "value": 1
+          },
+          {
+            "type": "number",
+            "value": 2
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "-1",
+    "description": "negative count",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: animation-iteration-count must be non-negative, got: -1"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: animation-iteration-count must be non-negative, got: -1"
+  },
+  {
+    "input": "-0.5",
+    "description": "negative decimal",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: animation-iteration-count must be non-negative, got: -0.5"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: animation-iteration-count must be non-negative, got: -0.5"
+  },
+  {
+    "input": "1s",
+    "description": "time unit",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Expected number or 'infinite', got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Expected number or 'infinite', got: Dimension"
+  },
+  {
+    "input": "2px",
+    "description": "length unit",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Expected number or 'infinite', got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Expected number or 'infinite', got: Dimension"
+  },
+  {
+    "input": "auto",
+    "description": "auto keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+  },
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+  },
+  {
+    "input": "invalid",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Expected number or 'infinite', got: Identifier"
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Empty value"
+  },
+  {
+    "input": "1,",
+    "description": "trailing comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Empty value"
+  },
+  {
+    "input": ",1",
+    "description": "leading comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Empty value before comma"
+  },
+  {
+    "input": "1,,2",
+    "description": "double comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-iteration-count: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-iteration-count: Empty value before comma"
+  }
+]
