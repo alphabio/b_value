@@ -4,7 +4,7 @@
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationTimingFunction } from "../../../src/core/types/index.js";
+import type { AnimationTimingFunction } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
 	input: AnimationTimingFunction | any;
@@ -17,6 +17,7 @@ export interface GenerateTestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string; // Path to source file (for spec ref validation)
 	importPath: string; // Path for dynamic import
@@ -27,6 +28,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "timing-function",
+	module: "animation",
 	sourceFile: "src/generate/animation/timing-function.ts",
 	importPath: "../src/generate/animation/timing-function.js",
 	parseImportPath: "../src/parse/animation/timing-function.js",

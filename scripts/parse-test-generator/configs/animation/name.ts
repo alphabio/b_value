@@ -7,7 +7,7 @@ expectedError?: string;
 }
 
 export interface PropertyConfig {
-propertyName: string;
+module: string;propertyName: string;
 sourceFile: string;
 importPath: string;
 outputPath: string;
@@ -16,7 +16,7 @@ cases: TestCase[];
 
 export const config: PropertyConfig = {
 propertyName: "name",
-sourceFile: "src/parse/animation/name.ts",
+module: "animation",sourceFile: "src/parse/animation/name.ts",
 importPath: "../src/parse/animation/name.js",
 outputPath: "src/parse/animation/name.test.ts",
 cases: [

@@ -4,7 +4,7 @@
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationIterationCount } from "../../../src/core/types/index.js";
+import type { AnimationIterationCount } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
 	input: AnimationIterationCount | any;
@@ -17,6 +17,7 @@ export interface GenerateTestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string;
 	importPath: string;
@@ -27,6 +28,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "iteration-count",
+	module: "animation",
 	sourceFile: "src/generate/animation/iteration-count.ts",
 	importPath: "../src/generate/animation/iteration-count.js",
 	parseImportPath: "../src/parse/animation/iteration-count.js",

@@ -4,7 +4,7 @@
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationDelay } from "../../../src/core/types/index.js";
+import type { AnimationDelay } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
 	input: AnimationDelay | any;
@@ -17,6 +17,7 @@ export interface GenerateTestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string;
 	importPath: string;
@@ -27,6 +28,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "delay",
+	module: "animation",
 	sourceFile: "src/generate/animation/delay.ts",
 	importPath: "../src/generate/animation/delay.js",
 	parseImportPath: "../src/parse/animation/delay.js",

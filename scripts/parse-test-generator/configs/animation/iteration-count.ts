@@ -11,7 +11,7 @@ expectedError?: string;
 }
 
 export interface PropertyConfig {
-propertyName: string;
+module: string;propertyName: string;
 sourceFile: string;
 importPath: string;
 outputPath: string;
@@ -20,7 +20,7 @@ cases: TestCase[];
 
 export const config: PropertyConfig = {
 propertyName: "iteration-count",
-sourceFile: "src/parse/animation/iteration-count.ts",
+module: "animation",sourceFile: "src/parse/animation/iteration-count.ts",
 importPath: "../src/parse/animation/iteration-count.js",
 outputPath: "src/parse/animation/iteration-count.test.ts",
 cases: [

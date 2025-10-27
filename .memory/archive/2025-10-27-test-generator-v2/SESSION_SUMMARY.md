@@ -15,6 +15,7 @@
 ### Proposed Plan
 
 **Phase 1: Setup**
+
 ```bash
 # 1. Rename existing generator
 mv scripts/generate-tests.ts scripts/generate-parse-tests.ts
@@ -23,7 +24,7 @@ mv scripts/test-generator/ scripts/parse-test-generator/
 # 2. Create inverse generator
 scripts/generate-generate-tests.ts
   └─ Inputs: IR objects (from configs)
-     Runs: generate() function  
+     Runs: generate() function
      Validates: CSS output matches expected
      Roundtrip: parse(generate(IR)) === IR
 ```
@@ -41,6 +42,7 @@ scripts/generate-generate-tests.ts
 
 **Phase 4: Master Plan** (future)
 Create `.memory/PROPERTY_COMPLETION_PLAN.md`:
+
 ```
 Property | Parse Tests | Generate Tests | Roundtrip
 ---------|-------------|----------------|----------

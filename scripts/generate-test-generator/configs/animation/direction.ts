@@ -1,13 +1,13 @@
 /**
- * Test cases for animation-fill-mode generator
+ * Test cases for animation-direction generator
  * 
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationFillMode } from "../../../src/core/types/index.js";
+import type { AnimationDirection } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
-	input: AnimationFillMode | any;
+	input: AnimationDirection | any;
 	expected: string;
 	description: string;
 	category: string;
@@ -17,6 +17,7 @@ export interface GenerateTestCase {
 }
 
 export interface PropertyConfig {
+	module: string;
 	propertyName: string;
 	sourceFile: string;
 	importPath: string;
@@ -26,53 +27,54 @@ export interface PropertyConfig {
 }
 
 export const config: PropertyConfig = {
-	propertyName: "fill-mode",
-	sourceFile: "src/generate/animation/fill-mode.ts",
-	importPath: "../src/generate/animation/fill-mode.js",
-	parseImportPath: "../src/parse/animation/fill-mode.js",
-	outputPath: "src/generate/animation/fill-mode.test.ts",
+	propertyName: "direction",
+	module: "animation",
+	sourceFile: "src/generate/animation/direction.ts",
+	importPath: "../src/generate/animation/direction.js",
+	parseImportPath: "../src/parse/animation/direction.js",
+	outputPath: "src/generate/animation/direction.test.ts",
 	cases: [
 		// Valid cases - single keywords
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["none"]
+				kind: "animation-direction",
+				directions: ["normal"]
 			},
-			expected: "none",
-			description: "none fill mode",
+			expected: "normal",
+			description: "normal direction",
 			category: "valid-single",
 			roundtrip: true,
 			expectValid: true
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["forwards"]
+				kind: "animation-direction",
+				directions: ["reverse"]
 			},
-			expected: "forwards",
-			description: "forwards fill mode",
+			expected: "reverse",
+			description: "reverse direction",
 			category: "valid-single",
 			roundtrip: true,
 			expectValid: true
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["backwards"]
+				kind: "animation-direction",
+				directions: ["alternate"]
 			},
-			expected: "backwards",
-			description: "backwards fill mode",
+			expected: "alternate",
+			description: "alternate direction",
 			category: "valid-single",
 			roundtrip: true,
 			expectValid: true
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["both"]
+				kind: "animation-direction",
+				directions: ["alternate-reverse"]
 			},
-			expected: "both",
-			description: "both fill mode",
+			expected: "alternate-reverse",
+			description: "alternate-reverse direction",
 			category: "valid-single",
 			roundtrip: true,
 			expectValid: true
@@ -81,33 +83,22 @@ export const config: PropertyConfig = {
 		// Valid cases - multiple values
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["none", "forwards"]
+				kind: "animation-direction",
+				directions: ["normal", "reverse"]
 			},
-			expected: "none, forwards",
-			description: "two fill modes",
+			expected: "normal, reverse",
+			description: "two directions",
 			category: "valid-multiple",
 			roundtrip: true,
 			expectValid: true
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["none", "forwards", "backwards", "both"]
+				kind: "animation-direction",
+				directions: ["normal", "reverse", "alternate", "alternate-reverse"]
 			},
-			expected: "none, forwards, backwards, both",
-			description: "all four fill mode keywords",
-			category: "valid-multiple",
-			roundtrip: true,
-			expectValid: true
-		},
-		{
-			input: {
-				kind: "animation-fill-mode",
-				modes: ["forwards", "forwards", "backwards"]
-			},
-			expected: "forwards, forwards, backwards",
-			description: "repeated keywords",
+			expected: "normal, reverse, alternate, alternate-reverse",
+			description: "all four direction keywords",
 			category: "valid-multiple",
 			roundtrip: true,
 			expectValid: true
@@ -134,48 +125,48 @@ export const config: PropertyConfig = {
 		// Invalid cases - wrong kind
 		{
 			input: {
-				kind: "animation-direction" as any,
-				modes: ["none"]
+				kind: "animation-duration" as any,
+				directions: ["normal"]
 			},
 			expected: "",
 			description: "wrong kind literal",
 			category: "invalid-kind",
 			expectValid: false,
-			expectedError: 'kind: Invalid literal value, expected "animation-fill-mode"'
+			expectedError: 'kind: Invalid literal value, expected "animation-direction"'
 		},
 		
 		// Invalid cases - invalid keyword
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["invalid" as any]
+				kind: "animation-direction",
+				directions: ["invalid" as any]
 			},
 			expected: "",
-			description: "invalid fill mode keyword",
+			description: "invalid direction keyword",
 			category: "invalid-keyword",
 			expectValid: false,
-			expectedError: "modes[0]: Invalid enum value"
+			expectedError: "directions[0]: Invalid enum value"
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: ["normal" as any]
+				kind: "animation-direction",
+				directions: ["forwards" as any]
 			},
 			expected: "",
-			description: "direction keyword instead of fill-mode",
+			description: "fill-mode keyword instead of direction",
 			category: "invalid-keyword",
 			expectValid: false,
-			expectedError: "modes[0]: Invalid enum value"
+			expectedError: "directions[0]: Invalid enum value"
 		},
 		
 		// Invalid cases - empty array
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: []
+				kind: "animation-direction",
+				directions: []
 			},
 			expected: "",
-			description: "empty modes array",
+			description: "empty directions array",
 			category: "invalid-empty",
 			expectValid: false,
 			expectedError: "Array must contain at least 1 element(s)"
@@ -184,25 +175,25 @@ export const config: PropertyConfig = {
 		// Invalid cases - wrong type
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: "none" as any
+				kind: "animation-direction",
+				directions: "normal" as any
 			},
 			expected: "",
 			description: "string instead of array",
 			category: "invalid-type",
 			expectValid: false,
-			expectedError: "modes: Invalid input: expected array"
+			expectedError: "directions: Invalid input: expected array"
 		},
 		{
 			input: {
-				kind: "animation-fill-mode",
-				modes: [true as any]
+				kind: "animation-direction",
+				directions: [123 as any]
 			},
 			expected: "",
-			description: "boolean instead of string",
+			description: "number instead of string",
 			category: "invalid-type",
 			expectValid: false,
-			expectedError: "modes[0]: Invalid enum value"
+			expectedError: "directions[0]: Invalid enum value"
 		},
 	]
 };
