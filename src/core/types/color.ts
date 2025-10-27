@@ -469,6 +469,48 @@ export const colorSchema = z.union([
 
 /**
  * TypeScript type for color value.
+ *
+ *
  * @public
  */
 export type Color = z.infer<typeof colorSchema>;
+
+/**
+ * Type guard helper for narrowing Color discriminated union.
+ *
+ * @example
+ * ```typescript
+ * const parsed = Parse.Color.parse("color(display-p3 1 0.5 0)");
+ * if (parsed.ok && isColorKind(parsed.value, "color")) {
+ *   // TypeScript knows parsed.value is ColorFunction
+ *   console.log(parsed.value.colorSpace); // no need for manual kind check
+ * }
+ * ```
+ *
+ * @public
+ */
+export function isColorKind<K extends Color["kind"]>(color: Color, kind: K): color is Extract<Color, { kind: K }> {
+	return color.kind === kind;
+}
+
+/**
+ * Assertion function that narrows Color to ColorFunction.
+ * Throws if the color is not a color() function.
+ *
+ * @example
+ * ```typescript
+ * const parsed = Parse.Color.parse("color(display-p3 1 0.5 0)");
+ * if (parsed.ok) {
+ *   assertColorFunction(parsed.value);
+ *   // TypeScript now knows parsed.value is ColorFunction
+ *   console.log(parsed.value.colorSpace); // works!
+ * }
+ * ```
+ *
+ * @public
+ */
+export function assertColorFunction(color: Color): asserts color is ColorFunction {
+	if (color.kind !== "color") {
+		throw new TypeError(`Expected color() function, got ${color.kind}`);
+	}
+}
