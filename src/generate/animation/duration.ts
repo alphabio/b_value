@@ -1,6 +1,6 @@
 // b_path:: src/generate/animation/duration.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk, zodErrorToIssues } from "@/core/result";
 import type * as Type from "@/core/types";
 import { animationDurationSchema } from "@/core/types/animation";
 
@@ -44,8 +44,12 @@ export function generate(ir: Type.AnimationDuration): GenerateResult {
 	const validation = animationDurationSchema.safeParse(ir);
 
 	if (!validation.success) {
-		const firstError = validation.error.issues[0];
-		return generateErr("invalid-ir", firstError?.message || "Invalid IR structure");
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
 
 	// Generate CSS
