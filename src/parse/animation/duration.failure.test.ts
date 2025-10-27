@@ -13,14 +13,14 @@ describe("parse/animation/duration - invalid cases", () => {
 			const result = Parser.parse("-1s");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("must be");
+			expect(result.error).toBe("animation-duration: animation-duration must be non-negative, got: -1");
 		});
 
 		it("should reject negative milliseconds", () => {
 			const result = Parser.parse("-500ms");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("must be");
+			expect(result.error).toBe("animation-duration: animation-duration must be non-negative, got: -500");
 		});
 
 	});
@@ -30,21 +30,21 @@ describe("parse/animation/duration - invalid cases", () => {
 			const result = Parser.parse("1px");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Invalid");
+			expect(result.error).toBe("animation-duration: Invalid time unit: px. Expected 's' or 'ms'");
 		});
 
 		it("should reject wrong unit type", () => {
 			const result = Parser.parse("1em");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Invalid");
+			expect(result.error).toBe("animation-duration: Invalid time unit: em. Expected 's' or 'ms'");
 		});
 
 		it("should reject missing unit", () => {
 			const result = Parser.parse("1");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Expected");
+			expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Number");
 		});
 
 	});
@@ -54,7 +54,7 @@ describe("parse/animation/duration - invalid cases", () => {
 			const result = Parser.parse("");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Empty");
+			expect(result.error).toBe("animation-duration: Empty value");
 		});
 
 	});
@@ -64,21 +64,21 @@ describe("parse/animation/duration - invalid cases", () => {
 			const result = Parser.parse("1s,");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Empty");
+			expect(result.error).toBe("animation-duration: Empty value");
 		});
 
 		it("should reject leading comma", () => {
 			const result = Parser.parse(",1s");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Empty");
+			expect(result.error).toBe("animation-duration: Empty value before comma");
 		});
 
 		it("should reject double comma", () => {
 			const result = Parser.parse("1s,,2s");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Empty");
+			expect(result.error).toBe("animation-duration: Empty value before comma");
 		});
 
 	});
@@ -88,14 +88,14 @@ describe("parse/animation/duration - invalid cases", () => {
 			const result = Parser.parse("invalid");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Expected");
+			expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Identifier");
 		});
 
 		it("should reject wrong keyword", () => {
 			const result = Parser.parse("none");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toContain("Expected");
+			expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Identifier");
 		});
 
 	});

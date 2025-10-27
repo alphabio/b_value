@@ -295,7 +295,8 @@
       "error": "animation-duration: animation-duration must be non-negative, got: -1"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: animation-duration must be non-negative, got: -1"
   },
   {
     "input": "-500ms",
@@ -306,7 +307,8 @@
       "error": "animation-duration: animation-duration must be non-negative, got: -500"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: animation-duration must be non-negative, got: -500"
   },
   {
     "input": "1px",
@@ -317,7 +319,8 @@
       "error": "animation-duration: Invalid time unit: px. Expected 's' or 'ms'"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Invalid time unit: px. Expected 's' or 'ms'"
   },
   {
     "input": "1em",
@@ -328,7 +331,8 @@
       "error": "animation-duration: Invalid time unit: em. Expected 's' or 'ms'"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Invalid time unit: em. Expected 's' or 'ms'"
   },
   {
     "input": "1",
@@ -339,7 +343,8 @@
       "error": "animation-duration: Expected time dimension or 'auto', got: Number"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Expected time dimension or 'auto', got: Number"
   },
   {
     "input": "",
@@ -350,7 +355,8 @@
       "error": "animation-duration: Empty value"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Empty value"
   },
   {
     "input": "1s,",
@@ -361,7 +367,8 @@
       "error": "animation-duration: Empty value"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Empty value"
   },
   {
     "input": ",1s",
@@ -372,7 +379,8 @@
       "error": "animation-duration: Empty value before comma"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Empty value before comma"
   },
   {
     "input": "1s,,2s",
@@ -383,7 +391,8 @@
       "error": "animation-duration: Empty value before comma"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Empty value before comma"
   },
   {
     "input": "invalid",
@@ -394,7 +403,8 @@
       "error": "animation-duration: Expected time dimension or 'auto', got: Identifier"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Expected time dimension or 'auto', got: Identifier"
   },
   {
     "input": "none",
@@ -405,6 +415,7 @@
       "error": "animation-duration: Expected time dimension or 'auto', got: Identifier"
     },
     "success": false,
-    "expectValid": false
+    "expectValid": false,
+    "expectedError": "animation-duration: Expected time dimension or 'auto', got: Identifier"
   }
 ]

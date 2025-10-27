@@ -111,13 +111,24 @@ export const config: PropertyConfig = {
       input: "bad-value",
       description: "description", 
       category: "invalid-xyz",
-      expectValid: false  // ← Will flag if parser accepts it!
+      expectValid: false,  // ← Will flag if parser accepts it!
+      expectedError: "property-name: Exact error message"  // ← NEW: For exact assertions
     },
   ],
 };
 ```
 
-**Key field**: `expectValid` - Enables issue detection!
+**Key fields**:
+- `expectValid` - Enables issue detection!
+- `expectedError` - Exact error message for invalid cases (ensures consistent error schema)
+
+### Why Exact Error Messages?
+
+Using `.toBe()` instead of `.toContain()` ensures:
+1. **Consistent schema**: All errors follow `"property-name: error details"` pattern
+2. **Catch regressions**: Tests fail if error messages change unexpectedly
+3. **Self-documenting**: Test shows exactly what users will see
+4. **No false positives**: `toContain("Expected")` could match unrelated errors
 
 ---
 
@@ -152,7 +163,7 @@ describe("parse/animation/duration", () => {
         const result = Parser.parse("-1s");
         expect(result.ok).toBe(false);
         if (result.ok) return;
-        expect(result.error).toContain("non-negative");
+        expect(result.error).toBe("animation-duration: animation-duration must be non-negative, got: -1");
       });
     });
     // ... grouped by category
