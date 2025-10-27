@@ -1,0 +1,317 @@
+[
+  {
+    "input": "1s",
+    "description": "single time value in seconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 1,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "500ms",
+    "description": "single time value in milliseconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 500,
+            "unit": "ms"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0s",
+    "description": "zero duration",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 0,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0ms",
+    "description": "zero duration in ms",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 0,
+            "unit": "ms"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.5s",
+    "description": "decimal values",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 0.5,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "2.5s",
+    "description": "decimal seconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 2.5,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "100.5ms",
+    "description": "decimal milliseconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 100.5,
+            "unit": "ms"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "3600s",
+    "description": "large values",
+    "category": "valid-large",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 3600,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1s, 2s, 3s, 4s",
+    "description": "multiple time values",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-duration",
+        "durations": [
+          {
+            "value": 1,
+            "unit": "s"
+          },
+          {
+            "value": 2,
+            "unit": "s"
+          },
+          {
+            "value": 3,
+            "unit": "s"
+          },
+          {
+            "value": 4,
+            "unit": "s"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "-1s",
+    "description": "negative duration",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: transition-duration must be non-negative, got: -1"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: transition-duration must be non-negative, got: -1"
+  },
+  {
+    "input": "-500ms",
+    "description": "negative milliseconds",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: transition-duration must be non-negative, got: -500"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: transition-duration must be non-negative, got: -500"
+  },
+  {
+    "input": "1px",
+    "description": "invalid unit",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Invalid time unit: px. Expected 's' or 'ms'"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Invalid time unit: px. Expected 's' or 'ms'"
+  },
+  {
+    "input": "1em",
+    "description": "wrong unit type",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Invalid time unit: em. Expected 's' or 'ms'"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Invalid time unit: em. Expected 's' or 'ms'"
+  },
+  {
+    "input": "1",
+    "description": "missing unit",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Expected time dimension, got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Expected time dimension or 'auto', got: Number"
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Empty value"
+  },
+  {
+    "input": "1s,",
+    "description": "trailing comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Empty value"
+  },
+  {
+    "input": ",1s",
+    "description": "leading comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Empty value before comma"
+  },
+  {
+    "input": "1s,,2s",
+    "description": "double comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Empty value before comma"
+  },
+  {
+    "input": "invalid",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Expected time dimension, got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Expected time dimension or 'auto', got: Identifier"
+  },
+  {
+    "input": "none",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "transition-duration: Expected time dimension, got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "transition-duration: Expected time dimension or 'auto', got: Identifier"
+  }
+]

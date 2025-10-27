@@ -1,120 +1,295 @@
 // b_path:: src/parse/transition/delay.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/transition/delay.ts
+//
+// Spec references:
+// - OTHER: https://github.com/mdn/data/blob/main/css/properties.json
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay
+// - W3C: https://www.w3.org/TR/css-transitions-1/#transition-delay-property
 import { describe, expect, it } from "vitest";
-import * as Parser from "./delay";
+import * as Parser from "@/parse/transition/delay";
 
-describe("Transition Delay Parser", () => {
-	it("should parse single time value in seconds", () => {
-		const result = Parser.parse("1s");
+describe("parse/transition/delay - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse zero delay", () => {
+			const result = Parser.parse("0s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 0,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.kind).toBe("transition-delay");
-			expect(result.value.delays).toHaveLength(1);
-			expect(result.value.delays[0]).toEqual({ value: 1, unit: "s" });
-		}
+		it("should parse seconds", () => {
+			const result = Parser.parse("1s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse milliseconds", () => {
+			const result = Parser.parse("500ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 500,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse zero milliseconds", () => {
+			const result = Parser.parse("0ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 0,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse single time value in milliseconds", () => {
-		const result = Parser.parse("500ms");
+	describe("valid-decimal", () => {
+		it("should parse decimal seconds", () => {
+			const result = Parser.parse("0.5s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 0.5,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays).toHaveLength(1);
-			expect(result.value.delays[0]).toEqual({ value: 500, unit: "ms" });
-		}
+		it("should parse larger decimal", () => {
+			const result = Parser.parse("2.5s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 2.5,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse decimal milliseconds", () => {
+			const result = Parser.parse("100.5ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 100.5,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse negative delay", () => {
-		const result = Parser.parse("-2s");
+	describe("valid-negative", () => {
+		it("should parse negative seconds", () => {
+			const result = Parser.parse("-1s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": -1,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays[0]).toEqual({ value: -2, unit: "s" });
-		}
+		it("should parse negative milliseconds", () => {
+			const result = Parser.parse("-500ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": -500,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse negative decimal", () => {
+			const result = Parser.parse("-0.5s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": -0.5,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse zero delay", () => {
-		const result = Parser.parse("0s");
+	describe("valid-large", () => {
+		it("should parse large value", () => {
+			const result = Parser.parse("3600s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 3600,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays[0]).toEqual({ value: 0, unit: "s" });
-		}
+		it("should parse very large milliseconds", () => {
+			const result = Parser.parse("999999ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 999999,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse decimal values", () => {
-		const result = Parser.parse("0.5s");
+	describe("valid-list", () => {
+		it("should parse multiple delays", () => {
+			const result = Parser.parse("1s, 500ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 500,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays[0]).toEqual({ value: 0.5, unit: "s" });
-		}
+		it("should parse multiple time values", () => {
+			const result = Parser.parse("0s, 1s, 2s, 3s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 0,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 2,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 3,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse delays with whitespace", () => {
+			const result = Parser.parse("1s , 2s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 2,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse mixed negative and positive", () => {
+			const result = Parser.parse("-1s, 0s, 1s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-delay",
+			   "delays": [
+			      {
+			         "value": -1,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 0,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse multiple delays", () => {
-		const result = Parser.parse("1s, 500ms, 2s");
-
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays).toHaveLength(3);
-			expect(result.value.delays[0]).toEqual({ value: 1, unit: "s" });
-			expect(result.value.delays[1]).toEqual({ value: 500, unit: "ms" });
-			expect(result.value.delays[2]).toEqual({ value: 2, unit: "s" });
-		}
-	});
-
-	it("should parse delays with whitespace", () => {
-		const result = Parser.parse("1s , 500ms , 2s");
-
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays).toHaveLength(3);
-		}
-	});
-
-	it("should parse mixed positive and negative delays", () => {
-		const result = Parser.parse("1s, -500ms, 2s");
-
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.delays).toHaveLength(3);
-			expect(result.value.delays[1]).toEqual({ value: -500, unit: "ms" });
-		}
-	});
-
-	it("should reject invalid time unit", () => {
-		const result = Parser.parse("1px");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject empty value", () => {
-		const result = Parser.parse("");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject value without unit", () => {
-		const result = Parser.parse("1");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject trailing comma", () => {
-		const result = Parser.parse("1s,");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject leading comma", () => {
-		const result = Parser.parse(",1s");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject multiple commas", () => {
-		const result = Parser.parse("1s,,2s");
-
-		expect(result.ok).toBe(false);
-	});
 });
