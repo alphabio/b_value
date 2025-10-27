@@ -1,6 +1,7 @@
 // b_path:: src/core/types/animation.ts
 import { z } from "zod";
 import * as Keyword from "../keywords/animation";
+import { autoSchema } from "./auto";
 import { timeSchema } from "./time";
 
 /**
@@ -37,11 +38,14 @@ export type AnimationDelay = z.infer<typeof animationDelaySchema>;
  *
  * @public
  */
+
+const timeExtendedSchema = timeSchema.extend({
+	type: z.literal("time"),
+});
+
 export const animationDurationSchema = z.object({
 	kind: z.literal("animation-duration"),
-	durations: z
-		.array(z.union([z.object({ type: z.literal("auto") }), timeSchema.extend({ type: z.literal("time") })]))
-		.min(1),
+	durations: z.array(z.discriminatedUnion("type", [autoSchema, timeExtendedSchema])).min(1),
 });
 
 /**

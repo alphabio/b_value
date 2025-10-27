@@ -1,7 +1,12 @@
 // b_path:: src/utils/generate/validation.ts
 
-import type { ZodError, ZodIssue } from "zod";
+import type { z } from "zod";
 import type { Issue } from "@/core/result";
+
+// Use Zod v4 core types (not deprecated)
+type ZodIssue = z.core.$ZodIssue;
+type ZodError = z.ZodError;
+type ZodIssueInvalidUnion = z.core.$ZodIssueInvalidUnion;
 
 /**
  * Format a path array into a human-readable string.
@@ -71,11 +76,31 @@ export function zodErrorToIssues(zodError: ZodError): Issue[] {
 	function traverse(zodIssues: readonly ZodIssue[], parentPath: (string | number)[] = []): void {
 		for (const zodIssue of zodIssues) {
 			if (zodIssue.code === "invalid_union") {
-				// Recursively traverse all union branches
-				// Zod 4.x uses "errors" (array of arrays of issues), not "unionErrors"
-				const unionIssue = zodIssue as any;
-				// The union error has its own path (e.g., ["durations", 0])
-				// Pass this as context to nested errors
+				const unionIssue = zodIssue as ZodIssueInvalidUnion;
+
+				// If union has a custom message (not generic "Invalid input"), use it and DON'T traverse
+				if (zodIssue.message !== "Invalid input") {
+					const relativePath = zodIssue.path.filter(
+						(p): p is string | number => typeof p === "string" || typeof p === "number",
+					);
+					const fullPath = [...parentPath, ...relativePath];
+					const pathStr = formatPath(fullPath);
+					const message = pathStr ? `${pathStr}: ${zodIssue.message}` : zodIssue.message;
+
+					issues.push({
+						code: "invalid-ir",
+						severity: "error",
+						message,
+						path: fullPath,
+						metadata: {
+							zodCode: zodIssue.code,
+						},
+					});
+					// Don't traverse into union branches - custom message is sufficient
+					continue;
+				}
+
+				// Generic union error - traverse into all branches to collect specific errors
 				const unionPath = [
 					...parentPath,
 					...zodIssue.path.filter((p): p is string | number => typeof p === "string" || typeof p === "number"),
