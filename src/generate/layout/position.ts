@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/position.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { PositionProperty } from "@/core/types";
+import { positionPropertySchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS position property from IR.
@@ -24,8 +26,18 @@ import type { PositionProperty } from "@/core/types";
  * @public
  */
 export function generate(position: PositionProperty): GenerateResult {
-	if (position === undefined || position === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = positionPropertySchema.safeParse(position);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(position.value);
 }

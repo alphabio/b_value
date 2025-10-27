@@ -1,129 +1,86 @@
-# Next Session: Fix animation-delay and Continue Generate Validation
+# Next Session: Expand Generate Validation to Other Properties
 
 **Date**: 2025-10-27
-**Status**: ⚠️ animation-delay has test failure - needs schema fix
-**Tests**: 3,742 passing, 1 skipped (negative delay)
+**Status**: ✅ Animation properties complete! Ready to expand validation.
+**Tests**: 3,772 passing
 **Branch**: coverage/90-percent
-**Latest Commit**: 2feb210
+**Latest Commit**: 8f9ee92
 
 ---
 
-## 🚨 URGENT: Fix animation-delay Negative Values
+## 🎉 Animation Properties - COMPLETE!
 
-**Problem Discovered**: Adding Zod validation to animation-delay broke existing test
-- `test/integration/roundtrip/animation.test.ts` line 77: "negative delay: -500ms" now fails
-- Test was PASSING before Zod validation added
-- Root cause: `timeSchema` uses `.nonnegative()` but animation-delay MUST support negative values
+All 8 animation properties now have Zod validation:
+1. ✅ animation-duration (timeSchema with auto)
+2. ✅ animation-timing-function (union of keywords + functions)
+3. ✅ animation-delay (delayTimeSchema - supports negatives!)
+4. ✅ animation-iteration-count (number | infinite)
+5. ✅ animation-direction (enum keywords)
+6. ✅ animation-fill-mode (enum keywords)
+7. ✅ animation-play-state (enum keywords)
+8. ✅ animation-name (identifier | none)
 
-**Already Done**:
-1. ✅ Documented in `test/integration/KNOWN_LIMITATIONS.md` (animation-delay negative values)
-2. ✅ Test skipped with TODO comment referencing KNOWN_LIMITATIONS.md
-3. ✅ Test config updated with note about limitation
-
-**What Needs Fixing**:
-1. Fix the schema - create delay-time schema that allows negatives
-2. Un-skip the test in `test/integration/roundtrip/animation.test.ts` line 80
-3. Update delay test config to mark negatives as valid
-4. Verify all tests pass
-
-**Files to Fix**:
-- `src/core/types/time.ts` - Create `delayTimeSchema` without nonnegative constraint
-- `src/core/types/animation.ts` - Use `delayTimeSchema` in animationDelaySchema
-- `test/integration/roundtrip/animation.test.ts` - Remove test.skip
-- `scripts/generate-test-generator/configs/delay.ts` - Update negative test cases
+**This Session's Achievements**:
+- Fixed animation-delay to support negative values (created delayTimeSchema)
+- Added validation to 5 remaining animation properties
+- Generated comprehensive test suite for iteration-count
+- All 3,772 tests passing, including roundtrip tests
+- 2 commits with clean, focused changes
 
 ---
 
-## ✅ Completed This Session
+## 🎯 Next Priority: Expand to Other Properties
 
-1. **Schema improvements complete** - 21 files with custom errors (archived)
-2. **Test improvements** - Added `toHaveLength(1)` to all failure tests
-3. **animation-timing-function** - Zod validation complete (26 tests, all passing)
-4. **animation-delay** - Zod validation added BUT broke existing test (needs schema fix)
-5. **Test generator** - Fixed dynamic type name generation (timing-function → AnimationTimingFunction)
+Now that animation is done, apply the same pattern to other property groups:
 
-**Commits**:
-- a0ce662 - docs: add 'just check' reminder to AGENTS.md
-- de0e53c - test: improve failure test assertions
-- e0883ac - docs: archive completed schema improvement plan
-- 2feb210 - feat(generate): add Zod validation to animation-timing-function
+### Immediate Candidates (Simple enum/keyword properties)
+1. **Display properties** - `display.ts` (enum of display values)
+2. **Position properties** - `position.ts` (enum: static, relative, absolute, etc)
+3. **Float properties** - `float.ts` (enum: left, right, none)
+4. **Clear properties** - `clear.ts` (enum: left, right, both, none)
+5. **Overflow properties** - `overflow.ts`, `overflow-x.ts`, `overflow-y.ts`
+6. **Visibility properties** - `visibility.ts` (enum: visible, hidden, collapse)
 
----
+### Medium Complexity (Union types)
+1. **Width/Height** - length | percentage | auto | min-content | max-content
+2. **Margin/Padding** - length | percentage | auto
+3. **Background** - complex but has existing tests
 
-## 🎯 Next Steps (Priority Order)
+### Pattern to Follow
+```typescript
+// 1. Verify schema in src/core/types/ has good error messages
+// 2. Update generate function:
+import { zodErrorToIssues } from "@/utils/generate";
+import { propertySchema } from "@/core/types/...";
 
-### 1. Fix animation-delay Schema (HIGH PRIORITY)
-Must fix before continuing - we broke a working test!
+export function generate(ir: Type.Property): GenerateResult {
+  const validation = propertySchema.safeParse(ir);
+  if (!validation.success) {
+    return { ok: false, issues: zodErrorToIssues(validation.error) };
+  }
+  // ... existing generation logic
+}
 
-### 2. Continue Generate Validation
-After fixing delay, continue with remaining animation properties:
-- iteration-count (simple - number | infinite)
-- direction (enum keywords)
-- fill-mode (enum keywords)
-- play-state (enum keywords)
-- name (identifier | none)
-
-### 3. Pattern to Follow
-Same as duration and timing-function:
-- Add Zod validation using schema
-- Use zodErrorToIssues utility
-- Create comprehensive test config
-- Generate tests
-- Verify all pass (including roundtrip tests!)
-
----
-
-## 📝 Key Learnings
-
-**CRITICAL**: When adding validation, check for existing integration tests!
-- Our "improvement" broke a working roundtrip test
-- This is WHY we have `test/integration/KNOWN_LIMITATIONS.md`
-- Document schema limitations BEFORE they cause failures
-- Un-skip tests once schemas are fixed
-
-**Process**:
-1. Add validation
-2. Run ALL tests (not just new ones)
-3. If integration test fails → document in KNOWN_LIMITATIONS.md
-4. Skip failing test with reference to KNOWN_LIMITATIONS.md
-5. Create issue to fix schema
-6. Fix schema later, un-skip test
+// 3. Create test config if needed
+// 4. Generate tests
+// 5. Run tests - verify all pass
+```
 
 ---
 
 ## 📊 Current State
 
-**Tests**: 3,761 total (3,760 passing, 1 skipped)
+**Tests**: 3,772 passing
 **Branch**: coverage/90-percent
-**Animation properties with Zod validation**: 2/8 (duration ✅, timing-function ✅, delay ⚠️ needs fix)
+**Recent Commits**:
+- 8f9ee92 - feat: add Zod validation to remaining animation properties
+- d6febe0 - fix: support negative values in animation-delay
 
-**Commands**:
-
-```bash
-# Fix schema first
-vim src/core/types/time.ts
-vim src/core/types/animation.ts
-# Then un-skip test and update config
-vim test/integration/roundtrip/animation.test.ts
-vim scripts/generate-test-generator/configs/delay.ts
-```
-
----
-
-**File Length**: 100 lines ✅
-
-**Implementation Files**:
-- `src/utils/generate/validation.ts` - zodErrorToIssues utility
-- `src/generate/animation/duration.ts` - Working validation example
-- `src/core/types/animation.ts` - Improved schemas ready to use
-
-**Documentation**:
-- `.memory/archive/2025-10-27-schema-improvements/HANDOVER.md` - Full session details
-- `.memory/SCHEMA_IMPROVEMENT_PLAN.md` - Schema improvement tracking
-
-**Test Infrastructure**:
-- `scripts/generate-generate-tests.ts` - Test generator
-- `scripts/generate-test-generator/configs/duration.ts` - Test config example
+**Animation Module Status**:
+- Parse: 8/8 properties ✅
+- Generate: 8/8 properties ✅
+- Validation: 8/8 properties ✅
+- Tests: Comprehensive coverage ✅
 
 ---
 
@@ -132,62 +89,71 @@ vim scripts/generate-test-generator/configs/delay.ts
 ```bash
 # Check current state
 just test
-git status
-git log --oneline -5
+git log --oneline -3
 
-# Option A: Continue schemas
-grep -rn "z.union" src/core/types/flexbox.ts src/core/types/grid-line.ts
+# Find properties to validate next
+ls -la src/generate/layout/
+ls -la src/generate/position/
+ls -la src/generate/display/
 
-# Option B: Generate validation
-cat src/generate/animation/duration.ts  # Reference
-vim src/generate/animation/timing-function.ts  # Next property
+# Check if schemas have custom errors
+grep -A 5 "error:" src/core/types/display.ts
+grep -A 5 "error:" src/core/types/position.ts
 
-# All checks
-just check
+# Pattern: Add validation
+vim src/generate/display/display.ts
+pnpm test src/generate/display/display.test.ts
 ```
 
 ---
 
-## 💡 Pattern Reference (Quick Copy-Paste)
+## 💡 Key Learnings
 
-### Zod Union with Custom Error
+**Schema Design**:
+- Separate schemas for different use cases (timeSchema vs delayTimeSchema)
+- Custom error messages make debugging much easier
+- Union types with discriminated unions work great
 
-```typescript
-export const mySchema = z.union(
-  [
-    z.literal("option1").describe("description"),
-    z.literal("option2").describe("description"),
-  ],
-  {
-    error: (issue) =>
-      issue.code === "invalid_union"
-        ? 'Clear error message with valid options'
-        : "Invalid input"
-  }
-);
-```
+**Testing**:
+- Test generator creates consistent, comprehensive test suites
+- Roundtrip tests catch schema issues early
+- Always run ALL tests after schema changes
 
-### Generate Function Validation
-
-```typescript
-import { zodErrorToIssues } from "@/utils/generate/validation";
-
-export function generate(ir: Type.MyType): GenerateResult {
-  const validation = mySchema.safeParse(ir);
-  if (!validation.success) {
-    return {
-      ok: false,
-      issues: zodErrorToIssues(validation.error.errors, "property-name")
-    };
-  }
-  // ... generate CSS
-}
-```
+**Workflow**:
+1. Fix schema if needed (add custom errors, handle edge cases)
+2. Add validation to generate function
+3. Create test config (for complex properties)
+4. Generate tests (if using test generator)
+5. Run tests - fix any failures
+6. Commit focused changes
 
 ---
 
-**Recommended Next Action**: **Option B** - Apply validation to remaining animation properties using improved schemas. This leverages all the schema work we just completed and directly supports the generate validation goals.
+## 📝 Files Modified This Session
+
+**Schema Fixes**:
+- `src/core/types/time.ts` - Added delayTimeSchema
+- `src/core/types/animation.ts` - Updated animationDelaySchema
+
+**Generate Functions** (added Zod validation):
+- `src/generate/animation/delay.ts`
+- `src/generate/animation/iteration-count.ts`
+- `src/generate/animation/direction.ts`
+- `src/generate/animation/fill-mode.ts`
+- `src/generate/animation/play-state.ts`
+- `src/generate/animation/name.ts`
+
+**Tests**:
+- Created `scripts/generate-test-generator/configs/delay.ts`
+- Created `scripts/generate-test-generator/configs/iteration-count.ts`
+- Generated comprehensive test suites for both
+- Un-skipped animation-delay negative value test
+
+**Documentation**:
+- Updated `test/integration/KNOWN_LIMITATIONS.md` - marked delay issue as fixed
 
 ---
 
-**File Length**: 183 lines (under 300 limit ✅)
+**File Length**: 125 lines ✅
+
+**Recommended Next Action**: Start with simple enum properties (display, position, float) to build momentum, then tackle more complex unions.
