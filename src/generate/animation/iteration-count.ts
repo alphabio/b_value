@@ -1,7 +1,9 @@
 // b_path:: src/generate/animation/iteration-count.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
+import { animationIterationCountSchema } from "@/core/types/animation";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS animation-iteration-count property value from IR.
@@ -39,9 +41,19 @@ import type * as Type from "@/core/types";
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-iteration-count | W3C Spec}
  */
 export function generate(ir: Type.AnimationIterationCount): GenerateResult {
-	if (ir === undefined || ir === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = animationIterationCountSchema.safeParse(ir);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	const values = ir.counts
 		.map((count) => {
 			if (count.type === "infinite") {
