@@ -56,7 +56,7 @@ async function loadConfig(configName: string): Promise<PropertyConfig> {
 		path.dirname(new URL(import.meta.url).pathname),
 		"test-generator",
 		"configs",
-		`${configName}.ts`
+		`${configName}.ts`,
 	);
 
 	if (!fs.existsSync(configPath)) {
@@ -64,14 +64,41 @@ async function loadConfig(configName: string): Promise<PropertyConfig> {
 		console.error(`   Available configs:`);
 		const configsDir = path.join(path.dirname(configPath));
 		if (fs.existsSync(configsDir)) {
-			const files = fs.readdirSync(configsDir).filter(f => f.endsWith(".ts"));
-			files.forEach(f => console.error(`   - ${f.replace(".ts", "")}`));
+			const files = fs.readdirSync(configsDir).filter((f) => f.endsWith(".ts"));
+			files.forEach((f) => console.error(`   - ${f.replace(".ts", "")}`));
 		}
 		process.exit(1);
 	}
 
 	const module = await import(configPath);
 	return module.config;
+}
+
+async function validateSpecRefs(specRefs: SpecRef[]): Promise<void> {
+	if (specRefs.length === 0) return;
+
+	console.log(`\n🔗 Validating spec reference URLs...`);
+
+	for (const ref of specRefs) {
+		try {
+			const controller = new AbortController();
+			const timeout = setTimeout(() => controller.abort(), 5000);
+
+			const response = await fetch(ref.url, {
+				method: "HEAD",
+				signal: controller.signal,
+			});
+			clearTimeout(timeout);
+
+			if (response.ok) {
+				console.log(`   ✅ ${ref.type}: ${ref.url}`);
+			} else {
+				console.warn(`   ⚠️  ${ref.type}: ${ref.url} (HTTP ${response.status})`);
+			}
+		} catch (error) {
+			console.warn(`   ⚠️  ${ref.type}: ${ref.url} (${error instanceof Error ? error.message : "unreachable"})`);
+		}
+	}
 }
 
 function extractSpecRefs(sourceFilePath: string): SpecRef[] {
@@ -92,7 +119,7 @@ function extractSpecRefs(sourceFilePath: string): SpecRef[] {
 		let type: "w3c" | "mdn" | "other" = "other";
 		if (url.includes("w3.org")) type = "w3c";
 		else if (url.includes("developer.mozilla.org")) type = "mdn";
-		
+
 		refs.push({ type, url });
 	}
 
@@ -109,7 +136,8 @@ async function runTests(config: PropertyConfig) {
 		console.warn(`   Expected @see {@link ...} in JSDoc comments\n`);
 	} else {
 		console.log(`📖 Found ${specRefs.length} spec reference(s):`);
-		specRefs.forEach(ref => console.log(`   ${ref.type}: ${ref.url}`));
+		specRefs.forEach((ref) => console.log(`   ${ref.type}: ${ref.url}`));
+		await validateSpecRefs(specRefs);
 		console.log();
 	}
 
@@ -185,93 +213,120 @@ function saveIssues(config: PropertyConfig, issues: string[]) {
 	console.log(`\n⚠️  ISSUES found! See: ${outputPath}`);
 }
 
-function generateTestFile(config: PropertyConfig, results: TestResult[], specRefs: SpecRef[]): string {
-	const validCases = results.filter(r => r.success);
-	const invalidCases = results.filter(r => !r.success);
-
+function generateValidTestFile(config: PropertyConfig, validCases: TestResult[], specRefs: SpecRef[]): string {
 	let testFile = `// b_path:: ${config.outputPath}\n`;
 	testFile += `// Auto-generated from scripts/test-generator/configs/${config.propertyName}.ts\n`;
 	testFile += `//\n`;
-	
+
 	if (specRefs.length > 0) {
 		testFile += `// Spec references:\n`;
-		specRefs.forEach(ref => {
+		specRefs.forEach((ref) => {
 			testFile += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
 		});
 	} else {
 		testFile += `// ⚠️  No spec references found in source file\n`;
 	}
-	
+
 	testFile += `import { describe, expect, it } from "vitest";\n`;
 	testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n\n`;
-	testFile += `describe("parse/animation/${config.propertyName}", () => {\n`;
+	testFile += `describe("parse/animation/${config.propertyName} - valid cases", () => {\n`;
 
 	// Group valid cases by category
-	const validByCategory = validCases.reduce((acc, r) => {
-		if (!acc[r.category]) acc[r.category] = [];
-		acc[r.category].push(r);
-		return acc;
-	}, {} as Record<string, TestResult[]>);
+	const validByCategory = validCases.reduce(
+		(acc, r) => {
+			if (!acc[r.category]) acc[r.category] = [];
+			acc[r.category].push(r);
+			return acc;
+		},
+		{} as Record<string, TestResult[]>,
+	);
 
-	testFile += `\tdescribe("valid cases", () => {\n`;
 	for (const [category, cases] of Object.entries(validByCategory)) {
-		testFile += `\t\tdescribe("${category}", () => {\n`;
+		testFile += `\tdescribe("${category}", () => {\n`;
 		for (const testCase of cases) {
-			const output = JSON.stringify((testCase.output as any).value, null, 3).replace(/\n/g, "\n\t\t\t\t");
-			testFile += `\t\t\tit("should parse ${testCase.description}", () => {\n`;
-			testFile += `\t\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
-			testFile += `\t\t\t\texpect(result.ok).toBe(true);\n`;
-			testFile += `\t\t\t\tif (!result.ok) return;\n`;
-			testFile += `\t\t\t\texpect(result.value).toEqual(${output});\n`;
-			testFile += `\t\t\t});\n\n`;
+			const output = JSON.stringify((testCase.output as any).value, null, 3).replace(/\n/g, "\n\t\t\t");
+			testFile += `\t\tit("should parse ${testCase.description}", () => {\n`;
+			testFile += `\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
+			testFile += `\t\t\texpect(result.ok).toBe(true);\n`;
+			testFile += `\t\t\tif (!result.ok) return;\n`;
+			testFile += `\t\t\texpect(result.value).toEqual(${output});\n`;
+			testFile += `\t\t});\n\n`;
 		}
-		testFile += `\t\t});\n\n`;
+		testFile += `\t});\n\n`;
 	}
-	testFile += `\t});\n\n`;
-
-	// Group invalid cases by category
-	const invalidByCategory = invalidCases.reduce((acc, r) => {
-		if (!acc[r.category]) acc[r.category] = [];
-		acc[r.category].push(r);
-		return acc;
-	}, {} as Record<string, TestResult[]>);
-
-	testFile += `\tdescribe("invalid cases", () => {\n`;
-	for (const [category, cases] of Object.entries(invalidByCategory)) {
-		testFile += `\t\tdescribe("${category}", () => {\n`;
-		for (const testCase of cases) {
-			const errorMsg = (testCase.output as any).error || "";
-			testFile += `\t\t\tit("should reject ${testCase.description}", () => {\n`;
-			testFile += `\t\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
-			testFile += `\t\t\t\texpect(result.ok).toBe(false);\n`;
-			testFile += `\t\t\t\tif (result.ok) return;\n`;
-			// Extract key error term for validation
-			const errorTerm = errorMsg.match(/Expected|Invalid|must be|Empty/)?.[0] || "";
-			if (errorTerm) {
-				testFile += `\t\t\t\texpect(result.error).toContain("${errorTerm}");\n`;
-			}
-			testFile += `\t\t\t});\n\n`;
-		}
-		testFile += `\t\t});\n\n`;
-	}
-	testFile += `\t});\n`;
 
 	testFile += `});\n`;
 
 	return testFile;
 }
 
-function saveTestFile(config: PropertyConfig, content: string) {
-	const testPath = config.outputPath;
-	
-	// Create directory if it doesn't exist
-	const dir = path.dirname(testPath);
-	if (!fs.existsSync(dir)) {
-		fs.mkdirSync(dir, { recursive: true });
+function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResult[], specRefs: SpecRef[]): string {
+	const failureOutputPath = config.outputPath.replace(".test.ts", ".failure.test.ts");
+
+	let testFile = `// b_path:: ${failureOutputPath}\n`;
+	testFile += `// Auto-generated from scripts/test-generator/configs/${config.propertyName}.ts\n`;
+	testFile += `//\n`;
+
+	if (specRefs.length > 0) {
+		testFile += `// Spec references:\n`;
+		specRefs.forEach((ref) => {
+			testFile += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
+		});
+	} else {
+		testFile += `// ⚠️  No spec references found in source file\n`;
 	}
 
-	fs.writeFileSync(testPath, content);
-	console.log(`📝 Test file generated: ${testPath}`);
+	testFile += `import { describe, expect, it } from "vitest";\n`;
+	testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n\n`;
+	testFile += `describe("parse/animation/${config.propertyName} - invalid cases", () => {\n`;
+
+	// Group invalid cases by category
+	const invalidByCategory = invalidCases.reduce(
+		(acc, r) => {
+			if (!acc[r.category]) acc[r.category] = [];
+			acc[r.category].push(r);
+			return acc;
+		},
+		{} as Record<string, TestResult[]>,
+	);
+
+	for (const [category, cases] of Object.entries(invalidByCategory)) {
+		testFile += `\tdescribe("${category}", () => {\n`;
+		for (const testCase of cases) {
+			const errorMsg = (testCase.output as any).error || "";
+			testFile += `\t\tit("should reject ${testCase.description}", () => {\n`;
+			testFile += `\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
+			testFile += `\t\t\texpect(result.ok).toBe(false);\n`;
+			testFile += `\t\t\tif (result.ok) return;\n`;
+			// Extract key error term for validation
+			const errorTerm = errorMsg.match(/Expected|Invalid|must be|Empty/)?.[0] || "";
+			if (errorTerm) {
+				testFile += `\t\t\texpect(result.error).toContain("${errorTerm}");\n`;
+			}
+			testFile += `\t\t});\n\n`;
+		}
+		testFile += `\t});\n\n`;
+	}
+
+	testFile += `});\n`;
+
+	return testFile;
+}
+
+function saveTestFile(config: PropertyConfig, validContent: string, failureContent: string) {
+	// Save valid test file
+	const validPath = config.outputPath;
+	const validDir = path.dirname(validPath);
+	if (!fs.existsSync(validDir)) {
+		fs.mkdirSync(validDir, { recursive: true });
+	}
+	fs.writeFileSync(validPath, validContent);
+	console.log(`📝 Valid test file: ${validPath}`);
+
+	// Save failure test file
+	const failurePath = validPath.replace(".test.ts", ".failure.test.ts");
+	fs.writeFileSync(failurePath, failureContent);
+	console.log(`📝 Failure test file: ${failurePath}`);
 }
 
 async function main() {
@@ -285,21 +340,27 @@ async function main() {
 
 	const config = await loadConfig(configName);
 	const { results, issues, specRefs } = await runTests(config);
-	
+
 	console.log(`\n📊 Summary:`);
-	console.log(`   Valid: ${results.filter(r => r.success).length}`);
-	console.log(`   Invalid: ${results.filter(r => !r.success).length}`);
+	console.log(`   Valid: ${results.filter((r) => r.success).length}`);
+	console.log(`   Invalid: ${results.filter((r) => !r.success).length}`);
 	console.log(`   Total: ${results.length}`);
 	console.log(`   Issues: ${issues.length / 3}`);
 
 	saveResults(config, results);
 	saveIssues(config, issues);
-	
-	const testFileContent = generateTestFile(config, results, specRefs);
-	saveTestFile(config, testFileContent);
 
-	console.log(`\n✅ Done! Run: pnpm test ${config.outputPath}`);
-	
+	const validCases = results.filter((r) => r.success);
+	const invalidCases = results.filter((r) => !r.success);
+
+	const validTestFile = generateValidTestFile(config, validCases, specRefs);
+	const failureTestFile = generateFailureTestFile(config, invalidCases, specRefs);
+	saveTestFile(config, validTestFile, failureTestFile);
+
+	console.log(`\n✅ Done!`);
+	console.log(`   Run: pnpm test ${config.outputPath}`);
+	console.log(`   Run: pnpm test ${config.outputPath.replace(".test.ts", ".failure.test.ts")}`);
+
 	if (issues.length > 0) {
 		console.log(`\n⚠️  ${issues.length / 3} issues detected - review before proceeding`);
 		process.exit(1);
