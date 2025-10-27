@@ -452,20 +452,28 @@ export type ColorFunction = z.infer<typeof colorFunctionSchema>;
  *
  * @public
  */
-export const colorSchema = z.union([
-	hexColorSchema,
-	namedColorSchema,
-	rgbColorSchema,
-	hslColorSchema,
-	hwbColorSchema,
-	labColorSchema,
-	lchColorSchema,
-	oklabColorSchema,
-	oklchColorSchema,
-	systemColorSchema,
-	specialColorSchema,
-	colorFunctionSchema,
-]);
+export const colorSchema = z.union(
+	[
+		hexColorSchema,
+		namedColorSchema,
+		rgbColorSchema,
+		hslColorSchema,
+		hwbColorSchema,
+		labColorSchema,
+		lchColorSchema,
+		oklabColorSchema,
+		oklchColorSchema,
+		systemColorSchema,
+		specialColorSchema,
+		colorFunctionSchema,
+	],
+	{
+		error: (issue) =>
+			issue.code === "invalid_union"
+				? "Invalid color. Expected hex, named color, rgb(), hsl(), hwb(), lab(), lch(), oklab(), oklch(), system color, or color() function."
+				: "Invalid input",
+	},
+);
 
 /**
  * TypeScript type for color value.

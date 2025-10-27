@@ -12,11 +12,15 @@ import * as Unit from "@/core/units";
  *
  * @internal
  */
-const allLengthUnitsSchema = z.union([
-	Unit.absoluteLengthUnitSchema,
-	Unit.fontLengthUnitSchema,
-	Unit.viewportLengthUnitSchema,
-]);
+const allLengthUnitsSchema = z.union(
+	[Unit.absoluteLengthUnitSchema, Unit.fontLengthUnitSchema, Unit.viewportLengthUnitSchema],
+	{
+		error: (issue) =>
+			issue.code === "invalid_union"
+				? "Invalid length unit. Expected absolute (px, pt, cm, etc.), font-relative (em, rem, etc.), or viewport (vw, vh, etc.) units."
+				: "Invalid input",
+	},
+);
 
 /**
  * CSS `<length>` dimension.
@@ -73,7 +77,12 @@ export type Length = z.infer<typeof lengthSchema>;
  *
  * @public
  */
-export const lengthPercentageSchema = z.union([lengthSchema, Unit.percentageSchema]);
+export const lengthPercentageSchema = z.union([lengthSchema, Unit.percentageSchema], {
+	error: (issue) =>
+		issue.code === "invalid_union"
+			? "Invalid length-percentage. Expected a length (with unit) or percentage."
+			: "Invalid input",
+});
 
 /**
  * TypeScript type for `<length-percentage>` values.
@@ -106,7 +115,12 @@ export type LengthPercentage = z.infer<typeof lengthPercentageSchema>;
  *
  * @public
  */
-export const lengthPercentageAutoSchema = z.union([z.literal("auto"), lengthPercentageSchema]);
+export const lengthPercentageAutoSchema = z.union([z.literal("auto"), lengthPercentageSchema], {
+	error: (issue) =>
+		issue.code === "invalid_union"
+			? 'Invalid value. Expected "auto", a length (with unit), or a percentage.'
+			: "Invalid input",
+});
 
 /**
  * TypeScript type for `<length-percentage>` with `auto`.
