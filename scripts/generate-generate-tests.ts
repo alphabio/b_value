@@ -265,6 +265,12 @@ function saveIssues(config: any, issues: string[]) {
 }
 
 function generateValidTestFile(config: any, validCases: TestResult[], specRefs: SpecRef[]): string {
+	// Convert property name to PascalCase type name (e.g., "timing-function" -> "AnimationTimingFunction")
+	const typeName = 'Animation' + config.propertyName
+		.split('-')
+		.map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
+		.join('');
+
 	let testFile = `// b_path:: ${config.outputPath}\n`;
 	testFile += `// Auto-generated from scripts/generate-test-generator/configs/${config.propertyName}.ts\n`;
 	testFile += `//\n`;
@@ -308,7 +314,7 @@ function generateValidTestFile(config: any, validCases: TestResult[], specRefs: 
 			const inputJson = JSON.stringify(configCase.input, null, 3).replace(/\n/g, "\n\t\t\t");
 
 			testFile += `\t\tit("should generate ${testCase.description}", () => {\n`;
-			testFile += `\t\t\tconst input: Type.AnimationDuration = ${inputJson};\n`;
+			testFile += `\t\t\tconst input: Type.${typeName} = ${inputJson};\n`;
 			testFile += `\t\t\tconst result = Generator.generate(input);\n`;
 			testFile += `\t\t\texpect(result.ok).toBe(true);\n`;
 			testFile += `\t\t\tif (!result.ok) return;\n`;
