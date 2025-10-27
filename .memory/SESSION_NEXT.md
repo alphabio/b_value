@@ -1,407 +1,286 @@
-# Session 13: Phase 2 - Integration & Shorthand Testing
+# Session: Phase 2.1 - Comprehensive Testing Pilot
 
 **Current Status**: 89.49% coverage, 3,576 tests passing ✅  
 **Phase 1**: ✅ COMPLETE (100/100 round-trip tests)  
-**Phase 2**: Integration & Shorthand Properties  
+**Phase 2**: 🔥 **CRITICAL PIVOT** - Comprehensive CSS Spec Testing  
 
 ---
 
-## 🎉 Phase 1 Achievement
+## ⚠️ Critical Discovery: Testing Quality Crisis
 
-✅ **100 round-trip tests** across 16 major CSS categories  
-✅ **No regressions** - all tests passing  
-✅ **Known limitations documented** - 2 items tracked  
-✅ **Coverage improved** - 89.03% → 89.49% (+0.46%)  
+**User identified fundamental problems**:
+- ❌ We do NOT support CSS shorthand properties (that's `b_short` library's job)
+- ❌ Current tests barely cover CSS spec surface area  
+- ❌ We do a VERY poor job testing failures (should have MORE failure tests than success tests)
+- ❌ Current test organization is monolithic and hard to maintain
+- ❌ Schema constraints are too loose (e.g., `cubicBezierSchema` accepts NaN, Infinity, values > 1)
 
-**Previous Session**: `.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md`
+**Example**: `cubicBezierSchema` (src/core/types/animation.ts:190-196)
+```typescript
+export const cubicBezierSchema = z.object({
+  type: z.literal("cubic-bezier"),
+  x1: z.number(),  // ❌ TOO LOOSE
+  y1: z.number(),
+  x2: z.number(),
+  y2: z.number(),
+});
+```
+
+**Per CSS Easing Spec**:
+- x1, x2 MUST be in [0, 1] range
+- y1, y2 can be any number
+- Should reject NaN, Infinity
 
 ---
 
-## 🎯 Phase 2 Mission: Advanced Integration Testing
+## 🎯 Phase 2 Mission: Full CSS Spec Coverage + Robust Failure Testing
 
-**Goal**: Test complex interactions, shorthand properties, and edge cases  
-**Target**: Add 30-50 integration tests  
-**Focus**: Quality and real-world usage patterns  
+**Goal**: Test parsers/generators to their limits with 4-layer comprehensive testing  
+**Target**: ~100-150 tests for ONE property (pilot), then systematic rollout  
+**Focus**: Schema validation, full spec coverage, MORE failure tests than success tests  
 
-### Why Phase 2 Matters
-Phase 1 tested individual property values. Phase 2 tests:
-- **Shorthand properties** (e.g., `background`, `border`, `animation`)
-- **Complex nested values** (e.g., gradients with color functions)
-- **Multiple values** (e.g., multiple shadows, transform chains)
-- **Edge cases** (extreme values, boundaries, negatives)
-- **Cross-property interactions** (e.g., position + inset)
+### Core Principles
+1. **Test the Full CSS Spec Surface** - ALL valid syntax per W3C/MDN
+2. **More Failure Tests Than Success Tests** - 2:1 or 3:1 ratio
+3. **Validate Schema Constraints** - Zod schemas must be strict
+4. **Decompose for Readability** - One property = multiple focused test files
 
 ---
 
-## 📋 Phase 2 Test Categories (Priority Order)
+## 📋 4-Layer Testing Approach
 
-### 1. Shorthand Properties (HIGH PRIORITY) 🔥
-Create `test/integration/roundtrip/shorthand.test.ts`
-
-**Why**: Shorthand properties are the most common way developers write CSS. They're complex to parse and generate correctly.
-
-```typescript
-test("background: #fff url(image.png) no-repeat center")
-test("background: linear-gradient(red, blue)")
-test("border: 1px solid #000")
-test("border: 2px dashed rgba(0,0,0,0.5)")
-test("animation: slide 2s ease-in-out infinite")
-test("transition: all 0.3s ease")
-test("flex: 1 1 auto")
-test("padding: 10px 20px")
-test("margin: 10px 20px 30px 40px")
-```
-
-**Check available**:
-```bash
-ls src/parse/*/ | grep -E "(background|border|animation|transition|flex|padding|margin)" | grep ".ts$" | grep -v test
-```
-
-### 2. Complex Color Integration (HIGH VALUE)
-Create `test/integration/roundtrip/color-complex.test.ts`
-
-**Why**: Color functions appear in many contexts (backgrounds, borders, shadows, gradients). Testing integration ensures they work everywhere.
+### Layer 1: Schema Validation Tests
+**File**: `src/core/types/animation.test.ts`  
+**Focus**: Test Zod schemas directly with `.safeParse()`
 
 ```typescript
-test("box-shadow: 0 0 10px rgba(0, 0, 0, 0.5)")
-test("text-shadow: 2px 2px 4px rgb(255, 0, 0)")
-test("border-color: rgba(255, 255, 255, 0.8)")
-test("background-color: hsl(120, 100%, 50%)")
-test("linear-gradient(rgba(0,0,0,0.5), rgba(255,255,255,0.8))")
-```
-
-### 3. Multiple Values (MEDIUM PRIORITY)
-Create `test/integration/roundtrip/multiple-values.test.ts`
-
-**Why**: Many CSS properties accept multiple values. Generators must maintain order and formatting.
-
-```typescript
-test("box-shadow: 0 0 5px red, 2px 2px 10px blue")
-test("box-shadow: inset 0 0 10px black, 0 4px 8px rgba(0,0,0,0.3)")
-test("transform: translateX(10px) rotate(45deg) scale(1.5)")
-test("background: url(a.png), url(b.png)")
-test("font-family: Arial, Helvetica, sans-serif")
-```
-
-### 4. Edge Cases & Boundaries (MEDIUM PRIORITY)
-Create `test/integration/roundtrip/edge-cases.test.ts`
-
-**Why**: Edge cases often reveal parser/generator assumptions and bugs.
-
-```typescript
-test("width: 0")
-test("opacity: 0")
-test("opacity: 1")
-test("z-index: -1")
-test("z-index: 9999999")
-test("animation-iteration-count: 0")
-test("font-weight: 1")
-test("font-weight: 1000")
-test("line-height: 0")
-test("line-height: 999")
-```
-
-### 5. Unit Variations (MEDIUM PRIORITY)
-Expand existing tests to cover more units
-
-**Why**: CSS supports many units. Ensure parsers/generators handle all of them.
-
-```typescript
-test("width: 100vw")
-test("width: 50vh")
-test("width: 10vmin")
-test("width: 10vmax")
-test("font-size: 2rem")
-test("font-size: 1.5em")
-test("margin: calc(100% - 20px)")
-```
-
----
-
-## 🚀 Step-by-Step Process (Phase 2)
-
-### Step 1: Verify Phase 1 Baseline
-```bash
-cd /Users/alphab/Dev/LLM/DEV/b_value
-just test                    # Should show 3,576 tests passing
-pnpm test roundtrip          # Should show 100 tests passing
-```
-
-**Expected**:
-- ✅ 3,576 tests passing
-- ✅ 100 round-trip tests (16 files)
-- ✅ Coverage: 89.49%
-
-### Step 2: Start with Shorthand Properties (Highest Value)
-
-**2a. Investigate Available Shorthand Properties**
-```bash
-# Check what's implemented
-ls src/parse/background/ | grep -v test
-ls src/parse/border/ | grep -v test
-ls src/parse/animation/ | grep -v test
-ls src/parse/transition/ | grep -v test
-
-# Check for shorthand parsers
-grep -r "shorthand" src/parse/
-```
-
-**2b. Create Shorthand Test File**
-Create `test/integration/roundtrip/shorthand.test.ts`
-
-**Pattern** (slightly different from Phase 1):
-```typescript
-import { describe, expect, test } from "vitest";
-import * as BackgroundGenerate from "@/generate/background/background"; // shorthand
-import * as BackgroundParse from "@/parse/background/background";
-
-describe("Round-Trip: Shorthand Properties", () => {
-  describe("background shorthand", () => {
-    test("background: #fff", () => {
-      const p1 = BackgroundParse.parse("#fff");
-      expect(p1.ok).toBe(true);
-      if (!p1.ok) return;
-
-      const gen = BackgroundGenerate.generate(p1.value);
-      expect(gen.ok).toBe(true);
-      if (!gen.ok) return;
-
-      const p2 = BackgroundParse.parse(gen.value);
-      expect(p2.ok).toBe(true);
-      if (!p2.ok) return;
-
-      expect(p1.value).toEqual(p2.value);
+describe("cubicBezierSchema", () => {
+  test("accepts valid values", () => {
+    const result = cubicBezierSchema.safeParse({
+      type: "cubic-bezier",
+      x1: 0.25, y1: 0.1, x2: 0.25, y2: 1.0
     });
+    expect(result.success).toBe(true);
   });
+
+  test("rejects x1 > 1", () => {
+    const result = cubicBezierSchema.safeParse({
+      type: "cubic-bezier",
+      x1: 1.5, y1: 0, x2: 0, y2: 1
+    });
+    expect(result.success).toBe(false);
+  });
+
+  test("rejects NaN", () => { /* ... */ });
+  test("rejects Infinity", () => { /* ... */ });
 });
 ```
 
-**2c. Run Tests**
-```bash
-pnpm test shorthand
+### Layer 2: Parser Valid Tests
+**File**: `src/parse/animation/timing-function.valid.test.ts`  
+**Focus**: ALL CSS syntax variations from W3C/MDN spec
+
+```typescript
+describe("timing-function - valid syntax", () => {
+  test("ease", () => { /* ... */ });
+  test("linear", () => { /* ... */ });
+  test("cubic-bezier(0.25, 0.1, 0.25, 1.0)", () => { /* ... */ });
+  test("cubic-bezier with negative y (bounce)", () => { /* ... */ });
+  test("steps(4, end)", () => { /* ... */ });
+  test("steps(1)", () => { /* ... */ });
+  test("whitespace variations", () => { /* ... */ });
+  test("comma-separated list", () => { /* ... */ });
+});
 ```
 
-**If failures occur**: Follow Phase 1 protocol
-1. ✅ Check if side test exists
-2. ✅ Create comprehensive unit tests if missing
-3. ✅ Document in `KNOWN_LIMITATIONS.md`
-4. ✅ Fix bugs (don't hide)
+**~50 tests** covering all valid syntax
 
-### Step 3: Add Color Integration Tests
+### Layer 3: Parser Invalid Tests ⚡ MOST IMPORTANT
+**File**: `src/parse/animation/timing-function.invalid.test.ts`  
+**Focus**: Comprehensive error testing - **THIS FILE SHOULD BE 2-3X LARGER THAN VALID TESTS**
 
-Create `test/integration/roundtrip/color-complex.test.ts`
+```typescript
+describe("timing-function - invalid syntax", () => {
+  // cubic-bezier errors
+  test("x1 out of range (> 1)", () => { /* ... */ });
+  test("x1 out of range (< 0)", () => { /* ... */ });
+  test("too few arguments (3)", () => { /* ... */ });
+  test("too many arguments (5)", () => { /* ... */ });
+  test("missing commas", () => { /* ... */ });
+  test("invalid number format", () => { /* ... */ });
+  test("Infinity value", () => { /* ... */ });
+  test("NaN value", () => { /* ... */ });
+  test("missing closing paren", () => { /* ... */ });
+  test("empty function call", () => { /* ... */ });
 
-Focus on colors in different contexts:
-- Shadows
-- Borders
-- Backgrounds
-- Gradients
+  // steps errors
+  test("zero steps", () => { /* ... */ });
+  test("negative steps", () => { /* ... */ });
+  test("float steps", () => { /* ... */ });
+  test("invalid position keyword", () => { /* ... */ });
 
-### Step 4: Add Multiple Value Tests
-
-Create `test/integration/roundtrip/multiple-values.test.ts`
-
-Focus on comma-separated values:
-- Multiple shadows
-- Transform chains
-- Font families
-- Multiple backgrounds
-
-### Step 5: Add Edge Cases
-
-Create `test/integration/roundtrip/edge-cases.test.ts`
-
-Focus on boundary values:
-- Zero values
-- Maximum values
-- Negative values
-- Very large numbers
-
-### Step 6: Run Full Suite
-```bash
-just test
-just check
+  // general errors
+  test("empty string", () => { /* ... */ });
+  test("whitespace only", () => { /* ... */ });
+  test("unknown function", () => { /* ... */ });
+  test("trailing comma", () => { /* ... */ });
+});
 ```
 
-Ensure no regressions and all checks pass.
+**~100-150 tests** covering all failure paths
 
-### Step 7: Create Handover
-```bash
-mkdir -p .memory/archive/2025-10-27-roundtrip-phase2/
+### Layer 4: Generator Tests
+**File**: `src/generate/animation/timing-function.test.ts`  
+**Focus**: Valid IR → CSS, invalid IR rejection
 
-cat > .memory/archive/2025-10-27-roundtrip-phase2/HANDOVER.md << 'EOF'
-# Session Summary: Phase 2 - Integration Testing
-
-**Metrics**:
-- Coverage: [start] → [end]
-- Tests: [start] → [end]
-- Integration tests: +[N]
-
-**Work Completed**:
-[List test files and counts]
-
-**Next Steps**:
-[Phase 3 plan or remaining work]
-EOF
+```typescript
+describe("generate timing-function", () => {
+  test("valid IR generates CSS", () => { /* ... */ });
+  test("rejects invalid x1 > 1", () => { /* ... */ });
+  test("rejects NaN", () => { /* ... */ });
+});
 ```
 
-### Step 8: Update SESSION_NEXT.md
-Point to Phase 3 or remaining Phase 2 work.
+---
+
+## 🎯 Phase 2.1: Pilot Implementation (NEXT SESSION)
+
+**Goal**: Establish the pattern with ONE complete example  
+**Target**: `animation-timing-function` (most complex property)  
+**Estimated**: 2-3 hours, ~100-150 tests total
+
+### Steps
+
+1. **Fix Schema** (5 min)
+   - Update `cubicBezierSchema` to add range constraints: `x1: z.number().min(0).max(1)`
+   - Update `stepsSchema` if needed
+
+2. **Create Schema Tests** (20 min)
+   - Create `src/core/types/animation.test.ts`
+   - ~20 tests validating all schemas (cubicBezier, steps, linear)
+
+3. **Create Valid Parser Tests** (30 min)
+   - Create `src/parse/animation/timing-function.valid.test.ts`
+   - ~50 tests covering all valid CSS syntax from spec
+
+4. **Create Invalid Parser Tests** (60 min) ⚡ BIGGEST EFFORT
+   - Create `src/parse/animation/timing-function.invalid.test.ts`
+   - ~100-150 tests covering all error cases
+   - Validate error messages are clear
+
+5. **Update Generator Tests** (20 min)
+   - Update `src/generate/animation/timing-function.test.ts`
+   - Add validation tests
+
+6. **Document Pattern** (15 min)
+   - Create handover in `.memory/archive/2025-10-27-phase2-pilot/`
+   - Document the 4-layer pattern for future properties
+
+### File Organization Decision Needed
+
+**Option A** (directories):
+```
+src/parse/animation/
+  timing-function/
+    timing-function.ts
+    timing-function.valid.test.ts
+    timing-function.invalid.test.ts
+```
+
+**Option B** (flat):
+```
+src/parse/animation/
+  timing-function.ts
+  timing-function.valid.test.ts
+  timing-function.invalid.test.ts
+```
 
 ---
 
-## ⚠️ Phase 2 Challenges to Expect
+## 📊 Expected Impact After Phase 2.1 Pilot
 
-### Shorthand Properties Are Complex
-- May not be fully implemented
-- Often have multiple valid output formats
-- Parser/generator symmetry may be imperfect
-
-**Action**: Document any limitations in `KNOWN_LIMITATIONS.md`
-
-### Multiple Values Need Careful Handling
-- Order matters
-- Whitespace/comma formatting
-- Generators may normalize differently than input
-
-**Action**: Ensure test expects normalized output, not exact match
-
-### Color Functions in Context
-- Different contexts may serialize colors differently
-- Some contexts may not support all color functions
-
-**Action**: Test systematically across all contexts
+- **Tests**: 3,576 → ~3,700 (+100-150 for one property)
+- **Coverage**: 89.49% → likely small increase (error paths covered)
+- **Bugs Found**: Expect 3-5 schema/parser bugs in this one property
+- **Pattern Established**: Template for remaining 60+ properties
 
 ---
 
-## 📚 Required Reading
+## 🚀 Phase 2.2: Systematic Rollout (FUTURE SESSIONS)
 
-Before starting Phase 2:
-1. **`.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md`** - Phase 1 summary (THIS HANDOVER!)
-2. **`test/integration/roundtrip/README.md`** - Test failure protocol
-3. **`test/integration/KNOWN_LIMITATIONS.md`** - Current known issues
+After pilot, apply pattern to all properties in priority order:
 
----
+1. **Animation** (6 properties: timing-function ✅, duration, delay, iteration-count, direction, fill-mode)
+2. **Color** functions (rgb, hsl, oklch, hwb, lab, lch)
+3. **Transform** functions (translate, rotate, scale, skew, matrix)
+4. **Filter** functions (blur, brightness, contrast, etc.)
+5. **Gradient** functions (linear-gradient, radial-gradient, conic-gradient)
+6. **Layout** properties (width, height, margin, padding, etc.)
+7. Remaining properties
 
-## ✅ Phase 2 Success Criteria
-
-- [ ] 30-50 new integration tests added
-- [ ] Shorthand properties covered (background, border, animation, transition, flex, padding, margin)
-- [ ] Color functions tested in multiple contexts
-- [ ] Multiple values tested (shadows, transforms, fonts)
-- [ ] Edge cases covered (0, negative, extreme values)
-- [ ] All failures investigated (not hidden)
-- [ ] All limitations documented
-- [ ] Full suite still passing (no regressions)
-- [ ] Handover created in `.memory/archive/2025-10-27-roundtrip-phase2/`
-- [ ] Phase 3 plan created in SESSION_NEXT.md
+**Estimated**: 10-15 properties per session, 5-10 sessions total
 
 ---
 
-## 🎯 Current Baseline (Start of Phase 2)
+## ✅ Phase 2.1 Pilot Success Criteria
+
+- [ ] `cubicBezierSchema` fixed with range constraints
+- [ ] `src/core/types/animation.test.ts` created (~20 tests)
+- [ ] `timing-function.valid.test.ts` created (~50 tests)
+- [ ] `timing-function.invalid.test.ts` created (~100-150 tests) ⚡ LARGEST
+- [ ] Generator tests updated with validation
+- [ ] All tests passing (no regressions)
+- [ ] 3-5 bugs discovered and fixed
+- [ ] Pattern documented in handover
+- [ ] File organization decided for rollout
+
+---
+
+## 📚 Key Documents
+
+**Read these**:
+1. **`.memory/TESTING_STRATEGY_PHASE2.md`** - Full comprehensive strategy (~700 lines) ⚡ READ THIS
+2. **`.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md`** - Phase 1 completion summary
+3. **CSS Easing Spec**: https://www.w3.org/TR/css-easing-1/
+4. **MDN timing-function**: https://developer.mozilla.org/en-US/docs/Web/CSS/easing-function
+
+---
+
+## ❓ Open Questions for User
+
+1. **File Organization**: Directory structure (Option A) or flat (Option B)?
+2. **Naming Convention**: `.valid.test.ts` / `.invalid.test.ts` OR `.spec.test.ts` / `.error.test.ts`?
+3. **Scope**: Backfill ALL existing properties or only prioritize high-value ones?
+4. **Start Now**: Begin Phase 2.1 pilot with `animation-timing-function` immediately?
+
+---
+
+## 💡 Key Insights from User
+
+- **"This is going to be tedious but it has to be done"** - No shortcuts
+- **Shorthand is NOT our job** - That's `b_short` library
+- **Quality over quantity** - Tests should be living spec documentation
+- **Error tests are critical** - We should have MORE failure tests than success tests
+- **Schema constraints matter** - Loose schemas lead to silent bugs
+
+---
+
+## 🎯 Current State
 
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
-just test                    # 3,576 tests
-pnpm test roundtrip          # 100 tests (16 files)
+just test                    # 3,576 tests passing
+git status                   # Clean working directory
+git branch --show-current    # coverage/90-percent
 ```
 
-**Expected**:
-- ✅ 3,576 tests passing
-- ✅ 100 round-trip tests
-- ✅ Coverage: 89.49%
-- ✅ Branch: coverage/90-percent
+**Ready to start Phase 2.1 pilot!**
 
 ---
 
-## 💡 Tips for Phase 2
-
-1. **Shorthand properties are tricky** - Expect some to be incomplete
-2. **Document liberally** - Integration tests reveal system-wide patterns
-3. **Start simple** - Test basic shorthand before complex ones
-4. **Colors everywhere** - Test color functions in every context
-5. **Order matters** - Multiple values often have significance in order
-6. **Normalization is OK** - Generated output may differ from input (that's fine!)
-
----
-
-## 📊 Progress Tracking
-
-### Phases Overview
-- ✅ **Phase 1**: Basic round-trip (100 tests) - COMPLETE
-- 🎯 **Phase 2**: Integration & shorthand (30-50 tests) - CURRENT
-- 📋 **Phase 3**: Property coverage expansion (TBD)
-- 📋 **Phase 4**: 90% coverage goal (TBD)
-
-### Phase 2 Velocity Estimate
-- **Expected**: 30-50 tests in 30-45 minutes
-- **Shorthand**: 10-15 tests
-- **Color integration**: 8-10 tests
-- **Multiple values**: 8-10 tests
-- **Edge cases**: 8-10 tests
-- **Unit variations**: 5-8 tests
-
----
-
-## 🔍 Quick Reference
-
-### Investigation Commands
-```bash
-# Find shorthand properties
-grep -r "shorthand" src/parse/
-grep -r "shorthand" src/generate/
-
-# Check implementation
-ls src/parse/background/
-ls src/generate/background/
-
-# Find all properties
-ls src/parse/*/*.ts | grep -v test | wc -l
-
-# Run specific tests
-pnpm test shorthand
-pnpm test color-complex
-pnpm test roundtrip
-```
-
-### Shorthand Test Pattern
-```typescript
-import * as PropertyGenerate from "@/generate/category/property-shorthand";
-import * as PropertyParse from "@/parse/category/property-shorthand";
-
-test("shorthand: value", () => {
-  const p1 = PropertyParse.parse("value");
-  expect(p1.ok).toBe(true);
-  if (!p1.ok) return;
-
-  const gen = PropertyGenerate.generate(p1.value);
-  expect(gen.ok).toBe(true);
-  if (!gen.ok) return;
-
-  const p2 = PropertyParse.parse(gen.value);
-  expect(p2.ok).toBe(true);
-  if (!p2.ok) return;
-
-  expect(p1.value).toEqual(p2.value);
-});
-```
-
----
-
-## 🎖️ Phase 1 Legacy
-
-Phase 1 established:
-- ✅ Test pattern for round-trip tests
-- ✅ Failure investigation protocol
-- ✅ Limitation documentation system
-- ✅ 100 solid baseline tests
-- ✅ Coverage across 16 categories
-
-**Phase 2 builds on this foundation with more complex scenarios.**
-
----
-
-**Last Updated**: 2025-10-27  
-**Next Agent**: Ready to begin Phase 2!  
-**Status**: 🟢 Green light - Phase 1 complete, baseline solid  
-**Previous Session**: `.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md`
+**Last Updated**: 2025-10-27 (Context updated after running out of space)  
+**Next Agent**: Start Phase 2.1 pilot or discuss open questions  
+**Status**: 🟢 Strategy approved, ready to implement  
+**Previous Sessions**: 
+- `.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md` (Phase 1 complete)
+- `.memory/TESTING_STRATEGY_PHASE2.md` (Comprehensive strategy document)
