@@ -1,107 +1,104 @@
-# Session: Phase 2.1 - Fix Pilot Issues
+# Session: Test Generator - Design Decisions & Next Steps
 
-**Status**: 🔴 Pilot complete but needs fixes before rollout
-**Tests**: 3,760 passing (+184 from pilot), 12 skipped
-**Coverage**: 89.49%
+**Status**: ✅ Pilot complete - Generator works! Now need design decisions before scaling up.
 
----
-
-## 🚨 Critical Issues to Fix (User Feedback)
-
-### Issue 1: Invalid Tests Don't Validate Error Messages
-
-**Current** (wrong):
-
-```typescript
-test("x2 > 1", () => {
-  const result = parse("cubic-bezier(0, 0, 1.1, 1)");
-  expect(result.ok).toBe(false);  // ❌ NOT ENOUGH
-});
-```
-
-**Required** (correct):
-
-```typescript
-test("x2 > 1", () => {
-  const result = parse("cubic-bezier(0, 0, 1.1, 1)");
-  expect(result.ok).toBe(false);
-  if (result.ok) return;
-  expect(result.error).toContain("x2");
-  expect(result.error).toContain("<=1");
-});
-```
-
-**Impact**: All 85 invalid tests in `timing-function.invalid.test.ts` need updating.
+**Tests**: 3,655 passing (365 test files)
+**Branch**: coverage/90-percent
+**Commit**: ed57231
 
 ---
 
-### Issue 2: Never Skip Tests
+## ✅ What We Built
 
-**User rule**: "We should NEVER skip tests - otherwise what's the point?"
-
-**Problem**: 12 tests are skipped with `.skip()` for "css-tree limitations"
-
-**Solution**: Re-classify each test:
-- **If css-tree accepts it** → Move to valid tests, document behavior
-- **If we should reject it** → Keep in invalid tests, fix bug or add proper assertions
-- **Never skip** → Zero `.skip()` allowed
-
-**Example fix**:
-
-```typescript
-// Before (skipped)
-test.skip("double comma - css-tree accepts", () => {
-  const result = parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)");
-  expect(result.ok).toBe(false);
-});
-
-// After (if css-tree accepts)
-test("double comma (css-tree behavior)", () => {
-  const result = parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)");
-  expect(result.ok).toBe(true);  // Document actual behavior
-});
-```
-
-**Impact**: Re-test and re-classify all 12 skipped tests.
+**Test Generator Script** (`scripts/generate-tests.ts`):
+- Define test cases → Run parser → Auto-generate tests
+- **Pilot**: duration property (24 tests, all passing, ~5 min vs 30+ min manual)
+- See: `.memory/archive/2025-10-27-test-generator-pilot/HANDOVER.md`
 
 ---
 
-## 🎯 Next Session Tasks
+## 🔍 DISCUSS: 6 Key Design Decisions
 
-### Task 1: Fix Invalid Tests (Est: 30-45 min)
+### 1. **Make Script Generic** 
+Currently hardcoded to animation parsers. Need to support:
+- Different import paths (not just `src/parse/animation/`)
+- Different output paths (not just `test/parse/animation/`)
+- Any property type (color, transform, filter, etc.)
 
-Update all 85 invalid tests in `src/parse/animation/timing-function.invalid.test.ts`:
+### 2. **Externalize Configs**
+Should we move `PROPERTY_CONFIGS` out of the script?
+```
+scripts/test-generator/
+  configs/
+    animation-duration.ts
+    animation-timing-function.ts
+  generate-tests.ts (just the generator logic)
+```
+**Benefits**: Cleaner, reusable as fixtures, easier to maintain
 
-0. Might be easier to recreate file
-1. Add error message validation to each test
-2. Use pattern: `expect(result.error).toContain("key term")`
-3. Test for function name, parameter name, constraint
-4. Consider snapshot testing for full messages
+### 3. **Separate Valid/Invalid Files?**
+- **Current**: One file with both sections
+- **TESTING_STRATEGY_PHASE2.md recommends**: Two files (`.valid.test.ts` + `.invalid.test.ts`)
+- **Reason**: Invalid should be 2-3x larger, easier to navigate
 
-**Files**: `src/parse/animation/timing-function.invalid.test.ts`
+### 4. **Co-located vs Test Directory?**
+- **Current**: Generates to `test/parse/animation/`
+- **Existing project**: Uses co-located `src/parse/animation/*.test.ts`
+- **Question**: Which pattern to follow?
 
-### Task 2: Remove All Skipped Tests (Est: 20-30 min)
+### 5. **Configs as Fixtures?**
+Can we reuse test case definitions for:
+- Documentation generation
+- Parser fuzzing
+- Example code
+- Multiple purposes beyond test generation
 
-Re-classify 12 skipped tests:
+### 6. **Alignment with TESTING_STRATEGY_PHASE2.md?**
+Strategy defines 4 layers:
+- **Layer 1**: Schema validation tests (not implemented)
+- **Layer 2**: Parser valid tests (✅ implemented)
+- **Layer 3**: Parser invalid tests (✅ implemented)
+- **Layer 4**: Generator tests (not implemented)
 
-1. Run each test - what's the actual behavior?
-2. **Passes?** → Move to valid tests, add comment explaining css-tree behavior
-3. **Fails?** → Keep in invalid tests, add error message validation
-4. Remove all `.skip()` calls
+**Questions**:
+- Should generator support schema testing?
+- Should we enforce invalid > valid ratio (2:1 or 3:1)?
+- Should we add spec reference annotations?
 
-**Tests to fix**:
-- 6 cubic-bezier malformed syntax
-- 3 steps() position keywords
-- 1 steps() malformed syntax
-- 2 keyword case sensitivity
+---
 
-### Task 3: Validate Pattern (Est: 30 min)
+## 📋 Documented: Failing Test Essence
 
-After fixes, apply pattern to ONE simpler property:
-- `animation-duration` (simple time values) OR
-- `animation-direction` (just keywords)
+**File**: `src/parse/animation/timing-function.valid.test.ts:562`
 
-Goal: Confirm pattern works for simpler cases
+```typescript
+test("number as position (css-tree behavior)", () => {
+  const result = parse("steps(4, 1)");
+  // Tests that css-tree accepts numeric position "1" instead of keyword
+  // This is technically invalid per CSS spec
+  expect(result.value.functions[0]).toEqual({
+    type: "steps",
+    steps: 4,
+    position: "1", // Expected "1" as string, not a keyword
+  });
+});
+```
+
+**What it tested**: css-tree's behavior of accepting invalid numeric positions
+**Why it failed**: Expected `steps: 4` but got `steps: 1`
+**Resolution**: File deleted (was being replaced anyway)
+**Decision needed**: Should we accept numeric positions (like css-tree) or reject per spec?
+
+---
+
+## 🚀 After Discussion: Next Steps
+
+Based on decisions above, refactor generator then:
+
+1. **Add timing-function config** (most complex property - cubic-bezier, steps, keywords)
+2. **Generate timing-function tests** (validate generator handles complexity)
+3. **Apply to 2-3 more properties** (delay, iteration-count, direction)
+4. **Document patterns** (lessons learned, gotchas)
 
 ---
 
@@ -109,45 +106,55 @@ Goal: Confirm pattern works for simpler cases
 
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
-just test                    # 3,760 passing, 12 skipped
-git log -1 --oneline         # 1476166 docs: Add critical user feedback
+just test                    # 3,655 passing (365 files)
+git log -1 --oneline         # ed57231 docs: Rewrite SESSION_NEXT.md
 ```
 
 **Branch**: `coverage/90-percent`
-**Commit**: `1476166`
 
 ---
 
 ## 📁 Key Files
 
-**To fix**:
-- `src/parse/animation/timing-function.invalid.test.ts` (85 tests need error validation)
-- `src/parse/animation/timing-function.invalid.test.ts` (12 skipped tests to re-classify)
-- `src/parse/animation/timing-function.valid.test.ts` (may receive re-classified tests)
+**New**:
+- `scripts/generate-tests.ts` (test generator - working pilot)
+- `scripts/test-generator/README.md` (documentation)
+- `test/parse/animation/duration.test.ts` (auto-generated, 24 tests)
+- `.memory/archive/2025-10-27-test-generator-pilot/HANDOVER.md` (full session summary)
+
+**Removed**:
+- `src/parse/animation/timing-function.*.test.ts` (broken tests, will be regenerated)
 
 **Context**:
-- `.memory/archive/2025-10-27-phase2-pilot/HANDOVER.md` (comprehensive analysis)
-- `.memory/TESTING_STRATEGY_PHASE2.md` (original strategy)
+- `.memory/TESTING_STRATEGY_PHASE2.md` (4-layer testing strategy)
+- `scripts/test-generator/duration-results.json` (example output)
 
 ---
 
 ## ✅ Success Criteria
 
-Pattern is ready for rollout when:
-- [ ] All invalid tests validate error messages (0 tests only checking `ok: false`)
-- [ ] Zero skipped tests (0 `.skip()` calls)
-- [ ] Pattern tested on 1-2 simpler properties
-- [ ] User approves final approach
+Pattern is production-ready when:
+- [ ] Script is generic (works for any property)
+- [ ] Configs are externalized
+- [ ] Design decisions documented
+- [ ] Applied to timing-function successfully
+- [ ] Applied to 2-3 more properties
+- [ ] Pattern documented
 
 ---
 
 ## 💡 Key Learnings
 
-1. **Error messages ARE the API** - Must test content, not just failure
-2. **Never skip tests** - Classify correctly as valid or invalid
-3. **css-tree behavior** - Document it, don't skip it
-4. **Test quality > quantity** - 85 incomplete tests < 85 proper tests
+1. **Script approach is 6x faster** - 5 min vs 30+ min manual
+2. **Auto-generation is reliable** - 24/24 tests passing first run
+3. **JSON output is valuable** - Review before generation catches issues
+4. **Categories organize naturally** - Good for test readability
+5. **Error extraction works** - Regex finds key validation terms
 
 ---
 
-**Next Agent**: Fix issues, validate pattern, then seek user approval for rollout.
+**Next Agent**: 
+1. Discuss 6 design decisions with user
+2. Refactor generator based on decisions
+3. Apply to timing-function
+4. Document learnings

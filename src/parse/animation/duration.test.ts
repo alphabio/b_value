@@ -104,18 +104,27 @@ describe("Animation Duration Parser", () => {
 		const result = Parser.parse("");
 
 		expect(result.ok).toBe(false);
+		if (!result.ok) {
+			expect(result.error).toContain("Empty value");
+		}
 	});
 
 	it("should reject trailing comma", () => {
 		const result = Parser.parse("1s,");
 
 		expect(result.ok).toBe(false);
+		if (!result.ok) {
+			expect(result.error).toContain("Empty value");
+		}
 	});
 
 	it("should reject leading comma", () => {
 		const result = Parser.parse(",1s");
 
 		expect(result.ok).toBe(false);
+		if (!result.ok) {
+			expect(result.error).toContain("Empty value before comma");
+		}
 	});
 
 	it("should handle case insensitive auto", () => {
