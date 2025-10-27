@@ -1,8 +1,8 @@
 # Schema Improvement Master Plan
 
 **Date**: 2025-10-27
-**Status**: ✅ Phase 1 & 2 COMPLETE | 📋 Phase 3 READY
-**Commits**: 27f887e (Phase 1), 88d14b5 (Phase 2)
+**Status**: ✅✅✅ ALL PHASES COMPLETE! 🎉
+**Commits**: 27f887e (Phase 1), 88d14b5 (Phase 2), 995af12 (Phase 3 T1), c68c75b (Phase 3 T2), 852b76d (Phase 3 T3-4)
 
 ---
 
@@ -31,40 +31,41 @@ Critical types for generate validation work:
 
 ---
 
-## 📋 Phase 3: Remaining Core Types (13 files)
+## ✅ Phase 3: Core Types (COMPLETE - 13 files)
 
-**Priority tiers** for remaining work:
+**All tiers completed**:
 
-### Tier 1: High Usage (Do Next)
-- [ ] `transform.ts` - Has discriminatedUnion, add custom errors
-- [ ] `color.ts` - Color space unions
-- [ ] `length-percentage.ts` - Common utility type
+### ✅ Tier 1: High Usage (COMPLETE - 995af12)
+- [x] `transform.ts` - discriminatedUnion with custom errors
+- [x] `color.ts` - All color space unions improved
+- [x] `length-percentage.ts` - Common utility type
 
-### Tier 2: Visual Properties
-- [ ] `border.ts`
-- [ ] `outline.ts`
-- [ ] `clip-path.ts`
-- [ ] `position-layer.ts` - Has discriminatedUnion
+### ✅ Tier 2: Visual Properties (COMPLETE - c68c75b)
+- [x] `border.ts` - border-style union
+- [x] `outline.ts` - outline-style union
+- [x] `clip-path.ts` - clipPathSchema union
+- [x] `position-layer.ts` - positionLayerSchema union
 
-### Tier 3: Layout
-- [ ] `flexbox.ts`
-- [ ] `grid-line.ts`
-- [ ] `layout.ts`
-- [ ] `position.ts`
+### ✅ Tier 3: Layout (COMPLETE - 852b76d)
+- [x] `flexbox.ts` - flex-basis, gap unions
+- [x] `grid-line.ts` - gridLineSchema union
+- [x] `layout.ts` - 7 unions (z-index, width/height, min/max variants)
+- [x] `position.ts` - positionValueSchema union
 
-### Tier 4: Misc
-- [ ] `ratio.ts`
-- [ ] `typography.ts`
+### ✅ Tier 4: Misc (COMPLETE - 852b76d)
+- [x] `ratio.ts` - ratioSchema union
+- [x] `typography.ts` - 5 unions (font-size, font-weight, line-height, letter-spacing, vertical-align)
 
 ---
 
 ## 📊 Overall Progress
 
-**Completed**: 8 files (6 units + 2 types)
-**Remaining**: 13 type files
+**Completed**: ✅ **21 files** (6 units + 15 types)
+**Remaining**: 0 files - ALL DONE! 🎉
 **Parked**: 90+ keyword files (not needed)
 
 **Tests**: All 3,723 passing ✅
+**Total Unions Improved**: 30+ across all phases
 
 ---
 
@@ -96,11 +97,15 @@ export const schema = z.union(
 
 ## 🚀 Next Steps
 
-**Option A**: Continue with Tier 1 (transform, color, length-percentage)
-**Option B**: Take a break, resume Phase 3 later
-**Option C**: Focus on generate function validation (use improved schemas)
+**Schema improvements: COMPLETE!** ✅
 
-**Recommendation**: Take stock of progress and decide if Phase 3 is needed now or later.
+**Recommended**: Apply improved schemas to generate function validation
+- Duration already uses Zod validation ✅
+- 6 remaining animation properties need validation
+- All schemas provide clear error messages now
+- Infrastructure (`zodErrorToIssues`) ready to use
+
+**See**: `.memory/SESSION_NEXT.md` and `.memory/archive/2025-10-27-schema-improvements/COMPLETION.md`
 
 ---
 
@@ -109,9 +114,43 @@ export const schema = z.union(
 1. **Fast iteration** - ~5-10 mins per file once pattern established
 2. **Zero test breakage** - Schemas are backwards compatible
 3. **Clear value** - Error messages went from confusing to helpful
-4. **Generate validation ready** - Animation/transition schemas ready for use
+4. **Generate validation ready** - All improved schemas ready for validation use
+5. **Consistent pattern** - Single errorMap approach works across all union types
 
 ---
 
-**Total session time**: ~1.5 hours for 8 files (Phase 1 + 2)
-**Estimated remaining**: ~3-4 hours for 13 files (Phase 3)
+## 📈 Final Stats
+
+**Total files improved**: 21
+**Total sessions**: 3 (Phase 1, Phase 2, Phase 3)
+**Total session time**: ~4 hours for all phases
+**Total commits**: 5
+- 27f887e - Phase 1 units
+- 88d14b5 - Phase 2 animation/transition
+- 995af12 - Phase 3 Tier 1
+- c68c75b - Phase 3 Tier 2
+- 852b76d - Phase 3 Tier 3-4
+
+**Tests**: 3,723 passing (all phases)
+**Zero regressions**: All changes backwards compatible
+
+---
+
+## 🎯 Impact Summary
+
+**Before**: Confusing multi-line union errors
+```
+Expected literal "auto", Expected object { value: number, unit: "px" }, Expected object...
+```
+
+**After**: Single, clear error messages
+```
+Expected <length-percentage> | auto | min-content | max-content | fit-content
+```
+
+**Files Ready for Validation**: All 21 improved schemas
+**Next Use Case**: Generate function validation with clear error reporting
+
+---
+
+**Initiative Status**: ✅ **COMPLETE - 2025-10-27**
