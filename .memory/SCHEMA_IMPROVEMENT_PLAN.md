@@ -1,128 +1,106 @@
 # Schema Improvement Master Plan
 
 **Date**: 2025-10-27
-**Status**: 🚀 IN PROGRESS - Phase 1: Units
-**Goal**: Apply custom union error messages to improve validation DX
+**Status**: ✅ Phase 1 COMPLETE | 🚀 Phase 2 READY
+**Commit**: 27f887e
 
 ---
 
-## 🎯 Two Patterns to Apply
+## 📊 Progress Summary
 
-### Pattern 1: Custom Union Error Messages ✅
-**Example**: `src/core/units/time.ts`
+### ✅ Phase 1: Units (COMPLETE)
+- [x] `angle.ts` - 4 errors → 1 clear message
+- [x] `frequency.ts` - 2 errors → 1 clear message
+- [x] `length.absolute.ts` - 7 errors → 1 clear message
+- [x] `length.font.ts` - 12 errors → 1 clear message
+- [x] `length.viewport.ts` - 24 errors → 1 grouped message
+- [x] `time.ts` - Already had custom error ✅
+- [x] `percentage.ts` - Single literal, no union (N/A)
 
-```typescript
-export const timeUnitSchema = z.union(
-  [
-    z.literal("s").describe("seconds - canonical time unit"),
-    z.literal("ms").describe("milliseconds - 1000 milliseconds in a second"),
-  ],
-  {
-    error: (issue) => 
-      issue.code === "invalid_union" 
-        ? 'Invalid unit. Expected "s" or "ms".' 
-        : "Invalid input"
-  }
-).describe("Time units specify duration or delay...");
-```
+**Result**: All unit schemas now have custom error messages!
 
-### Pattern 2: discriminatedUnion for Type Unions ✅
-**Example**: `src/generate/animation/duration.ts`
-
-```typescript
-export const animationDurationSchema = z.object({
-  kind: z.literal("animation-duration"),
-  durations: z.array(
-    z.discriminatedUnion("type", [autoSchema, timeExtendedSchema])
-  ).min(1),
-});
-```
-
----
-
-## 📊 Audit Results
-
-- **Total union schemas**: 15 in core/types + 6 in core/units
-- **With custom errors**: 1 (time.ts)
-- **Without custom errors**: 14+ types, 5 units
-- **Using discriminatedUnion**: 4 types (animation, position-layer, size-layer, transform)
-- **Keywords**: 90+ files - PARKED (simple enums, errors already clear)
-
----
-
-## ��️ Execution Plan
-
-### Phase 1: Units (Priority: HIGH) ⏳ IN PROGRESS
-**Goal**: Complete unit schemas with custom errors
-**Estimated**: 1-2 hours
-
-- [ ] `angle.ts` - Add custom error to angleUnitSchema
-- [ ] `frequency.ts` - Add custom error to frequencyUnitSchema
-- [ ] `length.absolute.ts` - Check and improve if needed
-- [ ] `length.font.ts` - Check and improve if needed
-- [ ] `length.viewport.ts` - Check and improve if needed
-- [ ] `percentage.ts` - Check if has unions
-
-### Phase 2: Animation & Transition Types (Priority: HIGH)
-**Goal**: Support generate validation work
-**Estimated**: 2-3 hours
-
+### 🚀 Phase 2: Animation & Transition Types (NEXT)
 - [ ] `animation.ts` - Add custom errors to unions
 - [ ] `transition.ts` - Add custom errors to unions
 
-### Phase 3: Remaining Core Types (Priority: MEDIUM)
-**Goal**: Comprehensive type improvements
-**Estimated**: 4-6 hours (can spread across sessions)
-
-- [ ] `transform.ts` - Add custom errors (has discriminatedUnion)
-- [ ] `color.ts` - Add custom errors to color space unions
-- [ ] `border.ts` - Add custom errors
-- [ ] `outline.ts` - Add custom errors
-- [ ] `clip-path.ts` - Add custom errors
-- [ ] `position-layer.ts` - Add custom errors
-- [ ] `flexbox.ts` - Add custom errors
-- [ ] `grid-line.ts` - Add custom errors
-- [ ] `layout.ts` - Add custom errors
-- [ ] `length-percentage.ts` - Add custom errors
-- [ ] `position.ts` - Add custom errors
-- [ ] `ratio.ts` - Add custom errors
-- [ ] `typography.ts` - Add custom errors
-
-### Phase 4: Apply to Generate Functions (Priority: HIGH)
-**Goal**: Use improved schemas in validation
-**Estimated**: Done as types are improved
-
-This happens automatically as we improve schemas - generate functions already import them.
+### 📋 Phase 3: Remaining Core Types
+- [ ] 13 type files remaining (see full list below)
 
 ---
 
-## ✅ Success Criteria
+## 🎯 Established Pattern
 
-- [ ] All unit schemas have custom error messages
-- [ ] Animation/transition types improved (for generate work)
-- [ ] All 3,723+ tests still passing
-- [ ] Cleaner error messages in failure tests
-- [ ] Pattern established for future schemas
+```typescript
+export const unitSchema = z.union(
+  [
+    z.literal("unit1").describe("description"),
+    z.literal("unit2").describe("description"),
+  ],
+  {
+    error: (issue) =>
+      issue.code === "invalid_union"
+        ? 'Clear error message listing all valid units'
+        : "Invalid input"
+  }
+).describe("Overall purpose");
+```
 
----
-
-## 📝 Progress Tracking
-
-### Completed
-- ✅ Pattern established (time.ts, duration.ts)
-- ✅ Audit completed
-- ✅ Master plan created
-- ✅ Keywords parked (not needed)
-
-### In Progress
-- ⏳ Phase 1: Units - Starting with angle.ts
-
-### Timeline
-- Phase 1: 1-2 hours (6 files)
-- Phase 2: 2-3 hours (2 files)
-- Phase 3: 4-6 hours (13 files, spread across sessions)
-- **Total**: ~8-12 hours
+**Benefits Achieved**:
+- ✅ Single clear error instead of N "expected X" messages
+- ✅ Better DX for users debugging validation
+- ✅ Cleaner test assertions
+- ✅ All 3,723 tests still passing
 
 ---
 
-**Current Task**: Improve `angle.ts` schema with custom error message
+## 📋 Remaining Work
+
+### Phase 2: Animation & Transition (Priority: HIGH)
+**Estimated**: 2-3 hours
+
+These already use discriminatedUnion, just need custom errors on any remaining simple unions.
+
+- [ ] `src/core/types/animation.ts`
+- [ ] `src/core/types/transition.ts`
+
+### Phase 3: Other Core Types (Priority: MEDIUM)  
+**Estimated**: 4-6 hours (spread across sessions)
+
+- [ ] `transform.ts` - Has discriminatedUnion, add custom errors
+- [ ] `color.ts` - Color space unions
+- [ ] `border.ts`
+- [ ] `outline.ts`
+- [ ] `clip-path.ts`
+- [ ] `position-layer.ts` - Has discriminatedUnion
+- [ ] `flexbox.ts`
+- [ ] `grid-line.ts`
+- [ ] `layout.ts`
+- [ ] `length-percentage.ts`
+- [ ] `position.ts`
+- [ ] `ratio.ts`
+- [ ] `typography.ts`
+
+### Keywords: PARKED
+- 90+ keyword files are simple enums
+- Errors already clear ("expected 'visible'")
+- Not worth the effort
+
+---
+
+## 🎓 Lessons Learned
+
+1. **Units first was right** - High impact, quick wins, foundational
+2. **Pattern is easy to apply** - Takes ~5-10 mins per file
+3. **viewport.ts taught us** - For many options, group by category in error message
+4. **Tests just work** - No test changes needed, schemas are backwards compatible
+
+---
+
+## 🚀 Next Action
+
+Start Phase 2 with `animation.ts`:
+1. View current unions
+2. Identify which need custom errors
+3. Apply pattern
+4. Test and commit
+

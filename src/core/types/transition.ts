@@ -87,11 +87,19 @@ export const transitionPropertySchema = z.object({
 	kind: z.literal("transition-property"),
 	properties: z
 		.array(
-			z.union([
-				z.object({ type: z.literal("none") }),
-				z.object({ type: z.literal("all") }),
-				z.object({ type: z.literal("identifier"), value: z.string() }),
-			]),
+			z.union(
+				[
+					z.object({ type: z.literal("none") }),
+					z.object({ type: z.literal("all") }),
+					z.object({ type: z.literal("identifier"), value: z.string() }),
+				],
+				{
+					error: (issue) =>
+						issue.code === "invalid_union"
+							? 'Invalid transition property. Expected { type: "none" }, { type: "all" }, or { type: "identifier", value: <string> }.'
+							: "Invalid input",
+				},
+			),
 		)
 		.min(1),
 });
