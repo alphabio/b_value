@@ -37,7 +37,6 @@ describe("parse/transition/delay - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-delay: Expected time dimension, got: Number");
 		});
-
 	});
 
 	describe("invalid-keyword", () => {
@@ -61,7 +60,6 @@ describe("parse/transition/delay - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-delay: Expected time dimension, got: Identifier");
 		});
-
 	});
 
 	describe("invalid-empty", () => {
@@ -71,7 +69,6 @@ describe("parse/transition/delay - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-delay: Empty value");
 		});
-
 	});
 
 	describe("invalid-comma", () => {
@@ -95,7 +92,5 @@ describe("parse/transition/delay - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-delay: Empty value before comma");
 		});
-
 	});
-
 });

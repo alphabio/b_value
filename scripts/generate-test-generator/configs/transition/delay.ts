@@ -1,13 +1,13 @@
 /**
- * Test cases for animation-delay generator
+ * Test cases for transition-delay generator
  * 
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationDelay } from "@/core/types/index.js";
+import type { TransitionDelay } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
-	input: AnimationDelay | any;
+	input: TransitionDelay | any;
 	expected: string;
 	description: string;
 	category: string;
@@ -28,16 +28,16 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "delay",
-	module: "animation",
-	sourceFile: "src/generate/animation/delay.ts",
-	importPath: "../src/generate/animation/delay.js",
-	parseImportPath: "../src/parse/animation/delay.js",
-	outputPath: "src/generate/animation/delay.test.ts",
+	module: "transition",
+	sourceFile: "src/generate/transition/delay.ts",
+	importPath: "../src/generate/transition/delay.js",
+	parseImportPath: "../src/parse/transition/delay.js",
+	outputPath: "src/generate/transition/delay.test.ts",
 	cases: [
 		// Valid cases - basic time values
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 1, unit: "s" }]
 			},
 			expected: "1s",
@@ -48,7 +48,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 500, unit: "ms" }]
 			},
 			expected: "500ms",
@@ -61,7 +61,7 @@ export const config: PropertyConfig = {
 		// Valid cases - edge values
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 0, unit: "s" }]
 			},
 			expected: "0s",
@@ -75,7 +75,7 @@ export const config: PropertyConfig = {
 		// Negative delays are valid in CSS and make animation start partway through
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: -1, unit: "s" }]
 			},
 			expected: "-1s",
@@ -86,7 +86,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: -500, unit: "ms" }]
 			},
 			expected: "-500ms",
@@ -99,7 +99,7 @@ export const config: PropertyConfig = {
 		// Valid cases - decimal values
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 0.5, unit: "s" }]
 			},
 			expected: "0.5s",
@@ -110,7 +110,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 1.5, unit: "s" }]
 			},
 			expected: "1.5s",
@@ -121,7 +121,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 0.25, unit: "ms" }]
 			},
 			expected: "0.25ms",
@@ -134,7 +134,7 @@ export const config: PropertyConfig = {
 		// Valid cases - large values
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 10000, unit: "s" }]
 			},
 			expected: "10000s",
@@ -147,7 +147,7 @@ export const config: PropertyConfig = {
 		// Valid cases - multiple delays
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [
 					{ value: 1, unit: "s" },
 					{ value: 500, unit: "ms" }
@@ -161,7 +161,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [
 					{ value: 0, unit: "s" },
 					{ value: 1, unit: "s" },
@@ -197,7 +197,7 @@ export const config: PropertyConfig = {
 		// Invalid cases - invalid units
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 1, unit: "px" as any }]
 			},
 			expected: "",
@@ -208,7 +208,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 1, unit: "em" as any }]
 			},
 			expected: "",
@@ -221,7 +221,7 @@ export const config: PropertyConfig = {
 		// Invalid cases - invalid value types
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: "oops" as any, unit: "s" }]
 			},
 			expected: "",
@@ -232,7 +232,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: null as any, unit: "s" }]
 			},
 			expected: "",
@@ -245,7 +245,7 @@ export const config: PropertyConfig = {
 		// Invalid cases - missing fields
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ unit: "s" } as any]
 			},
 			expected: "",
@@ -256,7 +256,7 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: [{ value: 1 } as any]
 			},
 			expected: "",
@@ -269,7 +269,7 @@ export const config: PropertyConfig = {
 		// Invalid cases - empty array
 		{
 			input: {
-				kind: "animation-delay",
+				kind: "transition-delay",
 				delays: []
 			},
 			expected: "",

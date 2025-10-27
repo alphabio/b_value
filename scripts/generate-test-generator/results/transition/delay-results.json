@@ -48,57 +48,31 @@
     "description": "negative delay",
     "category": "valid-negative",
     "output": {
-      "ok": false,
-      "issues": [
-        {
-          "code": "invalid-ir",
-          "severity": "error",
-          "message": "delays[0].value: Time value must be non-negative",
-          "path": [
-            "delays",
-            0,
-            "value"
-          ],
-          "metadata": {
-            "zodCode": "too_small"
-          }
-        }
-      ]
+      "ok": true,
+      "value": "-1s",
+      "issues": []
     },
-    "success": false,
+    "success": true,
     "expectValid": true,
     "expected": "-1s",
-    "actual": "delays[0].value: Time value must be non-negative",
+    "actual": "-1s",
     "roundtrip": true,
-    "issue": "Expected VALID but got ERROR: delays[0].value: Time value must be non-negative"
+    "roundtripSuccess": true
   },
   {
     "description": "negative delay in milliseconds",
     "category": "valid-negative",
     "output": {
-      "ok": false,
-      "issues": [
-        {
-          "code": "invalid-ir",
-          "severity": "error",
-          "message": "delays[0].value: Time value must be non-negative",
-          "path": [
-            "delays",
-            0,
-            "value"
-          ],
-          "metadata": {
-            "zodCode": "too_small"
-          }
-        }
-      ]
+      "ok": true,
+      "value": "-500ms",
+      "issues": []
     },
-    "success": false,
+    "success": true,
     "expectValid": true,
     "expected": "-500ms",
-    "actual": "delays[0].value: Time value must be non-negative",
+    "actual": "-500ms",
     "roundtrip": true,
-    "issue": "Expected VALID but got ERROR: delays[0].value: Time value must be non-negative"
+    "roundtripSuccess": true
   },
   {
     "description": "decimal seconds",

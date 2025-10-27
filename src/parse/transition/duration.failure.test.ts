@@ -22,7 +22,6 @@ describe("parse/transition/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-duration: transition-duration must be non-negative, got: -500");
 		});
-
 	});
 
 	describe("invalid-unit", () => {
@@ -46,7 +45,6 @@ describe("parse/transition/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-duration: Expected time dimension, got: Number");
 		});
-
 	});
 
 	describe("invalid-empty", () => {
@@ -56,7 +54,6 @@ describe("parse/transition/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-duration: Empty value");
 		});
-
 	});
 
 	describe("invalid-comma", () => {
@@ -80,7 +77,6 @@ describe("parse/transition/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-duration: Empty value before comma");
 		});
-
 	});
 
 	describe("invalid-keyword", () => {
@@ -97,7 +93,5 @@ describe("parse/transition/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-duration: Expected time dimension, got: Identifier");
 		});
-
 	});
-
 });

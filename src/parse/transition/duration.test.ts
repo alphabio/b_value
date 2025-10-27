@@ -14,13 +14,13 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 1,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -29,16 +29,15 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 500,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-edge", () => {
@@ -47,13 +46,13 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 0,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -62,16 +61,15 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 0,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 0,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-decimal", () => {
@@ -80,13 +78,13 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 0.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 0.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -95,13 +93,13 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 2.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 2.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -110,16 +108,15 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 100.5,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 100.5,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-large", () => {
@@ -128,16 +125,15 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 3600,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 3600,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-list", () => {
@@ -146,28 +142,26 @@ describe("parse/transition/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-duration",
-			   "durations": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 2,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 3,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 4,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-duration",
+				durations: [
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 2,
+						unit: "s",
+					},
+					{
+						value: 3,
+						unit: "s",
+					},
+					{
+						value: 4,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
-
 });

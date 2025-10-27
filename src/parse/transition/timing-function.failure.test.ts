@@ -13,21 +13,27 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			const result = Parser.parse("cubic-bezier(-1, 0, 1, 1)");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toBe("transition-timing-function: cubic-bezier validation failed: x1 Too small: expected number to be >=0");
+			expect(result.error).toBe(
+				"transition-timing-function: cubic-bezier validation failed: x1 Too small: expected number to be >=0",
+			);
 		});
 
 		it("should reject bezier X2 out of range", () => {
 			const result = Parser.parse("cubic-bezier(0, 0, 2, 1)");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toBe("transition-timing-function: cubic-bezier validation failed: x2 Too big: expected number to be <=1");
+			expect(result.error).toBe(
+				"transition-timing-function: cubic-bezier validation failed: x2 Too big: expected number to be <=1",
+			);
 		});
 
 		it("should reject bezier X2 above 1", () => {
 			const result = Parser.parse("cubic-bezier(0.5, 0, 1.5, 1)");
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.error).toBe("transition-timing-function: cubic-bezier validation failed: x2 Too big: expected number to be <=1");
+			expect(result.error).toBe(
+				"transition-timing-function: cubic-bezier validation failed: x2 Too big: expected number to be <=1",
+			);
 		});
 
 		it("should reject bezier missing arguments", () => {
@@ -43,7 +49,6 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-timing-function: cubic-bezier requires exactly 4 numbers, got 5");
 		});
-
 	});
 
 	describe("invalid-steps", () => {
@@ -81,7 +86,6 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-timing-function: Invalid step position keyword: invalid");
 		});
-
 	});
 
 	describe("invalid-keyword", () => {
@@ -98,7 +102,6 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-timing-function: Invalid easing keyword: none");
 		});
-
 	});
 
 	describe("invalid-empty", () => {
@@ -108,7 +111,6 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-timing-function: Empty value");
 		});
-
 	});
 
 	describe("invalid-comma", () => {
@@ -132,7 +134,5 @@ describe("parse/transition/timing-function - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("transition-timing-function: Empty value before comma");
 		});
-
 	});
-
 });

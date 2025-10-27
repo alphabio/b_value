@@ -6,21 +6,21 @@
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-delay
 // - W3C: https://www.w3.org/TR/css-transitions-1/#transition-delay-property
 import { describe, expect, it } from "vitest";
+import type * as Type from "@/core/types";
 import * as Generator from "@/generate/transition/delay";
 import * as Parser from "@/parse/transition/delay";
-import type * as Type from "@/core/types";
 
 describe("generate/transition/delay - valid cases", () => {
 	describe("valid-basic", () => {
 		it("should generate single delay in seconds", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -35,14 +35,14 @@ describe("generate/transition/delay - valid cases", () => {
 		});
 
 		it("should generate single delay in milliseconds", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 500,
+						unit: "ms",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -55,19 +55,18 @@ describe("generate/transition/delay - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-edge", () => {
 		it("should generate zero delay", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -80,19 +79,64 @@ describe("generate/transition/delay - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
+	});
 
+	describe("valid-negative", () => {
+		it("should generate negative delay", () => {
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -1,
+						unit: "s",
+					},
+				],
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("-1s");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate negative delay in milliseconds", () => {
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -500,
+						unit: "ms",
+					},
+				],
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("-500ms");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 
 	describe("valid-decimal", () => {
 		it("should generate decimal seconds", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0.5,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0.5,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -107,14 +151,14 @@ describe("generate/transition/delay - valid cases", () => {
 		});
 
 		it("should generate decimal seconds with integer part", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1.5,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1.5,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -129,14 +173,14 @@ describe("generate/transition/delay - valid cases", () => {
 		});
 
 		it("should generate decimal milliseconds", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0.25,
-			         "unit": "ms"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0.25,
+						unit: "ms",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -149,19 +193,18 @@ describe("generate/transition/delay - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-large", () => {
 		it("should generate very large delay", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 10000,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 10000,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -174,23 +217,22 @@ describe("generate/transition/delay - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-list", () => {
 		it("should generate multiple delays", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 500,
+						unit: "ms",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -205,26 +247,26 @@ describe("generate/transition/delay - valid cases", () => {
 		});
 
 		it("should generate multiple time values", () => {
-			const input: Type.AnimationDelay = {
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 2,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 3,
-			         "unit": "s"
-			      }
-			   ]
+			const input: Type.TransitionDelay = {
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0,
+						unit: "s",
+					},
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 2,
+						unit: "s",
+					},
+					{
+						value: 3,
+						unit: "s",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -237,7 +279,5 @@ describe("generate/transition/delay - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
-
 });

@@ -14,10 +14,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease"],
 			});
 		});
 
@@ -26,10 +24,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "linear"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["linear"],
 			});
 		});
 
@@ -38,10 +34,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-in"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease-in"],
 			});
 		});
 
@@ -50,10 +44,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-out"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease-out"],
 			});
 		});
 
@@ -62,10 +54,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-in-out"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease-in-out"],
 			});
 		});
 
@@ -74,10 +64,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "step-start"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["step-start"],
 			});
 		});
 
@@ -86,10 +74,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "step-end"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["step-end"],
 			});
 		});
 
@@ -98,13 +84,10 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease"],
 			});
 		});
-
 	});
 
 	describe("valid-bezier", () => {
@@ -113,16 +96,16 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0,
-			         "y1": 0,
-			         "x2": 1,
-			         "y2": 1
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0,
+						y1: 0,
+						x2: 1,
+						y2: 1,
+					},
+				],
 			});
 		});
 
@@ -131,16 +114,16 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0.42,
-			         "y1": 0,
-			         "x2": 0.58,
-			         "y2": 1
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0.42,
+						y1: 0,
+						x2: 0.58,
+						y2: 1,
+					},
+				],
 			});
 		});
 
@@ -149,16 +132,16 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0,
-			         "y1": -2,
-			         "x2": 1,
-			         "y2": 3
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0,
+						y1: -2,
+						x2: 1,
+						y2: 3,
+					},
+				],
 			});
 		});
 
@@ -167,16 +150,16 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0.25,
-			         "y1": 0.1,
-			         "x2": 0.25,
-			         "y2": 1
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0.25,
+						y1: 0.1,
+						x2: 0.25,
+						y2: 1,
+					},
+				],
 			});
 		});
 
@@ -185,19 +168,18 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 1,
-			         "y1": 0,
-			         "x2": 0,
-			         "y2": 1
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 1,
+						y1: 0,
+						x2: 0,
+						y2: 1,
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-steps", () => {
@@ -206,13 +188,13 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 1
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 1,
+					},
+				],
 			});
 		});
 
@@ -221,13 +203,13 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 4
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 4,
+					},
+				],
 			});
 		});
 
@@ -236,14 +218,14 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 4,
-			         "position": "jump-start"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 4,
+						position: "jump-start",
+					},
+				],
 			});
 		});
 
@@ -252,14 +234,14 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 10,
-			         "position": "jump-end"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 10,
+						position: "jump-end",
+					},
+				],
 			});
 		});
 
@@ -268,14 +250,14 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 5,
-			         "position": "jump-none"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 5,
+						position: "jump-none",
+					},
+				],
 			});
 		});
 
@@ -284,14 +266,14 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 3,
-			         "position": "jump-both"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 3,
+						position: "jump-both",
+					},
+				],
 			});
 		});
 
@@ -300,14 +282,14 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 2,
-			         "position": "start"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 2,
+						position: "start",
+					},
+				],
 			});
 		});
 
@@ -316,17 +298,16 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 2,
-			         "position": "end"
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 2,
+						position: "end",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-list", () => {
@@ -335,11 +316,8 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease",
-			      "linear"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease", "linear"],
 			});
 		});
 
@@ -348,21 +326,21 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-in",
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0,
-			         "y1": 0,
-			         "x2": 1,
-			         "y2": 1
-			      },
-			      {
-			         "type": "steps",
-			         "steps": 2
-			      }
-			   ]
+				kind: "transition-timing-function",
+				functions: [
+					"ease-in",
+					{
+						type: "cubic-bezier",
+						x1: 0,
+						y1: 0,
+						x2: 1,
+						y2: 1,
+					},
+					{
+						type: "steps",
+						steps: 2,
+					},
+				],
 			});
 		});
 
@@ -371,14 +349,9 @@ describe("parse/transition/timing-function - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease",
-			      "linear"
-			   ]
+				kind: "transition-timing-function",
+				functions: ["ease", "linear"],
 			});
 		});
-
 	});
-
 });

@@ -15,13 +15,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -30,13 +30,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -45,13 +45,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 500,
+						unit: "ms",
+					},
+				],
 			});
 		});
 
@@ -60,16 +60,15 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-decimal", () => {
@@ -78,13 +77,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -93,13 +92,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 2.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 2.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -108,16 +107,15 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 100.5,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 100.5,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-negative", () => {
@@ -126,13 +124,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": -1,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -1,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -141,13 +139,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": -500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -500,
+						unit: "ms",
+					},
+				],
 			});
 		});
 
@@ -156,16 +154,15 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": -0.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -0.5,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-large", () => {
@@ -174,13 +171,13 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 3600,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 3600,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -189,16 +186,15 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 999999,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 999999,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-list", () => {
@@ -207,17 +203,17 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 500,
+						unit: "ms",
+					},
+				],
 			});
 		});
 
@@ -226,25 +222,25 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 2,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 3,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 0,
+						unit: "s",
+					},
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 2,
+						unit: "s",
+					},
+					{
+						value: 3,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -253,17 +249,17 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 2,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: 1,
+						unit: "s",
+					},
+					{
+						value: 2,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -272,24 +268,22 @@ describe("parse/transition/delay - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "transition-delay",
-			   "delays": [
-			      {
-			         "value": -1,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 0,
-			         "unit": "s"
-			      },
-			      {
-			         "value": 1,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "transition-delay",
+				delays: [
+					{
+						value: -1,
+						unit: "s",
+					},
+					{
+						value: 0,
+						unit: "s",
+					},
+					{
+						value: 1,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
-
 });

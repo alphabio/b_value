@@ -1,7 +1,7 @@
 // b_path:: src/core/types/transition.ts
 import { z } from "zod";
 import { easingFunctionSchema } from "./animation";
-import { timeSchema } from "./time";
+import { delayTimeSchema, timeSchema } from "./time";
 
 /**
  * CSS transition-delay property IR.
@@ -16,7 +16,7 @@ import { timeSchema } from "./time";
  */
 export const transitionDelaySchema = z.object({
 	kind: z.literal("transition-delay"),
-	delays: z.array(timeSchema).min(1),
+	delays: z.array(delayTimeSchema).min(1),
 });
 
 /**
