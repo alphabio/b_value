@@ -1,0 +1,289 @@
+[
+  {
+    "input": "slideIn",
+    "description": "simple identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "slideIn"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "fadeOut",
+    "description": "camelCase identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "fadeOut"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "my-animation",
+    "description": "hyphenated identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "my-animation"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "_animation",
+    "description": "underscore identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "_animation"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "animation123",
+    "description": "identifier with numbers",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "animation123"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "none"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "NONE",
+    "description": "case insensitive none",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "none"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "slideIn, fadeOut",
+    "description": "multiple names",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "slideIn"
+          },
+          {
+            "type": "identifier",
+            "value": "fadeOut"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "none, slideIn",
+    "description": "none with identifier",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "none"
+          },
+          {
+            "type": "identifier",
+            "value": "slideIn"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "a, b, c",
+    "description": "short names",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-name",
+        "names": [
+          {
+            "type": "identifier",
+            "value": "a"
+          },
+          {
+            "type": "identifier",
+            "value": "b"
+          },
+          {
+            "type": "identifier",
+            "value": "c"
+          }
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1",
+    "description": "number",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Expected identifier or 'none', got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Expected identifier or 'none', got: Number"
+  },
+  {
+    "input": "1s",
+    "description": "time value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Expected identifier or 'none', got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Expected identifier or 'none', got: Dimension"
+  },
+  {
+    "input": "10px",
+    "description": "length value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Expected identifier or 'none', got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Expected identifier or 'none', got: Dimension"
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Empty value"
+  },
+  {
+    "input": "slideIn,",
+    "description": "trailing comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Empty value"
+  },
+  {
+    "input": ",slideIn",
+    "description": "leading comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Empty value before comma"
+  },
+  {
+    "input": "a,,b",
+    "description": "double comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-name: Empty value before comma"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-name: Empty value before comma"
+  }
+]
