@@ -3,6 +3,7 @@ import type * as csstree from "css-tree";
 import { EASING_KEYWORD_KEYWORDS, STEP_POSITION_KEYWORDS } from "@/core/keywords/animation";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
+import { cubicBezierSchema } from "@/core/types/animation";
 
 /**
  * Parse cubic-bezier() function from AST node.
@@ -31,13 +32,22 @@ function parseCubicBezier(node: csstree.FunctionNode): Result<Type.CubicBezier, 
 
 	const [x1, y1, x2, y2] = numbers;
 
-	return ok({
-		type: "cubic-bezier",
+	const candidate = {
+		type: "cubic-bezier" as const,
 		x1: x1 as number,
 		y1: y1 as number,
 		x2: x2 as number,
 		y2: y2 as number,
-	});
+	};
+
+	// Validate against schema (x values must be in [0, 1])
+	const validation = cubicBezierSchema.safeParse(candidate);
+	if (!validation.success) {
+		const issue = validation.error.issues[0];
+		return err(`cubic-bezier validation failed: ${issue?.path.join(".")} ${issue?.message}`);
+	}
+
+	return ok(candidate);
 }
 
 /**

@@ -189,9 +189,9 @@ export type AnimationName = z.infer<typeof animationNameSchema>;
  */
 export const cubicBezierSchema = z.object({
 	type: z.literal("cubic-bezier"),
-	x1: z.number(),
+	x1: z.number().min(0).max(1),
 	y1: z.number(),
-	x2: z.number(),
+	x2: z.number().min(0).max(1),
 	y2: z.number(),
 });
 
