@@ -5,18 +5,16 @@
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
 // - W3C: https://www.w3.org/TR/css-transitions-1/#transition-timing-function-property
 import { describe, expect, it } from "vitest";
+import type * as Type from "@/core/types";
 import * as Generator from "@/generate/transition/timing-function";
 import * as Parser from "@/parse/transition/timing-function";
-import type * as Type from "@/core/types";
 
 describe("generate/transition/timing-function - valid cases", () => {
 	describe("valid-keyword", () => {
 		it("should generate ease keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["ease"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -31,11 +29,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate linear keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "linear"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["linear"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -50,11 +46,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate ease-in keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-in"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["ease-in"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -69,11 +63,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate ease-out keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-out"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["ease-out"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -88,11 +80,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate ease-in-out keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease-in-out"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["ease-in-out"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -107,11 +97,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate step-start keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "step-start"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["step-start"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -126,11 +114,9 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate step-end keyword", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "step-end"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["step-end"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -143,22 +129,21 @@ describe("generate/transition/timing-function - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-cubic-bezier", () => {
 		it("should generate cubic-bezier function", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0.42,
-			         "y1": 0,
-			         "x2": 1,
-			         "y2": 1
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0.42,
+						y1: 0,
+						x2: 1,
+						y2: 1,
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -173,17 +158,17 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate cubic-bezier with zero values", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0,
-			         "y1": 0,
-			         "x2": 1,
-			         "y2": 1
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "cubic-bezier",
+						x1: 0,
+						y1: 0,
+						x2: 1,
+						y2: 1,
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -196,19 +181,18 @@ describe("generate/transition/timing-function - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-steps", () => {
 		it("should generate steps without position", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 4
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 4,
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -223,15 +207,15 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate steps with start position", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 10,
-			         "position": "start"
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 10,
+						position: "start",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -246,15 +230,15 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate steps with end position", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "steps",
-			         "steps": 5,
-			         "position": "end"
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "steps",
+						steps: 5,
+						position: "end",
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -267,26 +251,25 @@ describe("generate/transition/timing-function - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-linear", () => {
 		it("should generate linear function simple", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "linear",
-			         "stops": [
-			            {
-			               "output": 0
-			            },
-			            {
-			               "output": 1
-			            }
-			         ]
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "linear",
+						stops: [
+							{
+								output: 0,
+							},
+							{
+								output: 1,
+							},
+						],
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -301,27 +284,27 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate linear function with input positions", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      {
-			         "type": "linear",
-			         "stops": [
-			            {
-			               "output": 0,
-			               "input": 0
-			            },
-			            {
-			               "output": 0.5,
-			               "input": 0.5
-			            },
-			            {
-			               "output": 1,
-			               "input": 1
-			            }
-			         ]
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					{
+						type: "linear",
+						stops: [
+							{
+								output: 0,
+								input: 0,
+							},
+							{
+								output: 0.5,
+								input: 0.5,
+							},
+							{
+								output: 1,
+								input: 1,
+							},
+						],
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -334,18 +317,13 @@ describe("generate/transition/timing-function - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
 
 	describe("valid-list", () => {
 		it("should generate multiple keyword functions", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease",
-			      "linear",
-			      "ease-out"
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: ["ease", "linear", "ease-out"],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -360,22 +338,22 @@ describe("generate/transition/timing-function - valid cases", () => {
 		});
 
 		it("should generate mixed function types", () => {
-			const input: Type.AnimationTimingFunction = {
-			   "kind": "transition-timing-function",
-			   "functions": [
-			      "ease",
-			      {
-			         "type": "cubic-bezier",
-			         "x1": 0.1,
-			         "y1": 0.7,
-			         "x2": 1,
-			         "y2": 0.1
-			      },
-			      {
-			         "type": "steps",
-			         "steps": 4
-			      }
-			   ]
+			const input: Type.TransitionTimingFunction = {
+				kind: "transition-timing-function",
+				functions: [
+					"ease",
+					{
+						type: "cubic-bezier",
+						x1: 0.1,
+						y1: 0.7,
+						x2: 1,
+						y2: 0.1,
+					},
+					{
+						type: "steps",
+						steps: 4,
+					},
+				],
 			};
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(true);
@@ -388,7 +366,5 @@ describe("generate/transition/timing-function - valid cases", () => {
 			if (!parseResult.ok) return;
 			expect(parseResult.value).toEqual(input);
 		});
-
 	});
-
 });

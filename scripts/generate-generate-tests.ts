@@ -316,8 +316,9 @@ function saveIssues(config: any, issues: string[]) {
 }
 
 function generateValidTestFile(config: any, validCases: TestResult[], specRefs: SpecRef[]): string {
-	// Convert property name to PascalCase type name (e.g., "timing-function" -> "AnimationTimingFunction")
-	const typeName = 'Animation' + config.propertyName
+	// Convert module and property name to PascalCase type name (e.g., "transition" + "timing-function" -> "TransitionTimingFunction")
+	const modulePrefix = config.module.charAt(0).toUpperCase() + config.module.slice(1);
+	const typeName = modulePrefix + config.propertyName
 		.split('-')
 		.map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('');

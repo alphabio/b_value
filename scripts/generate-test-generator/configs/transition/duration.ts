@@ -1,13 +1,13 @@
 /**
- * Test cases for animation-duration generator
+ * Test cases for transition-duration generator
  * 
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
-import type { AnimationDuration } from "@/core/types/index.js";
+import type { TransitionDuration } from "@/core/types/index.js";
 
 export interface GenerateTestCase {
-	input: AnimationDuration;
+	input: TransitionDuration;
 	expected: string;
 	description: string;
 	category: string;
@@ -28,17 +28,17 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "duration",
-	module: "animation",
-	sourceFile: "src/generate/animation/duration.ts",
-	importPath: "../src/generate/animation/duration.js",
-	parseImportPath: "../src/parse/animation/duration.js",
-	outputPath: "src/generate/animation/duration.test.ts",
+	module: "transition",
+	sourceFile: "src/generate/transition/duration.ts",
+	importPath: "../src/generate/transition/duration.js",
+	parseImportPath: "../src/parse/transition/duration.js",
+	outputPath: "src/generate/transition/duration.test.ts",
 	cases: [
 		// Valid cases - basic time values
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 1, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: 1, unit: "s" }]
 			},
 			expected: "1s",
 			description: "single time value in seconds",
@@ -48,8 +48,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 500, unit: "ms" }]
+				kind: "transition-duration",
+				durations: [{ value: 500, unit: "ms" }]
 			},
 			expected: "500ms",
 			description: "single time value in milliseconds",
@@ -57,23 +57,12 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		{
-			input: {
-				kind: "animation-duration",
-				durations: [{ type: "auto" }]
-			},
-			expected: "auto",
-			description: "auto keyword",
-			category: "valid-keyword",
-			roundtrip: true,
-			expectValid: true
-		},
 		
 		// Valid cases - edge values
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 0, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: 0, unit: "s" }]
 			},
 			expected: "0s",
 			description: "zero duration",
@@ -83,8 +72,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 0, unit: "ms" }]
+				kind: "transition-duration",
+				durations: [{ value: 0, unit: "ms" }]
 			},
 			expected: "0ms",
 			description: "zero duration in ms",
@@ -96,8 +85,8 @@ export const config: PropertyConfig = {
 		// Valid cases - decimal values
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 0.5, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: 0.5, unit: "s" }]
 			},
 			expected: "0.5s",
 			description: "decimal values",
@@ -107,8 +96,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 2.5, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: 2.5, unit: "s" }]
 			},
 			expected: "2.5s",
 			description: "decimal seconds",
@@ -118,8 +107,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 100.5, unit: "ms" }]
+				kind: "transition-duration",
+				durations: [{ value: 100.5, unit: "ms" }]
 			},
 			expected: "100.5ms",
 			description: "decimal milliseconds",
@@ -131,8 +120,8 @@ export const config: PropertyConfig = {
 		// Valid cases - large values
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 3600, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: 3600, unit: "s" }]
 			},
 			expected: "3600s",
 			description: "large values",
@@ -144,27 +133,12 @@ export const config: PropertyConfig = {
 		// Valid cases - multiple values (comma-separated)
 		{
 			input: {
-				kind: "animation-duration",
+				kind: "transition-duration",
 				durations: [
-					{ type: "time", value: 1, unit: "s" },
-					{ type: "auto" },
-					{ type: "time", value: 500, unit: "ms" }
-				]
-			},
-			expected: "1s, auto, 500ms",
-			description: "multiple durations",
-			category: "valid-list",
-			roundtrip: true,
-			expectValid: true
-		},
-		{
-			input: {
-				kind: "animation-duration",
-				durations: [
-					{ type: "time", value: 1, unit: "s" },
-					{ type: "time", value: 2, unit: "s" },
-					{ type: "time", value: 3, unit: "s" },
-					{ type: "time", value: 4, unit: "s" }
+					{ value: 1, unit: "s" },
+					{ value: 2, unit: "s" },
+					{ value: 3, unit: "s" },
+					{ value: 4, unit: "s" }
 				]
 			},
 			expected: "1s, 2s, 3s, 4s",
@@ -195,8 +169,8 @@ export const config: PropertyConfig = {
 		// Invalid cases - invalid units
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 1, unit: "px" as any }]
+				kind: "transition-duration",
+				durations: [{ value: 1, unit: "px" as any }]
 			},
 			expected: "",
 			description: "invalid unit px",
@@ -206,8 +180,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: 1, unit: "em" as any }]
+				kind: "transition-duration",
+				durations: [{ value: 1, unit: "em" as any }]
 			},
 			expected: "",
 			description: "invalid unit em",
@@ -219,8 +193,8 @@ export const config: PropertyConfig = {
 		// Invalid cases - negative values
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: -1, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: -1, unit: "s" }]
 			},
 			expected: "",
 			description: "negative value in seconds",
@@ -230,8 +204,8 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: -500, unit: "ms" }]
+				kind: "transition-duration",
+				durations: [{ value: -500, unit: "ms" }]
 			},
 			expected: "",
 			description: "negative value in milliseconds",
@@ -243,8 +217,8 @@ export const config: PropertyConfig = {
 		// Invalid cases - wrong value types
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: "oops" as any, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: "oops" as any, unit: "s" }]
 			},
 			expected: "",
 			description: "string value",
@@ -254,27 +228,14 @@ export const config: PropertyConfig = {
 		},
 		{
 			input: {
-				kind: "animation-duration",
-				durations: [{ type: "time", value: null as any, unit: "s" }]
+				kind: "transition-duration",
+				durations: [{ value: null as any, unit: "s" }]
 			},
 			expected: "",
 			description: "null value",
 			category: "invalid-value-type",
 			expectValid: false,
 			expectedError: "Invalid input: expected number, received null"
-		},
-		
-		// Invalid cases - invalid duration type
-		{
-			input: {
-				kind: "animation-duration",
-				durations: [{ type: "invalid" as any }]
-			},
-			expected: "",
-			description: "invalid duration type",
-			category: "invalid-type",
-			expectValid: false,
-			expectedError: "Invalid input"
 		},
 	],
 };
