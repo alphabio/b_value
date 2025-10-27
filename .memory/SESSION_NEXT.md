@@ -19,7 +19,7 @@
 
 ## 🔍 DISCUSS: 6 Key Design Decisions
 
-### 1. **Make Script Generic** 
+### 1. **Make Script Generic**
 Currently hardcoded to animation parsers. Need to support:
 - Different import paths (not just `src/parse/animation/`)
 - Different output paths (not just `test/parse/animation/`)
@@ -27,6 +27,7 @@ Currently hardcoded to animation parsers. Need to support:
 
 ### 2. **Externalize Configs**
 Should we move `PROPERTY_CONFIGS` out of the script?
+
 ```
 scripts/test-generator/
   configs/
@@ -34,6 +35,7 @@ scripts/test-generator/
     animation-timing-function.ts
   generate-tests.ts (just the generator logic)
 ```
+
 **Benefits**: Cleaner, reusable as fixtures, easier to maintain
 
 ### 3. **Separate Valid/Invalid Files?**
@@ -153,7 +155,7 @@ Pattern is production-ready when:
 
 ---
 
-**Next Agent**: 
+**Next Agent**:
 1. Discuss 6 design decisions with user
 2. Refactor generator based on decisions
 3. Apply to timing-function
