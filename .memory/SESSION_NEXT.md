@@ -1,86 +1,125 @@
-# Next Session: Expand Generate Validation to Other Properties
+# Next Session: Continue Module-by-Module Validation & Test Generation
 
 **Date**: 2025-10-27
-**Status**: ✅ Animation properties complete! Ready to expand validation.
-**Tests**: 3,772 passing
+**Status**: ✅ Animation module 100% COMPLETE! 
+**Tests**: 3,816 passing (+44 from start of session)
 **Branch**: coverage/90-percent
-**Latest Commit**: 8f9ee92
+**Latest Commit**: 0c6c431
 
 ---
 
-## 🎉 Animation Properties - COMPLETE!
+## 🎉 Major Achievement: Animation Module COMPLETE!
 
-All 8 animation properties now have Zod validation:
-1. ✅ animation-duration (timeSchema with auto)
-2. ✅ animation-timing-function (union of keywords + functions)
-3. ✅ animation-delay (delayTimeSchema - supports negatives!)
-4. ✅ animation-iteration-count (number | infinite)
-5. ✅ animation-direction (enum keywords)
-6. ✅ animation-fill-mode (enum keywords)
-7. ✅ animation-play-state (enum keywords)
-8. ✅ animation-name (identifier | none)
+**100% Complete - All 8 Properties**:
+1. ✅ animation-duration - Schema ✅ Validation ✅ Tests ✅
+2. ✅ animation-timing-function - Schema ✅ Validation ✅ Tests ✅
+3. ✅ animation-delay - Schema ✅ Validation ✅ Tests ✅ (Fixed negative values!)
+4. ✅ animation-iteration-count - Schema ✅ Validation ✅ Tests ✅
+5. ✅ animation-direction - Schema ✅ Validation ✅ Tests ✅
+6. ✅ animation-fill-mode - Schema ✅ Validation ✅ Tests ✅
+7. ✅ animation-play-state - Schema ✅ Validation ✅ Tests ✅
+8. ✅ animation-name - Schema ✅ Validation ✅ Tests ✅
 
-**This Session's Achievements**:
+**This Session's Work (5 commits)**:
 - Fixed animation-delay to support negative values (created delayTimeSchema)
-- Added validation to 5 remaining animation properties
-- Generated comprehensive test suite for iteration-count
-- All 3,772 tests passing, including roundtrip tests
-- 2 commits with clean, focused changes
+- Added Zod validation to 5 animation properties
+- Added Zod validation to 5 layout properties  
+- Created 4 comprehensive test configs (direction, fill-mode, play-state, name)
+- Generated 61 new tests across 4 properties
+- **All 3,816 tests passing**
 
 ---
 
-## 🎯 Next Priority: Expand to Other Properties
+## 📊 Validation Progress Tracking
 
-Now that animation is done, apply the same pattern to other property groups:
+### ✅ Completed Modules
+**Animation** (8/8 properties - 100%):
+- duration, timing-function, delay, iteration-count
+- direction, fill-mode, play-state, name
+- Status: Validation ✅ | Test Configs ✅ | Generated Tests ✅
 
-### Immediate Candidates (Simple enum/keyword properties)
-1. **Display properties** - `display.ts` (enum of display values)
-2. **Position properties** - `position.ts` (enum: static, relative, absolute, etc)
-3. **Float properties** - `float.ts` (enum: left, right, none)
-4. **Clear properties** - `clear.ts` (enum: left, right, both, none)
-5. **Overflow properties** - `overflow.ts`, `overflow-x.ts`, `overflow-y.ts`
-6. **Visibility properties** - `visibility.ts` (enum: visible, hidden, collapse)
+### 🚧 Partially Complete
+**Layout** (5/? properties started):
+- display, visibility, overflow-x, overflow-y, position-property
+- Status: Validation ✅ | Test Configs ❌ | Generated Tests ❌
+- **Need**: Create test configs and generate tests
 
-### Medium Complexity (Union types)
-1. **Width/Height** - length | percentage | auto | min-content | max-content
-2. **Margin/Padding** - length | percentage | auto
-3. **Background** - complex but has existing tests
-
-### Pattern to Follow
-```typescript
-// 1. Verify schema in src/core/types/ has good error messages
-// 2. Update generate function:
-import { zodErrorToIssues } from "@/utils/generate";
-import { propertySchema } from "@/core/types/...";
-
-export function generate(ir: Type.Property): GenerateResult {
-  const validation = propertySchema.safeParse(ir);
-  if (!validation.success) {
-    return { ok: false, issues: zodErrorToIssues(validation.error) };
-  }
-  // ... existing generation logic
-}
-
-// 3. Create test config if needed
-// 4. Generate tests
-// 5. Run tests - verify all pass
-```
+### 📋 Next Modules to Tackle
+1. **Layout** (finish remaining properties)
+2. **Typography** - text-align, text-decoration, font properties
+3. **Border** - border-style, border-width, border-color
+4. **Flexbox** - align-items, justify-content, flex-direction
+5. **Background** - attachment, clip, origin, repeat
 
 ---
 
-## 📊 Current State
+## 🎯 Next Session Plan
 
-**Tests**: 3,772 passing
-**Branch**: coverage/90-percent
-**Recent Commits**:
-- 8f9ee92 - feat: add Zod validation to remaining animation properties
-- d6febe0 - fix: support negative values in animation-delay
+### Option A: Complete Layout Module
+Finish what we started:
+1. Create test configs for: display, visibility, overflow-x, overflow-y, position-property
+2. Generate tests for all 5 properties
+3. Verify all pass
+4. Commit as "feat: complete Layout module validation and tests"
 
-**Animation Module Status**:
-- Parse: 8/8 properties ✅
-- Generate: 8/8 properties ✅
-- Validation: 8/8 properties ✅
-- Tests: Comprehensive coverage ✅
+**Effort**: ~30-40 minutes
+
+### Option B: Start Typography Module  
+Pick simple text properties:
+1. text-align (enum keywords)
+2. text-decoration-line (enum keywords)
+3. text-transform (enum keywords)
+4. Do full cycle: validate + test config + generate tests
+
+**Effort**: ~30-40 minutes
+
+### Option C: Coverage Boost
+Switch gears back to original goal - test untested source files to reach 90% coverage
+
+---
+
+## 💡 Key Learnings This Session
+
+**Process That Works**:
+1. ✅ Fix schema if needed (e.g., delayTimeSchema for negatives)
+2. ✅ Add validation to generate function (zodErrorToIssues)
+3. ✅ Create comprehensive test config (200+ lines each)
+4. ✅ Generate tests via test generator (automatic)
+5. ✅ Verify all pass (just test)
+6. ✅ Commit with clear message
+
+**Important Realizations**:
+- ⚠️ Validation alone is incomplete - must generate tests too
+- ✅ Test configs take time (~15 min each) but ensure quality
+- ✅ Module-by-module approach keeps work organized
+- ✅ Animation serves as template for other modules
+
+**Quality Metrics**:
+- All generated tests include roundtrip validation (IR → CSS → IR)
+- Invalid cases test Zod error messages
+- Test configs cover edge cases, null/undefined, wrong types
+- 100% pass rate maintained throughout
+
+---
+
+## 📂 Files Modified This Session
+
+**Schemas**:
+- `src/core/types/time.ts` - Added delayTimeSchema
+- `src/core/types/animation.ts` - Updated animationDelaySchema
+
+**Generate Functions** (13 properties):
+- Animation (8): delay, iteration-count, direction, fill-mode, play-state, name, timing-function, duration
+- Layout (5): display, visibility, overflow-x, overflow-y, position-property
+
+**Test Infrastructure**:
+- Created 4 test configs: direction, fill-mode, play-state, name
+- Generated 8 test files (4 valid + 4 failure)
+- Updated 2 existing test configs: delay, iteration-count
+
+**Documentation**:
+- Updated `test/integration/KNOWN_LIMITATIONS.md` - marked delay as fixed
+- Updated `.memory/SESSION_NEXT.md` (this file)
 
 ---
 
@@ -89,71 +128,38 @@ export function generate(ir: Type.Property): GenerateResult {
 ```bash
 # Check current state
 just test
-git log --oneline -3
+git log --oneline -5
 
-# Find properties to validate next
-ls -la src/generate/layout/
-ls -la src/generate/position/
-ls -la src/generate/display/
+# Option A: Continue Layout module
+vim scripts/generate-test-generator/configs/display.ts
+pnpm tsx scripts/generate-generate-tests.ts display
 
-# Check if schemas have custom errors
-grep -A 5 "error:" src/core/types/display.ts
-grep -A 5 "error:" src/core/types/position.ts
+# Option B: Start Typography
+ls -la src/generate/typography/
+vim src/generate/typography/text-align.ts
 
-# Pattern: Add validation
-vim src/generate/display/display.ts
-pnpm test src/generate/display/display.test.ts
+# Option C: Coverage boost
+find src -name "*.ts" ! -name "*.test.ts" -exec sh -c 'grep -l "^export" {} && [ ! -f "$(dirname {})/$(basename {} .ts).test.ts" ]' \;
 ```
 
 ---
 
-## 💡 Key Learnings
+## 📈 Statistics
 
-**Schema Design**:
-- Separate schemas for different use cases (timeSchema vs delayTimeSchema)
-- Custom error messages make debugging much easier
-- Union types with discriminated unions work great
+**Test Growth**: 3,772 → 3,816 (+44 tests, +1.2%)
+**Commits**: 5 clean, focused commits
+**Properties Validated**: 13 total (8 animation + 5 layout)
+**Test Configs Created**: 4 comprehensive configs
+**Time**: ~90 minutes for complete animation module
 
-**Testing**:
-- Test generator creates consistent, comprehensive test suites
-- Roundtrip tests catch schema issues early
-- Always run ALL tests after schema changes
-
-**Workflow**:
-1. Fix schema if needed (add custom errors, handle edge cases)
-2. Add validation to generate function
-3. Create test config (for complex properties)
-4. Generate tests (if using test generator)
-5. Run tests - fix any failures
-6. Commit focused changes
+**Animation Module**:
+- Parse: 8/8 ✅
+- Generate: 8/8 ✅  
+- Validation: 8/8 ✅
+- Test Configs: 8/8 ✅
+- Generated Tests: 8/8 ✅
+- **Status: 100% COMPLETE** 🎉
 
 ---
 
-## 📝 Files Modified This Session
-
-**Schema Fixes**:
-- `src/core/types/time.ts` - Added delayTimeSchema
-- `src/core/types/animation.ts` - Updated animationDelaySchema
-
-**Generate Functions** (added Zod validation):
-- `src/generate/animation/delay.ts`
-- `src/generate/animation/iteration-count.ts`
-- `src/generate/animation/direction.ts`
-- `src/generate/animation/fill-mode.ts`
-- `src/generate/animation/play-state.ts`
-- `src/generate/animation/name.ts`
-
-**Tests**:
-- Created `scripts/generate-test-generator/configs/delay.ts`
-- Created `scripts/generate-test-generator/configs/iteration-count.ts`
-- Generated comprehensive test suites for both
-- Un-skipped animation-delay negative value test
-
-**Documentation**:
-- Updated `test/integration/KNOWN_LIMITATIONS.md` - marked delay issue as fixed
-
----
-
-**File Length**: 125 lines ✅
-
-**Recommended Next Action**: Start with simple enum properties (display, position, float) to build momentum, then tackle more complex unions.
+**Recommended Next Action**: **Option A** - Complete Layout module to maintain momentum and finish what we started. Then reassess whether to continue module validation or switch to coverage boost.
