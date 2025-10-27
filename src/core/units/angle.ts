@@ -2,12 +2,20 @@
 import { z } from "zod";
 
 export const angleUnitSchema = z
-	.union([
-		z.literal("deg").describe("degrees - one full circle is 360deg"),
-		z.literal("grad").describe("gradians - one full circle is 400grad"),
-		z.literal("rad").describe("radians - one full circle is 2π radians (≈6.2832rad)"),
-		z.literal("turn").describe("turns - one full circle is 1turn"),
-	])
+	.union(
+		[
+			z.literal("deg").describe("degrees - one full circle is 360deg"),
+			z.literal("grad").describe("gradians - one full circle is 400grad"),
+			z.literal("rad").describe("radians - one full circle is 2π radians (≈6.2832rad)"),
+			z.literal("turn").describe("turns - one full circle is 1turn"),
+		],
+		{
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid angle unit. Expected "deg", "grad", "rad", or "turn".'
+					: "Invalid input",
+		},
+	)
 	.describe(
 		"Angle units specify rotation or direction." +
 			"Used in transforms, gradients, and other CSS properties requiring angular measurements.",

@@ -19,20 +19,28 @@ import { z } from "zod";
  * @public
  */
 export const fontLengthUnitSchema = z
-	.union([
-		z.literal("em").describe("font size of the element"),
-		z.literal("ex").describe("x-height of the element's font"),
-		z.literal("cap").describe("cap height of capital letters"),
-		z.literal("ch").describe("typical character advance of a narrow glyph"),
-		z.literal("ic").describe("typical character advance of a fullwidth glyph"),
-		z.literal("rem").describe("font size of the root element"),
-		z.literal("rex").describe("x-height of the root element's font"),
-		z.literal("rcap").describe("cap height of the root element's font"),
-		z.literal("rch").describe("typical character advance of a narrow glyph in root element"),
-		z.literal("ric").describe("typical character advance of a fullwidth glyph in root element"),
-		z.literal("lh").describe("line height of the element"),
-		z.literal("rlh").describe("line height of the root element"),
-	])
+	.union(
+		[
+			z.literal("em").describe("font size of the element"),
+			z.literal("ex").describe("x-height of the element's font"),
+			z.literal("cap").describe("cap height of capital letters"),
+			z.literal("ch").describe("typical character advance of a narrow glyph"),
+			z.literal("ic").describe("typical character advance of a fullwidth glyph"),
+			z.literal("rem").describe("font size of the root element"),
+			z.literal("rex").describe("x-height of the root element's font"),
+			z.literal("rcap").describe("cap height of the root element's font"),
+			z.literal("rch").describe("typical character advance of a narrow glyph in root element"),
+			z.literal("ric").describe("typical character advance of a fullwidth glyph in root element"),
+			z.literal("lh").describe("line height of the element"),
+			z.literal("rlh").describe("line height of the root element"),
+		],
+		{
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid font-relative length unit. Expected "em", "ex", "cap", "ch", "ic", "rem", "rex", "rcap", "rch", "ric", "lh", or "rlh".'
+					: "Invalid input",
+		},
+	)
 	.describe(
 		"Font-relative length units specify a length relative to font metrics. " +
 			"These units allow measurements based on typography and text characteristics.",

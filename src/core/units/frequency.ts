@@ -2,10 +2,16 @@
 import { z } from "zod";
 
 export const frequencyUnitSchema = z
-	.union([
-		z.literal("Hz").describe("hertz - number of occurrences per second (canonical unit)"),
-		z.literal("kHz").describe("kilohertz - 1000 hertz"),
-	])
+	.union(
+		[
+			z.literal("Hz").describe("hertz - number of occurrences per second (canonical unit)"),
+			z.literal("kHz").describe("kilohertz - 1000 hertz"),
+		],
+		{
+			error: (issue) =>
+				issue.code === "invalid_union" ? 'Invalid frequency unit. Expected "Hz" or "kHz".' : "Invalid input",
+		},
+	)
 	.describe(
 		"Frequency units specify the number of occurrences per second." +
 			"Used for sound pitches and other frequency-based CSS properties.",
