@@ -1,0 +1,205 @@
+[
+  {
+    "description": "single time value in seconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "1s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1s",
+    "actual": "1s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "single time value in milliseconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "500ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "500ms",
+    "actual": "500ms",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "auto keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "auto",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "auto",
+    "actual": "auto",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "zero duration",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": "0s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0s",
+    "actual": "0s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "zero duration in ms",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": "0ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0ms",
+    "actual": "0ms",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "decimal values",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "0.5s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.5s",
+    "actual": "0.5s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "decimal seconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "2.5s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "2.5s",
+    "actual": "2.5s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "decimal milliseconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "100.5ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "100.5ms",
+    "actual": "100.5ms",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "large values",
+    "category": "valid-large",
+    "output": {
+      "ok": true,
+      "value": "3600s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "3600s",
+    "actual": "3600s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple durations",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "1s, auto, 500ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1s, auto, 500ms",
+    "actual": "1s, auto, 500ms",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple time values",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "1s, 2s, 3s, 4s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1s, 2s, 3s, 4s",
+    "actual": "1s, 2s, 3s, 4s",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Input must not be null or undefined",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Input must not be null or undefined",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]
