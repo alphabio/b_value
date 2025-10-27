@@ -32,6 +32,9 @@ cat .memory/SESSION_NEXT.md
 **💡 Git Commits**:
 - `.memory/` files are ignored by biome → always use `git commit --no-verify` for documentation changes
 - Or just commit source code separately from `.memory/` changes
+- **ALWAYS run `just check` before committing** - runs format, lint, and typecheck
+  - Catches type errors, formatting issues, and lint problems
+  - Should be run after any code changes (not needed for `.memory/` docs only)
 
 ---
 
