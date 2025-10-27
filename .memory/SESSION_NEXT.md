@@ -1,127 +1,86 @@
-# Next Session: Test Generator Refactoring COMPLETE ✅
+# Next Session: Complete Transition Module (Phase 2A - IN PROGRESS)
 
-**Date**: 2025-10-27  
-**Status**: Refactoring complete, all tests passing (3,816/3,816)  
+**Date**: 2025-10-28  
+**Status**: Transition module 60% complete - configs created, Zod validation added, tests generated  
+**Tests**: 3,899 passing (+83 from 3,816), 3 failing  
 **Branch**: coverage/90-percent  
-**Latest Commit**: 798f96a - refactor: organize test generators by module
+**Latest Work**: Started Phase 2A transition module
 
 ---
 
-## 🎉 Refactoring Complete!
+## �� Current Status: Transition Module
 
-Successfully reorganized test generators into scalable module-based structure.
+### ✅ Completed
+1. ✅ Created directory structure (configs/transition/, results/transition/)
+2. ✅ Copied 3 shared properties from animation (duration, delay, timing-function)
+3. ✅ Updated module fields in all 6 configs
+4. ✅ Added Zod validation to all 3 generate functions:
+   - src/generate/transition/duration.ts
+   - src/generate/transition/delay.ts
+   - src/generate/transition/timing-function.ts
+5. ✅ Generated tests (+83 tests total)
+6. ✅ Parse tests all passing (transition-duration parse works)
 
-**What Changed:**
-- ✅ Module-based directory structure (configs/animation/, results/animation/)
-- ✅ Both scripts updated to support `module/property` syntax  
-- ✅ All 16 animation configs updated with `module` field
-- ✅ Type imports use `@/` aliases
-- ✅ Results organized by module
-- ✅ All 3,816 tests still passing
+### ⚠️ Remaining Work
+1. **Fix generate configs for IR format difference**:
+   - Animation uses: `{ type: "time", value: 1, unit: "s" }` or `{ type: "auto" }`
+   - Transition uses: `{ value: 1, unit: "s" }` (no type field, no auto support)
+   - Need to remove `type:` fields and `auto` test cases from duration/delay configs
 
-**New Usage:**
-```bash
-# Generate parse tests
-pnpm tsx scripts/generate-parse-tests.ts animation/duration
+2. **Regenerate tests after fixing configs**
 
-# Generate generate tests  
-pnpm tsx scripts/generate-generate-tests.ts animation/delay
+3. **Verify all tests passing**
+
+4. **Create configs for remaining 2 properties**:
+   - transition-property (CSS property names + all/none keywords)
+   - transition (shorthand - optional, can skip for now)
+
+---
+
+## 🔧 Immediate Fix Needed
+
+The generate configs were copied from animation but have IR format mismatches:
+
+### Problem
+```typescript
+// Animation IR (has discriminated union with type field)
+durations: [{ type: "time", value: 1, unit: "s" }]
+durations: [{ type: "auto" }]
+
+// Transition IR (plain time objects, no auto support)
+durations: [{ value: 1, unit: "s" }]
 ```
 
----
-
-## 🎯 Next: Expand Dual Testing to More Modules
-
-With infrastructure proven for animation (8 properties), expand to other modules.
-
-### Option A: Transition Module (Recommended)
-**Why**: Shares properties with animation, easy to validate
-
-Properties (5 total):
-1. duration - reuse animation config as template
-2. delay - reuse animation config as template
-3. timing-function - reuse animation config as template
-4. property - new config needed
-5. transition - new config needed (shorthand)
-
-**Steps:**
-1. Create `configs/transition/` directories
-2. Copy animation duration/delay/timing-function configs
-3. Update module field and import paths
-4. Create property and transition configs
-5. Generate tests for all 5 properties
-6. Verify roundtrip validation works
-
-**Effort:** ~30-40 minutes
-
-### Option B: Border Module
-**Why**: Simpler properties (mostly enums)
-
-Properties (5 total):
-1. width - length values
-2. style - enum keywords
-3. color - color values
-4. radius - length/percentage values  
-5. border - shorthand
-
-**Effort:** ~40-50 minutes
-
-### Option C: Typography Module  
-**Why**: Mix of enums and values, good variety
-
-Common properties:
-- font-size, font-weight, font-family
-- line-height, letter-spacing
-- text-align, text-decoration
-
-**Effort:** ~60 minutes
-
----
-
-## 📊 Current Status
-
-### Modules with Full Dual Testing
-**Animation** (8/8 properties):
-- Parse configs: ✅
-- Generate configs: ✅  
-- Test generator infrastructure: ✅
-- All tests passing: ✅
-
-### Modules with Implementations (No Test Configs Yet)
-- Transition (5 properties)
-- Border (5 properties)
-- Typography (11 properties)
-- Layout (30 properties)
-- Flexbox (11 properties)
-- Background (9 properties)
-- ...and 14 more modules
-
-**Total:** 94 properties implemented, 352 remaining
-
----
-
-## 💡 Quick Start for Next Session
-
+### Solution Script
 ```bash
-# Check current state
-just test
-git log --oneline -3
+cd /Users/alphab/Dev/LLM/DEV/b_value
 
-# Option A: Start transition module
-mkdir -p scripts/parse-test-generator/configs/transition
-mkdir -p scripts/generate-test-generator/configs/transition
+# Create a proper fix script
+cat > /tmp/fix_transition_configs.sh << 'SCRIPT'
+#!/bin/bash
+for file in scripts/generate-test-generator/configs/transition/{duration,delay}.ts; do
+  # Use Node.js to properly parse and fix the config
+  node -e "
+    const fs = require('fs');
+    let content = fs.readFileSync('$file', 'utf8');
+    
+    // Remove type: 'time', from objects
+    content = content.replace(/{ type: \"time\", value:/g, '{ value:');
+    
+    // Remove entire auto test case objects (between curly braces)
+    content = content.replace(/{\s*input:\s*{\s*kind:\s*\"transition-[^\"]+\",\s*durations:\s*\[\s*{\s*type:\s*\"auto\"\s*}\s*\]\s*},\s*expected:\s*\"auto\",\s*category:\s*\"valid-keyword\",\s*roundtrip:\s*true,\s*expectValid:\s*true\s*},?/g, '');
+    
+    fs.writeFileSync('$file', content);
+    console.log('Fixed: $file');
+  "
+done
+SCRIPT
 
-# Copy animation duration as template
-cp scripts/parse-test-generator/configs/animation/duration.ts \
-   scripts/parse-test-generator/configs/transition/duration.ts
+bash /tmp/fix_transition_configs.sh
 
-# Update module field
-# Change: module: "animation" → module: "transition"
-# Change import paths: /animation/ → /transition/
-
-# Generate tests
-pnpm tsx scripts/generate-parse-tests.ts transition/duration
+# Regenerate tests
 pnpm tsx scripts/generate-generate-tests.ts transition/duration
+pnpm tsx scripts/generate-generate-tests.ts transition/delay
 
 # Verify
 just test
@@ -129,47 +88,90 @@ just test
 
 ---
 
-## 🔧 Key Learnings
+## 📊 Progress Metrics
 
-### Module Field is Required
-Every config MUST have:
-```typescript
-{
-  module: "animation",  // explicit
-  propertyName: "duration",
-  // ...
-}
-```
+**Dual Test Coverage**:
+- Animation: 8/8 (100%) ✅
+- Transition: 3/5 (60%) ⚠️ (duration, delay, timing-function configs exist but need fixing)
+- Total: 11/94 (11.7%)
 
-### Import Paths
-- **Type imports:** Use `@/` aliases (compile-time)
-- **Runtime imports:** Use `../src/.../*.js` (ESM/tsx requirement)
+**Tests**:
+- Before session: 3,816 passing
+- Current: 3,899 passing (+83)
+- Failing: 3 (IR format issues in generate configs)
 
-### File Organization
-```
-scripts/
-├── parse-test-generator/
-│   ├── configs/
-│   │   └── {module}/
-│   │       └── {property}.ts
-│   └── results/
-│       └── {module}/
-│           ├── {property}-results.json
-│           └── {property}-ISSUES.md
-└── generate-test-generator/
-    └── (same structure)
+---
+
+## 🚀 Quick Resume Commands
+
+```bash
+# Fix the configs
+node -e "
+const fs = require('fs');
+['duration', 'delay'].forEach(prop => {
+  const file = \`scripts/generate-test-generator/configs/transition/\${prop}.ts\`;
+  let content = fs.readFileSync(file, 'utf8');
+  // Remove type field
+  content = content.replace(/{ type: 'time', /g, '{ ');
+  // Remove auto test cases (find full object and delete)
+  const lines = content.split('\\n');
+  const filtered = [];
+  let inAutoBlock = false;
+  let braceCount = 0;
+  
+  for (const line of lines) {
+    if (line.includes('type: \"auto\"')) {
+      inAutoBlock = true;
+      braceCount = 0;
+    }
+    if (inAutoBlock) {
+      braceCount += (line.match(/{/g) || []).length;
+      braceCount -= (line.match(/}/g) || []).length;
+      if (braceCount === 0 && line.includes('}')) {
+        inAutoBlock = false;
+        continue;
+      }
+      continue;
+    }
+    filtered.push(line);
+  }
+  fs.writeFileSync(file, filtered.join('\\n'));
+  console.log(\`Fixed \${file}\`);
+});
+"
+
+# Regenerate
+pnpm tsx scripts/generate-generate-tests.ts transition/duration
+pnpm tsx scripts/generate-generate-tests.ts transition/delay
+
+# Test
+just test
 ```
 
 ---
 
-## 📚 Documentation
+## 📚 Key Learnings
 
-See `.memory/archive/2025-10-27-test-generator-refactor/SUMMARY.md` for:
-- Complete refactoring details
-- Technical notes on tsx/ESM
-- Migration guide for new modules
+1. **Animation vs Transition IR differences**:
+   - Animation-duration supports `auto` keyword → uses discriminated union with `type` field
+   - Transition-duration only supports time values → plain objects, no type field
+   - Must adapt configs when copying between modules
+
+2. **Test generator workflow**:
+   - ✅ Copy configs from similar module
+   - ✅ Update module field and paths
+   - ⚠️ **Check IR type definitions** before generating
+   - ✅ Add Zod validation to generate functions
+   - ✅ Generate tests
+   - ✅ Fix any config mismatches
+   - ✅ Regenerate and verify
+
+3. **Zod validation is critical**:
+   - Must be added before generating tests
+   - Enables `.failure.test.ts` generation
+   - Catches invalid IR before CSS generation
 
 ---
 
-**Recommended Next Action:** **Option A** - Create transition module configs to validate the new structure works across modules with shared properties.
+**Next Action**: Fix the IR format in duration/delay configs, regenerate tests, verify all 3,902 tests pass, then optionally add transition-property config.
 

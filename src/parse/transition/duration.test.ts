@@ -1,116 +1,173 @@
 // b_path:: src/parse/transition/duration.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/transition/duration.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-duration
+// - W3C: https://www.w3.org/TR/css-transitions-1/#transition-duration-property
 import { describe, expect, it } from "vitest";
-import * as Parser from "./duration";
+import * as Parser from "@/parse/transition/duration";
 
-describe("Transition Duration Parser", () => {
-	it("should parse single time value in seconds", () => {
-		const result = Parser.parse("1s");
+describe("parse/transition/duration - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse single time value in seconds", () => {
+			const result = Parser.parse("1s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.kind).toBe("transition-duration");
-			expect(result.value.durations).toHaveLength(1);
-			expect(result.value.durations[0]).toEqual({ value: 1, unit: "s" });
-		}
+		it("should parse single time value in milliseconds", () => {
+			const result = Parser.parse("500ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 500,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse single time value in milliseconds", () => {
-		const result = Parser.parse("500ms");
+	describe("valid-edge", () => {
+		it("should parse zero duration", () => {
+			const result = Parser.parse("0s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 0,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.durations).toHaveLength(1);
-			expect(result.value.durations[0]).toEqual({ value: 500, unit: "ms" });
-		}
+		it("should parse zero duration in ms", () => {
+			const result = Parser.parse("0ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 0,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse zero duration", () => {
-		const result = Parser.parse("0s");
+	describe("valid-decimal", () => {
+		it("should parse decimal values", () => {
+			const result = Parser.parse("0.5s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 0.5,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.durations[0]).toEqual({ value: 0, unit: "s" });
-		}
+		it("should parse decimal seconds", () => {
+			const result = Parser.parse("2.5s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 2.5,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
+
+		it("should parse decimal milliseconds", () => {
+			const result = Parser.parse("100.5ms");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 100.5,
+			         "unit": "ms"
+			      }
+			   ]
+			});
+		});
+
 	});
 
-	it("should parse decimal values", () => {
-		const result = Parser.parse("0.5s");
+	describe("valid-large", () => {
+		it("should parse large values", () => {
+			const result = Parser.parse("3600s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 3600,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.durations[0]).toEqual({ value: 0.5, unit: "s" });
-		}
 	});
 
-	it("should parse multiple durations", () => {
-		const result = Parser.parse("1s, 500ms, 2s");
+	describe("valid-list", () => {
+		it("should parse multiple time values", () => {
+			const result = Parser.parse("1s, 2s, 3s, 4s");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+			   "kind": "transition-duration",
+			   "durations": [
+			      {
+			         "value": 1,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 2,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 3,
+			         "unit": "s"
+			      },
+			      {
+			         "value": 4,
+			         "unit": "s"
+			      }
+			   ]
+			});
+		});
 
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.durations).toHaveLength(3);
-			expect(result.value.durations[0]).toEqual({ value: 1, unit: "s" });
-			expect(result.value.durations[1]).toEqual({ value: 500, unit: "ms" });
-			expect(result.value.durations[2]).toEqual({ value: 2, unit: "s" });
-		}
 	});
 
-	it("should parse durations with whitespace", () => {
-		const result = Parser.parse("1s , 500ms , 2s");
-
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.durations).toHaveLength(3);
-		}
-	});
-
-	it("should reject negative duration", () => {
-		const result = Parser.parse("-1s");
-
-		expect(result.ok).toBe(false);
-		if (!result.ok) {
-			expect(result.error).toContain("non-negative");
-		}
-	});
-
-	it("should reject auto keyword", () => {
-		const result = Parser.parse("auto");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject invalid time unit", () => {
-		const result = Parser.parse("1px");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject empty value", () => {
-		const result = Parser.parse("");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject value without unit", () => {
-		const result = Parser.parse("1");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject trailing comma", () => {
-		const result = Parser.parse("1s,");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject leading comma", () => {
-		const result = Parser.parse(",1s");
-
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject multiple commas", () => {
-		const result = Parser.parse("1s,,2s");
-
-		expect(result.ok).toBe(false);
-	});
 });

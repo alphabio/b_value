@@ -1,49 +1,394 @@
+// b_path:: src/generate/transition/timing-function.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/transition/timing-function.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function
+// - W3C: https://www.w3.org/TR/css-transitions-1/#transition-timing-function-property
 import { describe, expect, it } from "vitest";
-import { generate } from "./timing-function.js";
+import * as Generator from "@/generate/transition/timing-function";
+import * as Parser from "@/parse/transition/timing-function";
+import type * as Type from "@/core/types";
 
-describe("generate/transition/timing-function", () => {
-	it("generates ease", () => {
-		const result = generate({ kind: "transition-timing-function", functions: ["ease"] });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("ease");
-	});
+describe("generate/transition/timing-function - valid cases", () => {
+	describe("valid-keyword", () => {
+		it("should generate ease keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease");
 
-	it("generates linear", () => {
-		const result = generate({ kind: "transition-timing-function", functions: ["linear"] });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("linear");
-	});
-
-	it("generates ease-in", () => {
-		const result = generate({ kind: "transition-timing-function", functions: ["ease-in"] });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("ease-in");
-	});
-
-	it("generates ease-out", () => {
-		const result = generate({ kind: "transition-timing-function", functions: ["ease-out"] });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("ease-out");
-	});
-
-	it("generates ease-in-out", () => {
-		const result = generate({ kind: "transition-timing-function", functions: ["ease-in-out"] });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("ease-in-out");
-	});
-
-	it("generates cubic-bezier", () => {
-		const result = generate({
-			kind: "transition-timing-function",
-			functions: [{ type: "cubic-bezier", x1: 0.4, y1: 0, x2: 0.2, y2: 1 }],
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
 		});
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("cubic-bezier(0.4, 0, 0.2, 1)");
+
+		it("should generate linear keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "linear"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("linear");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate ease-in keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease-in"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease-in");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate ease-out keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease-out"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease-out");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate ease-in-out keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease-in-out"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease-in-out");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate step-start keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "step-start"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("step-start");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate step-end keyword", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "step-end"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("step-end");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
 	});
+
+	describe("valid-cubic-bezier", () => {
+		it("should generate cubic-bezier function", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "cubic-bezier",
+			         "x1": 0.42,
+			         "y1": 0,
+			         "x2": 1,
+			         "y2": 1
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("cubic-bezier(0.42, 0, 1, 1)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate cubic-bezier with zero values", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "cubic-bezier",
+			         "x1": 0,
+			         "y1": 0,
+			         "x2": 1,
+			         "y2": 1
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("cubic-bezier(0, 0, 1, 1)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+	});
+
+	describe("valid-steps", () => {
+		it("should generate steps without position", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "steps",
+			         "steps": 4
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("steps(4)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate steps with start position", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "steps",
+			         "steps": 10,
+			         "position": "start"
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("steps(10, start)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate steps with end position", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "steps",
+			         "steps": 5,
+			         "position": "end"
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("steps(5, end)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+	});
+
+	describe("valid-linear", () => {
+		it("should generate linear function simple", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "linear",
+			         "stops": [
+			            {
+			               "output": 0
+			            },
+			            {
+			               "output": 1
+			            }
+			         ]
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("linear(0, 1)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate linear function with input positions", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      {
+			         "type": "linear",
+			         "stops": [
+			            {
+			               "output": 0,
+			               "input": 0
+			            },
+			            {
+			               "output": 0.5,
+			               "input": 0.5
+			            },
+			            {
+			               "output": 1,
+			               "input": 1
+			            }
+			         ]
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("linear(0 0%, 0.5 50%, 1 100%)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+	});
+
+	describe("valid-list", () => {
+		it("should generate multiple keyword functions", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease",
+			      "linear",
+			      "ease-out"
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease, linear, ease-out");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate mixed function types", () => {
+			const input: Type.AnimationTimingFunction = {
+			   "kind": "transition-timing-function",
+			   "functions": [
+			      "ease",
+			      {
+			         "type": "cubic-bezier",
+			         "x1": 0.1,
+			         "y1": 0.7,
+			         "x2": 1,
+			         "y2": 0.1
+			      },
+			      {
+			         "type": "steps",
+			         "steps": 4
+			      }
+			   ]
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("ease, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+	});
+
 });

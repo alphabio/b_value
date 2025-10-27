@@ -1,0 +1,475 @@
+[
+  {
+    "description": "single time value in seconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "1s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1s",
+    "actual": "1s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "single time value in milliseconds",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "500ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "500ms",
+    "actual": "500ms",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "category": "valid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Invalid input: expected number, received undefined",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\".",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": true,
+    "expected": "auto",
+    "actual": "durations[0].value: Invalid input: expected number, received undefined",
+    "roundtrip": true,
+    "issue": "Expected VALID but got ERROR: durations[0].value: Invalid input: expected number, received undefined"
+  },
+  {
+    "description": "zero duration",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": "0s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0s",
+    "actual": "0s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "zero duration in ms",
+    "category": "valid-edge",
+    "output": {
+      "ok": true,
+      "value": "0ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0ms",
+    "actual": "0ms",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "decimal values",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "0.5s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.5s",
+    "actual": "0.5s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "decimal seconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "2.5s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "2.5s",
+    "actual": "2.5s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "decimal milliseconds",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "100.5ms",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "100.5ms",
+    "actual": "100.5ms",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "large values",
+    "category": "valid-large",
+    "output": {
+      "ok": true,
+      "value": "3600s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "3600s",
+    "actual": "3600s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "multiple durations",
+    "category": "valid-list",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[1].value: Invalid input: expected number, received undefined",
+          "path": [
+            "durations",
+            1,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[1].unit: Invalid unit. Expected \"s\" or \"ms\".",
+          "path": [
+            "durations",
+            1,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": true,
+    "expected": "1s, auto, 500ms",
+    "actual": "durations[1].value: Invalid input: expected number, received undefined",
+    "roundtrip": true,
+    "issue": "Expected VALID but got ERROR: durations[1].value: Invalid input: expected number, received undefined"
+  },
+  {
+    "description": "multiple time values",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "1s, 2s, 3s, 4s",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1s, 2s, 3s, 4s",
+    "actual": "1s, 2s, 3s, 4s",
+    "roundtrip": true,
+    "roundtripSuccess": false,
+    "issue": "Roundtrip failed: parse(generate(IR)) !== IR"
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "invalid unit px",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\".",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\"."
+  },
+  {
+    "description": "invalid unit em",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\".",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\"."
+  },
+  {
+    "description": "negative value in seconds",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Time value must be non-negative",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Time value must be non-negative",
+    "expected": "",
+    "actual": "durations[0].value: Time value must be non-negative"
+  },
+  {
+    "description": "negative value in milliseconds",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Time value must be non-negative",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Time value must be non-negative",
+    "expected": "",
+    "actual": "durations[0].value: Time value must be non-negative"
+  },
+  {
+    "description": "string value",
+    "category": "invalid-value-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Invalid input: expected number, received string",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "durations[0].value: Invalid input: expected number, received string"
+  },
+  {
+    "description": "null value",
+    "category": "invalid-value-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Invalid input: expected number, received null",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected number, received null",
+    "expected": "",
+    "actual": "durations[0].value: Invalid input: expected number, received null"
+  },
+  {
+    "description": "invalid duration type",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].value: Invalid input: expected number, received undefined",
+          "path": [
+            "durations",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "durations[0].unit: Invalid unit. Expected \"s\" or \"ms\".",
+          "path": [
+            "durations",
+            0,
+            "unit"
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "durations[0].value: Invalid input: expected number, received undefined"
+  }
+]

@@ -1,7 +1,9 @@
 // b_path:: src/generate/transition/duration.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
+import { transitionDurationSchema } from "@/core/types/transition";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS transition-duration property value from IR.
@@ -42,8 +44,18 @@ import type * as Type from "@/core/types";
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-duration-property | W3C Spec}
  */
 export function generate(ir: Type.TransitionDuration): GenerateResult {
-	if (ir === undefined || ir === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = transitionDurationSchema.safeParse(ir);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(ir.durations.map((duration) => `${duration.value}${duration.unit}`).join(", "));
 }

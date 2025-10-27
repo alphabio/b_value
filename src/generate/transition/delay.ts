@@ -1,7 +1,9 @@
 // b_path:: src/generate/transition/delay.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
+import { transitionDelaySchema } from "@/core/types/transition";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS transition-delay property value from IR.
@@ -41,8 +43,18 @@ import type * as Type from "@/core/types";
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-delay-property | W3C Spec}
  */
 export function generate(ir: Type.TransitionDelay): GenerateResult {
-	if (ir === undefined || ir === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = transitionDelaySchema.safeParse(ir);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(ir.delays.map((time) => `${time.value}${time.unit}`).join(", "));
 }
