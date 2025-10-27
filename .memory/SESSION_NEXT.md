@@ -1,165 +1,175 @@
-# Next Session: Continue Module-by-Module Validation & Test Generation
+# Next Session: Test Generator Refactoring COMPLETE ✅
 
-**Date**: 2025-10-27
-**Status**: ✅ Animation module 100% COMPLETE!
-**Tests**: 3,816 passing (+44 from start of session)
-**Branch**: coverage/90-percent
-**Latest Commit**: 0c6c431
-
----
-
-## 🎉 Major Achievement: Animation Module COMPLETE
-
-**100% Complete - All 8 Properties**:
-1. ✅ animation-duration - Schema ✅ Validation ✅ Tests ✅
-2. ✅ animation-timing-function - Schema ✅ Validation ✅ Tests ✅
-3. ✅ animation-delay - Schema ✅ Validation ✅ Tests ✅ (Fixed negative values!)
-4. ✅ animation-iteration-count - Schema ✅ Validation ✅ Tests ✅
-5. ✅ animation-direction - Schema ✅ Validation ✅ Tests ✅
-6. ✅ animation-fill-mode - Schema ✅ Validation ✅ Tests ✅
-7. ✅ animation-play-state - Schema ✅ Validation ✅ Tests ✅
-8. ✅ animation-name - Schema ✅ Validation ✅ Tests ✅
-
-**This Session's Work (5 commits)**:
-- Fixed animation-delay to support negative values (created delayTimeSchema)
-- Added Zod validation to 5 animation properties
-- Added Zod validation to 5 layout properties
-- Created 4 comprehensive test configs (direction, fill-mode, play-state, name)
-- Generated 61 new tests across 4 properties
-- **All 3,816 tests passing**
+**Date**: 2025-10-27  
+**Status**: Refactoring complete, all tests passing (3,816/3,816)  
+**Branch**: coverage/90-percent  
+**Latest Commit**: 798f96a - refactor: organize test generators by module
 
 ---
 
-## 📊 Validation Progress Tracking
+## 🎉 Refactoring Complete!
 
-### ✅ Completed Modules
-**Animation** (8/8 properties - 100%):
-- duration, timing-function, delay, iteration-count
-- direction, fill-mode, play-state, name
-- Status: Validation ✅ | Test Configs ✅ | Generated Tests ✅
+Successfully reorganized test generators into scalable module-based structure.
 
-### 🚧 Partially Complete
-**Layout** (5/? properties started):
-- display, visibility, overflow-x, overflow-y, position-property
-- Status: Validation ✅ | Test Configs ❌ | Generated Tests ❌
-- **Need**: Create test configs and generate tests
+**What Changed:**
+- ✅ Module-based directory structure (configs/animation/, results/animation/)
+- ✅ Both scripts updated to support `module/property` syntax  
+- ✅ All 16 animation configs updated with `module` field
+- ✅ Type imports use `@/` aliases
+- ✅ Results organized by module
+- ✅ All 3,816 tests still passing
 
-### 📋 Next Modules to Tackle
-1. **Layout** (finish remaining properties)
-2. **Typography** - text-align, text-decoration, font properties
-3. **Border** - border-style, border-width, border-color
-4. **Flexbox** - align-items, justify-content, flex-direction
-5. **Background** - attachment, clip, origin, repeat
-
----
-
-## 🎯 Next Session Plan
-
-### Option A: Complete Layout Module
-Finish what we started:
-1. Create test configs for: display, visibility, overflow-x, overflow-y, position-property
-2. Generate tests for all 5 properties
-3. Verify all pass
-4. Commit as "feat: complete Layout module validation and tests"
-
-**Effort**: ~30-40 minutes
-
-### Option B: Start Typography Module
-Pick simple text properties:
-1. text-align (enum keywords)
-2. text-decoration-line (enum keywords)
-3. text-transform (enum keywords)
-4. Do full cycle: validate + test config + generate tests
-
-**Effort**: ~30-40 minutes
-
-### Option C: Coverage Boost
-Switch gears back to original goal - test untested source files to reach 90% coverage
-
----
-
-## 💡 Key Learnings This Session
-
-**Process That Works**:
-1. ✅ Fix schema if needed (e.g., delayTimeSchema for negatives)
-2. ✅ Add validation to generate function (zodErrorToIssues)
-3. ✅ Create comprehensive test config (200+ lines each)
-4. ✅ Generate tests via test generator (automatic)
-5. ✅ Verify all pass (just test)
-6. ✅ Commit with clear message
-
-**Important Realizations**:
-- ⚠️ Validation alone is incomplete - must generate tests too
-- ✅ Test configs take time (~15 min each) but ensure quality
-- ✅ Module-by-module approach keeps work organized
-- ✅ Animation serves as template for other modules
-
-**Quality Metrics**:
-- All generated tests include roundtrip validation (IR → CSS → IR)
-- Invalid cases test Zod error messages
-- Test configs cover edge cases, null/undefined, wrong types
-- 100% pass rate maintained throughout
-
----
-
-## 📂 Files Modified This Session
-
-**Schemas**:
-- `src/core/types/time.ts` - Added delayTimeSchema
-- `src/core/types/animation.ts` - Updated animationDelaySchema
-
-**Generate Functions** (13 properties):
-- Animation (8): delay, iteration-count, direction, fill-mode, play-state, name, timing-function, duration
-- Layout (5): display, visibility, overflow-x, overflow-y, position-property
-
-**Test Infrastructure**:
-- Created 4 test configs: direction, fill-mode, play-state, name
-- Generated 8 test files (4 valid + 4 failure)
-- Updated 2 existing test configs: delay, iteration-count
-
-**Documentation**:
-- Updated `test/integration/KNOWN_LIMITATIONS.md` - marked delay as fixed
-- Updated `.memory/SESSION_NEXT.md` (this file)
-
----
-
-## 🚀 Quick Start Commands
-
+**New Usage:**
 ```bash
-# Check current state
-just test
-git log --oneline -5
+# Generate parse tests
+pnpm tsx scripts/generate-parse-tests.ts animation/duration
 
-# Option A: Continue Layout module
-vim scripts/generate-test-generator/configs/display.ts
-pnpm tsx scripts/generate-generate-tests.ts display
-
-# Option B: Start Typography
-ls -la src/generate/typography/
-vim src/generate/typography/text-align.ts
-
-# Option C: Coverage boost
-find src -name "*.ts" ! -name "*.test.ts" -exec sh -c 'grep -l "^export" {} && [ ! -f "$(dirname {})/$(basename {} .ts).test.ts" ]' \;
+# Generate generate tests  
+pnpm tsx scripts/generate-generate-tests.ts animation/delay
 ```
 
 ---
 
-## 📈 Statistics
+## 🎯 Next: Expand Dual Testing to More Modules
 
-**Test Growth**: 3,772 → 3,816 (+44 tests, +1.2%)
-**Commits**: 5 clean, focused commits
-**Properties Validated**: 13 total (8 animation + 5 layout)
-**Test Configs Created**: 4 comprehensive configs
-**Time**: ~90 minutes for complete animation module
+With infrastructure proven for animation (8 properties), expand to other modules.
 
-**Animation Module**:
-- Parse: 8/8 ✅
-- Generate: 8/8 ✅
-- Validation: 8/8 ✅
-- Test Configs: 8/8 ✅
-- Generated Tests: 8/8 ✅
-- **Status: 100% COMPLETE** 🎉
+### Option A: Transition Module (Recommended)
+**Why**: Shares properties with animation, easy to validate
+
+Properties (5 total):
+1. duration - reuse animation config as template
+2. delay - reuse animation config as template
+3. timing-function - reuse animation config as template
+4. property - new config needed
+5. transition - new config needed (shorthand)
+
+**Steps:**
+1. Create `configs/transition/` directories
+2. Copy animation duration/delay/timing-function configs
+3. Update module field and import paths
+4. Create property and transition configs
+5. Generate tests for all 5 properties
+6. Verify roundtrip validation works
+
+**Effort:** ~30-40 minutes
+
+### Option B: Border Module
+**Why**: Simpler properties (mostly enums)
+
+Properties (5 total):
+1. width - length values
+2. style - enum keywords
+3. color - color values
+4. radius - length/percentage values  
+5. border - shorthand
+
+**Effort:** ~40-50 minutes
+
+### Option C: Typography Module  
+**Why**: Mix of enums and values, good variety
+
+Common properties:
+- font-size, font-weight, font-family
+- line-height, letter-spacing
+- text-align, text-decoration
+
+**Effort:** ~60 minutes
 
 ---
 
-**Recommended Next Action**: **Option A** - Complete Layout module to maintain momentum and finish what we started. Then reassess whether to continue module validation or switch to coverage boost.
+## 📊 Current Status
+
+### Modules with Full Dual Testing
+**Animation** (8/8 properties):
+- Parse configs: ✅
+- Generate configs: ✅  
+- Test generator infrastructure: ✅
+- All tests passing: ✅
+
+### Modules with Implementations (No Test Configs Yet)
+- Transition (5 properties)
+- Border (5 properties)
+- Typography (11 properties)
+- Layout (30 properties)
+- Flexbox (11 properties)
+- Background (9 properties)
+- ...and 14 more modules
+
+**Total:** 94 properties implemented, 352 remaining
+
+---
+
+## 💡 Quick Start for Next Session
+
+```bash
+# Check current state
+just test
+git log --oneline -3
+
+# Option A: Start transition module
+mkdir -p scripts/parse-test-generator/configs/transition
+mkdir -p scripts/generate-test-generator/configs/transition
+
+# Copy animation duration as template
+cp scripts/parse-test-generator/configs/animation/duration.ts \
+   scripts/parse-test-generator/configs/transition/duration.ts
+
+# Update module field
+# Change: module: "animation" → module: "transition"
+# Change import paths: /animation/ → /transition/
+
+# Generate tests
+pnpm tsx scripts/generate-parse-tests.ts transition/duration
+pnpm tsx scripts/generate-generate-tests.ts transition/duration
+
+# Verify
+just test
+```
+
+---
+
+## 🔧 Key Learnings
+
+### Module Field is Required
+Every config MUST have:
+```typescript
+{
+  module: "animation",  // explicit
+  propertyName: "duration",
+  // ...
+}
+```
+
+### Import Paths
+- **Type imports:** Use `@/` aliases (compile-time)
+- **Runtime imports:** Use `../src/.../*.js` (ESM/tsx requirement)
+
+### File Organization
+```
+scripts/
+├── parse-test-generator/
+│   ├── configs/
+│   │   └── {module}/
+│   │       └── {property}.ts
+│   └── results/
+│       └── {module}/
+│           ├── {property}-results.json
+│           └── {property}-ISSUES.md
+└── generate-test-generator/
+    └── (same structure)
+```
+
+---
+
+## 📚 Documentation
+
+See `.memory/archive/2025-10-27-test-generator-refactor/SUMMARY.md` for:
+- Complete refactoring details
+- Technical notes on tsx/ESM
+- Migration guide for new modules
+
+---
+
+**Recommended Next Action:** **Option A** - Create transition module configs to validate the new structure works across modules with shared properties.
+
