@@ -114,3 +114,28 @@ EOF
 - **`.memory/scripts/count-properties.sh`** - Automated property counter (source of truth)
 
 ---
+
+---
+
+## 🚫 Shorthand Properties - Out of Scope
+
+**CRITICAL**: This project (`b_value`) handles **LONGHAND properties ONLY**.
+
+**Shorthand properties are handled by a separate project**: [`b_short`](https://github.com/alphabio/b_short)
+
+**Examples**:
+- ✅ `border-left-width` (longhand) → supported in b_value
+- ✅ `border-top-color` (longhand) → supported in b_value
+- ✅ `border-bottom-left-radius` (longhand) → supported in b_value
+- ❌ `border` (shorthand) → NOT in b_value, use b_short
+- ❌ `margin` (shorthand) → NOT in b_value, use b_short
+- ❌ `transition` (shorthand) → NOT in b_value, use b_short
+
+**Why the separation?**
+- Shorthand expansion is complex (different rules per property)
+- b_short focuses on shorthand → longhand expansion
+- b_value focuses on value parsing/normalization for longhands
+- Clean separation of concerns
+
+**When planning modules**: Skip shorthand properties in test plans and roadmaps.
+
