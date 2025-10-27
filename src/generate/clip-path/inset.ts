@@ -60,7 +60,7 @@ function generateTRBL(trbl: {
 	right: Type.LengthPercentage;
 	bottom: Type.LengthPercentage;
 	left: Type.LengthPercentage;
-}): GenerateResult {
+}): string {
 	const top = GenerateUtils.lengthPercentageToCss(trbl.top);
 	const right = GenerateUtils.lengthPercentageToCss(trbl.right);
 	const bottom = GenerateUtils.lengthPercentageToCss(trbl.bottom);
@@ -69,19 +69,19 @@ function generateTRBL(trbl: {
 	// Check for optimization opportunities
 	if (top === right && right === bottom && bottom === left) {
 		// All equal: 1 value
-		return generateOk(top);
+		return top;
 	}
 
 	if (top === bottom && right === left) {
 		// Vertical same, horizontal same: 2 values
-		return generateOk(`${top} ${right}`);
+		return `${top} ${right}`;
 	}
 
 	if (right === left) {
 		// Left/right same: 3 values
-		return generateOk(`${top} ${right} ${bottom}`);
+		return `${top} ${right} ${bottom}`;
 	}
 
 	// All different: 4 values
-	return generateOk(`${top} ${right} ${bottom} ${left}`);
+	return `${top} ${right} ${bottom} ${left}`;
 }

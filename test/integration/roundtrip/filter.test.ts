@@ -11,8 +11,18 @@
 import { describe, expect, test } from "vitest";
 import * as BlurGenerate from "@/generate/filter/blur";
 import * as BrightnessGenerate from "@/generate/filter/brightness";
+import * as ContrastGenerate from "@/generate/filter/contrast";
+import * as DropShadowGenerate from "@/generate/filter/drop-shadow";
+import * as GrayscaleGenerate from "@/generate/filter/grayscale";
+import * as HueRotateGenerate from "@/generate/filter/hue-rotate";
+import * as SaturateGenerate from "@/generate/filter/saturate";
 import * as BlurParse from "@/parse/filter/blur";
 import * as BrightnessParse from "@/parse/filter/brightness";
+import * as ContrastParse from "@/parse/filter/contrast";
+import * as DropShadowParse from "@/parse/filter/drop-shadow";
+import * as GrayscaleParse from "@/parse/filter/grayscale";
+import * as HueRotateParse from "@/parse/filter/hue-rotate";
+import * as SaturateParse from "@/parse/filter/saturate";
 
 describe("Round-Trip: filter functions", () => {
 	test("blur: blur(5px)", () => {
@@ -57,6 +67,86 @@ describe("Round-Trip: filter functions", () => {
 		if (!gen.ok) return;
 
 		const p2 = BrightnessParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("contrast: contrast(1.5)", () => {
+		const p1 = ContrastParse.parse("contrast(1.5)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = ContrastGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = ContrastParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("saturate: saturate(200%)", () => {
+		const p1 = SaturateParse.parse("saturate(200%)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = SaturateGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = SaturateParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("hue-rotate: hue-rotate(90deg)", () => {
+		const p1 = HueRotateParse.parse("hue-rotate(90deg)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = HueRotateGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = HueRotateParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("grayscale: grayscale(100%)", () => {
+		const p1 = GrayscaleParse.parse("grayscale(100%)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = GrayscaleGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = GrayscaleParse.parse(gen.value);
+		expect(p2.ok).toBe(true);
+		if (!p2.ok) return;
+
+		expect(p1.value).toEqual(p2.value);
+	});
+
+	test("drop-shadow: drop-shadow(2px 2px 4px black)", () => {
+		const p1 = DropShadowParse.parse("drop-shadow(2px 2px 4px black)");
+		expect(p1.ok).toBe(true);
+		if (!p1.ok) return;
+
+		const gen = DropShadowGenerate.generate(p1.value);
+		expect(gen.ok).toBe(true);
+		if (!gen.ok) return;
+
+		const p2 = DropShadowParse.parse(gen.value);
 		expect(p2.ok).toBe(true);
 		if (!p2.ok) return;
 
