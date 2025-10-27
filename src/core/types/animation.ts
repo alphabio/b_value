@@ -70,10 +70,18 @@ export const animationIterationCountSchema = z.object({
 	kind: z.literal("animation-iteration-count"),
 	counts: z
 		.array(
-			z.union([
-				z.object({ type: z.literal("infinite") }),
-				z.object({ type: z.literal("number"), value: z.number().nonnegative() }),
-			]),
+			z.union(
+				[
+					z.object({ type: z.literal("infinite") }),
+					z.object({ type: z.literal("number"), value: z.number().nonnegative() }),
+				],
+				{
+					error: (issue) =>
+						issue.code === "invalid_union"
+							? 'Invalid iteration count. Expected { type: "infinite" } or { type: "number", value: <non-negative number> }.'
+							: "Invalid input",
+				},
+			),
 		)
 		.min(1),
 });
@@ -169,7 +177,12 @@ export const animationNameSchema = z.object({
 	kind: z.literal("animation-name"),
 	names: z
 		.array(
-			z.union([z.object({ type: z.literal("none") }), z.object({ type: z.literal("identifier"), value: z.string() })]),
+			z.union([z.object({ type: z.literal("none") }), z.object({ type: z.literal("identifier"), value: z.string() })], {
+				error: (issue) =>
+					issue.code === "invalid_union"
+						? 'Invalid animation name. Expected { type: "none" } or { type: "identifier", value: <string> }.'
+						: "Invalid input",
+			}),
 		)
 		.min(1),
 });
@@ -283,12 +296,15 @@ export type LinearEasing = z.infer<typeof linearEasingSchema>;
  *
  * @public
  */
-export const easingFunctionSchema = z.union([
-	z.enum(Keyword.EASING_KEYWORD_KEYWORDS),
-	cubicBezierSchema,
-	stepsSchema,
-	linearEasingSchema,
-]);
+export const easingFunctionSchema = z.union(
+	[z.enum(Keyword.EASING_KEYWORD_KEYWORDS), cubicBezierSchema, stepsSchema, linearEasingSchema],
+	{
+		error: (issue) =>
+			issue.code === "invalid_union"
+				? "Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+				: "Invalid input",
+	},
+);
 
 /**
  * CSS easing function type.
