@@ -2,10 +2,15 @@
 import { z } from "zod";
 
 export const timeUnitSchema = z
-	.union([
-		z.literal("s").describe("seconds - canonical time unit"),
-		z.literal("ms").describe("milliseconds - 1000 milliseconds in a second"),
-	])
+	.union(
+		[
+			z.literal("s").describe("seconds - canonical time unit"),
+			z.literal("ms").describe("milliseconds - 1000 milliseconds in a second"),
+		],
+		{
+			error: (issue) => (issue.code === "invalid_union" ? 'Invalid unit. Expected "s" or "ms".' : "Invalid input"),
+		},
+	)
 	.describe(
 		"Time units specify duration or delay." + "Used in animations, transitions, and other time-based CSS properties.",
 	);

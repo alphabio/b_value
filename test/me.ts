@@ -21,12 +21,12 @@ import { Generate } from "@/index";
 // console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)").value);
 
 const input = {
-	kind: "animation-duration",
+	kind: "animation-duration" as const,
 	durations: [
 		{
-			type: "time",
+			type: "time" as const,
 			value: -1,
-			unit: "_s",
+			unit: "px" as "s" | "ms",
 		},
 	],
 };
@@ -108,3 +108,36 @@ console.log(JSON.stringify(result2.issues, null, 2));
 
 // TODO: Universal API not implemented yet
 // console.log(JSON.stringify(parse(expanded), null, 2));
+
+// Test simpler flatten approach
+// function flattenZodIssues(issues: any[]): any[] {
+// 	const flattened: any[] = [];
+
+// 	for (const issue of issues) {
+// 		if ("errors" in issue) {
+// 			const nestedIssues = (issue.errors as any).flatMap((e: any) => flattenZodIssues(e));
+// 			flattened.push(...nestedIssues);
+// 		} else {
+// 			flattened.push(issue);
+// 		}
+// 	}
+
+// 	return flattened;
+// }
+
+// console.log("\n\n=== SIMPLER FLATTEN APPROACH ===");
+// const result3 = Type.animationDurationSchema.safeParse(input);
+// if (!result3.success) {
+// 	const flat = flattenZodIssues(result3.error.issues);
+// 	console.log(
+// 		JSON.stringify(
+// 			flat.map((i: any) => ({
+// 				path: i.path,
+// 				message: i.message,
+// 				code: i.code,
+// 			})),
+// 			null,
+// 			2,
+// 		),
+// 	);
+// }

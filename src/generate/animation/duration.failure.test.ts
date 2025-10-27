@@ -44,7 +44,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].unit: Invalid unit. Expected "s" or "ms".');
 		});
 
 		it("should reject invalid unit em", () => {
@@ -62,7 +62,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].unit: Invalid unit. Expected "s" or "ms".');
 		});
 	});
 
@@ -120,7 +120,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe("durations[0].value: Invalid input: expected number, received string");
 		});
 
 		it("should reject NaN value", () => {
@@ -138,7 +138,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe("durations[0].value: Invalid input: expected number, received null");
 		});
 	});
 
@@ -156,7 +156,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe("Invalid IR structure");
 		});
 	});
 });
