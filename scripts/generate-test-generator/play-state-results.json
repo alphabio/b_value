@@ -1,0 +1,302 @@
+[
+  {
+    "description": "running play state",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "running",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "running",
+    "actual": "running",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "paused play state",
+    "category": "valid-single",
+    "output": {
+      "ok": true,
+      "value": "paused",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "paused",
+    "actual": "paused",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "two play states",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "running, paused",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "running, paused",
+    "actual": "running, paused",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "repeated play states",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "paused, running, running",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "paused, running, running",
+    "actual": "paused, running, running",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple animations with different states",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "running, running, running, paused",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "running, running, running, paused",
+    "actual": "running, running, running, paused",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "wrong kind literal",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"animation-play-state\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "kind: Invalid literal value, expected \"animation-play-state\"",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"animation-play-state\""
+  },
+  {
+    "description": "invalid play state keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states[0]: Invalid option: expected one of \"running\"|\"paused\"",
+          "path": [
+            "states",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "states[0]: Invalid enum value",
+    "expected": "",
+    "actual": "states[0]: Invalid option: expected one of \"running\"|\"paused\""
+  },
+  {
+    "description": "non-existent play state",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states[0]: Invalid option: expected one of \"running\"|\"paused\"",
+          "path": [
+            "states",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "states[0]: Invalid enum value",
+    "expected": "",
+    "actual": "states[0]: Invalid option: expected one of \"running\"|\"paused\""
+  },
+  {
+    "description": "direction keyword instead of play-state",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states[0]: Invalid option: expected one of \"running\"|\"paused\"",
+          "path": [
+            "states",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "states[0]: Invalid enum value",
+    "expected": "",
+    "actual": "states[0]: Invalid option: expected one of \"running\"|\"paused\""
+  },
+  {
+    "description": "empty states array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states: Too small: expected array to have >=1 items",
+          "path": [
+            "states"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "states: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "string instead of array",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states: Invalid input: expected array, received string",
+          "path": [
+            "states"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "states: Invalid input: expected array",
+    "expected": "",
+    "actual": "states: Invalid input: expected array, received string"
+  },
+  {
+    "description": "number instead of string",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "states[0]: Invalid option: expected one of \"running\"|\"paused\"",
+          "path": [
+            "states",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "states[0]: Invalid enum value",
+    "expected": "",
+    "actual": "states[0]: Invalid option: expected one of \"running\"|\"paused\""
+  }
+]

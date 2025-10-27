@@ -1,0 +1,362 @@
+[
+  {
+    "description": "none keyword",
+    "category": "valid-none",
+    "output": {
+      "ok": true,
+      "value": "none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none",
+    "actual": "none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "simple identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": "slideIn",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "slideIn",
+    "actual": "slideIn",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "camelCase identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": "fadeOut",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "fadeOut",
+    "actual": "fadeOut",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "hyphenated identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": "slide-in",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "slide-in",
+    "actual": "slide-in",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "underscore identifier",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": "bounce_effect",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "bounce_effect",
+    "actual": "bounce_effect",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "identifier with numbers",
+    "category": "valid-identifier",
+    "output": {
+      "ok": true,
+      "value": "animation123",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "animation123",
+    "actual": "animation123",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "two identifiers",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "slideIn, fadeOut",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "slideIn, fadeOut",
+    "actual": "slideIn, fadeOut",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "mixed identifiers and none",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "bounce, none, spin",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "bounce, none, spin",
+    "actual": "bounce, none, spin",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple none keywords",
+    "category": "valid-multiple",
+    "output": {
+      "ok": true,
+      "value": "none, none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none, none",
+    "actual": "none, none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "wrong kind literal",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"animation-name\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "kind: Invalid literal value, expected \"animation-name\"",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"animation-name\""
+  },
+  {
+    "description": "invalid type keyword",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "names",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "names[0]: Invalid animation name",
+    "expected": "",
+    "actual": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }."
+  },
+  {
+    "description": "missing value for identifier",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "names",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "names[0]: Invalid animation name",
+    "expected": "",
+    "actual": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }."
+  },
+  {
+    "description": "number value instead of string",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "names",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "names[0]: Invalid animation name",
+    "expected": "",
+    "actual": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }."
+  },
+  {
+    "description": "empty names array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names: Too small: expected array to have >=1 items",
+          "path": [
+            "names"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "names: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "string instead of array",
+    "category": "invalid-structure",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names: Invalid input: expected array, received string",
+          "path": [
+            "names"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "names: Invalid input: expected array",
+    "expected": "",
+    "actual": "names: Invalid input: expected array, received string"
+  },
+  {
+    "description": "missing type field",
+    "category": "invalid-structure",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "names",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "names[0]: Invalid animation name",
+    "expected": "",
+    "actual": "names[0]: Invalid animation name. Expected { type: \"none\" } or { type: \"identifier\", value: <string> }."
+  }
+]
