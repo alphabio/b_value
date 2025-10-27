@@ -5,16 +5,16 @@ import type * as Type from "@/core/types";
 import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
 
 /**
- * Parse property name from AST node.
+ * Parse property value from AST node.
  *
  * @param node - CSS tree node to parse
- * @returns Result with property object or error
+ * @returns Result with TransitionProperty property object or error
  *
  * @internal
  */
 function parseProperty(node: csstree.CssNode): Result<Type.TransitionProperty["properties"][number], string> {
 	if (node.type !== "Identifier") {
-		return err(`Expected identifier for property name, got: ${node.type}`);
+		return err(`Expected identifier, got: ${node.type}`);
 	}
 
 	const value = node.name.toLowerCase();
@@ -27,17 +27,18 @@ function parseProperty(node: csstree.CssNode): Result<Type.TransitionProperty["p
 		return ok({ type: "all" });
 	}
 
+	// CSS property name (identifier)
 	return ok({ type: "identifier", value: node.name });
 }
 
 /**
  * Parse CSS transition-property property value.
  *
- * Parses comma-separated list of property names, 'none', or 'all'.
+ * Parses comma-separated list of property names, 'all', or 'none'.
  *
  * Per CSS Transitions Level 1 specification.
  *
- * @param css - CSS transition-property value (e.g., "opacity, transform", "all", "none")
+ * @param css - CSS transition-property value (e.g., "opacity, transform")
  * @returns Result with TransitionProperty IR or error message
  *
  * @example
@@ -55,7 +56,7 @@ function parseProperty(node: csstree.CssNode): Result<Type.TransitionProperty["p
  * ```
  *
  * @example
- * Keywords:
+ * Keyword:
  * ```typescript
  * const result = parse("all");
  * // { ok: true, value: { kind: "transition-property", properties: [{ type: "all" }] } }
@@ -63,6 +64,7 @@ function parseProperty(node: csstree.CssNode): Result<Type.TransitionProperty["p
  *
  * @public
  *
+ * @see {@link https://github.com/mdn/data/blob/main/css/properties.json | MDN Data}
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/transition-property | MDN: transition-property}
  * @see {@link https://www.w3.org/TR/css-transitions-1/#transition-property-property | W3C Spec}
  */

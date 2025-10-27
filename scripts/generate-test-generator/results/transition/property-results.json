@@ -1,0 +1,260 @@
+[
+  {
+    "description": "none keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none",
+    "actual": "none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "all keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "all",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "all",
+    "actual": "all",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "single property",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "opacity",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "opacity",
+    "actual": "opacity",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "transform property",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "transform",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "transform",
+    "actual": "transform",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "hyphenated property",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "background-color",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "background-color",
+    "actual": "background-color",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple properties",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "opacity, transform",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "opacity, transform",
+    "actual": "opacity, transform",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "three properties",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "width, height, opacity",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "width, height, opacity",
+    "actual": "width, height, opacity",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "custom property",
+    "category": "valid-custom",
+    "output": {
+      "ok": true,
+      "value": "--custom-property",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "--custom-property",
+    "actual": "--custom-property",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple custom properties",
+    "category": "valid-custom",
+    "output": {
+      "ok": true,
+      "value": "--my-color, --my-size",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "--my-color, --my-size",
+    "actual": "--my-color, --my-size",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "empty properties array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "properties: Too small: expected array to have >=1 items",
+          "path": [
+            "properties"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "properties: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "invalid property type",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "properties[0]: Invalid transition property. Expected { type: \"none\" }, { type: \"all\" }, or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "properties",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid transition property",
+    "expected": "",
+    "actual": "properties[0]: Invalid transition property. Expected { type: \"none\" }, { type: \"all\" }, or { type: \"identifier\", value: <string> }."
+  },
+  {
+    "description": "identifier without value",
+    "category": "invalid-missing",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "properties[0]: Invalid transition property. Expected { type: \"none\" }, { type: \"all\" }, or { type: \"identifier\", value: <string> }.",
+          "path": [
+            "properties",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "properties[0]: Invalid transition property. Expected { type: \"none\" }, { type: \"all\" }, or { type: \"identifier\", value: <string> }."
+  }
+]

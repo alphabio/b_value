@@ -309,7 +309,35 @@ function generateValidTestFile(config: PropertyConfig, validCases: TestResult[],
 
 function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResult[], specRefs: SpecRef[]): string {
 	const failureOutputPath = config.outputPath.replace(".test.ts", ".failure.test.ts");
+	const generateFailurePath = `src/generate/${config.module}/${config.propertyName}.failure.test.ts`;
 
+	// If no invalid cases, use no-op template
+	if (invalidCases.length === 0) {
+		const templatePath = path.join("scripts", "parse-test-generator", "templates", "no-op-failure.template.ts");
+		let template = fs.readFileSync(templatePath, "utf-8");
+
+		// Build spec refs section
+		let specRefsSection = "";
+		if (specRefs.length > 0) {
+			specRefsSection = "// Spec references:\n";
+			specRefs.forEach((ref) => {
+				specRefsSection += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
+			});
+		} else {
+			specRefsSection = "// ⚠️  No spec references found in source file\n";
+		}
+
+		// Replace template variables
+		template = template.replace(/{{OUTPUT_PATH}}/g, failureOutputPath);
+		template = template.replace(/{{MODULE}}/g, config.module);
+		template = template.replace(/{{PROPERTY}}/g, config.propertyName);
+		template = template.replace(/{{SPEC_REFS}}/g, specRefsSection);
+		template = template.replace(/{{GENERATE_FAILURE_PATH}}/g, generateFailurePath);
+
+		return template;
+	}
+
+	// Otherwise, generate normal failure tests
 	let testFile = `// b_path:: ${failureOutputPath}\n`;
 	testFile += `// Auto-generated from scripts/test-generator/configs/${config.propertyName}.ts\n`;
 	testFile += `//\n`;

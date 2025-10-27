@@ -1,0 +1,282 @@
+[
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "none"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "all",
+    "description": "all keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "all"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "NONE",
+    "description": "none keyword (uppercase)",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "none"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "ALL",
+    "description": "all keyword (uppercase)",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "all"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "opacity",
+    "description": "single property",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "opacity"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "transform",
+    "description": "single property (transform)",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "transform"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "background-color",
+    "description": "hyphenated property name",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "background-color"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "OPACITY",
+    "description": "property name (uppercase)",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "OPACITY"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "opacity, transform",
+    "description": "multiple properties",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "opacity"
+          },
+          {
+            "type": "identifier",
+            "value": "transform"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "opacity, transform, background-color",
+    "description": "three properties",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "opacity"
+          },
+          {
+            "type": "identifier",
+            "value": "transform"
+          },
+          {
+            "type": "identifier",
+            "value": "background-color"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "width,height,opacity",
+    "description": "multiple properties (no spaces)",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "width"
+          },
+          {
+            "type": "identifier",
+            "value": "height"
+          },
+          {
+            "type": "identifier",
+            "value": "opacity"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "opacity,  transform,   background-color",
+    "description": "multiple properties (extra spaces)",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "opacity"
+          },
+          {
+            "type": "identifier",
+            "value": "transform"
+          },
+          {
+            "type": "identifier",
+            "value": "background-color"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "--custom-property",
+    "description": "custom property",
+    "category": "valid-custom",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "--custom-property"
+          }
+        ]
+      }
+    },
+    "success": true
+  },
+  {
+    "input": "--my-color, --my-size",
+    "description": "multiple custom properties",
+    "category": "valid-custom",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "transition-property",
+        "properties": [
+          {
+            "type": "identifier",
+            "value": "--my-color"
+          },
+          {
+            "type": "identifier",
+            "value": "--my-size"
+          }
+        ]
+      }
+    },
+    "success": true
+  }
+]
