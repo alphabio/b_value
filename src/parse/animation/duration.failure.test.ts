@@ -22,7 +22,6 @@ describe("parse/animation/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("animation-duration: animation-duration must be non-negative, got: -500");
 		});
-
 	});
 
 	describe("invalid-unit", () => {
@@ -46,7 +45,6 @@ describe("parse/animation/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Number");
 		});
-
 	});
 
 	describe("invalid-empty", () => {
@@ -56,7 +54,6 @@ describe("parse/animation/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("animation-duration: Empty value");
 		});
-
 	});
 
 	describe("invalid-comma", () => {
@@ -80,7 +77,6 @@ describe("parse/animation/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("animation-duration: Empty value before comma");
 		});
-
 	});
 
 	describe("invalid-keyword", () => {
@@ -97,7 +93,5 @@ describe("parse/animation/duration - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Identifier");
 		});
-
 	});
-
 });

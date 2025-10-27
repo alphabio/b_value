@@ -14,14 +14,14 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 1,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 1,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -30,17 +30,16 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 500,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-keyword", () => {
@@ -49,12 +48,12 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "auto"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "auto",
+					},
+				],
 			});
 		});
 
@@ -63,15 +62,14 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "auto"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "auto",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-edge", () => {
@@ -80,14 +78,14 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 0,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 0,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -96,17 +94,16 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 0,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 0,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-decimal", () => {
@@ -115,14 +112,14 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 0.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 0.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -131,14 +128,14 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 2.5,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 2.5,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -147,17 +144,16 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 100.5,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 100.5,
+						unit: "ms",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-large", () => {
@@ -166,17 +162,16 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 3600,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 3600,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
 
 	describe("valid-list", () => {
@@ -185,22 +180,22 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "type": "auto"
-			      },
-			      {
-			         "type": "time",
-			         "value": 500,
-			         "unit": "ms"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 1,
+						unit: "s",
+					},
+					{
+						type: "auto",
+					},
+					{
+						type: "time",
+						value: 500,
+						unit: "ms",
+					},
+				],
 			});
 		});
 
@@ -209,22 +204,22 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "type": "auto"
-			      },
-			      {
-			         "type": "time",
-			         "value": 2,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 1,
+						unit: "s",
+					},
+					{
+						type: "auto",
+					},
+					{
+						type: "time",
+						value: 2,
+						unit: "s",
+					},
+				],
 			});
 		});
 
@@ -233,32 +228,30 @@ describe("parse/animation/duration - valid cases", () => {
 			expect(result.ok).toBe(true);
 			if (!result.ok) return;
 			expect(result.value).toEqual({
-			   "kind": "animation-duration",
-			   "durations": [
-			      {
-			         "type": "time",
-			         "value": 1,
-			         "unit": "s"
-			      },
-			      {
-			         "type": "time",
-			         "value": 2,
-			         "unit": "s"
-			      },
-			      {
-			         "type": "time",
-			         "value": 3,
-			         "unit": "s"
-			      },
-			      {
-			         "type": "time",
-			         "value": 4,
-			         "unit": "s"
-			      }
-			   ]
+				kind: "animation-duration",
+				durations: [
+					{
+						type: "time",
+						value: 1,
+						unit: "s",
+					},
+					{
+						type: "time",
+						value: 2,
+						unit: "s",
+					},
+					{
+						type: "time",
+						value: 3,
+						unit: "s",
+					},
+					{
+						type: "time",
+						value: 4,
+						unit: "s",
+					},
+				],
 			});
 		});
-
 	});
-
 });

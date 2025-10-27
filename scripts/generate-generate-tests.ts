@@ -1,0 +1,452 @@
+#!/usr/bin/env tsx
+/**
+ * Generate Test Generation Script v1.0
+ *
+ * Tests IR → CSS conversion and roundtrip validation.
+ *
+ * Workflow:
+ * 1. Load test case config from configs/ .ts files
+ * 2. Validate spec references exist in source file
+ * 3. Run cases through generator
+ * 4. For roundtrip cases: validate parse(generate(IR)) === IR
+ * 5. Detect issues (mismatches between expected and actual)
+ * 6. Save results to JSON
+ * 7. Generate co-located test file (src/generate/ .generated.test.ts)
+ * 8. Save ISSUES.md if any mismatches found
+ *
+ * Usage:
+ *   tsx scripts/generate-generate-tests.ts <config-name>
+ *
+ * Example:
+ *   tsx scripts/generate-generate-tests.ts duration
+ */
+
+import * as fs from "node:fs";
+import * as path from "node:path";
+
+interface TestResult {
+	description: string;
+	category: string;
+	output: unknown;
+	success: boolean;
+	expectValid?: boolean;
+	expectedError?: string;
+	expected?: string;
+	actual?: string;
+	roundtrip?: boolean;
+	roundtripSuccess?: boolean;
+	issue?: string;
+}
+
+interface SpecRef {
+	type: "w3c" | "mdn" | "other";
+	url: string;
+}
+
+async function loadConfig(configName: string): Promise<any> {
+	const configPath = path.join(
+		path.dirname(new URL(import.meta.url).pathname),
+		"generate-test-generator",
+		"configs",
+		`${configName}.ts`,
+	);
+
+	if (!fs.existsSync(configPath)) {
+		console.error(`❌ Config not found: ${configPath}`);
+		console.error(`   Available configs:`);
+		const configsDir = path.join(path.dirname(configPath));
+		if (fs.existsSync(configsDir)) {
+			const files = fs.readdirSync(configsDir).filter((f) => f.endsWith(".ts"));
+			files.forEach((f) => console.error(`   - ${f.replace(".ts", "")}`));
+		}
+		process.exit(1);
+	}
+
+	const module = await import(configPath);
+	return module.config;
+}
+
+async function validateSpecRefs(specRefs: SpecRef[]): Promise<void> {
+	if (specRefs.length === 0) return;
+
+	console.log(`\n🔗 Validating spec reference URLs...`);
+
+	for (const ref of specRefs) {
+		try {
+			const controller = new AbortController();
+			const timeout = setTimeout(() => controller.abort(), 5000);
+
+			const response = await fetch(ref.url, {
+				method: "HEAD",
+				signal: controller.signal,
+			});
+			clearTimeout(timeout);
+
+			if (response.ok) {
+				console.log(`   ✅ ${ref.type}: ${ref.url}`);
+			} else {
+				console.warn(`   ⚠️  ${ref.type}: ${ref.url} (HTTP ${response.status})`);
+			}
+		} catch (error) {
+			console.warn(`   ⚠️  ${ref.type}: ${ref.url} (${error instanceof Error ? error.message : "unreachable"})`);
+		}
+	}
+}
+
+function extractSpecRefs(sourceFilePath: string): SpecRef[] {
+	if (!fs.existsSync(sourceFilePath)) {
+		console.warn(`⚠️  Source file not found: ${sourceFilePath}`);
+		return [];
+	}
+
+	const content = fs.readFileSync(sourceFilePath, "utf-8");
+	const refs: SpecRef[] = [];
+
+	// Extract @see links from JSDoc
+	const seePattern = /@see\s+\{@link\s+(https?:\/\/[^\s|]+)[^}]*\}/g;
+	let match: RegExpExecArray | null;
+
+	while ((match = seePattern.exec(content)) !== null) {
+		const url = match[1];
+		let type: "w3c" | "mdn" | "other" = "other";
+		if (url.includes("w3.org")) type = "w3c";
+		else if (url.includes("developer.mozilla.org")) type = "mdn";
+
+		refs.push({ type, url });
+	}
+
+	return refs;
+}
+
+async function runTests(config: any) {
+	console.log(`🧪 Running generate tests for: ${config.propertyName}\n`);
+
+	// Validate spec refs exist
+	const specRefs = extractSpecRefs(config.sourceFile);
+	if (specRefs.length === 0) {
+		console.warn(`⚠️  No spec references found in ${config.sourceFile}`);
+		console.warn(`   Expected @see {@link ...} in JSDoc comments\n`);
+	} else {
+		console.log(`📖 Found ${specRefs.length} spec reference(s):`);
+		specRefs.forEach((ref) => console.log(`   ${ref.type}: ${ref.url}`));
+		await validateSpecRefs(specRefs);
+		console.log();
+	}
+
+	// Dynamic import of generator and parser
+	const generator = await import(config.importPath);
+	const parser = config.parseImportPath ? await import(config.parseImportPath) : null;
+
+	const results: TestResult[] = [];
+	const issues: string[] = [];
+
+	for (const testCase of config.cases) {
+		const result = generator.generate(testCase.input);
+		const success = result.ok === true;
+
+		let issue: string | undefined;
+		let actual: string | undefined;
+		let roundtripSuccess: boolean | undefined;
+
+		if (success) {
+			actual = result.value;
+
+			// Check expected output
+			if (testCase.expected && actual !== testCase.expected) {
+				issue = `Expected "${testCase.expected}" but got "${actual}"`;
+				issues.push(`❌ ${testCase.description}`);
+				issues.push(`   Expected: "${testCase.expected}"`);
+				issues.push(`   Actual: "${actual}"\n`);
+			}
+
+			// Roundtrip validation
+			if (testCase.roundtrip && parser) {
+				const parseResult = parser.parse(actual);
+				roundtripSuccess = parseResult.ok === true;
+
+				if (roundtripSuccess) {
+					// Deep equality check
+					const originalJson = JSON.stringify(testCase.input);
+					const roundtripJson = JSON.stringify(parseResult.value);
+
+					if (originalJson !== roundtripJson) {
+						issue = `Roundtrip failed: parse(generate(IR)) !== IR`;
+						roundtripSuccess = false;
+						issues.push(`❌ ${testCase.description} - ROUNDTRIP FAILED`);
+						issues.push(`   Original: ${originalJson}`);
+						issues.push(`   Roundtrip: ${roundtripJson}\n`);
+					}
+				} else {
+					issue = `Roundtrip parse failed: ${parseResult.error}`;
+					issues.push(`❌ ${testCase.description} - ROUNDTRIP PARSE FAILED`);
+					issues.push(`   Generated CSS: "${actual}"`);
+					issues.push(`   Parse error: ${parseResult.error}\n`);
+				}
+			}
+		} else {
+			actual = result.issues?.[0]?.message || result.error;
+
+			// Check if error was expected
+			if (testCase.expectValid) {
+				issue = `Expected VALID but got ERROR: ${actual}`;
+				issues.push(`❌ ${testCase.description}`);
+				issues.push(`   Expected: VALID`);
+				issues.push(`   Actual: ERROR - ${actual}\n`);
+			}
+		}
+
+		// Detect mismatches between expected and actual behavior
+		if (testCase.expectValid !== undefined && testCase.expectValid !== success) {
+			if (!issue) {
+				if (testCase.expectValid && !success) {
+					issue = `Expected VALID but got ERROR: ${result.error}`;
+					issues.push(`❌ ${testCase.description}`);
+					issues.push(`   Expected: VALID (ok: true)`);
+					issues.push(`   Actual: ERROR - ${result.error}\n`);
+				} else {
+					issue = `Expected ERROR but got VALID: ${result.value}`;
+					issues.push(`❌ ${testCase.description}`);
+					issues.push(`   Expected: ERROR (ok: false)`);
+					issues.push(`   Actual: VALID - ${result.value}\n`);
+				}
+			}
+		}
+
+		results.push({
+			description: testCase.description,
+			category: testCase.category,
+			output: result,
+			success,
+			expectValid: testCase.expectValid,
+			expectedError: testCase.expectedError,
+			expected: testCase.expected,
+			actual,
+			roundtrip: testCase.roundtrip,
+			roundtripSuccess,
+			issue,
+		});
+
+		const status = success ? "✅" : "❌";
+		const roundtripFlag = testCase.roundtrip ? (roundtripSuccess ? " 🔄" : " 🔄❌") : "";
+		const issueFlag = issue ? " ⚠️  ISSUE" : "";
+		console.log(`${status} [${testCase.category}] ${testCase.description}${roundtripFlag}${issueFlag}`);
+		if (!success) {
+			console.log(`   Error: ${result.issues?.[0]?.message || result.error}`);
+		} else if (testCase.roundtrip && !roundtripSuccess) {
+			console.log(`   Roundtrip failed!`);
+		}
+	}
+
+	return { results, issues, specRefs };
+}
+
+function saveResults(config: any, results: TestResult[]) {
+	const outputPath = path.join("scripts", "generate-test-generator", `${config.propertyName}-results.json`);
+	fs.writeFileSync(outputPath, JSON.stringify(results, null, 2));
+	console.log(`\n📁 Results saved to: ${outputPath}`);
+}
+
+function saveIssues(config: any, issues: string[]) {
+	if (issues.length === 0) return;
+
+	const outputPath = path.join("scripts", "generate-test-generator", `${config.propertyName}-ISSUES.md`);
+	let content = `# Issues Found: ${config.propertyName} (Generate)\n\n`;
+	content += `**Date**: ${new Date().toISOString().split("T")[0]}\n\n`;
+	content += `Found ${issues.length / 3} mismatches between expected and actual generator behavior.\n\n`;
+	content += `These need to be reviewed:\n`;
+	content += `- If generator is wrong: Fix generator, then regenerate tests\n`;
+	content += `- If expectation is wrong: Update config, then regenerate tests\n`;
+	content += `- If behavior is intentional: Document as known limitation\n\n`;
+	content += `---\n\n`;
+	content += issues.join("\n");
+
+	fs.writeFileSync(outputPath, content);
+	console.log(`\n⚠️  ISSUES found! See: ${outputPath}`);
+}
+
+function generateValidTestFile(config: any, validCases: TestResult[], specRefs: SpecRef[]): string {
+	let testFile = `// b_path:: ${config.outputPath}\n`;
+	testFile += `// Auto-generated from scripts/generate-test-generator/configs/${config.propertyName}.ts\n`;
+	testFile += `//\n`;
+
+	if (specRefs.length > 0) {
+		testFile += `// Spec references:\n`;
+		specRefs.forEach((ref) => {
+			testFile += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
+		});
+	} else {
+		testFile += `// ⚠️  No spec references found in source file\n`;
+	}
+
+	testFile += `import { describe, expect, it } from "vitest";\n`;
+	testFile += `import * as Generator from "@/generate/animation/${config.propertyName}";\n`;
+	
+	// Add parser import if roundtrip tests exist
+	const hasRoundtrip = validCases.some((r) => r.roundtrip);
+	if (hasRoundtrip) {
+		testFile += `import * as Parser from "@/parse/animation/${config.propertyName}";\n`;
+	}
+	
+	testFile += `import type * as Type from "@/core/types";\n\n`;
+	testFile += `describe("generate/animation/${config.propertyName} - valid cases", () => {\n`;
+
+	// Group valid cases by category
+	const validByCategory = validCases.reduce(
+		(acc, r) => {
+			if (!acc[r.category]) acc[r.category] = [];
+			acc[r.category].push(r);
+			return acc;
+		},
+		{} as Record<string, TestResult[]>,
+	);
+
+	for (const [category, cases] of Object.entries(validByCategory)) {
+		testFile += `\tdescribe("${category}", () => {\n`;
+		for (const testCase of cases) {
+			// Get original input from config
+			const configCase = config.cases.find((c: any) => c.description === testCase.description);
+			const inputJson = JSON.stringify(configCase.input, null, 3).replace(/\n/g, "\n\t\t\t");
+
+			testFile += `\t\tit("should generate ${testCase.description}", () => {\n`;
+			testFile += `\t\t\tconst input: Type.AnimationDuration = ${inputJson};\n`;
+			testFile += `\t\t\tconst result = Generator.generate(input);\n`;
+			testFile += `\t\t\texpect(result.ok).toBe(true);\n`;
+			testFile += `\t\t\tif (!result.ok) return;\n`;
+			testFile += `\t\t\texpect(result.value).toBe("${testCase.actual}");\n`;
+
+			// Add roundtrip test if enabled
+			if (testCase.roundtrip && testCase.roundtripSuccess) {
+				testFile += `\n\t\t\t// Roundtrip validation\n`;
+				testFile += `\t\t\tconst parseResult = Parser.parse(result.value);\n`;
+				testFile += `\t\t\texpect(parseResult.ok).toBe(true);\n`;
+				testFile += `\t\t\tif (!parseResult.ok) return;\n`;
+				testFile += `\t\t\texpect(parseResult.value).toEqual(input);\n`;
+			}
+
+			testFile += `\t\t});\n\n`;
+		}
+		testFile += `\t});\n\n`;
+	}
+
+	testFile += `});\n`;
+
+	return testFile;
+}
+
+function generateFailureTestFile(config: any, invalidCases: TestResult[], specRefs: SpecRef[]): string {
+	const failureOutputPath = config.outputPath.replace(".test.ts", ".failure.test.ts");
+
+	let testFile = `// b_path:: ${failureOutputPath}\n`;
+	testFile += `// Auto-generated from scripts/generate-test-generator/configs/${config.propertyName}.ts\n`;
+	testFile += `//\n`;
+
+	if (specRefs.length > 0) {
+		testFile += `// Spec references:\n`;
+		specRefs.forEach((ref) => {
+			testFile += `// - ${ref.type.toUpperCase()}: ${ref.url}\n`;
+		});
+	} else {
+		testFile += `// ⚠️  No spec references found in source file\n`;
+	}
+
+	testFile += `import { describe, expect, it } from "vitest";\n`;
+	testFile += `import * as Generator from "@/generate/animation/${config.propertyName}";\n`;
+	
+	// Only add Type import if there are invalid cases
+	if (invalidCases.length > 0) {
+		testFile += `\n`;
+	}
+	
+	testFile += `describe("generate/animation/${config.propertyName} - invalid cases", () => {\n`;
+
+	// Group invalid cases by category
+	const invalidByCategory = invalidCases.reduce(
+		(acc, r) => {
+			if (!acc[r.category]) acc[r.category] = [];
+			acc[r.category].push(r);
+			return acc;
+		},
+		{} as Record<string, TestResult[]>,
+	);
+
+	for (const [category, cases] of Object.entries(invalidByCategory)) {
+		testFile += `\tdescribe("${category}", () => {\n`;
+		for (const testCase of cases) {
+			// Get original input from config
+			const configCase = config.cases.find((c: any) => c.description === testCase.description);
+			const inputJson = JSON.stringify(configCase?.input || null, null, 3).replace(/\n/g, "\n\t\t\t");
+			const errorMsg = (testCase.output as any)?.issues?.[0]?.message || (testCase.output as any)?.error || "";
+
+			testFile += `\t\tit("should reject ${testCase.description}", () => {\n`;
+			testFile += `\t\t\t// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input\n`;
+			testFile += `\t\t\tconst input: any = ${inputJson};\n`;
+			testFile += `\t\t\tconst result = Generator.generate(input);\n`;
+			testFile += `\t\t\texpect(result.ok).toBe(false);\n`;
+			testFile += `\t\t\tif (result.ok) return;\n`;
+			testFile += `\t\t\texpect(result.issues?.[0]?.message).toBe("${errorMsg}");\n`;
+			testFile += `\t\t});\n\n`;
+		}
+		testFile += `\t});\n\n`;
+	}
+
+	testFile += `});\n`;
+
+	return testFile;
+}
+
+function saveTestFile(config: any, validContent: string, failureContent: string) {
+	// Save valid test file
+	const validPath = config.outputPath;
+	const validDir = path.dirname(validPath);
+	if (!fs.existsSync(validDir)) {
+		fs.mkdirSync(validDir, { recursive: true });
+	}
+	fs.writeFileSync(validPath, validContent);
+	console.log(`📝 Valid test file: ${validPath}`);
+
+	// Save failure test file
+	const failurePath = validPath.replace(".test.ts", ".failure.test.ts");
+	fs.writeFileSync(failurePath, failureContent);
+	console.log(`📝 Failure test file: ${failurePath}`);
+}
+
+async function main() {
+	const configName = process.argv[2];
+
+	if (!configName) {
+		console.error("Usage: tsx scripts/generate-generate-tests.ts <config-name>");
+		console.error("\nExample: tsx scripts/generate-generate-tests.ts duration");
+		process.exit(1);
+	}
+
+	const config = await loadConfig(configName);
+	const { results, issues, specRefs } = await runTests(config);
+
+	console.log(`\n📊 Summary:`);
+	console.log(`   Valid: ${results.filter((r) => r.success).length}`);
+	console.log(`   Invalid: ${results.filter((r) => !r.success).length}`);
+	console.log(`   Roundtrip: ${results.filter((r) => r.roundtrip && r.roundtripSuccess).length}/${results.filter((r) => r.roundtrip).length}`);
+	console.log(`   Total: ${results.length}`);
+	console.log(`   Issues: ${issues.length / 3}`);
+
+	saveResults(config, results);
+	saveIssues(config, issues);
+
+	const validCases = results.filter((r) => r.success);
+	const invalidCases = results.filter((r) => !r.success);
+
+	const validTestFile = generateValidTestFile(config, validCases, specRefs);
+	const failureTestFile = generateFailureTestFile(config, invalidCases, specRefs);
+	saveTestFile(config, validTestFile, failureTestFile);
+
+	console.log(`\n✅ Done!`);
+	console.log(`   Run: pnpm test ${config.outputPath}`);
+	console.log(`   Run: pnpm test ${config.outputPath.replace(".test.ts", ".failure.test.ts")}`);
+
+	if (issues.length > 0) {
+		console.log(`\n⚠️  ${issues.length / 3} issues detected - review before proceeding`);
+		process.exit(1);
+	}
+}
+
+main().catch(console.error);
