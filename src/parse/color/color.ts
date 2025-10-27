@@ -60,12 +60,24 @@ export function parse(value: string): ParseResult<Type.Color> {
 /**
  * Parse color AST node with auto-detection.
  *
+ * Efficiently parses color from an existing AST node without string serialization.
+ * Use this when you already have a parsed AST node from css-tree.
+ *
  * @param node - CSS AST node
  * @returns Result with Color IR or error
  *
- * @internal
+ * @example
+ * ```typescript
+ * import * as cssTree from "css-tree";
+ * import { parseNode } from "@/parse/color";
+ *
+ * const ast = cssTree.parse("red", { context: "value" });
+ * const result = parseNode(ast.children.first);
+ * ```
+ *
+ * @public
  */
-function parseNode(node: CssNode): Result<Type.Color, string> {
+export function parseNode(node: CssNode): Result<Type.Color, string> {
 	// 1. Hex color (Hash node)
 	if (node.type === "Hash") {
 		const css = `#${node.value}`;

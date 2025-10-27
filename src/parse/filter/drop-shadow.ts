@@ -4,9 +4,9 @@ import { err, ok, type Result } from "@/core/result";
 import type { Color } from "@/core/types/color";
 import type { DropShadowFilter } from "@/core/types/filter";
 import type { Length } from "@/core/types/length-percentage";
+import { parseNode as parseColorNode } from "@/parse/color";
 import * as ASTUtils from "@/utils/ast";
 import * as ParseUtils from "@/utils/parse";
-import { parseColor } from "@/utils/parse/color";
 
 /**
  * Convert an AST node to string representation for error messages.
@@ -179,7 +179,7 @@ function parseRemainingArguments(
 		}
 
 		// If not a length, try parsing as color
-		const colorResult = parseColor(nodeToString(node));
+		const colorResult = parseColorNode(node);
 		if (colorResult.ok) {
 			if (color !== undefined) {
 				return err("drop-shadow() can have at most one color");

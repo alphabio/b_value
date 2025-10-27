@@ -9,7 +9,7 @@
  * @public
  */
 
-export { parse } from "./color";
+export { parse, parseNode } from "./color";
 
 /**
  * Parse color() function values.
