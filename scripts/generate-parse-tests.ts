@@ -313,7 +313,7 @@ function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResul
 
 	// If no invalid cases, use no-op template
 	if (invalidCases.length === 0) {
-		const templatePath = path.join("scripts", "parse-test-generator", "templates", "no-op-failure.template.ts");
+		const templatePath = path.join("scripts", "parse-test-generator", "templates", "no-op-failure.template.ts.t");
 		let template = fs.readFileSync(templatePath, "utf-8");
 
 		// Build spec refs section

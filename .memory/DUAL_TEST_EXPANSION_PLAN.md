@@ -217,6 +217,7 @@ After Phase 5:  94/94  (100%) ← Complete!
 **Before creating generate test configs**, ensure the generate function includes Zod validation:
 
 ### Required Pattern
+
 ```typescript
 // src/generate/{module}/{property}.ts
 import { zodErrorToIssues } from "@/generate/utils";
@@ -225,7 +226,7 @@ import { {propertyName}Schema } from "@/core/types/{module}";
 export function generate(ir: Type.{PropertyName}): GenerateResult {
   // 1. Validate IR with Zod schema (REQUIRED!)
   const validation = {propertyName}Schema.safeParse(ir);
-  
+
   if (!validation.success) {
     // Convert Zod errors to Issue array
     const issues = zodErrorToIssues(validation.error);
@@ -238,6 +239,7 @@ export function generate(ir: Type.{PropertyName}): GenerateResult {
 ```
 
 ### Example (animation-delay)
+
 ```typescript
 export function generate(ir: Type.AnimationDelay): GenerateResult {
   // Validate IR with Zod schema
