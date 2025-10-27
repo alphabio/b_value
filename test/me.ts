@@ -12,8 +12,12 @@ import { Parse } from "@/index";
 // const parsed = Parse.Color.ColorFunction.parse(input);
 
 // const parsed = Parse.Color.Oklch.parse("oklch(65% 0.2 250 / 0.5)");
-console.log(Parse.Color.Oklch.parse("oklch(65% 0.2 250 / 0.5)").value);
+// console.log(Parse.Color.Oklch.parse("oklch(65% 0.2 250 / 0.5)").value);
 
+// console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0, 0, 1.1, 1)"));
+
+console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)").value);
+// cubic-bezier(0.1,, 0.2, 0.3, 0.4)
 // const expanded = expand('font: italic small-caps bold 1.2em/1.6 "Helvetica Neue", Arial, sans-serif;');
 // console.log(expanded.result);
 
