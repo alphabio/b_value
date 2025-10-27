@@ -19,15 +19,23 @@ import { z } from "zod";
  * @public
  */
 export const absoluteLengthUnitSchema = z
-	.union([
-		z.literal("px").describe("pixels - 1/96th of 1 inch"),
-		z.literal("pt").describe("points - 1/72nd of 1 inch"),
-		z.literal("cm").describe("centimeters"),
-		z.literal("mm").describe("millimeters"),
-		z.literal("Q").describe("quarter-millimeters - 1/40th of 1 centimeter"),
-		z.literal("in").describe("inches - 2.54 centimeters"),
-		z.literal("pc").describe("picas - 12 points"),
-	])
+	.union(
+		[
+			z.literal("px").describe("pixels - 1/96th of 1 inch"),
+			z.literal("pt").describe("points - 1/72nd of 1 inch"),
+			z.literal("cm").describe("centimeters"),
+			z.literal("mm").describe("millimeters"),
+			z.literal("Q").describe("quarter-millimeters - 1/40th of 1 centimeter"),
+			z.literal("in").describe("inches - 2.54 centimeters"),
+			z.literal("pc").describe("picas - 12 points"),
+		],
+		{
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid absolute length unit. Expected "px", "pt", "cm", "mm", "Q", "in", or "pc".'
+					: "Invalid input",
+		},
+	)
 	.describe(
 		"Absolute length units specify a length using physical units. " +
 			"These units are fixed and do not scale relative to other elements.",

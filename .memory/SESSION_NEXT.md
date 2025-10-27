@@ -101,6 +101,7 @@ Apply the established pattern to:
 ## 💡 Key Patterns Established
 
 ### Zod Schema with Custom Errors
+
 ```typescript
 export const timeUnitSchema = z.union(
   [z.literal("s"), z.literal("ms")],
@@ -114,6 +115,7 @@ export const timeUnitSchema = z.union(
 ```
 
 ### Generate Function Validation
+
 ```typescript
 export function generate(ir: Type.AnimationDuration): GenerateResult {
   const validation = animationDurationSchema.safeParse(ir);

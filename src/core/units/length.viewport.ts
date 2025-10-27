@@ -21,47 +21,55 @@ import { z } from "zod";
  * @public
  */
 export const viewportLengthUnitSchema = z
-	.union([
-		// Default/Large viewport units
-		z
-			.literal("vw")
-			.describe("1% of the width of the large viewport size"),
-		z.literal("vh").describe("1% of the height of the large viewport size"),
-		z.literal("vi").describe("1% of the large viewport size in the inline axis"),
-		z.literal("vb").describe("1% of the large viewport size in the block axis"),
-		z.literal("vmin").describe("smaller of vw or vh"),
-		z.literal("vmax").describe("larger of vw or vh"),
+	.union(
+		[
+			// Default/Large viewport units
+			z
+				.literal("vw")
+				.describe("1% of the width of the large viewport size"),
+			z.literal("vh").describe("1% of the height of the large viewport size"),
+			z.literal("vi").describe("1% of the large viewport size in the inline axis"),
+			z.literal("vb").describe("1% of the large viewport size in the block axis"),
+			z.literal("vmin").describe("smaller of vw or vh"),
+			z.literal("vmax").describe("larger of vw or vh"),
 
-		// Small viewport units
-		z
-			.literal("svw")
-			.describe("1% of the width of the small viewport size"),
-		z.literal("svh").describe("1% of the height of the small viewport size"),
-		z.literal("svi").describe("1% of the small viewport size in the inline axis"),
-		z.literal("svb").describe("1% of the small viewport size in the block axis"),
-		z.literal("svmin").describe("smaller of svw or svh"),
-		z.literal("svmax").describe("larger of svw or svh"),
+			// Small viewport units
+			z
+				.literal("svw")
+				.describe("1% of the width of the small viewport size"),
+			z.literal("svh").describe("1% of the height of the small viewport size"),
+			z.literal("svi").describe("1% of the small viewport size in the inline axis"),
+			z.literal("svb").describe("1% of the small viewport size in the block axis"),
+			z.literal("svmin").describe("smaller of svw or svh"),
+			z.literal("svmax").describe("larger of svw or svh"),
 
-		// Large viewport units (explicit)
-		z
-			.literal("lvw")
-			.describe("1% of the width of the large viewport size"),
-		z.literal("lvh").describe("1% of the height of the large viewport size"),
-		z.literal("lvi").describe("1% of the large viewport size in the inline axis"),
-		z.literal("lvb").describe("1% of the large viewport size in the block axis"),
-		z.literal("lvmin").describe("smaller of lvw or lvh"),
-		z.literal("lvmax").describe("larger of lvw or lvh"),
+			// Large viewport units (explicit)
+			z
+				.literal("lvw")
+				.describe("1% of the width of the large viewport size"),
+			z.literal("lvh").describe("1% of the height of the large viewport size"),
+			z.literal("lvi").describe("1% of the large viewport size in the inline axis"),
+			z.literal("lvb").describe("1% of the large viewport size in the block axis"),
+			z.literal("lvmin").describe("smaller of lvw or lvh"),
+			z.literal("lvmax").describe("larger of lvw or lvh"),
 
-		// Dynamic viewport units
-		z
-			.literal("dvw")
-			.describe("1% of the width of the dynamic viewport size"),
-		z.literal("dvh").describe("1% of the height of the dynamic viewport size"),
-		z.literal("dvi").describe("1% of the dynamic viewport size in the inline axis"),
-		z.literal("dvb").describe("1% of the dynamic viewport size in the block axis"),
-		z.literal("dvmin").describe("smaller of dvw or dvh"),
-		z.literal("dvmax").describe("larger of dvw or dvh"),
-	])
+			// Dynamic viewport units
+			z
+				.literal("dvw")
+				.describe("1% of the width of the dynamic viewport size"),
+			z.literal("dvh").describe("1% of the height of the dynamic viewport size"),
+			z.literal("dvi").describe("1% of the dynamic viewport size in the inline axis"),
+			z.literal("dvb").describe("1% of the dynamic viewport size in the block axis"),
+			z.literal("dvmin").describe("smaller of dvw or dvh"),
+			z.literal("dvmax").describe("larger of dvw or dvh"),
+		],
+		{
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? "Invalid viewport length unit. Expected standard (vw/vh/vi/vb/vmin/vmax), small (sv*), large (lv*), or dynamic (dv*) viewport units."
+					: "Invalid input",
+		},
+	)
 	.describe(
 		"Viewport-percentage length units are relative to the size of the initial containing block. " +
 			"They provide different sizing strategies for responsive design across various viewport states.",
