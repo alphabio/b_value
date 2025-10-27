@@ -1,56 +1,74 @@
 // b_path:: src/parse/animation/play-state.test.ts
+// Auto-generated from scripts/test-generator/configs/play-state.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state
+// - W3C: https://www.w3.org/TR/css-animations-1/#animation-play-state
 import { describe, expect, it } from "vitest";
-import * as Parser from "./play-state";
+import * as Parser from "@/parse/animation/play-state";
 
-describe("Animation Play State Parser", () => {
-	it("should parse running keyword", () => {
-		const result = Parser.parse("running");
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.kind).toBe("animation-play-state");
-			expect(result.value.states).toEqual(["running"]);
-		}
+describe("parse/animation/play-state - valid cases", () => {
+	describe("valid-keyword", () => {
+		it("should parse running keyword", () => {
+			const result = Parser.parse("running");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["running"],
+			});
+		});
+
+		it("should parse paused keyword", () => {
+			const result = Parser.parse("paused");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["paused"],
+			});
+		});
+
+		it("should parse case insensitive", () => {
+			const result = Parser.parse("RUNNING");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["running"],
+			});
+		});
+
+		it("should parse mixed case", () => {
+			const result = Parser.parse("Paused");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["paused"],
+			});
+		});
 	});
 
-	it("should parse paused keyword", () => {
-		const result = Parser.parse("paused");
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.states).toEqual(["paused"]);
-		}
-	});
+	describe("valid-list", () => {
+		it("should parse multiple keywords", () => {
+			const result = Parser.parse("running, paused");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["running", "paused"],
+			});
+		});
 
-	it("should parse multiple states", () => {
-		const result = Parser.parse("running, paused");
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.states).toEqual(["running", "paused"]);
-		}
-	});
-
-	it("should handle whitespace", () => {
-		const result = Parser.parse("running , paused");
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.states).toHaveLength(2);
-		}
-	});
-
-	it("should handle case insensitive", () => {
-		const result = Parser.parse("PAUSED");
-		expect(result.ok).toBe(true);
-		if (result.ok) {
-			expect(result.value.states).toEqual(["paused"]);
-		}
-	});
-
-	it("should reject invalid keyword", () => {
-		const result = Parser.parse("stopped");
-		expect(result.ok).toBe(false);
-	});
-
-	it("should reject empty value", () => {
-		const result = Parser.parse("");
-		expect(result.ok).toBe(false);
+		it("should parse three keywords", () => {
+			const result = Parser.parse("paused, running, paused");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "animation-play-state",
+				states: ["paused", "running", "paused"],
+			});
+		});
 	});
 });

@@ -1,0 +1,177 @@
+[
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "none"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "forwards",
+    "description": "forwards keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "forwards"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "backwards",
+    "description": "backwards keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "backwards"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "both",
+    "description": "both keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "both"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "NONE",
+    "description": "case insensitive",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "none"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "none, forwards",
+    "description": "multiple keywords",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "none",
+          "forwards"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "forwards, backwards, both",
+    "description": "three keywords",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "animation-fill-mode",
+        "modes": [
+          "forwards",
+          "backwards",
+          "both"
+        ]
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "invalid",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "animation-fill-mode: Invalid animation-fill-mode keyword: invalid. Expected one of: none, forwards, backwards, both"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-fill-mode: Invalid animation-fill-mode keyword: invalid. Expected one of: none, forwards, backwards, both"
+  },
+  {
+    "input": "normal",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "animation-fill-mode: Invalid animation-fill-mode keyword: normal. Expected one of: none, forwards, backwards, both"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-fill-mode: Invalid animation-fill-mode keyword: normal. Expected one of: none, forwards, backwards, both"
+  },
+  {
+    "input": "1",
+    "description": "number",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "animation-fill-mode: Expected fill mode keyword, got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-fill-mode: Expected fill mode keyword, got: Number"
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "animation-fill-mode: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-fill-mode: Empty value"
+  },
+  {
+    "input": "none,",
+    "description": "trailing comma",
+    "category": "invalid-comma",
+    "output": {
+      "ok": false,
+      "error": "animation-fill-mode: Empty value"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "animation-fill-mode: Empty value"
+  }
+]
