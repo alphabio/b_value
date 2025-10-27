@@ -1,8 +1,9 @@
 // b_path:: src/generate/animation/duration.ts
 
-import { type GenerateResult, generateOk, zodErrorToIssues } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
 import { animationDurationSchema } from "@/core/types/animation";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS animation-duration property value from IR.
@@ -45,6 +46,7 @@ export function generate(ir: Type.AnimationDuration): GenerateResult {
 
 	if (!validation.success) {
 		// Convert Zod errors to Issue array
+
 		const issues = zodErrorToIssues(validation.error);
 		return {
 			ok: false,

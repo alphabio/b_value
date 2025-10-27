@@ -21,25 +21,26 @@ import { Generate } from "@/index";
 // console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)").value);
 
 const input = {
-	kind: "animation-duration" as const,
+	kind: "animation-duration",
 	durations: [
 		{
-			type: "time" as const,
+			type: "time",
 			value: -1,
-			unit: "_s" as "s" | "ms",
+			unit: "_s",
 		},
 	],
 };
 
 console.log("ACTUAL ZOD ISSUES");
+
 const result = Type.animationDurationSchema.safeParse(input);
 console.log(JSON.stringify(result.error?.issues, null, 2));
 
 console.log("--------------------------------------");
-
 console.log("b_value issues");
+
 const result2 = Generate.Animation.Duration.generate(input);
-console.log(JSON.stringify(result2));
+console.log(JSON.stringify(result2.issues, null, 2));
 
 // cubic-bezier(0.1,, 0.2, 0.3, 0.4)
 // const expanded = expand('font: italic small-caps bold 1.2em/1.6 "Helvetica Neue", Arial, sans-serif;');

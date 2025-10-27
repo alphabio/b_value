@@ -44,7 +44,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
 		});
 
 		it("should reject invalid unit em", () => {
@@ -62,7 +62,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
 		});
 	});
 
@@ -82,7 +82,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe("Time value must be non-negative");
+			expect(result.issues?.[0]?.message).toBe("durations[0].value: Time value must be non-negative");
 		});
 
 		it("should reject negative value in milliseconds", () => {
@@ -100,7 +100,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe("Time value must be non-negative");
+			expect(result.issues?.[0]?.message).toBe("durations[0].value: Time value must be non-negative");
 		});
 	});
 
@@ -120,7 +120,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
 		});
 
 		it("should reject NaN value", () => {
@@ -138,7 +138,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
 		});
 	});
 
@@ -156,7 +156,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues?.[0]?.message).toBe('Invalid input: expected "auto"');
+			expect(result.issues?.[0]?.message).toBe('durations[0].type: Invalid input: expected "auto"');
 		});
 	});
 });
