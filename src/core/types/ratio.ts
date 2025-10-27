@@ -42,7 +42,7 @@ export const ratioSchema = z.union(
 			.describe("automatic ratio based on content"),
 	],
 	{
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: "Expected { numerator: <positive-number>, denominator: <positive-number> } | auto" }
 				: { message: "Invalid ratio value" },

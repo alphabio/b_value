@@ -386,6 +386,7 @@ function generateFailureTestFile(config: any, invalidCases: TestResult[], specRe
 			testFile += `\t\t\tconst result = Generator.generate(input);\n`;
 			testFile += `\t\t\texpect(result.ok).toBe(false);\n`;
 			testFile += `\t\t\tif (result.ok) return;\n`;
+			testFile += `\t\t\texpect(result.issues).toHaveLength(1);\n`;
 			testFile += `\t\t\texpect(result.issues?.[0]?.message).toBe(${JSON.stringify(errorMsg)});\n`;
 			testFile += `\t\t});\n\n`;
 		}

@@ -186,7 +186,7 @@ export const flexBasisSchema = z.object({
 			z.literal("fit-content"),
 		],
 		{
-			errorMap: (issue) =>
+			error: (issue) =>
 				issue.code === "invalid_union"
 					? { message: "Expected <length-percentage> | auto | content | max-content | min-content | fit-content" }
 					: { message: "Invalid flex-basis value" },
@@ -224,7 +224,7 @@ export type Order = z.infer<typeof orderSchema>;
 export const gapSchema = z.object({
 	kind: z.literal("gap"),
 	value: z.union([lengthPercentageAutoSchema, z.literal("normal")], {
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: "Expected <length-percentage> | auto | normal" }
 				: { message: "Invalid gap value" },
