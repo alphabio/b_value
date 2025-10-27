@@ -1,6 +1,6 @@
 # Schema Improvement Master Plan
 
-**Date**: 2025-10-27  
+**Date**: 2025-10-27
 **Status**: ✅ Phase 1 & 2 COMPLETE | 📋 Phase 3 READY
 **Commits**: 27f887e (Phase 1), 88d14b5 (Phase 2)
 
@@ -60,8 +60,8 @@ Critical types for generate validation work:
 
 ## 📊 Overall Progress
 
-**Completed**: 8 files (6 units + 2 types)  
-**Remaining**: 13 type files  
+**Completed**: 8 files (6 units + 2 types)
+**Remaining**: 13 type files
 **Parked**: 90+ keyword files (not needed)
 
 **Tests**: All 3,723 passing ✅
@@ -96,8 +96,8 @@ export const schema = z.union(
 
 ## 🚀 Next Steps
 
-**Option A**: Continue with Tier 1 (transform, color, length-percentage)  
-**Option B**: Take a break, resume Phase 3 later  
+**Option A**: Continue with Tier 1 (transform, color, length-percentage)
+**Option B**: Take a break, resume Phase 3 later
 **Option C**: Focus on generate function validation (use improved schemas)
 
 **Recommendation**: Take stock of progress and decide if Phase 3 is needed now or later.
@@ -113,6 +113,5 @@ export const schema = z.union(
 
 ---
 
-**Total session time**: ~1.5 hours for 8 files (Phase 1 + 2)  
+**Total session time**: ~1.5 hours for 8 files (Phase 1 + 2)
 **Estimated remaining**: ~3-4 hours for 13 files (Phase 3)
-
