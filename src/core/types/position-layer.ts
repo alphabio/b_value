@@ -11,7 +11,12 @@ import * as Type from "../types";
  * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/background-position}
  * @public
  */
-export const backgroundPositionValueSchema = z.union([Keyword.positionKeywordsSchema, Type.lengthPercentageSchema]);
+export const backgroundPositionValueSchema = z.union([Keyword.positionKeywordsSchema, Type.lengthPercentageSchema], {
+	error: (issue) =>
+		issue.code === "invalid_union"
+			? "Invalid background position value. Expected a position keyword (left, right, top, bottom, center) or length-percentage."
+			: "Invalid input",
+});
 
 /**
  * TypeScript type for background position value.

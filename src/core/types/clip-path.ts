@@ -119,7 +119,14 @@ export type ClipPathInset = z.infer<typeof clipPathInsetSchema>;
  */
 export const clipPathCircleSchema = z.object({
 	kind: z.literal("clip-path-circle"),
-	radius: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
+	radius: z
+		.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])], {
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid circle radius. Expected a length-percentage or "closest-side"/"farthest-side".'
+					: "Invalid input",
+		})
+		.optional(),
 	position: position2DSchema.optional(),
 });
 
@@ -140,8 +147,22 @@ export type ClipPathCircle = z.infer<typeof clipPathCircleSchema>;
  */
 export const clipPathEllipseSchema = z.object({
 	kind: z.literal("clip-path-ellipse"),
-	radiusX: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
-	radiusY: z.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])]).optional(),
+	radiusX: z
+		.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])], {
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid ellipse radiusX. Expected a length-percentage or "closest-side"/"farthest-side".'
+					: "Invalid input",
+		})
+		.optional(),
+	radiusY: z
+		.union([lengthPercentageSchema, z.enum(["closest-side", "farthest-side"])], {
+			error: (issue) =>
+				issue.code === "invalid_union"
+					? 'Invalid ellipse radiusY. Expected a length-percentage or "closest-side"/"farthest-side".'
+					: "Invalid input",
+		})
+		.optional(),
 	position: position2DSchema.optional(),
 });
 
@@ -189,10 +210,22 @@ export type ClipPathPolygon = z.infer<typeof clipPathPolygonSchema>;
  */
 export const clipPathRectSchema = z.object({
 	kind: z.literal("clip-path-rect"),
-	top: z.union([lengthPercentageSchema, z.literal("auto")]),
-	right: z.union([lengthPercentageSchema, z.literal("auto")]),
-	bottom: z.union([lengthPercentageSchema, z.literal("auto")]),
-	left: z.union([lengthPercentageSchema, z.literal("auto")]),
+	top: z.union([lengthPercentageSchema, z.literal("auto")], {
+		error: (issue) =>
+			issue.code === "invalid_union" ? 'Invalid rect top. Expected a length-percentage or "auto".' : "Invalid input",
+	}),
+	right: z.union([lengthPercentageSchema, z.literal("auto")], {
+		error: (issue) =>
+			issue.code === "invalid_union" ? 'Invalid rect right. Expected a length-percentage or "auto".' : "Invalid input",
+	}),
+	bottom: z.union([lengthPercentageSchema, z.literal("auto")], {
+		error: (issue) =>
+			issue.code === "invalid_union" ? 'Invalid rect bottom. Expected a length-percentage or "auto".' : "Invalid input",
+	}),
+	left: z.union([lengthPercentageSchema, z.literal("auto")], {
+		error: (issue) =>
+			issue.code === "invalid_union" ? 'Invalid rect left. Expected a length-percentage or "auto".' : "Invalid input",
+	}),
 	borderRadius: z
 		.object({
 			topLeft: lengthPercentageSchema,

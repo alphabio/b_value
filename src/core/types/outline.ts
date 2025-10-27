@@ -16,7 +16,12 @@ import { lengthSchema } from "./length-percentage";
  */
 export const outlineWidthValueSchema = z.object({
 	kind: z.literal("outline-width"),
-	width: z.union([lengthSchema, Keyword.borderWidthKeywordsSchema]),
+	width: z.union([lengthSchema, Keyword.borderWidthKeywordsSchema], {
+		error: (issue) =>
+			issue.code === "invalid_union"
+				? 'Invalid outline width. Expected a length or keyword ("thin", "medium", "thick").'
+				: "Invalid input",
+	}),
 });
 
 /**
@@ -69,7 +74,10 @@ export type OutlineStyle = z.infer<typeof Keyword.outlineStyleKeywordsSchema>;
  */
 export const outlineColorValueSchema = z.object({
 	kind: z.literal("outline-color"),
-	color: z.union([Keyword.colorValueKeywordsSchema, z.literal("invert")]),
+	color: z.union([Keyword.colorValueKeywordsSchema, z.literal("invert")], {
+		error: (issue) =>
+			issue.code === "invalid_union" ? 'Invalid outline color. Expected a color keyword or "invert".' : "Invalid input",
+	}),
 });
 
 /**
