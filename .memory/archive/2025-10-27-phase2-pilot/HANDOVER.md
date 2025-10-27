@@ -530,3 +530,183 @@ This is an **experiment** to discover:
 **Tests**: 3,760 passing, 12 skipped  
 **Coverage**: 89.49%  
 **Status**: ✅ Experiment complete, ⏸️ Awaiting user feedback
+
+---
+
+## 🚨 CRITICAL USER FEEDBACK (Added Post-Pilot)
+
+**Date**: 2025-10-27  
+**Status**: Issues identified requiring immediate attention
+
+### Issue 1: Invalid Tests Don't Validate Error Messages ❌
+
+**Current approach** (insufficient):
+```typescript
+test("x2 > 1", () => {
+  const result = parse("cubic-bezier(0, 0, 1.1, 1)");
+  expect(result.ok).toBe(false);  // ❌ NOT ENOUGH
+});
+```
+
+**Full result** (not being validated):
+```json
+{
+  ok: false,
+  value: undefined,
+  error: "animation-timing-function: cubic-bezier validation failed: x2 Too big: expected number to be <=1"
+}
+```
+
+**User requirement**: Tests MUST validate the error message content.
+
+**Correct approach**:
+```typescript
+test("x2 > 1", () => {
+  const result = parse("cubic-bezier(0, 0, 1.1, 1)");
+  expect(result.ok).toBe(false);
+  if (result.ok) return;
+  
+  // ✅ Validate error message
+  expect(result.error).toContain("cubic-bezier");
+  expect(result.error).toContain("x2");
+  expect(result.error).toContain("<=1");
+  // or use snapshot testing
+});
+```
+
+**Impact**: All 85 invalid tests need updating to validate `result.error`.
+
+---
+
+### Issue 2: Never Skip Tests ❌
+
+**User rule**: **We should NEVER skip tests - otherwise what's the point?**
+
+**Current problematic approach**:
+```typescript
+test.skip("double comma - css-tree accepts this", () => {
+  const result = parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)");
+  expect(result.ok).toBe(false);  // ❌ WRONG EXPECTATION
+});
+```
+
+**User question**: "We correctly support this... so what are we documenting here?"
+
+**Two possibilities**:
+1. **If css-tree accepts it** → Move to VALID tests with `expect(result.ok).toBe(true)`
+2. **If we should reject it** → Keep in INVALID tests with proper error validation
+
+**Impact**: All 12 skipped tests must be:
+- Re-tested to determine actual behavior
+- Moved to valid tests OR fixed to properly reject
+- Never skipped - either document as valid or fix the bug
+
+**Example re-classification**:
+```typescript
+// If css-tree accepts double comma and we parse it successfully:
+describe("css-tree permissive parsing", () => {
+  test("accepts double comma (css-tree behavior)", () => {
+    const result = parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)");
+    expect(result.ok).toBe(true);  // ✅ Document actual behavior
+    // Add comment: "css-tree treats ,, as single comma"
+  });
+});
+```
+
+---
+
+## 📝 Required Changes Before Pattern Finalization
+
+### Change 1: Update All Invalid Tests
+
+**Task**: Add error message validation to all 85 invalid tests
+
+**Pattern**:
+```typescript
+test("descriptive name", () => {
+  const result = parse("invalid syntax");
+  expect(result.ok).toBe(false);
+  if (result.ok) return;
+  
+  expect(result.error).toContain("key term");  // relevant error terms
+  expect(result.error).toMatchSnapshot();      // or snapshot
+});
+```
+
+**Estimated effort**: ~30-45 minutes
+
+---
+
+### Change 2: Re-classify All Skipped Tests
+
+**Task**: Remove all `.skip()` and properly classify
+
+**Process for each skipped test**:
+1. Run the test - does it pass or fail?
+2. **If passes** → Move to valid tests, document css-tree behavior
+3. **If fails** → Keep in invalid tests, add error validation
+4. **Never skip** - every test must run
+
+**12 tests to re-classify**:
+- 6 cubic-bezier malformed syntax
+- 3 steps() position keywords
+- 1 steps() malformed syntax
+- 2 keyword case sensitivity
+
+**Estimated effort**: ~20-30 minutes
+
+---
+
+### Change 3: Error Message Quality Standards
+
+**User expectation**: Error messages should be:
+- Clear about what failed
+- Specific about which parameter
+- Actionable (include valid range/options)
+
+**Current error** (good):
+```
+"cubic-bezier validation failed: x2 Too big: expected number to be <=1"
+```
+
+**Error message test pattern**:
+```typescript
+expect(result.error).toContain("cubic-bezier");  // function name
+expect(result.error).toContain("x2");             // parameter name
+expect(result.error).toContain("<=1");            // constraint
+```
+
+**Alternative**: Snapshot testing for full message validation
+
+---
+
+## 🎯 Updated Success Criteria
+
+**Phase 2.1 pattern is NOT ready until**:
+- [ ] All 85 invalid tests validate error messages
+- [ ] Zero skipped tests (0 `.skip()` calls)
+- [ ] All css-tree behaviors documented correctly
+- [ ] Error messages are tested for quality
+- [ ] Pattern works for 2-3 more properties
+
+**Next session should**:
+1. Fix all 85 invalid tests (add error validation)
+2. Re-classify all 12 skipped tests (remove `.skip()`)
+3. Test 1-2 simpler properties to validate pattern
+4. Then discuss finalization
+
+---
+
+## �� Key Learnings (Updated)
+
+1. ~~Invalid tests are tedious~~ → Invalid tests need PROPER validation (not just `ok: false`)
+2. ~~Skipped tests document limitations~~ → **Never skip tests** - classify correctly
+3. Error messages ARE part of the API surface → Test them
+4. css-tree behavior is not a "limitation" → It's documented behavior
+5. Test quality matters more than test quantity
+
+---
+
+**Status After Feedback**: 🔴 Pattern needs fixes before iteration  
+**Priority**: Fix error validation + remove skips before next property  
+**Estimated fix time**: 1-1.5 hours
