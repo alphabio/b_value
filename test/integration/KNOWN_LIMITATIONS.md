@@ -59,6 +59,39 @@ background-size: 50% auto;
 
 ---
 
+## Typography Properties
+
+### word-spacing
+**Status**: ❌ Not Implemented  
+**Issue**: Property not implemented in parser or generator  
+**Current Support**: None  
+**Missing**: All word-spacing functionality
+
+**Impact**: Cannot parse or generate word-spacing values  
+**Example**:
+```css
+/* ❌ Not supported */
+word-spacing: 4px;
+word-spacing: 0.5em;
+word-spacing: normal;
+```
+
+**Files**:
+- Parser: `src/parse/typography/word-spacing.ts` (does not exist)
+- Generator: `src/generate/typography/word-spacing.ts` (does not exist)
+
+**Fix Required**:
+1. Create parser for word-spacing (similar to letter-spacing)
+2. Create generator for word-spacing
+3. Add IR type definition
+4. Add unit tests
+5. Add round-trip tests
+
+**Discovered**: 2025-10-27 (Round-trip testing session)  
+**Priority**: Low (less common property)
+
+---
+
 ## Document Purpose & Guidelines
 
 ### When to Add Entries
@@ -95,10 +128,10 @@ Move entries to `KNOWN_LIMITATIONS_ARCHIVE.md` when:
 
 ## Statistics
 
-**Total Known Limitations**: 1  
+**Total Known Limitations**: 2  
 **Fixed This Session**: 1 (inset generator)  
 **High Priority**: 0  
 **Medium Priority**: 1 (background-size)  
-**Low Priority**: 0  
+**Low Priority**: 1 (word-spacing)  
 
 **Last Updated**: 2025-10-27
