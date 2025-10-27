@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/overflow-x.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { OverflowX } from "@/core/types";
+import { overflowXSchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS overflow-x property from IR.
@@ -24,8 +26,18 @@ import type { OverflowX } from "@/core/types";
  * @public
  */
 export function generate(overflowX: OverflowX): GenerateResult {
-	if (overflowX === undefined || overflowX === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = overflowXSchema.safeParse(overflowX);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(overflowX.value);
 }

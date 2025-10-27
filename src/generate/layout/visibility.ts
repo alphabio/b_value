@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/visibility.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { Visibility } from "@/core/types";
+import { visibilitySchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS visibility property from IR.
@@ -24,8 +26,18 @@ import type { Visibility } from "@/core/types";
  * @public
  */
 export function generate(visibility: Visibility): GenerateResult {
-	if (visibility === undefined || visibility === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = visibilitySchema.safeParse(visibility);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(visibility.value);
 }

@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/overflow-y.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { OverflowY } from "@/core/types";
+import { overflowYSchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS overflow-y property from IR.
@@ -24,8 +26,18 @@ import type { OverflowY } from "@/core/types";
  * @public
  */
 export function generate(overflowY: OverflowY): GenerateResult {
-	if (overflowY === undefined || overflowY === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = overflowYSchema.safeParse(overflowY);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(overflowY.value);
 }
