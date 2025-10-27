@@ -1,6 +1,6 @@
 # Phase 2: Comprehensive Testing Strategy
 
-**Created**: 2025-10-27  
+**Created**: 2025-10-27
 **Goal**: Test parsers and generators to their limits with full spec coverage and robust failure cases
 
 ---
@@ -64,7 +64,7 @@ export const stepsSchema = z.object({
 **Better!** Has `.positive().int()` constraints.
 
 **Still Missing Tests:**
-- ✅ Rejects 0: `steps(0, end)` 
+- ✅ Rejects 0: `steps(0, end)`
 - ✅ Rejects negative: `steps(-5, start)`
 - ✅ Rejects float: `steps(3.5, end)`
 - ✅ Rejects invalid position: `steps(4, middle)`
@@ -75,7 +75,7 @@ export const stepsSchema = z.object({
 ## 📋 Testing Strategy: 4-Layer Approach
 
 ### Layer 1: **Schema Validation Tests**
-**File**: `src/core/types/[category].test.ts`  
+**File**: `src/core/types/[category].test.ts`
 **Focus**: Validate Zod schemas directly
 
 ```typescript
@@ -163,7 +163,7 @@ describe("cubicBezierSchema", () => {
 ---
 
 ### Layer 2: **Parser Tests - Valid Syntax**
-**File**: `src/parse/animation/timing-function.valid.test.ts`  
+**File**: `src/parse/animation/timing-function.valid.test.ts`
 **Focus**: Full spec coverage of valid CSS
 
 ```typescript
@@ -236,7 +236,7 @@ describe("parse/animation/timing-function - valid syntax", () => {
     test("steps with jump-end", () => { /* ... */ });
     test("steps with jump-none", () => { /* ... */ });
     test("steps with jump-both", () => { /* ... */ });
-    
+
     test("steps without position (defaults to end)", () => {
       const result = parse("steps(5)");
       expect(result.ok).toBe(true);
@@ -278,7 +278,7 @@ describe("parse/animation/timing-function - valid syntax", () => {
 ---
 
 ### Layer 3: **Parser Tests - Invalid Syntax**
-**File**: `src/parse/animation/timing-function.invalid.test.ts`  
+**File**: `src/parse/animation/timing-function.invalid.test.ts`
 **Focus**: Comprehensive failure testing
 
 ```typescript
@@ -439,7 +439,7 @@ describe("parse/animation/timing-function - invalid syntax", () => {
 ---
 
 ### Layer 4: **Generator Tests**
-**File**: `src/generate/animation/timing-function.test.ts`  
+**File**: `src/generate/animation/timing-function.test.ts`
 **Focus**: Validate IR → CSS generation
 
 ```typescript
@@ -519,13 +519,15 @@ describe("generate/animation/timing-function", () => {
 
 ## 📁 File Organization: Decomposed Structure
 
-### Before (Monolithic):
+### Before (Monolithic)
+
 ```
 src/parse/animation/
   animation.test.ts (154 lines - all properties mixed)
 ```
 
-### After (Decomposed):
+### After (Decomposed)
+
 ```
 src/parse/animation/
   timing-function/
@@ -557,6 +559,7 @@ src/core/types/
 ```
 
 **Alternative** (if directories feel heavy):
+
 ```
 src/parse/animation/
   timing-function.ts
@@ -573,7 +576,7 @@ src/parse/animation/
 ## 🎯 Implementation Plan
 
 ### Phase 2.1: Pilot (Establish Pattern)
-**Goal**: Create one complete example to establish the pattern  
+**Goal**: Create one complete example to establish the pattern
 **Target**: `animation-timing-function` (most complex)
 
 **Steps**:
@@ -589,7 +592,7 @@ src/parse/animation/
 ---
 
 ### Phase 2.2: Rollout
-**Goal**: Apply pattern to all properties systematically  
+**Goal**: Apply pattern to all properties systematically
 **Priority Order**:
 1. **Animation** properties (6 properties) - Complex, already started
 2. **Color** functions (rgb, hsl, oklch, etc.) - High value
@@ -682,7 +685,7 @@ For each property, we need:
 
 ---
 
-**Next Steps**: 
+**Next Steps**:
 1. Review and approve this strategy
 2. Start Phase 2.1 pilot with `animation-timing-function`
 3. Document the pattern
