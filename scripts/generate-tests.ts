@@ -26,6 +26,7 @@ interface TestCase {
 	description: string;
 	category: string;
 	expectValid?: boolean;
+	expectedError?: string;
 }
 
 interface PropertyConfig {
@@ -43,6 +44,7 @@ interface TestResult {
 	output: unknown;
 	success: boolean;
 	expectValid?: boolean;
+	expectedError?: string;
 	issue?: string;
 }
 
@@ -175,6 +177,7 @@ async function runTests(config: PropertyConfig) {
 			output: result,
 			success,
 			expectValid: testCase.expectValid,
+			expectedError: testCase.expectedError,
 			issue,
 		});
 
@@ -298,11 +301,8 @@ function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResul
 			testFile += `\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
 			testFile += `\t\t\texpect(result.ok).toBe(false);\n`;
 			testFile += `\t\t\tif (result.ok) return;\n`;
-			// Extract key error term for validation
-			const errorTerm = errorMsg.match(/Expected|Invalid|must be|Empty/)?.[0] || "";
-			if (errorTerm) {
-				testFile += `\t\t\texpect(result.error).toContain("${errorTerm}");\n`;
-			}
+			// Use exact error message assertion
+			testFile += `\t\t\texpect(result.error).toBe("${errorMsg}");\n`;
 			testFile += `\t\t});\n\n`;
 		}
 		testFile += `\t});\n\n`;

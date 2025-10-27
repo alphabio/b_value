@@ -7,6 +7,7 @@ export interface TestCase {
 	description: string;
 	category: string;
 	expectValid?: boolean; // Expected behavior (for issue detection)
+	expectedError?: string; // Expected error message (for invalid cases)
 }
 
 export interface PropertyConfig {
@@ -39,16 +40,16 @@ export const config: PropertyConfig = {
 		{ input: "1s, 2s, 3s, 4s", description: "multiple time values", category: "valid-list", expectValid: true },
 		
 		// Invalid cases
-		{ input: "-1s", description: "negative duration", category: "invalid-negative", expectValid: false },
-		{ input: "-500ms", description: "negative milliseconds", category: "invalid-negative", expectValid: false },
-		{ input: "1px", description: "invalid unit", category: "invalid-unit", expectValid: false },
-		{ input: "1em", description: "wrong unit type", category: "invalid-unit", expectValid: false },
-		{ input: "1", description: "missing unit", category: "invalid-unit", expectValid: false },
-		{ input: "", description: "empty value", category: "invalid-empty", expectValid: false },
-		{ input: "1s,", description: "trailing comma", category: "invalid-comma", expectValid: false },
-		{ input: ",1s", description: "leading comma", category: "invalid-comma", expectValid: false },
-		{ input: "1s,,2s", description: "double comma", category: "invalid-comma", expectValid: false },
-		{ input: "invalid", description: "invalid keyword", category: "invalid-keyword", expectValid: false },
-		{ input: "none", description: "wrong keyword", category: "invalid-keyword", expectValid: false },
+		{ input: "-1s", description: "negative duration", category: "invalid-negative", expectValid: false, expectedError: "animation-duration: animation-duration must be non-negative, got: -1" },
+		{ input: "-500ms", description: "negative milliseconds", category: "invalid-negative", expectValid: false, expectedError: "animation-duration: animation-duration must be non-negative, got: -500" },
+		{ input: "1px", description: "invalid unit", category: "invalid-unit", expectValid: false, expectedError: "animation-duration: Invalid time unit: px. Expected 's' or 'ms'" },
+		{ input: "1em", description: "wrong unit type", category: "invalid-unit", expectValid: false, expectedError: "animation-duration: Invalid time unit: em. Expected 's' or 'ms'" },
+		{ input: "1", description: "missing unit", category: "invalid-unit", expectValid: false, expectedError: "animation-duration: Expected time dimension or 'auto', got: Number" },
+		{ input: "", description: "empty value", category: "invalid-empty", expectValid: false, expectedError: "animation-duration: Empty value" },
+		{ input: "1s,", description: "trailing comma", category: "invalid-comma", expectValid: false, expectedError: "animation-duration: Empty value" },
+		{ input: ",1s", description: "leading comma", category: "invalid-comma", expectValid: false, expectedError: "animation-duration: Empty value before comma" },
+		{ input: "1s,,2s", description: "double comma", category: "invalid-comma", expectValid: false, expectedError: "animation-duration: Empty value before comma" },
+		{ input: "invalid", description: "invalid keyword", category: "invalid-keyword", expectValid: false, expectedError: "animation-duration: Expected time dimension or 'auto', got: Identifier" },
+		{ input: "none", description: "wrong keyword", category: "invalid-keyword", expectValid: false, expectedError: "animation-duration: Expected time dimension or 'auto', got: Identifier" },
 	],
 };
