@@ -1,54 +1,45 @@
 # Session: Test Generator v2.0 - Ready to Scale
 
-**Status**: ✅ **APPROVED** - Exact error assertions implemented
+**Status**: ✅ **CLEANUP COMPLETE** - Memory streamlined, ready for next task
 
 **Tests**: 3,641 passing (365 test files)  
 **Branch**: coverage/90-percent  
-**Latest Commit**: bcf2554
+**Latest Commits**: bcf2554 (exact errors), 36a5f84 (session docs)
 
 ---
 
-## ✅ Discussion Complete
+## ✅ Session Complete
 
-### User Feedback: Exact Error Assertions
+### 1. Exact Error Assertions Implemented
+- ✅ Generator uses `.toBe()` for exact error matching
+- ✅ Enforces consistent `"property-name: details"` schema
+- ✅ Duration tests regenerated (24/24 passing)
+- ✅ Documentation updated
 
-**Issue**: Generator was using `toContain("Expected")` - too weak!
+### 2. Memory Cleanup Complete
+**Before**: 11 files + 2 dirs (cluttered)  
+**After**: 4 files + 2 dirs (streamlined)
 
-**Solution**: ✅ Implemented exact error message assertions:
-```typescript
-// Before
-expect(result.error).toContain("Expected");  // ❌ Weak
+**Archived**:
+- Session work → `archive/2025-10-27-test-generator-v2/`
+- Old plans → `archive/2025-10-23-planning-docs/`
 
-// After  
-expect(result.error).toBe("animation-duration: Expected time dimension or 'auto', got: Number");  // ✅ Strong
-```
-
-**Benefits**:
-1. ✅ Enforces consistent `"property-name: details"` schema
-2. ✅ Catches error message regressions
-3. ✅ Self-documenting (shows exact user-facing errors)
-4. ✅ No false positives from partial matching
-
-**Changes Made**:
-- Added `expectedError?: string` to TestCase interface
-- Updated generator to use `.toBe()` for exact matching
-- Added exact error messages to duration config
-- Regenerated duration tests (24/24 passing)
-- Updated README with rationale and workflow
-
-**Commit**: bcf2554 - All 3,641 tests passing
+**Simplified**:
+- README.md → 40 lines (was 111)
+- Clear structure: SESSION_NEXT.md, STATUS.md, ROADMAP.md
 
 ---
 
-## 🎯 Next Task: Apply to timing-function
+## 🎯 Next Task: Apply Generator to timing-function
 
-Generator is now **production-ready** with exact error assertions!
+Generator is **production-ready** with exact error assertions!
 
 ### Step 1: Create timing-function config
 
 ```bash
-# Create config file
 cat > scripts/test-generator/configs/timing-function.ts << 'EOTS'
+import type { PropertyConfig, TestCase } from "./duration";
+
 export const config: PropertyConfig = {
   propertyName: "timing-function",
   sourceFile: "src/parse/animation/timing-function.ts",
@@ -56,84 +47,74 @@ export const config: PropertyConfig = {
   outputPath: "src/parse/animation/timing-function.test.ts",
   cases: [
     // Keywords
-    { input: "ease", category: "valid-keyword", expectValid: true },
-    { input: "linear", category: "valid-keyword", expectValid: true },
-    { input: "ease-in", category: "valid-keyword", expectValid: true },
-    { input: "ease-out", category: "valid-keyword", expectValid: true },
-    { input: "ease-in-out", category: "valid-keyword", expectValid: true },
-    { input: "step-start", category: "valid-keyword", expectValid: true },
-    { input: "step-end", category: "valid-keyword", expectValid: true },
+    { input: "ease", description: "ease keyword", category: "valid-keyword", expectValid: true },
+    { input: "linear", description: "linear keyword", category: "valid-keyword", expectValid: true },
+    { input: "ease-in", description: "ease-in keyword", category: "valid-keyword", expectValid: true },
+    { input: "ease-out", description: "ease-out keyword", category: "valid-keyword", expectValid: true },
+    { input: "ease-in-out", description: "ease-in-out keyword", category: "valid-keyword", expectValid: true },
+    { input: "step-start", description: "step-start keyword", category: "valid-keyword", expectValid: true },
+    { input: "step-end", description: "step-end keyword", category: "valid-keyword", expectValid: true },
     
     // cubic-bezier()
-    { input: "cubic-bezier(0, 0, 1, 1)", category: "valid-bezier", expectValid: true },
-    { input: "cubic-bezier(0.42, 0, 0.58, 1)", category: "valid-bezier", expectValid: true },
-    { input: "cubic-bezier(0, -2, 1, 3)", category: "valid-bezier", expectValid: true },  // Y can be any value
+    { input: "cubic-bezier(0, 0, 1, 1)", description: "basic bezier", category: "valid-bezier", expectValid: true },
+    { input: "cubic-bezier(0.42, 0, 0.58, 1)", description: "custom bezier", category: "valid-bezier", expectValid: true },
+    { input: "cubic-bezier(0, -2, 1, 3)", description: "bezier with Y outside 0-1", category: "valid-bezier", expectValid: true },
     
     // steps()
-    { input: "steps(1)", category: "valid-steps", expectValid: true },
-    { input: "steps(4, jump-start)", category: "valid-steps", expectValid: true },
-    { input: "steps(10, jump-end)", category: "valid-steps", expectValid: true },
-    { input: "steps(5, jump-none)", category: "valid-steps", expectValid: true },
-    { input: "steps(3, jump-both)", category: "valid-steps", expectValid: true },
+    { input: "steps(1)", description: "single step", category: "valid-steps", expectValid: true },
+    { input: "steps(4, jump-start)", description: "steps with jump-start", category: "valid-steps", expectValid: true },
+    { input: "steps(10, jump-end)", description: "steps with jump-end", category: "valid-steps", expectValid: true },
+    { input: "steps(5, jump-none)", description: "steps with jump-none", category: "valid-steps", expectValid: true },
+    { input: "steps(3, jump-both)", description: "steps with jump-both", category: "valid-steps", expectValid: true },
     
-    // Invalid
-    { input: "cubic-bezier(-1, 0, 1, 1)", category: "invalid-bezier", expectValid: false },  // X must be 0-1
-    { input: "cubic-bezier(0, 0, 2, 1)", category: "invalid-bezier", expectValid: false },   // X must be 0-1
-    { input: "steps(0)", category: "invalid-steps", expectValid: false },  // n must be > 0
-    { input: "invalid", category: "invalid-keyword", expectValid: false },
+    // Invalid - run generator first to get exact error messages
+    { input: "cubic-bezier(-1, 0, 1, 1)", description: "bezier X1 out of range", category: "invalid-bezier", expectValid: false },
+    { input: "cubic-bezier(0, 0, 2, 1)", description: "bezier X2 out of range", category: "invalid-bezier", expectValid: false },
+    { input: "steps(0)", description: "zero steps", category: "invalid-steps", expectValid: false },
+    { input: "steps(-1)", description: "negative steps", category: "invalid-steps", expectValid: false },
+    { input: "invalid", description: "invalid keyword", category: "invalid-keyword", expectValid: false },
+    { input: "", description: "empty value", category: "invalid-empty", expectValid: false },
   ],
 };
 EOTS
-
-# Run generator (first pass - see actual errors)
-tsx scripts/generate-tests.ts timing-function
-
-# Copy error messages from output, add to config as expectedError
-# Then regenerate
 ```
 
-### Step 2: Iterate on error messages
+### Step 2: Run generator (first pass)
 
-1. First run shows actual parser errors
-2. Copy exact errors into config
-3. Regenerate with exact assertions
-4. Verify all tests pass
+```bash
+# See actual error messages
+tsx scripts/generate-tests.ts timing-function
 
-### Step 3: Review & refine
+# Copy error messages from output
+# Add to config as expectedError: "..."
+# Regenerate
+```
 
-- Check edge cases (e.g., X range constraints for cubic-bezier)
-- Verify error messages are consistent
-- Add more test cases if needed
+### Step 3: Verify & commit
+
+```bash
+pnpm test src/parse/animation/timing-function
+git add -A
+git commit -m "test(animation): Add timing-function tests via generator"
+```
 
 ---
 
-## 📚 References
+## 📚 Quick Reference
 
 - **Generator docs**: `scripts/test-generator/README.md`
 - **Duration example**: `scripts/test-generator/configs/duration.ts`
-- **Exact error rationale**: `.memory/EXACT_ERROR_ASSERTIONS.md`
+- **Session archive**: `.memory/archive/2025-10-27-test-generator-v2/HANDOVER.md`
 - **Source parser**: `src/parse/animation/timing-function.ts`
 
 ---
 
-## 🔧 Quick Commands
+## 🧹 Memory Maintenance
 
-```bash
-# Check current spec
-view src/parse/animation/timing-function.ts
-
-# Create config
-vim scripts/test-generator/configs/timing-function.ts
-
-# Generate tests (first pass)
-tsx scripts/generate-tests.ts timing-function
-
-# Run tests
-pnpm test src/parse/animation/timing-function
-
-# Commit
-git add -A && git commit -m "test(animation): Add timing-function tests via generator"
-```
+**.memory/ is now clean** - maintain this:
+- ✅ 4 root files only (SESSION_NEXT, STATUS, ROADMAP, README)
+- ✅ Archive session work in `archive/YYYY-MM-DD-topic/HANDOVER.md`
+- ✅ Keep root minimal
 
 ---
 
