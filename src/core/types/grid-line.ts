@@ -44,7 +44,7 @@ export const gridLineSchema = z.union(
 			.describe("span notation (e.g., span 2 means span across 2 tracks)"),
 	],
 	{
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: 'Expected <integer> | auto | { type: "span", value: <positive-integer> }' }
 				: { message: "Invalid grid line value" },

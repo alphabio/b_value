@@ -15,6 +15,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received null");
 		});
 
@@ -24,6 +25,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received undefined");
 		});
 	});
@@ -44,6 +46,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe('durations[0].unit: Invalid unit. Expected "s" or "ms".');
 		});
 
@@ -62,6 +65,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe('durations[0].unit: Invalid unit. Expected "s" or "ms".');
 		});
 	});
@@ -82,6 +86,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("durations[0].value: Time value must be non-negative");
 		});
 
@@ -100,6 +105,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("durations[0].value: Time value must be non-negative");
 		});
 	});
@@ -120,10 +126,11 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("durations[0].value: Invalid input: expected number, received string");
 		});
 
-		it("should reject NaN value", () => {
+		it("should reject null value", () => {
 			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
 			const input: any = {
 				kind: "animation-duration",
@@ -138,6 +145,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("durations[0].value: Invalid input: expected number, received null");
 		});
 	});
@@ -156,6 +164,7 @@ describe("generate/animation/duration - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("Invalid IR structure");
 		});
 	});

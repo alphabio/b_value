@@ -40,7 +40,7 @@ export const fontSizeSchema = z.object({
 			]),
 		],
 		{
-			errorMap: (issue) =>
+			error: (issue) =>
 				issue.code === "invalid_union"
 					? {
 							message:
@@ -101,7 +101,7 @@ export type FontFamily = z.infer<typeof fontFamilySchema>;
 export const fontWeightSchema = z.object({
 	kind: z.literal("font-weight"),
 	value: z.union([z.number().min(1).max(1000), z.enum(["normal", "bold", "bolder", "lighter"])], {
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: "Expected <number 1-1000> | normal | bold | bolder | lighter" }
 				: { message: "Invalid font-weight value" },
@@ -132,7 +132,7 @@ export type FontWeight = z.infer<typeof fontWeightSchema>;
 export const lineHeightSchema = z.object({
 	kind: z.literal("line-height"),
 	value: z.union([z.number(), lengthPercentageSchema, z.literal("normal")], {
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: "Expected <number> | <length-percentage> | normal" }
 				: { message: "Invalid line-height value" },
@@ -215,7 +215,7 @@ export type FontStyle = z.infer<typeof fontStyleSchema>;
 export const letterSpacingSchema = z.object({
 	kind: z.literal("letter-spacing"),
 	value: z.union([lengthPercentageSchema, z.literal("normal")], {
-		errorMap: (issue) =>
+		error: (issue) =>
 			issue.code === "invalid_union"
 				? { message: "Expected <length-percentage> | normal" }
 				: { message: "Invalid letter-spacing value" },
@@ -277,7 +277,7 @@ export const verticalAlignSchema = z.object({
 			z.enum(["baseline", "sub", "super", "text-top", "text-bottom", "middle", "top", "bottom"]),
 		],
 		{
-			errorMap: (issue) =>
+			error: (issue) =>
 				issue.code === "invalid_union"
 					? {
 							message:

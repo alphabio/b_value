@@ -253,13 +253,13 @@ export const config: PropertyConfig = {
 		{
 			input: {
 				kind: "animation-duration",
-				durations: [{ type: "time", value: NaN, unit: "s" }]
+				durations: [{ type: "time", value: null as any, unit: "s" }]
 			},
 			expected: "",
-			description: "NaN value",
+			description: "null value",
 			category: "invalid-value-type",
 			expectValid: false,
-			expectedError: "Invalid input"
+			expectedError: "Invalid input: expected number, received null"
 		},
 		
 		// Invalid cases - invalid duration type

@@ -25,7 +25,7 @@ const input = {
 	durations: [
 		{
 			type: "time" as const,
-			value: -1,
+			value: 1,
 			unit: "px" as "s" | "ms",
 		},
 	],
