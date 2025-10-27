@@ -1,108 +1,207 @@
-# Session 8: Push to 90% Coverage
+# Session 10: Round-Trip Testing - Phase 1 Expansion
 
-**Current Coverage**: 89.13% ✓ 
-**Target**: 90% (+0.87% remaining)
-**Status**: ✅ 3,488 tests passing, all checks passing
+**Current Status**: 88.98% coverage, 3,487 tests passing ✅
+**Focus**: Quality testing (not coverage %)
+**Phase**: 1 of 4 (Round-Trip Testing)
 
-## ✅ Session 7 Achievements (89.01% → 89.13%)
+---
 
-Successfully fixed all build/lint errors and boosted typography coverage!
+## 🎯 Mission: Expand Round-Trip Tests
 
-### Work Completed:
-1. **Test Fixes** (+10 files fixed)
-   - Removed incorrect `kind` fields from primitive types (angle, length)
-   - Fixed transition property test type
-   - Added biome-ignore for intentional `as any` usage
-   
-2. **Parse/Typography Module** (+4 files, 8 tests)
-   - font-family.test.ts: 87.5% → 92.5%
-   - font-weight.test.ts: 80.95% → 90.47%
-   - letter-spacing.test.ts: 79.48% → 89.74%
-   - line-height.test.ts: 82.6% → 91.3%
-   - Module: 83.01% → 86.36% (+3.35%)
+**Goal**: Add 10-15 more round-trip tests to reach ~35 total
 
-3. **Key Learning**: Primitive type schemas (angle, length) never had `kind` fields
+**Current Progress**: 21/35 tests complete (all passing!)
 
-📄 **Full details**: `.memory/archive/2025-01-25-bugfix-tests/HANDOVER.md`
+**Files**:
+- `test/integration/roundtrip.test.ts` - Add tests here
+- `test/integration/ROUNDTRIP_FAILURES.md` - Document failures here
 
-## 🎯 Roadmap to 90% (+0.87% needed)
+---
 
-### Strategy A: Generate Dispatchers (Quick Win ~0.5-0.8% impact)
+## 📋 Tests to Add (10-15 tests)
 
-These high-value dispatcher files have very low coverage:
+### 1. Radial & Conic Gradients (3 tests)
+```typescript
+// In roundtrip.test.ts, add new describe block:
+describe("radial gradients", () => {
+  test("simple: radial-gradient(circle, red, blue)", () => { ... });
+  test("with position: radial-gradient(at top left, red, blue)", () => { ... });
+});
 
-1. **clip-path/clip-path.ts** (27.27% coverage)
-   - Lines 41-84 uncovered (dispatcher logic)
-   - Need: ~6-8 tests for different clip-path kinds
-   - Impact: ~0.3-0.4%
+describe("conic gradients", () => {
+  test("simple: conic-gradient(from 90deg, red, blue)", () => { ... });
+});
+```
 
-2. **clip-path/inset.ts** (8.57% coverage)
-   - Lines 33-87 uncovered (most of file)
-   - Need: ~8-10 tests for inset generation
-   - Impact: ~0.2-0.3%
+### 2. Shadow Properties (4 tests)
+```typescript
+describe("box-shadow", () => {
+  test("basic: 2px 2px 4px black", () => { ... });
+  test("inset: inset 0 0 10px rgba(0,0,0,0.5)", () => { ... });
+});
 
-3. **transform/origin.ts** (28.57% coverage)
-   - Lines 54-64, 91-92 uncovered
-   - Need: ~4-6 tests for origin generation
-   - Impact: ~0.1-0.2%
+describe("text-shadow", () => {
+  test("basic: 1px 1px 2px black", () => { ... });
+  test("multiple: 1px 1px 2px black, -1px -1px 2px white", () => { ... });
+});
+```
 
-### Strategy B: Parse Error Paths (Systematic ~0.1-0.2% each)
+### 3. Filter Functions (3 tests)
+```typescript
+describe("filters", () => {
+  test("blur: blur(5px)", () => { ... });
+  test("brightness: brightness(1.2)", () => { ... });
+  test("multiple: blur(5px) brightness(1.2)", () => { ... });
+});
+```
 
-Focus on modules with consistent error path patterns:
+### 4. Clip-path Shapes (2 tests)
+```typescript
+describe("clip-path", () => {
+  test("circle: circle(50%)", () => { ... });
+  test("polygon: polygon(0 0, 100% 0, 100% 100%)", () => { ... });
+});
+```
 
-1. **parse/color** (lab, lch, oklab, oklch at 83-85%)
-2. **parse/filter** (brightness, contrast, grayscale at 51-54%)
-3. **parse/animation** (direction, fill-mode, play-state at 92%)
+### 5. Animation/Transition (2 tests)
+```typescript
+describe("timing functions", () => {
+  test("animation-timing-function: ease-in-out", () => { ... });
+  test("transition-duration: 0.3s", () => { ... });
+});
+```
 
-### Strategy C: If not critical, document and plan next phase
+---
 
-### Commands to Start
+## 🚀 Step-by-Step Process
+
+### Step 1: Add Import Statements
+First, check what modules exist:
+```bash
+ls src/parse/gradient/     # For radial, conic
+ls src/parse/shadow/       # For box-shadow, text-shadow
+ls src/parse/filter/       # For filters
+ls src/parse/clip-path/    # For clip-path
+ls src/parse/animation/    # For timing functions
+```
+
+Then add imports to roundtrip.test.ts:
+```typescript
+import * as RadialGradientParse from "@/parse/gradient/radial";
+import * as RadialGradientGenerate from "@/generate/gradient/radial";
+// ... etc
+```
+
+### Step 2: Add Tests (5 at a time)
+- Copy the test pattern from existing tests
+- Add 5 tests
+- Run: `pnpm test roundtrip`
+- Check results
+
+### Step 3: Handle Failures
+**If tests fail**:
+1. ❌ DO NOT modify test expectations
+2. ✅ DO add failure to ROUNDTRIP_FAILURES.md:
+   ```markdown
+   ## [property]: [test description]
+   **Date**: 2025-10-27
+   **Input**: `[CSS value]`
+   **Expected**: `[what we expect]`
+   **Actual**: `[what we got]`
+   **Status**: Investigating
+   ```
+3. ✅ DO investigate root cause (parse bug? generate bug?)
+4. ✅ DO fix source code OR mark as known normalization
+
+### Step 4: Run Full Test Suite
+```bash
+just test
+```
+
+Ensure no regressions.
+
+### Step 5: Commit
+```bash
+git add test/integration/roundtrip.test.ts test/integration/ROUNDTRIP_FAILURES.md
+git commit -m "test: expand round-trip tests (XX more tests)"
+```
+
+---
+
+## 📚 Required Reading
+
+Before starting:
+1. `.memory/TEST_QUALITY_PLAN.md` - Overall quality plan
+2. `.memory/archive/2025-10-27-roundtrip-phase1/HANDOVER.md` - Previous session
+3. `test/integration/roundtrip.test.ts` - Current tests (see pattern)
+
+---
+
+## ✅ Success Criteria
+
+- [ ] 10-15 new round-trip tests added
+- [ ] Total: ~35 round-trip tests
+- [ ] All failures documented (not hidden)
+- [ ] Root causes investigated
+- [ ] All tests passing OR documented in ROUNDTRIP_FAILURES.md
+- [ ] Handover created in `.memory/archive/2025-10-27-roundtrip-expansion/`
+
+---
+
+## ⚠️ Important Rules
+
+### DO
+- ✅ Document every failure honestly
+- ✅ Fix source code when bugs found
+- ✅ Take time to investigate
+- ✅ Add tests incrementally (5 at a time)
+
+### DON'T
+- ❌ Modify test expectations to make them pass
+- ❌ Hide failures
+- ❌ Chase coverage % (ignore it!)
+- ❌ Add all 15 tests at once
+
+---
+
+## 🎯 Current State (Baseline)
 
 ```bash
-# Quick check current state
-just test && just check
-
-# Option A: Generate dispatcher tests (best path to 90%)
-cat src/generate/clip-path/clip-path.ts
-cat src/generate/clip-path/clip-path.test.ts
-# Check what's missing, add dispatcher tests
-
-# Option B: Parse error paths
-pnpm test:coverage 2>&1 | grep "parse/color"
-pnpm test:coverage 2>&1 | grep "parse/filter"
-
-# Find all opportunities
-pnpm test:coverage 2>&1 | grep -v "100\s*|" | grep "\.ts"
+# Run this first to verify baseline:
+cd /Users/alphab/Dev/LLM/DEV/b_value
+just test                    # Should show 3,487 tests passing
+pnpm test roundtrip          # Should show 21 tests passing
 ```
 
-### Test Pattern for Dispatchers
+**Expected**:
+- ✅ 3,487 tests passing
+- ✅ 21 round-trip tests passing
+- ✅ Coverage: 88.98%
+- ✅ Branch: coverage/90-percent
 
-Clip-path dispatcher example:
-```typescript
-it("dispatches circle", () => {
-  const result = generate({
-    kind: "clip-path",
-    value: { kind: "circle", radius: {...}, position: {...} }
-  });
-  expect(result.ok).toBe(true);
-});
+---
 
-it("dispatches inset", () => {
-  const result = generate({
-    kind: "clip-path",
-    value: { kind: "inset", offsets: {...} }
-  });
-  expect(result.ok).toBe(true);
-});
-```
+## 💡 Tips
 
-## 📊 Coverage Progress
+1. **Check module paths first** - Use `ls src/parse/[category]/` to find correct imports
+2. **Copy test pattern** - Use existing tests as template
+3. **Test frequently** - Run `pnpm test roundtrip` after every 5 tests
+4. **Document immediately** - Don't batch failure documentation
+5. **Celebrate failures** - They reveal real issues!
 
-- **Session 1**: 74.65% (+5.43%)
-- **Session 2**: 82.58% (+7.93%)
-- **Session 3**: 84.41% (+1.83%)
-- **Session 4**: 84.61% (+0.20%)
-- **Session 5**: 86.33% (+1.72%)
-- **Session 6**: 86.74% (+0.41%)
-- **Session 7**: 89.01% (+2.27%) ✓ **89% MILESTONE ACHIEVED!**
-- **Next Goal**: 90% (0.99% to go)
+---
+
+## 📊 Progress Tracking
+
+**Week 1 Goal**: 100 round-trip tests (Phase 1 complete)
+**Current**: 21 tests (21%)
+**This Session Goal**: 35 tests (35%)
+**Remaining**: 65 tests for Phase 1
+
+Take your time. Quality > speed. 🎯
+
+---
+
+**Last Updated**: 2025-10-27
+**Next Agent**: Ready to expand round-trip tests
+**Status**: 🟢 Green light - foundation solid, ready for expansion
