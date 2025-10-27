@@ -23,21 +23,32 @@ import { lengthPercentageSchema } from "./length-percentage";
  */
 export const fontSizeSchema = z.object({
 	kind: z.literal("font-size"),
-	value: z.union([
-		lengthPercentageSchema,
-		z.enum([
-			"xx-small",
-			"x-small",
-			"small",
-			"medium",
-			"large",
-			"x-large",
-			"xx-large",
-			"xxx-large",
-			"larger",
-			"smaller",
-		]),
-	]),
+	value: z.union(
+		[
+			lengthPercentageSchema,
+			z.enum([
+				"xx-small",
+				"x-small",
+				"small",
+				"medium",
+				"large",
+				"x-large",
+				"xx-large",
+				"xxx-large",
+				"larger",
+				"smaller",
+			]),
+		],
+		{
+			errorMap: (issue) =>
+				issue.code === "invalid_union"
+					? {
+							message:
+								"Expected <length-percentage> | xx-small | x-small | small | medium | large | x-large | xx-large | xxx-large | larger | smaller",
+						}
+					: { message: "Invalid font-size value" },
+		},
+	),
 });
 
 export type FontSize = z.infer<typeof fontSizeSchema>;
@@ -89,7 +100,12 @@ export type FontFamily = z.infer<typeof fontFamilySchema>;
  */
 export const fontWeightSchema = z.object({
 	kind: z.literal("font-weight"),
-	value: z.union([z.number().min(1).max(1000), z.enum(["normal", "bold", "bolder", "lighter"])]),
+	value: z.union([z.number().min(1).max(1000), z.enum(["normal", "bold", "bolder", "lighter"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <number 1-1000> | normal | bold | bolder | lighter" }
+				: { message: "Invalid font-weight value" },
+	}),
 });
 
 export type FontWeight = z.infer<typeof fontWeightSchema>;
@@ -115,7 +131,12 @@ export type FontWeight = z.infer<typeof fontWeightSchema>;
  */
 export const lineHeightSchema = z.object({
 	kind: z.literal("line-height"),
-	value: z.union([z.number(), lengthPercentageSchema, z.literal("normal")]),
+	value: z.union([z.number(), lengthPercentageSchema, z.literal("normal")], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <number> | <length-percentage> | normal" }
+				: { message: "Invalid line-height value" },
+	}),
 });
 
 export type LineHeight = z.infer<typeof lineHeightSchema>;
@@ -193,7 +214,12 @@ export type FontStyle = z.infer<typeof fontStyleSchema>;
  */
 export const letterSpacingSchema = z.object({
 	kind: z.literal("letter-spacing"),
-	value: z.union([lengthPercentageSchema, z.literal("normal")]),
+	value: z.union([lengthPercentageSchema, z.literal("normal")], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | normal" }
+				: { message: "Invalid letter-spacing value" },
+	}),
 });
 
 export type LetterSpacing = z.infer<typeof letterSpacingSchema>;
@@ -245,10 +271,21 @@ export type TextTransform = z.infer<typeof textTransformSchema>;
  */
 export const verticalAlignSchema = z.object({
 	kind: z.literal("vertical-align"),
-	value: z.union([
-		lengthPercentageSchema,
-		z.enum(["baseline", "sub", "super", "text-top", "text-bottom", "middle", "top", "bottom"]),
-	]),
+	value: z.union(
+		[
+			lengthPercentageSchema,
+			z.enum(["baseline", "sub", "super", "text-top", "text-bottom", "middle", "top", "bottom"]),
+		],
+		{
+			errorMap: (issue) =>
+				issue.code === "invalid_union"
+					? {
+							message:
+								"Expected <length-percentage> | baseline | sub | super | text-top | text-bottom | middle | top | bottom",
+						}
+					: { message: "Invalid vertical-align value" },
+		},
+	),
 });
 
 export type VerticalAlign = z.infer<typeof verticalAlignSchema>;

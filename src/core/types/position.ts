@@ -27,7 +27,12 @@ import { lengthPercentageSchema, lengthSchema } from "./length-percentage";
  *
  * @public
  */
-export const positionValueSchema = z.union([Keyword.positionKeywordsSchema, lengthPercentageSchema]);
+export const positionValueSchema = z.union([Keyword.positionKeywordsSchema, lengthPercentageSchema], {
+	errorMap: (issue) =>
+		issue.code === "invalid_union"
+			? { message: "Expected left | center | right | top | bottom | <length-percentage>" }
+			: { message: "Invalid position value" },
+});
 
 /**
  * TypeScript type for position value.

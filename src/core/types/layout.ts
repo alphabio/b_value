@@ -255,7 +255,10 @@ export type PositionProperty = z.infer<typeof positionPropertySchema>;
  */
 export const zIndexSchema = z.object({
 	kind: z.literal("z-index"),
-	value: z.union([z.number().int(), z.literal("auto")]),
+	value: z.union([z.number().int(), z.literal("auto")], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union" ? { message: "Expected <integer> | auto" } : { message: "Invalid z-index value" },
+	}),
 });
 
 /**
@@ -464,7 +467,12 @@ export type Left = z.infer<typeof leftSchema>;
  */
 export const widthSchema = z.object({
 	kind: z.literal("width"),
-	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | auto | min-content | max-content | fit-content" }
+				: { message: "Invalid width value" },
+	}),
 });
 
 /**
@@ -513,7 +521,12 @@ export type Width = z.infer<typeof widthSchema>;
  */
 export const heightSchema = z.object({
 	kind: z.literal("height"),
-	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | auto | min-content | max-content | fit-content" }
+				: { message: "Invalid height value" },
+	}),
 });
 
 /**
@@ -535,7 +548,12 @@ export type Height = z.infer<typeof heightSchema>;
  */
 export const minWidthSchema = z.object({
 	kind: z.literal("min-width"),
-	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | auto | min-content | max-content | fit-content" }
+				: { message: "Invalid min-width value" },
+	}),
 });
 
 export type MinWidth = z.infer<typeof minWidthSchema>;
@@ -552,7 +570,12 @@ export type MinWidth = z.infer<typeof minWidthSchema>;
  */
 export const maxWidthSchema = z.object({
 	kind: z.literal("max-width"),
-	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | none | min-content | max-content | fit-content" }
+				: { message: "Invalid max-width value" },
+	}),
 });
 
 export type MaxWidth = z.infer<typeof maxWidthSchema>;
@@ -569,7 +592,12 @@ export type MaxWidth = z.infer<typeof maxWidthSchema>;
  */
 export const minHeightSchema = z.object({
 	kind: z.literal("min-height"),
-	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageAutoSchema, z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | auto | min-content | max-content | fit-content" }
+				: { message: "Invalid min-height value" },
+	}),
 });
 
 export type MinHeight = z.infer<typeof minHeightSchema>;
@@ -586,7 +614,12 @@ export type MinHeight = z.infer<typeof minHeightSchema>;
  */
 export const maxHeightSchema = z.object({
 	kind: z.literal("max-height"),
-	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])]),
+	value: z.union([lengthPercentageSchema, z.literal("none"), z.enum(["min-content", "max-content", "fit-content"])], {
+		errorMap: (issue) =>
+			issue.code === "invalid_union"
+				? { message: "Expected <length-percentage> | none | min-content | max-content | fit-content" }
+				: { message: "Invalid max-height value" },
+	}),
 });
 
 export type MaxHeight = z.infer<typeof maxHeightSchema>;
