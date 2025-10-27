@@ -2,6 +2,7 @@
 
 import { type GenerateResult, generateErr, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
+import { animationDurationSchema } from "@/core/types/animation";
 
 /**
  * Generate CSS animation-duration property value from IR.
@@ -39,9 +40,15 @@ import type * as Type from "@/core/types";
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-duration | W3C Spec}
  */
 export function generate(ir: Type.AnimationDuration): GenerateResult {
-	if (ir === undefined || ir === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = animationDurationSchema.safeParse(ir);
+
+	if (!validation.success) {
+		const firstError = validation.error.issues[0];
+		return generateErr("invalid-ir", firstError?.message || "Invalid IR structure");
 	}
+
+	// Generate CSS
 	const values = ir.durations
 		.map((duration) => {
 			if (duration.type === "auto") {

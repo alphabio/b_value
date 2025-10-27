@@ -4,8 +4,11 @@
 // import { expand } from "b_short";
 // import { parse } from "@/index"; // TODO: Universal API not implemented yet
 
+import { z } from "zod";
+import * as Type from "@/core/types";
 import { Parse } from "@/index";
 
+// import * as Generator from "@/generate/animation/duration";
 // ---
 // Example usages:
 // const input = "color(xyz 0.472 0.372 0.131)";
@@ -17,6 +20,23 @@ import { Parse } from "@/index";
 // console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0, 0, 1.1, 1)"));
 
 console.log(Parse.Animation.TimingFunction.parse("cubic-bezier(0.1,, 0.2, 0.3, 0.4)").value);
+
+const input = {
+	kind: "animation-duration",
+	durations: [
+		{
+			type: "___time___",
+			value: "___",
+			unit: "___sss___",
+		},
+	],
+};
+
+console.log(z.safeParse(Type.animationDurationSchema, input));
+
+// const result = Generate.Animation.Duration.generate(input);
+// console.log(JSON.stringify(result));
+
 // cubic-bezier(0.1,, 0.2, 0.3, 0.4)
 // const expanded = expand('font: italic small-caps bold 1.2em/1.6 "Helvetica Neue", Arial, sans-serif;');
 // console.log(expanded.result);
