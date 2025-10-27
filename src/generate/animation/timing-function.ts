@@ -1,7 +1,9 @@
 // b_path:: src/generate/animation/timing-function.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type * as Type from "@/core/types";
+import { animationTimingFunctionSchema } from "@/core/types/animation";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS easing function string from IR.
@@ -82,8 +84,18 @@ function easingFunctionToCss(func: Type.EasingFunction): string {
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-timing-function | W3C Spec}
  */
 export function generate(ir: Type.AnimationTimingFunction): GenerateResult {
-	if (ir === undefined || ir === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = animationTimingFunctionSchema.safeParse(ir);
+
+	if (!validation.success) {
+		// Convert Zod errors to Issue array
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
+	// Generate CSS
 	return generateOk(ir.functions.map(easingFunctionToCss).join(", "));
 }

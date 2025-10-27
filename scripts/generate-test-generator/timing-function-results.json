@@ -1,0 +1,497 @@
+[
+  {
+    "description": "ease keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "ease",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease",
+    "actual": "ease",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "linear keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "linear",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "linear",
+    "actual": "linear",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "ease-in keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "ease-in",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease-in",
+    "actual": "ease-in",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "ease-out keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "ease-out",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease-out",
+    "actual": "ease-out",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "ease-in-out keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "ease-in-out",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease-in-out",
+    "actual": "ease-in-out",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "step-start keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "step-start",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "step-start",
+    "actual": "step-start",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "step-end keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "step-end",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "step-end",
+    "actual": "step-end",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "cubic-bezier function",
+    "category": "valid-cubic-bezier",
+    "output": {
+      "ok": true,
+      "value": "cubic-bezier(0.42, 0, 1, 1)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "cubic-bezier(0.42, 0, 1, 1)",
+    "actual": "cubic-bezier(0.42, 0, 1, 1)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "cubic-bezier with zero values",
+    "category": "valid-cubic-bezier",
+    "output": {
+      "ok": true,
+      "value": "cubic-bezier(0, 0, 1, 1)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "cubic-bezier(0, 0, 1, 1)",
+    "actual": "cubic-bezier(0, 0, 1, 1)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "steps without position",
+    "category": "valid-steps",
+    "output": {
+      "ok": true,
+      "value": "steps(4)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "steps(4)",
+    "actual": "steps(4)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "steps with start position",
+    "category": "valid-steps",
+    "output": {
+      "ok": true,
+      "value": "steps(10, start)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "steps(10, start)",
+    "actual": "steps(10, start)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "steps with end position",
+    "category": "valid-steps",
+    "output": {
+      "ok": true,
+      "value": "steps(5, end)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "steps(5, end)",
+    "actual": "steps(5, end)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "linear function simple",
+    "category": "valid-linear",
+    "output": {
+      "ok": true,
+      "value": "linear(0, 1)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "linear(0, 1)",
+    "actual": "linear(0, 1)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "linear function with input positions",
+    "category": "valid-linear",
+    "output": {
+      "ok": true,
+      "value": "linear(0 0%, 0.5 50%, 1 100%)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "linear(0 0%, 0.5 50%, 1 100%)",
+    "actual": "linear(0 0%, 0.5 50%, 1 100%)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple keyword functions",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "ease, linear, ease-out",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease, linear, ease-out",
+    "actual": "ease, linear, ease-out",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "mixed function types",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "ease, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "ease, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)",
+    "actual": "ease, cubic-bezier(0.1, 0.7, 1, 0.1), steps(4)",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear().",
+          "path": [
+            "functions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid easing function",
+    "expected": "",
+    "actual": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+  },
+  {
+    "description": "invalid function type",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear().",
+          "path": [
+            "functions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid easing function",
+    "expected": "",
+    "actual": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+  },
+  {
+    "description": "cubic-bezier missing x2/y2",
+    "category": "invalid-cubic-bezier",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear().",
+          "path": [
+            "functions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Required",
+    "expected": "",
+    "actual": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+  },
+  {
+    "description": "cubic-bezier with string value",
+    "category": "invalid-cubic-bezier",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear().",
+          "path": [
+            "functions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected number",
+    "expected": "",
+    "actual": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+  },
+  {
+    "description": "steps missing steps count",
+    "category": "invalid-steps",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear().",
+          "path": [
+            "functions",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Required",
+    "expected": "",
+    "actual": "functions[0]: Invalid easing function. Expected a keyword (ease, linear, etc.), cubic-bezier(), steps(), or linear()."
+  },
+  {
+    "description": "steps with zero count",
+    "category": "invalid-steps",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0].steps: Too small: expected number to be >0",
+          "path": [
+            "functions",
+            0,
+            "steps"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Number must be greater than 0",
+    "expected": "",
+    "actual": "functions[0].steps: Too small: expected number to be >0"
+  },
+  {
+    "description": "steps with negative count",
+    "category": "invalid-steps",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions[0].steps: Too small: expected number to be >0",
+          "path": [
+            "functions",
+            0,
+            "steps"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Number must be greater than 0",
+    "expected": "",
+    "actual": "functions[0].steps: Too small: expected number to be >0"
+  },
+  {
+    "description": "empty functions array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "functions: Too small: expected array to have >=1 items",
+          "path": [
+            "functions"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "functions: Too small: expected array to have >=1 items"
+  }
+]
