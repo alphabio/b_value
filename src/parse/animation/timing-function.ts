@@ -2,7 +2,7 @@
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
 import { parseCommaSeparatedSingle } from "@/utils/parse/comma-separated";
-import { EasingFunction } from "@/utils/parse/easing";
+import { parseEasingFunction } from "@/utils/parse/easing";
 
 /**
  * Parse CSS animation-timing-function property value.
@@ -34,11 +34,7 @@ import { EasingFunction } from "@/utils/parse/easing";
  * @see {@link https://www.w3.org/TR/css-animations-1/#animation-timing-function | W3C Spec}
  */
 export function parse(css: string): Result<Type.AnimationTimingFunction, string> {
-	const functionsResult = parseCommaSeparatedSingle(
-		css,
-		EasingFunction.parseEasingFunction,
-		"animation-timing-function",
-	);
+	const functionsResult = parseCommaSeparatedSingle(css, parseEasingFunction, "animation-timing-function");
 
 	if (!functionsResult.ok) {
 		return err(functionsResult.error);

@@ -4,8 +4,8 @@ import { err, ok, type Result } from "@/core/result";
 import type { Color } from "@/core/types/color";
 import type { Length } from "@/core/types/length-percentage";
 import type { TextShadow, TextShadowLayer } from "@/core/types/shadow";
+import { parseNode as parseColorNode } from "@/parse/color";
 import * as ParseUtils from "@/utils/parse";
-import { parseColor } from "@/utils/parse/color";
 
 /**
  * Convert an AST node to string representation for error messages.
@@ -63,7 +63,7 @@ function parseShadowLayer(nodes: csstree.CssNode[]): Result<TextShadowLayer, str
 		}
 
 		// Try parsing as color
-		const colorResult = parseColor(nodeToString(node));
+		const colorResult = parseColorNode(node);
 		if (colorResult.ok) {
 			if (color !== undefined) {
 				return err("text-shadow: duplicate color");

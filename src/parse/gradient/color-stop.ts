@@ -1,8 +1,8 @@
 // b_path:: src/parse/gradient/color-stop.ts
-import * as csstree from "css-tree";
+import type * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";
-import { parseColor } from "@/utils/parse/color";
+import { parseNode as parseColorNode } from "@/parse/color";
 
 /**
  * Parse color stop from CSS AST nodes.
@@ -38,15 +38,8 @@ export function fromNodes(nodes: csstree.CssNode[]): Result<Type.ColorStop, stri
 	}
 
 	// Extract and parse color value
-	let colorString: string;
-	try {
-		colorString = csstree.generate(firstNode);
-	} catch (error) {
-		return err(`Failed to generate color value: ${error instanceof Error ? error.message : String(error)}`);
-	}
-
-	// Parse color using master color parser
-	const colorResult = parseColor(colorString);
+	// Parse color directly from AST node (efficient - no string round-trip)
+	const colorResult = parseColorNode(firstNode);
 	if (!colorResult.ok) {
 		return err(`Invalid color value: ${colorResult.error}`);
 	}
