@@ -1,0 +1,406 @@
+[
+  {
+    "description": "infinite keyword",
+    "category": "valid-keyword",
+    "output": {
+      "ok": true,
+      "value": "infinite",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "infinite",
+    "actual": "infinite",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "single iteration",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": "1",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1",
+    "actual": "1",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple iterations",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": "3",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "3",
+    "actual": "3",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "zero iterations",
+    "category": "valid-number",
+    "output": {
+      "ok": true,
+      "value": "0",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0",
+    "actual": "0",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "decimal iterations",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "2.5",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "2.5",
+    "actual": "2.5",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "half iteration",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "0.5",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.5",
+    "actual": "0.5",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "very large count",
+    "category": "valid-large",
+    "output": {
+      "ok": true,
+      "value": "1000",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1000",
+    "actual": "1000",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "mixed number and infinite",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "1, infinite",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1, infinite",
+    "actual": "1, infinite",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple mixed values",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "2, 3, infinite",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "2, 3, infinite",
+    "actual": "2, 3, infinite",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiple infinite keywords",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": "infinite, infinite",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "infinite, infinite",
+    "actual": "infinite, infinite",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "negative iteration count",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0].value: Too small: expected number to be >=0",
+          "path": [
+            "counts",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "counts[0].value: Number must be greater than or equal to 0",
+    "expected": "",
+    "actual": "counts[0].value: Too small: expected number to be >=0"
+  },
+  {
+    "description": "negative decimal iteration count",
+    "category": "invalid-negative",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0].value: Too small: expected number to be >=0",
+          "path": [
+            "counts",
+            0,
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "counts[0].value: Number must be greater than or equal to 0",
+    "expected": "",
+    "actual": "counts[0].value: Too small: expected number to be >=0"
+  },
+  {
+    "description": "invalid type keyword",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }.",
+          "path": [
+            "counts",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "counts[0]: Invalid iteration count",
+    "expected": "",
+    "actual": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }."
+  },
+  {
+    "description": "string value instead of number",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }.",
+          "path": [
+            "counts",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "counts[0].value: Invalid input: expected number, received string",
+    "expected": "",
+    "actual": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }."
+  },
+  {
+    "description": "missing value field",
+    "category": "invalid-missing",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }.",
+          "path": [
+            "counts",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Required",
+    "expected": "",
+    "actual": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }."
+  },
+  {
+    "description": "missing type field",
+    "category": "invalid-missing",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }.",
+          "path": [
+            "counts",
+            0
+          ],
+          "metadata": {
+            "zodCode": "invalid_union"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "counts[0]: Invalid iteration count",
+    "expected": "",
+    "actual": "counts[0]: Invalid iteration count. Expected { type: \"infinite\" } or { type: \"number\", value: <non-negative number> }."
+  },
+  {
+    "description": "empty counts array",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "counts: Too small: expected array to have >=1 items",
+          "path": [
+            "counts"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Array must contain at least 1 element(s)",
+    "expected": "",
+    "actual": "counts: Too small: expected array to have >=1 items"
+  },
+  {
+    "description": "wrong kind literal",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"animation-iteration-count\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "kind: Invalid literal value, expected \"animation-iteration-count\"",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"animation-iteration-count\""
+  }
+]
