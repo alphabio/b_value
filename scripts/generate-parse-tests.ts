@@ -1,21 +1,31 @@
 #!/usr/bin/env tsx
 /**
- * Test Generation Script v2.0
+ * Parse Test Generation Script v2.0
+ *
+ * Generates tests for CSS → IR parsing functions.
  *
  * Workflow:
- * 1. Load test case config from configs/ *.ts
+ * 1. Load test case config from configs/{module}/{property}.ts
  * 2. Validate spec references exist in source file
- * 3. Run cases through parser
+ * 3. Run test cases through parser (CSS string → IR)
  * 4. Detect issues (mismatches between expected and actual)
- * 5. Save results to JSON
- * 6. Generate co-located test file (src/ ** /*.test.ts)
+ * 5. Save results to results/{module}/{property}-results.json
+ * 6. Generate co-located test files:
+ *    - src/parse/{module}/{property}.test.ts (valid cases)
+ *    - src/parse/{module}/{property}.failure.test.ts (invalid cases)
  * 7. Save ISSUES.md if any mismatches found
  *
- * Usage:
- *   tsx scripts/generate-tests.ts <config-name>
+ * Prerequisites:
+ * - Parser must exist at src/parse/{module}/{property}.ts
+ * - Config must exist at scripts/parse-test-generator/configs/{module}/{property}.ts
  *
- * Example:
- *   tsx scripts/generate-tests.ts duration
+ * Usage:
+ *   tsx scripts/generate-parse-tests.ts <module>/<property>
+ *   tsx scripts/generate-parse-tests.ts <module> <property>
+ *
+ * Examples:
+ *   tsx scripts/generate-parse-tests.ts animation/duration
+ *   tsx scripts/generate-parse-tests.ts transition delay
  */
 
 import * as fs from "node:fs";
@@ -57,16 +67,16 @@ interface SpecRef {
 async function loadConfig(configName: string): Promise<PropertyConfig> {
 	// Support both "module/property" and "module property" formats
 	const parts = configName.includes("/") ? configName.split("/") : configName.split(" ");
-	
+
 	if (parts.length !== 2) {
 		console.error(`❌ Invalid config name format: ${configName}`);
 		console.error(`   Expected: <module>/<property> or <module> <property>`);
 		console.error(`   Example: animation/duration or animation duration`);
 		process.exit(1);
 	}
-	
+
 	const [moduleName, propertyName] = parts;
-	
+
 	const configPath = path.join(
 		path.dirname(new URL(import.meta.url).pathname),
 		"parse-test-generator",
