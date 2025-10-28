@@ -1,0 +1,182 @@
+[
+  {
+    "input": "visible",
+    "description": "visible keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "visible"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "hidden",
+    "description": "hidden keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "hidden"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "collapse",
+    "description": "collapse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "collapse"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "VISIBLE",
+    "description": "uppercase visible",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "visible"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Hidden",
+    "description": "mixed case hidden",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "hidden"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "COLLAPSE",
+    "description": "uppercase collapse",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "visibility",
+        "value": "collapse"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "auto",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid visibility keyword: auto"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid visibility keyword"
+  },
+  {
+    "input": "none",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid visibility keyword: none"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid visibility keyword"
+  },
+  {
+    "input": "show",
+    "description": "non-standard keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid visibility keyword: show"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid visibility keyword"
+  },
+  {
+    "input": "block",
+    "description": "display value",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid visibility keyword: block"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid visibility keyword"
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "1px",
+    "description": "dimension value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "visible, hidden",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 3 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  }
+]

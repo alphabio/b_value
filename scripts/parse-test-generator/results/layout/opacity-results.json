@@ -1,0 +1,270 @@
+[
+  {
+    "input": "0",
+    "description": "fully transparent",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "1",
+    "description": "fully opaque",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 1
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.5",
+    "description": "50% transparent",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.5
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.25",
+    "description": "25% transparent",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.25
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0.75",
+    "description": "75% transparent",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.75
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": ".5",
+    "description": "decimal without leading zero",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.5
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "0%",
+    "description": "0% opacity",
+    "category": "valid-percentage",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "100%",
+    "description": "100% opacity",
+    "category": "valid-percentage",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 1
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "50%",
+    "description": "50% opacity",
+    "category": "valid-percentage",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.5
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "25.5%",
+    "description": "decimal percentage",
+    "category": "valid-percentage",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0.255
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "-1",
+    "description": "negative clamped to 0",
+    "category": "valid-clamp",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "2",
+    "description": "greater than 1 clamped to 1",
+    "category": "valid-clamp",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 1
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "150%",
+    "description": "percentage over 100 clamped",
+    "category": "valid-clamp",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 1
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "-50%",
+    "description": "negative percentage clamped",
+    "category": "valid-clamp",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "opacity",
+        "value": 0
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected opacity value"
+  },
+  {
+    "input": "1px",
+    "description": "invalid unit",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "Expected number or percentage, got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected number or percentage"
+  },
+  {
+    "input": "1em",
+    "description": "wrong unit type",
+    "category": "invalid-unit",
+    "output": {
+      "ok": false,
+      "error": "Expected number or percentage, got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected number or percentage"
+  },
+  {
+    "input": "auto",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Expected number or percentage, got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected number or percentage"
+  },
+  {
+    "input": "none",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Expected number or percentage, got: Identifier"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected number or percentage"
+  },
+  {
+    "input": "0.5, 1",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 3 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  }
+]

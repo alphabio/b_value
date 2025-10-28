@@ -1,0 +1,248 @@
+[
+  {
+    "description": "fully transparent",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "0",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0",
+    "actual": "0",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "fully opaque",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "1",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "1",
+    "actual": "1",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "50% transparent",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "0.5",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.5",
+    "actual": "0.5",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "25% transparent",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "0.25",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.25",
+    "actual": "0.25",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "75% transparent",
+    "category": "valid-decimal",
+    "output": {
+      "ok": true,
+      "value": "0.75",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "0.75",
+    "actual": "0.75",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "negative value",
+    "category": "invalid-range",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Too small: expected number to be >=0",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_small"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Number must be greater than or equal to 0",
+    "expected": "",
+    "actual": "value: Too small: expected number to be >=0"
+  },
+  {
+    "description": "value greater than 1",
+    "category": "invalid-range",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Too big: expected number to be <=1",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "too_big"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Number must be less than or equal to 1",
+    "expected": "",
+    "actual": "value: Too big: expected number to be <=1"
+  },
+  {
+    "description": "string value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected number, received string",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Invalid input: expected number, received string"
+  },
+  {
+    "description": "null value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected number, received null",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected number, received null",
+    "expected": "",
+    "actual": "value: Invalid input: expected number, received null"
+  },
+  {
+    "description": "wrong kind field",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"opacity\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"opacity\""
+  }
+]
