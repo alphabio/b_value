@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+// b_path:: scripts/generate-parse-tests.ts
 /**
  * Parse Test Generation Script v2.0
  *

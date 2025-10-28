@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/text-align-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	TEXT_ALIGN_KEYWORDS,

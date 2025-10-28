@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/align-self-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { ALIGN_SELF_KEYWORDS, type AlignSelfKeyword, alignSelfKeywordsSchema } from "./align-self-keywords";
 

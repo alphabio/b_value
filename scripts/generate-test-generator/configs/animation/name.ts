@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/animation/name.ts
 /**
  * Test cases for animation-name generator
  *

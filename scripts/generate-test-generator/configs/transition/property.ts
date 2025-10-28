@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/transition/property.ts
 /**
  * Test cases for transition-property generator
  *

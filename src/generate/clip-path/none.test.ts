@@ -1,3 +1,4 @@
+// b_path:: src/generate/clip-path/none.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./none";
 

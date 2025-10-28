@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/transition/timing-function.ts
 /**
  * Test cases for transition-timing-function parser
  */

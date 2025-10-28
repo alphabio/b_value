@@ -1,3 +1,4 @@
+// b_path:: src/core/types/shadow.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	type BoxShadow,

@@ -1,4 +1,4 @@
-// b_path:: src/generate/visual/visibility.generate.failure.test.ts
+// b_path:: src/generate/visual/visibility.failure.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/visibility.ts
 //
 // Spec references:

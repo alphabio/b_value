@@ -1,3 +1,4 @@
+// b_path:: src/core/units/frequency.test.ts
 import { describe, expect, it } from "vitest";
 import { FREQUENCY_UNITS, frequencyUnitSchema } from "./frequency";
 

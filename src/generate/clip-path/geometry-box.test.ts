@@ -1,3 +1,4 @@
+// b_path:: src/generate/clip-path/geometry-box.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./geometry-box";
 

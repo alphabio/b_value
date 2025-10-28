@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/animation/play-state.ts
 /**
  * Test cases for animation-play-state generator
  *

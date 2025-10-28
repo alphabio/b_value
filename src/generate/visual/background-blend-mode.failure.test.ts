@@ -1,0 +1,71 @@
+// b_path:: src/generate/visual/background-blend-mode.failure.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/background-blend-mode.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode}
+import { describe, expect, it } from "vitest";
+import * as Generator from "@/generate/visual/background-blend-mode";
+
+describe("generate/visual/background-blend-mode - invalid cases", () => {
+	describe("invalid-null", () => {
+		it("should reject null input", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = null;
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues.length).toBeGreaterThan(0);
+		});
+
+		it("should reject undefined input", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = undefined;
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues.length).toBeGreaterThan(0);
+		});
+	});
+
+	describe("invalid-keyword", () => {
+		it("should reject invalid keyword", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = {
+				kind: "background-blend-mode",
+				mode: "invalid",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues.length).toBeGreaterThan(0);
+		});
+	});
+
+	describe("invalid-type", () => {
+		it("should reject number value", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = {
+				kind: "background-blend-mode",
+				mode: 123,
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues.length).toBeGreaterThan(0);
+		});
+	});
+
+	describe("invalid-kind", () => {
+		it("should reject wrong kind field", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = {
+				kind: "mix-blend-mode",
+				mode: "multiply",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues.length).toBeGreaterThan(0);
+		});
+	});
+});

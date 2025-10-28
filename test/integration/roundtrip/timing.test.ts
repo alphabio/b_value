@@ -1,3 +1,4 @@
+// b_path:: test/integration/roundtrip/timing.test.ts
 import { describe, expect, test } from "vitest";
 import * as TimingFunctionGenerate from "@/generate/animation/timing-function";
 import * as DurationGenerate from "@/generate/transition/duration";

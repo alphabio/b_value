@@ -1,4 +1,5 @@
 #!/usr/bin/env tsx
+// b_path:: scripts/generate-generate-tests.ts
 /**
  * Generate Test Generation Script v2.0
  *

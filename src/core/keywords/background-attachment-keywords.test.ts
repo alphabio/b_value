@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/background-attachment-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	BACKGROUND_ATTACHMENT_KEYWORDS,

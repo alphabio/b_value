@@ -1,3 +1,4 @@
+// b_path:: src/generate/border/radius.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./radius";
 

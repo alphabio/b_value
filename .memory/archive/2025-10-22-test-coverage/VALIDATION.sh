@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/archive/2025-10-22-test-coverage/VALIDATION.sh
 # Validation Script for Test Coverage Session
 # Run this to verify all claims in HANDOVER.md
 

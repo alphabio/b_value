@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/word-break-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { WORD_BREAK_KEYWORDS, type WordBreakKeyword, wordBreakKeywordsSchema } from "./word-break-keywords";
 

@@ -1,3 +1,4 @@
+// b_path:: src/generate/clip-path/circle.test.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
 import { generate } from "./circle";

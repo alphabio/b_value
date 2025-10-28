@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/layout/opacity.ts
 /**
  * Test cases for opacity parser
  */

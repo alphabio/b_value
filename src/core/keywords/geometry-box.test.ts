@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/geometry-box.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	geometryBoxKeywords,

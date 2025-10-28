@@ -1,3 +1,4 @@
+// b_path:: src/generate/typography/font-weight.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./font-weight";
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# b_path:: .memory/scripts/create-handover.sh
 # Helper script to create session handover documentation
 # Usage: .memory/scripts/create-handover.sh [topic] [start-coverage] [end-coverage]
 

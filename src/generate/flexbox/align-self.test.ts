@@ -1,3 +1,4 @@
+// b_path:: src/generate/flexbox/align-self.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./align-self.js";
 

@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/animation/delay.ts
 /**
  * Test cases for animation-delay generator
  *

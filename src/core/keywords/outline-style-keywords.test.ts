@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/outline-style-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	OUTLINE_STYLE_KEYWORDS,

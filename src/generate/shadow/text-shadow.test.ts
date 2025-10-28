@@ -1,3 +1,4 @@
+// b_path:: src/generate/shadow/text-shadow.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./text-shadow";
 

@@ -1,3 +1,4 @@
+// b_path:: src/core/types/border.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	type BorderColor,

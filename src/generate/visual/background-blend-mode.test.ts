@@ -1,46 +1,119 @@
-import { describe, expect, test } from "vitest";
-import { generateBackgroundBlendMode } from "./background-blend-mode";
+// b_path:: src/generate/visual/background-blend-mode.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/visual/background-blend-mode.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode}
+import { describe, expect, it } from "vitest";
+import type * as Type from "@/core/types";
+import * as Generator from "@/generate/visual/background-blend-mode";
+import * as Parser from "@/parse/visual/background-blend-mode";
 
-describe("background-blend-mode generator", () => {
-	test("should generate 'normal'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "normal" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("normal");
+describe("generate/visual/background-blend-mode - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should generate normal blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "normal",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("normal");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate multiply blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "multiply",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("multiply");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate screen blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "screen",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("screen");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate overlay blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "overlay",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("overlay");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 
-	test("should generate 'multiply'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "multiply" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("multiply");
+	describe("valid-advanced", () => {
+		it("should generate color-dodge blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "color-dodge",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("color-dodge");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 
-	test("should generate 'screen'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "screen" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("screen");
-	});
+	describe("valid-color", () => {
+		it("should generate hue blend mode", () => {
+			const input: Type.BackgroundBlendMode = {
+				kind: "background-blend-mode",
+				mode: "hue",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("hue");
 
-	test("should generate 'overlay'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "overlay" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("overlay");
-	});
-
-	test("should generate 'darken'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "darken" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("darken");
-	});
-
-	test("should generate 'lighten'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "lighten" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("lighten");
-	});
-
-	test("should generate 'color-dodge'", () => {
-		const result = generateBackgroundBlendMode({ kind: "background-blend-mode", mode: "color-dodge" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("color-dodge");
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 });

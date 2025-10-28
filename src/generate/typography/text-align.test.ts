@@ -1,3 +1,4 @@
+// b_path:: src/generate/typography/text-align.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./text-align";
 

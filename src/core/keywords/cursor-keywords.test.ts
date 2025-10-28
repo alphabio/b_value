@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/cursor-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { CURSOR_KEYWORDS, type CursorKeyword, cursorKeywordOptions, cursorKeywordsSchema } from "./cursor-keywords";
 

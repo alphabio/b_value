@@ -1,3 +1,4 @@
+// b_path:: src/parse/typography/text-align.test.ts
 import { describe, expect, it } from "vitest";
 import * as TextAlign from "./text-align";
 

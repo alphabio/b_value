@@ -1,3 +1,4 @@
+// b_path:: examples/batch-api.ts
 /**
  * Batch API Examples - parseAll() and generateAll()
  *

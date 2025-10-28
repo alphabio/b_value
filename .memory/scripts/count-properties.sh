@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# b_path:: .memory/scripts/count-properties.sh
 # Count actual CSS properties implemented in b_value
 # Single source of truth for property count (with fallback)
 

@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/sizing-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { SIZING_KEYWORDS, type SizingKeyword, sizingKeywordOptions, sizingKeywordsSchema } from "./sizing-keywords";
 

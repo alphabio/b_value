@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/transition/delay.ts
 /**
  * Test cases for transition-delay generator
  *

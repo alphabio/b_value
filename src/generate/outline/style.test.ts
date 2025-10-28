@@ -1,3 +1,4 @@
+// b_path:: src/generate/outline/style.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./style.js";
 

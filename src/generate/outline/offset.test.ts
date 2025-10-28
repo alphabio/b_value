@@ -1,3 +1,4 @@
+// b_path:: src/generate/outline/offset.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./offset.js";
 

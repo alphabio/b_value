@@ -1,3 +1,4 @@
+// b_path:: src/generate/interaction/pointer-events.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./pointer-events";
 

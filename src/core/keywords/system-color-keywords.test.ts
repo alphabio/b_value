@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/system-color-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { SYSTEM_COLOR_KEYWORDS, systemColorKeywordsSchema } from "./system-color-keywords";
 

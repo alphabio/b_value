@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/animation/timing-function.ts
 /**
  * Test cases for animation-timing-function parser
  */
