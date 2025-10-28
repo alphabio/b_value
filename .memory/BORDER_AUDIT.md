@@ -246,3 +246,54 @@ When ready to properly implement border longhands:
 2. Longhand = accepts only ONE value type
 3. Shorthand = accepts multiple values OR is listed as "shorthand for: ..."
 
+
+---
+
+## 🔄 UPDATE: Not Shorthands, Convenience APIs
+
+**Date**: 2025-10-28 (after discussion)
+
+### Clarification
+
+The initial audit **incorrectly** classified border properties as "CSS shorthands out of scope."
+
+**Reality**: They are **convenience APIs** for ergonomics, not CSS shorthands.
+
+### Key Differences
+
+**CSS Shorthand** (belongs in b_short):
+```css
+border-width: 1px 2px 3px 4px;  /* 4 DIFFERENT values */
+border-radius: 10px 20px;        /* 2 values with special semantics */
+```
+
+**Convenience API** (belongs in b_value):
+```typescript
+Border.Width.parse("2px")  // SAME value to all 4 sides
+Border.Radius.parse("8px") // SAME value to all 4 corners
+```
+
+### Why This Matters
+
+1. **Client ergonomics**: Avoid 16 separate calls to update border uniformly
+2. **Not spec violation**: Still generates proper longhand IR internally
+3. **Pragmatic design**: 90% of use cases want uniform values
+4. **Fine-tuning available**: Individual side APIs when needed
+
+### Correct Assessment
+
+- ✅ Current implementation is **IN SCOPE** for b_value
+- ✅ Convenience APIs are **valuable and needed**
+- ⚠️ Current implementation treats convenience as single property (simplification)
+- 🎯 Future: Properly implement as convenience layer over 16 longhands
+
+### Recommendation Updated
+
+1. **Don't remove** current border implementation (it's useful)
+2. **Don't create dual tests yet** (design needs refinement)
+3. **Defer to later phase** (after multi-declaration parser design)
+4. **Reference** BORDER_DESIGN_PHILOSOPHY.md for full context
+
+---
+
+**See**: `.memory/BORDER_DESIGN_PHILOSOPHY.md` for complete design rationale.
