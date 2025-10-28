@@ -1,7 +1,7 @@
 # Border Module Design Philosophy
 
-**Status**: Active Design Document  
-**Date**: 2025-10-28  
+**Status**: Active Design Document
+**Date**: 2025-10-28
 **Topic**: Pragmatic API Design for Multi-Side Properties
 
 ---
@@ -13,6 +13,7 @@
 When updating border properties, clients face a choice:
 
 **Option A: Pure CSS Longhand (Tedious)**
+
 ```typescript
 // Update all 4 corners - requires 4 separate calls
 parse("border-top-left-radius", "10px")
@@ -22,12 +23,14 @@ parse("border-bottom-left-radius", "10px")
 ```
 
 **Option B: CSS Shorthand (Out of Scope)**
+
 ```typescript
 // CSS shorthand - belongs in b_short
 parse("border-radius", "10px")  // ❌ Not in b_value
 ```
 
 **Option C: Pragmatic Convenience API (Our Solution)**
+
 ```typescript
 // Single call, updates all corners
 Border.Radius.parse("10px")
@@ -53,6 +56,7 @@ The API ultimately operates on individual longhand properties:
 **90% of use cases apply the same value to all sides.**
 
 Examples:
+
 ```css
 /* Want uniform border */
 border-top-width: 2px;
@@ -82,6 +86,7 @@ The API should support BOTH:
 ## 🏗️ API Evolution Roadmap
 
 ### Phase 1: Current State (Individual Property APIs)
+
 ```typescript
 // Color module
 Parse.Color.Oklch.parse("oklch(65% 0.2 250 / 0.5)")
@@ -95,6 +100,7 @@ Parse.Color.Rgb.parse("rgb(255 0 0)")
 - ❌ Requires knowing color format upfront
 
 ### Phase 2: Universal Type Parsers (Future)
+
 ```typescript
 // Any color format
 Parse.Color.parse("oklch(65% 0.2 250 / 0.5)")
@@ -108,6 +114,7 @@ Parse.Color.parse("rgb(255 0 0)")
 - ⚠️ Slightly less explicit
 
 ### Phase 3: Multi-Declaration Parser (Future)
+
 ```typescript
 // Multiple declarations at once
 Parse.parse(`
@@ -141,6 +148,7 @@ Border properties have **combinatorial explosion**:
 ### The Ergonomics Problem
 
 **Client wants uniform border:**
+
 ```typescript
 // Without convenience API - 12 calls!
 parse("border-top-width", "2px")
@@ -153,6 +161,7 @@ parse("border-right-style", "solid")
 ```
 
 **With convenience API:**
+
 ```typescript
 Border.Width.parse("2px")   // → applies to all 4 sides
 Border.Style.parse("solid") // → applies to all 4 sides
@@ -176,7 +185,7 @@ The convenience APIs are **not CSS shorthands**. They are:
 // API: Border.Width.parse("2px")
 export function parse(css: string): Result<BorderWidthIR> {
   const value = parseSingleWidth(css);
-  
+
   return {
     kind: "border-width-all",  // Convenience type
     value,
@@ -195,6 +204,7 @@ Border.Top.Width.parse("2px")  // → { kind: "border-top-width", value }
 ### Key Distinction
 
 **Not a CSS Shorthand**:
+
 ```css
 /* CSS shorthand (b_short territory) */
 border-width: 1px 2px 3px 4px;  /* 4 different values */
@@ -202,6 +212,7 @@ border-radius: 10px 20px;        /* 2 values with special semantics */
 ```
 
 **Convenience API (b_value territory)**:
+
 ```typescript
 /* Apply SAME value to multiple longhands */
 Border.Width.parse("2px")  // All 4 sides get 2px

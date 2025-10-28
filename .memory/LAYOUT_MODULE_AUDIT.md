@@ -1,7 +1,7 @@
 # Layout Module Organization Audit
 
-**Date**: 2025-10-28  
-**Reference**: MDN Data (mdm-data/css/properties.json)  
+**Date**: 2025-10-28
+**Reference**: MDN Data (mdm-data/css/properties.json)
 **Goal**: Align b_value module structure with CSS specification groups
 
 ---
@@ -47,6 +47,7 @@ src/parse/layout/
 
 ### Option 1: Strict CSS Spec Alignment
 Create modules matching CSS specification groups:
+
 ```
 src/parse/
 ├── color/
@@ -78,6 +79,7 @@ src/parse/
 
 ### Option 2: Pragmatic Grouping (Current + Refinement)
 Keep practical categories, refine where obvious:
+
 ```
 src/parse/
 ├── layout/              ← Box model, sizing, positioning
@@ -106,6 +108,7 @@ src/parse/
 
 ### Option 3: Hybrid Approach
 Core layout stays, split out obvious mismatches:
+
 ```
 src/parse/
 ├── layout/              ← Core layout (box model, positioning)
@@ -166,7 +169,7 @@ cd /Users/alphab/Dev/LLM/DEV/b_value
 # Parse functions
 mv src/parse/layout/opacity.ts src/parse/visual/opacity.ts
 mv src/parse/layout/opacity.test.ts src/parse/visual/opacity.test.ts
-mv src/parse/layout/visibility.ts src/parse/visual/visibility.ts  
+mv src/parse/layout/visibility.ts src/parse/visual/visibility.ts
 mv src/parse/layout/visibility.test.ts src/parse/visual/visibility.test.ts
 
 # Generate functions
@@ -186,7 +189,7 @@ mv src/generate/layout/visibility.test.ts src/generate/visual/visibility.test.ts
 scripts/parse-test-generator/configs/visual/opacity.ts
 scripts/parse-test-generator/configs/visual/visibility.ts
 
-# Create generate configs  
+# Create generate configs
 scripts/generate-test-generator/configs/visual/opacity.ts
 scripts/generate-test-generator/configs/visual/visibility.ts
 
@@ -200,6 +203,7 @@ pnpm tsx scripts/generate-generate-tests.ts visual/visibility
 ### Phase 3: Update type definitions
 
 Ensure IR types reflect the module organization:
+
 ```typescript
 // src/core/types/visual.ts (if separate from layout.ts)
 export const opacitySchema = ...
@@ -248,17 +252,19 @@ Rationale:
 **MDN Data Source**: `/Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json`
 
 **Check property group**:
+
 ```bash
 cat /Users/alphab/Dev/LLM/DEV/mdm-data/css/properties.json | jq '."property-name".groups'
 ```
 
 **Opacity**:
+
 ```json
 {"groups": ["CSS Color"]}
 ```
 
 **Visibility**:
+
 ```json
 {"groups": ["CSS Display", "Scalable Vector Graphics"]}
 ```
-
