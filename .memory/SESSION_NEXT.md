@@ -1,106 +1,42 @@
-# Next Session: Transition Module COMPLETE! 🎉
+# Next Session: Phase 2B - Visual Module (2 Simple Properties)
 
-**Date**: 2025-10-28
-**Status**: Transition module 80% complete - 4/5 properties implemented
-**Tests**: 3,905 passing (+6 from 3,899)
-**Branch**: coverage/90-percent
-**Latest Work**: Implemented transition-property with no-op test template
-
----
-
-## 🎉 Transition Module Progress: 4/5 (80%)
-
-### ✅ Completed Properties
-1. ✅ **transition-duration** - Parse + Generate + Tests
-2. ✅ **transition-delay** - Parse + Generate + Tests
-3. ✅ **transition-timing-function** - Parse + Generate + Tests
-4. ✅ **transition-property** - Parse + Generate + Tests + No-op template
-
-### 🆕 Recent Achievement (Latest Session)
-- ✅ Implemented transition-property (none, all, identifiers)
-- ✅ Created no-op failure test template system
-- ✅ Documents WHY properties have no parse failures
-- ✅ Template prevents empty test file errors
-- ✅ All 3,905 tests passing
-
-### ⏸️ Optional Property (Can Skip)
-5. **transition** (shorthand) - Complex, not blocking module completion
+**Date**: 2025-10-28  
+**Status**: Phase 2A Complete (Transition 80%), Ready for Phase 2B  
+**Tests**: 3,905 passing  
+**Branch**: coverage/90-percent  
+**Goal**: Complete Phase 2 with Visual module
 
 ---
 
-## 💡 New Infrastructure: No-Op Test Template
+## 🎯 Immediate Goal: Visual Module (20-30 minutes)
 
-**Problem Solved**: Properties with lenient parsing (accept any identifier) have no invalid parse cases, leading to empty failure test files that cause test runner errors.
+### Properties to Implement (2)
+1. **opacity** - Number 0-1 or percentage
+2. **visibility** - Enum (visible, hidden, collapse)
 
-**Solution**: Template-based no-op test with documentation
-
-**Location**: `scripts/parse-test-generator/templates/no-op-failure.template.ts.t`
-
-**When Used**: Automatically applied when `invalidCases.length === 0`
-
-**Benefits**:
-- ✅ No empty test files
-- ✅ Documents WHY no failure tests exist
-- ✅ References CSS spec grammar
-- ✅ Points to generate failure tests
-- ✅ Passes test runner validation
-
-**Example**: transition-property
-```typescript
-// Per CSS spec:
-//   transition-property = none | <single-transition-property>#
-//   <single-transition-property> = all | <custom-ident>
-//
-// Any identifier is valid → no parse failures possible
-```
+### Why These Next?
+- ✅ Quick win (2 simple properties)
+- ✅ Validates enum property handling
+- ✅ Stays on track with DUAL_TEST_EXPANSION_PLAN.md
+- ✅ Completes Phase 2 (transition + visual)
 
 ---
 
-## 📊 Module Completion Status
-
-### Phase 2A: Transition Module ✅ (COMPLETE)
-```
-✅ transition-duration
-✅ transition-delay
-✅ transition-timing-function
-✅ transition-property
-⏸️  transition (shorthand - optional)
-```
-
-**Achievement**: 4/5 properties (80%) - module functionally complete!
-
----
-
-## 🎯 Next Steps
-
-### Option 1: Move to Phase 2B (Recommended)
-Start **Visual Module** (2 properties, ~20 minutes):
-- opacity (number 0-1 or percentage)
-- visibility (enum: visible, hidden, collapse)
-
-### Option 2: Implement transition shorthand (Optional)
-Complete transition module to 100%:
-- Complex property (multiple components)
-- Not blocking - shorthands can come later
-- Requires shorthand parsing infrastructure
-
-### Option 3: Continue to Phase 3
-Start **enum-heavy modules** (interaction, layout, flexbox)
-
----
-
-## 🚀 Quick Start: Visual Module (Phase 2B)
+## 🚀 Quick Start Commands
 
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value
 
-# 1. Create opacity parser/generator
-# Simple: number 0-1 or percentage
+# 1. Check existing implementations
+ls -la src/parse/visual/ src/generate/visual/
 
-# 2. Create visibility parser/generator
-# Enum: visible | hidden | collapse
+# 2. Create opacity config (if needed)
+# - Accepts: 0, 1, 0.5, 50%, inherit
+# - Range: 0-1 for numbers, 0-100 for percentages
 
-# 3. Create test configs
+# 3. Create visibility config
+# - Enum: visible, hidden, collapse
+# - Case-insensitive parsing
 
 # 4. Generate tests
 pnpm tsx scripts/generate-parse-tests.ts visual/opacity
@@ -115,67 +51,161 @@ just check
 
 ---
 
-## 📚 Key Learnings from This Session
+## 📊 Session Progress
 
-### 1. **Not All Properties Need Parse Failure Tests**
-- Properties accepting any identifier (custom-ident) have no invalid inputs
-- CSS spec grammar determines if parse failures are possible
-- Example: `transition-property` accepts any CSS property name
+### Completed This Session
+- ✅ Phase 2A: Transition module (4/5 properties - 80%)
+- ✅ transition-property implemented with dual tests
+- ✅ No-op test template infrastructure created
+- ✅ Border design philosophy documented
+- ✅ Shorthand scope clarified in AGENTS.md
+- ✅ All 3,905 tests passing
 
-### 2. **Template-Based Approach**
-- Keep scripts clean by using external templates
-- Template variables: `{{MODULE}}`, `{{PROPERTY}}`, `{{SPEC_REFS}}`
-- Single source of truth for no-op test documentation
+### Phase 2 Status
+```
+Phase 2A: Transition ✅ (4/5 - functionally complete)
+Phase 2B: Visual ⏳ (0/2 - NEXT)
+```
 
-### 3. **Multi-Value Validation is Comprehensive**
+---
+
+## 📋 Dual Test Expansion Progress
+
+```
+Phase 1: Animation     8/8   (100%) ✅
+Phase 2A: Transition   4/5   (80%)  ✅
+Phase 2B: Visual       0/2   (0%)   ⏳ ← YOU ARE HERE
+Phase 3: Enums         0/~13 (0%)
+Phase 4: Border        DEFERRED (see BORDER_DESIGN_PHILOSOPHY.md)
+Phase 5: Complex       0/~28 (0%)
+-----------------------------------
+TOTAL:                 12/94 (12.8%)
+```
+
+**After Visual Module**: 14/94 (14.9%) - Phase 2 complete!
+
+---
+
+## 💡 Key Context for Next Agent
+
+### 1. No-Op Test Template (New Infrastructure)
+When properties have no parse failures (accept any identifier):
+- Template auto-applied by parse test generator
+- Located: `scripts/parse-test-generator/templates/no-op-failure.template.ts`
+- Example: transition-property (accepts any CSS property name)
+
+### 2. Border Module is Deferred
+- **NOT out of scope** - it's a convenience API (not CSS shorthand)
+- Pragmatic design: Apply same value to multiple longhands
+- Deferred until multi-declaration parser design complete
+- **Reference**: `.memory/BORDER_DESIGN_PHILOSOPHY.md`
+
+### 3. Shorthand Scope is Clear
+- b_value = **longhand properties only**
+- b_short = shorthand expansion (separate project)
+- **Reference**: AGENTS.md (new section at bottom)
+
+### 4. Multi-Value Properties Work Great
+- Comma-separated properties are fully validated
 - Zod schemas use `.min(1)` for arrays
-- Parse utility `parseCommaSeparatedSingle()` is robust
-- Tests cover single, multiple, and edge cases
-- No need to explicitly document in DUAL_TEST_EXPANSION_PLAN
-
-### 4. **When to Use No-Op Template**
-Properties that use it:
-- ✅ transition-property (any identifier)
-- ✅ animation-name (any identifier)
-- ✅ Custom properties (--*)
-
-Properties that DON'T use it:
-- ❌ animation-duration (restricted to time units)
-- ❌ animation-timing-function (specific keywords/functions)
-- ❌ Properties with numeric ranges
+- Parse utility `parseCommaSeparatedSingle()` handles edge cases
+- No special handling needed
 
 ---
 
-## 📊 Progress Metrics
+## 🔍 Visual Module Implementation Notes
 
-**Transition Module**: 4/5 (80%) ✅
-**Animation Module**: 8/8 (100%) ✅
-**Total Properties with Dual Tests**: 12/94 (12.8%)
-**Tests**: 3,905 passing
-**Latest Achievement**: No-op test template infrastructure
+### opacity
+**Type**: Number (0-1) or Percentage (0-100%)
 
-**Next Milestone**: Visual module → 14/94 (14.9%)
+**Examples**:
+```css
+opacity: 0;       /* fully transparent */
+opacity: 0.5;     /* 50% transparent */
+opacity: 1;       /* fully opaque */
+opacity: 50%;     /* 50% transparent */
+opacity: inherit; /* inherit from parent */
+```
+
+**Parse Strategy**:
+- Number → validate 0-1 range
+- Percentage → validate 0-100% range, normalize to 0-1
+- Keywords → inherit, initial, unset
+
+**Generate Strategy**:
+- IR stores normalized 0-1 value
+- Generate as number (not percentage) for simplicity
+- Or preserve original format (percentage vs number)
+
+### visibility
+**Type**: Enum keyword
+
+**Values**:
+- `visible` - element is visible
+- `hidden` - element is invisible but takes up space
+- `collapse` - for table rows/columns (same as hidden elsewhere)
+
+**Parse Strategy**:
+- Lowercase keyword matching
+- No complex logic needed
+
+**Generate Strategy**:
+- Output keyword as-is from IR
 
 ---
 
-## 🔧 Template System Documentation
+## 📁 Files to Reference
 
-### Creating No-Op Failure Tests
+**Essential**:
+- `.memory/DUAL_TEST_EXPANSION_PLAN.md` - Full roadmap
+- `AGENTS.md` - Auto-execute protocol + scope
 
-**Automatic**: Script detects when `invalidCases.length === 0`
+**Context**:
+- `.memory/BORDER_DESIGN_PHILOSOPHY.md` - Why border is deferred
+- `.memory/BORDER_AUDIT.md` - Technical analysis of border
 
-**Template Variables**:
-- `{{OUTPUT_PATH}}` - Full path to test file
-- `{{MODULE}}` - Module name (e.g., "transition")
-- `{{PROPERTY}}` - Property name (e.g., "property")
-- `{{SPEC_REFS}}` - Generated spec reference comments
-- `{{GENERATE_FAILURE_PATH}}` - Path to generate failure tests
-
-**Template Location**:
-`scripts/parse-test-generator/templates/no-op-failure.template.ts.t`
-
-**Result**: Well-documented test file explaining why no failures exist
+**Templates**:
+- `scripts/parse-test-generator/templates/no-op-failure.template.ts`
 
 ---
 
-**Next Action**: Choose Option 1 (Visual module - recommended) or Option 2 (transition shorthand - optional) or Option 3 (Phase 3 enums)
+## ✅ Ready State Verification
+
+```bash
+# All should pass
+just test    # 3,905 tests passing
+just check   # Format, lint, typecheck
+git status   # Clean working directory
+```
+
+---
+
+## 🎯 Success Criteria for Visual Module
+
+- [ ] opacity parser implemented
+- [ ] opacity generator with Zod validation
+- [ ] opacity parse + generate test configs created
+- [ ] visibility parser implemented
+- [ ] visibility generator with Zod validation  
+- [ ] visibility parse + generate test configs created
+- [ ] All tests generated and passing
+- [ ] Roundtrip validation works for both
+- [ ] ~20 new tests added (estimate)
+
+**After completion**: Update this file with Phase 3 details!
+
+---
+
+## 🚀 Alternative: Jump to Phase 3 Enums
+
+If you want to batch enum properties instead:
+- Phase 3 focuses on ~13 enum-heavy properties
+- cursor, pointer-events, display, position, overflow
+- justify-content, align-items, flex-direction, etc.
+- Estimate: 1-2 hours for all enums at once
+
+**Recommendation**: Stick with Phase 2B (visual) for clean progression.
+
+---
+
+**Status**: ✅ Ready for next agent - all tests passing, clean state, clear direction!
