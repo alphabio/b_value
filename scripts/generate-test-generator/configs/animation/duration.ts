@@ -1,6 +1,6 @@
 /**
  * Test cases for animation-duration generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
@@ -68,7 +68,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - edge values
 		{
 			input: {
@@ -92,7 +92,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - decimal values
 		{
 			input: {
@@ -127,7 +127,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - large values
 		{
 			input: {
@@ -140,7 +140,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - multiple values (comma-separated)
 		{
 			input: {
@@ -173,7 +173,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Invalid cases - null/undefined
 		{
 			input: null as any,
@@ -191,7 +191,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Invalid input: expected object, received undefined"
 		},
-		
+
 		// Invalid cases - invalid units
 		{
 			input: {
@@ -215,7 +215,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Invalid input"
 		},
-		
+
 		// Invalid cases - negative values
 		{
 			input: {
@@ -239,7 +239,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Time value must be non-negative"
 		},
-		
+
 		// Invalid cases - wrong value types
 		{
 			input: {
@@ -263,7 +263,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Invalid input: expected number, received null"
 		},
-		
+
 		// Invalid cases - invalid duration type
 		{
 			input: {

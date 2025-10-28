@@ -1,6 +1,6 @@
 /**
  * Test cases for transition-property generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 

@@ -11,7 +11,8 @@ expectedError?: string;
 }
 
 export interface PropertyConfig {
-module: string;propertyName: string;
+module: string;
+propertyName: string;
 sourceFile: string;
 importPath: string;
 outputPath: string;

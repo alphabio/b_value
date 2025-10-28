@@ -1,6 +1,6 @@
 /**
  * Test cases for animation-timing-function generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 

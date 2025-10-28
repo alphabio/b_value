@@ -1,11 +1,28 @@
 // b_path:: test/me.ts
 // DO NOT DELETE
 
-// import { expand } from "b_short";
+import { expand } from "b_short";
 // import { parse } from "@/index"; // TODO: Universal API not implemented yet
 
 import * as Type from "@/core/types";
 import { Generate } from "@/index";
+
+console.log(
+	expand(
+		`
+border: solid;
+`,
+		{
+			expandPartialLonghand: true,
+		},
+	).result,
+);
+
+// expand(`border: solid;`, {
+// 	expandPartialLonghand: true,
+// });
+
+process.exit(0);
 
 // import * as Generator from "@/generate/animation/duration";
 // ---

@@ -1,9 +1,9 @@
 # Next Session: Phase 2B - Visual Module (2 Simple Properties)
 
-**Date**: 2025-10-28  
-**Status**: Phase 2A Complete (Transition 80%), Ready for Phase 2B  
-**Tests**: 3,905 passing  
-**Branch**: coverage/90-percent  
+**Date**: 2025-10-28
+**Status**: Phase 2A Complete (Transition 80%), Ready for Phase 2B
+**Tests**: 3,905 passing
+**Branch**: coverage/90-percent
 **Goal**: Complete Phase 2 with Visual module
 
 ---
@@ -62,6 +62,7 @@ just check
 - ✅ All 3,905 tests passing
 
 ### Phase 2 Status
+
 ```
 Phase 2A: Transition ✅ (4/5 - functionally complete)
 Phase 2B: Visual ⏳ (0/2 - NEXT)
@@ -119,6 +120,7 @@ When properties have no parse failures (accept any identifier):
 **Type**: Number (0-1) or Percentage (0-100%)
 
 **Examples**:
+
 ```css
 opacity: 0;       /* fully transparent */
 opacity: 0.5;     /* 50% transparent */
@@ -186,7 +188,7 @@ git status   # Clean working directory
 - [ ] opacity generator with Zod validation
 - [ ] opacity parse + generate test configs created
 - [ ] visibility parser implemented
-- [ ] visibility generator with Zod validation  
+- [ ] visibility generator with Zod validation
 - [ ] visibility parse + generate test configs created
 - [ ] All tests generated and passing
 - [ ] Roundtrip validation works for both
@@ -209,3 +211,23 @@ If you want to batch enum properties instead:
 ---
 
 **Status**: ✅ Ready for next agent - all tests passing, clean state, clear direction!
+
+---
+
+## 🔍 Additional Finding: Layout Module Organization
+
+**Discovery**: opacity and visibility are currently in `layout/` but should be in `visual/`
+
+**Analysis**: Created `.memory/LAYOUT_MODULE_AUDIT.md` with:
+- MDN data analysis (CSS spec groups)
+- opacity → CSS Color group
+- visibility → CSS Display group
+- Recommendation: Move to visual/ for semantic clarity
+
+**Decision**: Deferred for future session
+
+**When implementing Visual Module Phase 2B**:
+1. Option A: Move files first, then create dual tests (cleaner)
+2. Option B: Create dual tests in current location, refactor later (faster)
+
+See LAYOUT_MODULE_AUDIT.md for full details.

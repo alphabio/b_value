@@ -1,6 +1,6 @@
 /**
  * Test cases for transition-delay generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
@@ -57,7 +57,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - edge values
 		{
 			input: {
@@ -70,7 +70,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - negative delays
 		// Negative delays are valid in CSS and make animation start partway through
 		{
@@ -95,7 +95,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - decimal values
 		{
 			input: {
@@ -130,7 +130,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - large values
 		{
 			input: {
@@ -143,7 +143,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - multiple delays
 		{
 			input: {
@@ -175,7 +175,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Invalid cases - null/undefined
 		{
 			input: null as any,
