@@ -1,7 +1,7 @@
 # Border Module Audit
 
-**Date**: 2025-10-28  
-**Auditor**: AI Agent  
+**Date**: 2025-10-28
+**Auditor**: AI Agent
 **Scope**: Parse and Generate implementations
 
 ---
@@ -9,11 +9,12 @@
 ## 📊 Current Implementation Status
 
 ### Files Found
+
 ```
 src/parse/border/
 ├── border.ts          ← Fallthrough parser (tries width/style/radius/color)
 ├── color.ts           ← border-color (single color value)
-├── radius.ts          ← border-radius (single radius value) ⚠️ 
+├── radius.ts          ← border-radius (single radius value) ⚠️
 ├── style.ts           ← border-style (single style keyword)
 ├── width.ts           ← border-width (single width value)
 └── index.ts           ← Exports
@@ -34,6 +35,7 @@ src/generate/border/
 **Problem**: `border-radius` is implemented as if it's a longhand property.
 
 **CSS Spec**:
+
 ```css
 /* border-radius is a SHORTHAND for 4 properties: */
 border-top-left-radius: 10px;
@@ -56,9 +58,9 @@ border-radius: 10px 20px 30px 40px; /* tl, tr, br, bl */
 
 **Current Implementation**: Treats `border-radius` as a longhand accepting a single value.
 
-**Action Required**: 
+**Action Required**:
 1. ❌ Remove `src/parse/border/radius.ts` (shorthand, out of scope)
-2. ❌ Remove `src/generate/border/radius.ts`  
+2. ❌ Remove `src/generate/border/radius.ts`
 3. ✅ Create 4 individual corner parsers/generators
 4. ✅ Update type definitions to reflect individual corners
 
@@ -67,7 +69,7 @@ border-radius: 10px 20px 30px 40px; /* tl, tr, br, bl */
 ## 🚨 Issue #2: Missing Individual Side Properties
 
 ### Border Width
-**Implemented**: `border-width` (single value)  
+**Implemented**: `border-width` (single value)
 **Missing**:
 - `border-top-width`
 - `border-right-width`
@@ -75,7 +77,7 @@ border-radius: 10px 20px 30px 40px; /* tl, tr, br, bl */
 - `border-left-width`
 
 ### Border Style
-**Implemented**: `border-style` (single value)  
+**Implemented**: `border-style` (single value)
 **Missing**:
 - `border-top-style`
 - `border-right-style`
@@ -83,7 +85,7 @@ border-radius: 10px 20px 30px 40px; /* tl, tr, br, bl */
 - `border-left-style`
 
 ### Border Color
-**Implemented**: `border-color` (single value)  
+**Implemented**: `border-color` (single value)
 **Missing**:
 - `border-top-color`
 - `border-right-color`
@@ -98,6 +100,7 @@ Let me check the CSS spec for these properties...
 
 ### border-width
 **CSS Spec**: SHORTHAND for 4 properties
+
 ```css
 /* Longhand properties: */
 border-top-width: 1px;
@@ -114,6 +117,7 @@ border-width: 1px 2px 3px 4px;  /* top, right, bottom, left */
 
 ### border-style
 **CSS Spec**: SHORTHAND for 4 properties
+
 ```css
 /* Longhand properties: */
 border-top-style: solid;
@@ -128,6 +132,7 @@ border-style: solid dashed;
 
 ### border-color
 **CSS Spec**: SHORTHAND for 4 properties
+
 ```css
 /* Longhand properties: */
 border-top-color: red;
@@ -142,7 +147,7 @@ border-color: red blue;
 
 ---
 
-## ✅ Verdict: ALL Current Border Properties are Shorthands!
+## ✅ Verdict: ALL Current Border Properties are Shorthands
 
 **Conclusion**: The entire `border` module as currently implemented consists of SHORTHAND properties that should be in `b_short`, not `b_value`.
 
@@ -202,7 +207,7 @@ When ready to properly implement border longhands:
 
 1. Create 12 individual side property parsers/generators:
    - `border-{top|right|bottom|left}-{width|style|color}.ts`
-   
+
 2. Create 4 individual corner radius parsers/generators:
    - `border-{top|bottom}-{left|right}-radius.ts`
 
@@ -246,7 +251,6 @@ When ready to properly implement border longhands:
 2. Longhand = accepts only ONE value type
 3. Shorthand = accepts multiple values OR is listed as "shorthand for: ..."
 
-
 ---
 
 ## 🔄 UPDATE: Not Shorthands, Convenience APIs
@@ -262,12 +266,14 @@ The initial audit **incorrectly** classified border properties as "CSS shorthand
 ### Key Differences
 
 **CSS Shorthand** (belongs in b_short):
+
 ```css
 border-width: 1px 2px 3px 4px;  /* 4 DIFFERENT values */
 border-radius: 10px 20px;        /* 2 values with special semantics */
 ```
 
 **Convenience API** (belongs in b_value):
+
 ```typescript
 Border.Width.parse("2px")  // SAME value to all 4 sides
 Border.Radius.parse("8px") // SAME value to all 4 corners

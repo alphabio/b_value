@@ -1,6 +1,6 @@
 /**
  * Test cases for animation-fill-mode generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
@@ -79,7 +79,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - multiple values
 		{
 			input: {
@@ -114,7 +114,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Invalid cases - null/undefined
 		{
 			input: null as any,
@@ -132,7 +132,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Invalid input: expected object, received undefined"
 		},
-		
+
 		// Invalid cases - wrong kind
 		{
 			input: {
@@ -145,7 +145,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: 'kind: Invalid literal value, expected "animation-fill-mode"'
 		},
-		
+
 		// Invalid cases - invalid keyword
 		{
 			input: {
@@ -169,7 +169,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "modes[0]: Invalid enum value"
 		},
-		
+
 		// Invalid cases - empty array
 		{
 			input: {
@@ -182,7 +182,7 @@ export const config: PropertyConfig = {
 			expectValid: false,
 			expectedError: "Array must contain at least 1 element(s)"
 		},
-		
+
 		// Invalid cases - wrong type
 		{
 			input: {

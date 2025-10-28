@@ -3,6 +3,7 @@ ignorePaths: []
 dictionaryDefinitions: []
 dictionaries: []
 words:
+  - alphab
   - backface
   - bidi
   - clippath
@@ -18,6 +19,7 @@ words:
   - longhands
   - minmax
   - mynew
+  - Neue
   - notacolor
   - notvalid
   - oklab

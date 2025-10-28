@@ -1,6 +1,6 @@
 /**
  * Test cases for animation-iteration-count generator
- * 
+ *
  * Tests IR → CSS conversion and roundtrip validation (IR → CSS → IR)
  */
 
@@ -46,7 +46,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - number values
 		{
 			input: {
@@ -81,7 +81,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - decimal values
 		{
 			input: {
@@ -105,7 +105,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - large values
 		{
 			input: {
@@ -118,7 +118,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Valid cases - multiple values
 		{
 			input: {
@@ -163,7 +163,7 @@ export const config: PropertyConfig = {
 			roundtrip: true,
 			expectValid: true
 		},
-		
+
 		// Invalid cases - null/undefined
 		{
 			input: null as any,
