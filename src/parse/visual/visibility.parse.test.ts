@@ -1,13 +1,13 @@
-// b_path:: src/parse/layout/visibility.parse.test.ts
+// b_path:: src/parse/visual/visibility.parse.test.ts
 // Auto-generated from scripts/parse-test-generator/configs/layout/visibility.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 // - W3C: https://www.w3.org/TR/css-display-3/#visibility
 import { describe, expect, it } from "vitest";
-import * as Parser from "@/parse/layout/visibility";
+import * as Parser from "@/parse/visual/visibility";
 
-describe("parse/layout/visibility - valid cases", () => {
+describe("parse/visual/visibility - valid cases", () => {
 	describe("valid-basic", () => {
 		it("should parse visible keyword", () => {
 			const result = Parser.parse("visible");

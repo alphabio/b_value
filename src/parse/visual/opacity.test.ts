@@ -1,9 +1,9 @@
-// b_path:: src/parse/layout/opacity.test.ts
+// b_path:: src/parse/visual/opacity.test.ts
 
 import { describe, expect, it } from "vitest";
 import * as Opacity from "./opacity";
 
-describe("parse/layout/opacity", () => {
+describe("parse/visual/opacity", () => {
 	describe("number values", () => {
 		it("parses 0", () => {
 			const result = Opacity.parse("0");

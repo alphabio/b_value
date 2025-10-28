@@ -1,9 +1,9 @@
 // b_path:: src/parse/layout/layout.test.ts
 import { describe, expect, it } from "vitest";
+import * as Opacity from "@/parse/visual/opacity";
+import * as Visibility from "@/parse/visual/visibility";
 import * as Cursor from "./cursor";
 import * as Display from "./display";
-import * as Opacity from "./opacity";
-import * as Visibility from "./visibility";
 
 describe("Parse Layout - Cursor", () => {
 	it("should parse pointer cursor", () => {

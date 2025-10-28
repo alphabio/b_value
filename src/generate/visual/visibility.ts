@@ -1,4 +1,4 @@
-// b_path:: src/generate/layout/visibility.ts
+// b_path:: src/generate/visual/visibility.ts
 
 import { type GenerateResult, generateOk } from "@/core/result";
 import type { Visibility } from "@/core/types";

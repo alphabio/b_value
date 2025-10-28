@@ -1,13 +1,13 @@
-// b_path:: src/parse/layout/visibility.parse.failure.test.ts
+// b_path:: src/parse/visual/visibility.parse.failure.test.ts
 // Auto-generated from scripts/test-generator/configs/visibility.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 // - W3C: https://www.w3.org/TR/css-display-3/#visibility
 import { describe, expect, it } from "vitest";
-import * as Parser from "@/parse/layout/visibility";
+import * as Parser from "@/parse/visual/visibility";
 
-describe("parse/layout/visibility - invalid cases", () => {
+describe("parse/visual/visibility - invalid cases", () => {
 	describe("invalid-empty", () => {
 		it("should reject empty value", () => {
 			const result = Parser.parse("");

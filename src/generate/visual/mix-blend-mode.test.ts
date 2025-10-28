@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { generateMixBlendMode } from "./mix-blend-mode.generate";
+import { generateMixBlendMode } from "./mix-blend-mode";
 
 describe("mix-blend-mode generator", () => {
 	test("should generate 'normal'", () => {

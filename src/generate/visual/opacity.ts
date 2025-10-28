@@ -1,4 +1,4 @@
-// b_path:: src/generate/layout/opacity.ts
+// b_path:: src/generate/visual/opacity.ts
 
 import { type GenerateResult, generateOk } from "@/core/result";
 import type { Opacity } from "@/core/types";

@@ -1,4 +1,4 @@
-// b_path:: src/parse/layout/visibility.ts
+// b_path:: src/parse/visual/visibility.ts
 import * as csstree from "css-tree";
 import { VISIBILITY_KEYWORDS } from "@/core/keywords/visibility-keywords";
 import { err, ok, type Result } from "@/core/result";

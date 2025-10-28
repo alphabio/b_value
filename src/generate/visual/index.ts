@@ -1,2 +1,4 @@
-export { generateBackgroundBlendMode } from "./background-blend-mode.generate.js";
-export { generateMixBlendMode } from "./mix-blend-mode.generate.js";
+export * as BackgroundBlendMode from "./background-blend-mode";
+export * as MixBlendMode from "./mix-blend-mode";
+export * as Opacity from "./opacity";
+export * as Visibility from "./visibility";

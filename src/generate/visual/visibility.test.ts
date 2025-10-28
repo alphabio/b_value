@@ -1,14 +1,14 @@
-// b_path:: src/generate/layout/visibility.generate.test.ts
+// b_path:: src/generate/visual/visibility.generate.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/layout/visibility.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as Generator from "@/generate/layout/visibility";
-import * as Parser from "@/parse/layout/visibility";
+import * as Generator from "@/generate/visual/visibility";
+import * as Parser from "@/parse/visual/visibility";
 
-describe("generate/layout/visibility - valid cases", () => {
+describe("generate/visual/visibility - valid cases", () => {
 	describe("valid-basic", () => {
 		it("should generate visible keyword", () => {
 			const input: Type.Visibility = {

@@ -1,12 +1,12 @@
-// b_path:: src/generate/layout/visibility.generate.failure.test.ts
+// b_path:: src/generate/visual/visibility.generate.failure.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/visibility.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}
 import { describe, expect, it } from "vitest";
-import * as Generator from "@/generate/layout/visibility";
+import * as Generator from "@/generate/visual/visibility";
 
-describe("generate/layout/visibility - invalid cases", () => {
+describe("generate/visual/visibility - invalid cases", () => {
 	describe("invalid-null", () => {
 		it("should reject null input", () => {
 			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input

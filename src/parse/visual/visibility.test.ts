@@ -1,9 +1,9 @@
-// b_path:: src/parse/layout/visibility.test.ts
+// b_path:: src/parse/visual/visibility.test.ts
 
 import { describe, expect, it } from "vitest";
 import * as Visibility from "./visibility";
 
-describe("parse/layout/visibility", () => {
+describe("parse/visual/visibility", () => {
 	describe("valid values", () => {
 		it("parses visible", () => {
 			const result = Visibility.parse("visible");
