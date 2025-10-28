@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/border-style-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	BORDER_STYLE_KEYWORDS,

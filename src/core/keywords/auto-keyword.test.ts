@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/auto-keyword.test.ts
 import { describe, expect, it } from "vitest";
 import { AUTO_KEYWORD, type AutoKeyword, autoKeywordSchema } from "./auto-keyword";
 

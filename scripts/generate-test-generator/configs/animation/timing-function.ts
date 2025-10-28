@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/animation/timing-function.ts
 /**
  * Test cases for animation-timing-function generator
  *

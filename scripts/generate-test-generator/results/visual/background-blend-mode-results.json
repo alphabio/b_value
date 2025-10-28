@@ -1,0 +1,543 @@
+[
+  {
+    "description": "normal blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "normal",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "normal",
+    "actual": "normal",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "multiply blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "multiply",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "multiply",
+    "actual": "multiply",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "screen blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "screen",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "screen",
+    "actual": "screen",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "overlay blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "overlay",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "overlay",
+    "actual": "overlay",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "color-dodge blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": "color-dodge",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "color-dodge",
+    "actual": "color-dodge",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "hue blend mode",
+    "category": "valid-color",
+    "output": {
+      "ok": true,
+      "value": "hue",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "hue",
+    "actual": "hue",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"normal\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"multiply\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"screen\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"overlay\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"darken\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"lighten\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color-dodge\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color-burn\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"hard-light\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"soft-light\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"difference\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"exclusion\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"hue\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"saturation\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"luminosity\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "mode: Invalid input: expected \"normal\""
+  },
+  {
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"normal\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"multiply\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"screen\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"overlay\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"darken\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"lighten\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color-dodge\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color-burn\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"hard-light\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"soft-light\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"difference\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"exclusion\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"hue\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"saturation\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"color\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "mode: Invalid input: expected \"luminosity\"",
+          "path": [
+            "mode"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "mode: Invalid input: expected \"normal\""
+  },
+  {
+    "description": "wrong kind field",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"background-blend-mode\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"background-blend-mode\""
+  }
+]

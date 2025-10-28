@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/content-distribution-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	CONTENT_DISTRIBUTION_KEYWORDS,

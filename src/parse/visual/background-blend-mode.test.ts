@@ -1,146 +1,198 @@
+// b_path:: src/parse/visual/background-blend-mode.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/visual/background-blend-mode.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode
+// - W3C: https://www.w3.org/TR/compositing-1/#background-blend-mode
 import { describe, expect, it } from "vitest";
-import { parseBackgroundBlendMode } from "./background-blend-mode.js";
+import * as Parser from "@/parse/visual/background-blend-mode";
 
-describe("parseBackgroundBlendMode", () => {
-	it("parses normal", () => {
-		const result = parseBackgroundBlendMode("normal");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "normal" },
+describe("parse/visual/background-blend-mode - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse normal blend mode", () => {
+			const result = Parser.parse("normal");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "normal",
+			});
+		});
+
+		it("should parse multiply blend mode", () => {
+			const result = Parser.parse("multiply");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "multiply",
+			});
+		});
+
+		it("should parse screen blend mode", () => {
+			const result = Parser.parse("screen");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "screen",
+			});
+		});
+
+		it("should parse overlay blend mode", () => {
+			const result = Parser.parse("overlay");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "overlay",
+			});
+		});
+
+		it("should parse darken blend mode", () => {
+			const result = Parser.parse("darken");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "darken",
+			});
+		});
+
+		it("should parse lighten blend mode", () => {
+			const result = Parser.parse("lighten");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "lighten",
+			});
 		});
 	});
 
-	it("parses multiply", () => {
-		const result = parseBackgroundBlendMode("multiply");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "multiply" },
+	describe("valid-advanced", () => {
+		it("should parse color-dodge blend mode", () => {
+			const result = Parser.parse("color-dodge");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "color-dodge",
+			});
+		});
+
+		it("should parse color-burn blend mode", () => {
+			const result = Parser.parse("color-burn");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "color-burn",
+			});
+		});
+
+		it("should parse hard-light blend mode", () => {
+			const result = Parser.parse("hard-light");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "hard-light",
+			});
+		});
+
+		it("should parse soft-light blend mode", () => {
+			const result = Parser.parse("soft-light");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "soft-light",
+			});
+		});
+
+		it("should parse difference blend mode", () => {
+			const result = Parser.parse("difference");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "difference",
+			});
+		});
+
+		it("should parse exclusion blend mode", () => {
+			const result = Parser.parse("exclusion");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "exclusion",
+			});
 		});
 	});
 
-	it("parses screen", () => {
-		const result = parseBackgroundBlendMode("screen");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "screen" },
+	describe("valid-color", () => {
+		it("should parse hue blend mode", () => {
+			const result = Parser.parse("hue");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "hue",
+			});
+		});
+
+		it("should parse saturation blend mode", () => {
+			const result = Parser.parse("saturation");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "saturation",
+			});
+		});
+
+		it("should parse color blend mode", () => {
+			const result = Parser.parse("color");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "color",
+			});
+		});
+
+		it("should parse luminosity blend mode", () => {
+			const result = Parser.parse("luminosity");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "luminosity",
+			});
 		});
 	});
 
-	it("parses overlay", () => {
-		const result = parseBackgroundBlendMode("overlay");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "overlay" },
+	describe("valid-case", () => {
+		it("should parse uppercase multiply", () => {
+			const result = Parser.parse("MULTIPLY");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "multiply",
+			});
 		});
-	});
 
-	it("parses darken", () => {
-		const result = parseBackgroundBlendMode("darken");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "darken" },
+		it("should parse mixed case screen", () => {
+			const result = Parser.parse("Screen");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "background-blend-mode",
+				mode: "screen",
+			});
 		});
-	});
-
-	it("parses lighten", () => {
-		const result = parseBackgroundBlendMode("lighten");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "lighten" },
-		});
-	});
-
-	it("parses color-dodge", () => {
-		const result = parseBackgroundBlendMode("color-dodge");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "color-dodge" },
-		});
-	});
-
-	it("parses color-burn", () => {
-		const result = parseBackgroundBlendMode("color-burn");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "color-burn" },
-		});
-	});
-
-	it("parses hard-light", () => {
-		const result = parseBackgroundBlendMode("hard-light");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "hard-light" },
-		});
-	});
-
-	it("parses soft-light", () => {
-		const result = parseBackgroundBlendMode("soft-light");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "soft-light" },
-		});
-	});
-
-	it("parses difference", () => {
-		const result = parseBackgroundBlendMode("difference");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "difference" },
-		});
-	});
-
-	it("parses exclusion", () => {
-		const result = parseBackgroundBlendMode("exclusion");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "exclusion" },
-		});
-	});
-
-	it("parses hue", () => {
-		const result = parseBackgroundBlendMode("hue");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "hue" },
-		});
-	});
-
-	it("parses saturation", () => {
-		const result = parseBackgroundBlendMode("saturation");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "saturation" },
-		});
-	});
-
-	it("parses color", () => {
-		const result = parseBackgroundBlendMode("color");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "color" },
-		});
-	});
-
-	it("parses luminosity", () => {
-		const result = parseBackgroundBlendMode("luminosity");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "luminosity" },
-		});
-	});
-
-	it("handles whitespace", () => {
-		const result = parseBackgroundBlendMode("  multiply  ");
-		expect(result).toEqual({
-			ok: true,
-			value: { kind: "background-blend-mode", mode: "multiply" },
-		});
-	});
-
-	it("rejects invalid value", () => {
-		const result = parseBackgroundBlendMode("invalid");
-		expect(result.ok).toBe(false);
-		expect(result.error).toContain("Invalid background-blend-mode");
 	});
 });

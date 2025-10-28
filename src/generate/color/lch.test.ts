@@ -1,3 +1,4 @@
+// b_path:: src/generate/color/lch.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./lch";
 

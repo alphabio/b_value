@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/box-edge-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { BOX_EDGE_KEYWORDS, boxEdgeKeywordsSchema } from "./box-edge-keywords";
 

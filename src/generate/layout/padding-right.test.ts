@@ -1,3 +1,4 @@
+// b_path:: src/generate/layout/padding-right.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./padding-right";
 

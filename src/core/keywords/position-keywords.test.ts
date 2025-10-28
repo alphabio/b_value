@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/position-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { POSITION_KEYWORDS, positionKeywordsSchema } from "./position-keywords";
 

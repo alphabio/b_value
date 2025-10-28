@@ -1,0 +1,326 @@
+[
+  {
+    "input": "normal",
+    "description": "normal blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "normal"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "multiply",
+    "description": "multiply blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "multiply"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "screen",
+    "description": "screen blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "screen"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "overlay",
+    "description": "overlay blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "overlay"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "darken",
+    "description": "darken blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "darken"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "lighten",
+    "description": "lighten blend mode",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "lighten"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "color-dodge",
+    "description": "color-dodge blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "color-dodge"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "color-burn",
+    "description": "color-burn blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "color-burn"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "hard-light",
+    "description": "hard-light blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "hard-light"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "soft-light",
+    "description": "soft-light blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "soft-light"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "difference",
+    "description": "difference blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "difference"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "exclusion",
+    "description": "exclusion blend mode",
+    "category": "valid-advanced",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "exclusion"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "hue",
+    "description": "hue blend mode",
+    "category": "valid-color",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "hue"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "saturation",
+    "description": "saturation blend mode",
+    "category": "valid-color",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "saturation"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "color",
+    "description": "color blend mode",
+    "category": "valid-color",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "color"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "luminosity",
+    "description": "luminosity blend mode",
+    "category": "valid-color",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "luminosity"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "MULTIPLY",
+    "description": "uppercase multiply",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "multiply"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Screen",
+    "description": "mixed case screen",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "mix-blend-mode",
+        "mode": "screen"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  },
+  {
+    "input": "invalid",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid mix-blend-mode: invalid"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid mix-blend-mode"
+  },
+  {
+    "input": "blend",
+    "description": "non-standard keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid mix-blend-mode: blend"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid mix-blend-mode"
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "1px",
+    "description": "dimension value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Dimension"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "multiply, screen",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 3 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  }
+]

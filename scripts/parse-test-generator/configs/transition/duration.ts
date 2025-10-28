@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/transition/duration.ts
 /**
  * Test cases for transition-duration parser
  */

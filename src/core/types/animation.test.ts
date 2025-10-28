@@ -1,3 +1,4 @@
+// b_path:: src/core/types/animation.test.ts
 import { describe, expect, test } from "vitest";
 import { cubicBezierSchema, linearEasingSchema, linearStopSchema, stepsSchema } from "./animation";
 

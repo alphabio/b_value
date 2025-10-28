@@ -1,3 +1,4 @@
+// b_path:: src/generate/border/width.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./width";
 

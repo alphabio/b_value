@@ -1,3 +1,4 @@
+// b_path:: src/utils/generate/url.test.ts
 import { describe, expect, it } from "vitest";
 import { urlToCss } from "./url";
 

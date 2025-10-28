@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/animation/name.ts
 export interface TestCase {
 input: string;
 description: string;

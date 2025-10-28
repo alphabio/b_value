@@ -1,3 +1,4 @@
+// b_path:: src/generate/layout/clear.generate.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./clear.generate";
 

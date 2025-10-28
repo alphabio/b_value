@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/animation/duration.ts
 /**
  * Test cases for animation-duration parser
  */

@@ -1,3 +1,4 @@
+// b_path:: src/generate/flexbox/flex-shrink.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./flex-shrink.js";
 

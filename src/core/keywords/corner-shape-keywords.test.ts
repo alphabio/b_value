@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/corner-shape-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { CORNER_SHAPE_KEYWORDS, type CornerShapeKeyword, cornerShapeKeywordsSchema } from "./corner-shape-keywords";
 

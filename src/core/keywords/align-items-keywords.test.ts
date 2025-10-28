@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/align-items-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { ALIGN_ITEMS_KEYWORDS, type AlignItemsKeyword, alignItemsKeywordsSchema } from "./align-items-keywords";
 

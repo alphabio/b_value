@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/transition/property.ts
 /**
  * Test cases for transition-property parser
  * 

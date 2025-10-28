@@ -1,3 +1,4 @@
+// b_path:: src/parse/clip-path/none.test.ts
 import { describe, expect, it } from "vitest";
 import { parse } from "./none";
 

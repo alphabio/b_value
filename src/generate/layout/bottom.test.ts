@@ -1,3 +1,4 @@
+// b_path:: src/generate/layout/bottom.test.ts
 import { describe, expect, it } from "vitest";
 import { generate } from "./bottom.js";
 

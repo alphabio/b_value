@@ -1,3 +1,4 @@
+// b_path:: src/generate/color/special.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./special";
 

@@ -24,3 +24,4 @@ export * from "./time";
 export * from "./transform";
 export * from "./transition";
 export * from "./typography";
+export * from "./visual";

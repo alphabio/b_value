@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/animation/delay.ts
 /**
  * Test cases for animation-delay parser
  */

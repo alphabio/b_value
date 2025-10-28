@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/visibility-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { VISIBILITY_KEYWORDS, type VisibilityKeyword, visibilityKeywordsSchema } from "./visibility-keywords";
 

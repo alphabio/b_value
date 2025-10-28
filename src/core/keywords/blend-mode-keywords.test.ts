@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/blend-mode-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import {
 	BLEND_MODE_KEYWORDS,

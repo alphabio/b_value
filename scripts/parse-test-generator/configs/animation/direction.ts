@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/animation/direction.ts
 /**
  * Test cases for animation-direction parser
  */

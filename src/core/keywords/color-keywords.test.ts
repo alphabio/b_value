@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/color-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { SPECIAL_COLOR_KEYWORDS, type SpecialColorKeyword, specialColorKeywordsSchema } from "./color-keywords";
 

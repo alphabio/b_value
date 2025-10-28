@@ -1,4 +1,4 @@
-// b_path:: src/generate/visual/opacity.generate.failure.test.ts
+// b_path:: src/generate/visual/opacity.failure.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/opacity.ts
 //
 // Spec references:

@@ -1,3 +1,4 @@
+// b_path:: src/generate/text/thickness.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./thickness";
 

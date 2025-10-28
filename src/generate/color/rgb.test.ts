@@ -1,3 +1,4 @@
+// b_path:: src/generate/color/rgb.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./rgb";
 

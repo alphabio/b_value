@@ -1,3 +1,4 @@
+// b_path:: scripts/generate-test-generator/configs/transition/duration.ts
 /**
  * Test cases for transition-duration generator
  *

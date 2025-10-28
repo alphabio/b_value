@@ -1,3 +1,4 @@
+// b_path:: test/generate/position/utils.test.ts
 // Test file for generate/position/utils.ts
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";

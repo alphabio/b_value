@@ -1,3 +1,4 @@
+// b_path:: src/generate/interaction/user-select.test.ts
 import { describe, expect, test } from "vitest";
 import { generate } from "./user-select";
 

@@ -1,3 +1,4 @@
+// b_path:: src/core/keywords/white-space-keywords.test.ts
 import { describe, expect, it } from "vitest";
 import { WHITE_SPACE_KEYWORDS, type WhiteSpaceKeyword, whiteSpaceKeywordsSchema } from "./white-space-keywords";
 

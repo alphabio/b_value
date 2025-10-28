@@ -1,3 +1,4 @@
+// b_path:: scripts/parse-test-generator/configs/layout/visibility.ts
 /**
  * Test cases for visibility parser
  */
