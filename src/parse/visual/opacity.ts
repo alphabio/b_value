@@ -1,4 +1,4 @@
-// b_path:: src/parse/layout/opacity.ts
+// b_path:: src/parse/visual/opacity.ts
 import * as csstree from "css-tree";
 import { err, ok, type Result } from "@/core/result";
 import type * as Type from "@/core/types";

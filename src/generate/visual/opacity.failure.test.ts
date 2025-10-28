@@ -1,12 +1,12 @@
-// b_path:: src/generate/layout/opacity.generate.failure.test.ts
+// b_path:: src/generate/visual/opacity.generate.failure.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/opacity.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity}
 import { describe, expect, it } from "vitest";
-import * as Generator from "@/generate/layout/opacity";
+import * as Generator from "@/generate/visual/opacity";
 
-describe("generate/layout/opacity - invalid cases", () => {
+describe("generate/visual/opacity - invalid cases", () => {
 	describe("invalid-null", () => {
 		it("should reject null input", () => {
 			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input

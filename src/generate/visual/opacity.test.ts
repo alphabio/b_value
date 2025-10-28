@@ -1,14 +1,14 @@
-// b_path:: src/generate/layout/opacity.generate.test.ts
+// b_path:: src/generate/visual/opacity.generate.test.ts
 // Auto-generated from scripts/generate-test-generator/configs/layout/opacity.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity}
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
-import * as Generator from "@/generate/layout/opacity";
-import * as Parser from "@/parse/layout/opacity";
+import * as Generator from "@/generate/visual/opacity";
+import * as Parser from "@/parse/visual/opacity";
 
-describe("generate/layout/opacity - valid cases", () => {
+describe("generate/visual/opacity - valid cases", () => {
 	describe("valid-basic", () => {
 		it("should generate fully transparent", () => {
 			const input: Type.Opacity = {

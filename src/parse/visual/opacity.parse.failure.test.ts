@@ -1,13 +1,13 @@
-// b_path:: src/parse/layout/opacity.parse.failure.test.ts
+// b_path:: src/parse/visual/opacity.parse.failure.test.ts
 // Auto-generated from scripts/test-generator/configs/opacity.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
 // - W3C: https://www.w3.org/TR/css-color-4/#transparency
 import { describe, expect, it } from "vitest";
-import * as Parser from "@/parse/layout/opacity";
+import * as Parser from "@/parse/visual/opacity";
 
-describe("parse/layout/opacity - invalid cases", () => {
+describe("parse/visual/opacity - invalid cases", () => {
 	describe("invalid-empty", () => {
 		it("should reject empty value", () => {
 			const result = Parser.parse("");

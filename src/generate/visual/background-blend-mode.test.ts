@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { generateBackgroundBlendMode } from "./background-blend-mode.generate";
+import { generateBackgroundBlendMode } from "./background-blend-mode";
 
 describe("background-blend-mode generator", () => {
 	test("should generate 'normal'", () => {

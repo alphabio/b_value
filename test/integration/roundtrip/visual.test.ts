@@ -8,8 +8,8 @@
  */
 
 import { describe, expect, test } from "vitest";
-import * as OpacityGenerate from "@/generate/layout/opacity";
-import * as OpacityParse from "@/parse/layout/opacity";
+import * as OpacityGenerate from "@/generate/visual/opacity";
+import * as OpacityParse from "@/parse/visual/opacity";
 
 describe("Round-Trip: opacity", () => {
 	test("decimal: 0.5", () => {

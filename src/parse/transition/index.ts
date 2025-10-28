@@ -4,4 +4,5 @@ export * as Delay from "./delay";
 export * as Duration from "./duration";
 export * as Property from "./property";
 export * as TimingFunction from "./timing-function";
+export * as Transition from "./transition";
 export { parse } from "./transition";
