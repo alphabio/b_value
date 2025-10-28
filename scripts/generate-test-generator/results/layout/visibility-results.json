@@ -1,0 +1,353 @@
+[
+  {
+    "description": "visible keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "visible",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "visible",
+    "actual": "visible",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "hidden keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "hidden",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "hidden",
+    "actual": "hidden",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "collapse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "collapse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "collapse",
+    "actual": "collapse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received null",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "undefined input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received undefined",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected object, received undefined",
+    "expected": "",
+    "actual": "Invalid input: expected object, received undefined"
+  },
+  {
+    "description": "invalid keyword auto",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"visible\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"hidden\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"collapse\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Invalid input: expected \"visible\""
+  },
+  {
+    "description": "invalid keyword none",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"visible\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"hidden\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"collapse\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Invalid input: expected \"visible\""
+  },
+  {
+    "description": "display keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"visible\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"hidden\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"collapse\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Invalid input: expected \"visible\""
+  },
+  {
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"visible\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"hidden\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"collapse\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Invalid input: expected \"visible\""
+  },
+  {
+    "description": "null value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"visible\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"hidden\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        },
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Invalid input: expected \"collapse\"",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input: expected string, received null",
+    "expected": "",
+    "actual": "value: Invalid input: expected \"visible\""
+  },
+  {
+    "description": "wrong kind field",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"visibility\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"visibility\""
+  }
+]
