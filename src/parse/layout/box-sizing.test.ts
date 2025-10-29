@@ -1,67 +1,54 @@
 // b_path:: src/parse/layout/box-sizing.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/layout/box-sizing.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/box-sizing
+// - W3C: https://www.w3.org/TR/css-sizing-3/#box-sizing
 import { describe, expect, it } from "vitest";
-import * as BoxSizing from "./box-sizing";
+import * as Parser from "@/parse/layout/box-sizing";
 
-describe("parse/layout/box-sizing", () => {
-	describe("valid values", () => {
-		it("parses content-box", () => {
-			const result = BoxSizing.parse("content-box");
+describe("parse/layout/box-sizing - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse content-box keyword", () => {
+			const result = Parser.parse("content-box");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "box-sizing", value: "content-box" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "box-sizing",
+				value: "content-box",
+			});
 		});
 
-		it("parses border-box", () => {
-			const result = BoxSizing.parse("border-box");
+		it("should parse border-box keyword", () => {
+			const result = Parser.parse("border-box");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "box-sizing", value: "border-box" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "box-sizing",
+				value: "border-box",
+			});
 		});
 	});
 
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = BoxSizing.parse("BORDER-BOX");
+	describe("valid-case", () => {
+		it("should parse uppercase content-box", () => {
+			const result = Parser.parse("CONTENT-BOX");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("border-box");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "box-sizing",
+				value: "content-box",
+			});
 		});
 
-		it("handles whitespace", () => {
-			const result = BoxSizing.parse("  content-box  ");
+		it("should parse mixed case border-box", () => {
+			const result = Parser.parse("Border-Box");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("content-box");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = BoxSizing.parse("padding-box");
-			expect(result.ok).toBe(false);
-		});
-
-		it("rejects empty string", () => {
-			const result = BoxSizing.parse("");
-			expect(result.ok).toBe(false);
-		});
-
-		it("rejects multiple values", () => {
-			const result = BoxSizing.parse("border-box content-box");
-			expect(result.ok).toBe(false);
-		});
-
-		it("handles parse exception", () => {
-			const result = BoxSizing.parse("@@@");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Failed to parse box-sizing");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "box-sizing",
+				value: "border-box",
+			});
 		});
 	});
 });

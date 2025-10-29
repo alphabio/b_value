@@ -1,83 +1,54 @@
 // b_path:: src/parse/typography/font-style.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/typography/font-style.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/font-style
+// - W3C: https://www.w3.org/TR/css-fonts-4/#font-style-prop
 import { describe, expect, it } from "vitest";
-import * as FontStyle from "./font-style";
+import * as Parser from "@/parse/typography/font-style";
 
-describe("Parse.Typography.FontStyle", () => {
-	describe("valid keywords", () => {
-		it("should parse 'normal'", () => {
-			const result = FontStyle.parse("normal");
+describe("parse/typography/font-style - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse normal keyword", () => {
+			const result = Parser.parse("normal");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "font-style",
-					value: "normal",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "font-style",
+				value: "normal",
+			});
 		});
 
-		it("should parse 'italic'", () => {
-			const result = FontStyle.parse("italic");
+		it("should parse italic keyword", () => {
+			const result = Parser.parse("italic");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "font-style",
-					value: "italic",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "font-style",
+				value: "italic",
+			});
 		});
 
-		it("should parse 'oblique'", () => {
-			const result = FontStyle.parse("oblique");
+		it("should parse oblique keyword", () => {
+			const result = Parser.parse("oblique");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "font-style",
-					value: "oblique",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "font-style",
+				value: "oblique",
+			});
 		});
 	});
 
-	describe("case insensitivity", () => {
-		it("should parse 'ITALIC' (uppercase)", () => {
-			const result = FontStyle.parse("ITALIC");
+	describe("valid-case", () => {
+		it("should parse uppercase italic", () => {
+			const result = Parser.parse("ITALIC");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("italic");
-			}
-		});
-
-		it("should parse 'Oblique' (mixed case)", () => {
-			const result = FontStyle.parse("Oblique");
-			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("oblique");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("should reject invalid keyword", () => {
-			const result = FontStyle.parse("underline");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Invalid font-style keyword");
-			}
-		});
-
-		it("should reject numeric value", () => {
-			const result = FontStyle.parse("400");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject empty string", () => {
-			const result = FontStyle.parse("");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject multiple values", () => {
-			const result = FontStyle.parse("italic normal");
-			expect(result.ok).toBe(false);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "font-style",
+				value: "italic",
+			});
 		});
 	});
 });

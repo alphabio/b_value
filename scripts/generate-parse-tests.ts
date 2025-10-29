@@ -381,7 +381,7 @@ function generateFailureTestFile(config: PropertyConfig, invalidCases: TestResul
 	for (const [category, cases] of Object.entries(invalidByCategory)) {
 		testFile += `\tdescribe("${category}", () => {\n`;
 		for (const testCase of cases) {
-			const errorMsg = (testCase.output as any).error || "";
+			const errorMsg = ((testCase.output as any).error || "").replace(/"/g, '\\"');
 			testFile += `\t\tit("should reject ${testCase.description}", () => {\n`;
 			testFile += `\t\t\tconst result = Parser.parse("${testCase.input}");\n`;
 			testFile += `\t\t\texpect(result.ok).toBe(false);\n`;

@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/direction.test.ts
-// Auto-generated from scripts/test-generator/configs/direction.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/direction.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction

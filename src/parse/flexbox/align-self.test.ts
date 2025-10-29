@@ -1,78 +1,82 @@
 // b_path:: src/parse/flexbox/align-self.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/flexbox/align-self.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import * as AlignSelf from "./align-self";
+import * as Parser from "@/parse/flexbox/align-self";
 
-describe("parse/flexbox/align-self", () => {
-	describe("valid values", () => {
-		it("parses auto", () => {
-			const result = AlignSelf.parse("auto");
+describe("parse/flexbox/align-self - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse auto keyword", () => {
+			const result = Parser.parse("auto");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "auto" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "auto",
+			});
 		});
 
-		it("parses flex-start", () => {
-			const result = AlignSelf.parse("flex-start");
+		it("should parse flex-start keyword", () => {
+			const result = Parser.parse("flex-start");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "flex-start" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "flex-start",
+			});
 		});
 
-		it("parses flex-end", () => {
-			const result = AlignSelf.parse("flex-end");
+		it("should parse flex-end keyword", () => {
+			const result = Parser.parse("flex-end");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "flex-end" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "flex-end",
+			});
 		});
 
-		it("parses center", () => {
-			const result = AlignSelf.parse("center");
+		it("should parse center keyword", () => {
+			const result = Parser.parse("center");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "center" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "center",
+			});
 		});
 
-		it("parses baseline", () => {
-			const result = AlignSelf.parse("baseline");
+		it("should parse baseline keyword", () => {
+			const result = Parser.parse("baseline");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "baseline" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "baseline",
+			});
 		});
 
-		it("parses stretch", () => {
-			const result = AlignSelf.parse("stretch");
+		it("should parse stretch keyword", () => {
+			const result = Parser.parse("stretch");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "align-self", value: "stretch" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "stretch",
+			});
 		});
 	});
 
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = AlignSelf.parse("CENTER");
+	describe("valid-case", () => {
+		it("should parse uppercase center", () => {
+			const result = Parser.parse("CENTER");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("center");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = AlignSelf.parse("invalid");
-			expect(result.ok).toBe(false);
-		});
-
-		it("rejects empty string", () => {
-			const result = AlignSelf.parse("");
-			expect(result.ok).toBe(false);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "align-self",
+				value: "center",
+			});
 		});
 	});
 });
