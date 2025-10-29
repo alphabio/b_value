@@ -106,7 +106,7 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "value: Invalid option: expected one of \"auto\"|\"default\"|\"none\"|\"context-menu\"|\"help\"|\"pointer\"|\"progress\"|\"wait\"|\"cell\"|\"crosshair\"|\"text\"|\"vertical-text\"|\"alias\"|\"copy\"|\"move\"|\"no-drop\"|\"not-allowed\"|\"grab\"|\"grabbing\"|\"e-resize\"|\"n-resize\"|\"ne-resize\"|\"nw-resize\"|\"s-resize\"|\"se-resize\"|\"sw-resize\"|\"w-resize\"|\"ew-resize\"|\"ns-resize\"|\"nesw-resize\"|\"nwse-resize\"|\"col-resize\"|\"row-resize\"|\"all-scroll\"|\"zoom-in\"|\"zoom-out\"",
+          "message": "value: Expected auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | grab | grabbing | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out",
           "path": [
             "value"
           ],
@@ -120,6 +120,6 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "value: Invalid option: expected one of \"auto\"|\"default\"|\"none\"|\"context-menu\"|\"help\"|\"pointer\"|\"progress\"|\"wait\"|\"cell\"|\"crosshair\"|\"text\"|\"vertical-text\"|\"alias\"|\"copy\"|\"move\"|\"no-drop\"|\"not-allowed\"|\"grab\"|\"grabbing\"|\"e-resize\"|\"n-resize\"|\"ne-resize\"|\"nw-resize\"|\"s-resize\"|\"se-resize\"|\"sw-resize\"|\"w-resize\"|\"ew-resize\"|\"ns-resize\"|\"nesw-resize\"|\"nwse-resize\"|\"col-resize\"|\"row-resize\"|\"all-scroll\"|\"zoom-in\"|\"zoom-out\""
+    "actual": "value: Expected auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | grab | grabbing | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out"
   }
 ]

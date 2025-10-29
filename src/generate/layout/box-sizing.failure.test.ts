@@ -30,7 +30,7 @@ describe("generate/layout/box-sizing - invalid cases", () => {
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
 			expect(result.issues).toHaveLength(1);
-			expect(result.issues?.[0]?.message).toBe('value: Invalid option: expected one of "content-box"|"border-box"');
+			expect(result.issues?.[0]?.message).toBe("value: Expected content-box | border-box");
 		});
 	});
 

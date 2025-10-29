@@ -781,7 +781,9 @@ export type PaddingLeft = z.infer<typeof paddingLeftSchema>;
  */
 export const boxSizingSchema = z.object({
 	kind: z.literal("box-sizing"),
-	value: z.enum(["content-box", "border-box"]),
+	value: z.enum(["content-box", "border-box"], {
+		error: () => ({ message: "Expected content-box | border-box" }),
+	}),
 });
 
 /**
@@ -810,7 +812,9 @@ export type BoxSizing = z.infer<typeof boxSizingSchema>;
  */
 export const clearSchema = z.object({
 	kind: z.literal("clear"),
-	value: z.enum(["left", "right", "both", "none", "inline-start", "inline-end"]),
+	value: z.enum(["left", "right", "both", "none", "inline-start", "inline-end"], {
+		error: () => ({ message: "Expected left | right | both | none | inline-start | inline-end" }),
+	}),
 });
 
 /**
@@ -839,7 +843,9 @@ export type Clear = z.infer<typeof clearSchema>;
  */
 export const floatSchema = z.object({
 	kind: z.literal("float"),
-	value: z.enum(["left", "right", "none", "inline-start", "inline-end"]),
+	value: z.enum(["left", "right", "none", "inline-start", "inline-end"], {
+		error: () => ({ message: "Expected left | right | none | inline-start | inline-end" }),
+	}),
 });
 
 /**

@@ -29,9 +29,7 @@ describe("generate/layout/float - invalid cases", () => {
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
 			expect(result.issues).toHaveLength(1);
-			expect(result.issues?.[0]?.message).toBe(
-				'value: Invalid option: expected one of "left"|"right"|"none"|"inline-start"|"inline-end"',
-			);
+			expect(result.issues?.[0]?.message).toBe("value: Expected left | right | none | inline-start | inline-end");
 		});
 	});
 });
