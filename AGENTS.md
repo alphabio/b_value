@@ -1,21 +1,68 @@
-## ⚡ Auto-Execute Protocol (OPTIMIZED - 30 seconds)
+## ⚡ Auto-Execute Protocol (Session Start)
 
-⚠️ **BEFORE responding to the user**, run this ONE command:
+⚠️ **BEFORE responding to the user**, run these commands:
 
 ```bash
+# 1. Run tests and read current HANDOVER
 cd /Users/alphab/Dev/LLM/DEV/b_value && \
 just test 2>&1 | tail -3 && \
 echo "" && echo "📁 Branch: $(git branch --show-current)" && \
-echo "" && echo "🎯 NEXT TASK:" && \
-cat .memory/SESSION_NEXT.md
+echo "" && cat .memory/HANDOVER.md
+```
+
+```bash
+# 2. Archive current HANDOVER and create new one
+SESSION_DIR=".memory/archive/$(date +%Y-%m-%d-%H%M)-[topic]"
+mkdir -p "$SESSION_DIR"
+mv .memory/HANDOVER.md "$SESSION_DIR/HANDOVER.md"
+
+# 3. Create new HANDOVER with link back
+cat > .memory/HANDOVER.md << EOF
+# Session Handover: [Topic]
+
+**Date**: $(date +%Y-%m-%d)
+**Time**: $(date +%H:%M)
+**Agent**: [your-name]
+**Previous**: \`$SESSION_DIR/HANDOVER.md\`
+
+---
+
+## 📊 Project Status (Snapshot at Start)
+- **Coverage**: [check current]
+- **Branch**: $(git branch --show-current)
+- **Tests**: [count] passing / [count] total
+- **Properties**: [implemented] / 446 total
+
+---
+
+## 🎯 Goal
+[What you're working on - copy from previous if continuing]
+
+## ✅ Completed This Session
+[Update as you work]
+
+## 🚧 In Progress
+[Track incomplete work]
+
+## 🔧 Patterns & Learnings
+[Document gotchas, tips, useful patterns]
+
+## 🎯 Next Agent: Pick Up Here
+[Clear handoff instructions]
+
+## 📚 Related Documents
+- See \`docs.internal/design/\` for design docs
+- See \`docs.internal/plans/\` for expansion plans
+- See \`.memory/ROADMAP.md\` for long-term strategy
+EOF
 ```
 
 **Report to user**:
 - ✅ Tests: [count] passing
-<!-- - 📊 Coverage: [XX.XX]% -->
-- 🎯 Next: [from SESSION_NEXT.md first line]
+- 🎯 Continuing: [topic from previous HANDOVER]
+- 📁 Archived: [session directory]
 
-**Then immediately start working** on the task in SESSION_NEXT.md.
+**Then immediately start working** on the task from HANDOVER.md.
 
 **DO NOT**:
 - ❌ Check git history (not needed)
@@ -23,10 +70,11 @@ cat .memory/SESSION_NEXT.md
 - ❌ Run coverage more than once at start
 
 **📚 First Session or Need Context?**:
+- Read `.memory/HANDOVER.md` - **START HERE** - current task, status, next steps
+- Read `.memory/ROADMAP.md` - long-term strategy (living document, not historical)
+- Read `docs.internal/design/` - design documents and audits
+- Read `docs.internal/plans/` - expansion plans
 - Read `.memory/README.md` - directory structure, protocols, ADRs
-- Read `.memory/STATUS.md` - current state, recent work
-- Read `.memory/ROADMAP.md` - long-term property plan
-- Otherwise: **SESSION_NEXT.md has everything you need**
 
 **💡 Git Commits**:
 - `.memory/` files are ignored by biome → always use `git commit --no-verify` for documentation changes
@@ -39,76 +87,164 @@ cat .memory/SESSION_NEXT.md
 
 ## 📝 Session End Protocol
 
-**When finishing a session**, create a HANDOVER in the archive:
+**When finishing a session**, update the current `.memory/HANDOVER.md`:
+
+### Update HANDOVER.md
+
+Fill in all sections (HANDOVER is immutable once archived, can be >300 lines):
+
+```markdown
+## 📊 Project Status (Snapshot at Start)
+- **Coverage**: 72.5% → 74.2% (+1.7%)  ← Update with deltas
+- **Branch**: develop
+- **Tests**: 847 passing / 847 total ✅
+- **Properties**: 94 implemented / 446 total (21%)
+- **Last Commit**: abc123f "Add blend-mode enum tests"
+
+## ✅ Completed This Session
+- List everything accomplished
+- Be specific: files changed, tests added, patterns established
+
+## 🚧 In Progress
+- Document incomplete work clearly
+- Next agent should be able to pick up immediately
+
+## 🔧 Patterns & Learnings
+- Document gotchas, tips, useful patterns
+- This is CRITICAL - saves next agent time
+
+## 🎯 Next Agent: Pick Up Here
+- Clear, actionable next steps
+- Commands to run
+- Files to check
+- Estimated time for tasks
+
+## 📚 Related Documents
+- Link to relevant docs.internal/ files
+- Link to ROADMAP.md if priorities changed
+```
+
+### Two Command Types
+
+#### `HANDOVER` - Archive & Document (Always Safe)
+Use when ending ANY session (complete or incomplete):
 
 ```bash
-# 1. Create archive directory
-SESSION_DIR=".memory/archive/$(date +%Y-%m-%d)-[topic]"
-mkdir -p "$SESSION_DIR"
-
-# 2. Create HANDOVER.md
-cat > "$SESSION_DIR/HANDOVER.md" << 'EOF'
-# Session Summary: [Topic]
-
-**Date**: $(date +%Y-%m-%d)
-**Duration**: [X hours]
-
-## 📊 Metrics
-- **Coverage**: [start%] → [end%] (+[diff%])
-- **Tests**: +[count] tests across [N] files
-- **Commits**: [count] commits
-- **Test Suites**: [passing/total]
-
-## ✅ Work Completed
-1. **[Category 1]** ([N] files, [M] tests)
-   - file1.test.ts, file2.test.ts
-
-2. **[Category 2]** ([N] files, [M] tests)
-   - file3.test.ts, file4.test.ts
-
-## 🎯 Next Session Setup
-- ✅ SESSION_NEXT.md updated with specific task
-- ✅ All tests passing
-- ✅ All checks passing
-- ✅ Branch: [name]
-- ✅ Commits: Clean and ready
-
-## 🔧 Patterns/Learnings
-- [Any useful patterns discovered]
-- [Any gotchas or tips]
-
-EOF
+# Just update .memory/HANDOVER.md with latest status
+# Next agent will archive it when they start
+# No need to run checks or commit
 ```
 
-**Update SESSION_NEXT.md** with clear task for next agent:
-- Current coverage percentage
-- Specific next goal (e.g., "reach 75% with clip-path tests")
-- List of candidate files to test
-- Commands to find more work
-- Example test patterns if needed
-- Keep file to **less than 300 lines** (critical to avoid CLI issues)
+#### `CLEAN` - Prepare for Commit (Optional)
+Only when task is **complete** and ready to commit:
 
-**Archive organization**:
+```bash
+# 1. Run all checks
+just check  # format, lint, typecheck
+
+# 2. Verify tests
+just test
+
+# 3. Check git state
+git status
+
+# 4. Commit code (separate from .memory/ docs)
+git add src/ test/
+git commit -m "feat: add blend-mode enum tests"
+
+# 5. Commit documentation (use --no-verify)
+git add .memory/ docs.internal/
+git commit --no-verify -m "docs: update handover and design docs"
+```
+
+### Archive Organization
 
 ```
-.memory/archive/2025-10-23-coverage-boost/
-├── HANDOVER.md          ← Your session summary
-├── [any-scripts].sh     ← Session-specific tools
-├── [any-data].json      ← Session-specific data
-└── [notes].md           ← Additional notes
+.memory/archive/2025-10-29-1702-enums/
+├── HANDOVER.md          ← Your session (archived by next agent)
+├── [scripts].sh         ← Session-specific tools (optional)
+└── [data].json          ← Session-specific data (optional)
 ```
 
 ---
 
-## 📚 Key References
+## 📚 Document Organization
 
-- **`.memory/SESSION_NEXT.md`** - Current task (auto-loaded) - **START HERE**
+### Session Management
+- **`.memory/HANDOVER.md`** - Current session status, task, next steps - **START HERE**
+- **`.memory/archive/`** - Historical handovers (one per session)
 - **`.memory/README.md`** - Directory structure, session protocols, ADR process
-- **`.memory/STATUS.md`** - Current state, recent work, next priorities
-- **`.memory/ROADMAP.md`** - Module-based property breakdown (94 implemented, 352 remaining)
+
+### Strategy & Planning
+- **`.memory/ROADMAP.md`** - Living document, scratch pad for future work (not historical)
+- **`docs.internal/design/`** - Long-lived design documents and audits
+  - `border-audit.md`, `border-design-philosophy.md`
+  - `enum-test-notes.md`, `layout-module-audit.md`
+- **`docs.internal/plans/`** - Expansion plans and strategies
+  - `dual-test-expansion-plan.md`
+- **`.memory/decisions/`** - ADRs (Architecture Decision Records)
+
+### Tools
 - **`.memory/scripts/count-properties.sh`** - Automated property counter (source of truth)
 
 ---
+
+### ROADMAP.md Format
+
+**Purpose**: Living document, not historical. Scratch pad for future work.
+
+```markdown
+# Roadmap: Property Implementation
+
+**Last Updated**: 2025-10-29
+**Current Coverage**: 74.2%
+
+---
+
+## 🚀 Active Track: [Current Focus]
+
+### Next Up (This Week)
+- [ ] Specific tasks with estimates
+- [ ] Clear deliverables
+
+### Blockers/Notes
+- Document dependencies or blockers
+- Link to relevant design docs
+
+---
+
+## 📦 Upcoming Modules (Priority Order)
+
+1. **Module Name** (est. X sessions)
+   - Brief scope, link to design doc if exists
+
+2. **Next Module** (est. X sessions)
+   - Brief scope
+
+---
+
+## 🔍 Long-term
+
+- High-level future work
+- Cross-project coordination needs
+
+---
+
+**See Also:**
+- `docs.internal/design/` - Design docs & audits
+- `docs.internal/plans/` - Expansion plans
+- `.memory/archive/` - Historical sessions
+```
+
+**Update ROADMAP when**:
+- Completing a major module
+- Shifting priorities
+- Adding new modules to the plan
+
+**Do NOT**:
+- ❌ Record historical progress (use HANDOVER for that)
+- ❌ Track daily tasks (use HANDOVER for that)
+- ❌ Bloat with completed work (archive that)
 
 ---
 
