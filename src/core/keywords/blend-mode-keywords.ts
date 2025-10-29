@@ -22,29 +22,32 @@ import { z } from "zod";
  *
  * @public
  */
-export const blendModeKeywordsSchema = z
-	.union([
-		z.literal("normal").describe("top color, regardless of bottom color"),
-		z.literal("multiply").describe("result of multiplying top and bottom colors"),
-		z.literal("screen").describe("result of inverting colors, multiplying, and inverting"),
-		z.literal("overlay").describe("multiply if bottom darker, screen if bottom lighter"),
-		z.literal("darken").describe("darkest values of each color channel"),
-		z.literal("lighten").describe("lightest values of each color channel"),
-		z.literal("color-dodge").describe("dividing bottom color by inverse of top color"),
-		z.literal("color-burn").describe("inverting bottom, dividing by top, inverting result"),
-		z.literal("hard-light").describe("multiply if top darker, screen if top lighter"),
-		z.literal("soft-light").describe("similar to hard-light but softer"),
-		z.literal("difference").describe("subtracting darker color from lighter"),
-		z.literal("exclusion").describe("similar to difference but with less contrast"),
-		z.literal("hue").describe("hue of top color, saturation and luminosity of bottom"),
-		z.literal("saturation").describe("saturation of top color, hue and luminosity of bottom"),
-		z.literal("color").describe("hue and saturation of top, luminosity of bottom"),
-		z.literal("luminosity").describe("luminosity of top, hue and saturation of bottom"),
-	])
-	.describe(
-		"Blend modes describe how colors should appear when elements overlap. " +
-			"Used in background-blend-mode and mix-blend-mode properties.",
-	);
+export const blendModeKeywordsSchema = z.enum(
+	[
+		"normal",
+		"multiply",
+		"screen",
+		"overlay",
+		"darken",
+		"lighten",
+		"color-dodge",
+		"color-burn",
+		"hard-light",
+		"soft-light",
+		"difference",
+		"exclusion",
+		"hue",
+		"saturation",
+		"color",
+		"luminosity",
+	],
+	{
+		error: () => ({
+			message:
+				"Expected normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity",
+		}),
+	},
+);
 
 /**
  * Array of all blend mode keyword values.
@@ -59,7 +62,7 @@ export const blendModeKeywordsSchema = z
  *
  * @public
  */
-export const BLEND_MODE_KEYWORDS = blendModeKeywordsSchema.options.map((option) => option.value);
+export const BLEND_MODE_KEYWORDS = blendModeKeywordsSchema.options;
 
 /**
  * TypeScript type for blend mode keywords.
@@ -67,6 +70,30 @@ export const BLEND_MODE_KEYWORDS = blendModeKeywordsSchema.options.map((option) 
  * @public
  */
 export type BlendModeKeyword = z.infer<typeof blendModeKeywordsSchema>;
+
+/**
+ * Descriptions for blend mode keywords.
+ *
+ * @internal
+ */
+const BLEND_MODE_DESCRIPTIONS: Record<BlendModeKeyword, string> = {
+	normal: "top color, regardless of bottom color",
+	multiply: "result of multiplying top and bottom colors",
+	screen: "result of inverting colors, multiplying, and inverting",
+	overlay: "multiply if bottom darker, screen if bottom lighter",
+	darken: "darkest values of each color channel",
+	lighten: "lightest values of each color channel",
+	"color-dodge": "dividing bottom color by inverse of top color",
+	"color-burn": "inverting bottom, dividing by top, inverting result",
+	"hard-light": "multiply if top darker, screen if top lighter",
+	"soft-light": "similar to hard-light but softer",
+	difference: "subtracting darker color from lighter",
+	exclusion: "similar to difference but with less contrast",
+	hue: "hue of top color, saturation and luminosity of bottom",
+	saturation: "saturation of top color, hue and luminosity of bottom",
+	color: "hue and saturation of top, luminosity of bottom",
+	luminosity: "luminosity of top, hue and saturation of bottom",
+};
 
 /**
  * Metadata for blend mode keyword options.
@@ -85,9 +112,9 @@ export type BlendModeKeyword = z.infer<typeof blendModeKeywordsSchema>;
  *
  * @public
  */
-export const blendModeKeywordOptions = blendModeKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const blendModeKeywordOptions = BLEND_MODE_KEYWORDS.map((value) => ({
+	value,
+	description: BLEND_MODE_DESCRIPTIONS[value],
 }));
 
 /**

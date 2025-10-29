@@ -29,6 +29,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "background-blend-mode",
+	typeName: "BackgroundBlendMode",
 	module: "visual",
 	sourceFile: "src/generate/visual/background-blend-mode.ts",
 	importPath: "../src/generate/visual/background-blend-mode.js",
