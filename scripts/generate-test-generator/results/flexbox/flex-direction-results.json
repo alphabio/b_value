@@ -1,0 +1,81 @@
+[
+  {
+    "description": "row keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "row",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "row",
+    "actual": "row",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "row-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "row-reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "row-reverse",
+    "actual": "row-reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "column keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "column",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "column",
+    "actual": "column",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "column-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "column-reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "column-reverse",
+    "actual": "column-reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]

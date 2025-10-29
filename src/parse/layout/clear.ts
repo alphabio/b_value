@@ -1,12 +1,7 @@
 // b_path:: src/parse/layout/clear.ts
 
+import type { Clear } from "@/core/types";
 import type { Result } from "../../core/result";
-
-/**
- * CSS clear values
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/clear
- */
-export type Clear = "left" | "right" | "both" | "none" | "inline-start" | "inline-end";
 
 /**
  * Parse CSS clear value.
@@ -20,12 +15,14 @@ export type Clear = "left" | "right" | "both" | "none" | "inline-start" | "inlin
  * - inline-end: Clear past floats on end side
  *
  * @param value - CSS clear value
- * @returns Result with Clear type or error message
+ * @returns Result with Clear IR or error message
  *
  * @example
- * parse("both")  // Ok("both")
- * parse("left")  // Ok("left")
- * parse("none")  // Ok("none")
+ * parse("both")  // Ok({ kind: "clear", value: "both" })
+ * parse("left")  // Ok({ kind: "clear", value: "left" })
+ * parse("none")  // Ok({ kind: "clear", value: "none" })
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/clear
  */
 export function parse(value: string): Result<Clear, string> {
 	const normalized = value.trim().toLowerCase();
@@ -38,7 +35,14 @@ export function parse(value: string): Result<Clear, string> {
 		normalized === "inline-start" ||
 		normalized === "inline-end"
 	) {
-		return { ok: true, value: normalized, error: undefined };
+		return {
+			ok: true,
+			value: {
+				kind: "clear",
+				value: normalized as Clear["value"],
+			},
+			error: undefined,
+		};
 	}
 
 	return {

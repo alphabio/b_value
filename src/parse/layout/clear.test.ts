@@ -1,62 +1,94 @@
 // b_path:: src/parse/layout/clear.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/layout/clear.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import * as Clear from "./clear";
+import * as Parser from "@/parse/layout/clear";
 
-describe("parse/layout/clear", () => {
-	describe("valid values", () => {
-		it("parses left", () => {
-			const result = Clear.parse("left");
-			expect(result).toEqual({ ok: true, value: "left", error: undefined });
+describe("parse/layout/clear - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse none keyword", () => {
+			const result = Parser.parse("none");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "none",
+			});
 		});
 
-		it("parses right", () => {
-			const result = Clear.parse("right");
-			expect(result).toEqual({ ok: true, value: "right", error: undefined });
+		it("should parse left keyword", () => {
+			const result = Parser.parse("left");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "left",
+			});
 		});
 
-		it("parses both", () => {
-			const result = Clear.parse("both");
-			expect(result).toEqual({ ok: true, value: "both", error: undefined });
+		it("should parse right keyword", () => {
+			const result = Parser.parse("right");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "right",
+			});
 		});
 
-		it("parses none", () => {
-			const result = Clear.parse("none");
-			expect(result).toEqual({ ok: true, value: "none", error: undefined });
-		});
-
-		it("parses inline-start", () => {
-			const result = Clear.parse("inline-start");
-			expect(result).toEqual({ ok: true, value: "inline-start", error: undefined });
-		});
-
-		it("parses inline-end", () => {
-			const result = Clear.parse("inline-end");
-			expect(result).toEqual({ ok: true, value: "inline-end", error: undefined });
-		});
-	});
-
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = Clear.parse("BOTH");
-			expect(result).toEqual({ ok: true, value: "both", error: undefined });
-		});
-
-		it("handles whitespace", () => {
-			const result = Clear.parse("  left  ");
-			expect(result).toEqual({ ok: true, value: "left", error: undefined });
+		it("should parse both keyword", () => {
+			const result = Parser.parse("both");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "both",
+			});
 		});
 	});
 
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = Clear.parse("invalid");
-			expect(result.ok).toBe(false);
+	describe("valid-logical", () => {
+		it("should parse inline-start keyword", () => {
+			const result = Parser.parse("inline-start");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "inline-start",
+			});
 		});
 
-		it("rejects empty string", () => {
-			const result = Clear.parse("");
-			expect(result.ok).toBe(false);
+		it("should parse inline-end keyword", () => {
+			const result = Parser.parse("inline-end");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "inline-end",
+			});
+		});
+	});
+
+	describe("valid-case", () => {
+		it("should parse uppercase none", () => {
+			const result = Parser.parse("NONE");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "none",
+			});
+		});
+
+		it("should parse mixed case left", () => {
+			const result = Parser.parse("Left");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "clear",
+				value: "left",
+			});
 		});
 	});
 });

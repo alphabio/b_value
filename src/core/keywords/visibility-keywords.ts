@@ -18,13 +18,11 @@ import { z } from "zod";
  *
  * @public
  */
-export const visibilityKeywordsSchema = z
-	.union([
-		z.literal("visible").describe("element is visible"),
-		z.literal("hidden").describe("element is invisible but still takes up space"),
-		z.literal("collapse").describe("for table elements, removes row/column without affecting layout"),
-	])
-	.describe("CSS visibility property values that control element visibility");
+export const visibilityKeywordsSchema = z.enum(["visible", "hidden", "collapse"], {
+	error: () => ({
+		message: "Expected visible | hidden | collapse",
+	}),
+});
 
 /**
  * Array of all visibility keyword values.
@@ -38,7 +36,7 @@ export const visibilityKeywordsSchema = z
  *
  * @public
  */
-export const VISIBILITY_KEYWORDS = visibilityKeywordsSchema.options.map((option) => option.value);
+export const VISIBILITY_KEYWORDS = visibilityKeywordsSchema.options;
 
 /**
  * TypeScript type for visibility keywords.
@@ -46,6 +44,17 @@ export const VISIBILITY_KEYWORDS = visibilityKeywordsSchema.options.map((option)
  * @public
  */
 export type VisibilityKeyword = z.infer<typeof visibilityKeywordsSchema>;
+
+/**
+ * Descriptions for visibility keywords.
+ *
+ * @internal
+ */
+const VISIBILITY_DESCRIPTIONS: Record<VisibilityKeyword, string> = {
+	visible: "element is visible",
+	hidden: "element is invisible but still takes up space",
+	collapse: "for table elements, removes row/column without affecting layout",
+};
 
 /**
  * Metadata for visibility keyword options.
@@ -64,9 +73,9 @@ export type VisibilityKeyword = z.infer<typeof visibilityKeywordsSchema>;
  *
  * @public
  */
-export const visibilityKeywordOptions = visibilityKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const visibilityKeywordOptions = VISIBILITY_KEYWORDS.map((value) => ({
+	value,
+	description: VISIBILITY_DESCRIPTIONS[value],
 }));
 
 /**

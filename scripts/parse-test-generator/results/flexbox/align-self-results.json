@@ -1,0 +1,111 @@
+[
+  {
+    "input": "auto",
+    "description": "auto keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "auto"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "flex-start",
+    "description": "flex-start keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "flex-start"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "flex-end",
+    "description": "flex-end keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "flex-end"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "center",
+    "description": "center keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "center"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "baseline",
+    "description": "baseline keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "baseline"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "stretch",
+    "description": "stretch keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "stretch"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "CENTER",
+    "description": "uppercase center",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-self",
+        "value": "center"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

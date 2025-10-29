@@ -14,6 +14,123 @@
 - ✅ Both generators support new syntax
 - ✅ All 3,816 tests passing
 
+---
+
+## ⚠️ CRITICAL RULES
+
+### 1. File Naming Convention (DO NOT DEVIATE!)
+
+**Parse Tests:**
+
+```
+✅ CORRECT: src/parse/{module}/{property}.test.ts
+✅ CORRECT: src/parse/{module}/{property}.failure.test.ts
+
+❌ WRONG: src/parse/{module}/{property}.parse.test.ts
+❌ WRONG: src/parse/{module}/{property}.parse.failure.test.ts
+```
+
+**Generate Tests:**
+
+```
+✅ CORRECT: src/generate/{module}/{property}.test.ts
+✅ CORRECT: src/generate/{module}/{property}.failure.test.ts
+
+❌ WRONG: src/generate/{module}/{property}.generate.test.ts
+❌ WRONG: src/generate/{module}/{property}.generate.failure.test.ts
+```
+
+**Examples from Animation Module:**
+
+```
+src/parse/animation/delay.test.ts           ✅
+src/parse/animation/delay.failure.test.ts   ✅
+src/generate/animation/delay.test.ts        ✅
+src/generate/animation/delay.failure.test.ts ✅
+```
+
+### 2. NEVER Manually Edit Generated Tests
+
+**❌ DO NOT:**
+- Edit generated test files directly
+- Fix type errors by changing test code
+- Add/remove test cases in generated files
+- "Quick fix" failing tests
+
+**✅ ALWAYS:**
+- Fix the config file in `scripts/{parse,generate}-test-generator/configs/{module}/{property}.ts`
+- Regenerate tests using the generator scripts
+- Verify all tests pass after regeneration
+
+**Why?**
+- Manual edits will be lost on next regeneration
+- Config is the source of truth
+- Maintains consistency across all properties
+- Enables bulk regeneration when generator changes
+
+### 3. Config Regeneration Workflow
+
+```bash
+# 1. Identify issue in generated test
+# 2. Fix config file
+vi scripts/parse-test-generator/configs/{module}/{property}.ts
+
+# 3. Delete old generated tests
+rm src/parse/{module}/{property}.test.ts
+rm src/parse/{module}/{property}.failure.test.ts
+
+# 4. Regenerate
+pnpm tsx scripts/generate-parse-tests.ts {module}/{property}
+pnpm tsx scripts/generate-generate-tests.ts {module}/{property}
+
+# 5. Verify
+just test
+just check
+```
+
+### 4. Correct Config Format
+
+**Parse Test Config:**
+
+```typescript
+export const config: PropertyConfig = {
+  propertyName: "delay",
+  module: "animation",
+  sourceFile: "src/parse/animation/delay.ts",
+  importPath: "../src/parse/animation/delay.js",
+  outputPath: "src/parse/animation/delay.test.ts",  // ✅ NO .parse prefix!
+  cases: [ /* test cases */ ],
+};
+```
+
+**Generate Test Config:**
+
+```typescript
+export const config: PropertyConfig = {
+  propertyName: "delay",
+  module: "animation",
+  sourceFile: "src/generate/animation/delay.ts",
+  importPath: "../src/generate/animation/delay.js",
+  parseImportPath: "../src/parse/animation/delay.js",
+  outputPath: "src/generate/animation/delay.test.ts",  // ✅ NO .generate prefix!
+  cases: [ /* test cases */ ],
+};
+```
+
+**Common Mistakes:**
+
+```typescript
+// ❌ WRONG
+outputPath: "src/parse/layout/box-sizing.parse.test.ts"
+outputPath: "src/generate/layout/box-sizing.generate.test.ts"
+
+// ✅ CORRECT
+outputPath: "src/parse/layout/box-sizing.test.ts"
+outputPath: "src/generate/layout/box-sizing.test.ts"
+```
+
+---
+
 ### Phase 2: Adjacent Modules (Next)
 Expand to modules that share properties with animation:
 1. **Transition** (5 properties) - shares duration, delay, timing-function
@@ -110,6 +227,40 @@ just test
 ---
 
 ### Phase 3: Enum-Heavy Modules
+
+**STATUS: ⚠️ NEEDS CLEANUP**
+- 14 properties completed with dual tests
+- ❌ Configs have wrong `outputPath` (includes `.parse` and `.generate` prefixes)
+- ❌ Some tests were manually edited (box-sizing, cursor, display)
+- ❌ 2 properties skipped (clear, float) due to generator escaping bug
+
+**Cleanup Required:**
+
+```bash
+# 1. Fix all Phase 3 config outputPath values
+# Remove .parse and .generate from outputPath in:
+scripts/parse-test-generator/configs/{layout,flexbox,typography}/*.ts
+scripts/generate-test-generator/configs/{layout,flexbox,typography}/*.ts
+
+# 2. Delete all incorrectly named files
+rm src/parse/*/*.parse.test.ts
+rm src/parse/*/*.parse.failure.test.ts
+rm src/generate/*/*.generate.test.ts
+rm src/generate/*/*.generate.failure.test.ts
+
+# 3. Regenerate all Phase 3 tests
+for module in layout flexbox typography; do
+  for config in scripts/parse-test-generator/configs/$module/*.ts; do
+    prop=$(basename $config .ts)
+    pnpm tsx scripts/generate-parse-tests.ts $module/$prop
+    pnpm tsx scripts/generate-generate-tests.ts $module/$prop
+  done
+done
+
+# 4. Verify
+just test
+just check
+```
 
 #### Interaction (2 properties)
 - cursor - enum + url()

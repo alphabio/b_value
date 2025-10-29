@@ -1,0 +1,66 @@
+[
+  {
+    "description": "nowrap keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "nowrap",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "nowrap",
+    "actual": "nowrap",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "wrap keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "wrap",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "wrap",
+    "actual": "wrap",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "wrap-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "wrap-reverse",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "wrap-reverse",
+    "actual": "wrap-reverse",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]

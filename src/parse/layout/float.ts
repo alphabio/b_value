@@ -1,12 +1,7 @@
 // b_path:: src/parse/layout/float.ts
 
+import type { Float } from "@/core/types";
 import type { Result } from "../../core/result";
-
-/**
- * CSS float values
- * @see https://developer.mozilla.org/en-US/docs/Web/CSS/float
- */
-export type Float = "left" | "right" | "none" | "inline-start" | "inline-end";
 
 /**
  * Parse CSS float value.
@@ -19,12 +14,14 @@ export type Float = "left" | "right" | "none" | "inline-start" | "inline-end";
  * - inline-end: Float to end side of containing block
  *
  * @param value - CSS float value
- * @returns Result with Float type or error message
+ * @returns Result with Float IR or error message
  *
  * @example
- * parse("left")  // Ok("left")
- * parse("right") // Ok("right")
- * parse("none")  // Ok("none")
+ * parse("left")  // Ok({ kind: "float", value: "left" })
+ * parse("right") // Ok({ kind: "float", value: "right" })
+ * parse("none")  // Ok({ kind: "float", value: "none" })
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/CSS/float
  */
 export function parse(value: string): Result<Float, string> {
 	const normalized = value.trim().toLowerCase();
@@ -36,7 +33,14 @@ export function parse(value: string): Result<Float, string> {
 		normalized === "inline-start" ||
 		normalized === "inline-end"
 	) {
-		return { ok: true, value: normalized, error: undefined };
+		return {
+			ok: true,
+			value: {
+				kind: "float",
+				value: normalized as Float["value"],
+			},
+			error: undefined,
+		};
 	}
 
 	return {

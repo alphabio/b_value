@@ -9,7 +9,7 @@ describe("Parse.Layout.Position", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "position-property",
+					kind: "position",
 					value: "static",
 				});
 			}
@@ -20,7 +20,7 @@ describe("Parse.Layout.Position", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "position-property",
+					kind: "position",
 					value: "relative",
 				});
 			}
@@ -31,7 +31,7 @@ describe("Parse.Layout.Position", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "position-property",
+					kind: "position",
 					value: "absolute",
 				});
 			}
@@ -42,7 +42,7 @@ describe("Parse.Layout.Position", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "position-property",
+					kind: "position",
 					value: "fixed",
 				});
 			}
@@ -53,7 +53,7 @@ describe("Parse.Layout.Position", () => {
 			expect(result.ok).toBe(true);
 			if (result.ok) {
 				expect(result.value).toEqual({
-					kind: "position-property",
+					kind: "position",
 					value: "sticky",
 				});
 			}

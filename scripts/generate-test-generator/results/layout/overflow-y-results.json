@@ -1,0 +1,85 @@
+[
+  {
+    "description": "visible keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "visible",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "visible",
+    "actual": "visible",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "hidden keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "hidden",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "hidden",
+    "actual": "hidden",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "scroll keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "scroll",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "scroll",
+    "actual": "scroll",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "auto keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "auto",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "auto",
+    "actual": "auto",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  }
+]

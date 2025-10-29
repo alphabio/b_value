@@ -1,5 +1,5 @@
 // b_path:: src/generate/animation/name.test.ts
-// Auto-generated from scripts/generate-test-generator/configs/name.ts
+// Auto-generated from scripts/generate-test-generator/configs/animation/name.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-name

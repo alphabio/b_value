@@ -1,8 +1,8 @@
 // b_path:: src/generate/visual/visibility.test.ts
-// Auto-generated from scripts/generate-test-generator/configs/layout/visibility.ts
+// Auto-generated from scripts/generate-test-generator/configs/visual/visibility.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
 import * as Generator from "@/generate/visual/visibility";

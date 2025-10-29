@@ -1,0 +1,144 @@
+[
+  {
+    "input": "static",
+    "description": "static keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "static"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "relative",
+    "description": "relative keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "relative"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "absolute",
+    "description": "absolute keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "absolute"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "fixed",
+    "description": "fixed keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "fixed"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "sticky",
+    "description": "sticky keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "sticky"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "RELATIVE",
+    "description": "uppercase relative",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "relative"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Absolute",
+    "description": "mixed case absolute",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "position-property",
+        "value": "absolute"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "none",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid position keyword: none"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "auto",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid position keyword: auto"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

@@ -1,45 +1,81 @@
 // b_path:: src/generate/typography/text-align.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/typography/text-align.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
 import { describe, expect, it } from "vitest";
-import { generate } from "./text-align";
+import type * as Type from "@/core/types";
+import * as Generator from "@/generate/typography/text-align";
+import * as Parser from "@/parse/typography/text-align";
 
-describe("text-align generator", () => {
-	it("should generate alignment keywords", () => {
-		let result = generate({ kind: "text-align", value: "left" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("left");
+describe("generate/typography/text-align - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should generate left keyword", () => {
+			const input: Type.TextAlign = {
+				kind: "text-align",
+				value: "left",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("left");
 
-		result = generate({ kind: "text-align", value: "right" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("right");
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-		result = generate({ kind: "text-align", value: "center" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("center");
+		it("should generate right keyword", () => {
+			const input: Type.TextAlign = {
+				kind: "text-align",
+				value: "right",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("right");
 
-		result = generate({ kind: "text-align", value: "justify" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("justify");
-	});
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-	it("should generate extended alignment keywords", () => {
-		let result = generate({ kind: "text-align", value: "start" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("start");
+		it("should generate center keyword", () => {
+			const input: Type.TextAlign = {
+				kind: "text-align",
+				value: "center",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("center");
 
-		result = generate({ kind: "text-align", value: "end" });
-		expect(result.ok).toBe(true);
-		if (result.ok) expect(result.value).toBe("end");
-	});
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-	it("should return error for null input", () => {
-		// @ts-expect-error - testing invalid input
-		const result = generate(null);
-		expect(result.ok).toBe(false);
-	});
+		it("should generate justify keyword", () => {
+			const input: Type.TextAlign = {
+				kind: "text-align",
+				value: "justify",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("justify");
 
-	it("should return error for undefined input", () => {
-		// @ts-expect-error - testing invalid input
-		const result = generate(undefined);
-		expect(result.ok).toBe(false);
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 });

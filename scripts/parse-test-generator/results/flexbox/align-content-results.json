@@ -1,0 +1,111 @@
+[
+  {
+    "input": "flex-start",
+    "description": "flex-start keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "flex-start"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "flex-end",
+    "description": "flex-end keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "flex-end"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "center",
+    "description": "center keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "center"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "space-between",
+    "description": "space-between keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "space-between"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "space-around",
+    "description": "space-around keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "space-around"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "stretch",
+    "description": "stretch keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "stretch"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "CENTER",
+    "description": "uppercase center",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "align-content",
+        "value": "center"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

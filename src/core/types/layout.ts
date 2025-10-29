@@ -204,7 +204,7 @@ export type OverflowY = z.infer<typeof overflowYSchema>;
  * @example
  * ```typescript
  * const position: PositionProperty = {
- *   kind: "position-property",
+ *   kind: "position",
  *   value: "absolute"
  * };
  * // CSS: position: absolute;
@@ -213,7 +213,7 @@ export type OverflowY = z.infer<typeof overflowYSchema>;
  * @public
  */
 export const positionPropertySchema = z.object({
-	kind: z.literal("position-property"),
+	kind: z.literal("position"),
 	value: positionPropertyKeywordsSchema,
 });
 
@@ -790,3 +790,61 @@ export const boxSizingSchema = z.object({
  * @public
  */
 export type BoxSizing = z.infer<typeof boxSizingSchema>;
+
+/**
+ * CSS clear property IR.
+ *
+ * The clear property sets whether an element must be moved below floating elements.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/clear}
+ *
+ * @example
+ * ```typescript
+ * const clear: Clear = {
+ *   kind: "clear",
+ *   value: "both"
+ * };
+ * ```
+ *
+ * @public
+ */
+export const clearSchema = z.object({
+	kind: z.literal("clear"),
+	value: z.enum(["left", "right", "both", "none", "inline-start", "inline-end"]),
+});
+
+/**
+ * TypeScript type for clear property.
+ *
+ * @public
+ */
+export type Clear = z.infer<typeof clearSchema>;
+
+/**
+ * CSS float property IR.
+ *
+ * The float property places an element on the left or right side of its container.
+ *
+ * @see {@link https://developer.mozilla.org/en-US/docs/Web/CSS/float}
+ *
+ * @example
+ * ```typescript
+ * const float: Float = {
+ *   kind: "float",
+ *   value: "left"
+ * };
+ * ```
+ *
+ * @public
+ */
+export const floatSchema = z.object({
+	kind: z.literal("float"),
+	value: z.enum(["left", "right", "none", "inline-start", "inline-end"]),
+});
+
+/**
+ * TypeScript type for float property.
+ *
+ * @public
+ */
+export type Float = z.infer<typeof floatSchema>;

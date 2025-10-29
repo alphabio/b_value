@@ -24,18 +24,11 @@ import { z } from "zod";
  *
  * @public
  */
-export const positionKeywordsSchema = z
-	.union([
-		z.literal("center").describe("centered on both axes (50% 50%)"),
-		z.literal("left").describe("left edge (0% on horizontal axis)"),
-		z.literal("right").describe("right edge (100% on horizontal axis)"),
-		z.literal("top").describe("top edge (0% on vertical axis)"),
-		z.literal("bottom").describe("bottom edge (100% on vertical axis)"),
-	])
-	.describe(
-		"Position keywords specify locations along horizontal and vertical axes. " +
-			"Used in background-position, object-position, transform-origin, etc.",
-	);
+export const positionKeywordsSchema = z.enum(["center", "left", "right", "top", "bottom"], {
+	error: () => ({
+		message: "Expected center | left | right | top | bottom",
+	}),
+});
 
 /**
  * Array of all position keyword values.
@@ -50,7 +43,7 @@ export const positionKeywordsSchema = z
  *
  * @public
  */
-export const POSITION_KEYWORDS = positionKeywordsSchema.options.map((option) => option.value);
+export const POSITION_KEYWORDS = positionKeywordsSchema.options;
 
 /**
  * TypeScript type for position keywords.
@@ -58,6 +51,19 @@ export const POSITION_KEYWORDS = positionKeywordsSchema.options.map((option) => 
  * @public
  */
 export type PositionKeyword = z.infer<typeof positionKeywordsSchema>;
+
+/**
+ * Descriptions for position keywords.
+ *
+ * @internal
+ */
+const POSITION_DESCRIPTIONS: Record<PositionKeyword, string> = {
+	center: "centered on both axes (50% 50%)",
+	left: "left edge (0% on horizontal axis)",
+	right: "right edge (100% on horizontal axis)",
+	top: "top edge (0% on vertical axis)",
+	bottom: "bottom edge (100% on vertical axis)",
+};
 
 /**
  * Metadata for position keyword options.
@@ -76,9 +82,9 @@ export type PositionKeyword = z.infer<typeof positionKeywordsSchema>;
  *
  * @public
  */
-export const positionKeywordOptions = positionKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const positionKeywordOptions = POSITION_KEYWORDS.map((value) => ({
+	value,
+	description: POSITION_DESCRIPTIONS[value],
 }));
 
 /**
@@ -106,18 +112,18 @@ export type PositionKeywordOptions = typeof positionKeywordOptions;
  *
  * @public
  */
-export const positionHorizontalEdgeKeywordsSchema = z
-	.union([z.literal("left").describe("left horizontal edge"), z.literal("right").describe("right horizontal edge")])
-	.describe("Horizontal edge position keywords (left, right) for edge+offset syntax.");
+export const positionHorizontalEdgeKeywordsSchema = z.enum(["left", "right"], {
+	error: () => ({
+		message: "Expected left | right",
+	}),
+});
 
 /**
  * Array of horizontal edge position keywords.
  *
  * @public
  */
-export const POSITION_HORIZONTAL_EDGE_KEYWORDS = positionHorizontalEdgeKeywordsSchema.options.map(
-	(option) => option.value,
-);
+export const POSITION_HORIZONTAL_EDGE_KEYWORDS = positionHorizontalEdgeKeywordsSchema.options;
 
 /**
  * TypeScript type for horizontal edge position keywords.
@@ -144,16 +150,18 @@ export type PositionHorizontalEdgeKeyword = z.infer<typeof positionHorizontalEdg
  *
  * @public
  */
-export const positionVerticalEdgeKeywordsSchema = z
-	.union([z.literal("top").describe("top vertical edge"), z.literal("bottom").describe("bottom vertical edge")])
-	.describe("Vertical edge position keywords (top, bottom) for edge+offset syntax.");
+export const positionVerticalEdgeKeywordsSchema = z.enum(["top", "bottom"], {
+	error: () => ({
+		message: "Expected top | bottom",
+	}),
+});
 
 /**
  * Array of vertical edge position keywords.
  *
  * @public
  */
-export const POSITION_VERTICAL_EDGE_KEYWORDS = positionVerticalEdgeKeywordsSchema.options.map((option) => option.value);
+export const POSITION_VERTICAL_EDGE_KEYWORDS = positionVerticalEdgeKeywordsSchema.options;
 
 /**
  * TypeScript type for vertical edge position keywords.

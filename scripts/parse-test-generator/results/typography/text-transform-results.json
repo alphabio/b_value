@@ -1,0 +1,94 @@
+[
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "text-transform",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "capitalize",
+    "description": "capitalize keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "text-transform",
+        "value": "capitalize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "uppercase",
+    "description": "uppercase keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "text-transform",
+        "value": "uppercase"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "lowercase",
+    "description": "lowercase keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "text-transform",
+        "value": "lowercase"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "UPPERCASE",
+    "description": "uppercase uppercase",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "text-transform",
+        "value": "uppercase"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "title-case",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid text-transform keyword: title-case"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

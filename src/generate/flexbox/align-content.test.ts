@@ -1,47 +1,63 @@
 // b_path:: src/generate/flexbox/align-content.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/flexbox/align-content.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import { generate } from "./align-content.js";
+import type * as Type from "@/core/types";
+import * as Generator from "@/generate/flexbox/align-content";
+import * as Parser from "@/parse/flexbox/align-content";
 
-describe("generate/flexbox/align-content", () => {
-	it("generates flex-start", () => {
-		const result = generate({ kind: "align-content", value: "flex-start" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("flex-start");
-	});
+describe("generate/flexbox/align-content - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should generate flex-start keyword", () => {
+			const input: Type.AlignContent = {
+				kind: "align-content",
+				value: "flex-start",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("flex-start");
 
-	it("generates flex-end", () => {
-		const result = generate({ kind: "align-content", value: "flex-end" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("flex-end");
-	});
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-	it("generates center", () => {
-		const result = generate({ kind: "align-content", value: "center" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("center");
-	});
+		it("should generate center keyword", () => {
+			const input: Type.AlignContent = {
+				kind: "align-content",
+				value: "center",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("center");
 
-	it("generates space-between", () => {
-		const result = generate({ kind: "align-content", value: "space-between" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("space-between");
-	});
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-	it("generates space-around", () => {
-		const result = generate({ kind: "align-content", value: "space-around" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("space-around");
-	});
+		it("should generate space-between keyword", () => {
+			const input: Type.AlignContent = {
+				kind: "align-content",
+				value: "space-between",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("space-between");
 
-	it("generates stretch", () => {
-		const result = generate({ kind: "align-content", value: "stretch" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("stretch");
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 });

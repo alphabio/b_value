@@ -1,0 +1,169 @@
+[
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "left",
+    "description": "left keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "left"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "right",
+    "description": "right keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "right"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "both",
+    "description": "both keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "both"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-start",
+    "description": "inline-start keyword",
+    "category": "valid-logical",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "inline-start"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-end",
+    "description": "inline-end keyword",
+    "category": "valid-logical",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "inline-end"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "NONE",
+    "description": "uppercase none",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Left",
+    "description": "mixed case left",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "clear",
+        "value": "left"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Invalid clear value: \"\". Expected: left, right, both, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "center",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid clear value: \"center\". Expected: left, right, both, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "top",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid clear value: \"top\". Expected: left, right, both, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Invalid clear value: \"0\". Expected: left, right, both, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "none, left",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Invalid clear value: \"none, left\". Expected: left, right, both, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

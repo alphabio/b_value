@@ -1,0 +1,298 @@
+[
+  {
+    "input": "block",
+    "description": "block keyword",
+    "category": "valid-outside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "block"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline",
+    "description": "inline keyword",
+    "category": "valid-outside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "inline"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-box",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "flex",
+    "description": "flex keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "flex"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "grid",
+    "description": "grid keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "grid"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-block",
+    "description": "inline-block keyword",
+    "category": "valid-legacy",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "inline-block"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-flex",
+    "description": "inline-flex keyword",
+    "category": "valid-legacy",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "inline-flex"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-grid",
+    "description": "inline-grid keyword",
+    "category": "valid-legacy",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "inline-grid"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "table",
+    "description": "table keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "table"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "table-row",
+    "description": "table-row keyword",
+    "category": "valid-internal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "table-row"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "table-cell",
+    "description": "table-cell keyword",
+    "category": "valid-internal",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "table-cell"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "contents",
+    "description": "contents keyword",
+    "category": "valid-box",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "contents"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "flow-root",
+    "description": "flow-root keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "flow-root"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "list-item",
+    "description": "list-item keyword",
+    "category": "valid-list",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "list-item"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "FLEX",
+    "description": "uppercase flex",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "flex"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Block",
+    "description": "mixed case block",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "display",
+        "value": "block"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "visible",
+    "description": "visibility value",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid display keyword: visible"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid display keyword"
+  },
+  {
+    "input": "auto",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid display keyword: auto"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid display keyword"
+  },
+  {
+    "input": "show",
+    "description": "non-standard keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid display keyword: show"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid display keyword"
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword identifier"
+  },
+  {
+    "input": "block, inline",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 3 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  }
+]

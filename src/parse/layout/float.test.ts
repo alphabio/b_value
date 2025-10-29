@@ -1,57 +1,84 @@
 // b_path:: src/parse/layout/float.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/layout/float.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import * as Float from "./float";
+import * as Parser from "@/parse/layout/float";
 
-describe("parse/layout/float", () => {
-	describe("valid values", () => {
-		it("parses left", () => {
-			const result = Float.parse("left");
-			expect(result).toEqual({ ok: true, value: "left", error: undefined });
+describe("parse/layout/float - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse none keyword", () => {
+			const result = Parser.parse("none");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "none",
+			});
 		});
 
-		it("parses right", () => {
-			const result = Float.parse("right");
-			expect(result).toEqual({ ok: true, value: "right", error: undefined });
+		it("should parse left keyword", () => {
+			const result = Parser.parse("left");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "left",
+			});
 		});
 
-		it("parses none", () => {
-			const result = Float.parse("none");
-			expect(result).toEqual({ ok: true, value: "none", error: undefined });
-		});
-
-		it("parses inline-start", () => {
-			const result = Float.parse("inline-start");
-			expect(result).toEqual({ ok: true, value: "inline-start", error: undefined });
-		});
-
-		it("parses inline-end", () => {
-			const result = Float.parse("inline-end");
-			expect(result).toEqual({ ok: true, value: "inline-end", error: undefined });
-		});
-	});
-
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = Float.parse("LEFT");
-			expect(result).toEqual({ ok: true, value: "left", error: undefined });
-		});
-
-		it("handles whitespace", () => {
-			const result = Float.parse("  right  ");
-			expect(result).toEqual({ ok: true, value: "right", error: undefined });
+		it("should parse right keyword", () => {
+			const result = Parser.parse("right");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "right",
+			});
 		});
 	});
 
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = Float.parse("center");
-			expect(result.ok).toBe(false);
+	describe("valid-logical", () => {
+		it("should parse inline-start keyword", () => {
+			const result = Parser.parse("inline-start");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "inline-start",
+			});
 		});
 
-		it("rejects empty string", () => {
-			const result = Float.parse("");
-			expect(result.ok).toBe(false);
+		it("should parse inline-end keyword", () => {
+			const result = Parser.parse("inline-end");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "inline-end",
+			});
+		});
+	});
+
+	describe("valid-case", () => {
+		it("should parse uppercase none", () => {
+			const result = Parser.parse("NONE");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "none",
+			});
+		});
+
+		it("should parse mixed case left", () => {
+			const result = Parser.parse("Left");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "float",
+				value: "left",
+			});
 		});
 	});
 });

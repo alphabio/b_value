@@ -2,7 +2,7 @@
 // Auto-generated from scripts/generate-test-generator/configs/opacity.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
 import { describe, expect, it } from "vitest";
 import * as Generator from "@/generate/visual/opacity";
 
