@@ -1,4 +1,4 @@
-// b_path:: scripts/generate-test-generator/configs/position/position.ts
+// b_path:: scripts/generate-test-generator/configs/layout/position.ts
 /**
  * Test cases for position generator
  */
