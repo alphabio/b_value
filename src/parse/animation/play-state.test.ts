@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/play-state.test.ts
-// Auto-generated from scripts/test-generator/configs/play-state.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/play-state.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state

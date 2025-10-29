@@ -6,7 +6,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "static"
       }
     },
@@ -20,7 +20,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "relative"
       }
     },
@@ -34,7 +34,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "absolute"
       }
     },
@@ -48,7 +48,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "fixed"
       }
     },
@@ -62,7 +62,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "sticky"
       }
     },
@@ -76,7 +76,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "relative"
       }
     },
@@ -90,7 +90,7 @@
     "output": {
       "ok": true,
       "value": {
-        "kind": "position-property",
+        "kind": "position",
         "value": "absolute"
       }
     },

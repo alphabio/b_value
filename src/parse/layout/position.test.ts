@@ -1,108 +1,84 @@
 // b_path:: src/parse/layout/position.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/layout/position.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/position
+// - W3C: https://www.w3.org/TR/css-position-3/#position-property
 import { describe, expect, it } from "vitest";
-import * as Parse from "@/parse";
+import * as Parser from "@/parse/layout/position";
 
-describe("Parse.Layout.Position", () => {
-	describe("valid position keywords", () => {
-		it("should parse 'static'", () => {
-			const result = Parse.Layout.Position.parse("static");
+describe("parse/layout/position - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse static keyword", () => {
+			const result = Parser.parse("static");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "position",
-					value: "static",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "static",
+			});
 		});
 
-		it("should parse 'relative'", () => {
-			const result = Parse.Layout.Position.parse("relative");
+		it("should parse relative keyword", () => {
+			const result = Parser.parse("relative");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "position",
-					value: "relative",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "relative",
+			});
 		});
 
-		it("should parse 'absolute'", () => {
-			const result = Parse.Layout.Position.parse("absolute");
+		it("should parse absolute keyword", () => {
+			const result = Parser.parse("absolute");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "position",
-					value: "absolute",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "absolute",
+			});
 		});
 
-		it("should parse 'fixed'", () => {
-			const result = Parse.Layout.Position.parse("fixed");
+		it("should parse fixed keyword", () => {
+			const result = Parser.parse("fixed");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "position",
-					value: "fixed",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "fixed",
+			});
 		});
 
-		it("should parse 'sticky'", () => {
-			const result = Parse.Layout.Position.parse("sticky");
+		it("should parse sticky keyword", () => {
+			const result = Parser.parse("sticky");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "position",
-					value: "sticky",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "sticky",
+			});
 		});
 	});
 
-	describe("case insensitivity", () => {
-		it("should parse 'ABSOLUTE'", () => {
-			const result = Parse.Layout.Position.parse("ABSOLUTE");
+	describe("valid-case", () => {
+		it("should parse uppercase relative", () => {
+			const result = Parser.parse("RELATIVE");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("absolute");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "relative",
+			});
 		});
 
-		it("should parse 'Sticky'", () => {
-			const result = Parse.Layout.Position.parse("Sticky");
+		it("should parse mixed case absolute", () => {
+			const result = Parser.parse("Absolute");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("sticky");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("should reject invalid keyword", () => {
-			const result = Parse.Layout.Position.parse("positioned");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Invalid position keyword");
-			}
-		});
-
-		it("should reject empty string", () => {
-			const result = Parse.Layout.Position.parse("");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject numeric value", () => {
-			const result = Parse.Layout.Position.parse("10px");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject multiple values", () => {
-			const result = Parse.Layout.Position.parse("absolute fixed");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Expected single value");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "position",
+				value: "absolute",
+			});
 		});
 	});
 });

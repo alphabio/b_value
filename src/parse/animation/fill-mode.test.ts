@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/fill-mode.test.ts
-// Auto-generated from scripts/test-generator/configs/fill-mode.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/fill-mode.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode

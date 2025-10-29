@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/delay.test.ts
-// Auto-generated from scripts/test-generator/configs/delay.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/delay.ts
 //
 // Spec references:
 // - OTHER: https://github.com/mdn/data/blob/main/css/properties.json

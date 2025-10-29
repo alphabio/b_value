@@ -1,116 +1,84 @@
 // b_path:: src/parse/layout/overflow-x.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/layout/overflow-x.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-x
+// - W3C: https://www.w3.org/TR/css-overflow-3/#overflow-properties
 import { describe, expect, it } from "vitest";
-import * as Parse from "@/parse";
+import * as Parser from "@/parse/layout/overflow-x";
 
-describe("Parse.Layout.OverflowX", () => {
-	describe("valid overflow-x keywords", () => {
-		it("should parse 'visible'", () => {
-			const result = Parse.Layout.OverflowX.parse("visible");
+describe("parse/layout/overflow-x - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse visible keyword", () => {
+			const result = Parser.parse("visible");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "overflow-x",
-					value: "visible",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "visible",
+			});
 		});
 
-		it("should parse 'hidden'", () => {
-			const result = Parse.Layout.OverflowX.parse("hidden");
+		it("should parse hidden keyword", () => {
+			const result = Parser.parse("hidden");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "overflow-x",
-					value: "hidden",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "hidden",
+			});
 		});
 
-		it("should parse 'clip'", () => {
-			const result = Parse.Layout.OverflowX.parse("clip");
+		it("should parse scroll keyword", () => {
+			const result = Parser.parse("scroll");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "overflow-x",
-					value: "clip",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "scroll",
+			});
 		});
 
-		it("should parse 'scroll'", () => {
-			const result = Parse.Layout.OverflowX.parse("scroll");
+		it("should parse auto keyword", () => {
+			const result = Parser.parse("auto");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "overflow-x",
-					value: "scroll",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "auto",
+			});
 		});
 
-		it("should parse 'auto'", () => {
-			const result = Parse.Layout.OverflowX.parse("auto");
+		it("should parse clip keyword", () => {
+			const result = Parser.parse("clip");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "overflow-x",
-					value: "auto",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "clip",
+			});
 		});
 	});
 
-	describe("case insensitivity", () => {
-		it("should parse 'HIDDEN'", () => {
-			const result = Parse.Layout.OverflowX.parse("HIDDEN");
+	describe("valid-case", () => {
+		it("should parse uppercase hidden", () => {
+			const result = Parser.parse("HIDDEN");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("hidden");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "hidden",
+			});
 		});
 
-		it("should parse 'Scroll'", () => {
-			const result = Parse.Layout.OverflowX.parse("Scroll");
+		it("should parse mixed case scroll", () => {
+			const result = Parser.parse("Scroll");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("scroll");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("should reject invalid keyword", () => {
-			const result = Parse.Layout.OverflowX.parse("invalid");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Invalid overflow-x keyword");
-			}
-		});
-
-		it("should reject empty string", () => {
-			const result = Parse.Layout.OverflowX.parse("");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject numeric value", () => {
-			const result = Parse.Layout.OverflowX.parse("123");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject multiple values", () => {
-			const result = Parse.Layout.OverflowX.parse("hidden scroll");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Expected single value");
-			}
-		});
-
-		it("should handle parse exception", () => {
-			const result = Parse.Layout.OverflowX.parse("@@@");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Failed to parse overflow-x");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "overflow-x",
+				value: "scroll",
+			});
 		});
 	});
 });

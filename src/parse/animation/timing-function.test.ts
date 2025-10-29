@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/timing-function.test.ts
-// Auto-generated from scripts/test-generator/configs/timing-function.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/timing-function.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-timing-function

@@ -1,75 +1,74 @@
 // b_path:: src/parse/visual/visibility.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/visual/visibility.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
+// - W3C: https://www.w3.org/TR/css-display-3/#visibility
 import { describe, expect, it } from "vitest";
-import * as Visibility from "./visibility";
+import * as Parser from "@/parse/visual/visibility";
 
-describe("parse/visual/visibility", () => {
-	describe("valid values", () => {
-		it("parses visible", () => {
-			const result = Visibility.parse("visible");
+describe("parse/visual/visibility - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse visible keyword", () => {
+			const result = Parser.parse("visible");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "visibility", value: "visible" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "visible",
+			});
 		});
 
-		it("parses hidden", () => {
-			const result = Visibility.parse("hidden");
+		it("should parse hidden keyword", () => {
+			const result = Parser.parse("hidden");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "visibility", value: "hidden" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "hidden",
+			});
 		});
 
-		it("parses collapse", () => {
-			const result = Visibility.parse("collapse");
+		it("should parse collapse keyword", () => {
+			const result = Parser.parse("collapse");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "visibility", value: "collapse" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "collapse",
+			});
 		});
 	});
 
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = Visibility.parse("VISIBLE");
+	describe("valid-case", () => {
+		it("should parse uppercase visible", () => {
+			const result = Parser.parse("VISIBLE");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("visible");
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "visible",
+			});
 		});
 
-		it("handles whitespace", () => {
-			const result = Visibility.parse("  hidden  ");
+		it("should parse mixed case hidden", () => {
+			const result = Parser.parse("Hidden");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("hidden");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = Visibility.parse("invalid");
-			expect(result.ok).toBe(false);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "hidden",
+			});
 		});
 
-		it("rejects empty string", () => {
-			const result = Visibility.parse("");
-			expect(result.ok).toBe(false);
-		});
-
-		it("rejects multiple values", () => {
-			const result = Visibility.parse("visible hidden");
-			expect(result.ok).toBe(false);
-		});
-
-		it("handles parse exception", () => {
-			const result = Visibility.parse("@@@");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Failed to parse visibility");
-			}
+		it("should parse uppercase collapse", () => {
+			const result = Parser.parse("COLLAPSE");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "visibility",
+				value: "collapse",
+			});
 		});
 	});
 });

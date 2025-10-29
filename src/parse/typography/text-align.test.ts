@@ -1,67 +1,86 @@
 // b_path:: src/parse/typography/text-align.test.ts
+// Auto-generated from scripts/parse-test-generator/configs/typography/text-align.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/text-align
+// - W3C: https://www.w3.org/TR/css-text-3/#text-align-property
 import { describe, expect, it } from "vitest";
-import * as TextAlign from "./text-align";
+import * as Parser from "@/parse/typography/text-align";
 
-describe("Parse.Typography.TextAlign", () => {
-	describe("basic alignment keywords", () => {
-		it("should parse 'left'", () => {
-			const result = TextAlign.parse("left");
+describe("parse/typography/text-align - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse left keyword", () => {
+			const result = Parser.parse("left");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({
-					kind: "text-align",
-					value: "left",
-				});
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "left",
+			});
 		});
 
-		it("should parse 'right'", () => {
-			const result = TextAlign.parse("right");
+		it("should parse right keyword", () => {
+			const result = Parser.parse("right");
 			expect(result.ok).toBe(true);
-			if (result.ok) expect(result.value.value).toBe("right");
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "right",
+			});
 		});
 
-		it("should parse 'center'", () => {
-			const result = TextAlign.parse("center");
+		it("should parse center keyword", () => {
+			const result = Parser.parse("center");
 			expect(result.ok).toBe(true);
-			if (result.ok) expect(result.value.value).toBe("center");
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "center",
+			});
 		});
 
-		it("should parse 'justify'", () => {
-			const result = TextAlign.parse("justify");
+		it("should parse justify keyword", () => {
+			const result = Parser.parse("justify");
 			expect(result.ok).toBe(true);
-			if (result.ok) expect(result.value.value).toBe("justify");
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "justify",
+			});
 		});
 	});
 
-	describe("extended alignment keywords", () => {
-		it("should parse 'start'", () => {
-			const result = TextAlign.parse("start");
+	describe("valid-logical", () => {
+		it("should parse start keyword", () => {
+			const result = Parser.parse("start");
 			expect(result.ok).toBe(true);
-			if (result.ok) expect(result.value.value).toBe("start");
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "start",
+			});
 		});
 
-		it("should parse 'end'", () => {
-			const result = TextAlign.parse("end");
+		it("should parse end keyword", () => {
+			const result = Parser.parse("end");
 			expect(result.ok).toBe(true);
-			if (result.ok) expect(result.value.value).toBe("end");
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "end",
+			});
 		});
 	});
 
-	describe("error cases", () => {
-		it("should reject invalid keyword", () => {
-			const result = TextAlign.parse("invalid");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject multiple values", () => {
-			const result = TextAlign.parse("left center");
-			expect(result.ok).toBe(false);
-		});
-
-		it("should reject numeric values", () => {
-			const result = TextAlign.parse("10px");
-			expect(result.ok).toBe(false);
+	describe("valid-case", () => {
+		it("should parse uppercase center", () => {
+			const result = Parser.parse("CENTER");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "text-align",
+				value: "center",
+			});
 		});
 	});
 });

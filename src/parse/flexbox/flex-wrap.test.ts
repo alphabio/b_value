@@ -1,54 +1,52 @@
 // b_path:: src/parse/flexbox/flex-wrap.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/flexbox/flex-wrap.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import * as FlexWrap from "./flex-wrap";
+import * as Parser from "@/parse/flexbox/flex-wrap";
 
-describe("parse/flexbox/flex-wrap", () => {
-	describe("valid values", () => {
-		it("parses nowrap", () => {
-			const result = FlexWrap.parse("nowrap");
+describe("parse/flexbox/flex-wrap - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse nowrap keyword", () => {
+			const result = Parser.parse("nowrap");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "flex-wrap", value: "nowrap" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "flex-wrap",
+				value: "nowrap",
+			});
 		});
 
-		it("parses wrap", () => {
-			const result = FlexWrap.parse("wrap");
+		it("should parse wrap keyword", () => {
+			const result = Parser.parse("wrap");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "flex-wrap", value: "wrap" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "flex-wrap",
+				value: "wrap",
+			});
 		});
 
-		it("parses wrap-reverse", () => {
-			const result = FlexWrap.parse("wrap-reverse");
+		it("should parse wrap-reverse keyword", () => {
+			const result = Parser.parse("wrap-reverse");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "flex-wrap", value: "wrap-reverse" });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "flex-wrap",
+				value: "wrap-reverse",
+			});
 		});
 	});
 
-	describe("normalization", () => {
-		it("handles uppercase", () => {
-			const result = FlexWrap.parse("WRAP");
+	describe("valid-case", () => {
+		it("should parse uppercase wrap", () => {
+			const result = Parser.parse("WRAP");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe("wrap");
-			}
-		});
-	});
-
-	describe("invalid values", () => {
-		it("rejects invalid keyword", () => {
-			const result = FlexWrap.parse("invalid");
-			expect(result.ok).toBe(false);
-		});
-
-		it("rejects empty string", () => {
-			const result = FlexWrap.parse("");
-			expect(result.ok).toBe(false);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "flex-wrap",
+				value: "wrap",
+			});
 		});
 	});
 });

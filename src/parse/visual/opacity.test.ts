@@ -1,109 +1,158 @@
 // b_path:: src/parse/visual/opacity.test.ts
-
+// Auto-generated from scripts/parse-test-generator/configs/visual/opacity.ts
+//
+// Spec references:
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
+// - W3C: https://www.w3.org/TR/css-color-4/#transparency
 import { describe, expect, it } from "vitest";
-import * as Opacity from "./opacity";
+import * as Parser from "@/parse/visual/opacity";
 
-describe("parse/visual/opacity", () => {
-	describe("number values", () => {
-		it("parses 0", () => {
-			const result = Opacity.parse("0");
+describe("parse/visual/opacity - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should parse fully transparent", () => {
+			const result = Parser.parse("0");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 0 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0,
+			});
 		});
 
-		it("parses 0.5", () => {
-			const result = Opacity.parse("0.5");
+		it("should parse fully opaque", () => {
+			const result = Parser.parse("1");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 0.5 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 1,
+			});
 		});
 
-		it("parses 1", () => {
-			const result = Opacity.parse("1");
+		it("should parse 50% transparent", () => {
+			const result = Parser.parse("0.5");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 1 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.5,
+			});
 		});
 	});
 
-	describe("percentage values", () => {
-		it("parses 0%", () => {
-			const result = Opacity.parse("0%");
+	describe("valid-decimal", () => {
+		it("should parse 25% transparent", () => {
+			const result = Parser.parse("0.25");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 0 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.25,
+			});
 		});
 
-		it("parses 50%", () => {
-			const result = Opacity.parse("50%");
+		it("should parse 75% transparent", () => {
+			const result = Parser.parse("0.75");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 0.5 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.75,
+			});
 		});
 
-		it("parses 100%", () => {
-			const result = Opacity.parse("100%");
+		it("should parse decimal without leading zero", () => {
+			const result = Parser.parse(".5");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value).toEqual({ kind: "opacity", value: 1 });
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.5,
+			});
 		});
 	});
 
-	describe("clamping", () => {
-		it("clamps negative to 0", () => {
-			const result = Opacity.parse("-0.5");
+	describe("valid-percentage", () => {
+		it("should parse 0% opacity", () => {
+			const result = Parser.parse("0%");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe(0);
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0,
+			});
 		});
 
-		it("clamps greater than 1", () => {
-			const result = Opacity.parse("2");
+		it("should parse 100% opacity", () => {
+			const result = Parser.parse("100%");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe(1);
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 1,
+			});
 		});
 
-		it("clamps percentage greater than 100%", () => {
-			const result = Opacity.parse("150%");
+		it("should parse 50% opacity", () => {
+			const result = Parser.parse("50%");
 			expect(result.ok).toBe(true);
-			if (result.ok) {
-				expect(result.value.value).toBe(1);
-			}
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.5,
+			});
+		});
+
+		it("should parse decimal percentage", () => {
+			const result = Parser.parse("25.5%");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0.255,
+			});
 		});
 	});
 
-	describe("invalid values", () => {
-		it("rejects keyword", () => {
-			const result = Opacity.parse("transparent");
-			expect(result.ok).toBe(false);
+	describe("valid-clamp", () => {
+		it("should parse negative clamped to 0", () => {
+			const result = Parser.parse("-1");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0,
+			});
 		});
 
-		it("rejects empty string", () => {
-			const result = Opacity.parse("");
-			expect(result.ok).toBe(false);
+		it("should parse greater than 1 clamped to 1", () => {
+			const result = Parser.parse("2");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 1,
+			});
 		});
 
-		it("rejects invalid length type", () => {
-			const result = Opacity.parse("10px");
-			expect(result.ok).toBe(false);
+		it("should parse percentage over 100 clamped", () => {
+			const result = Parser.parse("150%");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 1,
+			});
 		});
 
-		it("handles parse exception", () => {
-			const result = Opacity.parse("@@@");
-			expect(result.ok).toBe(false);
-			if (!result.ok) {
-				expect(result.error).toContain("Failed to parse opacity");
-			}
+		it("should parse negative percentage clamped", () => {
+			const result = Parser.parse("-50%");
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toEqual({
+				kind: "opacity",
+				value: 0,
+			});
 		});
 	});
 });

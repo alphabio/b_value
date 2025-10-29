@@ -1,5 +1,5 @@
 // b_path:: src/parse/animation/iteration-count.test.ts
-// Auto-generated from scripts/test-generator/configs/iteration-count.ts
+// Auto-generated from scripts/parse-test-generator/configs/animation/iteration-count.ts
 //
 // Spec references:
 // - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/animation-iteration-count
