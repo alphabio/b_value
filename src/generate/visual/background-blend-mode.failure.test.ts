@@ -14,7 +14,7 @@ describe("generate/visual/background-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received null");
 		});
 
@@ -24,7 +24,7 @@ describe("generate/visual/background-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received undefined");
 		});
 	});
@@ -39,8 +39,10 @@ describe("generate/visual/background-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThanOrEqual(1);
-			expect(result.issues?.[0]?.message).toBe('mode: Invalid input: expected "normal"');
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe(
+				"mode: Expected normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity",
+			);
 		});
 	});
 
@@ -54,8 +56,10 @@ describe("generate/visual/background-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThanOrEqual(1);
-			expect(result.issues?.[0]?.message).toBe('mode: Invalid input: expected "normal"');
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe(
+				"mode: Expected normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity",
+			);
 		});
 	});
 
@@ -69,7 +73,7 @@ describe("generate/visual/background-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe('kind: Invalid input: expected "background-blend-mode"');
 		});
 	});

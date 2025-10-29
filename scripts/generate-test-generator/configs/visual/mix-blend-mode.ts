@@ -29,6 +29,7 @@ export interface PropertyConfig {
 
 export const config: PropertyConfig = {
 	propertyName: "mix-blend-mode",
+	typeName: "MixBlendMode",
 	module: "visual",
 	sourceFile: "src/generate/visual/mix-blend-mode.ts",
 	importPath: "../src/generate/visual/mix-blend-mode.js",
