@@ -5,11 +5,8 @@
 ```bash
 cd /Users/alphab/Dev/LLM/DEV/b_value && \
 just test 2>&1 | tail -3 && \
-# echo "" && echo "📊 Coverage:" && \
-# pnpm test:coverage 2>&1 | grep "Coverage for" && \
 echo "" && echo "📁 Branch: $(git branch --show-current)" && \
 echo "" && echo "🎯 NEXT TASK:" && \
-cat .memory/README.md
 cat .memory/SESSION_NEXT.md
 ```
 
@@ -21,14 +18,15 @@ cat .memory/SESSION_NEXT.md
 **Then immediately start working** on the task in SESSION_NEXT.md.
 
 **DO NOT**:
-- ❌ Read STATUS.md (too long, use SESSION_NEXT.md)
 - ❌ Check git history (not needed)
 - ❌ Search for archives (not needed)
 - ❌ Run coverage more than once at start
 
-**📚 First Session or Need Structure Info?**:
-- 📖 Read `.memory/README.md` - explains directory structure, session protocols, ADRs, and archive rules
-- Essential for understanding where things live and how to properly archive work
+**📚 First Session or Need Context?**:
+- Read `.memory/README.md` - directory structure, protocols, ADRs
+- Read `.memory/STATUS.md` - current state, recent work
+- Read `.memory/ROADMAP.md` - long-term property plan
+- Otherwise: **SESSION_NEXT.md has everything you need**
 
 **💡 Git Commits**:
 - `.memory/` files are ignored by biome → always use `git commit --no-verify` for documentation changes
@@ -102,14 +100,10 @@ EOF
 
 ---
 
-**Read**: `.memory/STATUS.md` for current status and `.memory/ROADMAP.md` for long-term plan.
+## 📚 Key References
 
----
-
-## Key References
-
-- **`.memory/README.md`** - Directory structure, session protocols, ADR process (READ THIS FIRST!)
-- **`.memory/SESSION_NEXT.md`** - Current task (auto-loaded by protocol)
+- **`.memory/SESSION_NEXT.md`** - Current task (auto-loaded) - **START HERE**
+- **`.memory/README.md`** - Directory structure, session protocols, ADR process
 - **`.memory/STATUS.md`** - Current state, recent work, next priorities
 - **`.memory/ROADMAP.md`** - Module-based property breakdown (94 implemented, 352 remaining)
 - **`.memory/scripts/count-properties.sh`** - Automated property counter (source of truth)
