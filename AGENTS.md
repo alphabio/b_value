@@ -1,9 +1,10 @@
 ## ⚡ Auto-Execute Protocol (Session Start)
 
-⚠️ **BEFORE responding to the user**, run this command:
+⚠️ **BEFORE responding to the user**, execute these steps:
+
+### Step 1: Run Tests & Read Current HANDOVER
 
 ```bash
-# Run tests and read current HANDOVER (READ ONLY - no archiving)
 cd /Users/alphab/Dev/LLM/DEV/b_value && \
 just check 2>&1 | tail -3 && \
 just test 2>&1 | tail -3 && \
@@ -11,15 +12,114 @@ echo "" && echo "📁 Branch: $(git branch --show-current)" && \
 echo "" && cat .memory/HANDOVER.md
 ```
 
-**Report to user**:
-- ✅ Tests: [count] passing
-- 🎯 Current task: [from HANDOVER Goal section]
-- 📊 Status: [from Project Status section]
+### Step 2: Archive Current HANDOVER (Immutable)
 
-**Then start working** on the task from HANDOVER.md.
+**CRITICAL**: HANDOVERs are immutable once archived. Always archive at session start.
+
+```bash
+# Extract topic from current HANDOVER title (or use generic "session")
+TOPIC="session"  # Or extract from "# Session Handover: [Topic]"
+SESSION_DIR=".memory/archive/$(date +%Y-%m-%d-%H%M)-${TOPIC}"
+mkdir -p "$SESSION_DIR"
+mv .memory/HANDOVER.md "$SESSION_DIR/HANDOVER.md"
+echo "📁 Archived to: $SESSION_DIR"
+```
+
+### Step 3: Create New HANDOVER
+
+```bash
+cat > .memory/HANDOVER.md << 'EOF'
+# Session Handover: [Topic Name]
+
+**Date**: 2025-10-29
+**Time**: 13:04
+**Agent**: [your-name]
+**Previous**: `[SESSION_DIR from step 2]/HANDOVER.md`
+
+---
+
+## 📊 Project Status (Snapshot at Start)
+- **Coverage**: [%] (check with: just test-coverage)
+- **Branch**: [git branch]
+- **Tests**: [count] passing / [total] total
+- **Properties**: [count] / 446 total ([%]%)
+
+---
+
+## 🎯 Goal
+
+[What you're working on - from previous HANDOVER "Next Agent" section]
+
+## ✅ Completed This Session
+
+[Update as you work - be specific]
+
+## 🚧 In Progress
+
+[Track incomplete work]
+
+## 📋 Outstanding Work (Carry Forward)
+
+**CRITICAL**: Copy "Outstanding Work" section from archived HANDOVER and update.
+
+### 🔥 Active Tasks
+[Copy from previous HANDOVER]
+
+### 🎯 High Priority
+[Copy from previous HANDOVER]
+
+### 📦 Module Candidates
+[Copy from previous HANDOVER]
+
+---
+
+## 🎯 Next Agent: Pick Up Here
+
+[Clear, actionable instructions]
+
+---
+
+## 🔧 Patterns & Learnings
+
+[Document gotchas, tips, useful patterns - saves next agent time]
+
+---
+
+## 📚 Related Documents
+- `docs.internal/design/` - Design docs
+- `docs.internal/plans/` - Expansion plans
+- `.memory/ROADMAP.md` - Scratch pad for ideas
+
+---
+
+## 🐛 Known Issues
+
+[Any blockers or problems]
+
+---
+
+**Ready for Next Session**: [Status summary]
+EOF
+
+cat .memory/HANDOVER.md
+```
+
+**Template Instructions**:
+- Fill in real values (dates, counts, branch name)
+- Extract topic from previous HANDOVER title or "Next Agent" section
+- Copy "Outstanding Work" section from archived HANDOVER
+- Update Goal from "Next Agent" section of archived HANDOVER
+
+### Step 4: Report to User
+
+- ✅ Tests: [count] passing
+- 🎯 Current task: [from archived HANDOVER "Next Agent" section]
+- 📊 Status: [from Project Status section]
+- 📁 Previous HANDOVER archived to: [SESSION_DIR]
+
+**Then start working** on the task.
 
 **DO NOT**:
-- ❌ Archive HANDOVER automatically (user command only)
 - ❌ Check git history (not needed)
 - ❌ Search for archives (not needed)
 - ❌ Run coverage more than once at start
@@ -41,11 +141,14 @@ echo "" && cat .memory/HANDOVER.md
 
 ---
 
-## 📝 User Commands (Agent Never Auto-Executes)
+## 📝 User Commands
 
-### HANDOVER - Archive & Create New Session
+### HANDOVER - Manual Override (Rarely Needed)
 
-**When**: User says "Let's handover" or "Ready to handover"
+**When**: User explicitly requests to create a new HANDOVER mid-session
+
+**Note**: This is rarely needed since HANDOVERs are auto-archived at session start.
+Use only when user wants to manually create a checkpoint within a session.
 
 **What**: Archive current HANDOVER and create new one with link back
 
@@ -186,7 +289,7 @@ echo "✅ Documentation organized"
 
 ### Fill In All Sections
 
-HANDOVER is immutable once archived, so make it comprehensive (>300 lines OK):
+**Remember**: This HANDOVER will be archived (immutable) at the start of the next session, so make it comprehensive (>300 lines OK):
 
 ```markdown
 ## 📊 Project Status (Snapshot at Start)
@@ -227,8 +330,8 @@ HANDOVER is immutable once archived, so make it comprehensive (>300 lines OK):
 ## 📚 Document Organization
 
 ### Session Management
-- **`.memory/HANDOVER.md`** - Current session: status, task, outstanding work - **START HERE**
-- **`.memory/archive/`** - Historical handovers (one per session)
+- **`.memory/HANDOVER.md`** - Current session (created fresh each session, archived at next session start)
+- **`.memory/archive/`** - Immutable historical handovers (one per session)
 - **`.memory/README.md`** - Directory structure, session protocols, ADR process
 
 ### Strategy & Planning
