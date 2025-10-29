@@ -31,5 +31,8 @@ export const config: PropertyConfig = {
 		{ input: "stretch", description: "stretch keyword", category: "valid-basic", expectValid: true },
 		{ input: "CENTER", description: "uppercase center", category: "valid-case", expectValid: true },
 		{ input: "", description: "empty value", category: "invalid-empty", expectValid: false },
+		{ input: "0", description: "numeric value", category: "invalid-type", expectValid: false },
+		{ input: "10px", description: "dimension value", category: "invalid-type", expectValid: false },
+		{ input: "center stretch", description: "multiple values", category: "invalid-multiple", expectValid: false },
 	],
 };

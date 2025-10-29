@@ -29,5 +29,8 @@ export const config: PropertyConfig = {
 		{ input: "ITALIC", description: "uppercase italic", category: "valid-case", expectValid: true },
 		{ input: "", description: "empty value", category: "invalid-empty", expectValid: false },
 		{ input: "bold", description: "invalid keyword", category: "invalid-keyword", expectValid: false },
+		{ input: "0", description: "numeric value", category: "invalid-type", expectValid: false },
+		{ input: "10px", description: "dimension value", category: "invalid-type", expectValid: false },
+		{ input: "normal italic", description: "multiple values", category: "invalid-multiple", expectValid: false },
 	],
 };

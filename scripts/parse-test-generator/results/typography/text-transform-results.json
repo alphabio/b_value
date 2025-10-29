@@ -90,5 +90,38 @@
     },
     "success": false,
     "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "numeric value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword for text-transform"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "10px",
+    "description": "dimension value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword for text-transform"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "uppercase lowercase",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 2 values"
+    },
+    "success": false,
+    "expectValid": false
   }
 ]
