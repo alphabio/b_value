@@ -143,14 +143,42 @@ cat .memory/HANDOVER.md
 
 ## 📝 User Commands
 
-### HANDOVER - Manual Override (Rarely Needed)
+### HANDOVER - Update Documentation Before Handoff
 
-**When**: User explicitly requests to create a new HANDOVER mid-session
+**When**: User says "Let's handover" or "Ready to handover" (typically when context is running low)
 
-**Note**: This is rarely needed since HANDOVERs are auto-archived at session start.
-Use only when user wants to manually create a checkpoint within a session.
+**Purpose**: Update the current HANDOVER.md with comprehensive knowledge transfer for the next agent
 
-**What**: Archive current HANDOVER and create new one with link back
+**What to update**:
+1. **✅ Completed This Session** - Be detailed and specific:
+   - Files changed, tests added, patterns established
+   - Include metrics (coverage changes, test counts, commits)
+   - Document everything accomplished
+
+2. **📋 Outstanding Work** - Update priorities:
+   - Remove completed items
+   - Add newly discovered tasks
+   - Reorder by current priority
+
+3. **🔧 Patterns & Learnings** - CRITICAL for next agent:
+   - Document gotchas and solutions
+   - Include code snippets and examples
+   - Explain "why" decisions were made
+   - Save next agent time debugging same issues
+
+4. **🎯 Next Agent: Pick Up Here** - Clear handoff:
+   - Specific, actionable next steps
+   - Commands to run
+   - Files to check
+   - Estimated time for tasks
+
+5. **🐛 Known Issues** - Document blockers or problems
+
+**Note**: 
+- This does NOT archive the HANDOVER
+- You're updating the current `.memory/HANDOVER.md` in place
+- Make it comprehensive (>300 lines OK) - it will be archived (immutable) when next agent starts
+- Think of it as preparing a detailed briefing document for the next session
 
 ```bash
 # 1. Read current HANDOVER to extract "Outstanding Work" section
@@ -241,8 +269,6 @@ cat .memory/HANDOVER.md
 - Copy "Outstanding Work" from archived HANDOVER
 - Update sections as you work throughout the session
 - HANDOVER can be >300 lines (it's immutable once archived)
-
----
 
 ### CLEAN - Organize Documentation
 
