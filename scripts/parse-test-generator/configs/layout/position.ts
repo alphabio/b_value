@@ -1,4 +1,4 @@
-// b_path:: scripts/parse-test-generator/configs/position/position.ts
+// b_path:: scripts/parse-test-generator/configs/layout/position.ts
 /**
  * Test cases for position parser
  */
