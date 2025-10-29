@@ -1,7 +1,7 @@
 # Test Generator Improvements
 
-**Status**: Living Document  
-**Created**: 2025-10-29  
+**Status**: Living Document
+**Created**: 2025-10-29
 **Last Updated**: 2025-10-29
 
 This document tracks identified improvements and planned refactoring for the test generation scripts (`generate-generate-tests.ts` and `generate-parse-tests.ts`).
@@ -21,24 +21,26 @@ This document tracks identified improvements and planned refactoring for the tes
 
 ### 1. Spec URL Validation Warnings Get Buried
 
-**Problem**: 
+**Problem**:
 - Broken spec URLs (like trailing `}` characters) generate warnings
 - Warnings are printed to console but easily missed
 - No persistent record in ISSUES file
 - Developers might not notice broken documentation links
 
 **Example**:
+
 ```
 🔗 Validating spec reference URLs...
    ⚠️  mdn: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility} (HTTP 404)
 ```
 
-**Impact**: 
+**Impact**:
 - Broken documentation links in generated test files
 - Source file JSDoc has incorrect URLs
 - Poor developer experience when following links
 
 **Proposed Solution**:
+
 ```markdown
 # Issues Found: visual/visibility (Generate)
 
@@ -65,7 +67,7 @@ No generator issues found.
 
 ### 2. Regex Bug in URL Extraction (FIXED ✅)
 
-**Problem**: 
+**Problem**:
 - Regex captured closing `}` from `{@link URL}` syntax as part of URL
 - Pattern: `/@see\s+\{@link\s+(https?:\/\/[^\s|]+)[^}]*\}/g`
 - Would match `https://example.com}` instead of `https://example.com`
@@ -114,7 +116,7 @@ No generator issues found.
 
 **Proposed**: Categorize issues by type
 - 📖 Spec/Documentation issues
-- ⚙️ Generator logic issues  
+- ⚙️ Generator logic issues
 - 🔄 Roundtrip failures
 - ✅ Validation failures
 - 🔧 Configuration issues
@@ -214,9 +216,9 @@ No generator issues found.
 
 ### ❌ MDN URL validation failed
 
-**URL**: `https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}`  
-**Status**: HTTP 404  
-**Location**: Line 16 in source file  
+**URL**: `https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}`
+**Status**: HTTP 404
+**Location**: Line 16 in source file
 **Issue**: Trailing `}` character in URL
 
 **Fix**:
@@ -245,6 +247,7 @@ No roundtrip issues found.
 2. Regenerate tests after fixing source
 
 **After fixing, run**: `tsx scripts/generate-generate-tests.ts visual/visibility`
+
 ```
 
 ---

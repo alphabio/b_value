@@ -4,6 +4,12 @@
 
 ---
 
+## 🎯 SIDE QUEST: We are optimizing AGENTS onboarding
+
+Stop right here and let's talk about the experience
+
+---
+
 ## 🎯 Goal: Standardize Enum Schemas
 
 **Problem**: `z.union([z.literal(...)])` generates 16+ errors instead of 1
