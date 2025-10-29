@@ -13,7 +13,9 @@ import { lengthPercentageAutoSchema } from "./length-percentage";
  */
 export const flexDirectionSchema = z.object({
 	kind: z.literal("flex-direction"),
-	value: z.enum(["row", "row-reverse", "column", "column-reverse"]),
+	value: z.enum(["row", "row-reverse", "column", "column-reverse"], {
+		error: () => ({ message: "Expected row | row-reverse | column | column-reverse" }),
+	}),
 });
 
 export type FlexDirection = z.infer<typeof flexDirectionSchema>;
@@ -29,7 +31,9 @@ export type FlexDirection = z.infer<typeof flexDirectionSchema>;
  */
 export const flexWrapSchema = z.object({
 	kind: z.literal("flex-wrap"),
-	value: z.enum(["nowrap", "wrap", "wrap-reverse"]),
+	value: z.enum(["nowrap", "wrap", "wrap-reverse"], {
+		error: () => ({ message: "Expected nowrap | wrap | wrap-reverse" }),
+	}),
 });
 
 export type FlexWrap = z.infer<typeof flexWrapSchema>;
@@ -45,18 +49,26 @@ export type FlexWrap = z.infer<typeof flexWrapSchema>;
  */
 export const justifyContentSchema = z.object({
 	kind: z.literal("justify-content"),
-	value: z.enum([
-		"flex-start",
-		"flex-end",
-		"center",
-		"space-between",
-		"space-around",
-		"space-evenly",
-		"start",
-		"end",
-		"left",
-		"right",
-	]),
+	value: z.enum(
+		[
+			"flex-start",
+			"flex-end",
+			"center",
+			"space-between",
+			"space-around",
+			"space-evenly",
+			"start",
+			"end",
+			"left",
+			"right",
+		],
+		{
+			error: () => ({
+				message:
+					"Expected flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right",
+			}),
+		},
+	),
 });
 
 export type JustifyContent = z.infer<typeof justifyContentSchema>;
@@ -73,7 +85,11 @@ export type JustifyContent = z.infer<typeof justifyContentSchema>;
  */
 export const alignItemsSchema = z.object({
 	kind: z.literal("align-items"),
-	value: z.enum(["flex-start", "flex-end", "center", "baseline", "stretch", "start", "end", "self-start", "self-end"]),
+	value: z.enum(["flex-start", "flex-end", "center", "baseline", "stretch", "start", "end", "self-start", "self-end"], {
+		error: () => ({
+			message: "Expected flex-start | flex-end | center | baseline | stretch | start | end | self-start | self-end",
+		}),
+	}),
 });
 
 export type AlignItems = z.infer<typeof alignItemsSchema>;
@@ -90,17 +106,15 @@ export type AlignItems = z.infer<typeof alignItemsSchema>;
  */
 export const alignContentSchema = z.object({
 	kind: z.literal("align-content"),
-	value: z.enum([
-		"flex-start",
-		"flex-end",
-		"center",
-		"space-between",
-		"space-around",
-		"space-evenly",
-		"stretch",
-		"start",
-		"end",
-	]),
+	value: z.enum(
+		["flex-start", "flex-end", "center", "space-between", "space-around", "space-evenly", "stretch", "start", "end"],
+		{
+			error: () => ({
+				message:
+					"Expected flex-start | flex-end | center | space-between | space-around | space-evenly | stretch | start | end",
+			}),
+		},
+	),
 });
 
 export type AlignContent = z.infer<typeof alignContentSchema>;
@@ -116,18 +130,15 @@ export type AlignContent = z.infer<typeof alignContentSchema>;
  */
 export const alignSelfSchema = z.object({
 	kind: z.literal("align-self"),
-	value: z.enum([
-		"auto",
-		"flex-start",
-		"flex-end",
-		"center",
-		"baseline",
-		"stretch",
-		"start",
-		"end",
-		"self-start",
-		"self-end",
-	]),
+	value: z.enum(
+		["auto", "flex-start", "flex-end", "center", "baseline", "stretch", "start", "end", "self-start", "self-end"],
+		{
+			error: () => ({
+				message:
+					"Expected auto | flex-start | flex-end | center | baseline | stretch | start | end | self-start | self-end",
+			}),
+		},
+	),
 });
 
 export type AlignSelf = z.infer<typeof alignSelfSchema>;

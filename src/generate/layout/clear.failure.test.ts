@@ -30,7 +30,7 @@ describe("generate/layout/clear - invalid cases", () => {
 			if (result.ok) return;
 			expect(result.issues).toHaveLength(1);
 			expect(result.issues?.[0]?.message).toBe(
-				'value: Invalid option: expected one of "left"|"right"|"both"|"none"|"inline-start"|"inline-end"',
+				"value: Expected left | right | both | none | inline-start | inline-end",
 			);
 		});
 	});

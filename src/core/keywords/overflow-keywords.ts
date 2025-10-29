@@ -20,22 +20,16 @@ import { z } from "zod";
  *
  * @public
  */
-export const overflowKeywordsSchema = z
-	.union([
-		z.literal("visible").describe("content is not clipped and may overflow the element's box"),
-		z.literal("hidden").describe("content is clipped and no scrollbars are provided"),
-		z.literal("clip").describe("content is clipped at the overflow clip edge, no scrollbars"),
-		z.literal("scroll").describe("content is clipped and scrollbars are always shown"),
-		z.literal("auto").describe("content is clipped and scrollbars shown only when needed"),
-	])
-	.describe("CSS overflow property keyword values");
+export const overflowKeywordsSchema = z.enum(["visible", "hidden", "clip", "scroll", "auto"], {
+	error: () => ({ message: "Expected visible | hidden | clip | scroll | auto" }),
+});
 
 /**
  * Array of all overflow keyword values.
  *
  * @public
  */
-export const OVERFLOW_KEYWORDS = overflowKeywordsSchema.options.map((option) => option.value);
+export const OVERFLOW_KEYWORDS = overflowKeywordsSchema.options;
 
 /**
  * TypeScript type for overflow keywords.
@@ -45,13 +39,26 @@ export const OVERFLOW_KEYWORDS = overflowKeywordsSchema.options.map((option) => 
 export type OverflowKeyword = z.infer<typeof overflowKeywordsSchema>;
 
 /**
+ * Descriptions for overflow keywords.
+ *
+ * @internal
+ */
+const OVERFLOW_DESCRIPTIONS: Record<OverflowKeyword, string> = {
+	visible: "content is not clipped and may overflow the element's box",
+	hidden: "content is clipped and no scrollbars are provided",
+	clip: "content is clipped at the overflow clip edge, no scrollbars",
+	scroll: "content is clipped and scrollbars are always shown",
+	auto: "content is clipped and scrollbars shown only when needed",
+};
+
+/**
  * Metadata for overflow keyword options.
  *
  * @public
  */
-export const overflowKeywordOptions = overflowKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const overflowKeywordOptions = OVERFLOW_KEYWORDS.map((value) => ({
+	value,
+	description: OVERFLOW_DESCRIPTIONS[value],
 }));
 
 /**

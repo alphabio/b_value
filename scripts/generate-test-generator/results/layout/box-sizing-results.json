@@ -61,7 +61,7 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "value: Invalid option: expected one of \"content-box\"|\"border-box\"",
+          "message": "value: Expected content-box | border-box",
           "path": [
             "value"
           ],
@@ -75,7 +75,7 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "value: Invalid option: expected one of \"content-box\"|\"border-box\""
+    "actual": "value: Expected content-box | border-box"
   },
   {
     "description": "wrong kind",

@@ -162,7 +162,9 @@ export type LineHeight = z.infer<typeof lineHeightSchema>;
  */
 export const textAlignSchema = z.object({
 	kind: z.literal("text-align"),
-	value: z.enum(["left", "right", "center", "justify", "start", "end"]),
+	value: z.enum(["left", "right", "center", "justify", "start", "end"], {
+		error: () => ({ message: "Expected left | right | center | justify | start | end" }),
+	}),
 });
 
 export type TextAlign = z.infer<typeof textAlignSchema>;
@@ -188,7 +190,9 @@ export type TextAlign = z.infer<typeof textAlignSchema>;
  */
 export const fontStyleSchema = z.object({
 	kind: z.literal("font-style"),
-	value: z.enum(["normal", "italic", "oblique"]),
+	value: z.enum(["normal", "italic", "oblique"], {
+		error: () => ({ message: "Expected normal | italic | oblique" }),
+	}),
 });
 
 export type FontStyle = z.infer<typeof fontStyleSchema>;
@@ -245,7 +249,11 @@ export type LetterSpacing = z.infer<typeof letterSpacingSchema>;
  */
 export const textTransformSchema = z.object({
 	kind: z.literal("text-transform"),
-	value: z.enum(["none", "capitalize", "uppercase", "lowercase", "full-width", "full-size-kana"]),
+	value: z.enum(["none", "capitalize", "uppercase", "lowercase", "full-width", "full-size-kana"], {
+		error: () => ({
+			message: "Expected none | capitalize | uppercase | lowercase | full-width | full-size-kana",
+		}),
+	}),
 });
 
 export type TextTransform = z.infer<typeof textTransformSchema>;
@@ -310,7 +318,9 @@ export type VerticalAlign = z.infer<typeof verticalAlignSchema>;
  */
 export const wordBreakSchema = z.object({
 	kind: z.literal("word-break"),
-	value: z.enum(["normal", "break-all", "keep-all", "break-word"]),
+	value: z.enum(["normal", "break-all", "keep-all", "break-word"], {
+		error: () => ({ message: "Expected normal | break-all | keep-all | break-word" }),
+	}),
 });
 
 export type WordBreak = z.infer<typeof wordBreakSchema>;
@@ -336,7 +346,9 @@ export type WordBreak = z.infer<typeof wordBreakSchema>;
  */
 export const overflowWrapSchema = z.object({
 	kind: z.literal("overflow-wrap"),
-	value: z.enum(["normal", "break-word", "anywhere"]),
+	value: z.enum(["normal", "break-word", "anywhere"], {
+		error: () => ({ message: "Expected normal | break-word | anywhere" }),
+	}),
 });
 
 export type OverflowWrap = z.infer<typeof overflowWrapSchema>;

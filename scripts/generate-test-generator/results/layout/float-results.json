@@ -76,7 +76,7 @@
         {
           "code": "invalid-ir",
           "severity": "error",
-          "message": "value: Invalid option: expected one of \"left\"|\"right\"|\"none\"|\"inline-start\"|\"inline-end\"",
+          "message": "value: Expected left | right | none | inline-start | inline-end",
           "path": [
             "value"
           ],
@@ -90,6 +90,6 @@
     "expectValid": false,
     "expectedError": "Invalid input",
     "expected": "",
-    "actual": "value: Invalid option: expected one of \"left\"|\"right\"|\"none\"|\"inline-start\"|\"inline-end\""
+    "actual": "value: Expected left | right | none | inline-start | inline-end"
   }
 ]
