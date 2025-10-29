@@ -30,5 +30,8 @@ export const config: PropertyConfig = {
 		{ input: "UPPERCASE", description: "uppercase uppercase", category: "valid-case", expectValid: true },
 		{ input: "", description: "empty value", category: "invalid-empty", expectValid: false },
 		{ input: "title-case", description: "invalid keyword", category: "invalid-keyword", expectValid: false },
+		{ input: "0", description: "numeric value", category: "invalid-type", expectValid: false },
+		{ input: "10px", description: "dimension value", category: "invalid-type", expectValid: false },
+		{ input: "uppercase lowercase", description: "multiple values", category: "invalid-multiple", expectValid: false },
 	],
 };

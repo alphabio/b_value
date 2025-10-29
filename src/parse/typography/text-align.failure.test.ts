@@ -25,4 +25,29 @@ describe("parse/typography/text-align - invalid cases", () => {
 			expect(result.error).toBe("Invalid text-align keyword: middle");
 		});
 	});
+
+	describe("invalid-type", () => {
+		it("should reject numeric value", () => {
+			const result = Parser.parse("0");
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.error).toBe("Expected keyword for text-align");
+		});
+
+		it("should reject dimension value", () => {
+			const result = Parser.parse("10px");
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.error).toBe("Expected keyword for text-align");
+		});
+	});
+
+	describe("invalid-multiple", () => {
+		it("should reject multiple values", () => {
+			const result = Parser.parse("left center");
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.error).toBe("Expected single value, got 2 values");
+		});
+	});
 });
