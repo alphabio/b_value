@@ -1,35 +1,16 @@
 #!/usr/bin/env tsx
 // b_path:: scripts/generate-generate-tests.ts
 /**
- * Generate Test Generation Script v2.0
+ * Generate Test Generator v2.0
  *
  * Generates tests for IR → CSS generation functions with roundtrip validation.
  *
- * Workflow:
- * 1. Load test case config from configs/{module}/{property}.ts
- * 2. Validate spec references exist in source file
- * 3. Run test cases through generator (IR → CSS string)
- * 4. For roundtrip cases: validate parse(generate(IR)) === IR
- * 5. Detect issues (mismatches between expected and actual)
- * 6. Save results to results/{module}/{property}-results.json
- * 7. Generate co-located test files:
- *    - src/generate/{module}/{property}.test.ts (valid cases with roundtrip)
- *    - src/generate/{module}/{property}.failure.test.ts (invalid cases)
- * 8. Save ISSUES.md if any mismatches found
- *
- * Prerequisites:
- * - Generator must exist at src/generate/{module}/{property}.ts
- * - Generator must implement Zod validation (safeParse with zodErrorToIssues)
- * - Parser must exist at src/parse/{module}/{property}.ts (for roundtrip)
- * - Config must exist at scripts/generate-test-generator/configs/{module}/{property}.ts
- *
- * Important:
- * Before generating tests, ensure the generator function includes validation:
- *   const validation = {propertyName}Schema.safeParse(ir);
- *   if (!validation.success) {
- *     const issues = zodErrorToIssues(validation.error);
- *     return { ok: false, issues };
- *   }
+ * Features:
+ * - Validates IR → CSS string conversion
+ * - Roundtrip testing: parse(generate(IR)) === IR
+ * - Auto-detects issues (validation failures, roundtrip mismatches)
+ * - Generates co-located test files (valid + failure cases)
+ * - Auto-cleanup of resolved ISSUES files
  *
  * Usage:
  *   tsx scripts/generate-generate-tests.ts <module>/<property>
@@ -37,7 +18,20 @@
  *
  * Examples:
  *   tsx scripts/generate-generate-tests.ts animation/duration
- *   tsx scripts/generate-generate-tests.ts transition delay
+ *   tsx scripts/generate-generate-tests.ts visual visibility
+ *
+ * Prerequisites:
+ * - Generator: src/generate/{module}/{property}.ts with Zod validation
+ * - Parser: src/parse/{module}/{property}.ts (for roundtrip)
+ * - Config: scripts/generate-test-generator/configs/{module}/{property}.ts
+ *
+ * Output Files:
+ * - src/generate/{module}/{property}.test.ts - Valid cases with roundtrip
+ * - src/generate/{module}/{property}.failure.test.ts - Invalid cases
+ * - scripts/generate-test-generator/results/{module}/{property}-results.json
+ * - scripts/generate-test-generator/results/{module}/{property}-ISSUES.md (if issues found)
+ *
+ * Note: ISSUES files are automatically deleted when all issues are resolved.
  */
 
 import * as fs from "node:fs";

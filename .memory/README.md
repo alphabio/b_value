@@ -44,6 +44,7 @@ See `AGENTS.md` for full protocol. TL;DR:
 - **Past work**: `archive/INDEX.md` or `archive/YYYY-MM-DD-topic/HANDOVER.md`
 - **Architecture decisions**: `decisions/` (ADRs - permanent, never archive)
 - **Property count**: `scripts/count-properties.sh`
+- **New Test Generation Instruction**: `scripts/parse-test-generator/README.md` (slightly out of date - leaving here as a reminder to self and to agent -- we need to regroup before adding any new tests)
 
 ## 🎓 Key Principles
 
