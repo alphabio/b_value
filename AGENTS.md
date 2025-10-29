@@ -9,6 +9,7 @@ just test 2>&1 | tail -3 && \
 # pnpm test:coverage 2>&1 | grep "Coverage for" && \
 echo "" && echo "📁 Branch: $(git branch --show-current)" && \
 echo "" && echo "🎯 NEXT TASK:" && \
+cat .memory/README.md
 cat .memory/SESSION_NEXT.md
 ```
 

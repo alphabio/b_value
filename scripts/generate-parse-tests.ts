@@ -1,9 +1,9 @@
 #!/usr/bin/env tsx
 // b_path:: scripts/generate-parse-tests.ts
 /**
- * Parse Test Generation Script v2.0
+ * Parse Test Generator Script v2.0
  *
- * Generates tests for CSS → IR parsing functions.
+ * Generates tests for CSS → IR parsing with validation functions.
  *
  * Workflow:
  * 1. Load test case config from configs/{module}/{property}.ts

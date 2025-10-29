@@ -26,6 +26,7 @@ tsx scripts/generate-tests.ts duration
 
 ### 1. **External Configs**
 Test cases are now in separate config files:
+
 ```
 scripts/test-generator/configs/
   duration.ts       ← Test case definitions
@@ -39,6 +40,7 @@ Script compares actual parser behavior with expected:
 - ⚠️  Issues found: Creates `*-ISSUES.md` + exits with code 1
 
 Example issue report:
+
 ```markdown
 # Issues Found: duration
 
@@ -105,11 +107,11 @@ export const config: PropertyConfig = {
       category: "valid-basic",
       expectValid: true  // ← Expected behavior
     },
-    
+
     // Invalid cases
     {
       input: "bad-value",
-      description: "description", 
+      description: "description",
       category: "invalid-xyz",
       expectValid: false,  // ← Will flag if parser accepts it!
       expectedError: "property-name: Exact error message"  // ← NEW: For exact assertions
@@ -152,11 +154,11 @@ describe("parse/animation/duration", () => {
         expect(result.value).toEqual({ /* full IR */ });
       });
     });
-    
+
     describe("valid-keyword", () => { /* ... */ });
     // ... grouped by category
   });
-  
+
   describe("invalid cases", () => {
     describe("invalid-negative", () => {
       it("should reject negative duration", () => {
