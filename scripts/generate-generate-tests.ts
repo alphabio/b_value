@@ -147,7 +147,8 @@ function extractSpecRefs(sourceFilePath: string): SpecRef[] {
 	const refs: SpecRef[] = [];
 
 	// Extract @see links from JSDoc
-	const seePattern = /@see\s+\{@link\s+(https?:\/\/[^\s|]+)[^}]*\}/g;
+	// Matches: @see {@link URL} or @see {@link URL | text}
+	const seePattern = /@see\s+\{@link\s+(https?:\/\/[^\s|}]+)/g;
 	let match: RegExpExecArray | null;
 
 	while ((match = seePattern.exec(content)) !== null) {
@@ -295,13 +296,24 @@ function saveResults(config: any, results: TestResult[]) {
 }
 
 function saveIssues(config: any, issues: string[]) {
-	if (issues.length === 0) return;
-
 	const outputDir = path.join("scripts", "generate-test-generator", "results", config.module);
+	const outputPath = path.join(outputDir, `${config.propertyName}-ISSUES.md`);
+
+	// If no issues, delete the ISSUES file if it exists
+	if (issues.length === 0) {
+		if (fs.existsSync(outputPath)) {
+			fs.unlinkSync(outputPath);
+			console.log(`\n✅ No issues - removed old ISSUES file: ${outputPath}`);
+		}
+		return;
+	}
+
+	// Create output directory if needed
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
-	const outputPath = path.join(outputDir, `${config.propertyName}-ISSUES.md`);
+
+	// Write ISSUES file
 	let content = `# Issues Found: ${config.module}/${config.propertyName} (Generate)\n\n`;
 	content += `**Date**: ${new Date().toISOString().split("T")[0]}\n\n`;
 	content += `Found ${issues.length / 3} mismatches between expected and actual generator behavior.\n\n`;
@@ -319,7 +331,7 @@ function saveIssues(config: any, issues: string[]) {
 function generateValidTestFile(config: any, validCases: TestResult[], specRefs: SpecRef[]): string {
 	// Convert module and property name to PascalCase type name (e.g., "transition" + "timing-function" -> "TransitionTimingFunction")
 	const modulePrefix = config.module.charAt(0).toUpperCase() + config.module.slice(1);
-	const typeName = modulePrefix + config.propertyName
+	const typeName = config.typeName || modulePrefix + config.propertyName
 		.split('-')
 		.map((word: string) => word.charAt(0).toUpperCase() + word.slice(1))
 		.join('');

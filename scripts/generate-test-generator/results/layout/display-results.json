@@ -1,0 +1,165 @@
+[
+  {
+    "description": "block keyword",
+    "category": "valid-outside",
+    "output": {
+      "ok": true,
+      "value": "block",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "block",
+    "actual": "block",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "inline keyword",
+    "category": "valid-outside",
+    "output": {
+      "ok": true,
+      "value": "inline",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "inline",
+    "actual": "inline",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "none keyword",
+    "category": "valid-box",
+    "output": {
+      "ok": true,
+      "value": "none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none",
+    "actual": "none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "flex keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": "flex",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "flex",
+    "actual": "flex",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "grid keyword",
+    "category": "valid-inside",
+    "output": {
+      "ok": true,
+      "value": "grid",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "grid",
+    "actual": "grid",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "inline-block keyword",
+    "category": "valid-legacy",
+    "output": {
+      "ok": true,
+      "value": "inline-block",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "inline-block",
+    "actual": "inline-block",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  },
+  {
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "value: Expected contents | none | flow | flow-root | table | flex | grid | ruby | table-row-group | table-header-group | table-footer-group | table-row | table-cell | table-column-group | table-column | table-caption | ruby-base | ruby-text | ruby-base-container | ruby-text-container | inline-block | inline-table | inline-flex | inline-grid | block | inline | run-in | list-item",
+          "path": [
+            "value"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "value: Expected contents | none | flow | flow-root | table | flex | grid | ruby | table-row-group | table-header-group | table-footer-group | table-row | table-cell | table-column-group | table-column | table-caption | ruby-base | ruby-text | ruby-base-container | ruby-text-container | inline-block | inline-table | inline-flex | inline-grid | block | inline | run-in | list-item"
+  },
+  {
+    "description": "wrong kind",
+    "category": "invalid-kind",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "kind: Invalid input: expected \"display\"",
+          "path": [
+            "kind"
+          ],
+          "metadata": {
+            "zodCode": "invalid_value"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "kind: Invalid input: expected \"display\""
+  }
+]

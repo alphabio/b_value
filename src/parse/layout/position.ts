@@ -17,14 +17,14 @@ import type * as Type from "@/core/types";
  * Absolute positioning:
  * ```typescript
  * const result = parse("absolute");
- * // { ok: true, value: { kind: "position-property", value: "absolute" } }
+ * // { ok: true, value: { kind: "position", value: "absolute" } }
  * ```
  *
  * @example
  * Sticky positioning:
  * ```typescript
  * const result = parse("sticky");
- * // { ok: true, value: { kind: "position-property", value: "sticky" } }
+ * // { ok: true, value: { kind: "position", value: "sticky" } }
  * ```
  *
  * @public
@@ -58,7 +58,7 @@ export function parse(css: string): Result<Type.PositionProperty, string> {
 		}
 
 		return ok({
-			kind: "position-property",
+			kind: "position",
 			value: keyword as Type.PositionProperty["value"],
 		});
 	} catch (error) {

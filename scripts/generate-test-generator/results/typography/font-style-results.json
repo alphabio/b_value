@@ -1,0 +1,66 @@
+[
+  {
+    "description": "normal keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "normal",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "normal",
+    "actual": "normal",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "italic keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "italic",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "italic",
+    "actual": "italic",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "oblique keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "oblique",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "oblique",
+    "actual": "oblique",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]

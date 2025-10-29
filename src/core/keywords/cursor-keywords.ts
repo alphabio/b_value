@@ -17,53 +17,51 @@ import { z } from "zod";
  *
  * @public
  */
-export const cursorKeywordsSchema = z
-	.union([
-		z.literal("auto").describe("browser determines cursor based on context"),
-		z.literal("default").describe("platform-dependent default cursor (usually arrow)"),
-		z.literal("none").describe("no cursor is rendered"),
-		z.literal("context-menu").describe("context menu is available"),
-		z.literal("help").describe("help information is available"),
-		z.literal("pointer").describe("link or clickable element (usually hand)"),
-		z.literal("progress").describe("program is busy but user can still interact"),
-		z.literal("wait").describe("program is busy"),
-		z.literal("cell").describe("cell or set of cells can be selected"),
-		z.literal("crosshair").describe("simple crosshair"),
-		z.literal("text").describe("text can be selected (usually I-beam)"),
-		z.literal("vertical-text").describe("vertical text can be selected"),
-		z.literal("alias").describe("alias or shortcut is to be created"),
-		z.literal("copy").describe("something is to be copied"),
-		z.literal("move").describe("something is to be moved"),
-		z.literal("no-drop").describe("drop is not allowed at current location"),
-		z.literal("not-allowed").describe("requested action will not be executed"),
-		z.literal("grab").describe("something can be grabbed"),
-		z.literal("grabbing").describe("something is being grabbed"),
-		z.literal("e-resize").describe("edge is to be moved east"),
-		z.literal("n-resize").describe("edge is to be moved north"),
-		z.literal("ne-resize").describe("edge is to be moved northeast"),
-		z.literal("nw-resize").describe("edge is to be moved northwest"),
-		z.literal("s-resize").describe("edge is to be moved south"),
-		z.literal("se-resize").describe("edge is to be moved southeast"),
-		z.literal("sw-resize").describe("edge is to be moved southwest"),
-		z.literal("w-resize").describe("edge is to be moved west"),
-		z.literal("ew-resize").describe("bidirectional resize cursor (east-west)"),
-		z.literal("ns-resize").describe("bidirectional resize cursor (north-south)"),
-		z.literal("nesw-resize").describe("bidirectional resize cursor (northeast-southwest)"),
-		z.literal("nwse-resize").describe("bidirectional resize cursor (northwest-southeast)"),
-		z.literal("col-resize").describe("column can be resized horizontally"),
-		z.literal("row-resize").describe("row can be resized vertically"),
-		z.literal("all-scroll").describe("scrolling in any direction"),
-		z.literal("zoom-in").describe("something can be zoomed in"),
-		z.literal("zoom-out").describe("something can be zoomed out"),
-	])
-	.describe("CSS cursor property keyword values");
+export const cursorKeywordsSchema = z.enum([
+	"auto",
+	"default",
+	"none",
+	"context-menu",
+	"help",
+	"pointer",
+	"progress",
+	"wait",
+	"cell",
+	"crosshair",
+	"text",
+	"vertical-text",
+	"alias",
+	"copy",
+	"move",
+	"no-drop",
+	"not-allowed",
+	"grab",
+	"grabbing",
+	"e-resize",
+	"n-resize",
+	"ne-resize",
+	"nw-resize",
+	"s-resize",
+	"se-resize",
+	"sw-resize",
+	"w-resize",
+	"ew-resize",
+	"ns-resize",
+	"nesw-resize",
+	"nwse-resize",
+	"col-resize",
+	"row-resize",
+	"all-scroll",
+	"zoom-in",
+	"zoom-out",
+]);
 
 /**
  * Array of all cursor keyword values.
  *
  * @public
  */
-export const CURSOR_KEYWORDS = cursorKeywordsSchema.options.map((option) => option.value);
+export const CURSOR_KEYWORDS = cursorKeywordsSchema.options;
 
 /**
  * TypeScript type for cursor keywords.
@@ -73,13 +71,57 @@ export const CURSOR_KEYWORDS = cursorKeywordsSchema.options.map((option) => opti
 export type CursorKeyword = z.infer<typeof cursorKeywordsSchema>;
 
 /**
+ * Descriptions for cursor keywords.
+ *
+ * @internal
+ */
+const CURSOR_DESCRIPTIONS: Record<CursorKeyword, string> = {
+	auto: "browser determines cursor based on context",
+	default: "platform-dependent default cursor (usually arrow)",
+	none: "no cursor is rendered",
+	"context-menu": "context menu is available",
+	help: "help information is available",
+	pointer: "link or clickable element (usually hand)",
+	progress: "program is busy but user can still interact",
+	wait: "program is busy",
+	cell: "cell or set of cells can be selected",
+	crosshair: "simple crosshair",
+	text: "text can be selected (usually I-beam)",
+	"vertical-text": "vertical text can be selected",
+	alias: "alias or shortcut is to be created",
+	copy: "something is to be copied",
+	move: "something is to be moved",
+	"no-drop": "drop is not allowed at current location",
+	"not-allowed": "requested action will not be executed",
+	grab: "something can be grabbed",
+	grabbing: "something is being grabbed",
+	"e-resize": "edge is to be moved east",
+	"n-resize": "edge is to be moved north",
+	"ne-resize": "edge is to be moved northeast",
+	"nw-resize": "edge is to be moved northwest",
+	"s-resize": "edge is to be moved south",
+	"se-resize": "edge is to be moved southeast",
+	"sw-resize": "edge is to be moved southwest",
+	"w-resize": "edge is to be moved west",
+	"ew-resize": "bidirectional resize cursor (east-west)",
+	"ns-resize": "bidirectional resize cursor (north-south)",
+	"nesw-resize": "bidirectional resize cursor (northeast-southwest)",
+	"nwse-resize": "bidirectional resize cursor (northwest-southeast)",
+	"col-resize": "column can be resized horizontally",
+	"row-resize": "row can be resized vertically",
+	"all-scroll": "scrolling in any direction",
+	"zoom-in": "something can be zoomed in",
+	"zoom-out": "something can be zoomed out",
+};
+
+/**
  * Metadata for cursor keyword options.
  *
  * @public
  */
-export const cursorKeywordOptions = cursorKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const cursorKeywordOptions = CURSOR_KEYWORDS.map((value) => ({
+	value,
+	description: CURSOR_DESCRIPTIONS[value],
 }));
 
 /**

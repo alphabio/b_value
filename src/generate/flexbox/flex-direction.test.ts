@@ -1,33 +1,80 @@
 // b_path:: src/generate/flexbox/flex-direction.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/flexbox/flex-direction.ts
+//
+// ⚠️  No spec references found in source file
 import { describe, expect, it } from "vitest";
-import { generate } from "./flex-direction.js";
+import type * as Type from "@/core/types";
+import * as Generator from "@/generate/flexbox/flex-direction";
+import * as Parser from "@/parse/flexbox/flex-direction";
 
-describe("generate/flexbox/flex-direction", () => {
-	it("generates row", () => {
-		const result = generate({ kind: "flex-direction", value: "row" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("row");
-	});
+describe("generate/flexbox/flex-direction - valid cases", () => {
+	describe("valid-basic", () => {
+		it("should generate row keyword", () => {
+			const input: Type.FlexDirection = {
+				kind: "flex-direction",
+				value: "row",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("row");
 
-	it("generates row-reverse", () => {
-		const result = generate({ kind: "flex-direction", value: "row-reverse" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("row-reverse");
-	});
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 
-	it("generates column", () => {
-		const result = generate({ kind: "flex-direction", value: "column" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("column");
-	});
+		it("should generate row-reverse keyword", () => {
+			const input: Type.FlexDirection = {
+				kind: "flex-direction",
+				value: "row-reverse",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("row-reverse");
 
-	it("generates column-reverse", () => {
-		const result = generate({ kind: "flex-direction", value: "column-reverse" });
-		expect(result.ok).toBe(true);
-		if (!result.ok) return;
-		expect(result.value).toBe("column-reverse");
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate column keyword", () => {
+			const input: Type.FlexDirection = {
+				kind: "flex-direction",
+				value: "column",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("column");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
+
+		it("should generate column-reverse keyword", () => {
+			const input: Type.FlexDirection = {
+				kind: "flex-direction",
+				value: "column-reverse",
+			};
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(true);
+			if (!result.ok) return;
+			expect(result.value).toBe("column-reverse");
+
+			// Roundtrip validation
+			const parseResult = Parser.parse(result.value);
+			expect(parseResult.ok).toBe(true);
+			if (!parseResult.ok) return;
+			expect(parseResult.value).toEqual(input);
+		});
 	});
 });

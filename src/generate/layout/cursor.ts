@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/cursor.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { Cursor } from "@/core/types";
+import { cursorSchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS cursor property from IR.
@@ -24,8 +26,16 @@ import type { Cursor } from "@/core/types";
  * @public
  */
 export function generate(cursor: Cursor): GenerateResult {
-	if (cursor === undefined || cursor === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = cursorSchema.safeParse(cursor);
+
+	if (!validation.success) {
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
 	return generateOk(cursor.value);
 }

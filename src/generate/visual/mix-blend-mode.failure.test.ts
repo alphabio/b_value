@@ -2,7 +2,7 @@
 // Auto-generated from scripts/generate-test-generator/configs/mix-blend-mode.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/mix-blend-mode
 import { describe, expect, it } from "vitest";
 import * as Generator from "@/generate/visual/mix-blend-mode";
 
@@ -14,7 +14,8 @@ describe("generate/visual/mix-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received null");
 		});
 
 		it("should reject undefined input", () => {
@@ -23,7 +24,8 @@ describe("generate/visual/mix-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received undefined");
 		});
 	});
 
@@ -37,7 +39,8 @@ describe("generate/visual/mix-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues?.[0]?.message).toBe('mode: Invalid input: expected "normal"');
 		});
 	});
 
@@ -51,7 +54,8 @@ describe("generate/visual/mix-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues?.[0]?.message).toBe('mode: Invalid input: expected "normal"');
 		});
 	});
 
@@ -65,7 +69,8 @@ describe("generate/visual/mix-blend-mode - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues.length).toBeGreaterThanOrEqual(1);
+			expect(result.issues?.[0]?.message).toBe('kind: Invalid input: expected "mix-blend-mode"');
 		});
 	});
 });

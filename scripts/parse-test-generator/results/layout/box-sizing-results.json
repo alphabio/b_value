@@ -1,0 +1,142 @@
+[
+  {
+    "input": "content-box",
+    "description": "content-box keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "box-sizing",
+        "value": "content-box"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "border-box",
+    "description": "border-box keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "box-sizing",
+        "value": "border-box"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "CONTENT-BOX",
+    "description": "uppercase content-box",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "box-sizing",
+        "value": "content-box"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Border-Box",
+    "description": "mixed case border-box",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "box-sizing",
+        "value": "border-box"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected box-sizing value"
+  },
+  {
+    "input": "padding-box",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid box-sizing keyword: padding-box"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid box-sizing keyword"
+  },
+  {
+    "input": "margin-box",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid box-sizing keyword: margin-box"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid box-sizing keyword"
+  },
+  {
+    "input": "auto",
+    "description": "non-standard keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid box-sizing keyword: auto"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid box-sizing keyword"
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword for box-sizing"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword"
+  },
+  {
+    "input": "1px",
+    "description": "dimension value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword for box-sizing"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected keyword"
+  },
+  {
+    "input": "content-box, border-box",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 3 values"
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Expected single value"
+  }
+]

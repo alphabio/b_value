@@ -1,8 +1,8 @@
 // b_path:: src/generate/visual/opacity.test.ts
-// Auto-generated from scripts/generate-test-generator/configs/layout/opacity.ts
+// Auto-generated from scripts/generate-test-generator/configs/visual/opacity.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/opacity
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
 import * as Generator from "@/generate/visual/opacity";

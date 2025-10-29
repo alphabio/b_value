@@ -2,7 +2,7 @@
 // Auto-generated from scripts/generate-test-generator/configs/visibility.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/visibility
 import { describe, expect, it } from "vitest";
 import * as Generator from "@/generate/visual/visibility";
 
@@ -14,7 +14,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received null");
 		});
 
 		it("should reject undefined input", () => {
@@ -23,7 +24,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("Invalid input: expected object, received undefined");
 		});
 	});
 
@@ -37,7 +39,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("value: Expected visible | hidden | collapse");
 		});
 
 		it("should reject invalid keyword none", () => {
@@ -49,7 +52,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("value: Expected visible | hidden | collapse");
 		});
 
 		it("should reject display keyword", () => {
@@ -61,7 +65,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("value: Expected visible | hidden | collapse");
 		});
 	});
 
@@ -75,7 +80,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("value: Expected visible | hidden | collapse");
 		});
 
 		it("should reject null value", () => {
@@ -87,7 +93,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("value: Expected visible | hidden | collapse");
 		});
 	});
 
@@ -101,7 +108,8 @@ describe("generate/visual/visibility - invalid cases", () => {
 			const result = Generator.generate(input);
 			expect(result.ok).toBe(false);
 			if (result.ok) return;
-			expect(result.issues.length).toBeGreaterThan(0);
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe('kind: Invalid input: expected "visibility"');
 		});
 	});
 });

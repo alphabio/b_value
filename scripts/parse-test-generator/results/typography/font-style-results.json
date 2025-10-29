@@ -1,0 +1,80 @@
+[
+  {
+    "input": "normal",
+    "description": "normal keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "font-style",
+        "value": "normal"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "italic",
+    "description": "italic keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "font-style",
+        "value": "italic"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "oblique",
+    "description": "oblique keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "font-style",
+        "value": "oblique"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "ITALIC",
+    "description": "uppercase italic",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "font-style",
+        "value": "italic"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "bold",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid font-style keyword: bold"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

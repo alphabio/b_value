@@ -1,0 +1,20 @@
+// b_path:: src/generate/flexbox/align-items.failure.test.ts
+// Auto-generated from scripts/generate-test-generator/configs/align-items.ts
+//
+// ⚠️  No spec references found in source file
+import { describe, expect, it } from "vitest";
+import * as Generator from "@/generate/flexbox/align-items";
+
+describe("generate/flexbox/align-items - invalid cases", () => {
+	describe("invalid-null", () => {
+		it("should reject null input", () => {
+			// biome-ignore lint/suspicious/noExplicitAny: Testing invalid input
+			const input: any = null;
+			const result = Generator.generate(input);
+			expect(result.ok).toBe(false);
+			if (result.ok) return;
+			expect(result.issues).toHaveLength(1);
+			expect(result.issues?.[0]?.message).toBe("Input must not be null or undefined");
+		});
+	});
+});

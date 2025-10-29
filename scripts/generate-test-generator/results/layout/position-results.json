@@ -1,0 +1,100 @@
+[
+  {
+    "description": "static keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "static",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "static",
+    "actual": "static",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "relative keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "relative",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "relative",
+    "actual": "relative",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "absolute keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "absolute",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "absolute",
+    "actual": "absolute",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "fixed keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "fixed",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "fixed",
+    "actual": "fixed",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "sticky keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "sticky",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "sticky",
+    "actual": "sticky",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Invalid input: expected object, received null",
+          "path": [],
+          "metadata": {
+            "zodCode": "invalid_type"
+          }
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Invalid input: expected object, received null"
+  }
+]

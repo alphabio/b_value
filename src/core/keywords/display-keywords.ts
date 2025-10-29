@@ -135,63 +135,50 @@ export const displayListItemKeywordsSchema = z.literal("list-item").describe("el
  *
  * @public
  */
-export const displayKeywordsSchema = z
-	.union([
+export const displayKeywordsSchema = z.enum(
+	[
 		// Display Box
-		z
-			.literal("contents")
-			.describe("element doesn't produce a specific box by itself"),
-		z.literal("none").describe("turns off the display of an element"),
-
+		"contents",
+		"none",
 		// Display Inside
-		z
-			.literal("flow")
-			.describe("element lays out its contents using flow layout"),
-		z.literal("flow-root").describe("generates a block element box that establishes a new block formatting context"),
-		z.literal("table").describe("behaves like HTML table elements"),
-		z.literal("flex").describe("behaves like a block element and lays out content according to the flexbox model"),
-		z.literal("grid").describe("behaves like a block element and lays out content according to the grid model"),
-		z
-			.literal("ruby")
-			.describe("behaves like an inline element and lays out content according to the ruby formatting model"),
-
+		"flow",
+		"flow-root",
+		"table",
+		"flex",
+		"grid",
+		"ruby",
 		// Display Internal
-		z
-			.literal("table-row-group")
-			.describe("behaves like tbody HTML elements"),
-		z.literal("table-header-group").describe("behaves like thead HTML elements"),
-		z.literal("table-footer-group").describe("behaves like tfoot HTML elements"),
-		z.literal("table-row").describe("behaves like tr HTML elements"),
-		z.literal("table-cell").describe("behaves like td HTML elements"),
-		z.literal("table-column-group").describe("behaves like colgroup HTML elements"),
-		z.literal("table-column").describe("behaves like col HTML elements"),
-		z.literal("table-caption").describe("behaves like caption HTML elements"),
-		z.literal("ruby-base").describe("behaves like rb HTML elements"),
-		z.literal("ruby-text").describe("behaves like rt HTML elements"),
-		z.literal("ruby-base-container").describe("generated as anonymous boxes"),
-		z.literal("ruby-text-container").describe("behaves like rtc HTML elements"),
-
+		"table-row-group",
+		"table-header-group",
+		"table-footer-group",
+		"table-row",
+		"table-cell",
+		"table-column-group",
+		"table-column",
+		"table-caption",
+		"ruby-base",
+		"ruby-text",
+		"ruby-base-container",
+		"ruby-text-container",
 		// Display Legacy
-		z
-			.literal("inline-block")
-			.describe("generates a block element box flowed with surrounding content as inline"),
-		z.literal("inline-table").describe("behaves like HTML table element but as an inline box"),
-		z.literal("inline-flex").describe("behaves like an inline element and lays out content according to flexbox model"),
-		z.literal("inline-grid").describe("behaves like an inline element and lays out content according to grid model"),
-
+		"inline-block",
+		"inline-table",
+		"inline-flex",
+		"inline-grid",
 		// Display Outside
-		z
-			.literal("block")
-			.describe("generates a block element box with line breaks before and after"),
-		z.literal("inline").describe("generates inline element boxes without line breaks"),
-		z.literal("run-in").describe("element runs into the next block if possible"),
-
+		"block",
+		"inline",
+		"run-in",
 		// List Item
-		z
-			.literal("list-item")
-			.describe("element behaves like a list item"),
-	])
-	.describe("CSS display property values that control how an element is displayed");
+		"list-item",
+	],
+	{
+		error: () => ({
+			message:
+				"Expected contents | none | flow | flow-root | table | flex | grid | ruby | table-row-group | table-header-group | table-footer-group | table-row | table-cell | table-column-group | table-column | table-caption | ruby-base | ruby-text | ruby-base-container | ruby-text-container | inline-block | inline-table | inline-flex | inline-grid | block | inline | run-in | list-item",
+		}),
+	},
+);
 
 /**
  * Array of all display keyword values.
@@ -206,7 +193,7 @@ export const displayKeywordsSchema = z
  *
  * @public
  */
-export const DISPLAY_KEYWORDS = displayKeywordsSchema.options.map((option) => option.value);
+export const DISPLAY_KEYWORDS = displayKeywordsSchema.options;
 
 /**
  * TypeScript type for display keywords.
@@ -214,6 +201,48 @@ export const DISPLAY_KEYWORDS = displayKeywordsSchema.options.map((option) => op
  * @public
  */
 export type DisplayKeyword = z.infer<typeof displayKeywordsSchema>;
+
+/**
+ * Descriptions for display keywords.
+ *
+ * @internal
+ */
+const DISPLAY_DESCRIPTIONS: Record<DisplayKeyword, string> = {
+	// Display Box
+	contents: "element doesn't produce a specific box by itself",
+	none: "turns off the display of an element",
+	// Display Inside
+	flow: "element lays out its contents using flow layout",
+	"flow-root": "generates a block element box that establishes a new block formatting context",
+	table: "behaves like HTML table elements",
+	flex: "behaves like a block element and lays out content according to the flexbox model",
+	grid: "behaves like a block element and lays out content according to the grid model",
+	ruby: "behaves like an inline element and lays out content according to the ruby formatting model",
+	// Display Internal
+	"table-row-group": "behaves like tbody HTML elements",
+	"table-header-group": "behaves like thead HTML elements",
+	"table-footer-group": "behaves like tfoot HTML elements",
+	"table-row": "behaves like tr HTML elements",
+	"table-cell": "behaves like td HTML elements",
+	"table-column-group": "behaves like colgroup HTML elements",
+	"table-column": "behaves like col HTML elements",
+	"table-caption": "behaves like caption HTML elements",
+	"ruby-base": "behaves like rb HTML elements",
+	"ruby-text": "behaves like rt HTML elements",
+	"ruby-base-container": "generated as anonymous boxes",
+	"ruby-text-container": "behaves like rtc HTML elements",
+	// Display Legacy
+	"inline-block": "generates a block element box flowed with surrounding content as inline",
+	"inline-table": "behaves like HTML table element but as an inline box",
+	"inline-flex": "behaves like an inline element and lays out content according to flexbox model",
+	"inline-grid": "behaves like an inline element and lays out content according to grid model",
+	// Display Outside
+	block: "generates a block element box with line breaks before and after",
+	inline: "generates inline element boxes without line breaks",
+	"run-in": "element runs into the next block if possible",
+	// List Item
+	"list-item": "element behaves like a list item",
+};
 
 /**
  * Metadata for display keyword options.
@@ -232,9 +261,9 @@ export type DisplayKeyword = z.infer<typeof displayKeywordsSchema>;
  *
  * @public
  */
-export const displayKeywordOptions = displayKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const displayKeywordOptions = DISPLAY_KEYWORDS.map((value) => ({
+	value,
+	description: DISPLAY_DESCRIPTIONS[value],
 }));
 
 /**

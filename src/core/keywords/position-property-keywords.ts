@@ -20,22 +20,18 @@ import { z } from "zod";
  *
  * @public
  */
-export const positionPropertyKeywordsSchema = z
-	.union([
-		z.literal("static").describe("positioned according to normal flow (default)"),
-		z.literal("relative").describe("positioned relative to its normal position"),
-		z.literal("absolute").describe("positioned relative to nearest positioned ancestor"),
-		z.literal("fixed").describe("positioned relative to the viewport"),
-		z.literal("sticky").describe("positioned based on scroll position (hybrid of relative and fixed)"),
-	])
-	.describe("CSS position property keyword values");
+export const positionPropertyKeywordsSchema = z.enum(["static", "relative", "absolute", "fixed", "sticky"], {
+	error: () => ({
+		message: "Expected static | relative | absolute | fixed | sticky",
+	}),
+});
 
 /**
  * Array of all position property keyword values.
  *
  * @public
  */
-export const POSITION_PROPERTY_KEYWORDS = positionPropertyKeywordsSchema.options.map((option) => option.value);
+export const POSITION_PROPERTY_KEYWORDS = positionPropertyKeywordsSchema.options;
 
 /**
  * TypeScript type for position property keywords.
@@ -45,13 +41,26 @@ export const POSITION_PROPERTY_KEYWORDS = positionPropertyKeywordsSchema.options
 export type PositionPropertyKeyword = z.infer<typeof positionPropertyKeywordsSchema>;
 
 /**
+ * Descriptions for position property keywords.
+ *
+ * @internal
+ */
+const POSITION_DESCRIPTIONS: Record<PositionPropertyKeyword, string> = {
+	static: "positioned according to normal flow (default)",
+	relative: "positioned relative to its normal position",
+	absolute: "positioned relative to nearest positioned ancestor",
+	fixed: "positioned relative to the viewport",
+	sticky: "positioned based on scroll position (hybrid of relative and fixed)",
+};
+
+/**
  * Metadata for position property keyword options.
  *
  * @public
  */
-export const positionPropertyKeywordOptions = positionPropertyKeywordsSchema.options.map((option) => ({
-	value: option.value,
-	description: option.description,
+export const positionPropertyKeywordOptions = POSITION_PROPERTY_KEYWORDS.map((value) => ({
+	value,
+	description: POSITION_DESCRIPTIONS[value],
 }));
 
 /**

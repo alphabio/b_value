@@ -1,0 +1,94 @@
+[
+  {
+    "input": "row",
+    "description": "row keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-direction",
+        "value": "row"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "row-reverse",
+    "description": "row-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-direction",
+        "value": "row-reverse"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "column",
+    "description": "column keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-direction",
+        "value": "column"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "column-reverse",
+    "description": "column-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-direction",
+        "value": "column-reverse"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "ROW",
+    "description": "uppercase row",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-direction",
+        "value": "row"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "horizontal",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid flex-direction value: horizontal"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

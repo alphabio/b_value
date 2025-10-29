@@ -1,0 +1,80 @@
+[
+  {
+    "input": "nowrap",
+    "description": "nowrap keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-wrap",
+        "value": "nowrap"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "wrap",
+    "description": "wrap keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-wrap",
+        "value": "wrap"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "wrap-reverse",
+    "description": "wrap-reverse keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-wrap",
+        "value": "wrap-reverse"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "WRAP",
+    "description": "uppercase wrap",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "flex-wrap",
+        "value": "wrap"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "none",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid flex-wrap value: none"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

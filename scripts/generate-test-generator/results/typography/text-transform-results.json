@@ -1,0 +1,81 @@
+[
+  {
+    "description": "none keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "none",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "none",
+    "actual": "none",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "capitalize keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "capitalize",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "capitalize",
+    "actual": "capitalize",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "uppercase keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "uppercase",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "uppercase",
+    "actual": "uppercase",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "lowercase keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "lowercase",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "lowercase",
+    "actual": "lowercase",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]

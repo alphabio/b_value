@@ -1,0 +1,66 @@
+[
+  {
+    "description": "auto keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "auto",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "auto",
+    "actual": "auto",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "flex-start keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "flex-start",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "flex-start",
+    "actual": "flex-start",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "center keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": "center",
+      "issues": []
+    },
+    "success": true,
+    "expectValid": true,
+    "expected": "center",
+    "actual": "center",
+    "roundtrip": true,
+    "roundtripSuccess": true
+  },
+  {
+    "description": "null input",
+    "category": "invalid-null",
+    "output": {
+      "ok": false,
+      "issues": [
+        {
+          "code": "invalid-ir",
+          "severity": "error",
+          "message": "Input must not be null or undefined"
+        }
+      ]
+    },
+    "success": false,
+    "expectValid": false,
+    "expectedError": "Invalid input",
+    "expected": "",
+    "actual": "Input must not be null or undefined"
+  }
+]

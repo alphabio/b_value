@@ -2,10 +2,10 @@
 
 export * as Bottom from "./bottom";
 export * as BoxSizing from "./box-sizing";
-export * as Clear from "./clear.generate";
+export * as Clear from "./clear";
 export * as Cursor from "./cursor";
 export * as Display from "./display";
-export * as Float from "./float.generate";
+export * as Float from "./float";
 export * as Height from "./height";
 export * as Left from "./left";
 export * as MarginBottom from "./margin-bottom";

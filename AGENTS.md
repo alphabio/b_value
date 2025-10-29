@@ -138,4 +138,3 @@ EOF
 - Clean separation of concerns
 
 **When planning modules**: Skip shorthand properties in test plans and roadmaps.
-

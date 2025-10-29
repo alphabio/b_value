@@ -1,0 +1,144 @@
+[
+  {
+    "input": "visible",
+    "description": "visible keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "visible"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "hidden",
+    "description": "hidden keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "hidden"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "scroll",
+    "description": "scroll keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "scroll"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "auto",
+    "description": "auto keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "auto"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "clip",
+    "description": "clip keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "clip"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "HIDDEN",
+    "description": "uppercase hidden",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "hidden"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Scroll",
+    "description": "mixed case scroll",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "overflow-x",
+        "value": "scroll"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "none",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid overflow-x keyword: none"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "show",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid overflow-x keyword: show"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

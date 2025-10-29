@@ -1,7 +1,9 @@
 // b_path:: src/generate/layout/box-sizing.ts
 
-import { type GenerateResult, generateErr, generateOk } from "@/core/result";
+import { type GenerateResult, generateOk } from "@/core/result";
 import type { BoxSizing } from "@/core/types";
+import { boxSizingSchema } from "@/core/types/layout";
+import { zodErrorToIssues } from "@/utils/generate";
 
 /**
  * Generate CSS box-sizing property from IR.
@@ -24,8 +26,16 @@ import type { BoxSizing } from "@/core/types";
  * @public
  */
 export function generate(boxSizing: BoxSizing): GenerateResult {
-	if (boxSizing === undefined || boxSizing === null) {
-		return generateErr("invalid-ir", "Input must not be null or undefined");
+	// Validate IR with Zod schema
+	const validation = boxSizingSchema.safeParse(boxSizing);
+
+	if (!validation.success) {
+		const issues = zodErrorToIssues(validation.error);
+		return {
+			ok: false,
+			issues,
+		};
 	}
+
 	return generateOk(boxSizing.value);
 }

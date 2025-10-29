@@ -1,0 +1,155 @@
+[
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "left",
+    "description": "left keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "left"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "right",
+    "description": "right keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "right"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-start",
+    "description": "inline-start keyword",
+    "category": "valid-logical",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "inline-start"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "inline-end",
+    "description": "inline-end keyword",
+    "category": "valid-logical",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "inline-end"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "NONE",
+    "description": "uppercase none",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Left",
+    "description": "mixed case left",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "float",
+        "value": "left"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Invalid float value: \"\". Expected: left, right, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "center",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid float value: \"center\". Expected: left, right, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "both",
+    "description": "wrong keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid float value: \"both\". Expected: left, right, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Invalid float value: \"0\". Expected: left, right, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "left, right",
+    "description": "multiple values",
+    "category": "invalid-multiple",
+    "output": {
+      "ok": false,
+      "error": "Invalid float value: \"left, right\". Expected: left, right, none, inline-start, or inline-end"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

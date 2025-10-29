@@ -1,0 +1,396 @@
+[
+  {
+    "input": "auto",
+    "description": "auto keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "auto"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "default",
+    "description": "default keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "default"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "pointer",
+    "description": "pointer keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "pointer"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "text",
+    "description": "text keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "text"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "move",
+    "description": "move keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "move"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "wait",
+    "description": "wait keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "wait"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "help",
+    "description": "help keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "help"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "none",
+    "description": "none keyword",
+    "category": "valid-basic",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "none"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "n-resize",
+    "description": "n-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "n-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "e-resize",
+    "description": "e-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "e-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "s-resize",
+    "description": "s-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "s-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "w-resize",
+    "description": "w-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "w-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "ne-resize",
+    "description": "ne-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "ne-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "nw-resize",
+    "description": "nw-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "nw-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "se-resize",
+    "description": "se-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "se-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "sw-resize",
+    "description": "sw-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "sw-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "ew-resize",
+    "description": "ew-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "ew-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "ns-resize",
+    "description": "ns-resize keyword",
+    "category": "valid-resize",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "ns-resize"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "grab",
+    "description": "grab keyword",
+    "category": "valid-action",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "grab"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "grabbing",
+    "description": "grabbing keyword",
+    "category": "valid-action",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "grabbing"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "not-allowed",
+    "description": "not-allowed keyword",
+    "category": "valid-action",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "not-allowed"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "zoom-in",
+    "description": "zoom-in keyword",
+    "category": "valid-action",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "zoom-in"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "zoom-out",
+    "description": "zoom-out keyword",
+    "category": "valid-action",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "zoom-out"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "POINTER",
+    "description": "uppercase pointer",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "pointer"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "Move",
+    "description": "mixed case move",
+    "category": "valid-case",
+    "output": {
+      "ok": true,
+      "value": {
+        "kind": "cursor",
+        "value": "move"
+      }
+    },
+    "success": true,
+    "expectValid": true
+  },
+  {
+    "input": "",
+    "description": "empty value",
+    "category": "invalid-empty",
+    "output": {
+      "ok": false,
+      "error": "Expected single value, got 0 values"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "invalid",
+    "description": "invalid keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid cursor keyword: invalid"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "hand",
+    "description": "non-standard keyword",
+    "category": "invalid-keyword",
+    "output": {
+      "ok": false,
+      "error": "Invalid cursor keyword: hand"
+    },
+    "success": false,
+    "expectValid": false
+  },
+  {
+    "input": "0",
+    "description": "number value",
+    "category": "invalid-type",
+    "output": {
+      "ok": false,
+      "error": "Expected keyword identifier, got: Number"
+    },
+    "success": false,
+    "expectValid": false
+  }
+]

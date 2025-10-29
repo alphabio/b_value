@@ -2,7 +2,7 @@
 // Auto-generated from scripts/generate-test-generator/configs/visual/background-blend-mode.ts
 //
 // Spec references:
-// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode}
+// - MDN: https://developer.mozilla.org/en-US/docs/Web/CSS/background-blend-mode
 import { describe, expect, it } from "vitest";
 import type * as Type from "@/core/types";
 import * as Generator from "@/generate/visual/background-blend-mode";
