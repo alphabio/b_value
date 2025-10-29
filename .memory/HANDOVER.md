@@ -26,7 +26,10 @@ Regenerate all parse tests from clean configs
 - All 3,990 tests passing
 
 ## 🚧 In Progress
-None - parse test regeneration complete
+**Coverage improvement** - Identified gaps, created execution plan
+- See `.memory/COVERAGE-IMPROVEMENT-PLAN.md` for detailed analysis
+- 16 properties need additional test cases for 100% coverage
+- Estimated 20-30 minutes to complete
 
 ## 📋 Outstanding Work (Carry Forward)
 
@@ -69,19 +72,31 @@ None - parse test regeneration complete
 
 ## 🎯 Next Agent: Pick Up Here
 
-**All systems green!** ✅ 3,949 tests passing, 88% coverage
+**Parse test regeneration complete!** ✅ All 3,990 tests passing.
 
-**Recommended next tasks** (in priority order):
+**Current task: Coverage Improvement** 🎯
 
-1. **Parse Test Generation** (1-2 hrs)
-   - Quick win: Generate parse tests for 33 properties
-   - Improves test coverage for existing implementations
+See **`.memory/COVERAGE-IMPROVEMENT-PLAN.md`** for complete execution plan.
+
+**Quick Start:**
+1. Update 16 config files in `scripts/parse-test-generator/configs/` (add invalid-type and invalid-multiple test cases)
+2. Regenerate parse tests: `rm -rf scripts/parse-test-generator/results && [loop through configs]`
+3. Verify: `just coverage` (target: >89% threshold)
+4. Commit
+
+**Goal:** 100% coverage for properties with parse tests (currently 87.66% lines, need 89%+)
+
+**Estimated time:** 20-30 minutes
+
+---
+
+**Alternative tasks** (if coverage not pursued):
+
+1. **Parse Test Generation** for remaining properties (1-2 hrs)
+   - Generate parse tests for properties that only have generate tests
    
 2. **Phase 1: Tier 1 CRITICAL Properties** (12-16 hrs)
-   - Push toward v1.0.0 milestone (110 properties target)
-   
-3. **Grid Layout Module** (40-60 hrs)
-   - High-impact modern layout system
+   - Implement remaining high-priority properties for v1.0.0
 
 ---
 
